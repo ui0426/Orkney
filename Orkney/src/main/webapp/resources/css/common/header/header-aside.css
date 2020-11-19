@@ -8,23 +8,12 @@
     *{
         margin: 0;
     }
-    .hnf-menu--hidden {
+    /* .hnf-menu--hidden {
         transform: translateX(-470px);
         visibility: hidden;
       
-    }
-    .hnf-menu{
-        transition: 0.5s;
-        /* position: fixed; */
-        width: 30rem;
-        z-index: 8000;
-        display: flex;
-        flex-direction: column;
-        overflow-y: auto;
-        overflow-x: hidden;
-        height: 100vh;
-        line-height: 1.71429;
-    }
+    } */
+    
     .hnf-menu_top{
         display: flex;
         padding: 0 1.875rem;
@@ -48,6 +37,20 @@
     .hnf-menu_close:hover{
         background-color: #eee;
     }
+    
+    .hnf-menu_search{
+   		padding: .625rem .75rem .625rem .75rem;
+   		order: 0;
+    }
+    
+    
+    .header-search button{
+    border: none;
+    flex: 1 0 auto;
+    border-radius: 50em;
+    background-color: #eee;
+	}
+	
     .hnf-menu_nav ul{
         list-style: none;
         
@@ -84,11 +87,20 @@
         padding: .375rem 0;
     }
     .hnf-link{
-        font-size: 2em;
-        
+        font-size: 1.2em;
     }
+    .hnf-small-link{
+    	font-size: 0.7em;
+    }
+    .hnf-small-ex{
+    	font-weight: 540;
+    }
+    .hnf-link-color{
+    	color: black;
+    	cursor: pointer;
+    } 
 
-    .hnf-menu_close{
+    .hnf-menu_close .hnf-menu_back{
         height: 40px;
         width: 40px;
         border-radius: 100%;
@@ -96,3 +108,64 @@
         justify-content: center;
         align-items: center;
     }
+    
+    .hnf-menu-container-product-head{
+    	display: block;
+	    color: #111;
+	    font-weight: 700;
+	    font-size: 1.25rem;
+    }
+    
+    .hnf-menu-container-product-main{
+    	padding-top: 2rem;
+    }
+    
+    .hnf-menu-container-product-main li{
+    	padding: .375rem 1.25rem .375rem 0;
+    }
+    
+    .hnf-menu-container-product-main li a{
+    	font-weight: 400;
+    	font-size: 0.85rem;
+    }
+    
+    
+    
+    
+    
+    
+    .hnf-menu-2-showroom{
+    	display: flex;
+	    flex-wrap: wrap;
+	    padding: 1.875rem 0 0 1.25rem;
+	    margin: 0 -1.25rem;
+    }
+    
+    .hnf-menu-2-showroom li{
+    	width: 43%;
+    	margin: 0 1.25rem 2.5rem 0;
+    }
+    /* .hnf-menu-2-showroom li#imgSize{
+    	height: 8em;
+    }
+    
+    .hnf-menu-2-showroom li a#imgSize{
+   	    display: block;
+	    width: 100%;
+	    height: 65%;
+    }
+    
+    .hnf-menu-2-showroom li a span#imgSize{
+    	height: 100%;
+    } */
+    .hnf-menu-2-showroom li a span{
+    	display: block;
+    	margin-bottom: 1em;
+    	font-weight: 500;
+    }
+    /* .hnf-menu-2-showroom img#imgSize{
+    	object-fit: cover;
+    	position: absolute;
+    	width: 100%;
+    	height: 100%;
+    } */

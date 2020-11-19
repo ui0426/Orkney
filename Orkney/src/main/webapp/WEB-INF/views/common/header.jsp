@@ -84,7 +84,7 @@
             </div>
             <ul class="header-icons">
                 <li class="header-icon delivery">
-                    <a href=""><span><svg aria-hidden="true" focusable="false" class="svg-icon  hnf-svg-icon" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <a href="${path }/order/order.do"><span><svg aria-hidden="true" focusable="false" class="svg-icon  hnf-svg-icon" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" clip-rule="evenodd" d="M13.999 6H0.99707V4H15.999V7.00001L19.0236 7L23.0029 12.6848V18H20.3462C19.9244 19.3056 18.699 20.25 17.2529 20.25C15.8069 20.25 14.5815 19.3056 14.1597 18H10.2553C9.83349 19.3056 8.60804 20.25 7.16203 20.25C5.71601 20.25 4.49056 19.3056 4.06878 18H0.999016V13H2.99902V16H4.06877C4.49054 14.6944 5.716 13.75 7.16203 13.75C8.60805 13.75 9.83351 14.6944 10.2553 16H13.999V6ZM15.999 14.0007C16.3849 13.8392 16.8085 13.75 17.2529 13.75C18.699 13.75 19.9244 14.6944 20.3462 16H21.0029V13.3152L17.9823 9L15.999 9.00001V14.0007ZM16.0029 17C16.0029 16.3096 16.5626 15.75 17.2529 15.75C17.9433 15.75 18.5029 16.3096 18.5029 17C18.5029 17.6903 17.9433 18.25 17.2529 18.25C16.5626 18.25 16.0029 17.6903 16.0029 17ZM7.16203 15.75C6.47167 15.75 5.91203 16.3096 5.91203 17C5.91203 17.6903 6.47167 18.25 7.16203 18.25C7.85238 18.25 8.41203 17.6903 8.41203 17C8.41203 16.3096 7.85238 15.75 7.16203 15.75Z"></path>
                         <path d="M7.99707 9H0.99707V7H7.99707V9Z"></path>
                         <path d="M7.99707 12H0.99707V10H7.99707V12Z"></path>
@@ -110,46 +110,196 @@
         </div>
         
         
-        <div onclick="history.back();" class="page_cover"></div>
+        <!-- aside -->
+        <div onclick="history.back();" class="page_cover aside-back-btn"></div>
         <div id="menu">
-          <div class="hnf-menu_top">
-            <div class="hnf-menu_close close" onclick="history.back();">
-                <span>
-                    <svg width="1em" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="times" class="svg-inline--fa fa-times fa-w-11" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 352 512"><path fill="currentColor" d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"></path></svg>
-                </span>
-            </div>
-            <div class="hnf-menu_logo">
-                <a href="maintest.html">
-                    <img src="https://www.ikea.com/kr/ko/static/ikea-logo.f88b07ceb5a8c356b7a0fdcc9a563d63.svg"></svg>
-                </a>
-            </div>
-        </div>
-        <div class="hnf-menu_container">
-            <nav class="hnf-menu_nav">
-                <ul class="hnf-menu_nav_main">
-                    <li>
-                        <a class="hnf-link" href="#">모든 상품</a>
-                    </li>
-                    <li>
-                        <a class="hnf-link" href="#">디지털쇼룸</a>
-                    </li>
-                    <li>
-                        <a class="hnf-small-link" href="#">이달의 혜택</a>
-                    </li>
-                    <li>
-                        <a class="hnf-small-link" href="#">신제품</a>
-                    </li>
-                </ul>
-                <ul class="hnf-menu_nav_aux">
-                    <li><a href="#">고객지원</a></li>
-                    <li><a href="#">내 프로필</a></li>
-                    <li><a href="#">로그아웃</a></li>
-                </ul>
-            </nav>
-        </div>
-        <div class="hnf-menu_alternate">
-    
-        </div>
+        	<aside id="hnf-menu">
+	        	<!-- aside top -->
+	          	<div class="hnf-menu_top">
+		            <div class="hnf-menu_close close aside-back-btn" onclick="history.back();"><!-- aside 닫기버튼(X) -->
+		                <span>
+		                    <svg width="1em" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="times" class="svg-inline--fa fa-times fa-w-11" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 352 512"><path fill="currentColor" d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"></path></svg>
+		                </span>
+		            </div>
+		            <div id="hnf-menu_logo" class="hnf-menu_logo">
+		                <a href="${path }/">
+		                    <img src="https://www.ikea.com/kr/ko/static/ikea-logo.f88b07ceb5a8c356b7a0fdcc9a563d63.svg"></svg>
+		                </a>
+		            </div>
+		            <div id="hnf-menu_search" class="header-search hnf-menu_search hnf-menu-nav-hidden">
+		                <!-- <input type="text"> -->
+		                <button></button>
+		            </div>
+		            <div id="hnf-menu_back" class="hnf-menu_back hnf-menu-nav-hidden aside-back-btn" >
+		            	<svg width="24" height="24" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="arrow-left" class="svg-inline--fa fa-arrow-left fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M257.5 445.1l-22.2 22.2c-9.4 9.4-24.6 9.4-33.9 0L7 273c-9.4-9.4-9.4-24.6 0-33.9L201.4 44.7c9.4-9.4 24.6-9.4 33.9 0l22.2 22.2c9.5 9.5 9.3 25-.4 34.3L136.6 216H424c13.3 0 24 10.7 24 24v32c0 13.3-10.7 24-24 24H136.6l120.5 114.8c9.8 9.3 10 24.8.4 34.3z"></path></svg>
+		            </div>
+	        	</div>
+	        
+	        	<!-- aside content -->
+	        	<div id="hnf-menu_container" class="hnf-menu_container">
+		            <nav class="hnf-menu_nav">
+		                <ul class="hnf-menu_nav_main">
+		                    <li>
+		                        <div class="hnf-link hnf-link-color aside-btn-product">모든 상품</div>
+		                    </li>
+		                    <li>
+		                        <div class="hnf-link hnf-link-color aside-btn-showroom">디지털쇼룸</div>
+		                    </li>
+		                    <li>
+		                        <div class="hnf-small-link hnf-link-color aside-btn-event">이달의 혜택</div>
+		                    </li>
+		                    <li>
+		                        <a class="hnf-small-link hnf-link-color" href="#">신제품</a>
+		                    </li>
+		                </ul>
+		                <ul class="hnf-small-link hnf-menu_nav_aux">
+		                    <li><a class="hnf-small-ex hnf-link-color" href="#">고객지원</a></li>
+		                    <li><a class="hnf-small-ex hnf-link-color" href="${path }/order/order.do">배송조회</a></li>
+		                    <li><a class="hnf-small-ex hnf-link-color" href="#">내 프로필</a></li>
+		                    <li><a class="hnf-small-ex hnf-link-color" href="#">로그아웃</a></li>
+		                </ul>
+		            </nav>
+	        	</div>
+	        	
+	        	<!-- 모든상품을 클릭했을 때 나오는 div -->
+	        	<div id="hnf-menu_container-level2" class="hnf-menu_container hnf-menu-container-product hnf-menu-nav-hidden">
+	        		<nav class="hnf-menu_nav">
+		        		<span class="hnf-menu-container-product-head">모든 상품</span>
+						<ul class="hnf-menu-container-product-main">
+							<li>
+								<a>
+									책장/선반유닛
+								</a>
+							</li>
+							<li>
+								<a>
+									서랍
+								</a>
+							</li>
+							<li>
+								<a>
+									의자
+								</a>
+							</li>
+							<li>
+								<a>
+									바테이블/의자
+								</a>
+							</li>
+							<li>
+								<a>
+									카페가구
+								</a>
+							</li>
+							<li>
+								<a>
+									이동식 선반
+								</a>
+							</li>
+							<li>
+								<a>
+									옷장
+								</a>
+							</li>
+							<li>
+								<a>
+									수납장/장식장
+								</a>
+							</li>
+							<li>
+								<a>
+									거실장/천장/콘솔테이블
+								</a>
+							</li>
+							<li>
+								<a>
+									TV/멀티미디어가구
+								</a>
+							</li>
+							<li>
+								<a>
+									침대
+								</a>
+							</li>
+							<li>
+								<a>
+									소파/암체어
+								</a>
+							</li>
+							<li>
+								<a>
+									조명
+								</a>
+							</li>
+							<li>
+								<a>
+									식탁/책상
+								</a>
+							</li>
+						</ul>
+					</nav>		
+	        	</div>
+	        	
+	        	<!-- 디지털쇼룸 클릭했을때 -->
+	        	<div id="hnf-menu_container-level2-2" class="hnf-menu_container hnf-menu-nav-hidden">
+	        		<nav class="hnf-menu_nav">
+		        		<span class="hnf-menu-container-product-head">디지털 쇼룸</span>
+		        		<ul class="hnf-menu-2-showroom">
+		        			<li>
+		        				<a>
+		        					<span>
+		        						<img  alt="침실" src="https://www.ikea.com/images/bj-and-ouml-rksn-and-auml-s-bj-and-ouml-rksn-and-auml-s-772a90648be3b0ef7d6d47a7f7b7a5f2.jpg?f=xxxs" >
+		        					</span>
+		        					<span>침실</span>
+		        				</a>
+		        			</li>
+		        			<li>
+		        				<a>
+		        					<span>
+		        						<img alt="거실" src="https://www.ikea.com/images/stocksund-besta-tv-55b0bb08ee1014c9fe23a98bc9381d2d.jpg?f=xxxs" >
+		        					</span>
+		        					<span>거실</span>
+		        				</a>
+		        			</li>
+		        			<li id="imgSize">
+		        				<a id="imgSize">
+		        					<span id="imgSize">
+		        						<img id="imgSize" alt="주방" src="https://www.ikea.com/images/-cb470d9a37de90b10df90823f72c2b68.jpg?f=xxxs" >
+		        					</span>
+		        					<span>주방</span>
+		        				</a>
+		        			</li>
+		        			<li>
+		        				<a>
+		        					<span>
+		        						<img alt="현관" src="https://www.ikea.com/images/ikea-hemnes-pinnig-665c8a366698cec21d5a1aa930f071fe.jpg?f=xxxs" >
+		        					</span>
+		        					<span>현관</span>
+		        				</a>
+		        			</li>
+		        		</ul>
+		        	</nav>
+	        	</div> 
+	        	
+	        	<!-- 이달의 혜택 클릭했을 때 -->
+	        	<div id="hnf-menu_container-level2-3" class="hnf-menu_container hnf-menu-container-product hnf-menu-nav-hidden">
+	        		<nav class="hnf-menu_nav">
+		        		<span class="hnf-menu-container-product-head">이달의 혜택</span>
+						<ul class="hnf-menu-container-product-main">
+							<li>
+								<a>
+									ORKNEY Family 특별가
+								</a>
+							</li>
+							<li>
+								<a>
+									마지막 찬스 최대 50% OFF
+								</a>
+							</li>
+						</ul>
+						</nav>
+					</div>
+        	</aside>
         </div>
 
        
@@ -158,15 +308,59 @@
 
         <script>
             $(".btn-aside").click(function() {
-            $("#menu,.page_cover,html").addClass("open");
-            window.location.hash = "#open";
+	            $("#menu,.page_cover,html").addClass("open");
+	            window.location.hash = "#open";
             });
     
             window.onhashchange = function() {
-            if (location.hash != "#open") {
-                $("#menu,.page_cover,html").removeClass("open");
-            }
+	            if (location.hash != "#open") {
+	                $("#menu,.page_cover,html").removeClass("open");
+	            }
             };
+            
+            $(".aside-btn-product").click(function(){
+            	$("#hnf-menu").addClass("hnf-menu-level2");
+            	$("#hnf-menu_back").removeClass("hnf-menu-nav-hidden");
+            	$("#hnf-menu_search").removeClass("hnf-menu-nav-hidden");
+            	
+            	$("#hnf-menu_container").addClass("hnf-menu-nav-hidden");
+            	$("#hnf-menu_container-level2").removeClass("hnf-menu-nav-hidden");
+            });
+            
+            /* function goback(){
+            	window.history.go(-1);
+            }; */
+            $(".aside-back-btn").click(function(){
+            	$("#hnf-menu").removeClass("hnf-menu-level2");
+            	$("#hnf-menu_back").addClass("hnf-menu-nav-hidden");
+            	$("#hnf-menu_search").addClass("hnf-menu-nav-hidden");
+            	
+            	$("#hnf-menu_container").removeClass("hnf-menu-nav-hidden");
+            	$("#hnf-menu_container-level2").addClass("hnf-menu-nav-hidden");
+            	$("#hnf-menu_container-level2-2").addClass("hnf-menu-nav-hidden");
+            	$("#hnf-menu-container-level2-3").adClass("hnf-menu-nav-hidden");
+            });
+            
+            $(".aside-btn-showroom").click(function(){
+            	$("#hnf-menu").addClass("hnf-menu-level2");
+            	$("#hnf-menu_back").removeClass("hnf-menu-nav-hidden");
+            	$("#hnf-menu_search").removeClass("hnf-menu-nav-hidden");
+            	
+            	$("#hnf-menu_container").addClass("hnf-menu-nav-hidden");
+            	$("#hnf-menu_container-level2-2").removeClass("hnf-menu-nav-hidden");
+            });
+            
+            $(".aside-btn-event").click(function(){
+            	$("#hnf-menu").addClass("hnf-menu-level2");
+            	$("#hnf-menu_back").removeClass("hnf-menu-nav-hidden");
+            	$("#hnf-menu_search").removeClass("hnf-menu-nav-hidden");
+            	
+            	$("#hnf-menu_container").addClass("hnf-menu-nav-hidden");
+            	$("#hnf-menu_container-level2-3").removeClass("hnf-menu-nav-hidden");
+            });
+            
+            
+            
         </script>
   
 
