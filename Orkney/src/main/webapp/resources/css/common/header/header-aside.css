@@ -34,10 +34,21 @@
         background: none;
         border:none;
     }
+    .hnf-menu_close{
+    	padding: 0.5em;
+    	border-radius: 100%;
+    }
     .hnf-menu_close:hover{
         background-color: #eee;
     }
-    
+    .hnf-menu_close span{
+    	align-items: center;
+    	display: flex;
+    }
+    .hnf-menu_close span svg{
+    	margin: 0 0.1em 0 0.1em;
+    	width: 0.5em;
+    }
     .hnf-menu_search{
    		padding: .625rem .75rem .625rem .75rem;
    		order: 0;

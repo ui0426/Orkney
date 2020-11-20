@@ -117,7 +117,8 @@
         	<aside id="hnf-menu">
 	        	<!-- aside top -->
 	          	<div class="hnf-menu_top">
-		            <div class="hnf-menu_close close aside-back-btn" onclick="history.back();"><!-- aside 닫기버튼(X) -->
+	          		<!-- aside 닫기버튼(X) -->
+		            <div class="hnf-menu_close close aside-back-btn" onclick="history.back();">
 		                <span>
 		                    <svg width="1em" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="times" class="svg-inline--fa fa-times fa-w-11" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 352 512"><path fill="currentColor" d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"></path></svg>
 		                </span>
@@ -137,7 +138,7 @@
 	        	</div>
 	        
 	        	<!-- aside content -->
-	        	<div id="hnf-menu_container" class="hnf-menu_container">
+	        	<div id="hnf-menu_container" class="hnf-menu_container hnf-menu-level1">
 		            <nav class="hnf-menu_nav">
 		                <ul class="hnf-menu_nav_main">
 		                    <li>
@@ -323,44 +324,50 @@
 	            }
             };
             
+            
+            //모든 상품 클릭했을 때
             $(".aside-btn-product").click(function(){
             	$("#hnf-menu").addClass("hnf-menu-level2");
             	$("#hnf-menu_back").removeClass("hnf-menu-nav-hidden");
             	$("#hnf-menu_search").removeClass("hnf-menu-nav-hidden");
             	
-            	$("#hnf-menu_container").addClass("hnf-menu-nav-hidden");
+            	$("#hnf-menu_container").addClass("hnf-menu-nav-hidden1");
             	$("#hnf-menu_container-level2").removeClass("hnf-menu-nav-hidden");
             });
             
             /* function goback(){
             	window.history.go(-1);
             }; */
+            
+            //aside 뒤로가기, 닫기, 바깥부분 클릭했을 때 aside기본으로 돌려놓기
             $(".aside-back-btn").click(function(){
             	$("#hnf-menu").removeClass("hnf-menu-level2");
             	$("#hnf-menu_back").addClass("hnf-menu-nav-hidden");
             	$("#hnf-menu_search").addClass("hnf-menu-nav-hidden");
             	
-            	$("#hnf-menu_container").removeClass("hnf-menu-nav-hidden");
+            	$("#hnf-menu_container").removeClass("hnf-menu-nav-hidden1");
             	$("#hnf-menu_container-level2").addClass("hnf-menu-nav-hidden");
             	$("#hnf-menu_container-level2-2").addClass("hnf-menu-nav-hidden");
             	$("#hnf-menu_container-level2-3").addClass("hnf-menu-nav-hidden");
             });
             
+            //쇼룸 클릭했을 때
             $(".aside-btn-showroom").click(function(){
             	$("#hnf-menu").addClass("hnf-menu-level2");
             	$("#hnf-menu_back").removeClass("hnf-menu-nav-hidden");
             	$("#hnf-menu_search").removeClass("hnf-menu-nav-hidden");
             	
-            	$("#hnf-menu_container").addClass("hnf-menu-nav-hidden");
+            	$("#hnf-menu_container").addClass("hnf-menu-nav-hidden1");
             	$("#hnf-menu_container-level2-2").removeClass("hnf-menu-nav-hidden");
             });
             
+            //이달의혜택 클릭했을 때
             $(".aside-btn-event").click(function(){
             	$("#hnf-menu").addClass("hnf-menu-level2");
             	$("#hnf-menu_back").removeClass("hnf-menu-nav-hidden");
             	$("#hnf-menu_search").removeClass("hnf-menu-nav-hidden");
             	
-            	$("#hnf-menu_container").addClass("hnf-menu-nav-hidden");
+            	$("#hnf-menu_container").addClass("hnf-menu-nav-hidden1");
             	$("#hnf-menu_container-level2-3").removeClass("hnf-menu-nav-hidden");
             	
             });

@@ -57,7 +57,8 @@
         		</p>
         	</div>
         	<div class="order-btn-buttons">
-        		<a type="button" href="" class="order-btn-button">
+        		<!-- controller에서 로그인 안한 상태와 로그인 한 상태로 나눠져야함 -->
+        		<a type="button" href="${path }/order/orderLogin.do" class="order-btn-button">
         			<span class="order-btn-inner">
         				<span class="order-btn-label">주문관리</span>
         			</span>

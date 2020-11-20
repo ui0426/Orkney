@@ -39,10 +39,10 @@ html.open {
     border: 1px solid #c9c9c9;
     background-color: white;
     /* text-align: center; */
-    transition: All 0.2s ease;
-    -webkit-transition: All 0.2s ease;
-    -moz-transition: All 0.2s ease;
-    -o-transition: All 0.2s ease;
+    transition: All 0.3s ease;
+    -webkit-transition: All 0.3s ease;
+    -moz-transition: All 0.3s ease;
+    -o-transition: All 0.3s ease;
     overflow: auto !important;
   }
   
@@ -66,6 +66,17 @@ html.open {
   }
  
   
+ .hnf-menu-level1{
+ 	transform: translateX(0);
+    transition: transform 0.2s 0s;
+ }
+ .hnf-menu-nav-hidden1{
+ 	visibility: hidden;
+    height: 0;
+    padding: 0;
+    overflow: hidden;
+    transform: translateX(-15%);
+ }
   
   .hnf-menu-nav-hidden{
   	display: none;
@@ -86,11 +97,6 @@ html.open {
         z-index: 10;
         border: 1px solid #c9c9c9;
         background-color: white;
-        /* text-align: center; */
-        transition: All 0.2s ease;
-        -webkit-transition: All 0.2s ease;
-        -moz-transition: All 0.2s ease;
-        -o-transition: All 0.2s ease;
     }
     .hnf-menu_top{
     	/* padding: 0rem 1em 0rem 150px; */
