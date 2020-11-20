@@ -9,117 +9,9 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param name="title" value="" />
 </jsp:include>
-<style>
-.round {
-	border-radius: 50px;
-	background-color: rgb(238, 237, 237);
-}
+<link rel="stylesheet"
+	href="${path }/resources/css/product/products.css">
 
-.fontSiz {
-	font-weight: bolde;
-	font-size: x-small;
-}
-
-.fontSiz2 {
-	font-weight: bolder;
-	font-size: medium;
-}
-
-.filterSiz {
-	width: 100px;
-	height: 30px;
-	padding: 0%;
-}
-
-.star {
-	width: 1.125rem;
-	height: 1.125rem;
-	margin-right: -5px;
-}
-
-.marginZero {
-	margin: 0px;
-}
-
-.fontborder {
-	font-weight: bolder;
-	/* 	font-size: small; */
-	font-size: 0.77em;
-}
-
-.filterBtn {
-	justify-content: space-between;
-	height: 17px;
-}
-
-.btn-group {
-	margin: 0px !important;
-	padding: 0px !important;
-}
-
-.btn span.glyphicon {
-	opacity: 0;
-}
-
-.btn.active span.glyphicon {
-	opacity: 1;
-}
-
-.leftMargin {
-	margin-left: auto !important;
-}
-
-.color-Gray1 {
-	color: gray !important;
-}
-
-.color-Gray2 {
-	color: rgb(182, 182, 182) !important;
-}
-
-.color-Gray3 {
-	color: rgb(224, 222, 222) !important;
-}
-
-.fontColorGray {
-	color: #616161;
-}
-
-.headerFilter {
-	position: sticky;
-	z-index: 99;
-	top: 0;
-	display: block;
-}
-
-.btnH35 {
-	height: 35px;
-}
-
-.plp-comparison-bar__image {
-	width: 40px;
-	max-height: 40px;
-	margin-right: 10px;
-}
-
-.modal-bottom {
-	bottom: 0;
-	position: absolute;
-}
-
-.bottomSiz {
-	width: 100% !important;
-	max-width: 100% !important;
-	margin: 0 !important;
-}
-.jagan{
-    justify-content: space-between;
-}
-.btnBol{
-border: 1px solid gray !important;
-background-color: white;
-}
-</style>
 
 <section id="content">
 
@@ -136,28 +28,27 @@ background-color: white;
 				<div class="modal-body container">
 					<div class="row px-4 jagan">
 						<div>
-							<a type="button" class="btn btn-outline-success waves-effect color-Gray1 btnBol"
-								data-dismiss="modal">전체 삭제</a>
-								
-							<img
+							<a type="button"
+								class="btn btn-outline-success waves-effect color-Gray1 btnBol"
+								data-dismiss="modal">전체 삭제</a> <img
+								src="https://www.ikea.com/kr/ko/images/products/kleppstad-wardrobe-with-sliding-doors-white__0823547_PE775917_S5.JPG?f=xs"
+								alt="KLEPPSTAD 클렙스타드" title="KLEPPSTAD 클렙스타드"
+								class="plp-comparison-bar__image"> <img
+								src="https://www.ikea.com/kr/ko/images/products/kleppstad-wardrobe-with-sliding-doors-white__0823547_PE775917_S5.JPG?f=xs"
+								alt="KLEPPSTAD 클렙스타드" title="KLEPPSTAD 클렙스타드"
+								class="plp-comparison-bar__image"> <img
 								src="https://www.ikea.com/kr/ko/images/products/kleppstad-wardrobe-with-sliding-doors-white__0823547_PE775917_S5.JPG?f=xs"
 								alt="KLEPPSTAD 클렙스타드" title="KLEPPSTAD 클렙스타드"
 								class="plp-comparison-bar__image">
-							<img
-								src="https://www.ikea.com/kr/ko/images/products/kleppstad-wardrobe-with-sliding-doors-white__0823547_PE775917_S5.JPG?f=xs"
-								alt="KLEPPSTAD 클렙스타드" title="KLEPPSTAD 클렙스타드"
-								class="plp-comparison-bar__image">
-							<img
-								src="https://www.ikea.com/kr/ko/images/products/kleppstad-wardrobe-with-sliding-doors-white__0823547_PE775917_S5.JPG?f=xs"
-								alt="KLEPPSTAD 클렙스타드" title="KLEPPSTAD 클렙스타드"
-								class="plp-comparison-bar__image">
-						</div>	
+						</div>
 						<div class="row">
 							<p style="margin-top: auto;">#개</p>
-							<a type="button" class="btn btn-success waves-effect waves-light btnBol text-white"  style="background-color:gray !important; ">
-								제품비교 <i class="far fa-gem ml-1 text-white"></i>
+							<a type="button"
+								class="btn btn-success waves-effect waves-light btnBol text-white"
+								style="background-color: gray !important;"> 제품비교 <i
+								class="far fa-gem ml-1 text-white"></i>
 							</a>
-						</div> 
+						</div>
 					</div>
 				</div>
 			</div>
@@ -390,12 +281,6 @@ background-color: white;
 									</div>
 								</button>
 								<div id="colorMenu" style="display: none;"col-12"">
-
-
-
-
-
-
 									<div class="btn-group row" data-toggle="buttons">
 
 										<label class="btn btn-success col-12 leftMargin"
@@ -430,25 +315,12 @@ background-color: white;
 												<input type="radio" name="options" id="option2"
 												autocomplete="off"> <span
 												class="glyphicon glyphicon-ok"></span></label>
-
 									</div>
-
-
-
-
-
-
 								</div>
-
 							</div>
 						</div>
 					</div>
 					<!--           ====================슬라이드 토글 end================ -->
-
-
-
-
-
 				</div>
 
 				<!--Footer-->
@@ -467,11 +339,9 @@ background-color: white;
 
 
 
-
+<!-- 헤더 필터 버튼 -->
 
 	<div class="container">
-
-
 		<div name="filter" class="row headerFilter"
 			style="background-color: white;">
 			<hr>
@@ -505,10 +375,9 @@ background-color: white;
 				data-toggle="modal" data-target="#modalPoll-1">
 				<span class="fontborder fontColorGray">색상</span>
 			</button>
-
-
 			<hr>
 		</div>
+<!-- 헤더 필터 버튼 end -->
 
 
 
@@ -518,9 +387,9 @@ background-color: white;
 				<div class="card">
 					<!--Card image-->
 					<div class="view overlay zoom">
-						<img class="card-img-top"
+						<img class="card-img-top"  
 							src="https://www.ikea.com/kr/ko/images/products/kleppstad-wardrobe-with-3-doors-white__0753597_PE748785_S5.JPG?f=xs"
-							alt="Card image cap"> <a href="#!">
+							alt="Card image cap"> <a href="${path}/product/productDetail.do">
 							<div class="mask rgba-white-slight"></div>
 						</a>
 					</div>
@@ -567,8 +436,7 @@ background-color: white;
 									<a class="material-tooltip-main" data-toggle="tooltip"
 										data-placement="top" title="Add to Cart"> <i
 										class="fas fa-shopping-cart grey-text ml-3"></i>
-									</a> 
-									<a class="material-tooltip-main" data-toggle="tooltip"
+									</a> <a class="material-tooltip-main" data-toggle="tooltip"
 										data-placement="top" title="Add to Wishlist"> <i
 										class="fas fa-heart grey-text ml-3"></i>
 									</a>
@@ -592,7 +460,7 @@ background-color: white;
 					<div class="view overlay zoom">
 						<img class="card-img-top"
 							src="https://www.ikea.com/kr/ko/images/products/kleppstad-wardrobe-with-2-doors-white__0733323_PE748780_S5.JPG?f=xs"
-							alt="Card image cap"> <a href="#!">
+							alt="Card image cap"> <a href="${path}/product/productDetail.do">
 							<div class="mask rgba-white-slight"></div>
 						</a>
 					</div>
@@ -637,8 +505,7 @@ background-color: white;
 									<a class="material-tooltip-main" data-toggle="tooltip"
 										data-placement="top" title="Add to Cart"> <i
 										class="fas fa-shopping-cart grey-text ml-3"></i>
-									</a> 
-									<a class="material-tooltip-main" data-toggle="tooltip"
+									</a> <a class="material-tooltip-main" data-toggle="tooltip"
 										data-placement="top" title="Add to Wishlist"> <i
 										class="fas fa-heart grey-text ml-3"></i>
 									</a>
@@ -650,9 +517,9 @@ background-color: white;
 				<!-- Card -->
 				<hr>
 			</div>
-			
-			
-			
+
+
+
 			<div class="col">
 				<!-- Card -->
 				<div class="card">
@@ -660,11 +527,11 @@ background-color: white;
 					<div class="view overlay zoom">
 						<img class="card-img-top"
 							src="https://www.ikea.com/kr/ko/images/products/kleppstad-wardrobe-with-sliding-doors-white__0823548_PE775916_S5.JPG?f=xs"
-							alt="Card image cap"> <a href="#!">
+							alt="Card image cap"> <a href="${path}/product/productDetail.do">
 							<div class="mask rgba-white-slight"></div>
 						</a>
 					</div>
-					
+
 					<!--Card content-->
 					<div class="card-body">
 						<!--Title-->
@@ -706,8 +573,7 @@ background-color: white;
 									<a class="material-tooltip-main" data-toggle="tooltip"
 										data-placement="top" title="Add to Cart"> <i
 										class="fas fa-shopping-cart grey-text ml-3"></i>
-									</a> 
-									<a class="material-tooltip-main" data-toggle="tooltip"
+									</a> <a class="material-tooltip-main" data-toggle="tooltip"
 										data-placement="top" title="Add to Wishlist"> <i
 										class="fas fa-heart grey-text ml-3"></i>
 									</a>
@@ -719,7 +585,7 @@ background-color: white;
 				<!-- Card -->
 				<hr>
 			</div>
-			
+
 			<div class="col">
 				<!-- Card -->
 				<div class="card">
@@ -727,7 +593,7 @@ background-color: white;
 					<div class="view overlay zoom">
 						<img class="card-img-top"
 							src="https://www.ikea.com/kr/ko/images/products/pax-hasvik-wardrobe-combination-white__0829865_PE776776_S5.JPG?f=xs"
-							alt="Card image cap"> <a href="#!">
+							alt="Card image cap"> <a href="${path}/product/productDetail.do">
 							<div class="mask rgba-white-slight"></div>
 						</a>
 					</div>
@@ -772,8 +638,7 @@ background-color: white;
 									<a class="material-tooltip-main" data-toggle="tooltip"
 										data-placement="top" title="Add to Cart"> <i
 										class="fas fa-shopping-cart grey-text ml-3"></i>
-									</a> 
-									<a class="material-tooltip-main" data-toggle="tooltip"
+									</a> <a class="material-tooltip-main" data-toggle="tooltip"
 										data-placement="top" title="Add to Wishlist"> <i
 										class="fas fa-heart grey-text ml-3"></i>
 									</a>
@@ -786,9 +651,9 @@ background-color: white;
 				<hr>
 			</div>
 		</div>
-		
-		
-		
+
+
+
 
 		<script>
 			$(document).ready(function() {
