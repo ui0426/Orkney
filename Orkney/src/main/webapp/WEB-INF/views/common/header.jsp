@@ -77,7 +77,7 @@
             </div>
             <div class="header-menu">
                 <span>모든제품</span>
-                <span>디지털 쇼룸</span>
+                <span><a href="${path}/product/rooms.do">디지털 쇼룸</a></span>
             </div>
             <div class="header-search">
                 <input type="text">
