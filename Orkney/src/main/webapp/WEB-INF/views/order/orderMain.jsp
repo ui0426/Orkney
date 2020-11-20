@@ -9,7 +9,7 @@
 	<jsp:param name="title" value="배송조회 및 관리" />
 </jsp:include>
 
-<link rel="stylesheet" href="${path}/resources/css/order/order.css"/>
+<link rel="stylesheet" href="${path}/resources/css/order/ordermain.css"/>
 
 <section class="order-container">
  <div class="order-container-inner">

@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class OrderController {
 	
 	@RequestMapping("/order/order.do")
-	public String order() {
-		return "order/order";
+	public String orderMain() {
+		return "order/orderMain";
 	}
 	
 	@RequestMapping("/order/orderForm.do")
