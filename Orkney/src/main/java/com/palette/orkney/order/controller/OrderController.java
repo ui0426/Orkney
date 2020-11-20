@@ -15,5 +15,10 @@ public class OrderController {
 	public String orderform() {
 		return "order/orderForm";
 	}
+	
+	@RequestMapping("/order/orderLogin.do")
+	public String orderLogin() {
+		return "order/orderLogin";
+	}
 
 }

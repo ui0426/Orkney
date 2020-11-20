@@ -50,6 +50,7 @@
     border-radius: 50em;
     background-color: #eee;
 	}
+
 	
     .hnf-menu_nav ul{
         list-style: none;
@@ -62,8 +63,7 @@
     .hnf-menu_container{
         
         padding: 0rem 2rem 0rem 30px;
-        
-      
+       
     }
     .hnf-menu_nav{
         justify-content: space-between;

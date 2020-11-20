@@ -309,6 +309,7 @@
         <script>
             $(".btn-aside").click(function() {
 	            $("#menu,.page_cover,html").addClass("open");
+	            $("#menu").removeClass("aside-close");
 	            window.location.hash = "#open";
             });
     
@@ -338,7 +339,7 @@
             	$("#hnf-menu_container").removeClass("hnf-menu-nav-hidden");
             	$("#hnf-menu_container-level2").addClass("hnf-menu-nav-hidden");
             	$("#hnf-menu_container-level2-2").addClass("hnf-menu-nav-hidden");
-            	$("#hnf-menu-container-level2-3").adClass("hnf-menu-nav-hidden");
+            	$("#hnf-menu_container-level2-3").addClass("hnf-menu-nav-hidden");
             });
             
             $(".aside-btn-showroom").click(function(){
@@ -357,7 +358,9 @@
             	
             	$("#hnf-menu_container").addClass("hnf-menu-nav-hidden");
             	$("#hnf-menu_container-level2-3").removeClass("hnf-menu-nav-hidden");
+            	
             });
+           
             
             
             

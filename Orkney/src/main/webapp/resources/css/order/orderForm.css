@@ -21,6 +21,11 @@
 	font-weight: 700;
 }
 
+.order-form-main{
+	padding-left: 0.7em;
+    padding-right: 0.7em;
+}
+
 .order_information {
 	position: relative;
 	display: block;
@@ -64,17 +69,41 @@
 }
 
 .order-form-help {
-	color: black;
+	color: #0056b3;
 	font-size: smaller;
 	font-family: sans-serif;
 	font-weight: 600;
+	    display: flex;
+    align-items: center;
 }
 
-.rrrr {
+.order-form-help svg{
+	margin-right: 0.5rem;
+}
+
+.order-help-content {
 	padding: 0 3rem 0 3rem;
 }
 
 .Helper_Image {
 	margin-top: 2rem;
 	margin-bottom: 2rem;
+}
+
+.order-form-error-msg{
+	margin-left: 1em;
+	font-size: 0.875rem;
+    font-weight: 500;
+    font-family: sans-serif;
+    display: none;
+}
+@media(min-width: 1024px){
+	
+	.orderform-title{
+		font-size: 2.25rem;
+	}
+	
+	.order_information-title{
+		font-size: 1.375rem;
+	}
 }

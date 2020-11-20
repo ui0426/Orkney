@@ -69,6 +69,7 @@ html.open {
   
   .hnf-menu-nav-hidden{
   	display: none;
+  	transform: translateX(-15%);
   }
   
   .hnf-menu-level2 .hnf-menu_logo{
