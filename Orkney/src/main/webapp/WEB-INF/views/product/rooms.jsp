@@ -32,6 +32,7 @@
 		</div>
 		<div class="wrapper">
 			<div class="rm-ig-box one">
+				<a href="${path}">
 				<img class="rm-ig" src="${path}/resources/images/rooms/01.webp">
 				<div class="rm-bt" style="top: 54.4%; left: 25.7%;">
 					<a class="rm-a" href="${path}"></a>
@@ -67,6 +68,7 @@
 						</a>
 					</div>
 				</div>
+				</a>
 			</div>
 			<div class="two">
 				<img class="rm-ig" src="${path}/resources/images/rooms/02.webp">

@@ -1,0 +1,238 @@
+@charset "UTF-8";
+
+   section{ 
+        width: 100%;       
+        display: flex;
+        flex-direction: column;                    
+    }
+    .section1{
+        margin: 50px 0;        
+    }
+    .section-container{
+          padding: 10% 20%;
+          width: 100%;                                  
+    }
+    .title-container{        
+        width: 100%;        
+        margin: 5% 0;
+        font-size: 40px; 
+        font-weight: 1000;
+    }
+    .etc-title{
+        margin: 20px 0;
+        font-size: 22px;
+        font-weight: 1000;
+    }
+    .etc-title span{
+        margin: 20px 0;
+        font-size: 22px;
+        font-weight: 1000;
+        padding-right: 128px;
+    }
+    .order-container{
+            height: 140px;
+            margin: 30px 0;   
+    }
+    .product-pic img{
+            width: 140px;
+            height: 140px;             
+            float: left;             
+    }
+    .product-detail{   
+            padding: 5px;
+            margin-left: 20%;
+            font-size: 18px;
+        } 
+    .line1{
+            width: 100%;
+            opacity: 20%;
+            height: 1px;
+            background-color: gray;
+    }
+    .field{
+        display: flex;
+        margin-top: 20px;
+    }
+    .field p{
+        font-size: 18px;
+    }
+    .etc-p{
+        font-size: 16px;
+        margin:10px 0;
+    }
+    .last-field{
+        font-size: 18px;
+        display: flex;
+        justify-content: space-between;
+        margin: 5px 0;
+    }
+    .first-div{
+        min-width: 140px;
+        width: 140px;        
+        font-size: 20px;
+        margin: 0 60px 0 0;     
+        padding:10px;                   
+    }
+
+    .input1{
+        width:300px;
+        height: 40px;
+    }
+    .input2{
+        width: 150px;
+        height: 40px;        
+    }
+    .btn1{
+        border: none;
+        color: white;
+        background-color: black;
+        width: 140px;
+        height: 40px;   
+        font-size:18px;     
+    }
+    .btn2{    
+        border: 1px solid;
+        border-color: rgb(216, 216, 216);
+        border-radius: 5px;
+        background-color: white;
+        width: 240px;
+        height: 33px;
+        font-size: 15px;
+    }
+ 
+    .btn3 {
+        border: 1px solid;
+        border-color: rgb(216, 216, 216);
+        border-radius: 5px;
+        background-color: white;
+        width: 90px;
+        height: 33px;
+        font-size: 15px;
+        margin-left: -32px;
+    }
+    .btn-container{
+        padding: 0 0 0 10px;
+    }
+    .text-container{        
+        margin-left:220px;                
+    }
+    .input3{
+        height: 45px;
+        width: 600px;
+    }
+    .input4{
+        width:300px;
+        height: 40px;
+        margin: 5px 10px;
+    }
+    .total-price{
+        font-size: 24px;
+        font-weight: 1000;
+        float: right;
+    }
+    .address-container{
+        padding-left: 100px;
+    }
+
+    .event-bu{
+            margin: 15px;
+            border-radius: 50px;
+            width: 80% !important;
+            background-color: white !important;
+            border: white ;                       
+        }
+        .event-sp{
+            font-size: 18px;
+            font-weight: bold;
+            color: black !important;
+        }
+        .event-sp:hover {
+            color: white !important;
+        }
+        .event-bu:hover >.event-sp{
+          color: white !important;
+        }
+        .event-bu:hover{
+          background-color: black !important;        
+        } 
+        .pay-btn{
+            height:100px;
+            display: flex;
+            justify-content: center;
+            text-align: center;            
+            width: 100%;    
+            margin: 50px 0;                     
+        }
+        .etc-div{
+            margin-left:200px ;
+        }
+        .i1{transition: 400ms;color:#0058a3;z-index:-1;}
+        .i2{transition: 400ms;color:white;z-index:-1;}
+        .ixy{position: absolute;left: 1%;top: 17%;z-index:-1;}
+        .checkdiv{position: relative; display:flex;cursor: pointer; height: 40px; margin-bottom: 10px;}
+        .ck{zoom: 5;position: relative;z-index: -1;opacity: 0;}
+        .checkicon{width: 14%;min-height: 56px;min-width: 50px;z-index: -1;position: relative;}
+        .spanwid{width:88%;font-size: .875rem; font-weight: 500; margin: 14px 0 30px 0; z-index: -1; position: relative; font-size: 18px;}
+
+        .contract{
+            display: flex;
+            justify-content: space-between;
+        }
+        .contract1{        
+            display: flex;
+            justify-content: space-between;
+        }
+        .content1,.content2,.content3{
+            max-height:100px;
+            overflow-y:scroll;
+            white-space: pre-wrap;
+            text-align: justify;
+            font-size: 5px;
+            display:none;
+            background-color: #f0f0f0;
+            margin-top : 10px;  
+        }
+        #extendBtn1, #extendBtn2, #extendBtn3, #extendBtn4{
+            cursor: pointer;
+            border:none;
+            outline: none;
+            background-color: white;
+        }
+        .etc-field{
+            display: flex;
+            justify-content: space-between;
+            padding-top: 14px;
+        }
+        .etc-field+div{
+            display: flex;
+            margin-top: 10px;
+        }
+        .usable-point{
+            padding: 10px 33px;
+            font-size: 22px;
+            color: #35c5f0;
+            font-weight: bold;
+        }
+        #credit-card, #coin{
+            width: 140px;
+            height: 138px;
+            background-color: white;            
+            margin: 2%;
+            cursor: pointer;
+            border:none;
+            outline: none;
+        }
+        #credit-card img, #coin img{
+            width: 95px;
+            height: 106px;
+            z-index: 50;
+        }  
+        .card-title, .coin-title{
+            z-index: 100;
+        }  
+        .pre-point{
+            padding: 0 50px 0 0;
+            font-size: 22px;
+            color: #35c5f0;
+            font-weight: bold;
+        }

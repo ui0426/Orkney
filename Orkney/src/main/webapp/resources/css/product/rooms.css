@@ -1,8 +1,8 @@
 @charset "UTF-8";
 
-* {
+/* * {
 	word-break: keep-all;
-}
+} */
 
 .wrapper {
 	height: auto;
