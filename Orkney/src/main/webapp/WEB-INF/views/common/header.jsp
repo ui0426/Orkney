@@ -129,7 +129,7 @@
             <nav class="hnf-menu_nav">
                 <ul class="hnf-menu_nav_main">
                     <li>
-                        <a class="hnf-link" href="#">모든 상품</a>
+                        <a class="hnf-link" href="${path}/product/products.do">모든 상품</a>
                     </li>
                     <li>
                         <a class="hnf-link" href="#">디지털쇼룸</a>

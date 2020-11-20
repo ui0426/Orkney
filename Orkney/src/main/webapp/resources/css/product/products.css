@@ -1,0 +1,110 @@
+@charset "UTF-8";
+.round {
+	border-radius: 50px;
+	background-color: rgb(238, 237, 237);
+}
+
+.fontSiz {
+	font-weight: bolde;
+	font-size: x-small;
+}
+
+.fontSiz2 {
+	font-weight: bolder;
+	font-size: medium;
+}
+
+.filterSiz {
+	width: 100px;
+	height: 30px;
+	padding: 0%;
+}
+
+.star {
+	width: 1.125rem;
+	height: 1.125rem;
+	margin-right: -5px;
+}
+
+.marginZero {
+	margin: 0px;
+}
+
+.fontborder {
+	font-weight: bolder;
+	/* 	font-size: small; */
+	font-size: 0.77em;
+}
+
+.filterBtn {
+	justify-content: space-between;
+	height: 17px;
+}
+
+.btn-group {
+	margin: 0px !important;
+	padding: 0px !important;
+}
+
+.btn span.glyphicon {
+	opacity: 0;
+}
+
+.btn.active span.glyphicon {
+	opacity: 1;
+}
+
+.leftMargin {
+	margin-left: auto !important;
+}
+
+.color-Gray1 {
+	color: gray !important;
+}
+
+.color-Gray2 {
+	color: rgb(182, 182, 182) !important;
+}
+
+.color-Gray3 {
+	color: rgb(224, 222, 222) !important;
+}
+
+.fontColorGray {
+	color: #616161;
+}
+
+.headerFilter {
+	position: sticky;
+	z-index: 1;
+	top: 0;
+	display: block;
+}
+
+.btnH35 {
+	height: 35px;
+}
+
+.plp-comparison-bar__image {
+	width: 40px;
+	max-height: 40px;
+	margin-right: 10px;
+}
+
+.modal-bottom {
+	bottom: 0;
+	position: absolute;
+}
+
+.bottomSiz {
+	width: 100% !important;
+	max-width: 100% !important;
+	margin: 0 !important;
+}
+.jagan{
+    justify-content: space-between;
+}
+.btnBol{
+border: 1px solid gray !important;
+background-color: white;
+}
