@@ -14,7 +14,7 @@
 <section class="order-container">
 	<div id="order-container-content">
 		<div class="order-container-inner">
-			<h1 class="orderform-title">비회원 주문 내역</h1>
+			<h1 class="orderform-title">비회원 주문 내역test</h1>
 			<div class="order-form-main">
 				<form>
 					<h2 class="order_information-title">주문정보</h2>
