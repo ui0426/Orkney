@@ -15,7 +15,7 @@
 		<div class="order-container-inner">
 			<h1 class="orderform-title">주문 내역</h1>
 			<div class="order-form-main">
-				<form action="">
+				<form action="${path }/order/orderList.do">
 					<h2 class="order_information-title">로그인</h2>
 					<!-- ajax -->
 					<div></div>

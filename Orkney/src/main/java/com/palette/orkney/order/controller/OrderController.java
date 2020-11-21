@@ -20,5 +20,10 @@ public class OrderController {
 	public String orderLogin() {
 		return "order/orderLogin";
 	}
+	
+	@RequestMapping("/order/orderList.do")
+	public String orderList() {
+		return "order/orderList";
+	}
 
 }
