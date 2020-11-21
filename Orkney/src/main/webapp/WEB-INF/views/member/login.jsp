@@ -126,22 +126,22 @@
             <div id="rightForm">
                 <div id="loginForm">
                     <div></div>
-                    <form action="${path }/member/signup.do" id="logininput">
+                    <form action="${path }/member/login.do" id="logininput" method="post">
                         <div class="md-form mdmar">
-                            <input type="text" id="idinput" class="form-control borderb">
+                            <input type="text" id="idinput" class="form-control borderb" name="userId">
                             <label for="inputLGEx" class="lfs">아이디 입력</label>
                             <div class="errorspan disno marb disno" id="iddiv">이메일을 입력해주세요.</div>
                           </div>
-                        <div><span class="fs">다른 옵션 : </span><span><a class="fs fwtd" style="color:black;" href="${path }/member/transPassword.do">구글</a></span></div>
+                        <div><span class="fs">다른 옵션 : </span><span id="googlelogin" style="cursor:pointer" class="fs fwtd" style="color:black;">구글</span></div>
                         <div class="md-form mdmar">
-                            <input type="password" id="pwinput" class="form-control borderb">
+                            <input type="password" id="pwinput" class="form-control borderb" name="userPw">
                             <label for="inputLGEx"  class="lfs">비밀번호 입력</label>
                             <div class="errorspan disno marb disno" id="pwdiv">이메일을 입력해주세요.</div>
                           </div>
                           <div class="fs"><a class="fwtd" id="searchPwBtn">비밀번호찾기</a></div>
                         <div></div>
-                        <div><button type="button" class="btn btn-dark logbtn mar bc">로그인</button></div>
-                        <div><button type="submit" class="btn btn-light logbtn" id="sign_up">회원가입</button></div>
+                        <div><button id="loginBtn" type="submit" class="btn btn-dark logbtn mar bc">로그인</button></div>
+                        <div><button type="button" class="btn btn-light logbtn" id="sign_up">회원 가입</button></div>
                     </form>
                 </div>
                 <div class="searchPw" id="sPw">
@@ -206,6 +206,23 @@
         $("#transbtn").click(e=>{
         	location.href="${path}/transPw.do";
         })
+        $("#sign_up").click(e=>{
+        	location.href="${path}/member/signup.do";
+        })
+        
+  $("#googlelogin").click(e=>{
+	  onClickGoogleLogin();
+  })
+        
+        
+ 	const onClickGoogleLogin = (e) => {
+    	//구글 인증 서버로 인증코드 발급 요청
+ 		window.location.replace("https://accounts.google.com/o/oauth2/v2/auth?client_id=63421017718-97poh5dtj10hbv1ul6q80h9g51tpov1d.apps.googleusercontent.com&redirect_uri=http://localhost:9090/orkney/login/google/auth&response_type=code&scope=email%20profile%20openid&access_type=offline");
+		//window.open("https://accounts.google.com/o/oauth2/v2/auth?client_id=63421017718-97poh5dtj10hbv1ul6q80h9g51tpov1d.apps.googleusercontent.com&redirect_uri=http:localhost:9090/orkney/login/google/auth&response_type=code&scope=email%20profile%20openid&access_type=offline",
+				// 	"","width=400,height=400,left=600");
+ 	}
+	
+    
 	</script>
 </body>
 </html>
