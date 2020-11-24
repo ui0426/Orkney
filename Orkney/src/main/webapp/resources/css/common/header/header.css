@@ -21,14 +21,15 @@
     
     display:flex;
     order: 1;
+    margin-bottom: 0;
     
 }
 .header-icon{
-    margin: 0 0.05rem;
+    margin: 0 0.05rem !important;
     height: 40px;
     width: 40px;
     border-radius: 50%;
-    display: flex;
+    display: flex !important;
     justify-content: center;
     align-items: center;
 }
@@ -49,8 +50,8 @@
     width: 40px;
     border-radius: 50%;
     text-align: center;
-    
-    line-height: 51px;
+    z-index: 1;
+    line-height: 40px;
 
 }
 .header-menu{
@@ -83,6 +84,7 @@
     flex: 1 0 auto;
     border-radius: 50em;
     background-color: #eee;
+    padding: .5rem 3.375rem;
 }
 .delivery{
     display: none;
@@ -130,8 +132,8 @@
     .header-hambuger{
         display: block;
     }
-    .hambuger{
-        display: none;
+    .hambuger2{
+        display: none !important;
     }
     .header-menu{
         display: block;
@@ -155,8 +157,6 @@
         width: 50%;
         flex: 0 auto;
         margin-left: 0rem;
-       
-        
        
     }
 }
