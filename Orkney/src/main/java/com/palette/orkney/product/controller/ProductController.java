@@ -14,5 +14,9 @@ public class ProductController {
 	public String productDetail() {
 		return "/product/productDetail";
 	}
+	@RequestMapping("/product/productsCompare.do")
+	public String productsCompare() {
+		return "/product/productsCompare";
+	}
 
 }

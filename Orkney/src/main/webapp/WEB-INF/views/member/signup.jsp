@@ -34,49 +34,49 @@
                 <div class="nonespace"></div>
                 <div class="joindata">
                     <div>
-                        <form action="">
+                        <form action="${path }/member/insertSignup.do">
                             <div class="emailcheck">
                                 <fieldset>
                                     <legend class="marb lgfs">ORKNEY Family에 가입하시겠어요?</legend>
                                 </fieldset>
                                 <div>
                                     <div class="md-form mdmar marb">
-                                    <input type="text" id="fname" class="form-control borderb">
+                                    <input type="text" id="fname" class="form-control borderb" name="f_name" required>
                                     <label for="fname" class="labcolor">성</label>
                                     <span class="errorspan disno" id="fnspan">성은 필수 필드입니다.</span>
                                   </div>
                                 </div>
                                 <div>
                                     <div class="md-form mdmar marb">
-                                        <input type="text" id="name" class="form-control borderb">
+                                        <input type="text" id="name" class="form-control borderb" name="g_name" required>
                                         <label for="name" class="labcolor">이름</label>
                                         <span class="errorspan disno" id="nspan">이름은 필수 필드입니다.</span>
                                       </div>
                                 </div>
                                 <div>
                                     <div class="md-form mdmar marb">
-                                        <input type="text" id="bir" class="form-control borderb" maxlength="10">
+                                        <input type="text" id="bir" class="form-control borderb" maxlength="10" name="birthday" required>
                                         <label for="bir" class="labcolor">생일</label>
                                         <span class="errorspan disno" id="birspan">생일은 필수 필드입니다.</span>
                                       </div>
                                 </div>
                                 <div>
                                     <div class="md-form mdmar marb">
-                                        <input type="text" id="ph" class="form-control borderb" maxlength="11">
+                                        <input type="text" id="ph" class="form-control borderb" maxlength="13" name="phone" required>
                                         <label for="ph" class="labcolor">휴대폰</label>
                                         <span class="errorspan disno" id="phspan">휴대폰은 필수 필드입니다.</span>
                                       </div>
                                 </div>
                                 <div>
                                     <div class="md-form mdmar marb">
-                                        <input type="text" id="email" class="form-control borderb">
+                                        <input type="text" id="email" class="form-control borderb" name="email" required>
                                         <label for="email" class="labcolor">이메일</label>
                                         <span class="errorspan disno" id="emailspan">이메일은 필수 필드입니다.</span>
                                       </div>
                                 </div>
                                 <div>
                                     <div class="md-form mdmar marb paswid">
-                                        <input type="password" id="pw" class="form-control borderb">
+                                        <input type="password" id="pw" class="form-control borderb" name="password" required>
                                         <label for="pw" class="labcolor">비밀번호</label>
                                         <span class="errorspan disno" id="pwspan">비밀번호는 필수 필드입니다.</span>
                                         <div class="pwfsb"><span>비밀번호는 다음을 포함해야 합니다.</span></div>
@@ -91,65 +91,65 @@
                                 </div>
                                 <div>
                                     <div class="md-form mdmar marb">
-                                        <input type="text" id="adrinput" class="form-control cen" disabled>
+                                        <input type="text" id="adrinput" class="form-control cen" name="adr2" disabled>
                                         <label for="adrinput">주소</label>
                                       </div>
                                 </div>
                                 <div>
                                     <div class="md-form mdmar marb">
-                                        <input type="text" id="detailadr" class="form-control borderb">
+                                        <input type="text" id="detailadr" class="form-control borderb" name="adr3" required>
                                         <label for="detailadr" class="labcolor">상세주소</label>
                                         <span class="errorspan disno" id="adrspan">상세주소는 필수 필드입니다.</span>
                                       </div>
                                 </div>
                                 <div>
                                     <div class="md-form mdmar marb paswid" id="zipdiv">
-                                        <input type="text" class="form-control cen" id="zip" disabled>
+                                        <input type="text" class="form-control cen" id="zip" name="adr1" disabled>
                                         <label for="zip" id="zipcode">우편번호</label>
                                       </div>
                                 </div>
-                                <div class="checkdiv  marb">  
-                                    <div class="checkicon" stlye="width:72px;">
+                                <div class="checkdiv  marb">
+                                    <div class="checkicon">
                                         <span><i class="far fa-check-circle fa-2x ixy i1"></i></span>
                                         <span><i class="fas fa-check-circle fa-2x ixy i2"></i></span>
-                                        <input type="checkbox" class="ck" id="ch">
+                                        <input type="checkbox" class="ck" id="ch1" name="emailCh" value="Y">
                                     </div>
                                     <span class="spanwid">마케팅 수신 동의를 통해 ORKNEY의 홈퍼니싱 아이디어와 신상품 소식, 그리고 할인 혜택 정보를 받고 싶어요!</span>
                                 </div>
                                 <div class="checkdiv  marb">  
-                                    <div class="checkicon" stlye="width:72px;">
+                                    <div class="checkicon">
                                         <span><i class="far fa-check-circle fa-2x ixy i1"></i></span>
                                         <span><i class="fas fa-check-circle fa-2x ixy i2"></i></span>
-                                        <input type="checkbox" class="ck" id="ch">
+                                        <input type="checkbox" class="ck" id="ch2">
                                     </div>
                                     <span class="spanwid">(필수) 약관을 모두 읽고 동의합니다. 이용약관</span>
                                 </div>
                                 <div class="checkdiv  marb">  
-                                    <div class="checkicon" stlye="width:72px;">
+                                    <div class="checkicon">
                                         <span><i class="far fa-check-circle fa-2x ixy i1"></i></span>
                                         <span><i class="fas fa-check-circle fa-2x ixy i2"></i></span>
-                                        <input type="checkbox" class="ck" id="ch">
+                                        <input type="checkbox" class="ck" id="ch3">
                                     </div>
                                     <span class="spanwid">본인은 개인정보취급방침을 모두 읽고 이해하였습니다. 개인정보 수집ㆍ이용 동의</span>
                                 </div>
                                 <div class="checkdiv  marb">  
-                                    <div class="checkicon" stlye="width:72px;">
+                                    <div class="checkicon">
                                         <span><i class="far fa-check-circle fa-2x ixy i1"></i></span>
                                         <span><i class="fas fa-check-circle fa-2x ixy i2"></i></span>
-                                        <input type="checkbox" class="ck" id="ch">
+                                        <input type="checkbox" class="ck" id="ch4">
                                     </div>
                                     <span class="spanwid">(필수) 개인정보 처리 위탁에 동의합니다.개인정보 처리 위탁</span>
                                 </div>
                                 <div class="checkdiv  marb">  
-                                    <div class="checkicon" stlye="width:72px;">
+                                    <div class="checkicon">
                                         <span><i class="far fa-check-circle fa-2x ixy i1"></i></span>
                                         <span><i class="fas fa-check-circle fa-2x ixy i2"></i></span>
-                                        <input type="checkbox" class="ck" id="ch">
+                                        <input type="checkbox" class="ck" id="ch5">
                                     </div>
                                     <span class="spanwid">(필수) 개인정보 국외이전에 동의합니다.개인정보 국외이전</span>
                                 </div>
                               
-                                <div><button class="joinBtn">가입하기</button></div>
+                                <div><button class="joinBtn" type="submit" onclick="return checkData();">가입하기</button></div>
                             </div>
                         </form>
                     </div>
@@ -159,6 +159,17 @@
 
 
     <script>
+    //조건값으로 사용하기 위해 변수 설정
+    	var familyName=false;
+    	var givenName=false;
+    	var birth=false;
+    	var phone=false;
+    	var email=false;
+    	var pw=false;
+    	var adr1=false;
+    	var adr2=false;
+    	var adr3=false;
+    	
         $("#zip").focus(e=>{
             $("#zip").removeClass("active");
             return false;
@@ -182,9 +193,11 @@
            if(v==0){
                 $(e.target).addClass("errorred");
                 $("#fnspan").css("display","block");
+                familyName=false;
            }else{
             $(e.target).removeClass("errorred");
             $("#fnspan").css("display","none");
+            familyName=true;
            }
         })
         $("#name").on("blur",e=>{//이름이 안적혔을 때
@@ -192,19 +205,21 @@
            if(v==0){
                 $(e.target).addClass("errorred");
                 $("#nspan").css("display","block");
+                givenName=false;
            }else{
             $(e.target).removeClass("errorred");
             $("#nspan").css("display","none");
+            givenName=true;
            }
         })
 
         $("#bir").on("blur",e=>{//생일이 안적혔을 때
+        	$(e.target).attr("placeholder",'');
             var v=$(e.target).val().length;//값 길이
             var val=$(e.target).val();//값
             var toyear=new Date().getFullYear();
             var inyear=val.substr(0,4);
-            console.log(toyear+"-"+inyear);
-            var reg2=/^[0-9]/g;
+            var reg2= /^[0-9]*$/;
             if(v==8&&reg2.test(val)){
                 val=val.substr(0,4)+"-"+val.substr(4,2)+"-"+val.substr(6,2);
                 $(e.target).val(val);
@@ -213,27 +228,32 @@
                 $(e.target).addClass("errorred");
                 $("#birspan").css("display","block");
                 $("#birspan").html("만 15세 이상 이여야 합니다.");
-                return;
+                birth=false;
             }else{
                 $("#birspan").css("display","none");
+                birth=true;
             }
             var reg=/^(19|20)\d{2}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[0-1])$/g;  
            if(v==0){
                 $(e.target).addClass("errorred");
                 $("#birspan").css("display","block");
                 $("#birspan").html("생일은 필수 필드입니다.");
+                birth=false;
            }else{
             $(e.target).removeClass("errorred");
             $("#birspan").css("display","none");
+            birth=true;
            }
            if(v>=1){
             if(reg.test(val)){
                 $(e.target).removeClass("errorred");
                 $("#birspan").css("display","none");
+                birth=true;
             }else{
                 $(e.target).addClass("errorred");
                 $("#birspan").css("display","block");
                 $("#birspan").html("YYYY-MM-DD 형식으로 작성해야합니다.");
+                birth=false;
             }
            }
         })
@@ -242,29 +262,34 @@
         $("#ph").on("blur",e=>{//휴대폰이 안적혔을 때
             var v=$(e.target).val().length;
             var val=$(e.target).val();
-            var reg2=/^[0-9]/g;
+            var reg2= /^[0-9]*$/g;
             if(v==11&&reg2.test(val)){
                 val=val.substr(0,3)+"-"+val.substr(3,4)+"-"+val.substr(7,4);
                 $(e.target).val(val);
+                phone=true;
             }
            if(v==0){
                 $(e.target).addClass("errorred");
                 $(e.target).removeClass("pass");
                 $("#phspan").css("display","block");
                 $("#phspan").html("휴대폰 번호는 필수 필드입니다.");
+                phone=false;
            }else{
             $(e.target).removeClass("errorred");
             $("#phspan").css("display","none");
+            phone=true;
            }
            if(v>0){
                 var reg=/^[01]{1}[1]{1}[0]{1}-[0-9]{4}-[0-9]{4}/g;
                 if(reg.test(val)){
                     $(e.target).removeClass("errorred");
                     $("#phspan").css("display","none");
+                    phone=true;
                 }else{
                     $(e.target).addClass("errorred");
                     $("#phspan").css("display","block");
                     $("#phspan").html("휴대폰 번호가 올바르지 않습니다.");
+                    phone=false;
                 }       
            }
         })
@@ -276,19 +301,23 @@
                 $(e.target).addClass("errorred");
                 $("#emailspan").css("display","block");
                 $("#emailspan").html("이메일은 필수 필드입니다.");
+                email=false;
            }else{
             $(e.target).removeClass("errorred");
             $("#emailspan").css("display","none");
+            email=true;
            }
            if(v>=1){
             let reg=/^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/g;
             if(reg.test(val)){
                 $(e.target).removeClass("errorred");
                 $("#emailspan").css("display","none");
+                email=true;
             }else{
                 $(e.target).addClass("errorred");
                 $("#emailspan").css("display","block");
                 $("#emailspan").html("이메일 형식이 올바르지 않습니다.");
+                email=false;
             }
            }
         })
@@ -301,9 +330,11 @@
                 $("#pwspan").html("비밀번호는 필수 필드입니다.");
                 $(".pwfs").css("display","none");
                 $(".pwfsb").css("display","none");
+                pw=false;
            }else{
             $(e.target).removeClass("errorred");
             $("#pwspan").css("display","none");
+            pw=true;
            }
            if(v>0){
                var val=$(e.target).val();
@@ -313,16 +344,18 @@
                 $("#pwspan").css("display","none");
                 $(".pwfs").css("display","none");
                 $(".pwfsb").css("display","none");
+                pw=true;
                }else{
                 $(e.target).addClass("errorred");
                 $(e.target).removeClass("pass");
                 $("#pwspan").css("display","block");
                 $("#pwspan").html("비밀번호 형식이 올바르지 않습니다.");
+                pw=false;
                }
            }
         })
 
-        $("#pw").keyup(e=>{
+        $("#pw").keyup(e=>{//비밀번호의 조건마다 밑에 글씨색을 바꿈.
             var val=$(e.target).val();
             var len=$(e.target).val().length;
 
@@ -379,11 +412,31 @@
            if(v==0){
                 $(e.target).addClass("errorred");
                 $("#adrspan").css("display","block");
+                adr3=false;
            }else{
             $(e.target).removeClass("errorred");
             $("#adrspan").css("display","none");
+            adr3=true;
            }
         })
+        
+        $("#bir").focus(e=>{
+        	$(e.target).attr("placeholder","YYYY-MM-DD");
+        })
+        
+        function checkData(){//모든 조건을 만족해야 submit버튼을 활성화 시킴.
+        	if($("#zip").val().length>0&&$("#adrinput").val().length>0){
+        		adr1=true;
+        		adr2=true;
+        	}
+        	if($("#ch2").prop("checked")&&$("#ch4").prop("checked")&&$("#ch5").prop("checked")){
+        	if(familyName&&givenName&&birth&&phone&&email&&pw&&adr1&&adr2&&adr3){
+        		return true;
+        	}
+        	}
+        	return false;
+        }
+        
         
         
     </script>
@@ -437,6 +490,10 @@
             // 우편번호와 주소 정보를 해당 필드에 넣는다.
             $("#zip").val(data.zonecode);
             $("#adrinput").val(addr);
+            $("#zip").attr("disabled",false);
+            $("#adrinput").attr("disabled",false);
+            $("#zip").attr("readonly",true);
+            $("#adrinput").attr("readonly",true);
             // 커서를 상세주소 필드로 이동한다.
             $("#detailadr").focus();
             console.log(data.zonecode+" : "+addr+" : "+extraAddr);
