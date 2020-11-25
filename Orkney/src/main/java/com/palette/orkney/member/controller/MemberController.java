@@ -1,13 +1,11 @@
 package com.palette.orkney.member.controller;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -71,6 +69,7 @@ public class MemberController {
 		return mv;
 	}
 	
+
 	@RequestMapping("/member/insertSignup.do")
 	public ModelAndView insertSignup(@RequestParam Map userInfo,@RequestParam(value="adr1") String adr1,@RequestParam(value="adr2") String adr2, ModelAndView mv) {
 		String adr=(String)userInfo.get("adr1")+"/"+(String)userInfo.get("adr2")+"/"+(String)userInfo.get("adr3");
@@ -94,5 +93,11 @@ public class MemberController {
 		List<Map> list=service.chatRoom(m);
 		System.out.println(list);
 		return list;
+	}
+	
+	//마이페이지 화면으로 이동
+	@RequestMapping("/member/mypage.do")
+	public String mypageView() {
+		return "member/mypage";
 	}
 }
