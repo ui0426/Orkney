@@ -76,7 +76,7 @@
                 <a href=""><img src="https://www.ikea.com/kr/ko/static/ikea-logo.f88b07ceb5a8c356b7a0fdcc9a563d63.svg" alt=""></a>
             </div>
             <div class="header-menu">
-                <span>모든제품</span>
+                <span><a href="${path }/product/products.do">모든제품</a> </span>
                 <span><a href="${path}/product/rooms.do">디지털 쇼룸</a></span>
             </div>
             <div class="header-search">
