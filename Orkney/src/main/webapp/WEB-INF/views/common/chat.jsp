@@ -27,6 +27,7 @@
        overflow-y: scroll;
        min-height: 410px;
        max-height: 410px;
+       display:none;
    }
    .h5{
     padding: 0px 0px 0px !important;
@@ -61,6 +62,8 @@
         position: fixed;
         min-width: 280px;
         max-width: 360px;
+        min-height:515px;
+        max-height:515px;
         width: 30%;
         border-radius: 20px !important;
         left: 62%;
@@ -114,12 +117,57 @@
         .rbody{/* margin-left: 12%; */}
         .marb{margin-bottom: 6%;}
         .rec{display:none !important;}
+         #div1{background: linear-gradient(-173deg, #778899, transparent);max-height: 410px;min-height: 410px;display: flex;flex-direction: column; justify-content: center;}
+        #div2{min-height:300px;border-radius: 10px;position: relative; background-color: white;margin-left: 1%;margin-right: 1%;}
+        #div_footer{height:27px;width:100%;position: absolute;bottom: 0;}
+        #div3{display: flex;justify-content: space-between;padding: 0rem 0.3rem 0rem;}
+        #topcomment{height: 57px; display: flex;justify-content: space-between;padding: 0.5rem 1.5rem 0rem;}
+        #bottomcomment{height: 50px;align-self: center;width: 45%;text-align: -webkit-center;}
+        #moreInfo{border-radius: 10px;background-color: rgb(167, 167, 170);border: none;color: rgb(240, 240, 241);}
+        .mb0{margin-bottom: 0; color:white;}
+        #moon{color:white;}
+        #chatInfo{color: rgb(167, 167, 170);font-size: 13px;font-weight: 600;margin: 0px;padding: 0px;}
+        .chatlist{height:82px;overflow: hidden;padding: 0.5rem 1rem 0rem;text-align: left;}
+        #chatlistAll{overflow: hidden;max-height: 248px;}
+        .chatdiv2{display: flex; cursor:pointer;}
+        .w1{width:24%;position: relative;}
+        .w2{width:57%}
+        .w3{width:21%;padding: 1rem 0rem 0rem;}
+        .logoimg{
+        position: absolute;
+        left: 21%;
+        top: 21%;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-image: url(https://cf.channel.io/avatar/text/ORKNEY.778899.png);
+        background-size: cover;
+        background-position: center center;
+        background-color: rgb(255, 255, 255);
+        box-shadow: none;
+        }
+        .chatdiv :hover{background-color:rgb(240, 240, 241);}
+       /*  #sendMessage{display:none;} */
+        #chat_content{max-height: 410px;}
+        #myChatList{display:none;min-height:438px;}
+        #titlewrap{position: relative;}
+        #leftangle{position: absolute;left: 2%;cursor: pointer;display: none;}
+        #leftangle2{position: absolute;left: 2%;cursor: pointer;display: none;}
+        .borderbn{border-bottom: none;}
+        #chatlistAll2{overflow-y: scroll;max-height: 450px;min-height:438px;}
+        #newChat{cursor:pointer;}
+        #sendMs{display:flex;position: relative;}
+        #sendMessage{display:none;}
+        #sendMs{width: 100%;}
+        
 </style>
 <div id="chatdiv" style="text-align:-webkit-center;">
 	<div id="chatAll" class="card pad rad1" style="width:30%;border-radius: 20px !important;">
     <div>
     <h5 class="card-header info-color white-text text-center py-4 h5 rad1">
         <div id="title1">
+        <span id="leftangle"><i class="fas fa-angle-left"></i></span>
+        <span id="leftangle2"><i class="fas fa-angle-left"></i></span>
         <span style="font-weight:900;">ORKENY</span>
         <p style="font-size:9px;">이제 대화가 시작됩니다.</p>
         </div>
@@ -129,16 +177,64 @@
         </h5>
 </div>
     <!--Card content-->
-    <div class="card-body px-lg-5 pad">
+    <div class="card-body px-lg-5 pad" id="chat_content">
+    
+    	<div id="myChatList"> <!--전체 채팅리스트-->
+                <div id="chatlistAll2">
+                <c:forEach items="${login.chatData}" var="c" varStatus="i">
+                    <div class="chatdiv2">
+                        <div class="w1"><div class="logoimg"></div></div>
+                        <div class="chatlist w2">
+                        ${c[0].CHAT_CONTENT}
+                        <input type="hidden" value="${c[0].CHAT_ROOM }" class="roomData">
+                        </div>
+                        <div class="w3"><fmt:formatDate value="${c[0].CHAT_DATE }" pattern="MM/dd"/></div>
+                        <input type="hidden" value="${c[0].CHAT_ROOM }" class="roomData">
+                    </div>
+                </c:forEach>
+                </div>
+            </div>
 
-
+            <!--채팅창을 열었을 때 맨처음 나오는 화면 -->
+			<div id="div1">
+                <div id="topcomment">
+                    <div>
+                        <p class="mb0" style="font-size:13px;font-weight: 600;">운영 시간 아님</p>
+                        <p class="mb0"style="font-size:12px;">일 뒤 상담이 운영됩니다.</p>
+                    </div>
+                    <div>
+                        <i class="fas fa-moon fa-2x" id="moon"></i>
+                    </div>
+                </div>
+            <div id="div2">
+                <div id="div3">
+                    <div id="chatInfo">진행중인 채팅</div><div style="font-size: 12px;padding: 0.3rem 0.4rem 0rem;" id="newChat"><i class="fab fa-atlassian fa-rotate-90"></i>새 대화 시작</div>
+                </div>
+                <div id="chatlistAll">
+                <c:forEach items="${login.chatData}" var="c" varStatus="i">
+                <div class="chatdiv2">
+                    <div class="w1"><div class="logoimg"></div></div>
+                    <div class="chatlist w2">
+                    ${c[0].CHAT_CONTENT }
+                    <input type="hidden" value="${c[0].CHAT_ROOM }" class="roomData">
+                    </div>
+                    <div class="w3"><fmt:formatDate value="${c[0].CHAT_DATE }" pattern="MM/dd"/></div>
+                </div>
+                </c:forEach>
+            </div>
+            <div id="div_footer"></div>
+            </div>
+            <div id="bottomcomment"><div id="moreInfo"><a>더보기</a></div></div>
+            </div>
+			
+			
             <div id="messageBody">
                 <div class="day">오늘</div>
-                <div class="marb">
-                <div class="sender">
+                <div class="marb" id="managerChat">
+                <div class="sender" id="chatLogo">
                     <div class="mark"></div><div class="bName">Orkeny_furniture</div><div class="time">3:01&nbsp;PM</div>
                 </div>
-                <div class="mbody">
+                <div class="mbody" id="managerMs">
                     <div>
                    방문주셔서 감사드립니다! 😁<br>
 🙆‍♀️채팅 운영시간🙆‍♀️<br>
@@ -160,7 +256,10 @@
                 </div>
                 </div>
             </div>
-                <div class="reciver marb rec">
+            <div id="ajaxData">
+            	
+            </div>
+                <div class="reciver marb rec" id="cloneDiv">
                     <div class="time rtime"></div>
                     <div class="mbody rbody">
                         <div class="rcontent">
@@ -172,12 +271,14 @@
 
             <!-- Sign in button -->
         <div id="sendMessage" class="pad">
-            <div style="display:flex;position: relative;" class="pad bpad">
+            <div class="pad bpad" id="sendMs">
             <input type="text" id="message" class="form-control pad bpad"
             style="height:45px;padding:0rem 2rem 0rem !important;" placeholder="메세지를 입력해주세요.">
             <button type="button" class=" btn-email in" id="sendBtn"><i class="fas fa-envelope" style="color:gray;"></i></button>
             </div>
         </div>
+        
+        
 
     </div>
 </div>
@@ -188,19 +289,17 @@
 </div>
 <script type="text/javascript">
 	
-	 /* var id='${login.USERID}'; */
-	 var id='user1';
-
+	 var id='${login.MEMBER_NO}';
 	if(id!='admin'){
 		$("#userList").css("display","none");
 	}
 	
 	
 	$("#sendBtn").click(function() {
-		if(id!='admin'){
+		if(id!='m11'){
 		sendMessage();
 		$('#message').val('');
-		}else if(id == 'admin'){
+		}else if(id == 'm11'){
 			sendMessage2();
 			$('#message').val('');
 		}
@@ -212,7 +311,6 @@
 	// 메시지 전송
 	function sendMessage() {
 		var message=$("#message").val();
-		//sock.send($("#message").val());
 		var test={
 				type:"text",
 				user:id,
@@ -225,7 +323,6 @@
 	function sendMessage2() {
 		var message=$("#message").val();
 		var sendId=$("#sendId").val();
-		//sock.send($("#message").val());
 		var test={
 				type:"text",
 				user:id,
@@ -241,13 +338,28 @@
 		var ms=JSON.parse(data);
 		var div;
 		if(id==ms["user"]){
-			div=$(".rec").clone();
+			div=$("#cloneDiv").clone();
 			$(div).removeClass("rec");
 			$(div).css("style","display:grid;");
 			$(div).find(".rtime").html('3:30PM');
 			$(div).find(".rcontent").html(ms["ms"]);
-		}else{
-			
+		}else if(id!="admin"&&"admin"==ms["user"]){
+			div=$("#cloneDiv").clone();
+			let logo=$("#chatLogo").clone();
+			$(div).removeClass("rec");
+			$(div).css("style","display:grid;");
+			$(div).css("justify-content","flex-start");
+			$(div).prepend(logo);
+			$(div).find(".rtime").css('display','none');
+			$(div).find(".rcontent").html(ms["ms"]);
+		}else if(id=="admin"&&"admin"!=ms["user"]){
+			div=$("#cloneDiv").clone();
+			$(div).removeClass("rec");
+			$(div).css("style","display:grid;");
+			$(div).css("justify-content","flex-start");
+			//$(div).find(".rtime").css('display','none');
+			$(div).find(".rtime").html('3:30PM');
+			$(div).find(".rcontent").html(ms["ms"]);
 		}
 		$("#messageBody").append(div);
 		$("#messageBody").scrollTop($("#messageBody")[0].scrollHeight);
@@ -275,4 +387,46 @@
 	        $("#chatAll").css("visibility","hidden");
 	        $("#chaticon").css("visibility","visible");
 	    })
+	 
+	 $("#moreInfo").click(e=>{
+        $("#div1").css("display","none");
+        $("#myChatList").css("display","block");
+        $("#leftangle").css("display","block");
+    })
+    $("#leftangle").click(e=>{
+    	$("#div1").css("display","block");
+    	$("#myChatList").css("display","none");
+    	$("#leftangle").css("display","none");
+    })
+	
+    $("#newChat").click(e=>{
+    	$("#div1").css("display","none");
+    	$("#messageBody").css("display","block");
+    	$("#sendMessage").css("display","flex");
+    	$("#leftangle2").css("display","block");
+    })
+    
+    $("#leftangle2").click(e=>{
+    	$("#messageBody").css("display","none");
+    	$("#div1").css("display","block");
+    	$("#leftangle2").css("display","none");
+    	$("#sendMessage").css("display","none");
+    })
+    
+    $(".chatdiv2").click(e=>{
+    	var room=$(e.target).find("input[type=hidden]").val();
+    	$.ajax({
+    		url:"${path}/member/chatRoom.do",
+    		type:"post",
+    		data:{"memberNo":id,"roomNo":room},
+    		success:data=>{
+    			console.log(data);
+    			for(let i=0;i<data.length;i++){
+    			
+    			}
+    		}
+    		
+    	});
+    });
+    
 </script>

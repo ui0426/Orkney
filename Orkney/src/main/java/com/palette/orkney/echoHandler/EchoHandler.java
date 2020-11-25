@@ -41,47 +41,19 @@ public class EchoHandler extends TextWebSocketHandler{
 	        //모든 유저에게 메세지 출력
 	        
 	        JSONObject jo=new JSONObject(message.getPayload());
-	        		Map m=new HashMap();
-	        		int userNo=0;
-	        
+	        		
 	        if(jo.getString("type").equals("register")) {
 	        	userData.put(jo.getString("user"),session);
 	        }else {
 	        	if(jo.getString("type").equals("text")) {
-	        		for(String s:userData.keySet()) {
-	        			System.out.println(s);
-	        			if(userData.get(s)!=null&&s.equals(jo.getString("user"))) {
-//	        				userNo=service.userNo(s);
-	        				if(!jo.getString("user").equals("admin")) {
-	        				m.put("userNo",userNo);
-	        				m.put("sender",s);
-	        				m.put("reciver","admin");
-	        				m.put("message",jo.getString("ms"));
-//	        				int result=service.chatData(m);
-	        				}
-	        				userData.get(s).sendMessage(new TextMessage(message.getPayload()));
-	        			}
-	        			if(s.equals("admin")&&!("admin").equals(jo.getString("user"))) {
-	        				userData.get(s).sendMessage(new TextMessage(message.getPayload()));
-	        			}
-	        			if(("admin").equals(jo.getString("user"))&&s.equals(jo.getString("sendId"))) {
-//	        				userNo=service.userNo(jo.getString("sendId"));
-	        				m.put("userNo",userNo);
-	        				m.put("sender","admin");
-	        				m.put("reciver",jo.getString("sendId"));
-	        				m.put("message",jo.getString("ms"));
-//	        				int result=service.chatData(m);
-	        				userData.get(s).sendMessage(new TextMessage(message.getPayload()));
-	        			}
-	        		}
-	    
+	        		
 	        	}
 	        }
 	        
 	        
-//	        for(WebSocketSession sess : sessionList){
-//	            sess.sendMessage(new TextMessage(message.getPayload()));
-//	        }
+	        for(WebSocketSession sess : sessionList){
+	            sess.sendMessage(new TextMessage(message.getPayload()));
+	        }
 	    }
 	    //클라이언트 연결을 끊었을 때 실행
 	    @Override

@@ -1,5 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="member">
-  
+  <select id="loginCheck" resultType="map" parameterType="string">
+  	SELECT * FROM MEMBER WHERE MEMBER_ID=#{userId}
+  </select>
+  <insert id="insertSnsLogin" parameterType="map">
+  	INSERT INTO SNS_LOGIN VALUES(SNS_NO.NEXTVAL,#{id},#{name},#{profile},SYSDATE,#{aToken},#{rToken})
+  </insert>
+  <select id="searchGoogleId" parameterType="map" resultType="map">
+  	SELECT * FROM SNS_LOGIN WHERE EMAIL=#{id}
+  </select>
+  <update id="updateGoogleId" parameterType="map">
+  	UPDATE SNS_LOGIN SET ACCESS_TOKEN=#{aToken}
+  	<if test="rToken != null">
+  	,REFRESH_TOKEN=#{rToken}
+  	</if>
+  	WHERE EMAIL=#{id}
+  </update>
+  <insert id="insertSignup" parameterType="map">
+  	INSERT INTO MEMBER VALUES('m'||m_NUM.NEXTVAL,#{email},#{password},#{f_name}||#{g_name},SYSDATE,#{birthday},#{phone},default,default,#{emailCh})
+  </insert>
+  <select id="searchUser" parameterType="string" resultType="map">
+  	SELECT * FROM MEMBER WHERE MEMBER_ID=#{email}
+  </select>
+  <insert id="addAdr" parameterType="map">
+ 	INSERT INTO ADDR VALUES((SELECT MEMBER_NO FROM MEMBER WHERE MEMBER_ID=#{email}),#{adr},1)
+  </insert>
+  <select id="chatRoomNo" parameterType="string" resultType="string">
+  	SELECT DISTINCT CHAT_ROOM FROM CHATTING WHERE MEMBER_NO=#{no}
+  </select>
+  <select id="chatData" parameterType="string" resultType="map">
+  	SELECT * FROM CHATTING WHERE CHAT_ROOM=#{chatRoomNo}
+  </select>
+  <select id="chatRoom" parameterType="map" resultType="map">
+  	SELECT * FROM CHATTING WHERE MEMBER_NO=#{memberNo} AND CHAT_ROOM=#{roomNo} 
+  </select>
 </mapper>
