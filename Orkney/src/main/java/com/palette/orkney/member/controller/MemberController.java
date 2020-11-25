@@ -2,11 +2,12 @@ package com.palette.orkney.member.controller;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
@@ -60,9 +61,21 @@ public class MemberController {
 		return mv;
 	}
 	
-	//마이페이지 화면으로 이동
+	//마이페이지 화면으로 이동(hy)
 	@RequestMapping("/member/mypage.do")
-	public String mypageView() {
+	public String mypageView(HttpSession session) {
+		//배송지 리스트 받아오기, 주문내역 갯수, 위시리스트 갯수
+		//List<Addr> list = service.addrList();
+		
+		
 		return "member/mypage";
+	}
+	
+	//로그아웃(hy)
+	@RequestMapping("/member/loginout.do")
+	public String loginout(SessionStatus status) {
+		if(!status.isComplete()) status.setComplete();
+		
+		return "redirect:/";
 	}
 }

@@ -217,10 +217,13 @@
 </style>
 
 <section>
+	<!-- 생일 형식 yyyy-dd-mm으로 바꾸기 -->
+	<c:set var="birReplace" value="${ fn:replace(login.BIRTHDAY,'/','-') }"/>
+	
 	<div class="mypage-container">
 		<div>
 			<h1>안녕하세요, 하영님!</h1>
-			<span>로그아웃을 하고 싶으신가요? <a href="" style="text-decoration: underline;">로그아웃</a></span>
+			<span>로그아웃을 하고 싶으신가요? <a href="${ path }/member/loginout.do" style="text-decoration: underline;">로그아웃</a></span>
 		</div>
 		<div class="mypage-row">
 			<div class="mypage-row-box">
@@ -265,27 +268,38 @@
 							<span>개인 정보</span>
 							<a id="personal" onclick="fn_update(this,'#personal')">수정</a>
 						</div>
-						<div>이름</div>
-						<div>생년월일</div>
-						<div>성별</div>
+						<div><c:out value="${ login.MEMBER_NAME }"/></div>
+						<div>
+							<c:forTokens var="bTokens" items="${ login.BIRTHDAY }" delims="/" varStatus="status">
+								<c:if test="${ status.first }">
+									<c:out value="${ bTokens }년도"/>
+								</c:if>
+								<c:if test="${ !status.first && !status.last }">
+									<c:out value=" ${bTokens }월"/>
+								</c:if>
+								<c:if test="${ status.last }">
+									<c:out value=" ${ bTokens }일"/>
+								</c:if>	
+							</c:forTokens>
+						</div>
 						<div id="personal-box" class="update-box" style="display: none;">
 							<div class="personal-information-row">
-								<span class="title">성</span>
-								<input type="text" value="이하영">
+								<span class="title">이름</span>
+								<input type="text" value="${ login.MEMBER_NAME }">
 							</div>
 							<div class="personal-information-row">
 								<span class="title">생일</span>
-								<input type="text" value="1992-03-12" placeholder="YYYY-MM-DD">
+								<input type="text" value="${ birReplace }" placeholder="YYYY-MM-DD">
 							</div>
-							<div class="personal-information-row">
-								<span class="title">성별</span>
-								<input type="text" value="여">
-								<div style="display:none;">
-									<span>남성</span>
-									<span>여성</span>
-									<span>응답거부</span>
-								</div>
-							</div>
+<!-- 							<div class="personal-information-row"> -->
+<!-- 								<span class="title">성별</span> -->
+<!-- 								<input type="text" value="여"> -->
+<!-- 								<div style="display:none;"> -->
+<!-- 									<span>남성</span> -->
+<!-- 									<span>여성</span> -->
+<!-- 									<span>응답거부</span> -->
+<!-- 								</div> -->
+<!-- 							</div> -->
 							<div class="personal-information-btn">
 								<button>취소</button>
 								<button>저장</button>
@@ -301,21 +315,21 @@
 							<a id="contact" onclick="fn_update(this,'#contact')">수정</a>
 						</div>
 						<div class="flex-row-between">
-							<span>전화번호</span>
+							<span><c:out value="${ login.PHONE }"/></span>
 							<span>확인되지 않음???</span>
 						</div>
 						<div class="flex-row-between">
-							<span>이메일</span>
+							<span><c:out value="${ login.MEMBER_ID }"/></span>
 							<span>확인됨???</span>
 						</div>
 						<div id="contact-box" class="update-box" style="display: none;">
 							<div class="personal-information-row">
 								<span class="title">휴대폰</span>
-								<input type="text" value="01011111111">
+								<input type="text" value="${ login.PHONE }">
 							</div>
 							<div class="personal-information-row">
 								<span class="title">이메일</span>
-								<input type="email" value="asdf@asdf.com" placeholder="orkney@orkney.com">
+								<input type="email" value="${ login.MEMBER_ID }" placeholder="orkney@orkney.com">
 							</div>
 							<div class="personal-information-btn">
 								<button>취소</button>
@@ -377,22 +391,33 @@
 							<span>기본 주소</span>
 							<a id="address" onclick="fn_update(this,'#address')" >수정</a>
 						</div>
-						<div>경기 또기시 또기동 또기로 1번길 11</div>
-						<div>101</div>
-						<div>12121</div>
+						<c:forTokens items="${ login.ADDRESS }" delims="/" var="add" varStatus="addStatus">
+							<c:if test="${ addStatus.first }">
+								<c:set var="add1" value="${ add }"/>
+							</c:if>
+							<c:if test="${ !addStatus.first && !addStatus.last }">
+								<c:set var="add2" value="${ add }"/>
+							</c:if>
+							<c:if test="${ addStatus.last }">
+								<c:set var="add3" value="${ add }"/>
+							</c:if>
+						</c:forTokens>
+						<div><c:out value="${ add2 }"/></div>
+						<div><c:out value="${ add3 }"/></div>
+						<div><c:out value="${ add1 }"/></div>
 						<div id="address-box" class="update-box" style="display: none;">
 							<button class="addAddressBtn">우편번호 찾기</button>
 							<div class="personal-information-row">
 								<span class="title">도로명 주소</span>
-								<input type="text" id="" name="" value="경기 또기시 또기동 또기로 1번길 11" readonly>
+								<input type="text" id="" name="" value="${ add2 }" readonly>
 							</div>
 							<div class="personal-information-row">
 								<span class="title">상세 주소</span>
-								<input type="text" value="101" placeholder="상세 주소">
+								<input type="text" value="${ add3 }" placeholder="상세 주소">
 							</div>
 							<div class="personal-information-row">
 								<span class="title">우편번호</span>
-								<input type="text" value="12121" readonly>
+								<input type="text" value="${ add1 }" readonly>
 							</div>
 							<div class="personal-information-btn">
 								<button>취소</button>
@@ -416,11 +441,11 @@
 						<div>101</div>
 						<div>12121</div>
 						<br>
-						<span>휴대폰 : </span><span>010 1111 1111</span>
+						<span>휴대폰 : </span><span><c:out value=""/></span>
 						<div id="deliveryAddress-box" class="update-box" style="display: none;">
 							<div class="personal-information-row">
-								<span class="title">성</span>
-								<input type="text" value="이하영">
+								<span class="title">이름</span>
+								<input type="text" value="tjd">
 							</div>
 							<div class="personal-information-row">
 								<span class="title">휴대폰</span>
