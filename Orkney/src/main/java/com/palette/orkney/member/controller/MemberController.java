@@ -45,7 +45,7 @@ public class MemberController {
 		}
 		return "redirect:/";
 	}
-	//·Î±×ÀÎ ·ÎÁ÷ ±¸¼º
+	//ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	@RequestMapping(value="/member/login.do")
 	public ModelAndView login(ModelAndView mv,@RequestParam(value="userId") String id,@RequestParam(value="userPw") String pw) {
 		
@@ -58,5 +58,11 @@ public class MemberController {
 		}
 		
 		return mv;
+	}
+	
+	//ë§ˆì´í˜ì´ì§€ í™”ë©´ìœ¼ë¡œ ì´ë™
+	@RequestMapping("/member/mypage.do")
+	public String mypageView() {
+		return "member/mypage";
 	}
 }
