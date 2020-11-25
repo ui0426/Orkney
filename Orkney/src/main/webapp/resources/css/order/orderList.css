@@ -1,0 +1,77 @@
+@charset "UTF-8";
+*{
+	    font-family: sans-serif;
+	}
+	.orderList-container{
+		max-width: 1024px;
+	    margin: 0 auto;
+	}
+	.orderList_mobile{
+		width: -webkit-fill-available;
+	}
+	
+	.orderList-tab{
+		width: 100%;
+	}
+	.orderList-btn{
+		padding: 1em 0 1em 0px;
+		font-weight: 500;
+		margin-bottom: .375rem;
+		border:0;
+		border-radius: .125rem;
+		box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
+		transition: color 0.15s ease-in-out,background-color 0.15s ease-in-out,border-color 0.15s ease-in-out,box-shadow 0.15s ease-in-out,-webkit-box-shadow 0.15s ease-in-out;
+		font-size: .81rem;
+		width: -webkit-fill-available;
+	}
+	.orderList-btn:focus{
+		outline: none;
+	}
+	.orderList_desktop{
+		display: none;
+	}
+	caption{
+		caption-side: top;
+	}
+	.desktop_content{
+		padding: 0 1rem 2rem 1rem;
+	}
+	.orderList_Table{
+		width: -webkit-fill-available;
+		border-spacing: 0;
+	}
+	.orderList_Caption{
+		font-weight: 700;
+		font-size: 1em;
+	}
+	.orderList_Table th{
+	    padding: 1rem 0 1rem 15px;
+	    color: #666;
+	    font-weight: 600;
+	    font-size: 0.7rem;
+	}
+	.list-item{
+		font-size: 0.8rem;
+		font-weight: 400;
+	}
+	@media (min-width: 769px){
+	.orderList-container{
+	    padding-left: 1rem;
+	    padding-right: 1rem;
+		}
+		.orderList_mobile {
+		    display: none;
+		}
+		.orderList_desktop{
+			display: block;
+		}
+		.list-item{
+			display: table-cell;
+    		border-top: 1px solid #ccc;
+		}
+	}
+	.btn-clicked{
+		box-shadow: 0 5px 4px 0 rgba(0,0,0,0.16), 0 4px 10px 0 rgba(0,0,0,0.12);
+    	z-index: 1;
+    	font-weight: 600;
+	}

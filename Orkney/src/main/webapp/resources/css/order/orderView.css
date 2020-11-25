@@ -1,0 +1,377 @@
+@charset "UTF-8";
+p{margin:0;}
+	h5{margin:0;}
+	.order-container-inner{
+		padding: 0 1rem;
+	}
+	.orderTitle{
+		margin-bottom: 1rem;
+	}
+	.orderNumber{
+		font-size: 1rem;
+	    font-weight: 400;
+	    text-align: center;
+	    margin: 0;
+	}
+	.cancel-msg{
+		color: #333;
+	    border: 1px solid #fd0;
+	    background-color: rgba(255,244,178,.5);
+	    display: flex;
+	    flex-direction: row;
+	    align-items: center;
+	    padding: 1rem;
+	    justify-content: space-between;
+	    margin-bottom: 1.5rem;
+	}
+	.cancelicon{
+		width: 4rem;
+		display: flex;
+		justify-content: center;
+	}
+	.cancel-content{
+		width: 100%;
+	}
+	.cancel-text{
+		font-size: 0.875rem;
+		font-weight: 400;
+	}
+	.part-line{
+		display: flex;
+		flex-direction: column;	
+	}
+	.line-c{
+		margin-top: 1.25rem;
+		margin-bottom: 1.25rem;
+	}
+	/* .orderDetail{
+		padding:0 1rem;
+	} */
+	.orderDetail-container{
+		margin-bottom: 1rem;
+		margin-top: 1rem;
+	}
+	.orderDetail-content{
+		margin-bottom: .5rem;
+	}
+	.od-title{
+		font-size: .85rem;
+		font-weight: 600;
+	}
+	.od-content{
+		font-size: .9rem;
+		font-weight: 500;
+	}
+	.productList{
+		width: 100%;
+	}
+	.productList-tap{
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+	}
+	.pl-title{
+		font-size: 1rem;
+    	font-weight: 700;
+		color: black;
+	}
+	.pl-svg{
+		color: #6b98c2;
+	}
+	.product-container{
+		display: none;
+		flex-direction: row;
+		padding: 1rem 0;
+		border-bottom: 1px solid #e5e5e5;
+	}
+	.product-info{
+		width: 100%
+	}
+	.product-img{
+		width: 70px;
+    	height: 70px;
+	}
+	.product-text{
+		font-size: 0.875rem;
+    	font-weight: 500;
+    	margin-bottom: .625rem;
+	}
+	.product-price{
+		font-weight: 700;
+	}
+	.price-amount{
+		font-size: 1rem;
+    	font-weight: 700;
+	}
+	.price-container{
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+	}
+	.product-code{
+		width: min-content;
+	    background-color: black;
+	    color: white;
+	    font-size: 0.7rem;
+	    font-weight: 600;
+	}
+	.address-container{
+		margin-top: 1.5rem;
+	}
+	.od_mobile{
+		margin: 1rem 0px .5rem 0px;
+	}
+	/* .address-m-title{
+		margin:  0px;
+	} */
+	.address-content{
+		margin-bottom: 1rem;
+	}
+	.address-text{
+		margin-bottom: .625rem;
+	}
+	.orderAddress{
+		display: block;
+	}
+	
+	.payment-container{
+		margin-bottom: 0.5em;
+	}
+	.payment-price{
+		margin: 0;
+   		font-size: 0.75rem;
+    	font-weight: 700;
+	}
+	.payment-deilvery{
+	    margin-bottom: .625rem;
+	    font-size: 0.875rem;
+	    font-weight: 400;
+	}
+	.payment-partline{
+		margin: 2px;
+    	border-bottom: 1px solid #000;
+	}
+	.paymentAmount{
+		font-size: 13px;
+	}
+	
+	.od_desktop{display:none;}
+	
+	.desktop-productList{display:none;}
+	
+	@media(min-width: 769px){
+		.od_mobile{display:none;}
+		.od_desktop{display:block;}
+		.od_d_title{
+			font-size: 1rem;
+		    font-weight: 700;
+		    margin-left: 10rem;
+		}
+		.od-desktop-container{
+			display:flex;
+			flex-direction: row;
+		}
+		.od-desktop-content{
+			margin-left: 5em;
+		}
+		.desktop-price{
+			width: 50%;
+		}
+		.desktop-productList{
+			display:block;
+			text-align: center;
+    		font-weight: 700;
+		}
+		.productList{display:none;}
+		.product-container{
+			display: flex;
+		}
+		.detail-content{
+			display: flex;
+		    flex-direction: row;
+		    justify-content: space-around;
+		}
+		.paymentAmount{
+			font-size: 15px;
+		}
+	}
+	
+	#p-minus{
+		display: none;
+	}
+	
+	
+	
+	/* 배송시작 전 나오는 것들 css */
+	.cancelCheck{
+    	height: 1em;
+	}
+	.cancel-btn{
+	    height: 100%;
+	    display: flex;
+	    flex-direction: row;
+	    align-items: center;
+	    color: #407ab1;
+	    
+	}
+	.cancel-btn:focus { outline:none; }
+	.cancel-btn:hover{
+		 color:#81a3c3;
+	}
+	.stateCheck-icon{
+		height: 100%;
+	}
+	.cancel-btn-name{
+		margin-left: 0.5em;
+	}
+	.destination-content{
+		display: none;
+	}
+	.de-title{
+		font-size: 0.9rem;
+		font-weight: 700;
+    	color: #484848;
+	}
+	#minus{
+		display: none;
+	}
+	.deilvery-icons{
+		fill: currentColor;
+    	fill-rule: evenodd;
+    	stroke: none;
+	}
+	.delivery-title{
+		align-items: center;
+	    display: flex;
+	    flex-direction: column;
+	}
+	.delivery-title-icon{
+		width: 37px;
+    	height: 37px;
+	}
+	.deli-title-text{
+		margin-top: 0.4em;
+	}
+	.deli-title{
+		font-size: 1rem;
+    	font-weight: 700;
+	}
+	.delivery-content{
+		text-align: center;
+	}
+	.start-date{
+		font-size: 0.75rem;
+    	font-weight: 700;
+	}
+	.start-date-content{
+		font-size: 0.75rem;
+	    font-weight: 500;
+	}
+	.delivery-state{
+	    display: flex;
+    	flex-direction: row;
+	}
+	.state-title{
+		font-size: 0.875rem;
+    	font-weight: 500;
+	}
+	.state-content-text{
+	    font-size: 0.875rem;
+    	font-weight: 700;
+	}
+	.delivery-desktop{
+		display: none;
+	}
+	
+	@media(min-width: 769px){
+		.mobile-line{
+			display: none;
+		}
+		.delivery-mobile{
+			display: none;
+		}
+		.delivery-desktop{
+			display: block;
+			border: 1px solid #ccc;
+			margin-top: 4rem;
+    		padding: 1.25rem;
+		}
+		.desktop-icon-container{
+			display:flex;
+			justify-content: center;
+			position: relative;
+			top: -2.25rem;
+		}
+		.desktop-icon{
+			background-color: white;
+		}
+		.address-content{
+			text-align: center;
+		}
+		.desktop-date{
+			display:flex;
+			flex-direction: row;
+			
+		}
+		
+	
+	}
+	
+	/* 배송상태에 관한 css */
+	.state-content{
+		padding: 1em 0;
+		display: flex;
+		flex-direction: row;
+		width:100%
+	}
+	.stateIcon{
+		width: 24px;
+		height: 24px;
+		color: #407ab1;
+	}
+	.statecourse{
+		display: flex;
+    	align-items: center;
+    	flex-direction: column;
+    	width:20%;
+	}
+	.state-icon{
+		padding: 10px;
+	    border: 2px solid #407ab1;
+	    color: #407ab1;
+	    border-radius: 50%;
+	    
+	}
+	.state-connection{
+		width:100%
+	}
+	.state-connection::after{
+		content: "";
+	    display: block;
+	    height: 2px;
+	    width: 100%;
+	    background-color: #ccc;
+	}
+	.od-deli-container{
+	    width: 100%;
+	}
+	.delivery-inner{
+		width:100%;
+		display: flex;
+	    width: 100%;
+	    flex-direction: column;
+	    align-items: center;
+	}
+	.state-name{
+		font-weight: 500;
+		font-size: 0.8em;
+	}
+	.state-icon-group{
+	display:flex;
+	flex-direction: row;
+	align-items: center;
+	width: 100%
+	}
+	.first-state{
+		visibility: hidden;
+	}

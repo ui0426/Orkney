@@ -6,7 +6,7 @@
 <c:set var="path" value="${pageContext.request.contextPath }"/>
 
 <jsp:include page="/WEB-INF/views/common/header.jsp">		
-	<jsp:param name="title" value="" />
+	<jsp:param name="title" value="주문관리 로그인" />
 </jsp:include>
 <link rel="stylesheet" href="${path}/resources/css/order/orderForm.css"/>
 

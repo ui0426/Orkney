@@ -25,5 +25,16 @@ public class OrderController {
 	public String orderList() {
 		return "order/orderList";
 	}
+	
+	@RequestMapping("/order/orderView.do")
+	public String orderView() {
+		return "order/orderView";
+	}
+	
+	//임시
+	@RequestMapping("/order/orderView2.do")
+	public String orderView2() {
+		return "order/orderView2";
+	}
 
 }
