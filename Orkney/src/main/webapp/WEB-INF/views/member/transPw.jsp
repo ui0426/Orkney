@@ -102,6 +102,7 @@
     .mb{margin-bottom: 2rem;}
     .heart{display:none;}
     .fc{color:black !important;}
+    .ic{color:lightcoral;}
 </style>
 <body>
     <div id="totalForm">
@@ -121,10 +122,10 @@
                 <div>
                     <h1 class="fw hfs" id="logintitle">비밀번호를<br>재설정해주세요.</h1>
                     <p class="ptext" id="logintext"><b style="font-weight:700;">비밀번호는 최소 다음이 포함되어야 합니다.</b><br><br>
-                  <i class="fas fa-heart heart" id="lenht1"></i><i class="fas fa-heart-broken"  id="lenht2"></i>&nbsp최소 8자 이상을 입력해야 합니다.<br>
-                  <i class="fas fa-heart heart" id="numht1"></i><i class="fas fa-heart-broken" id="numht2"></i>&nbsp숫자 또는 특수문자<br>
-                  <i class="fas fa-heart heart" id="lowht1"></i><i class="fas fa-heart-broken" id="lowht2"></i>&nbsp소문자<br>
-                  <i class="fas fa-heart heart" id="highht1"></i><i class="fas fa-heart-broken" id="highht2"></i>&nbsp대문자
+                  <i class="fas fa-heart heart ic" id="lenht1"></i><i class="fas fa-heart-broken"  id="lenht2"></i>&nbsp최소 8자 이상을 입력해야 합니다.<br>
+                  <i class="fas fa-heart heart ic" id="numht1"></i><i class="fas fa-heart-broken" id="numht2"></i>&nbsp숫자 또는 특수문자<br>
+                  <i class="fas fa-heart heart ic" id="lowht1"></i><i class="fas fa-heart-broken" id="lowht2"></i>&nbsp소문자<br>
+                  <i class="fas fa-heart heart ic" id="highht1"></i><i class="fas fa-heart-broken" id="highht2"></i>&nbsp대문자
                     	</p>
                     <div></div>
                 </div>
