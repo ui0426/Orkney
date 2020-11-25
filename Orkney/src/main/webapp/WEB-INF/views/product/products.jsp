@@ -45,7 +45,7 @@
 							<p style="margin-top: auto;">#개</p>
 							<a type="button"
 								class="btn btn-success waves-effect waves-light btnBol text-white"
-								style="background-color: gray !important;"> 제품비교 <i
+								style="background-color: gray !important;" href="${path}/product/productsCompare.do"> 제품비교 <i
 								class="far fa-gem ml-1 text-white"></i>
 							</a>
 						</div>
