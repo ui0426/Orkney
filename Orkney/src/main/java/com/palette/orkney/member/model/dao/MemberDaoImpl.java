@@ -68,5 +68,17 @@ public class MemberDaoImpl implements MemberDao {
 		// TODO Auto-generated method stub
 		return session.selectList("member.chatRoom",m);
 	}
+
+	@Override
+	public List<Map> chatAllData(SqlSession session, String id) {
+		// TODO Auto-generated method stub
+		return session.selectList("member.chatAllData",id);
+	}
+
+	@Override
+	public int chatDataSave(SqlSession session, Map m) {
+		// TODO Auto-generated method stub
+		return session.insert("member.chatDataSave",m);
+	}
 	
 }

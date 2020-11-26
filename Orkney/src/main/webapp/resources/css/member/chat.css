@@ -1,0 +1,159 @@
+@charset "UTF-8";
+
+  .in{
+        background: none;
+        position: absolute;
+        padding: .3rem 1rem .3rem;
+        left: 84%;
+        border:none;
+        outline:none !important;
+        top: 8%;
+    }
+   .pad{
+        padding:0 !important;
+   }
+   .rad1{
+       border-top-left-radius: 15px !important;
+       border-top-right-radius: 15px !important;
+   }
+   #messageBody{
+       padding:.1rem .9rem .0rem;
+       overflow-y: scroll;
+       min-height: 410px;
+       max-height: 410px;
+       display:none;
+   }
+   .h5{
+    padding: 0px 0px 0px !important;
+    justify-content: space-between;
+    display:flex;
+    background-color:#778899 !important;
+   }
+   #title1{
+    text-align: left;
+    margin-left: 7%;
+    padding: 7px 0px 0px;
+   }
+   .bpad{
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+   }
+   #xicon{cursor: pointer;}
+   #xicon:hover{color:moccasin;}
+	.st0{fill:#778899;}
+	.st1{fill:#FFFFFF;}
+    #chaticon{
+    width: 75px;
+    position: fixed;
+    left: 87%;
+    bottom: 2%;
+    cursor: pointer;
+    z-index: 10000000;
+    }
+    #chatdiv{position: relative;}
+    
+    #chatAll{
+        position: fixed;
+        min-width: 280px;
+        max-width: 360px;
+        min-height:515px;
+        max-height:515px;
+        width: 30%;
+        border-radius: 20px !important;
+        left: 62%;
+        bottom: 4%;
+        z-index: 10000000;
+        
+        visibility:hidden;
+    }
+    .mark{
+        width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background-image: url(https://cf.channel.io/avatar/text/ORKENY.778899.png);
+    background-size: cover;
+    background-position: center center;
+    background-color: rgb(255, 255, 255);
+    box-shadow: none;
+    }
+    .day{
+        text-align: center;
+        font-size: 11px;
+        font-weight: 600;
+        color: rgb(167,167,170);
+        margin-top: 6%;
+             margin-bottom: 4%;
+    }
+    .sender{display:flex;align-items: center;}
+        
+        .bName{
+            font-size: 13px;
+            font-weight: 800;
+            margin-left: 2%;
+            margin-right: 2%;
+        }
+        .time{font-size:11px;color:rgb(167,167,170);}
+        
+        .mbody{
+            max-width: 280px;
+            padding: 10px;
+            border-radius: 12px;
+            background-color: rgb(240, 240, 241);
+            color: rgb(36, 36, 40);
+            width: max-content;
+        }
+        .reciver{
+            display: grid !important;
+   		 	justify-content: flex-end;
+  			margin: 0;
+        }
+        .rtime{text-align: end;}
+        .rbody{/* margin-left: 12%; */}
+        .marb{margin-bottom: 6%;}
+        .rec{display:none !important;}
+         #div1{background: linear-gradient(-173deg, #778899, transparent);max-height: 410px;min-height: 410px;display: flex;flex-direction: column; justify-content: center;}
+        #div2{min-height:300px;border-radius: 10px;position: relative; background-color: white;margin-left: 1%;margin-right: 1%;}
+        #div_footer{height:27px;width:100%;position: absolute;bottom: 0;}
+        #div3{display: flex;justify-content: space-between;padding: 0rem 0.3rem 0rem;}
+        #topcomment{height: 57px; display: flex;justify-content: space-between;padding: 0.5rem 1.5rem 0rem;}
+        #bottomcomment{height: 50px;align-self: center;width: 45%;text-align: -webkit-center;}
+        #moreInfo{border-radius: 10px;background-color: rgb(167, 167, 170);border: none;color: rgb(240, 240, 241);}
+        .mb0{margin-bottom: 0; color:white;}
+        .smicon{color:white;}
+        #chatInfo{color: rgb(167, 167, 170);font-size: 13px;font-weight: 600;margin: 0px;padding: 0px;}
+        .chatlist{height:82px;overflow: hidden;padding: 0.5rem 1rem 0rem;text-align: left;position: relative;z-index: 2;}
+        #chatlistAll{overflow: hidden;max-height: 248px;}
+        .chatdiv2{display: flex;}
+        .w1{width:24%;position: relative;}
+        .w2{width:57%;cursor:pointer;}
+        .w3{width:21%;padding: 1rem 0rem 0rem;}
+        .logoimg{
+        position: absolute;
+        left: 21%;
+        top: 21%;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-image: url(https://cf.channel.io/avatar/text/ORKNEY.778899.png);
+        background-size: cover;
+        background-position: center center;
+        background-color: rgb(255, 255, 255);
+        box-shadow: none;
+        }
+        .chatdiv :hover{background-color:rgb(240, 240, 241);}
+       /*  #sendMessage{display:none;} */
+        #chat_content{max-height: 410px;}
+        #myChatList{display:none;min-height:438px;}
+        #titlewrap{position: relative;}
+        #leftangle{position: absolute;left: 2%;cursor: pointer;display: none;}
+        #leftangle2{position: absolute;left: 2%;cursor: pointer;display: none;}
+        .borderbn{border-bottom: none;}
+        #chatlistAll2{overflow-y: scroll;max-height: 450px;min-height:438px;}
+        #newChat{cursor:pointer;}
+        #sendMs{display:flex;position: relative;}
+        #sendMessage{display:none;}
+        #sendMs{width: 100%;}
+        #sun{color:white;}
+        .chatClone{display:none;}
+        .alarm{color:red;display:none;}
+        .contentIndex{position:relative;z-index:-10;}

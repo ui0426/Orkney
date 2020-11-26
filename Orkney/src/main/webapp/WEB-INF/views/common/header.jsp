@@ -73,7 +73,7 @@
                 </div>
             </div>
             <div class="header-logo">
-                <a href=""><img src="https://www.ikea.com/kr/ko/static/ikea-logo.f88b07ceb5a8c356b7a0fdcc9a563d63.svg" alt=""></a>
+                <a href="${path}"><img src="https://www.ikea.com/kr/ko/static/ikea-logo.f88b07ceb5a8c356b7a0fdcc9a563d63.svg" alt=""></a>
             </div>
             <div class="header-menu">
                 <span><a href="${path }/product/products.do">모든제품</a> </span>

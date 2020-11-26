@@ -27,4 +27,8 @@ public interface MemberDao {
 
 	List<Map> chatRoom(SqlSession session, Map m);
 
+	List<Map> chatAllData(SqlSession session, String id);
+
+	int chatDataSave(SqlSession session, Map m);
+
 }

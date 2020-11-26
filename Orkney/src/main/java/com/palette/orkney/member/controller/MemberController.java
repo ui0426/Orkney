@@ -100,4 +100,11 @@ public class MemberController {
 	public String mypageView() {
 		return "member/mypage";
 	}
+	
+	@RequestMapping("/member/chatAllData.do")
+	@ResponseBody
+	public List<Map> chatAllData(String id){
+		
+		return service.chatAllData(id);
+	}
 }

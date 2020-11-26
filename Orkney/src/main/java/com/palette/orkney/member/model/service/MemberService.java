@@ -26,4 +26,8 @@ public interface MemberService {
 
 	List<Map> chatRoom(Map m);
 
+	List<Map> chatAllData(String id);
+
+	int chatDataSave(Map m);
+
 }
