@@ -36,12 +36,14 @@
 									</tr>
 								</thead>
 								<tbody>
-									<tr>
-										<td class="list-item">172398866</td>
-										<td class="list-item">2020-11-21 13:32</td>
-										<td class="list-item">진행 중</td>
-										<td class="list-item"><a href="${path }/order/orderView.do">주문 내역 보기</a>
-									</tr>
+									<c:forEach items="${list }" var="o">
+											<tr>
+												<td class="list-item"><c:out value="${o.ORDER_NO }"/></td>
+												<td class="list-item"><c:out value="${o.ORDER_DATE }"/></td>
+												<td class="list-item"><c:out value="${o.ORDER_STATE }"/></td>
+												<td class="list-item"><a href="${path }/order/orderView.do">주문 내역 보기</a>
+											</tr>
+									</c:forEach>
 								</tbody>
 							</table>
 						</div>
@@ -59,12 +61,14 @@
 									</tr>
 								</thead>
 								<tbody>
-									<tr>
-										<td class="list-item">172398866</td>
-										<td class="list-item">2020-11-21 13:32</td>
-										<td class="list-item">취소</td>
-										<td class="list-item"><a href="${path }/order/orderView.do">주문 내역 보기</a>
-									</tr>
+									<c:forEach items="${list }" var="o">
+											<tr>
+												<td class="list-item"><c:out value="${o.ORDER_NO }"/></td>
+												<td class="list-item"><c:out value="${o.ORDER_DATE }"/></td>
+												<td class="list-item"><c:out value="${o.ORDER_STATE }"/></td>
+												<td class="list-item"><a href="${path }/order/orderView.do">주문 내역 보기</a>
+											</tr>
+									</c:forEach>
 								</tbody>
 							</table>
 						</div>

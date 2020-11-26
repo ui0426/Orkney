@@ -28,7 +28,7 @@
 				  	
 				  	<div class="form-group">
 				  		<label class="order_information">
-					    	<input type="password" name="memberPassword" class="form-control order-infor-input order-form-phone" id="mepassword">
+					    	<input type="password" name="memberPassword" class="form-control order-infor-input order-form-phone" id="mpassword">
 					   		<span id="inputphone" class="order-input-center">비밀번호</span>
 				   		</label>
 				  	</div>
