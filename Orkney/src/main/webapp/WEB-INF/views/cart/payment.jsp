@@ -6,8 +6,8 @@
 <c:set var="path" value="${pageContext.request.contextPath }"/>
 
 
-<jsp:include page="/WEB-INF/views/common/header.jsp">		
-	<jsp:param name="title" value="메인화면" />
+<jsp:include page="/WEB-INF/views/common/header.jsp">      
+   <jsp:param name="title" value="결제화면" />
 </jsp:include>
 <link rel="stylesheet" href="${path}/resources/css/cart/payment.css">
 
@@ -20,19 +20,35 @@
             <div class="etc-title">주문상품</div>        
             
             <div class="line1"></div>
-            <div class="order-container">
-                <div class="product-pic"><img src="https://www.ikea.com/kr/ko/images/products/groenlid-chaise-longue-section-ljungen-light-red__0852499_PE780117_S3.JPG" alt=""></div>               
-                <div class="product-detail">
-                    <div>GRÖNLID 그뢴리드</div>
-                    <div>15*12</div>
-                    <div>149,000원</div>
-                    <div>1개</div>
-                </div>
+            
+            <div class="product-container">
+	            <div class="order-container">
+	                <div class="product-pic"><img src="https://www.ikea.com/kr/ko/images/products/groenlid-chaise-longue-section-ljungen-light-red__0852499_PE780117_S3.JPG" alt=""></div>               
+	                <div class="product-detail">
+	                    <div>GRÖNLID 그뢴리드</div>
+	                    <div>15*12</div>
+	                    <div>149,000원</div>
+	                    <div>1개</div>
+	                </div>
+	            </div>
+	             <div class="order-container">
+	                <div class="product-pic"><img src="https://www.ikea.com/kr/ko/images/products/groenlid-chaise-longue-section-ljungen-light-red__0852499_PE780117_S3.JPG" alt=""></div>               
+	                <div class="product-detail">
+	                    <div>GRÖNLID 그뢴리드</div>
+	                    <div>15*12</div>
+	                    <div>149,000원</div>
+	                    <div>1개</div>
+	                </div>
+	            </div>
             </div>
+            
         </div>
         
         <div class="section1">
-            <div class="etc-title">배송지</div>
+            <div class="etc-title">
+                  <span>배송지</span>   
+                  <button class="btn2">회원정보와 동일하게 채우기</button>
+            </div>
             <div class="line1"></div>
             <div class="field">
                 <span class="first-div">받는분</span>
@@ -68,8 +84,8 @@
         
         <div class="section1">            
             <div class="etc-title">
-                <span>주문자</span>
-                <button class="btn2">배송지 정보와 동일하게 채우기</button>
+                <span>주문자</span>  
+                <button class="btn2">회원정보와 동일하게 채우기</button>           
             </div>
             <div class="line1"></div>
             <div class="field">
@@ -206,7 +222,7 @@
                                     1. 수집항목 : [필수] 이름, 연락처, 이메일주소, 인원정보
                                     2. 수집 및 이용목적 : 사업자회원과 예약이용자의 원활한 거래 진행, 고객상담, 불만처리 등 민원 처리, 분쟁조정 해결을 위한 기록보존, 스테이폴리오 멤버십 및 프로모션, 이벤트 안내
                                     3. 보관기간 : 회원탈퇴 등 개인정보 이용목적 달성 시까지 보관. 단, 상법 및 ‘전자상거래 등에서의 소비자 보호에 관한 법률’ 등 관련 법령에 의하여 일정 기간 보관이 필요한 경우에는 해당 기간 동안 보관함
-                                    4. 동의 거부권 등에 대한 고지 : 정보주체는 개인정보의 수집 및 이용 동의를 거부할 권리가 있으나, 이 경우 상품 및 서비스 예약이 제한될 수 있습니다.								                                                                            
+                                    4. 동의 거부권 등에 대한 고지 : 정보주체는 개인정보의 수집 및 이용 동의를 거부할 권리가 있으나, 이 경우 상품 및 서비스 예약이 제한될 수 있습니다.                                                                                                    
                 </div>
             </div>
             
@@ -221,7 +237,7 @@
                                 1. 수집항목 : [필수] 이름, 연락처, 이메일주소, 인원정보
                                 2. 수집 및 이용목적 : 사업자회원과 예약이용자의 원활한 거래 진행, 고객상담, 불만처리 등 민원 처리, 분쟁조정 해결을 위한 기록보존, 스테이폴리오 멤버십 및 프로모션, 이벤트 안내
                                 3. 보관기간 : 회원탈퇴 등 개인정보 이용목적 달성 시까지 보관. 단, 상법 및 ‘전자상거래 등에서의 소비자 보호에 관한 법률’ 등 관련 법령에 의하여 일정 기간 보관이 필요한 경우에는 해당 기간 동안 보관함
-                                4. 동의 거부권 등에 대한 고지 : 정보주체는 개인정보의 수집 및 이용 동의를 거부할 권리가 있으나, 이 경우 상품 및 서비스 예약이 제한될 수 있습니다.								                                                                            
+                                4. 동의 거부권 등에 대한 고지 : 정보주체는 개인정보의 수집 및 이용 동의를 거부할 권리가 있으나, 이 경우 상품 및 서비스 예약이 제한될 수 있습니다.                                                                                                    
                             </div>
             </div>
 
@@ -236,10 +252,10 @@
                                 1. 수집항목 : [필수] 이름, 연락처, 이메일주소, 인원정보
                                 2. 수집 및 이용목적 : 사업자회원과 예약이용자의 원활한 거래 진행, 고객상담, 불만처리 등 민원 처리, 분쟁조정 해결을 위한 기록보존, 스테이폴리오 멤버십 및 프로모션, 이벤트 안내
                                 3. 보관기간 : 회원탈퇴 등 개인정보 이용목적 달성 시까지 보관. 단, 상법 및 ‘전자상거래 등에서의 소비자 보호에 관한 법률’ 등 관련 법령에 의하여 일정 기간 보관이 필요한 경우에는 해당 기간 동안 보관함
-                                4. 동의 거부권 등에 대한 고지 : 정보주체는 개인정보의 수집 및 이용 동의를 거부할 권리가 있으나, 이 경우 상품 및 서비스 예약이 제한될 수 있습니다.				
+                                4. 동의 거부권 등에 대한 고지 : 정보주체는 개인정보의 수집 및 이용 동의를 거부할 권리가 있으나, 이 경우 상품 및 서비스 예약이 제한될 수 있습니다.            
                             </div> 
             </div>
-            <span class="pay-btn"><button type="button" class="btn btn-dark event-bu"><span class="event-sp">결제하기</span></button></span> 
+            <span class="pay-btn"><button type="button" class="btn btn-dark event-bu"  onclick="location.href='${path }/cart/complete.do'"><span class="event-sp">결제하기</span></button></span> 
         </div>
 
 

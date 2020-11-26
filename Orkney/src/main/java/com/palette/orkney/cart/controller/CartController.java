@@ -17,5 +17,9 @@ public class CartController {
 	public String payment() {
 		return "cart/payment";
 	}
+	@RequestMapping("/cart/complete.do")
+	public String complete() {
+		return "cart/complete";
+	}
 }
 
