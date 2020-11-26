@@ -1,5 +1,5 @@
 @charset "UTF-8";
-
+*{font-family: sans-serif;}
 #order-container-content {
 	margin: 1.5rem 1rem 3rem 1rem;
 }
@@ -71,7 +71,6 @@
 .order-form-help {
 	color: #0056b3;
 	font-size: smaller;
-	font-family: sans-serif;
 	font-weight: 600;
 	    display: flex;
     align-items: center;
@@ -94,7 +93,6 @@
 	margin-left: 1em;
 	font-size: 0.875rem;
     font-weight: 500;
-    font-family: sans-serif;
     display: none;
 }
 @media(min-width: 1024px){

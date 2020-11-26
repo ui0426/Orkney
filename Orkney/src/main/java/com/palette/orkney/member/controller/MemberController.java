@@ -3,6 +3,8 @@ package com.palette.orkney.member.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -68,7 +70,6 @@ public class MemberController {
 		
 		return mv;
 	}
-	
 
 	@RequestMapping("/member/insertSignup.do")
 	public ModelAndView insertSignup(@RequestParam Map userInfo,@RequestParam(value="adr1") String adr1,@RequestParam(value="adr2") String adr2, ModelAndView mv) {
@@ -87,6 +88,7 @@ public class MemberController {
 		mv.setViewName("redirect:/");
 		return mv;
 	}
+
 	@RequestMapping("/member/chatRoom.do")
 	@ResponseBody
 	public List<Map> chatRoom(@RequestParam Map m) {
@@ -95,10 +97,24 @@ public class MemberController {
 		return list;
 	}
 	
+	
 	//마이페이지 화면으로 이동
 	@RequestMapping("/member/mypage.do")
-	public String mypageView() {
+	public String mypageView(HttpSession session) {
+		//배송지 리스트 받아오기, 주문내역 갯수, 위시리스트 갯수
+		//List<Addr> list = service.addrList();
+		
+		
 		return "member/mypage";
+		
+	}
+	
+	//로그아웃(hy)
+	@RequestMapping("/member/loginout.do")
+	public String loginout(SessionStatus status) {
+		if(!status.isComplete()) status.setComplete();
+		
+		return "redirect:/";
 	}
 	
 	@RequestMapping("/member/chatAllData.do")
