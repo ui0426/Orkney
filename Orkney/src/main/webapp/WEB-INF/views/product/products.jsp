@@ -15,7 +15,7 @@
 
 <section id="content">
 
-
+<!-- 모달 필터 -->
 	<div class="modal fade bottom" id="frameModalBottomSuccess"
 		tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
 		aria-hidden="true" data-backdrop="false">
@@ -45,7 +45,7 @@
 							<p style="margin-top: auto;">#개</p>
 							<a type="button"
 								class="btn btn-success waves-effect waves-light btnBol text-white"
-								style="background-color: gray !important;"> 제품비교 <i
+								style="background-color: gray !important;" href="${path}/product/productsCompare.do"> 제품비교 <i
 								class="far fa-gem ml-1 text-white"></i>
 							</a>
 						</div>
@@ -334,12 +334,12 @@
 			</div>
 		</div>
 	</div>
+<!-- 모달 필터 -->
 
 
 
 
-
-<!-- 헤더 필터 버튼 -->
+<!-- 헤더 필터 (버튼) -->
 
 	<div class="container">
 		<div name="filter" class="row headerFilter"
@@ -380,7 +380,7 @@
 <!-- 헤더 필터 버튼 end -->
 
 
-
+<!-- 제품 목록 -->
 		<div class="row row-cols-1 row-cols-md-3 row-cols-sm-2 row-cols-lg-4 ">
 			<div class="col">
 				<!-- Card -->
@@ -651,7 +651,7 @@
 				<hr>
 			</div>
 		</div>
-
+<!-- 제품 목록 -->
 
 
 

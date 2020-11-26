@@ -1,4 +1,5 @@
 @charset "UTF-8";
+*{font-family: sans-serif;}
 .order-container{
 	padding: 0 2rem 0 2rem;
 }

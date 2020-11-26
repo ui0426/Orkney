@@ -120,13 +120,13 @@
         
         
         <!-- aside -->
-        <div onclick="history.back();" class="page_cover aside-back-btn"></div>
+        <div onclick="history.back();" class="page_cover"></div>
         <div id="menu">
         	<aside id="hnf-menu">
 	        	<!-- aside top -->
 	          	<div class="hnf-menu_top">
 	          		<!-- aside 닫기버튼(X) -->
-		            <div class="hnf-menu_close close aside-back-btn" onclick="history.back();">
+		            <div class="hnf-menu_close close" onclick="history.back();">
 		                <span>
 		                    <svg width="1em" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="times" class="svg-inline--fa fa-times fa-w-11" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 352 512"><path fill="currentColor" d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"></path></svg>
 		                </span>
@@ -141,7 +141,7 @@
 		                <button></button>
 		            </div>
 		            <div id="hnf-menu_back" class="hnf-menu_back hnf-menu-nav-hidden aside-back-btn" >
-		            	<svg width="24" height="24" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="arrow-left" class="svg-inline--fa fa-arrow-left fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M257.5 445.1l-22.2 22.2c-9.4 9.4-24.6 9.4-33.9 0L7 273c-9.4-9.4-9.4-24.6 0-33.9L201.4 44.7c9.4-9.4 24.6-9.4 33.9 0l22.2 22.2c9.5 9.5 9.3 25-.4 34.3L136.6 216H424c13.3 0 24 10.7 24 24v32c0 13.3-10.7 24-24 24H136.6l120.5 114.8c9.8 9.3 10 24.8.4 34.3z"></path></svg>
+		            	<svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="arrow-left" class="svg-inline--fa fa-arrow-left fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M257.5 445.1l-22.2 22.2c-9.4 9.4-24.6 9.4-33.9 0L7 273c-9.4-9.4-9.4-24.6 0-33.9L201.4 44.7c9.4-9.4 24.6-9.4 33.9 0l22.2 22.2c9.5 9.5 9.3 25-.4 34.3L136.6 216H424c13.3 0 24 10.7 24 24v32c0 13.3-10.7 24-24 24H136.6l120.5 114.8c9.8 9.3 10 24.8.4 34.3z"></path></svg>
 		            </div>
 	        	</div>
 	        
@@ -330,6 +330,14 @@
 	            $("#menu,.page_cover,html").addClass("open");
 	            $("#menu").removeClass("aside-close");
 	            window.location.hash = "#open";
+	            $("#hnf-menu").removeClass("hnf-menu-level2");
+            	$("#hnf-menu_back").addClass("hnf-menu-nav-hidden");
+            	$("#hnf-menu_search").addClass("hnf-menu-nav-hidden");
+            	
+            	$("#hnf-menu_container").removeClass("hnf-menu-nav-hidden1");
+            	$("#hnf-menu_container-level2").addClass("hnf-menu-nav-hidden");
+            	$("#hnf-menu_container-level2-2").addClass("hnf-menu-nav-hidden");
+            	$("#hnf-menu_container-level2-3").addClass("hnf-menu-nav-hidden");
             });
     
             window.onhashchange = function() {
