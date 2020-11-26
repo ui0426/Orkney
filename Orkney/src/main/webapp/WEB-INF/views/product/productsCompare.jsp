@@ -9,41 +9,8 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param name="title" value="" />
 </jsp:include>
-<style>
-.carousel-multi-item.v-2 .carousel-inner .carousel-item.active,
-	.carousel-multi-item.v-2 .carousel-item-next, .carousel-multi-item.v-2 .carousel-item-prev
-	{
-	display: -webkit-box;
-	display: -webkit-flex;
-	display: -ms-flexbox;
-	display: flex;
-}
-
-.carousel-multi-item.v-2 .carousel-item-right.active,
-	.carousel-multi-item.v-2 .carousel-item-next {
-	-webkit-transform: translateX(25%);
-	-ms-transform: translateX(25%);
-	transform: translateX(25%);
-}
-
-.carousel-multi-item.v-2 .carousel-item-left.active,
-	.carousel-multi-item.v-2 .carousel-item-prev {
-	-webkit-transform: translateX(-25%);
-	-ms-transform: translateX(-25%);
-	transform: translateX(-25%);
-}
-
-.carousel-multi-item.v-2 .carousel-item-right, .carousel-multi-item.v-2 .carousel-item-left
-	{
-	-webkit-transform: translateX(0);
-	-ms-transform: translateX(0);
-	transform: translateX(0);
-}
-
-.darkCol {
-	background-color: gray;
-}
-</style>
+<link rel="stylesheet"
+	href="${path }/resources/css/product/productsCompare.css">
 
 
 <div class="container my-5">
@@ -76,10 +43,13 @@
 					<div class="carousel-inner" role="listbox">
 
 
+
+
+
 						<!-- Grid column -->
-						<div class="carousel-item active ">
+						<div class="carousel-item active">
 							<!-- Card -->
-							<div class="col-3 col-md-3 mb-3 mx-auto ">
+							<div class="col-12 col-lg-3 col-sm-6 col-md-4  mx-auto">
 								<!-- Pricing card -->
 								<div
 									class="text-white text-center pricing-card d-flex align-items-center rgba-stylish-strong py-3 px-3 rounded darkCol">
@@ -87,62 +57,7 @@
 									<div class="card-body view rounded z-depth-1-half">
 										<h5>제품명</h5>
 										<!-- Price -->
-										<div class="price pt-0">
-											<img alt=""
-												src="https://www.ikea.com/kr/ko/images/products/micke-desk-white__0921905_PE787996_S5.JPG?f=xxxs">
-										</div>
-										<hr>
-										<ul class="striped mb-0 row">
-											<li class="col-12">
-												<p>
-													<strong>별점 : </strong> #
-												</p>
-											</li>
-											<li class="col-12">
-												<p>
-													<strong>가격 : </strong> # 원
-												</p>
-											</li>
-
-											<li class="col-12">
-												<p>
-													<strong>폭 : </strong> # cm
-												</p>
-											</li class="col-12">
-											<li class="col-12">
-												<p>
-													<strong>높이 : </strong> # cm
-												</p>
-											</li>
-											<li class="col-12">
-												<p>
-													<strong>깊이 : </strong> # cm
-												</p>
-											</li>
-										</ul>
-										<a class="btn btn-outline-white">Buy now</a>
-									</div>
-									<!-- Content -->
-								</div>
-								<!-- Pricing card -->
-							</div>
-							<!-- Card -->
-						</div>
-						<!-- Grid column -->
-
-
-						<!-- Grid column -->
-						<div class="carousel-item ">
-							<!-- Card -->
-							<div class="col-3 col-md-3 mb-3 mx-auto">
-								<!-- Pricing card -->
-								<div
-									class="text-white text-center pricing-card d-flex align-items-center rgba-stylish-strong py-3 px-3 rounded darkCol">
-									<!-- Content -->
-									<div class="card-body view rounded z-depth-1-half">
-										<h5>제품명</h5>
-										<!-- Price -->
-										<div class="price pt-0">
+										<div class="price pt-0 imgCenter">
 											<img alt=""
 												src="https://www.ikea.com/kr/ko/images/products/muddus-drop-leaf-table-white__0871689_PE596029_S5.JPG?f=xs">
 										</div>
@@ -190,7 +105,7 @@
 						<div class="carousel-item ">
 
 							<!-- Card -->
-							<div class="col-3 col-md-3 mb-3 mx-auto">
+							<div class="col-12 col-lg-3 col-sm-6 col-md-4  mx-auto">
 
 								<!-- Pricing card -->
 								<div
@@ -201,7 +116,7 @@
 										<h5>제품명</h5>
 
 										<!-- Price -->
-										<div class="price pt-0">
+										<div class="price pt-0 imgCenter">
 											<img alt=""
 												src="https://www.ikea.com/kr/ko/images/products/micke-desk-white__0851508_PE565256_S5.JPG?f=xs">
 										</div>
@@ -254,7 +169,7 @@
 						<div class="carousel-item ">
 
 							<!-- Card -->
-							<div class="col-3 col-md-3 mb-3 mx-auto">
+							<div class="col-12 col-lg-3 col-sm-6 col-md-4  mx-auto">
 
 								<!-- Pricing card -->
 								<div
@@ -265,7 +180,7 @@
 										<h5>제품명</h5>
 
 										<!-- Price -->
-										<div class="price pt-0">
+										<div class="price pt-0 imgCenter">
 											<img alt=""
 												src="https://www.ikea.com/kr/ko/images/products/malm-desk-with-pull-out-panel-white__0849930_PE660335_S5.JPG?f=xs">
 										</div>
@@ -318,7 +233,7 @@
 						<div class="carousel-item ">
 
 							<!-- Card -->
-							<div class="col-3 col-md-3 mb-3 mx-auto">
+							<div class="col-12 col-lg-3 col-sm-6 col-md-4  mx-auto">
 
 								<!-- Pricing card -->
 								<div
@@ -329,7 +244,193 @@
 										<h5>제품명</h5>
 
 										<!-- Price -->
-										<div class="price pt-0">
+										<div class="price pt-0 imgCenter">
+											<img alt=""
+												src="https://www.ikea.com/kr/ko/images/products/alex-desk-white__0403182_PE565241_S5.JPG?f=xs">
+										</div>
+
+										<hr>
+										<ul class="striped mb-0 row">
+											<li class="col-12">
+												<p>
+													<strong>별점 : </strong> #
+												</p>
+											</li>
+											<li class="col-12">
+												<p>
+													<strong>가격 : </strong> # 원
+												</p>
+											</li>
+
+											<li class="col-12">
+												<p>
+													<strong>폭 : </strong> # cm
+												</p>
+											</li class="col-12">
+											<li class="col-12">
+												<p>
+													<strong>높이 : </strong> # cm
+												</p>
+											</li>
+											<li class="col-12">
+												<p>
+													<strong>깊이 : </strong> # cm
+												</p>
+											</li>
+										</ul>
+										<a class="btn btn-outline-white">Buy now</a>
+
+									</div>
+									<!-- Content -->
+
+								</div>
+								<!-- Pricing card -->
+
+							</div>
+							<!-- Card -->
+
+						</div>
+						<!-- Grid column -->
+						<!-- Grid column -->
+						<div class="carousel-item ">
+
+							<!-- Card -->
+							<div class="col-12 col-lg-3 col-sm-6 col-md-4  mx-auto">
+
+								<!-- Pricing card -->
+								<div
+									class="text-white text-center pricing-card d-flex align-items-center rgba-stylish-strong py-3 px-3 rounded darkCol">
+
+									<!-- Content -->
+									<div class="card-body view rounded z-depth-1-half">
+										<h5>제품명</h5>
+
+										<!-- Price -->
+										<div class="price pt-0 imgCenter">
+											<img alt=""
+												src="https://www.ikea.com/kr/ko/images/products/alex-desk-white__0403182_PE565241_S5.JPG?f=xs">
+										</div>
+
+										<hr>
+										<ul class="striped mb-0 row">
+											<li class="col-12">
+												<p>
+													<strong>별점 : </strong> #
+												</p>
+											</li>
+											<li class="col-12">
+												<p>
+													<strong>가격 : </strong> # 원
+												</p>
+											</li>
+
+											<li class="col-12">
+												<p>
+													<strong>폭 : </strong> # cm
+												</p>
+											</li class="col-12">
+											<li class="col-12">
+												<p>
+													<strong>높이 : </strong> # cm
+												</p>
+											</li>
+											<li class="col-12">
+												<p>
+													<strong>깊이 : </strong> # cm
+												</p>
+											</li>
+										</ul>
+										<a class="btn btn-outline-white">Buy now</a>
+
+									</div>
+									<!-- Content -->
+
+								</div>
+								<!-- Pricing card -->
+
+							</div>
+							<!-- Card -->
+
+						</div>
+						<!-- Grid column -->
+						<!-- Grid column -->
+						<div class="carousel-item ">
+
+							<!-- Card -->
+							<div class="col-12 col-lg-3 col-sm-6 col-md-4  mx-auto">
+
+								<!-- Pricing card -->
+								<div
+									class="text-white text-center pricing-card d-flex align-items-center rgba-stylish-strong py-3 px-3 rounded darkCol">
+
+									<!-- Content -->
+									<div class="card-body view rounded z-depth-1-half">
+										<h5>제품명</h5>
+
+										<!-- Price -->
+										<div class="price pt-0 imgCenter">
+											<img alt=""
+												src="https://www.ikea.com/kr/ko/images/products/alex-desk-white__0403182_PE565241_S5.JPG?f=xs">
+										</div>
+
+										<hr>
+										<ul class="striped mb-0 row">
+											<li class="col-12">
+												<p>
+													<strong>별점 : </strong> #
+												</p>
+											</li>
+											<li class="col-12">
+												<p>
+													<strong>가격 : </strong> # 원
+												</p>
+											</li>
+
+											<li class="col-12">
+												<p>
+													<strong>폭 : </strong> # cm
+												</p>
+											</li class="col-12">
+											<li class="col-12">
+												<p>
+													<strong>높이 : </strong> # cm
+												</p>
+											</li>
+											<li class="col-12">
+												<p>
+													<strong>깊이 : </strong> # cm
+												</p>
+											</li>
+										</ul>
+										<a class="btn btn-outline-white">Buy now</a>
+
+									</div>
+									<!-- Content -->
+
+								</div>
+								<!-- Pricing card -->
+
+							</div>
+							<!-- Card -->
+
+						</div>
+						<!-- Grid column -->
+						<!-- Grid column -->
+						<div class="carousel-item ">
+
+							<!-- Card -->
+							<div class="col-12 col-lg-3 col-sm-6 col-md-4  mx-auto">
+
+								<!-- Pricing card -->
+								<div
+									class="text-white text-center pricing-card d-flex align-items-center rgba-stylish-strong py-3 px-3 rounded darkCol">
+
+									<!-- Content -->
+									<div class="card-body view rounded z-depth-1-half">
+										<h5>제품명</h5>
+
+										<!-- Price -->
+										<div class="price pt-0 imgCenter">
 											<img alt=""
 												src="https://www.ikea.com/kr/ko/images/products/alex-desk-white__0403182_PE565241_S5.JPG?f=xs">
 										</div>
@@ -378,132 +479,10 @@
 						<!-- Grid column -->
 
 
-						<!-- Grid column -->
-						<div class="carousel-item ">
-
-							<!-- Card -->
-							<div class="col-3 col-md-3 mb-3 mx-auto">
-
-								<!-- Pricing card -->
-								<div
-									class="text-white text-center pricing-card d-flex align-items-center rgba-stylish-strong py-3 px-3 rounded darkCol">
-
-									<!-- Content -->
-									<div class="card-body view rounded z-depth-1-half">
-										<h5>Basic</h5>
-
-										<!-- Price -->
-										<div class="price pt-0">
-											<img alt=""
-												src="https://www.ikea.com/kr/ko/images/products/micke-desk-white__0921905_PE787996_S5.JPG?f=xxxs">
-										</div>
-
-										<hr>
-										<ul class="striped mb-0 row">
-											<li class="col-12">
-												<p>
-													<strong>별점 : </strong> #
-												</p>
-											</li>
-											<li class="col-12">
-												<p>
-													<strong>가격 : </strong> # 원
-												</p>
-											</li>
-
-											<li class="col-12">
-												<p>
-													<strong>폭 : </strong> # cm
-												</p>
-											</li class="col-12">
-											<li class="col-12">
-												<p>
-													<strong>높이 : </strong> # cm
-												</p>
-											</li>
-											<li class="col-12">
-												<p>
-													<strong>깊이 : </strong> # cm
-												</p>
-											</li>
-										</ul>
-										<a class="btn btn-outline-white">Buy now</a>
-
-									</div>
-									<!-- Content -->
-
-								</div>
-								<!-- Pricing card -->
-
-							</div>
-							<!-- Card -->
-
-						</div>
-						<!-- Grid column -->
+						
 
 
-						<!-- Grid column -->
-						<div class="carousel-item ">
-
-							<!-- Card -->
-							<div class="col-3 col-md-3 mb-3 mx-auto">
-
-								<!-- Pricing card -->
-								<div
-									class="text-white text-center pricing-card d-flex align-items-center rgba-stylish-strong py-3 px-3 rounded darkCol">
-
-									<!-- Content -->
-									<div class="card-body view rounded z-depth-1-half">
-										<h5>제품명</h5>
-
-										<!-- Price -->
-										<div class="price pt-0">
-											<img alt=""
-												src="https://www.ikea.com/kr/ko/images/products/micke-desk-white__0921905_PE787996_S5.JPG?f=xxxs">
-										</div>
-
-										<hr>
-										<ul class="striped mb-0 row">
-											<li class="col-12">
-												<p>
-													<strong>별점 : </strong> #
-												</p>
-											</li>
-											<li class="col-12">
-												<p>
-													<strong>가격 : </strong> # 원
-												</p>
-											</li>
-
-											<li class="col-12">
-												<p>
-													<strong>폭 : </strong> # cm
-												</p>
-											</li class="col-12">
-											<li class="col-12">
-												<p>
-													<strong>높이 : </strong> # cm
-												</p>
-											</li>
-											<li class="col-12">
-												<p>
-													<strong>깊이 : </strong> # cm
-												</p>
-											</li>
-										</ul>
-										<a class="btn btn-outline-white">Buy now</a>
-
-									</div>
-									<!-- Content -->
-
-								</div>
-								<!-- Pricing card -->
-
-							</div>
-							<!-- Card -->
-
-						</div>
-						<!-- Grid column -->
+						
 
 					</div>
 
@@ -521,9 +500,8 @@
 
 
 <script>
-	$('.carousel.carousel-multi-item.v-2 .carousel-item').each(function() {
-		interval: false;
-
+	$('.carousel, .carousel-multi-item, .v-2, .carousel-item').each(function() {
+      
 		var next = $(this).next();
 		if (!next.length) {
 			next = $(this).siblings(':first');
