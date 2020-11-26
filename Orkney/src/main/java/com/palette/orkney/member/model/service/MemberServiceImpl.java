@@ -78,5 +78,22 @@ public class MemberServiceImpl implements MemberService {
 		// TODO Auto-generated method stub
 		return dao.chatRoom(session, m);
 	}
+
+	@Override
+	public List<Map> chatAllData(String id) {
+		List<String> no=dao.chatRoomNo(session, id);
+		List list=new ArrayList();
+		for(String s:no) {
+			List<Map> chat=dao.chatData(session,s);
+			list.add(chat);
+		}
+		return list;
+	}
+
+	@Override
+	public int chatDataSave(Map m) {
+		// TODO Auto-generated method stub
+		return dao.chatDataSave(session,m);
+	}
 	
 }

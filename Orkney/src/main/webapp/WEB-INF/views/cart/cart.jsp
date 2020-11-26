@@ -23,7 +23,7 @@
             <div class="line1"></div>  
             
             <div class="product-container">
-                <div class="product-pic"><img src="https://www.ikea.com/kr/ko/images/products/groenlid-chaise-longue-section-ljungen-light-red__0852499_PE780117_S3.JPG" alt="">  사진</div>                
+                <div class="product-pic"><img src="https://www.ikea.com/kr/ko/images/products/groenlid-chaise-longue-section-ljungen-light-red__0852499_PE780117_S3.JPG" alt=""></div>                
                 <div class="price">₩ 9,900</div>                                                                    
                     <div class="product-detail">
                         <div>상품명</div>
@@ -44,10 +44,35 @@
                         <div><button class="wish_btn">위시리스트 저장</button></div>
                     </div>  
                 </div>
+	            	<div class="line1"></div>                              
+                </div>
+                
+                <div class="product-container">
+                <div class="product-pic"><img src="https://www.ikea.com/kr/ko/images/products/groenlid-chaise-longue-section-ljungen-light-red__0852499_PE780117_S3.JPG" alt=""></div>                
+                <div class="price">₩ 9,900</div>                                                                    
+                    <div class="product-detail">
+                        <div>상품명</div>
+                        <div>상품정보</div>                                
+                        <div>75*25 cm</div>
+                    
+                    
+                    <div class="btn-container">
+                        <div>
+                            <select class="mdb-select md-form">
+                                <option value="" disabled selected>1</option>
+                                <option value="1">2</option>
+                                <option value="2">3</option>
+                                <option value="3">4</option>
+                              </select>
+                        </div>
+                        <div><button class="remove_list">삭제</button></div>
+                        <div><button class="wish_btn">위시리스트 저장</button></div>
+                    </div>  
+                </div>
+	            	<div class="line1"></div>                              
                 </div>    
             </div>
 
-            <div class="line1"></div>                              
     
         <div class="section2">       
                 <div class="coupon"><a href="">쿠폰입력</a></div>                

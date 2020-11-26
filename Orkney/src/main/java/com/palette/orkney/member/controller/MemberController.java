@@ -116,4 +116,11 @@ public class MemberController {
 		
 		return "redirect:/";
 	}
+	
+	@RequestMapping("/member/chatAllData.do")
+	@ResponseBody
+	public List<Map> chatAllData(String id){
+		
+		return service.chatAllData(id);
+	}
 }
