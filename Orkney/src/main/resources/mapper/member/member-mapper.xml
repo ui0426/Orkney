@@ -58,4 +58,15 @@
   	<select id="addAddrList" parameterType="string" resultType="addr">
   		select * from addr where address_type=0 and member_no=#{mNo}
   	</select>
+  	
+  	<!-- 이름, 생일 수정 -->
+  	<update id="updateMemberPersonal" parameterType="map">
+  		update member set MEMBER_NAME=#{name},BIRTHDAY=#{birth} where member_no=#{mNo}
+  	</update>
+  	
+  	<!-- 연락처 수정 -->
+  	<update id="updateMemberContact" parameterType="map">
+  		update member set PHONE=#{phone} where member_no=#{mNo}
+  	</update>
+  	
 </mapper>

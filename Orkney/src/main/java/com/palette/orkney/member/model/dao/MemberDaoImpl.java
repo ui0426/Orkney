@@ -94,4 +94,19 @@ public class MemberDaoImpl implements MemberDao {
 	public List<Addr> addAddrList(SqlSession session, String mNo) {
 		return session.selectList("member.addAddrList", mNo);
 	}
+
+	//이름, 생일 수정
+	@Override
+	public int updateMemberPersonal(SqlSession session, Map updateInformation) {
+		System.out.println("daoimpl");
+		return session.update("member.updateMemberPersonal", updateInformation);
+	}
+
+	//연락처 수정
+	@Override
+	public int updateMemberContact(SqlSession session, Map<String, Object> updateInformation) {
+		return session.update("member.updateMemberContact", updateInformation);
+	}
+	
+	
 }

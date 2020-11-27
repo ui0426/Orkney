@@ -1,6 +1,7 @@
 package com.palette.orkney.member.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -148,15 +149,56 @@ public class MemberController {
 		return service.chatAllData(id);
 	}
 	
-	//회원정보 수정
-	@RequestMapping("/member/updateMember.do")
+	//이름, 생일 수정
+	@RequestMapping("/member/updateMemberPersonal.do")
 	@ResponseBody
-	public Map updateMember(@RequestParam Map updateInformation) {
+	public Map updateMemberPersonal(@RequestParam Map<String, Object> updateInformation, HttpSession session) {
 		
-		System.out.println(updateInformation);
-		Map result = updateInformation;
+		Map login = ((Map)session.getAttribute("login")); //로그인 된 유저
 		
-		return result;
+		String mNo = (String)login.get("MEMBER_NO");
+		updateInformation.put("mNo", mNo);
 		
+		int result = service.updateMemberPersonal(updateInformation);
+		
+		Map data = new HashMap<String, Object>();
+		if(result > 0 ) { //정보수정 성공
+			data = updateInformation;
+			login.replace("MEMBER_NAME", updateInformation.get("name"));
+			login.replace("BIRTHDAY", updateInformation.get("birth"));
+			
+			String[] b = ((String)updateInformation.get("birth")).split("-");
+			System.out.println(b[0] + b[1] + b[2]);
+			String birthPar = b[0] + "년도 " + b[1] + "월 " + b[2] + "일";
+			data.replace("birth", birthPar);
+		} else {
+			System.out.println("정보수정 실패 어디로.......");
+		}
+		
+		return data;
+		
+	}
+	
+	//연락처 수정
+	@RequestMapping("/member/updateMemberContact.do")
+	@ResponseBody
+	public Map updateMemberContact(@RequestParam Map<String, Object> updateInformation, HttpSession session) {
+		
+		Map login = ((Map)session.getAttribute("login")); //로그인 된 유저
+		
+		String mNo = (String)login.get("MEMBER_NO");
+		updateInformation.put("mNo", mNo);
+		
+		int result = service.updateMemberContact(updateInformation);
+		
+		Map data = new HashMap<String, Object>();
+		if(result > 0 ) { //정보수정 성공
+			data = updateInformation;
+			login.replace("PHONE", updateInformation.get("phone"));
+		} else {
+			System.out.println("정보수정 실패 어디로.......");
+		}
+		
+		return data;
 	}
 }

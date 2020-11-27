@@ -40,4 +40,10 @@ public interface MemberDao {
 	//추가된 배송지 리스트 가져오기
 	List<Addr> addAddrList(SqlSession session, String mNo);
 
+	//이름, 생일 수정
+	int updateMemberPersonal(SqlSession session, Map updateInformation);
+
+	//연락처 수정
+	int updateMemberContact(SqlSession session, Map<String, Object> updateInformation);
+
 }

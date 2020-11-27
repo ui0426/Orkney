@@ -109,6 +109,17 @@ public class MemberServiceImpl implements MemberService {
 		return dao.addAddrList(session, mNo);
 		
 	}
+
+	@Override
+	public int updateMemberPersonal(Map updateInformation) {
+		return dao.updateMemberPersonal(session, updateInformation);
+	}
+
+	//연락처 수정
+	@Override
+	public int updateMemberContact(Map<String, Object> updateInformation) {
+		return dao.updateMemberContact(session, updateInformation);
+	}
 	
 	
 }

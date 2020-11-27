@@ -6,275 +6,15 @@
 <c:set var="path" value="${ pageContext.request.contextPath }"/>
 
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
-<link rel="stylesheet" href="">
+<link rel="stylesheet" href="${path }/resources/css/member/mypage.css">
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<style>
-	/* 특정 태그 클릭 시 생기는 테두리 없애기 */
-    input:focus { outline:none; }
-    button:focus { outline:none; }
-	.mypage-container{
-	    max-width: 70rem;
-	    display: flex;
-	    flex-direction: column;
-	    padding: 2rem;
-	    margin: auto;
-    	
-	}
-	.mypage-container h1{
- 	   	font-weight: 900;
-    	font-size: 1.25rem;
-	
-	}
-	.mypage-container > div:first-child{
-		align-self: start;
-		height: 220px;
-		margin: 1rem;
-	}
-	.mypage-row{
-		display: flex;
-		flex-direction: column;
-		margin-bottom: 1rem;
-	}
-	.mypage-row-box svg{
-		width: 1.5rem;
-		height: 1.5rem;
-	}
-	.mypage-row-box{
-		border: 1px solid #dfdfdf;
-	    padding: 1.875rem;
-	    margin: 1rem;
-	    border-radius: 0.5rem;
-	    display: flex;
-	    justify-content: space-between;
-		
-	}
-	.mypage-row-box:hover{
-		cursor: pointer;
-	}
-	.mypage-row-content{
-		display: flex;
-		flex-direction: column;
-	}
-	.mypage-row-content a{
-		font-size: 0.875em;
-		font-weight: 500;
-	}
-	.mypage-row-content span{
-		font-size: 0.775em;
-	}
-	.mypage-row-svg{
-		line-height: 33px;
-	}
-	.mypage-content{
-		margin: 1rem;
-	}
-	.mypage-content-tabList{
-		display: flex;
-	}
-	.mypage-active{
-		border-bottom: 2px solid #0058a3;
-		color: #111;
-	}
-	.mypage-nonactive{
-		border-bottom: 2px solid #dfdfdf;
-	    color: #484848;
-	}
-	.mypage-nonactive:hover{
-		cursor: pointer;
-		color: #111;
-		border-bottom: 2px solid #b5b4b4;;
-	}
-	.mypage-content-tabList button{
-	    flex: 1 0 auto;
-	    font-size: .875rem;
-	    font-weight: 700;
-	    margin: 1rem 0;
-	    padding: 0 .9375rem .9375rem 0;
-	    text-align: left;
-		cursor: default;
-	}
-	.mypage-content-tabList button:focus{
-		outline: none;
-	}
-	.mypage-content-tab{
-		padding: 3.125rem 0;
-	}
-	.mypage-content-tabList button:nth-child(2){
-		margin: 1rem 1rem;
-	}
-	.panel-row{
-		font-size: 0.875rem;
-	}
-	.panel-row-title{
-	    font-weight: bold;
-    	margin-bottom: 1.5rem;
-    	color: #111;
-	}
-	.panel-row-update{
-	    font-weight: bold;
-    	color: #111 important;
-    	text-decoration: underline !important;
-	}
-/* 	.panel-row-title span{ */
-/* 		font-size: 0.990rem; */
-/* 	} */
-	.divForAddAdddrUpdate{
-		display: flex;
-	    flex-direction: row-reverse;
-	    justify-content: space-between;
-	    border-bottom: 1px dotted #ccc;
-    	padding-bottom: 2.125em;
-    	margin-bottom: 2.125em;
-	}
-	.panel-row-title #personal,#contact,#password,#address,#deliveryAddress,#ad{
-		text-decoration: underline;
-	}
-	.flex-row-between{
-		display: flex;
-		justify-content: space-between;
-	}
-	.update-box{
-		display: flex;
-		flex-direction: column;
-		margin-top: 2.5rem;
-	}
-	[class*='addr-update-box']{
-		margin-top: 1.5rem !important;
-		flex-grow: 1;
-		
-	}
- 	.update-box input{
- 		color: #484848; 
- 		font-size: 1rem;
- 	} 
-	.personal-information-row{
-   		display: flex;
-   		flex-direction: column;
-   		margin-bottom: 3em;
-	}
-	.personal-information-row .title{
-		font-size: 0.775rem;
-	}
-	.personal-information-row input{
-	    border: none;
-	    border-bottom: 1px solid;
-	    padding: 1px 0;
-	    margin: 0.5em 0;
-	    font-weight: 600;
-	}
-	.personal-information-row input:focus{
-		color: #0058a3;
-		border-bottom: 2px solid;
-	}
-	.personal-information-btn{
-		display: flex;
-		flex-direction: column;
-	}
-	.input-label-wrap{
-		position: relative;
-		color: #969393;
-	}
-	.input-label-wrap .input-label{
-	    position: absolute;
-	    top: 7px;
-	    transition: all .2s ease;
-	    font-size: 1rem;
-	    font-weight: 600;
-	}
-	.input-label-wrap .input-label-2{
-	    position: absolute;
-	    top: -19px;
-	    font-size: 0.775rem;
-	    font-weight: 100;
-    	color: #212529;
-	    transition: all .2s ease;
-	}
-	/* .origin-label-status{
-		font-size: 0.775rem;
-		font-weight: 100;
-		color: #212529;
-		transform: none;
-	} */
-	.input-label-wrap input:focus{
-		color: #0058a3;
-		border-bottom: 2px solid;
-	}
-	#deleteBtn{
-	    font-weight: bold;
-    	margin-top: .625rem;
-    	color: #484848;
-	}
-	#deleteBtn:hover{
-	    text-decoration: underline !important;
-	}
-	/* 비밀번호 메세지 */
-	#origin-msg, #new-msg1, #new-msg2, #pwck-msg, .msg-not-null{
-		font-size: 0.775rem;
-		color: red;
-	}
-	#new-msg2{
-		margin: 1em;
-		font-size: 0.675rem;
-	}
-	#new-msg2 li{
-		margin: 0.4em 0;
-	}
-	/* 포커스가 지나간 상태에서 제어하려면 valid 선택자를 사용해야 함 */
-	.input-label-wrap input:focus + .input-label{
-		transform: translateY(-90%);
-		font-size: 0.775rem !important;
-		font-weight: 100 !important;
-		color: #000;
-	}
-	.disabled{
-		color: #ccc !important;
-        cursor: context-menu;
-	}
-	.font-weight{
-		font-weight: 600;
-		color: #333;
-	}
-	.addAddrBtn{
-		color: #484848 !important;
-	}
-	.addAddrBtn:hover{
-		color: #111 !important;
-		text-decoration: underline !important;
-	}
-	@media (min-width: 800px){
-		.mypage-container h1{
-	    	font-weight: 700;	    	
-	    	font-size: 2rem;
-		}
-		.mypage-row{
-		    flex-direction: row;
-		}
-		.mypage-row-box{
-			flex: 1 0 auto;
-		}
-		.update-box{
-			width: 440px;
-		}
-		[class*='addr-update-box']{
-		
-			flex-grow: 0;
-		}
-	}
-	@media (min-width: 1200px){
-		.mypage-container{
-			padding: 2rem 5.5em;
-		}
-		
-	
-	}
-</style>
-
 <section>
 	
 	
 	<div class="mypage-container">
 		<div>
-			<h1>안녕하세요, <c:out value="${ fn:substring(login.MEMBER_NAME,1,fn:length(login.MEMBER_NAME)) }"/>님!</h1>
+<%-- 			<h1>안녕하세요, <c:out value="${ fn:substring(login.MEMBER_NAME,1,fn:length(login.MEMBER_NAME)) }"/>님!</h1> --%>
+			<h1>안녕하세요, <span id="title-name"><c:out value="${ login.MEMBER_NAME }"/></span>님!</h1>
 			<span>로그아웃을 하고 싶으신가요? <a href="${ path }/member/loginout.do" style="text-decoration: underline;">로그아웃</a></span>
 		</div>
 		<div class="mypage-row">
@@ -313,92 +53,93 @@
 				<button class="mypage-nonactive" onclick="fn_tab(this,'3')">설정</button>
 			</div>
 			<div class="mypage-content-tab">
-				<form id="updateForm">
 				<!-- 계정페이지 -->
 				<div class="panel 1">
-					<div class="panel-row">
-						<div class="panel-row-title flex-row-between">
-							<span>개인 정보</span>
-							<a id="personal" onclick="fn_update(this,'#personal')">수정</a>
-						</div>
-						<div><c:out value="${ login.MEMBER_NAME }"/></div>
-						<div>
-							<c:forTokens var="bTokens" items="${ login.BIRTHDAY }" delims="-" varStatus="status">
-								<c:if test="${ status.first }">
-									<c:out value="${ bTokens }년도"/>
-								</c:if>
-								<c:if test="${ !status.first && !status.last }">
-									<c:out value=" ${bTokens }월"/>
-								</c:if>
-								<c:if test="${ status.last }">
-									<c:out value="${ fn:substring(bTokens,0,2) }일"/>
-								</c:if>	
-							</c:forTokens>
-						</div>
-						<div id="personal-box" class="update-box" style="display: none;">
-							<div class="personal-information-row input-label-wrap">
-								<input type="text" class="input-event not-null" name="name" value="${ login.MEMBER_NAME }">
-								<label for="" class="input-label-2"><span>이름</span></label>
-								<span style="display: none;" class="msg-not-null">이름을 입력해 주세요.</span>
+					<form id="personal-submit-form">
+						<div class="panel-row">
+							<div class="panel-row-title flex-row-between">
+								<span>개인 정보</span>
+								<a id="personal" onclick="fn_update(this,'#personal')">수정</a>
 							</div>
-							<div class="personal-information-row input-label-wrap">
-								<!-- 생일 형식 yyyy-dd-mm으로 바꾸기 -->
-								<c:set var="birReplace" value="${ fn:split(fn:replace(login.BIRTHDAY,'/','-'),' ')[0] }"/>
-								<input type="text" id="" name="birth" value="${ birReplace }" placeholder="YYYY-MM-DD">
-								<label for="" class="input-label-2"><span>생일</span></label>
-								<span style="display: none;" id="">생일을 입력해 주세요.</span>
+							<div id="updateName"><c:out value="${ login.MEMBER_NAME }"/></div>
+							<div id="updateBirth">
+								<c:forTokens var="bTokens" items="${ login.BIRTHDAY }" delims="-" varStatus="status">
+									<c:if test="${ status.first }">
+										<c:out value="${ bTokens }년도"/>
+									</c:if>
+									<c:if test="${ !status.first && !status.last }">
+										<c:out value=" ${bTokens }월"/>
+									</c:if>
+									<c:if test="${ status.last }">
+										<c:out value="${ fn:substring(bTokens,0,2) }일"/>
+									</c:if>	
+								</c:forTokens>
 							</div>
-							<div class="personal-information-btn">
-								<button type="button">취소</button>
-								<button class="submitBtn" id="personal-submit">저장</button>
+							<div id="personal-box" class="update-box" style="display: none;">
+								<div class="personal-information-row input-label-wrap">
+									<input type="text" class="input-event not-null" name="name" value="${ login.MEMBER_NAME }">
+									<label for="" class="input-label-2"><span>이름</span></label>
+									<span style="display: none;" class="msg-not-null">이름을 입력해 주세요.</span>
+								</div>
+								<div class="personal-information-row input-label-wrap">
+									<!-- 생일 형식 yyyy-dd-mm으로 바꾸기 -->
+									<c:set var="birReplace" value="${ fn:split(fn:replace(login.BIRTHDAY,'/','-'),' ')[0] }"/>
+									<input type="text" name="birth" value="${ birReplace }" placeholder="YYYY-MM-DD">
+									<label for="" class="input-label-2"><span>생일</span></label>
+									<span style="display: none;" id="">생일을 입력해 주세요.</span>
+								</div>
+								<div class="personal-information-btn">
+									<button type="button">취소</button>
+									<button type="button" id="personal-submit">저장</button>
+								</div>
 							</div>
 						</div>
-					</div>
+					</form>
 					
 					<hr style="margin: 3.125rem 0 3.125rem 0;">
-					
-					<div class="panel-row">
-						<div class="panel-row-title flex-row-between">
-							<span>연락처</span>
-							<a id="contact" onclick="fn_update(this,'#contact')">수정</a>
-						</div>
-						<div class="flex-row-between">
-							<span><c:out value="${ login.PHONE }"/></span>
-							<span>확인되지 않음???</span>
-						</div>
-						<div class="flex-row-between">
-							<span><c:out value="${ login.MEMBER_ID }"/></span>
-							<span>확인됨???</span>
-						</div>
-						<div id="contact-box" class="update-box" style="display: none;">
-							<div class="personal-information-row">
-								<span class="title">휴대폰</span>
-								<input type="text" name="phone" value="${ login.PHONE }">
+					<form id="contact-submit-form">
+						<div class="panel-row">
+							<div class="panel-row-title flex-row-between">
+								<span>연락처</span>
+								<a id="contact" onclick="fn_update(this,'#contact')">수정</a>
 							</div>
-							<div class="personal-information-row">
-								<span class="title">이메일</span>
-								<input class="disabled" type="email" value="${ login.MEMBER_ID }">
+							<div class="flex-row-between">
+								<span id="updatePhone"><c:out value="${ login.PHONE }"/></span>
+								<span>확인되지 않음???</span>
 							</div>
-							<div class="personal-information-btn">
-								<button type="button">취소</button>
-								<button class="submitBtn" id="personal-submit">저장</button>
+							<div class="flex-row-between">
+								<span><c:out value="${ login.MEMBER_ID }"/></span>
+								<span>확인됨???</span>
 							</div>
+							<div id="contact-box" class="update-box" style="display: none;">
+								<div class="personal-information-row">
+									<span class="title">휴대폰</span>
+									<input type="text" name="phone" value="${ login.PHONE }">
+								</div>
+								<div class="personal-information-row">
+									<span class="title">이메일</span>
+									<input class="disabled" type="email" value="${ login.MEMBER_ID }">
+								</div>
+								<div class="personal-information-btn">
+									<button type="button">취소</button>
+									<button type="button" id="contact-submit">저장</button>
+								</div>
+							</div>
+							
 						</div>
-						
-					</div>
+					</form>
 					
 					<hr style="margin: 3.125rem 0 3.125rem 0;">
-					
-					<div class="panel-row">
-						<div class="panel-row-title flex-row-between">
-							<span>비밀번호</span>
-							<a id="password" onclick="fn_update(this,'#password')">수정</a>
-						</div>
-						<div>
-							<span style="color: #929292; font-size: 1.50em; font-weight: 700;">••••••••</span>
-						</div>
-						<div id="password-box" class="update-box" style="display: none;">
-							<form>
+					<form id="password-submit-form">
+						<div class="panel-row">
+							<div class="panel-row-title flex-row-between">
+								<span>비밀번호</span>
+								<a id="password" onclick="fn_update(this,'#password')">수정</a>
+							</div>
+							<div>
+								<span style="color: #929292; font-size: 1.50em; font-weight: 700;">••••••••</span>
+							</div>
+							<div id="password-box" class="update-box" style="display: none;">
 								<div class="personal-information-row input-label-wrap">
 									<input type="password" id="origin-pw">
 									<label for="origin-pw" class="input-label"><span>현재 비밀번호</span></label>
@@ -423,11 +164,11 @@
 								</div>
 								<div class="personal-information-btn">
 									<button type="button">취소</button>
-									<button class="submitBtn" id="password-submit">저장</button>
+									<button type="button" id="password-submit">저장</button>
 								</div>
-							</form>
+							</div>
 						</div>
-					</div>
+					</form>
 					
 					<hr style="margin: 3.125rem 0 3.125rem 0;">
 					
@@ -629,13 +370,21 @@
 						
 					</div>
 				</div>
-				</form>
 			</div>
 		</div>
 	</div>
 </section>
 
 <script>
+
+	/* tab누르면 content 바뀌는 로직 */
+	function fn_tab(e, panelNo){
+		$(e).parent().children().attr('class','mypage-nonactive');
+		$(e).attr('class','mypage-active');
+		$('.panel').css('display','none');
+		$('.'+panelNo).css('display','block');
+	}
+
 
 	/* 주소 api */
 	$(".addAddressBtn").click(e=>{
@@ -699,17 +448,63 @@
 	    }).open();
 	})
 	/* 수정 누르면 열리게 하는 로직 */
-	function fn_update(e,id){
-		if($(e).text() == '수정'){ //수정누를떄
-			$(e).parent().nextAll().hide();
+	function fn_update(i,id){
+		if($(i).text() == '수정'){ //수정누를떄
+			$(i).parent().nextAll().hide();
 			$(id + '-box').show();
-			$(e).text('닫기');
+			$(i).text('닫기');
+			
+			//이름 생일 정보수정
+			$('#personal-submit').click(function(e){
+				if($('input[name="name"]').val() == '' || $('input[name="birth"]').val() == '') {
+					return;
+				}
+				$.ajax({
+					type: 'post',
+					url: "${path}/member/updateMemberPersonal.do",
+					data: $('#personal-submit-form').serialize(),				
+					success: data=>{
+						console.log(data);
+						console.log($(i));
+						$(i).parent().nextAll().css('display','flex');
+						$(id + '-box').hide();
+						$(i).text('수정');
+						$('#updateName').text(data["name"]);
+						$('#title-name').text(data["name"]);
+						$('#updateBirth').text(data['birth']);
+					}
+				})
+			})
+			
+			//전화번호 수정
+			$('#contact-submit').click(function(e){
+				if($('input[name="phone"]').val() == ''){
+					return;
+				}
+				$.ajax({
+					type: 'post',
+					url: "${path}/member/updateMemberContact.do",
+					data: $('#contact-submit-form').serialize(),				
+					success: data=>{
+						console.log(data);
+						console.log($(i));
+						$(i).parent().nextAll().css('display','flex');
+						$(id + '-box').hide();
+						$(i).text('수정');
+						$('#updatePhone').text(data["phone"]);
+					}
+				})
+			})
+	
+			
 		} else{ //닫기누를떄
-			$(e).parent().nextAll().css('display','block');
+			$(i).parent().nextAll().css('display','flex');
 			$(id + '-box').hide();
-			$(e).text('수정');
+			$(i).text('수정');
 		}
 	}
+	
+
 	
 	/* 새 배송지 추가 누르면 열리는 버튼*/
 	$(function(){
@@ -750,13 +545,6 @@
 		}
 	}
 	
-	/* tab누르면 content 바뀌는 로직 */
-	function fn_tab(e, panelNo){
-		$(e).parent().children().attr('class','mypage-nonactive');
-		$(e).attr('class','mypage-active');
-		$('.panel').css('display','none');
-		$('.'+panelNo).css('display','block');
-	}
 
 	$(function(){
 		/* 비밀번호 입력칸 클릭했을 때 */
@@ -836,19 +624,7 @@
 			}
 		})
 		
-		//회원정보수정
-		$('.submitBtn').click(function(e){
-			
-			$.ajax({
-				type: 'post',
-				url: "${path}/member/updateMember.do",
-				data: $('#updateForm').serialize(),				
-				success: data=>{
-					console.log(data);
-				}
-				
-			})
-		})
+		
 			
 	})
 	

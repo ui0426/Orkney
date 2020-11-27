@@ -35,4 +35,10 @@ public interface MemberService {
 	String getAddress(String no);
 	
 	List<Addr> addAddrList(String mNo);
+
+	//이름,생일 수정
+	int updateMemberPersonal(Map updateInformation);
+
+	//연락처수정
+	int updateMemberContact(Map<String, Object> updateInformation);
 }
