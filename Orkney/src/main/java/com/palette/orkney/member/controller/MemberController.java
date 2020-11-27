@@ -147,4 +147,16 @@ public class MemberController {
 		
 		return service.chatAllData(id);
 	}
+	
+	//회원정보 수정
+	@RequestMapping("/member/updateMember.do")
+	@ResponseBody
+	public Map updateMember(@RequestParam Map updateInformation) {
+		
+		System.out.println(updateInformation);
+		Map result = updateInformation;
+		
+		return result;
+		
+	}
 }

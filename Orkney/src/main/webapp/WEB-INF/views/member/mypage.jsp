@@ -313,7 +313,7 @@
 				<button class="mypage-nonactive" onclick="fn_tab(this,'3')">설정</button>
 			</div>
 			<div class="mypage-content-tab">
-				<form>
+				<form id="updateForm">
 				<!-- 계정페이지 -->
 				<div class="panel 1">
 					<div class="panel-row">
@@ -349,7 +349,7 @@
 								<span style="display: none;" id="">생일을 입력해 주세요.</span>
 							</div>
 							<div class="personal-information-btn">
-								<button>취소</button>
+								<button type="button">취소</button>
 								<button class="submitBtn" id="personal-submit">저장</button>
 							</div>
 						</div>
@@ -377,11 +377,11 @@
 							</div>
 							<div class="personal-information-row">
 								<span class="title">이메일</span>
-								<input name="email" class="disabled" type="email" value="${ login.MEMBER_ID }">
+								<input class="disabled" type="email" value="${ login.MEMBER_ID }">
 							</div>
 							<div class="personal-information-btn">
-								<button>취소</button>
-								<button>저장</button>
+								<button type="button">취소</button>
+								<button class="submitBtn" id="personal-submit">저장</button>
 							</div>
 						</div>
 						
@@ -422,8 +422,8 @@
 									<span style="display: none;" id="pwck-msg">새 비밀번호 확인을 입력해 주세요.</span>
 								</div>
 								<div class="personal-information-btn">
-									<button>취소</button>
-									<button>저장</button>
+									<button type="button">취소</button>
+									<button class="submitBtn" id="password-submit">저장</button>
 								</div>
 							</form>
 						</div>
@@ -457,7 +457,7 @@
 							<button class="addAddressBtn">우편번호 찾기</button>
 							<div class="personal-information-row">
 								<span class="title">도로명 주소</span>
-								<input class="disabled" type="text" id="" name="" value="${ add2 }" readonly>
+								<input class="disabled addr" type="text" id="" name="" value="${ add2 }" readonly>
 							</div>
 							<div class="personal-information-row input-label-wrap">
 								<input type="text" class="input-event not-null" value="${ add3 }">
@@ -466,11 +466,11 @@
 							</div>
 							<div class="personal-information-row">
 								<span class="title">우편번호</span>
-								<input class="disabled" type="text" value="${ add1 }" readonly>
+								<input class="disabled post" type="text" value="${ add1 }" readonly>
 							</div>
 							<div class="personal-information-btn">
-								<button>취소</button>
-								<button>저장</button>
+								<button type="button">취소</button>
+								<button class="submitBtn" id="personal-submit">저장</button>
 							</div>
 						</div>
 					</div>
@@ -513,10 +513,10 @@
 									<label for="" class="input-label-2"><span>휴대폰</span></label>
 									<span style="display: none;" class="msg-not-null">휴대폰 번호를 입력해 주세요.</span>
 								</div>
-								<button>우편번호 찾기</button>
+								<button class="addAddressBtn" >우편번호 찾기</button>
 								<div class="personal-information-row">
 									<span class="title">도로명 주소</span>
-									<input class="disabled" type="text" value="${ addr.address_addr }" readonly>
+									<input class="disabled addr" type="text" value="${ addr.address_addr }" readonly>
 								</div>
 								<div class="personal-information-row input-label-wrap">
 									<input type="text" class="input-event not-null" value="${ addr.address_detail }">
@@ -525,12 +525,12 @@
 								</div>
 								<div class="personal-information-row">
 									<span class="title">우편번호</span>
-									<input class="disabled" type="text" value="${ addr.address_post }" readonly>
+									<input class="disabled post" type="text" value="${ addr.address_post }" readonly>
 								</div>
 								<div class="personal-information-btn">
-									<button>취소</button>
-									<button>저장</button>
-									<button>주소삭제</button>
+									<button type="button">취소</button>
+									<button class="submitBtn" id="personal-submit">저장</button>
+									<button class="">주소삭제</button>
 								</div>
 							</div>
 						</div>
@@ -551,10 +551,10 @@
 									<span class="title">휴대폰</span>
 									<input type="text" value="01011111111">
 								</div>
-								<button>우편번호 찾기</button>
+								<button class="addAddressBtn">우편번호 찾기</button>
 								<div class="personal-information-row">
 									<span class="title">도로명 주소</span>
-									<input class="disabled" type="text" value="도로명 주소" readonly>
+									<input class="disabled addr" type="text" value="도로명 주소" readonly>
 								</div>
 								<div class="personal-information-row">
 									<input type="text" id="origin-pw">
@@ -563,10 +563,10 @@
 								</div>
 								<div class="personal-information-row">
 									<span class="title">우편번호</span>
-									<input class="disabled" type="text" value="우편번호" readonly>
+									<input class="disabled post" type="text" value="우편번호" readonly>
 								</div>
 								<div class="personal-information-btn">
-									<button>취소</button>
+									<button type="button">취소</button>
 									<button>저장</button>
 								</div>
 							</div>
@@ -597,7 +597,7 @@
 								<input type="text" value="12121" readonly>
 							</div>
 							<div class="personal-information-btn">
-								<button>취소</button>
+								<button type="button">취소</button>
 								<button>저장</button>
 							</div>
 						</div>
@@ -622,7 +622,7 @@
 								<input type="email" value="asdf@asdf.com" placeholder="orkney@orkney.com">
 							</div>
 							<div class="personal-information-btn">
-								<button>취소</button>
+								<button type="button">취소</button>
 								<button>저장</button>
 							</div>
 						</div>
@@ -639,6 +639,11 @@
 
 	/* 주소 api */
 	$(".addAddressBtn").click(e=>{
+		//클릭한 주소찾기 버튼의 인덱스
+		var addAddressBtnIindex = $('.addAddressBtn').index(e.target);
+// 		$('.addr').eq(addAddressBtnIindex).addClass('addr'+addAddressBtnIindex);
+// 		$('.post').eq(addAddressBtnIindex).addClass('post'+addAddressBtnIindex);
+		console.log($(e.target));
 	    new daum.Postcode({
 	        oncomplete: function(data) {
 	        	 // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
@@ -681,11 +686,12 @@
 	                //document.getElementById("sample6_extraAddress").value = '';
 	            }
 				
+
 	            console.log(data.zonecode+" : "+addr);
 	            
 	            // 우편번호와 주소 정보를 해당 필드에 넣는다.
-	            $("#zip").val(data.zonecode);
-	            $("#adrinput").val(addr);
+	            $('.post').eq(addAddressBtnIindex).val(data.zonecode);
+	            $('.addr').eq(addAddressBtnIindex).val(addr);
 	            // 커서를 상세주소 필드로 이동한다.
 	            $("#detailadr").focus();
 	            console.log(data.zonecode+" : "+addr+" : "+extraAddr);
@@ -830,13 +836,16 @@
 			}
 		})
 		
+		//회원정보수정
 		$('.submitBtn').click(function(e){
 			
 			$.ajax({
 				type: 'post',
-				url: "/member/updateMember.do",
-				dataType: 'json',
-				
+				url: "${path}/member/updateMember.do",
+				data: $('#updateForm').serialize(),				
+				success: data=>{
+					console.log(data);
+				}
 				
 			})
 		})
