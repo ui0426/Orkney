@@ -337,20 +337,20 @@
 						</div>
 						<div id="personal-box" class="update-box" style="display: none;">
 							<div class="personal-information-row input-label-wrap">
-								<input type="text" class="input-event not-null" value="${ login.MEMBER_NAME }">
+								<input type="text" class="input-event not-null" name="name" value="${ login.MEMBER_NAME }">
 								<label for="" class="input-label-2"><span>이름</span></label>
 								<span style="display: none;" class="msg-not-null">이름을 입력해 주세요.</span>
 							</div>
 							<div class="personal-information-row input-label-wrap">
 								<!-- 생일 형식 yyyy-dd-mm으로 바꾸기 -->
 								<c:set var="birReplace" value="${ fn:split(fn:replace(login.BIRTHDAY,'/','-'),' ')[0] }"/>
-								<input type="text" id="" value="${ birReplace }" placeholder="YYYY-MM-DD">
+								<input type="text" id="" name="birth" value="${ birReplace }" placeholder="YYYY-MM-DD">
 								<label for="" class="input-label-2"><span>생일</span></label>
 								<span style="display: none;" id="">생일을 입력해 주세요.</span>
 							</div>
 							<div class="personal-information-btn">
 								<button>취소</button>
-								<button>저장</button>
+								<button class="submitBtn" id="personal-submit">저장</button>
 							</div>
 						</div>
 					</div>
@@ -373,11 +373,11 @@
 						<div id="contact-box" class="update-box" style="display: none;">
 							<div class="personal-information-row">
 								<span class="title">휴대폰</span>
-								<input type="text" value="${ login.PHONE }">
+								<input type="text" name="phone" value="${ login.PHONE }">
 							</div>
 							<div class="personal-information-row">
 								<span class="title">이메일</span>
-								<input class="disabled" type="email" value="${ login.MEMBER_ID }">
+								<input name="email" class="disabled" type="email" value="${ login.MEMBER_ID }">
 							</div>
 							<div class="personal-information-btn">
 								<button>취소</button>
@@ -720,6 +720,7 @@
 		})
 	})
 	
+	/* 	새 배송지 칸에서 수정 누르면  업데이트 창 나오게*/
 	function fn_addAddrUpdate(e){
 		var cs = ($(e).attr('class')).split(' ');
 		var c = cs[1]; //두번째 클래스 네임 가져오기
@@ -827,6 +828,17 @@
  						$(e.target).next().css({'font-size': '0.775rem','font-weight': '100','transform':'none', 'color':'#212529'});
 				})
 			}
+		})
+		
+		$('.submitBtn').click(function(e){
+			
+			$.ajax({
+				type: 'post',
+				url: "/member/updateMember.do",
+				dataType: 'json',
+				
+				
+			})
 		})
 			
 	})
