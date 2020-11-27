@@ -5,6 +5,8 @@ import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
+import com.palette.orkney.member.model.vo.Addr;
+
 @Service
 public interface MemberService {
 
@@ -25,5 +27,9 @@ public interface MemberService {
 	List chatData(List<String> chatRoomNo);
 
 	List<Map> chatRoom(Map m);
+
+	String getAddress(String no);
+
+	List<Addr> addAddrList(String mNo);
 
 }

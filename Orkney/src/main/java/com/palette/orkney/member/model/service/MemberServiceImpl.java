@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.palette.orkney.member.model.dao.MemberDao;
+import com.palette.orkney.member.model.vo.Addr;
 
 @Service
 public class MemberServiceImpl implements MemberService {
@@ -77,6 +78,18 @@ public class MemberServiceImpl implements MemberService {
 	public List<Map> chatRoom(Map m) {
 		// TODO Auto-generated method stub
 		return dao.chatRoom(session, m);
+	}
+
+	//가입 시 주소 가져오기
+	@Override
+	public String getAddress(String no) {
+		return dao.getAddress(session, no);
+	}
+
+	//추가된 배송지 리스트 가져오기
+	@Override
+	public List<Addr> addAddrList(String mNo) {
+		return dao.addAddrList(session, mNo);
 	}
 	
 }
