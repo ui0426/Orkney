@@ -14,5 +14,8 @@ public class Addr {
 	private int address_type;
 	private String address_name;
 	private String address_phone;
+	private String address_post;
+	private String address_addr;
+	private String address_detail;
 
 }

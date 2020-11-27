@@ -6,6 +6,8 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.palette.orkney.member.model.vo.Addr;
+
 @Repository
 public class MemberDaoImpl implements MemberDao {
 
@@ -81,4 +83,15 @@ public class MemberDaoImpl implements MemberDao {
 		return session.insert("member.chatDataSave",m);
 	}
 	
+	//가입 시 주소 가져오기
+	@Override
+	public String getAddress(SqlSession session, String no) {
+		return session.selectOne("member.getAddress", no);
+	}
+	
+	//추가된 배송지 리스트 가져오기
+	@Override
+	public List<Addr> addAddrList(SqlSession session, String mNo) {
+		return session.selectList("member.addAddrList", mNo);
+	}
 }
