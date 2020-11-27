@@ -7,13 +7,13 @@
         display: flex;
         flex-direction: column;                    
     }
-    .section1{
-            margin: 8% 0;       
-    }
+    .section1{ margin: 8% 0; }
+    .span-padding{padding-left: 10%;}
     .section-container{
           padding: 5% 20%;
           width: 100%;                                  
     }
+    .mod-product{margin: 20px 0;}
     .title-container{        
         width: 100%;        
         margin: 5% 0;
@@ -115,7 +115,8 @@
         height: 40px;   
         font-size:18px;     
     }
-    .btn2{    
+    .btn2{
+    	 outline: none !important;    
         border: 1px solid;
         border-color: rgb(216, 216, 216);
         border-radius: 5px;
@@ -124,7 +125,6 @@
         height: 33px;
         font-size: 15px;
     }
- 
     .btn3 {
         border: 1px solid;
         border-color: rgb(216, 216, 216);
@@ -162,14 +162,16 @@
     .event-bu{
             margin: 15px;
             border-radius: 50px;
-            width: 80% !important;
-            background-color: white !important;
-            border: white ;                       
+            width: 100% !important;
+            background-color: #0058a3 !important;
+            border: white ;
+            padding: 1.84rem 2.14rem !important;
+            outline:none !important;                        
         }
         .event-sp{
             font-size: 18px;
             font-weight: bold;
-            color: black !important;
+            color: white !important;            
         }
         .event-sp:hover {
             color: white !important;
@@ -178,16 +180,8 @@
           color: white !important;
         }
         .event-bu:hover{
-          background-color: black !important;        
+           background-color: #002b50 !important;         
         } 
-        .pay-btn{
-            height:100px;
-            display: flex;
-            justify-content: center;
-            text-align: center;            
-            width: 100%;    
-            margin: 50px 0;                     
-        }
         .etc-div{
             margin-left:200px ;
         }

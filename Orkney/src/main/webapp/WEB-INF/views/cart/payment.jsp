@@ -17,8 +17,10 @@
         
         <div class="section1">
             <div class="title-container">주문/결제</div>
-            <div class="etc-title">주문상품</div>        
-            
+            <div style="display: flex;justify-content: space-between;">
+            	<div class="etc-title">주문상품</div>
+            	<div class="mod-product"><button class="btn2" onclick="location.href='${path }/cart/cart.do'">주문상품 수정</button> </div>        
+            </div>
             <div class="line1"></div>
             
             <div class="product-container">
@@ -176,15 +178,12 @@
             </div>        
         
                 
-       <div class="section1">
-            <div class="etc-title">예상 적립 포인트</div>
-            <div class="line1"></div>   
-            <div class="field">     
-                <div class="pre-point">1,490P</div>
-                <div style="padding-top: 5px;   font-weight: bold;">적립예정</div> 
-            </div>
-            <!-- <div>VIP 등급은 4,470P 적립<a href="">더알아보기</a></div> -->
+       <div class="section1" style="display: flex;">            
+	            <div class="etc-title">예상 적립 포인트</div>                      
+	            <span class="field span-padding"><div class="pre-point">1,490P</div></span>
+                    	
         </div>
+            <!-- <div>VIP 등급은 4,470P 적립<a href="">더알아보기</a></div> -->
 
         <div class="section1">
             <div class="etc-title">결제 수단</div>
@@ -265,7 +264,7 @@
                             </div> 
             </div>
         </div>
-            <span class="pay-btn"><button type="button" class="btn btn-dark event-bu"  onclick="location.href='${path }/cart/complete.do'"><span class="event-sp">결제하기</span></button></span> 
+            <button type="button" class="btn btn-dark event-bu"  onclick="location.href='${path }/cart/complete.do'"><span class="event-sp">결제하기</span></button> 
 
 
     </div>
@@ -302,7 +301,6 @@
             $(ch).prop("checked",false);
         }
     });
-
 
 </script>
 </section>

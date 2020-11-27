@@ -91,10 +91,21 @@
     }
     .check{font-weight: 600;}
     .order-no{display: flex;}
-
+	.info-title{    
+			    padding: 5% 0% 1% 0%;
+		    display:flex;
+		    justify-content:center;
+		    width: 100%;
+		    font-weight: 600;
+		    font-size: 19px;
+		    }
+	.info-title div img{margin: 20px;width: 30px; height:30px ;}
+	.info-title span{padding-top: 23px;}	    
+    
     .field{display: flex; margin-top: 20px;}
-    .field div img{margin: 20px;width: 30px; height:30px ;}
-    .field span{padding: 23px;     font-size: 18px;}
+    .field-inline div img{margin: 20px;width: 30px; height:30px ;}
+    .field-inline span{padding: 23px;     font-size: 18px;}
+    
     .pay-title{       
     font-size:18px; 
     margin: 6px 80px;
@@ -102,6 +113,7 @@
     justify-content: space-between;
     min-width: 250px;
     }
+    .sc-d{display: flex; justify-content: space-between;}
 	.field-inline{
 		display:inline; 
 		width:50%; 
@@ -115,7 +127,7 @@
         }
     .total-title{    padding: 20px 0px 7px 0;}
     .pay-font>div{font-weight: 800;}
-    .etc-contant{margin: 18px 0; font-size: 18px;}
+    .etc-contant{padding: 3.5% 0; font-size: 18px;}
     .service-conatainer{margin: 20px 0;}
     .service-title{    
     font-size: 18px;

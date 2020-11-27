@@ -11,12 +11,14 @@
             font-size: 40px;
             font-weight: 1000;            
         }        
-        .event-bu{
+        .event-bu{        
             margin: 15px;
             border-radius: 50px;
-            width: 80% !important;
-            background-color: white !important;
-            border: white ;                       
+            width: 100% !important;
+            background-color: #0058a3 !important;
+            border: white ;
+            padding: 1.84rem 2.14rem !important;
+            outline:none !important;                       
         }
            .event-sp:hover {
             color: white !important;
@@ -24,14 +26,14 @@
         .event-sp{
             font-size: 18px;
             font-weight: bold;
-            color: black !important;
+            color: white !important;
         }
      
         .event-bu:hover >.event-sp{
           color: white !important;
         }
         .event-bu:hover{
-          background-color: black !important;        
+          background-color: #002b50 !important;                  
         } 
 
         /* section1 */
@@ -70,7 +72,7 @@
             display: flex;
             justify-content: space-between;
             margin: 5% 0;            
-        }
+        }     
         .btn-container{
             width: 300px;
             display: flex;
@@ -79,8 +81,8 @@
             margin: 20px 0;
         }
         .remove_basket, .wish_btn, .remove_list{
-            outline: none;
-            border: none;
+            outline: none !important;
+            border: none !important;
             font-size: 18px;
             background-color: white;
         }
@@ -123,20 +125,13 @@
             height: 140px;
             margin: 130px 0;            
         }
-        .section3 div, .section2 div{
-            font-size: 18px;
-        }    
+        .section3 div, .section2 div{font-size: 18px;}    
         .service-container{
             display: flex;
             justify-content: space-between; 
             margin: 10px 0;           
-        }
-        .etc-line div{
-            margin: 20px 0;
-            font-weight: 1000;
-        }
-        .etc-line {
-            margin: 50px 0;
-        }
-
-        
+        }      
+        .etc-line {margin: 50px 0;}
+        .etc-line img{margin: 20px;width: 30px; height:30px ;}
+		.etc-line div{display:flex}
+        .etc-detail{padding: 24px 0px 0px 1%; font-weight: 500;}
