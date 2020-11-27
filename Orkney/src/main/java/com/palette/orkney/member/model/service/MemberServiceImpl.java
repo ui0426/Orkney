@@ -80,6 +80,23 @@ public class MemberServiceImpl implements MemberService {
 		return dao.chatRoom(session, m);
 	}
 
+	@Override
+	public List<Map> chatAllData(String id) {
+		List<String> no=dao.chatRoomNo(session, id);
+		List list=new ArrayList();
+		for(String s:no) {
+			List<Map> chat=dao.chatData(session,s);
+			list.add(chat);
+		}
+		return list;
+	}
+	
+	@Override
+	public int chatDataSave(Map m) {
+		// TODO Auto-generated method stub
+		return dao.chatDataSave(session,m);
+	}
+	
 	//가입 시 주소 가져오기
 	@Override
 	public String getAddress(String no) {
@@ -90,6 +107,8 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public List<Addr> addAddrList(String mNo) {
 		return dao.addAddrList(session, mNo);
+		
 	}
+	
 	
 }

@@ -29,9 +29,14 @@ public interface MemberDao {
 
 	List<Map> chatRoom(SqlSession session, Map m);
 
+
+	List<Map> chatAllData(SqlSession session, String id);
+
+	int chatDataSave(SqlSession session, Map m);
+
 	//가입 시 주소가져오기
 	String getAddress(SqlSession session, String no);
-
+	
 	//추가된 배송지 리스트 가져오기
 	List<Addr> addAddrList(SqlSession session, String mNo);
 

@@ -35,6 +35,19 @@
   <select id="chatRoom" parameterType="map" resultType="map">
   	SELECT * FROM CHATTING WHERE MEMBER_NO=#{memberNo} AND CHAT_ROOM=#{roomNo} 
   </select>
+  <select id="chatAllData" parameterType="string" resultType="map">
+  	SELECT * FROM CHATTING WHERE MEMBER_NO=#{id}
+  </select>
+  <insert id="chatDataSave" parameterType="map">
+  	INSERT INTO CHATTING VALUES(c_num.nextval,#{sender},#{reciver},#{message},SYSDATE,
+  	<if test="room == 'new'">
+  	'r'||R_NUM.NEXTVAL
+  	</if>
+  	<if test="room != 'new'">
+  	#{room}
+  	</if>
+  	,#{userNo})
+  </insert>
   
   	<!-- 가입시 주소 가져오기 -->
   	<select id="getAddress" parameterType="string" resultType="string">
@@ -45,5 +58,4 @@
   	<select id="addAddrList" parameterType="string" resultType="addr">
   		select * from addr where address_type=0 and member_no=#{mNo}
   	</select>
-  
 </mapper>

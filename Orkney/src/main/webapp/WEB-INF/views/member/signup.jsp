@@ -219,6 +219,7 @@
             var val=$(e.target).val();//값
             var toyear=new Date().getFullYear();
             var inyear=val.substr(0,4);
+            console.log(toyear-inyear);
             var reg2= /^[0-9]*$/;
             if(v==8&&reg2.test(val)){
                 val=val.substr(0,4)+"-"+val.substr(4,2)+"-"+val.substr(6,2);
@@ -229,6 +230,7 @@
                 $("#birspan").css("display","block");
                 $("#birspan").html("만 15세 이상 이여야 합니다.");
                 birth=false;
+                return false;
             }else{
                 $("#birspan").css("display","none");
                 birth=true;

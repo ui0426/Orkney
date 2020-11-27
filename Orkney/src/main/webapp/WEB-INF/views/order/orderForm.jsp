@@ -6,7 +6,7 @@
 <c:set var="path" value="${pageContext.request.contextPath }"/>
 
 <jsp:include page="/WEB-INF/views/common/header.jsp">		
-	<jsp:param name="title" value="배송조회" />
+	<jsp:param name="title" value="배송조회 " />
 </jsp:include>
 <link rel="stylesheet" href="${path}/resources/css/order/orderForm.css"/>
 
@@ -15,7 +15,7 @@
 		<div class="order-container-inner">
 			<h1 class="orderform-title">주문 정보 확인</h1>
 			<div class="order-form-main">
-				<form action="">
+				<form action="${path }/order/orderView2.do">
 					<h2 class="order_information-title">주문정보</h2>
 				  	<div class="form-group">
 				  		<label class="order_information" for="orderNo">
