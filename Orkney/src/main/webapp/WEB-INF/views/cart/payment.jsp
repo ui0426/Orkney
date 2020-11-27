@@ -40,9 +40,28 @@
 	                    <div>1개</div>
 	                </div>
 	            </div>
-            </div>
-            
+            </div>            
         </div>
+        
+                <div class="section1">            
+            <div class="etc-title"><span>주문자</span></div>
+            <div class="line1"></div>
+            <div class="field">
+                <span class="first-div">이름</span>
+                <div class="padding-input"><input type="text" class="input1 input1-extra" placeholder="윤진영" readonly> </div>
+            </div>
+
+            <div class="field">
+                <span class="first-div">이메일</span>
+                <div class="padding-input"><input type="text" class="input1 input1-extra" placeholder="jini@naver.com" readonly></div>
+            </div>
+
+            <div class="field">
+                <span class="first-div">휴대전화</span>
+                <div class="padding-input"><input type="text" class="input1 input1-extra" placeholder="010-2252-2525" readonly></div>
+            </div>
+        </div>
+        
         
         <div class="section1">
             <div class="etc-title">
@@ -79,31 +98,9 @@
             <div class="field">
                 <div class="first-div">배송메모</div>
                 <div><input type="text" class="input3"></div>
-            </div>            
-        </div>
-        
-        <div class="section1">            
-            <div class="etc-title">
-                <span>주문자</span>  
-                <button class="btn2">회원정보와 동일하게 채우기</button>           
             </div>
-            <div class="line1"></div>
-            <div class="field">
-                <span class="first-div">이름</span>
-                <div><input type="text" class="input1"> </div>
-            </div>
-
-            <div class="field">
-                <span class="first-div">이메일</span>
-                <div><input type="text" class="input1"></div>
-            </div>
-
-            <div class="field">
-                <span class="first-div">휴대전화</span>
-                <div><input type="text" class="input1"></div>
-            </div>
-
-            <div class="field">
+            
+             <div class="field">
                 <div class="checkdiv  marb">  
                     <div class="checkicon" stlye="width:172px;">
                         <span><i class="far fa-check-circle fa-2x ixy i1"></i></span>
@@ -112,40 +109,74 @@
                     </div>
                     <span class="spanwid">sms 수신 동의 (배송 정보를 SMS로 보내드립니다.)</span>
                 </div>                                 
-            </div>
-
+            </div>            
         </div>
-
-        <div class="section1">
+        
+ <!--        <div class="section1">
             <div class="etc-title">
                 <span>쿠폰 (0장)</span> 
                 <button class="btn3">쿠폰열기</button> 
             </div>
-            <div class="line1"></div>
-        </div>
+        <div class="line1"></div>
+        </div> -->
 
         <div class="section1">
             <div class="etc-title">포인트</div>
-            <div class="line1" ></div>   
-            <div class="etc-field">                     
-                <div class="pre-point"><input type="text" class="input4">P</div>
-            </div>  
-
-            <div>
-                <div style="padding-top: 14px;">사용 가능한 포인트</div>
-                <div class="usable-point">0P</div>
-                <div class="checkdiv  marb">  
-                    <div class="checkicon" stlye="width:172px;">
-                        <span><i class="far fa-check-circle fa-2x ixy i1"></i></span>
-                        <span><i class="fas fa-check-circle fa-2x ixy i2"></i></span>
-                        <input type="checkbox" class="ck" id="ch">
-                    </div>
-                    <span class="spanwid">전액사용</span>
-                </div>                
-            </div>            
+            <div class="line1" ></div>           
+            <div class="able-point">
+	            
+	            <div class="first-div first-div-add">사용 가능한 포인트</div>
+	            <div class="usable-point">0P</div>                                        
+	                 
+	            <div class="checkdiv">  
+	                    <div class="checkicon" stlye="width:172px;">
+	                        <span><i class="far fa-check-circle fa-2x ixy i1"></i></span>
+	                        <span><i class="fas fa-check-circle fa-2x ixy i2"></i></span>
+	                        <input type="checkbox" class="ck" id="ch">
+	                    </div>
+	                    <span class="spanwid">전액사용</span>
+	             </div>
+			</div>                
+            
+            <div class="able-point">
+            	<div class="first-div first-div-add">사용할 포인트</div>                     
+                <div><input type="text" class="input4"></div>
+                <div class="pre-point" style="padding: 7px 0 0px 8px;">P</div>            	                         
+            </div>     
+               
         </div>
 
-        <div class="section1">
+            <div class="section1">
+                <div class="etc-title">결제 세부 정보</div>
+                <div class="line1"></div>
+                <div class="total-title">
+                        <div class="pay-title">
+                            <div >주문 금액(배송비 제외)</div>
+                            <div>7,900</div>                    
+                        </div>
+                        <div class="pay-title">
+                            <div>전체 서비스 비용</div>
+                            <div>5,000</div>
+                        </div>
+                        <div class="pay-title">
+                            <div>주문 금액(부가세 제외)</div>
+                            <div>11,727</div>
+                        </div>
+                        <div class="pay-title">
+                            <div>부가세(10%)</div>
+                            <div>1,173</div>
+                        </div>
+                </div>                
+                    <div class="line2">
+                        <div class="pay-title pay-font">
+                            <div>총 주문금액</div>
+                            <div>12,900</div>
+                        </div>
+                    </div>
+            </div>        
+        
+                
+       <div class="section1">
             <div class="etc-title">예상 적립 포인트</div>
             <div class="line1"></div>   
             <div class="field">     
@@ -153,28 +184,6 @@
                 <div style="padding-top: 5px;   font-weight: bold;">적립예정</div> 
             </div>
             <!-- <div>VIP 등급은 4,470P 적립<a href="">더알아보기</a></div> -->
-        </div>
-
-        <div class="section1">
-            <div class="etc-title">최종 결제 금액</div>
-            <div class="line1"></div> 
-            <div class="last-field">
-                <div>총 상품 금액</div>
-                <div>149,000</div>
-            </div>
-            <div class="last-field">
-                <div>배송비</div>
-                <div>0</div>
-            </div>
-            <div class="last-field">
-                <div>쿠폰 사용</div>                
-                <div>0</div>
-            </div>
-            <div class="last-field">
-                <div>포인트 사용</div>                
-                <div>0</div>
-            </div>
-            <div class="total-price">149,000원</div>
         </div>
 
         <div class="section1">
@@ -195,8 +204,8 @@
         
         <div class="section1">
         
-        <div class="field">
-            <div class="checkdiv  marb">  
+        <div class="field field-add">
+            <div class="checkdiv">  
                 <div class="checkicon" stlye="width:172px;">
                     <span><i class="far fa-check-circle fa-2x ixy i1"></i></span>
                     <span><i class="fas fa-check-circle fa-2x ixy i2"></i></span>
@@ -206,14 +215,14 @@
             </div>
         </div>
 
-            <div class="contract">
+            <div class="contract contract-add">
                 <div>개인정보 제 3자 제공 및 결제대행 서비스 표준 이용약관</div>                
                 <div><button id="extendBtn1">보기</button></div>
             </div>
-            
             <div class="line1"></div> 
+            
             <div id="contract1" style="display:none;">
-                <div class="contract1">
+                <div class="contract1 contract-add">
                     <div>개인정보 제 3자 제공</div>                
                     <div><button id="extendBtn2">열기</button></div>                
                 </div>
@@ -228,7 +237,7 @@
             
 
             <div id="contract2" style="display:none;">
-                <div class="contract1">
+                <div class="contract1 contract-add">
                     <div>개인정보 수집 및 이용</div>                
                     <div><button id="extendBtn3">열기</button></div>                
                 </div>                
@@ -242,7 +251,7 @@
             </div>
 
             <div id="contract3" style="display:none;">
-                <div class="contract1">
+                <div class="contract1 contract-add">
                     <div>결제대행 서비스 이용약관</div>                
                     <div><button id="extendBtn4">열기</button></div>                
                 </div>                
@@ -255,8 +264,8 @@
                                 4. 동의 거부권 등에 대한 고지 : 정보주체는 개인정보의 수집 및 이용 동의를 거부할 권리가 있으나, 이 경우 상품 및 서비스 예약이 제한될 수 있습니다.            
                             </div> 
             </div>
-            <span class="pay-btn"><button type="button" class="btn btn-dark event-bu"  onclick="location.href='${path }/cart/complete.do'"><span class="event-sp">결제하기</span></button></span> 
         </div>
+            <span class="pay-btn"><button type="button" class="btn btn-dark event-bu"  onclick="location.href='${path }/cart/complete.do'"><span class="event-sp">결제하기</span></button></span> 
 
 
     </div>

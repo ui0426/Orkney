@@ -10,8 +10,7 @@
         .section-container .title{
             font-size: 40px;
             font-weight: 1000;            
-        }
-        
+        }        
         .event-bu{
             margin: 15px;
             border-radius: 50px;
@@ -126,11 +125,7 @@
         }
         .section3 div, .section2 div{
             font-size: 18px;
-        }
-        .coupon{
-            margin: 20px 0;
-        }
-    
+        }    
         .service-container{
             display: flex;
             justify-content: space-between; 
@@ -143,7 +138,5 @@
         .etc-line {
             margin: 50px 0;
         }
-        .product-add{
-            margin: 10px 0;
-        }
+
         
