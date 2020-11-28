@@ -12,6 +12,7 @@
 <link rel="stylesheet" href="${path}/resources/css/cart/payment.css">
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
+
 <section>  
     <div class="section-container">       
         
@@ -190,7 +191,7 @@
             <div class="line1"></div> 
             <div class="field">
                 <div class="last-field"></div>
-                <button id="credit-card" >
+                <button id="credit-card" onclick="location.href='${path }/cart/creditpay.do'">
                     <img src="${path}/resources/img/credit-card.png" alt="">
                     <div class="card-title">카드</div>
                 </button>
@@ -352,6 +353,7 @@ $("#adrbtn").click(e=>{
 	}).open();
 })
 </script>
+
 
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
