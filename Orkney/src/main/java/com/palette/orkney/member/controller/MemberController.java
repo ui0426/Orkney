@@ -1,5 +1,6 @@
 package com.palette.orkney.member.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -16,6 +17,7 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.palette.orkney.member.model.service.MemberService;
+import com.palette.orkney.member.model.vo.Addr;
 
 @SessionAttributes("login")
 @Controller
@@ -60,6 +62,11 @@ public class MemberController {
 			List<String> chatRoomNo=service.chatRoomNo(no);
 			List chatData=service.chatData(chatRoomNo);
 			login.put("chatData",chatData);
+			
+			//가입할 때 주소 가져오기
+			String address = service.getAddress(no);
+			login.put("address", address);
+			
 			mv.addObject("login",login);
 			mv.setViewName("redirect:/");
 		}else {
@@ -100,17 +107,34 @@ public class MemberController {
 	
 	//마이페이지 화면으로 이동
 	@RequestMapping("/member/mypage.do")
-	public String mypageView(HttpSession session) {
+	public ModelAndView mypageView(HttpSession session, ModelAndView mv) {
 		//배송지 리스트 받아오기, 주문내역 갯수, 위시리스트 갯수
-		//List<Addr> list = service.addrList();
+		//System.out.println(session.getAttribute("login"));
+		System.out.println(session.getAttribute("login"));
+		String mNo = (String)((Map)session.getAttribute("login")).get("MEMBER_NO");
+		List<Addr> list = service.addAddrList(mNo);
 		
+		List<Addr> list2 = new ArrayList<Addr>();
+		//주소 떼내기
+		for(Addr addr : list) {
+			System.out.println(addr);
+			String fullAddr = addr.getAddress();
+			System.out.println(fullAddr);
+			String[] a=fullAddr.split("/");
+			addr.setAddress_post(a[0]);
+			addr.setAddress_addr(a[1]);
+			addr.setAddress_detail(a[2]);
+			list2.add(addr);
+		}
+		System.out.println(list2);
+		mv.addObject("addrList", list2);
+		mv.setViewName("member/mypage");
 		
-		return "member/mypage";
-		
+		return mv;
 	}
 	
 	//로그아웃(hy)
-	@RequestMapping("/member/loginout.do")
+	@RequestMapping("/member/loginout.do")	
 	public String loginout(SessionStatus status) {
 		if(!status.isComplete()) status.setComplete();
 		
