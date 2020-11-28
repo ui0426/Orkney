@@ -10,7 +10,7 @@
    <jsp:param name="title" value="결제화면" />
 </jsp:include>
 <link rel="stylesheet" href="${path}/resources/css/cart/payment.css">
-
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
 <section>  
     <div class="section-container">       
@@ -73,33 +73,33 @@
             <div class="line1"></div>
             <div class="field">
                 <span class="first-div">받는분</span>
-                <div><input type="text" class="input1"></div>
+                <div><input type="text" class="input1 none-line"></div>
             </div>
 
             <div class="field">
                 <span class="first-div">우편번호</span>
-                <div><input type="text" class="input2"> </div>
-                <div class="btn-container"><button class="btn1">우편번호</button></div>
+                <div><input type="text" class="input2 none-line" id="zip" disabled> </div>
+                <div class="btn-container"><button class="btn1" id="adrbtn">우편번호</button></div>
             </div>
 
             <div class="field">
                 <span class="first-div">주소</span>
-                <div><input type="text" class="input3"></div>
+                <div><input type="text" class="input3 none-line" id="adrinput" disabled></div>
             </div>
             
             <div class="field">                   
-                <div class="etc-div"><input type="text" class="input3"></div>                            
+                <div class="etc-div"><input type="text" class="input3  none-line"></div>                            
             </div>
             
 
             <div class="field">
                 <div class="first-div">휴대전화</div>
-                <div><input type="text" class="input1"></div>
+                <div><input type="text" class="input1 none-line"></div>
             </div>
 
             <div class="field">
                 <div class="first-div">배송메모</div>
-                <div><input type="text" class="input3"></div>
+                <div><input type="text" class="input3 none-line"></div>
             </div>
             
              <div class="field">
@@ -109,9 +109,9 @@
                         <span><i class="fas fa-check-circle fa-2x ixy i2"></i></span>
                         <input type="checkbox" class="ck" id="ch">
                     </div>
-                    <span class="spanwid">sms 수신 동의 (배송 정보를 SMS로 보내드립니다.)</span>
+                    <span class="spanwid marb">sms 수신 동의 (배송 정보를 SMS로 보내드립니다.)</span>
                 </div>                                 
-            </div>            
+            </div>           
         </div>
         
  <!--        <div class="section1">
@@ -142,7 +142,7 @@
             
             <div class="able-point">
             	<div class="first-div first-div-add">사용할 포인트</div>                     
-                <div><input type="text" class="input4"></div>
+                <div><input type="text" class="input4 none-line" ></div>
                 <div class="pre-point" style="padding: 7px 0 0px 8px;">P</div>            	                         
             </div>     
                
@@ -265,9 +265,9 @@
             </div>
         </div>
             <button type="button" class="btn btn-dark event-bu"  onclick="location.href='${path }/cart/complete.do'"><span class="event-sp">결제하기</span></button> 
-
-
     </div>
+</section>
+
  <script>
      // 약관동의 자세히보기
     $("#extendBtn1").click(function() {
@@ -300,10 +300,58 @@
             $(i2).css("color","white");
             $(ch).prop("checked",false);
         }
-    });
-
+    });            
+     
 </script>
-</section>
+<script>
+/* 주소검색api */ 
+$("#adrbtn").click(e=>{
+	new daum.Postcode({
+		oncomplete: function(data) {
+			var addr =''; //주소변수
+			var extraAddr =''; //참고변수
+			var test=data.postcode;
+			console.log(test);
+			console.log(data.zonecode);
+			
+		//사용자가 선택한 주소 타입
+		//도로명
+		if(data.userSelectedType ==='R'){
+				addr =  data.roadAddress;    			
+		}else{
+			addr = data.jibunAddress;
+		}
+		
+		//사용자가 선택한 주소가 도로명 일때
+		if(data.userSelectedType === 'R'){
+			//법정동명
+			if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+				extraAddr +=data.bname;
+			}
+			//건물명, 공동주택
+			if(data.buildingName !== '' && data.apartment ==='Y'){
+				extraAddr += (extraAddr !== '' ? ',' + data.buildingName : data.buildingName);					
+			}
+			//표시할 참고항목이 있을시
+			if(extraAddr !== ''){
+				extraAddr = '(' + extraAddr + ')';
+			}								
+		}else{}
+		console.log(data.zonecode+" : "+addr);
+        
+		$("#zip").val(data.zonecode);
+        $("#adrinput").val(addr);
+        $("#zip").attr("disabled",false);
+        $("#adrinput").attr("disabled",false);
+        $("#zip").attr("readonly",true);
+        $("#adrinput").attr("readonly",true);
+        // 커서를 상세주소 필드로 이동
+        $("#detailadr").focus();
+        console.log(data.zonecode+" : "+addr+" : "+extraAddr);			    	
+	}
+	}).open();
+})
+</script>
 
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

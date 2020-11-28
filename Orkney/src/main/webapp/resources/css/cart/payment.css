@@ -110,10 +110,11 @@
     .btn1{
         border: none;
         color: white;
-        background-color: black;
+        background-color: #0058a3;
         width: 140px;
         height: 40px;   
-        font-size:18px;     
+        font-size:18px;  
+        outline: none !important;   
     }
     .btn2{
     	 outline: none !important;    
@@ -141,6 +142,7 @@
     .text-container{        
         margin-left:220px;                
     }
+    .none-line{border: 1px solid #ced4da; outline: none;}
     .input3{
         height: 45px;
         width: 600px;
@@ -199,7 +201,7 @@
 		/* .section-op{margin-top:23%;} */
         .ck{zoom: 5;position: relative;z-index: -1;opacity: 0;}
         .checkicon{width: 14%;min-height: 56px;min-width: 50px;z-index: -1;position: relative; margin-right: -9%;}
-        .spanwid{width:88%; font-weight: 500; margin: 14px 0 30px 0; z-index: -1; position: relative; font-size: 18px;}
+        .spanwid{width:88%; font-weight: 500; margin: 14px 0 30px 0; z-index: -1; position: relative; font-size: 18px;padding-left: 2%;}
 		 .pay-font>div{font-weight: 800;}
        
         .contract-add{ 

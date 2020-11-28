@@ -10,9 +10,9 @@ public class CartController {
 //	private CartService service;	
 	@RequestMapping("/cart/cart.do")
 	public String cart() {
+		
 		return "cart/cart";
-	}
-	
+	}	
 	@RequestMapping("/cart/payment.do")
 	public String payment() {
 		return "cart/payment";
