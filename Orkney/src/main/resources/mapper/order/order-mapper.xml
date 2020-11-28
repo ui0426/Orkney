@@ -4,4 +4,10 @@
 	<select id="selectOrderList" parameterType="string" resultType="map">
 		SELECT * FROM ORDERS WHERE MEMBER_NO=#{mNo}
 	</select>
+	<select id="selectOrder" parameterType="string" resultType="order">
+		select * from orders where order_no=#{oNo}
+	</select>
+	<select id="selectOrderDetail" parameterType="string" resultType="orderDetail">
+		SELECT * FROM ORDER_DETAIL WHERE ORDER_NO=#{oNo}
+	</select>
 </mapper>
