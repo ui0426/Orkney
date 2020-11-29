@@ -80,5 +80,11 @@ public class MemberDaoImpl implements MemberDao {
 		// TODO Auto-generated method stub
 		return session.insert("member.chatDataSave",m);
 	}
+
+	@Override
+	public String newRoomNo(SqlSession session,int newNo) {
+		// TODO Auto-generated method stub
+		return session.selectOne("member.newRoomNo",newNo);
+	}
 	
 }

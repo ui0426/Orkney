@@ -31,4 +31,6 @@ public interface MemberDao {
 
 	int chatDataSave(SqlSession session, Map m);
 
+	String newRoomNo(SqlSession session,int newNo);
+
 }

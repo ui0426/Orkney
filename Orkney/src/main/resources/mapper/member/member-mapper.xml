@@ -38,6 +38,7 @@
   <select id="chatAllData" parameterType="string" resultType="map">
   	SELECT * FROM CHATTING WHERE MEMBER_NO=#{id}
   </select>
+  
   <insert id="chatDataSave" parameterType="map">
   	INSERT INTO CHATTING VALUES(c_num.nextval,#{sender},#{reciver},#{message},SYSDATE,
   	<if test="room == 'new'">
@@ -47,5 +48,12 @@
   	#{room}
   	</if>
   	,#{userNo})
+  	<selectKey keyProperty="newNo" resultType="int" order="AFTER">
+  		SELECT C_NUM.CURRVAL FROM DUAL
+  	</selectKey>
   </insert>
+  <select id="newRoomNo" resultType="string" parameterType="int">
+  		SELECT CHAT_ROOM FROM CHATTING
+  		WHERE CHAT_NO=#{newNo}
+  </select>
 </mapper>

@@ -14,6 +14,7 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
+import com.google.gson.Gson;
 import com.palette.orkney.member.model.service.MemberService;
 
 
@@ -45,7 +46,7 @@ public class EchoHandler extends TextWebSocketHandler{
 	        
 	        JSONObject jo=new JSONObject(message.getPayload());
 	        		Map m=new HashMap();
-	        
+	        String no="";
 	        if(jo.getString("type").equals("register")) {
 	        	userData.put(jo.getString("user"),session);
 	        }else {
@@ -60,9 +61,13 @@ public class EchoHandler extends TextWebSocketHandler{
 	        				m.put("reciver",jo.getString("sendId"));
 	        				m.put("message",jo.getString("ms"));
 	        				m.put("room",jo.getString("room"));
-	        				int result=service.chatDataSave(m);
+	        				List result=service.chatDataSave(m);
+	        				no=(String)result.get(1);
 	        				}
-	        				userData.get(s).sendMessage(new TextMessage(message.getPayload()));
+	        				
+	        				String a=message.getPayload().replace("new",no);
+	        				//userData.get(s).sendMessage(new TextMessage(message.getPayload()));
+	        				userData.get(s).sendMessage(new TextMessage(a));
 	        			}
 	        			if(s.equals("m11")&&("m11").equals(jo.getString("sendId"))) {//관리자에게 보내는 메세지 
 	        				userData.get(s).sendMessage(new TextMessage(message.getPayload()));
@@ -73,7 +78,7 @@ public class EchoHandler extends TextWebSocketHandler{
 	        				m.put("reciver",jo.getString("sendId"));
 	        				m.put("message",jo.getString("ms"));
 	        				m.put("room",jo.getString("room"));
-	        				int result=service.chatDataSave(m);
+	        				List result=service.chatDataSave(m);
 	        				
 	        				userData.get(s).sendMessage(new TextMessage(message.getPayload()));
 	        			}
