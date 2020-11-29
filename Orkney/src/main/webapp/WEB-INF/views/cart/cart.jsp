@@ -74,12 +74,10 @@
             </div>
 
     
-        <div class="section2">       
-                <div class="coupon"><a href="">쿠폰입력</a></div>                
-                <div style="font-weight: 1000;">주문내역</div>  
+        <div class="section2">                                                        
                 <div class="service-container">                              
                     <div>전체 서비스 비용</div>
-                    <div>이 금액에는 배송비가 포함되어 있지 않으며 ...</div>
+                    <div>이 금액에는 배송비가 포함되어 있지 않으며, 배송지에 따라 구매가 불가할 수 있습니다</div>
                 </div>                                       
         </div>
 
@@ -93,11 +91,18 @@
         <div class="section3">
         	
   
-            <span class="pay-btn"><button type="button" class="btn btn-dark event-bu" onclick="location.href='${path }/cart/payment.do'"><span class="event-sp">결제하기</span></button></span>                      
-            <div class="product-add"><a href="">제품 번호로 제품 추가하기</a></div>
-            <div class="etc-line">    
-                <div>반품 정책 365일 이내에 제품 환불 가능</div>
-                <div>안전한 쇼핑SSD 데이터 암호화로 안전한 쇼핑</div>
+            <span class="pay-btn"><button type="button" class="btn-dark event-bu" onclick="location.href='${path }/cart/payment.do'"><span class="event-sp">결제하기</span></button></span>                                  
+            <div class="etc-line">
+                
+                <div>
+                	<div><img src="${path}/resources/img/refund.png"> </div>
+                	<span  class="etc-detail">반품 정책 365일 이내에 제품 환불 가능</span>
+                </div>
+                <div>
+                 	<div><img src="${path}/resources/img/lock.png"> </div>
+                	<span  class="etc-detail">안전한 쇼핑SSD 데이터 암호화로 안전한 쇼핑</span>                 	
+                </div>
+                
             </div>            
         </div>
         <div class="line1"></div>    

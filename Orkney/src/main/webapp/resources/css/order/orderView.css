@@ -194,6 +194,9 @@ p{margin:0;}
 		.paymentAmount{
 			font-size: 15px;
 		}
+		.disappear-line{
+			display: none;
+		}
 	}
 	
 	#p-minus{

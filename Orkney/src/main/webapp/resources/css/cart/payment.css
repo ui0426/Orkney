@@ -7,13 +7,13 @@
         display: flex;
         flex-direction: column;                    
     }
-    .section1{
-        margin: 50px 0;        
-    }
+    .section1{ margin: 8% 0; }
+    .span-padding{padding-left: 10%;}
     .section-container{
           padding: 5% 20%;
           width: 100%;                                  
     }
+    .mod-product{margin: 20px 0;}
     .title-container{        
         width: 100%;        
         margin: 5% 0;
@@ -31,12 +31,20 @@
         font-weight: 1000;
         padding-right: 128px;
     }
+    .total-title{    padding: 20px 0px 7px 0;}
     .order-container{
     			width: 100%;
               height: 140px;
 			    margin: 30px 0;
 			    display: flex;
 			    flex-direction: row;
+    }
+    .pay-title{       
+	    font-size:18px; 
+	    margin: 6px 80px;
+	    display: flex;
+	    justify-content: space-between;
+	    min-width: 250px;
     }
     .product-pic img{
             width: 140px;
@@ -62,9 +70,8 @@
         display: flex;
         margin-top: 20px;
     }
-    .field p{
-        font-size: 18px;
-    }
+    .field p{font-size: 18px;}
+    /* .checkdiv-add{padding-bottom:5px;} */
     .etc-p{
         font-size: 16px;
         margin:10px 0;
@@ -82,11 +89,20 @@
         margin: 0 60px 0 0;     
         padding:10px;                   
     }
-
+    .first-div-add{min-width:200px}
     .input1{
         width:300px;
         height: 40px;
     }
+    .input1-extra{
+    	border:none;
+    	outline: none;
+        font-size: 20px;
+    }
+    .padding-input{padding-top: 6px}
+    
+    .able-point{display: flex;     margin-top: 20px;}
+    
     .input2{
         width: 150px;
         height: 40px;        
@@ -94,12 +110,14 @@
     .btn1{
         border: none;
         color: white;
-        background-color: black;
+        background-color: #0058a3;
         width: 140px;
         height: 40px;   
-        font-size:18px;     
+        font-size:18px;  
+        outline: none !important;   
     }
-    .btn2{    
+    .btn2{
+    	 outline: none !important;    
         border: 1px solid;
         border-color: rgb(216, 216, 216);
         border-radius: 5px;
@@ -108,7 +126,6 @@
         height: 33px;
         font-size: 15px;
     }
- 
     .btn3 {
         border: 1px solid;
         border-color: rgb(216, 216, 216);
@@ -125,6 +142,7 @@
     .text-container{        
         margin-left:220px;                
     }
+    .none-line{border: 1px solid #ced4da; outline: none;}
     .input3{
         height: 45px;
         width: 600px;
@@ -134,11 +152,11 @@
         height: 40px;
         margin: 5px 10px;
     }
-    .total-price{
-        font-size: 24px;
-        font-weight: 1000;
-        float: right;
-    }
+    .line2{
+        border-bottom:2px dashed gray; 
+        border-top:2px dashed gray;
+        padding: 4px 0;
+        }
     .address-container{
         padding-left: 100px;
     }
@@ -146,14 +164,16 @@
     .event-bu{
             margin: 15px;
             border-radius: 50px;
-            width: 80% !important;
-            background-color: white !important;
-            border: white ;                       
+            width: 100% !important;
+            background-color: #0058a3 !important;
+            border: white ;
+            padding: 1.84rem 2.14rem !important;
+            outline:none !important;                        
         }
         .event-sp{
             font-size: 18px;
             font-weight: bold;
-            color: black !important;
+            color: white !important;            
         }
         .event-sp:hover {
             color: white !important;
@@ -162,35 +182,33 @@
           color: white !important;
         }
         .event-bu:hover{
-          background-color: black !important;        
+           background-color: #002b50 !important;         
         } 
-        .pay-btn{
-            height:100px;
-            display: flex;
-            justify-content: center;
-            text-align: center;            
-            width: 100%;    
-            margin: 50px 0;                     
-        }
         .etc-div{
             margin-left:200px ;
         }
         .i1{transition: 400ms;color:#0058a3;z-index:-1;}
         .i2{transition: 400ms;color:white;z-index:-1;}
         .ixy{position: absolute;left: 1%;top: 17%;z-index:-1;}
-        .checkdiv{position: relative; display:flex;cursor: pointer; height: 40px; margin-bottom: 10px;}
+        .checkdiv{    
+	        width: 100%;
+	    	position: relative;
+		    display: flex;
+		    cursor: pointer;
+		    height: 40px;
+		    /* margin: 10px; */
+		    }
+		/* .section-op{margin-top:23%;} */
         .ck{zoom: 5;position: relative;z-index: -1;opacity: 0;}
-        .checkicon{width: 14%;min-height: 56px;min-width: 50px;z-index: -1;position: relative;}
-        .spanwid{width:88%;font-size: .875rem; font-weight: 500; margin: 14px 0 30px 0; z-index: -1; position: relative; font-size: 18px;}
-
-        .contract{
-            display: flex;
+        .checkicon{width: 14%;min-height: 56px;min-width: 50px;z-index: -1;position: relative; margin-right: -9%;}
+        .spanwid{width:88%; font-weight: 500; margin: 14px 0 30px 0; z-index: -1; position: relative; font-size: 18px;padding-left: 2%;}
+		 .pay-font>div{font-weight: 800;}
+       
+        .contract-add{ 
+        	display: flex;
             justify-content: space-between;
-        }
-        .contract1{        
-            display: flex;
-            justify-content: space-between;
-        }
+            padding: 12px 0px;}
+       
         .content1,.content2,.content3{
             max-height:100px;
             overflow-y:scroll;
@@ -207,17 +225,9 @@
             outline: none;
             background-color: white;
         }
-        .etc-field{
-            display: flex;
-            justify-content: space-between;
-            padding-top: 14px;
-        }
-        .etc-field+div{
-            display: flex;
-            margin-top: 10px;
-        }
+		.field-add{margin-bottom:2%;}
         .usable-point{
-            padding: 10px 33px;
+            padding: 9px 9% 0px 12px;
             font-size: 22px;
             color: #35c5f0;
             font-weight: bold;
@@ -244,7 +254,7 @@
             font-size: 22px;
             color: #35c5f0;
             font-weight: bold;
-        }
+        }        
         .product-container{
         	display:flex;
         	justify-content: space-between;

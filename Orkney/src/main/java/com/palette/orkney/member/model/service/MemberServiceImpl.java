@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.palette.orkney.member.model.dao.MemberDao;
+import com.palette.orkney.member.model.vo.Addr;
 
 @Service
 public class MemberServiceImpl implements MemberService {
@@ -105,5 +106,19 @@ public class MemberServiceImpl implements MemberService {
 		result.add(b);
 		return result;
 	}
+	
+	//가입 시 주소 가져오기
+	@Override
+	public String getAddress(String no) {
+		return dao.getAddress(session, no);
+	}
+
+	//추가된 배송지 리스트 가져오기
+	@Override
+	public List<Addr> addAddrList(String mNo) {
+		return dao.addAddrList(session, mNo);
+		
+	}
+	
 	
 }

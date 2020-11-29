@@ -52,8 +52,20 @@
   		SELECT C_NUM.CURRVAL FROM DUAL
   	</selectKey>
   </insert>
+
   <select id="newRoomNo" resultType="string" parameterType="int">
   		SELECT CHAT_ROOM FROM CHATTING
   		WHERE CHAT_NO=#{newNo}
   </select>
+  
+  	<!-- 가입시 주소 가져오기 -->
+  	<select id="getAddress" parameterType="string" resultType="string">
+  		select address from addr where member_no=#{ no } and address_type = 1
+  	</select>
+  	
+  	<!-- 추가된 배송지 리스트 가져오기 -->
+  	<select id="addAddrList" parameterType="string" resultType="addr">
+  		select * from addr where address_type=0 and member_no=#{mNo}
+  	</select>
+
 </mapper>
