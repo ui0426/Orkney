@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.stereotype.Service;
 
 import com.palette.orkney.member.model.vo.Addr;
+import com.palette.orkney.member.model.vo.Member;
 
 @Service
 public interface MemberService {
@@ -41,4 +42,7 @@ public interface MemberService {
 
 	//연락처수정
 	int updateMemberContact(Map<String, Object> updateInformation);
+
+	//현재 로그인 된 유저 정보 받아오기
+	Member currentMemberInformation(String mNo);
 }

@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 
 import com.palette.orkney.member.model.vo.Addr;
+import com.palette.orkney.member.model.vo.Member;
 
 public interface MemberDao {
 
@@ -45,5 +46,8 @@ public interface MemberDao {
 
 	//연락처 수정
 	int updateMemberContact(SqlSession session, Map<String, Object> updateInformation);
+
+	//현재 로그인 된 유저 정보 받아오기
+	Member currentMemberInformation(SqlSession session, String mNo);
 
 }

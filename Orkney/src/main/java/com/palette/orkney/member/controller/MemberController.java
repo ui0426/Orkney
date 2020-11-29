@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.palette.orkney.member.model.service.MemberService;
 import com.palette.orkney.member.model.vo.Addr;
+import com.palette.orkney.member.model.vo.Member;
 
 @SessionAttributes("login")
 @Controller
@@ -200,5 +201,19 @@ public class MemberController {
 		}
 		
 		return data;
+	}
+	
+	//현재 로그인 된 유저 정보 받아오기
+	@RequestMapping("/member/currentMemberInformation.do")
+	@ResponseBody
+	public Member currentMemberInformation(HttpSession session) {
+		Map login = ((Map)session.getAttribute("login")); //로그인 된 유저
+		String mNo = (String)login.get("MEMBER_NO");
+		
+		
+		Member m = service.currentMemberInformation(mNo);
+		
+		System.out.println(m);
+		return m; //화면에서 널처리를 해줘야 하나?
 	}
 }

@@ -161,14 +161,12 @@
 }
 .input-label-wrap{
 	position: relative;
-	color: #969393;
+/* 	color: #969393; 인풋창 안 span색깔 */
 }
-.input-label-wrap .input-label{
-    position: absolute;
-    top: 7px;
-    transition: all .2s ease;
-    font-size: 1rem;
-    font-weight: 600;
+.input-label-wrap .origin-input-css{
+	color: #484848;
+	font-size: 1rem;
+	border-bottom: 1px solid;
 }
 .input-label-wrap .input-label-2{
     position: absolute;
@@ -178,6 +176,35 @@
    	color: #212529;
     transition: all .2s ease;
 }
+.input-label-wrap .input-label{
+    position: absolute;
+    top: 7px;
+    transition: all .2s ease;
+    font-size: 1rem;
+    font-weight: 600;
+}
+/* .change-input-css{ */
+/* 	color: red; */
+/* 	border-bottom: 2px solid; */
+/* } */
+/* .change-label-2{ */
+/* 	position: absolute; */
+/*     top: -19px; */
+/* 	transform: translateY(-140%); */
+/* 	font-size: 1rem; */
+/* 	font-weight: 600; */
+/* 	color: #969393; */
+	
+/* } */
+/* 포커스가 지나간 상태에서 제어하려면 valid 선택자를 사용해야 함 */
+/* .input-label-wrap input:focus + .change-label-2, */
+/* .input-label-wrap input:valid + .change-label-2{ */
+/* 	transform: translateY(-300%); */
+/* 	font-size: 0.775rem !important; */
+/* 	font-weight: 100 !important; */
+/* 	color: #212529; */
+/* } */
+
 /* .origin-label-status{
 	font-size: 0.775rem;
 	font-weight: 100;
@@ -197,7 +224,7 @@
     text-decoration: underline !important;
 }
 /* 비밀번호 메세지 */
-#origin-msg, #new-msg1, #new-msg2, #pwck-msg, .msg-not-null{
+#origin-msg, #new-msg1, #new-msg2, #pwck-msg, .msg-not-null, .msg-style{
 	font-size: 0.775rem;
 	color: red;
 }
@@ -208,13 +235,7 @@
 #new-msg2 li{
 	margin: 0.4em 0;
 }
-/* 포커스가 지나간 상태에서 제어하려면 valid 선택자를 사용해야 함 */
-.input-label-wrap input:focus + .input-label{
-	transform: translateY(-90%);
-	font-size: 0.775rem !important;
-	font-weight: 100 !important;
-	color: #000;
-}
+
 .disabled{
 	color: #ccc !important;
        cursor: context-menu;

@@ -77,16 +77,18 @@
 							</div>
 							<div id="personal-box" class="update-box" style="display: none;">
 								<div class="personal-information-row input-label-wrap">
-									<input type="text" class="input-event not-null" name="name" value="${ login.MEMBER_NAME }">
+									<input type="text" id="update-name-input" class="origin-input-css" name="name" value="${ login.MEMBER_NAME }">
 									<label for="" class="input-label-2"><span>이름</span></label>
 									<span style="display: none;" class="msg-not-null">이름을 입력해 주세요.</span>
 								</div>
 								<div class="personal-information-row input-label-wrap">
 									<!-- 생일 형식 yyyy-dd-mm으로 바꾸기 -->
 									<c:set var="birReplace" value="${ fn:split(fn:replace(login.BIRTHDAY,'/','-'),' ')[0] }"/>
-									<input type="text" name="birth" value="${ birReplace }" placeholder="YYYY-MM-DD">
+									<input type="text" id="update-birth-input" class="origin-input-css" name="birth" value="${ birReplace }" >
 									<label for="" class="input-label-2"><span>생일</span></label>
-									<span style="display: none;" id="">생일을 입력해 주세요.</span>
+									<span style="display: none;" class="msg-style">생일을 입력해 주세요.</span>
+									<span style="display: none;" class ="msg-style" id="birth-type-ck">YYYY-MM-DD 형식으로 작성해야합니다.</span>
+									<span style="display: none;" class ="msg-style" id="birth-age-ck">만 15세 이상 이여야 합니다.</span>
 								</div>
 								<div class="personal-information-btn">
 									<button type="button">취소</button>
@@ -112,9 +114,11 @@
 								<span>확인됨???</span>
 							</div>
 							<div id="contact-box" class="update-box" style="display: none;">
-								<div class="personal-information-row">
-									<span class="title">휴대폰</span>
-									<input type="text" name="phone" value="${ login.PHONE }">
+								<div class="personal-information-row input-label-wrap">
+									<input type="text" id="update-phone-input" class="origin-input-css" name="phone" value="${ login.PHONE }" >
+									<label for="" class="input-label-2"><span>휴대폰</span></label>
+									<span style="display: none;" class="msg-style">휴대폰 번호를 입력해 주세요.</span>
+									<span style="display: none;" class ="msg-style" id="phone-type-ck">휴대폰 번호가 올바르지 않습니다.</span>
 								</div>
 								<div class="personal-information-row">
 									<span class="title">이메일</span>
@@ -141,26 +145,25 @@
 							</div>
 							<div id="password-box" class="update-box" style="display: none;">
 								<div class="personal-information-row input-label-wrap">
-									<input type="password" id="origin-pw">
-									<label for="origin-pw" class="input-label"><span>현재 비밀번호</span></label>
-									<span style="display: none;" id="origin-msg">현재 비밀번호를 입력해 주세요.</span>
+									<input type="password" id="update-originPw-input" class="origin-input-css" name="originPw">
+									<label for="" class="input-label"><span>현재 비밀번호</span></label>
+									<span style="display: none;">현재 비밀번호를 입력해 주세요.</span>
 								</div>
 								<div class="personal-information-row input-label-wrap">
-									<input type="password" id="new-pw">
+									<input type="password" id="new-pw" name="newPw">
 									<label for="new-pw" class="input-label"><span>새 비밀번호</span></label>
 									<span id="new-msg1" style="display: none;">비밀번호에는 다음이 포함되어야 합니다.</span>
 									<ul id="new-msg2" style="display: none;">
 										<li>8-20자를 입력해야 합니다</li>
-										<li>한 줄에 동일한 문자를 3개 이상 포함할 수 없습니다.</li>
 										<li>소문자(a-z)</li>
 										<li>대문자(A-Z)</li>
 										<li>숫자 또는 특수 문자</li>
 									</ul>
 								</div>
 								<div class="personal-information-row input-label-wrap">
-									<input type="password" id="new-pwck">
-									<label for="new-pwck" class="input-label"><span>새 비밀번호 확인</span></label>
-									<span style="display: none;" id="pwck-msg">새 비밀번호 확인을 입력해 주세요.</span>
+									<input type="password" id="new-pwck" name="newPwCk">
+									<label for="new-pwck" class="input-label"><span>새 비밀번호 확인</sspan></label>
+									<span style="display: none;" id="pwck-msg" class ="msg-style">새 비밀번호 확인을 입력해 주세요.</span>
 								</div>
 								<div class="personal-information-btn">
 									<button type="button">취소</button>
@@ -447,12 +450,153 @@
 	        }
 	    }).open();
 	})
+	
 	/* 수정 누르면 열리게 하는 로직 */
 	function fn_update(i,id){
 		if($(i).text() == '수정'){ //수정누를떄
 			$(i).parent().nextAll().hide();
 			$(id + '-box').show();
 			$(i).text('닫기');
+			
+			
+			$.ajax({ //현재 로그인 된 사용자 정보 받아오기
+				type: 'post',
+				url: "${path}/member/currentMemberInformation.do",
+				dataType: "json",
+				success: data=>{
+					console.log(data);
+					$('#update-name-input').val(data['member_name']);
+					$('#update-birth-input').val(data['birthday']);
+				}
+			})
+			
+			//수정창 열어서 이름 클릭 시 (체크 : not-null)
+			$('#update-name-input').blur(e=>{
+			     if($(e.target).val() == ''){
+			        $(e.target).css({'color':'red','border-bottom':'2px solid'});
+			        $(e.target).next().css({'transform': 'translateY(110%)','font-size': '1rem','font-weight': '600','color':'#969393'});
+			        $(e.target).next().next().css('display','block');
+			     } else {
+			        $(e.target).css({'color': '#484848', 'border-bottom': '1px solid', 'font-size':'1rem'});
+			        $(e.target).next().next().css('display','none');
+			     }
+			  	}).click(e=>{
+				     $(e.target).css({'color': '#0058a3', 'border-bottom': '2px solid'});
+				     $(e.target).next().css({'font-size': '0.775rem','font-weight': '100','transform':'none', 'color':'#212529'});
+		  	})
+		  	
+		  	//수정창 열어서 생일 클릭시 (체크 : not-null, 형식)
+			$('#update-birth-input').blur(e=>{
+				if($(e.target).val() == ''){
+			        $(e.target).css({'color':'red','border-bottom':'2px solid'});
+			        $(e.target).next().css({'transform': 'translateY(110%)','font-size': '1rem','font-weight': '600','color':'#969393'});
+			        $(e.target).next().next().css('display','block');
+			        $('#birth-type-ck').css('display','none');
+			        $('#birth-age-ck').css('display','none');
+ 			     } else {
+			        $(e.target).css({'color': '#484848', 'border-bottom': '1px solid', 'font-size':'1rem'});
+			        $(e.target).next().next().css('display','none');
+					
+			        var v=$(e.target).val().length;//값 길이
+		            var val=$(e.target).val();//값
+		            var toyear=new Date().getFullYear();
+		            var inyear=val.substr(0,4);
+		            var reg=/^(19|20)\d{2}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[0-1])$/g;
+		            var reg2= /^[0-9]*$/;
+	            
+		            if (v == 8 && reg2.test(val)){ //여덟글자 쓰고 조건 ok일 때
+		                val=val.substr(0,4)+"-"+val.substr(4,2)+"-"+val.substr(6,2);
+		                console.log(val);
+		                $(e.target).val(val);
+		                $('#birth-type-ck').css('display','none');
+		            } else if(reg.test(val)){ //-쓰고 조건 ok일 때
+		                $('#birth-type-ck').css('display','none');
+	            	
+		            } else { //조건 만족 안할 때
+		            	//"YYYY-MM-DD 형식으로 작성해야합니다.
+		            	$('#birth-type-ck').css('display','block');
+					}
+		            
+		            if((toyear-inyear)<=14){
+		            	//만 15세 이상 이여야 합니다. msg 띄우기
+		            	$('#birth-age-ck').css('display','block');
+		            } else{
+		            	$('birth-age-ck').css('display','none');
+		            }
+			   	}
+				
+			}).click(e=>{
+			     $(e.target).css({'color': '#0058a3', 'border-bottom': '2px solid'});
+			     $(e.target).next().css({'font-size': '0.775rem','font-weight': '100','transform':'none', 'color':'#212529'});
+		
+			})
+			
+			//수정창 열어서 연락처 클릭 시 (체크 : not-null, 형식 )
+			$("#update-phone-input").blur(e=>{
+				if($(e.target).val() == ''){
+			        $(e.target).css({'color':'red','border-bottom':'2px solid'});
+			        $(e.target).next().css({'transform': 'translateY(110%)','font-size': '1rem','font-weight': '600','color':'#969393'});
+			        $(e.target).next().next().css('display','block');
+			        $('#phone-type-ck').css('display','none');
+
+ 			     } else {
+			        $(e.target).css({'color': '#484848', 'border-bottom': '1px solid', 'font-size':'1rem'});
+			        $(e.target).next().next().css('display','none');
+			
+			        var v=$(e.target).val().length;
+		            var val=$(e.target).val();
+		            var reg2= /^[0-9]*$/g;
+	                var reg=/^[01]{1}[1]{1}[0]{1}-[0-9]{4}-[0-9]{4}/g;
+		            
+		            if(v==11&&reg2.test(val)){
+		                val=val.substr(0,3)+"-"+val.substr(3,4)+"-"+val.substr(7,4);
+		                $(e.target).val(val);
+		                $('#phone-type-ck').css('display','none');
+		            } else if(reg.test(val)){
+		            	$('#phone-type-ck').css('display','none');
+		            } else {
+		            	$('#phone-type-ck').css('display','block');
+		            }
+ 			     }  
+			}).click(e=>{
+			     $(e.target).css({'color': '#0058a3', 'border-bottom': '2px solid'});
+			     $(e.target).next().css({'font-size': '0.775rem','font-weight': '100','transform':'none', 'color':'#212529'});
+			})    
+			
+// 			//수정창 열어서 비밀번호 클릭 시 (체크 : not-null )
+			$('#update-originPw-input').blur(e=>{
+				if($(e.target).val() == ''){
+			        $(e.target).css({'color':'red','border-bottom':'2px solid'});
+			        $(e.target).next().next().css('display','block');
+				} else {
+					$(e.target).css({'color':'#484848','border-bottom':'1px solid'});
+					$(e.target).next().next().css('display','none');
+					$(e.target).next().css({'transform': 'translateY(-90%)','font-size': '0.775rem','font-weight': '100'});
+				}
+			}).click(e=>{
+			     $(e.target).css({'color': '#0058a3', 'border-bottom': '2px solid'});
+			     $(e.target).next().css({'font-size': '0.775rem','font-weight': '100','transform':'none', 'color':'#212529'});
+			})
+			
+// 			$('#update-originPw-input').blur(e=>{
+// 				if($(e.target).val() == ""){
+// 					$(e.target).css({'color':'red','border-bottom':'2px solid'});
+// 					$(e.target).next().next().css('display','block');
+// 				} else {
+// 					$(e.target).css({'color':'#484848','border-bottom':'1px solid'});
+// 					$(e.target).next().next().css('display','none');
+// 					$(e.target).next().css({'transform': 'translateY(-90%)','font-size': '0.775rem','font-weight': '100'});
+// 				}
+// 			}).click(function(){
+// 				$(e.target).css({'color': '#0058a3', 'border-bottom': '2px solid'});
+// 			})
+			
+			
+			
+			
+			
+			
+			
 			
 			//이름 생일 정보수정
 			$('#personal-submit').click(function(e){
@@ -495,7 +639,6 @@
 					}
 				})
 			})
-	
 			
 		} else{ //닫기누를떄
 			$(i).parent().nextAll().css('display','flex');
@@ -503,6 +646,9 @@
 			$(i).text('수정');
 		}
 	}
+	
+	
+	
 	
 
 	
@@ -601,28 +747,95 @@
 			$(this).css({'color': '#0058a3', 'border-bottom': '2px solid'});
 		})
 		
+
+		
 		/* 인풋 클릭 했을 때 */
-		$('.input-event').click(e=>{
-			console.log($(e.target));
+// 		$('.input-event').click(e=>{
+// 			console.log($(e.target));
 			
-			//빈칸 안된다...
-			if($(e.target).hasClass('not-null')){
+			
+			
+//  			//빈칸 안된다...
+// 			if($(e.target).hasClass('not-null')){
 				
-				$(e.target).blur(e=>{
-					if($(e.target).val() == ''){
-						$(e.target).css({'color':'red','border-bottom':'2px solid'});
-						$(e.target).next().css({'transform': 'translateY(110%)','font-size': '1rem','font-weight': '600','color':'#969393'});
-						$(e.target).next().next().css('display','block');
-					} else {
- 						$(e.target).css({'color': '#484848', 'border-bottom': '1px solid', 'font-size':'1rem'});
-						$('.msg-not-null').css('display','none');
-					}
-				}).click(e=>{
-						$(e.target).css({'color': '#0058a3', 'border-bottom': '2px solid'});
- 						$(e.target).next().css({'font-size': '0.775rem','font-weight': '100','transform':'none', 'color':'#212529'});
-				})
-			}
-		})
+// 				$(e.target).blur(e=>{
+// 					if($(e.target).val() == ''){
+// 						$(e.target).css({'color':'red','border-bottom':'2px solid'});
+// 						$(e.target).next().css({'transform': 'translateY(110%)','font-size': '1rem','font-weight': '600','color':'#969393'});
+// 						$(e.target).next().next().css('display','block');
+// 					} else {
+//  						$(e.target).css({'color': '#484848', 'border-bottom': '1px solid', 'font-size':'1rem'});
+// 						$('.msg-not-null').css('display','none');
+// 					}
+// 				}).click(e=>{
+// 						$(e.target).css({'color': '#0058a3', 'border-bottom': '2px solid'});
+//  						$(e.target).next().css({'font-size': '0.775rem','font-weight': '100','transform':'none', 'color':'#212529'});
+// 				})
+// 			}
+			
+//  			//생일 정규식 처리~~
+// 			if($(e.target).hasClass('birthReg')){
+				
+// 				$(e.target).blur(e=>{
+// 					var v=$(e.target).val().length;//값 길이
+// 		            var val=$(e.target).val();//값
+// 		            var toyear=new Date().getFullYear();
+// 		            var inyear=val.substr(0,4);
+// 		            var reg=/^(19|20)\d{2}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[0-1])$/g;
+// 		            var reg2= /^[0-9]*$/;
+		            
+// 		            if(v != ''){
+// 			            if (v == 8 && reg2.test(val)){
+// 			                val=val.substr(0,4)+"-"+val.substr(4,2)+"-"+val.substr(6,2);
+// 			                console.log(val)
+// 			                $(e.target).val(val);
+// 			                $('#msg-type-ck').css('display','none');
+// 			            } else if(reg.test(val)){
+// 			                $('#msg-type-ck').css('display','none');
+			            	
+// 			            } else {
+// 			            	//"YYYY-MM-DD 형식으로 작성해야합니다.
+// 			            	$('#msg-type-ck').css('display','block');
+// 						}
+						
+// 			            if((toyear-inyear)<=14){
+// 			            	//만 15세 이상 이여야 합니다. msg 띄우기
+// 			            	$('#msg-age-ck').css('display','block');
+// 			            } 
+// 			            	$('#msg-age-ck').css('display','none');
+// 		            } else {
+		            	
+// 		            	$(e.target).css({'color':'red','border-bottom':'2px solid'});
+// 						$(e.target).next().css({'transform': 'translateY(110%)','font-size': '1rem','font-weight': '600','color':'#969393'});
+// 						$(e.target).next().next().css('display','block');
+// 		            }
+		            
+// 				}).click(e=>{
+// 					$(e.target).css({'color': '#0058a3', 'border-bottom': '2px solid'});
+// 						$(e.target).next().css({'font-size': '0.775rem','font-weight': '100','transform':'none', 'color':'#212529'});
+// 				})
+// 			}
+
+// 			if($(e.target).hasClass('birthReg')){
+// 				var reg=/^(19|20)\d{2}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[0-1])$/g;
+				
+// 				$(e.target).blur(e=>{
+// 					var length = $(e.target).val().length;
+// 					var val = $(e.target).val();
+// 					var reg2 = /^[0-9]*$/g;
+// 		        	var reg=/^[01]{1}[1]{1}[0]{1}-[0-9]{4}-[0-9]{4}/g;
+// 					 if(length == 11 && reg2.test(val)) { //11개 입력했는데 조건 맞을 때
+// 		                val = val.substr(0,3)+"-"+val.substr(3,4)+"-"+val.substr(7,4);
+// 		                $(e.target).val(val);
+// 			         } else if(reg.test(val)) { //-입력했는데 조건 맞을 때
+			        	 
+// 			         } else {
+			        	 
+// 			         }
+// 				})
+			
+// 			}
+//		})
 		
 		
 			

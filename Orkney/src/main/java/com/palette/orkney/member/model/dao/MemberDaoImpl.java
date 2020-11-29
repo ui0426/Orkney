@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.palette.orkney.member.model.vo.Addr;
+import com.palette.orkney.member.model.vo.Member;
 
 @Repository
 public class MemberDaoImpl implements MemberDao {
@@ -106,6 +107,12 @@ public class MemberDaoImpl implements MemberDao {
 	@Override
 	public int updateMemberContact(SqlSession session, Map<String, Object> updateInformation) {
 		return session.update("member.updateMemberContact", updateInformation);
+	}
+
+	//현재 로그인 된 유저 정보 받아오기
+	@Override
+	public Member currentMemberInformation(SqlSession session, String mNo) {
+		return session.selectOne("member.currentMemberInformation", mNo);
 	}
 	
 	
