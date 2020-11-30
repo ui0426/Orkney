@@ -88,6 +88,12 @@ public class MemberDaoImpl implements MemberDao {
 	public String getAddress(SqlSession session, String no) {
 		return session.selectOne("member.getAddress", no);
 	}
+
+	@Override
+	public String newRoomNo(SqlSession session,int newNo) {
+		// TODO Auto-generated method stub
+		return session.selectOne("member.newRoomNo",newNo);
+	}
 	
 	//추가된 배송지 리스트 가져오기
 	@Override

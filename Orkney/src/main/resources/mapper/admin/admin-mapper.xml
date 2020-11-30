@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="admin">
+  	<select id="userCount" resultType="String">
+  		SELECT * FROM MEMBER M WHERE EXISTS(SELECT * FROM CHATTING C WHERE M.MEMBER_NO=C.MEMBER_NO)
+  	</select>
+  	<select id="chatData" parameterType="map" resultType="map">
+  		SELECT * FROM CHATTING WHERE MEMBER_NO=#{id} AND CHAT_ROOM=#{rNo}
+  	</select>
+  	<select id="roomNo" parameterType="string" resultType="string">
+  		SELECT DISTINCT(CHAT_ROOM) FROM CHATTING WHERE MEMBER_NO=#{data}
+  	</select>
+</mapper>

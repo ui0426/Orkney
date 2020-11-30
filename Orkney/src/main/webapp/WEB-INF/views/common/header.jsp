@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="${path}/resources/css/common/header/test.css">
     
     
-    <script src="js/jquery-3.5.1.min.js"></script>
+    
 
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.css">
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
@@ -163,7 +163,7 @@
 		                    </li>
 		                </ul>
 		                <ul class="hnf-small-link hnf-menu_nav_aux">
-		                    <li><a class="hnf-small-ex hnf-link-color" href="#">고객지원</a></li>
+		                    <li><a class="hnf-small-ex hnf-link-color" href="${path}/admin/adminChat.do">고객지원</a></li>
 		                    <li><a class="hnf-small-ex hnf-link-color" href="${path }/order/order.do">배송조회</a></li>
 		                    <li><a class="hnf-small-ex hnf-link-color" href="#">내 프로필</a></li>
 		                 <c:if test="${not empty login }">
@@ -322,7 +322,7 @@
 
        
     </header>
-    <c:if test="${not empty login}">
+    <c:if test="${not empty login and login.MEMBER_NO ne 'm11'}">
  <jsp:include page="/WEB-INF/views/common/chat.jsp"/>
 	</c:if>
         <script>

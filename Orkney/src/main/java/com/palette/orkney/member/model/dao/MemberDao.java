@@ -34,6 +34,9 @@ public interface MemberDao {
 
 	int chatDataSave(SqlSession session, Map m);
 
+
+	String newRoomNo(SqlSession session,int newNo);
+
 	//가입 시 주소가져오기
 	String getAddress(SqlSession session, String no);
 	
