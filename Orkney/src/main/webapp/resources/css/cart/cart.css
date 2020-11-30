@@ -83,8 +83,9 @@
         .remove_basket, .wish_btn, .remove_list{
             outline: none !important;
             border: none !important;
-            font-size: 18px;
-            background-color: white;
+            font-size: 18px !important;
+            background-color: white !important;
+            color: black !important;
         }
 
         .md-form{

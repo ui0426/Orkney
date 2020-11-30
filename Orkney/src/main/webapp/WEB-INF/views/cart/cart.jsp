@@ -30,7 +30,6 @@
                         <div>상품정보</div>                                
                         <div>75*25 cm</div>
                     
-                    
                     <div class="btn-container">
                         <div>
                             <select class="mdb-select md-form">
@@ -41,7 +40,36 @@
                               </select>
                         </div>
                         <div><button class="remove_list">삭제</button></div>
-                        <div><button class="wish_btn">위시리스트 저장</button></div>
+                        <!-- Button trigger modal -->
+<!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#fullHeightModalRight">
+  Launch demo modal
+</button> -->
+
+<!-- Full Height Modal Right -->
+<div class="modal fade right" id="fullHeightModalRight" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+
+  <div class="modal-dialog modal-full-height modal-right" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title w-100" id="myModalLabel">Modal title</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Full Height Modal Right -->
+
+                        <div><button class="wish_btn" data-toggle="modal" data-target="#fullHeightModalRight">위시리스트 저장</button></div>
                     </div>  
                 </div>
 	            	<div class="line1"></div>                              

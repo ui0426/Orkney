@@ -66,7 +66,6 @@
 
         <div class="populartitle">인기상품</div>
         <div class="popularProduct">
-
             <div class="buttonLine" >
               <button type="button" class="btn btn-dark event-bu1"><span class="event-sp">전체보기</span></button>
               <button type="button" class="btn btn-dark event-bu1"><span class="event-sp">책장/선반유닛</span></button>
@@ -104,13 +103,12 @@
 
             <div class="add">
               <button type="button" class="btn btn-dark event-bu2"><span class="event-sp">더보기</span></button>
-            </div>
-            
+            </div>            
         </div>
 
     </section>
            
-     <script>         
+   <script>         
     var swiper = new Swiper('.swiper-container', {
       slidesPerView: 3,
       spaceBetween: 10,
