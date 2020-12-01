@@ -25,7 +25,7 @@
                 
     <c:forEach items="${cart}" var="p">                           
             <div class="product-container">
-                <div class="product-pic"><img><c:out value="${p.product_pic}"/> </img></div>                
+                <div class="product-pic"><img src="<c:out value="${p.product_pic}"/>"></div>                
                 <div class="price"> <c:out value="${p.product_price}"/> </div>                                                                    
                     <div class="product-detail">
                                         
