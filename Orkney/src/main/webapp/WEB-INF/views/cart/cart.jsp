@@ -19,16 +19,19 @@
                 <div class="title">
                    <div>장바구니</div>
                    <div><button class="remove_basket">장바구니 비우기</button></div>
-                </div>               
-            <div class="line1"></div>  
-            
+                </div>
+            <div class="line1"></div>              
+                
+                
+    <c:forEach items="${cart}" var="p">                           
             <div class="product-container">
-                <div class="product-pic"><img src="https://www.ikea.com/kr/ko/images/products/groenlid-chaise-longue-section-ljungen-light-red__0852499_PE780117_S3.JPG" alt=""></div>                
-                <div class="price">₩ 9,900</div>                                                                    
+                <div class="product-pic"><img><c:out value="${p.product_pic}"/> </img></div>                
+                <div class="price"> <c:out value="${p.product_price}"/> </div>                                                                    
                     <div class="product-detail">
-                        <div>상품명</div>
-                        <div>상품정보</div>                                
-                        <div>75*25 cm</div>
+                                        
+                        <div><c:out value="${p.product_name}"/></div>
+                        <div><c:out value="${p.big_category}"/></div>                                
+                        <div><c:out value="${p.product_width}"/>*<c:out value="${p.product_height}"/>*<c:out value="${p.product_depth}"/></div>
                     
                     <div class="btn-container">
                         <div>
@@ -40,10 +43,15 @@
                               </select>
                         </div>
                         <div><button class="remove_list">삭제</button></div>
-                        <!-- Button trigger modal -->
-<!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#fullHeightModalRight">
-  Launch demo modal
-</button> -->
+                        <div><button class="wish_btn" data-toggle="modal" data-target="#fullHeightModalRight">위시리스트 저장</button></div>
+                    </div>  
+                </div>
+	            	<div class="line1"></div>                              
+                </div>
+	</c:forEach>                
+  
+            </div>
+
 
 <!-- Full Height Modal Right -->
 <div class="modal fade right" id="fullHeightModalRight" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
@@ -69,37 +77,9 @@
 </div>
 <!-- Full Height Modal Right -->
 
-                        <div><button class="wish_btn" data-toggle="modal" data-target="#fullHeightModalRight">위시리스트 저장</button></div>
-                    </div>  
-                </div>
-	            	<div class="line1"></div>                              
-                </div>
-                
-                <div class="product-container">
-                <div class="product-pic"><img src="https://www.ikea.com/kr/ko/images/products/groenlid-chaise-longue-section-ljungen-light-red__0852499_PE780117_S3.JPG" alt=""></div>                
-                <div class="price">₩ 9,900</div>                                                                    
-                    <div class="product-detail">
-                        <div>상품명</div>
-                        <div>상품정보</div>                                
-                        <div>75*25 cm</div>
-                    
-                    
-                    <div class="btn-container">
-                        <div>
-                            <select class="mdb-select md-form">
-                                <option value="" disabled selected>1</option>
-                                <option value="1">2</option>
-                                <option value="2">3</option>
-                                <option value="3">4</option>
-                              </select>
-                        </div>
-                        <div><button class="remove_list">삭제</button></div>
-                        <div><button class="wish_btn">위시리스트 저장</button></div>
-                    </div>  
-                </div>
-	            	<div class="line1"></div>                              
-                </div>    
-            </div>
+
+
+
 
     
         <div class="section2">                                                        
@@ -113,7 +93,9 @@
 
         <div class="total-container">
             <div class="total-title">총 주문금액</div>
-            <div class="total-price">₩ 9,900</div>
+            <div class="total-price">
+				
+			</div>
         </div>
     
         <div class="section3">
