@@ -55,14 +55,14 @@
                                 </div>
                                 <div>
                                     <div class="md-form mdmar marb">
-                                        <input type="text" id="bir" class="form-control borderb" maxlength="10">
+                                        <input type="text" id="bir" placeholder="YYYY-MM-DD" class="form-control borderb" maxlength="10">
                                         <label for="bir" class="labcolor">생일</label>
                                         <span class="errorspan disno" id="birspan">생일은 필수 필드입니다.</span>
                                       </div>
                                 </div>
                                 <div>
                                     <div class="md-form mdmar marb">
-                                        <input type="text" id="ph" class="form-control borderb" maxlength="11">
+                                        <input type="text" id="ph" class="form-control borderb" maxlength="13">
                                         <label for="ph" class="labcolor">휴대폰</label>
                                         <span class="errorspan disno" id="phspan">휴대폰은 필수 필드입니다.</span>
                                       </div>
@@ -204,7 +204,7 @@
             var toyear=new Date().getFullYear();
             var inyear=val.substr(0,4);
             console.log(toyear+"-"+inyear);
-            var reg2=/^[0-9]/g;
+            var reg2= /^[0-9]*$/g;
             if(v==8&&reg2.test(val)){
                 val=val.substr(0,4)+"-"+val.substr(4,2)+"-"+val.substr(6,2);
                 $(e.target).val(val);
@@ -242,7 +242,7 @@
         $("#ph").on("blur",e=>{//휴대폰이 안적혔을 때
             var v=$(e.target).val().length;
             var val=$(e.target).val();
-            var reg2=/^[0-9]/g;
+            var reg2= /^[0-9]*$/g;
             if(v==11&&reg2.test(val)){
                 val=val.substr(0,3)+"-"+val.substr(3,4)+"-"+val.substr(7,4);
                 $(e.target).val(val);
