@@ -6,7 +6,7 @@
 <c:set var="path" value="${pageContext.request.contextPath }"/>
 
 <jsp:include page="/WEB-INF/views/common/header.jsp">		
-	<jsp:param name="title" value="" />
+	<jsp:param name="title" value="주문관리 로그인" />
 </jsp:include>
 <link rel="stylesheet" href="${path}/resources/css/order/orderForm.css"/>
 
@@ -15,20 +15,21 @@
 		<div class="order-container-inner">
 			<h1 class="orderform-title">주문 내역</h1>
 			<div class="order-form-main">
-				<form action="">
+				<form action="${path }/order/orderLogin.do" method="post">
 					<h2 class="order_information-title">로그인</h2>
-					<!-- ajax -->
-					<div></div>
+					<c:if test="${msg ne null }">
+						<div class="o-login-error-msg"><c:out value="${msg }"/></div>
+					</c:if>
 				  	<div class="form-group">
 				  		<label class="order_information" for="orderNo">
-					    	<input type="text" name="memberId" class="form-control order-infor-input order-form-number" id="memail">
+					    	<input type="text" name="id" class="form-control order-infor-input order-form-number" id="memail">
 					    	<span id="inputNo" class="order-input-center">아이디(이메일 주소)</span>
 				    	</label>
 				  	</div>
 				  	
 				  	<div class="form-group">
 				  		<label class="order_information">
-					    	<input type="password" name="memberPassword" class="form-control order-infor-input order-form-phone" id="mepassword">
+					    	<input type="password" name="password" class="form-control order-infor-input order-form-phone" id="mpassword">
 					   		<span id="inputphone" class="order-input-center">비밀번호</span>
 				   		</label>
 				  	</div>
@@ -72,14 +73,14 @@
 	
 	
 	$("#memail").on("input",function(){
-        if($("#memail").val().length>0 && $("#mepassword").val().length>0 ){
+        if($("#memail").val().length>0 && $("#mpassword").val().length>0 ){
             $("#order-submit").removeAttr("disabled");
         }else{
             $("#order-submit").attr("disabled","disabled");
         }
      });
-     $("#mepassword").on("input",function(){
-        if($("#memail").val().length>0 && $("#mepassword").val().length>0 ){
+     $("#mpassword").on("input",function(){
+        if($("#memail").val().length>0 && $("#mpassword").val().length>0 ){
             $("#order-submit").removeAttr("disabled");
         }else{
             $("#order-submit").attr("disabled","disabled");

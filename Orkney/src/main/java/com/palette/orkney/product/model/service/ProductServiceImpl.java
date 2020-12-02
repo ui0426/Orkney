@@ -27,9 +27,9 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public List<Map> selectRoomsProduct() {
+	public List<Map> selectRoomsProduct(String type) {
 		// TODO Auto-generated method stub
-		return dao.selectRoomsProduct(session);
+		return dao.selectRoomsProduct(session,type);
 	}
 
 	@Override

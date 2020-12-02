@@ -16,9 +16,9 @@ public class ProductDaoImpl implements ProductDao {
 	}
 
 	@Override
-	public List<Map> selectRoomsProduct(SqlSession session) {
+	public List<Map> selectRoomsProduct(SqlSession session, String type) {
 		// TODO Auto-generated method stub
-		return session.selectList("product.selectRoomsProduct");
+		return session.selectList("product.selectRoomsProduct",type);
 	}
 
 	@Override

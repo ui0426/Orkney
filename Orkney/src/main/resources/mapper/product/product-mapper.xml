@@ -4,10 +4,12 @@
   	<select id="selectRooms" resultType="map" parameterType="string">
   		SELECT * FROM SHOWROOM WHERE ROOM_CODE=#{type}
   	</select>
-   	<select id="selectRoomsProduct" resultType="map" >
+   	<select id="selectRoomsProduct" resultType="map" parameterType="string">
   		SELECT * FROM ROOMS E
 				JOIN PRODUCT R ON E.PRODUCT_NO= R.PRODUCT_NO
-				JOIN PRODUCT_IMAGE J ON E.PRODUCT_NO= J.PRODUCT_NO
+				 JOIN PRODUCT_IMAGE J ON E.PRODUCT_NO= J.PRODUCT_NO
+                 JOIN SHOWROOM Q ON Q.ROOM_NO= E.ROOM_NO
+                WHERE ROOM_CODE= #{type}
 	</select> 
 	<select id="roomsDetail" resultType="map" parameterType="string">
 		 SELECT * FROM ROOMS E

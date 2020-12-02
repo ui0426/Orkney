@@ -26,14 +26,15 @@
 		<div>
 		
 			<div class="rm-hd">
-				<h1 class="rm-h1">침실</h1>
-				<c:forEach items="${roomsTitle}" var="q" varStatus="w">
+			<c:forEach items="${roomsTitle}" var="q" varStatus="w">
+				<h1 class="rm-h1">${q.ROOM_CODE}</h1>
 				<c:if test="${w.index== 0 }">
 				<span class="rm-sp">${q.ROOM_H2 }</span> 
 				<span class="rm-sps">${q.ROOM_CONTEXT }</span>
 				</c:if>
 				</c:forEach>
 			</div>
+				
 			
 		</div>
 		<div class="wrapper">
@@ -304,15 +305,18 @@
 		if(oneClickCount%2==1){
 			console.log(oneClickCount,"if");
 			$(".one,.two,.three,.four,.five").off("click");
+			
 			$(".one,.two,.three,.four,.five").click(oneOneClick);
 		}else{
 			console.log(oneClickCount,"else");
 			$(".one,.two,.three,.four,.five").off("click");
+			
 			$(".one,.two,.three,.four,.five").click(secondOneClick);
 		}
 	}
 
 	function oneOneClick() {
+		$(window).off("resize");
 		console.log("oneOneClick");
 		$(".rm-ig-box").css("display","none ");
 		$(this).attr("style","grid-area:1/1/9/4 !important ; display:block; ");
@@ -339,7 +343,7 @@
 					"left" : "0%"
 				
 				});
-				$(".col").css({ "position":"relative","left": "15%" })
+				
 				
 			}
 			if (width > 900) {
@@ -348,7 +352,7 @@
 					"left" : "8%"
 					
 				});
-				$(".col").css({ "position":"relative","left": "0%" })
+				
 				
 			}
 		});   
@@ -384,6 +388,7 @@
 	
 		   
 		 function secondOneClick() {
+			 $(window).off("resize");
 				console.log("secondOneClick");
 				if ($(window).width() <= 900) {
 					$(".one").css({"display":"block","grid-area":"1/1/2/3"});
@@ -472,8 +477,8 @@
 			nextEl : '.swiper-button-next',
 			prevEl : '.swiper-button-prev',
 		},
-		roundLengths : true,
-
+		
+		centeredSlides: true,
 		//반응형
 		breakpointsInverse : true,
 		breakpoints : {
@@ -502,6 +507,7 @@
 				slidesPerView : 4,
 				spaceBetween : 15
 			}
+			
 		}
 
 	});

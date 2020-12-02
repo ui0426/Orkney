@@ -26,11 +26,15 @@ public class ProductController {
 	public String productDetail() {
 		return "/product/productDetail";
 	}
+	@RequestMapping("/product/productsCompare.do")
+	public String productsCompare() {
+		return "/product/productsCompare";
+	}
 	@RequestMapping("/product/rooms.do")
 	public ModelAndView rooms(ModelAndView mv,@RequestParam String type) {
 		mv.addObject("rooms",service.selectRooms(type));
 		System.out.println(service.selectRooms(type));
-		 mv.addObject("roomsProduct",service.selectRoomsProduct()); 
+		 mv.addObject("roomsProduct",service.selectRoomsProduct(type)); 
 			 mv.addObject("roomsTitle",service.selectRoomsTitle(type)); 
 		mv.setViewName("product/rooms");
 	
@@ -43,8 +47,12 @@ public class ProductController {
 	  }
 	  @RequestMapping("product/backRoomsDetail.do")
 	  @ResponseBody
-	  public List<Map> backRoomsDetail(){
-		  return service.selectRoomsProduct();
+	  public List<Map> backRoomsDetail(@RequestParam String type){
+		  return service.selectRoomsProduct(type);
 	  }
 	 
+
+	
+
+
 }

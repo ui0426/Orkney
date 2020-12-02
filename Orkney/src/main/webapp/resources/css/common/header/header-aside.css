@@ -111,13 +111,22 @@
     	cursor: pointer;
     } 
 
-    .hnf-menu_close .hnf-menu_back{
-        height: 40px;
-        width: 40px;
+    .hnf-menu_back{
+     	padding: 0.5em;
         border-radius: 100%;
         display: flex;
         justify-content: center;
         align-items: center;
+        cursor: pointer;
+    }
+    .hnf-menu_back svg{
+    	width: 0.7em;
+	    height: 0.7em;
+	    margin: 0.2em;
+    }
+    
+    .hnf-menu_back:hover{
+        background-color: #eee;
     }
     
     .hnf-menu-container-product-head{
