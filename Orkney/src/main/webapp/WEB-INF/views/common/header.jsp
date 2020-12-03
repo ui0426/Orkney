@@ -4,7 +4,6 @@
     <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
     <%@taglib prefix="fc" uri="http://java.sun.com/jsp/jstl/functions" %>
     <c:set var="path" value="${pageContext.request.contextPath}"/>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -265,7 +264,7 @@
 		        		<span class="hnf-menu-container-product-head">디지털 쇼룸</span>
 		        		<ul class="hnf-menu-2-showroom">
 		        			<li>
-		        				<a>
+		        				<a href="${path}/product/rooms.do?type=침실">
 		        					<span>
 		        						<img  alt="침실" src="https://www.ikea.com/images/bj-and-ouml-rksn-and-auml-s-bj-and-ouml-rksn-and-auml-s-772a90648be3b0ef7d6d47a7f7b7a5f2.jpg?f=xxxs" >
 		        					</span>
@@ -273,7 +272,7 @@
 		        				</a>
 		        			</li>
 		        			<li>
-		        				<a>
+		        				<a href="${path}/product/rooms.do?type=거실">
 		        					<span>
 		        						<img alt="거실" src="https://www.ikea.com/images/stocksund-besta-tv-55b0bb08ee1014c9fe23a98bc9381d2d.jpg?f=xxxs" >
 		        					</span>
@@ -281,7 +280,7 @@
 		        				</a>
 		        			</li>
 		        			<li id="imgSize">
-		        				<a id="imgSize">
+		        				<a id="imgSize" href="${path}/product/rooms.do?type=주방">
 		        					<span id="imgSize">
 		        						<img id="imgSize" alt="주방" src="https://www.ikea.com/images/-cb470d9a37de90b10df90823f72c2b68.jpg?f=xxxs" >
 		        					</span>
@@ -289,7 +288,7 @@
 		        				</a>
 		        			</li>
 		        			<li>
-		        				<a>
+		        				<a href="${path}/product/rooms.do?type=현관">
 		        					<span>
 		        						<img alt="현관" src="https://www.ikea.com/images/ikea-hemnes-pinnig-665c8a366698cec21d5a1aa930f071fe.jpg?f=xxxs" >
 		        					</span>

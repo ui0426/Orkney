@@ -5,8 +5,8 @@
     <%@taglib prefix="fc" uri="http://java.sun.com/jsp/jstl/functions" %>
     <c:set var="path" value="${pageContext.request.contextPath}"/>
     
-	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
-	
+   <jsp:include page="/WEB-INF/views/common/header.jsp"/>
+   
 
 <link rel="stylesheet" href="${path }/resources/css/member/member.css">
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -160,16 +160,16 @@
 
     <script>
     //조건값으로 사용하기 위해 변수 설정
-    	var familyName=false;
-    	var givenName=false;
-    	var birth=false;
-    	var phone=false;
-    	var email=false;
-    	var pw=false;
-    	var adr1=false;
-    	var adr2=false;
-    	var adr3=false;
-    	
+       var familyName=false;
+       var givenName=false;
+       var birth=false;
+       var phone=false;
+       var email=false;
+       var pw=false;
+       var adr1=false;
+       var adr2=false;
+       var adr3=false;
+       
         $("#zip").focus(e=>{
             $("#zip").removeClass("active");
             return false;
@@ -214,7 +214,7 @@
         })
 
         $("#bir").on("blur",e=>{//생일이 안적혔을 때
-        	$(e.target).attr("placeholder",'');
+           $(e.target).attr("placeholder",'');
             var v=$(e.target).val().length;//값 길이
             var val=$(e.target).val();//값
             var toyear=new Date().getFullYear();
@@ -423,39 +423,39 @@
         })
         
         $("#bir").focus(e=>{
-        	$(e.target).attr("placeholder","YYYY-MM-DD");
+           $(e.target).attr("placeholder","YYYY-MM-DD");
         })
         
         function checkData(){//모든 조건을 만족해야 submit버튼을 활성화 시킴.
-        	if($("#zip").val().length>0&&$("#adrinput").val().length>0){
-        		adr1=true;
-        		adr2=true;
-        	}
-        	if($("#ch2").prop("checked")&&$("#ch4").prop("checked")&&$("#ch5").prop("checked")){
-        	if(familyName&&givenName&&birth&&phone&&email&&pw&&adr1&&adr2&&adr3){
-        		return true;
-        	}
-        	}
-        	return false;
+           if($("#zip").val().length>0&&$("#adrinput").val().length>0){
+              adr1=true;
+              adr2=true;
+           }
+           if($("#ch2").prop("checked")&&$("#ch4").prop("checked")&&$("#ch5").prop("checked")){
+           if(familyName&&givenName&&birth&&phone&&email&&pw&&adr1&&adr2&&adr3){
+              return true;
+           }
+           }
+           return false;
         }
         
         
         
     </script>
         /* 주소검색 api */
-	<script>
+   <script>
      $("#adrbtn").click(e=>{
     new daum.Postcode({
         oncomplete: function(data) {
-        	 // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
 
             // 각 주소의 노출 규칙에 따라 주소를 조합한다.
             // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
             var addr = ''; // 주소 변수
             var extraAddr = ''; // 참고항목 변수
             var test=data.postcode;
-			console.log(test);
-			console.log(data.zonecode);
+         console.log(test);
+         console.log(data.zonecode);
             
             
             //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
@@ -486,7 +486,7 @@
             } else {
                 //document.getElementById("sample6_extraAddress").value = '';
             }
-			
+         
             console.log(data.zonecode+" : "+addr);
             
             // 우편번호와 주소 정보를 해당 필드에 넣는다.
@@ -502,6 +502,6 @@
         }
     }).open();
      })
-	</script>
-	
-	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
+   </script>
+   
+   <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

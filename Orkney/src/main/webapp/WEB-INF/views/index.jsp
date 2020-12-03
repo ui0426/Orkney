@@ -59,8 +59,8 @@
             <!-- Add Pagination -->                        
             <div class="swiper-scrollbar"></div>
             <!-- Add Arrows -->                        
-              <div class="swiper-button-next"></div>            
-              <div class="swiper-button-prev"></div>
+            <img src="${path}/resources/images/rooms/pngegg2222.png" class="swiper-button-next">            
+             <img src="${path}/resources/images/rooms/pngegg.png" class="swiper-button-prev">
           </div>
         </div>
 
@@ -124,6 +124,28 @@
         nextEl: '.swiper-button-next',
         prevEl: '.swiper-button-prev',
       },
+      roundLengths: true,	
+		
+      //반응형
+		breakpointsInverse: true,
+		breakpoints: {
+			
+			320: {
+				slidesPerView: 1,
+				spaceBetween: 20
+			},
+		
+			480: {
+				slidesPerView: 1,
+				spaceBetween: 10
+			},
+			
+			640: {
+				slidesPerView: 3,
+				spaceBetween: 10
+			}
+			
+		}
     });  
   </script>
   <!-- <script src="../package/swiper-bundle.min.js"></script> -->
