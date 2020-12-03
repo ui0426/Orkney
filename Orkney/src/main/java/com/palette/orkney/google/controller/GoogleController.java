@@ -37,9 +37,9 @@ public class GoogleController {
 	public String googleAuth(Model model, @RequestParam(value = "code") String authCode)
 			throws JsonProcessingException {
 		
-		//HTTP Request¸¦ À§ÇÑ RestTemplate
+		//HTTP Requestë¥¼ ìœ„í•œ RestTemplate
 		RestTemplate restTemplate = new RestTemplate();
-		//Google OAuth Access Token ¿äÃ»À» À§ÇÑ ÆÄ¶ó¹ÌÅÍ ¼¼ÆÃ
+		//Google OAuth Access Token ìš”ì²­ì„ ìœ„í•œ íŒŒë¼ë¯¸í„° ì„¸íŒ…
 		GoogleOAuthRequest googleOAuthRequestParam = GoogleOAuthRequest
 				.builder()
 				.clientId("63421017718-97poh5dtj10hbv1ul6q80h9g51tpov1d.apps.googleusercontent.com")
@@ -49,15 +49,15 @@ public class GoogleController {
 				.grantType("authorization_code").build();
 				
 		
-		//JSON ÆÄ½ÌÀ» À§ÇÑ ±âº»°ª ¼¼ÆÃ
-		//¿äÃ»½Ã ÆÄ¶ó¹ÌÅÍ´Â ½º³×ÀÌÅ© ÄÉÀÌ½º·Î ¼¼ÆÃµÇ¹Ç·Î Object mapper¿¡ ¹Ì¸® ¼³Á¤ÇØÁØ´Ù.
+		//JSON íŒŒì‹±ì„ ìœ„í•œ ê¸°ë³¸ê°’ ì„¸íŒ…
+				//ìš”ì²­ì‹œ íŒŒë¼ë¯¸í„°ëŠ” ìŠ¤ë„¤ì´í¬ ì¼€ì´ìŠ¤ë¡œ ì„¸íŒ…ë˜ë¯€ë¡œ Object mapperì— ë¯¸ë¦¬ ì„¤ì •í•´ì¤€ë‹¤.
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
 		mapper.setSerializationInclusion(Include.NON_NULL);
-
+		
 //		https://www.googleapis.com/oauth2/v4/token
 			
-		//AccessToken ¹ß±Ş ¿äÃ»
+		//AccessToken ë°œê¸‰ ìš”ì²­
 		ResponseEntity<String> resultEntity = restTemplate.postForEntity("https://oauth2.googleapis.com/token", googleOAuthRequestParam, String.class);
 		
 		GoogleOAuthResponse result=new Gson().fromJson(resultEntity.getBody(),GoogleOAuthResponse.class);
@@ -66,7 +66,7 @@ public class GoogleController {
 //		GoogleOAuthResponse result = mapper.readValue(resultEntity.getBody(), new TypeReference<GoogleOAuthResponse>() {
 //		});
 
-		//ID Token¸¸ ÃßÃâ (»ç¿ëÀÚÀÇ Á¤º¸´Â jwt·Î ÀÎÄÚµù µÇ¾îÀÖ´Ù)
+		//ID Tokenë§Œ ì¶”ì¶œ (ì‚¬ìš©ìì˜ ì •ë³´ëŠ” jwtë¡œ ì¸ì½”ë”© ë˜ì–´ìˆë‹¤)
 		String jwtToken = result.getId_token();
 		String requestUrl = UriComponentsBuilder.fromHttpUrl("https://oauth2.googleapis.com/tokeninfo")
 		.queryParam("id_token", jwtToken).encode().toUriString();
@@ -75,9 +75,10 @@ public class GoogleController {
 		
 		Map<String,String> userInfo = mapper.readValue(resultJson, new TypeReference<Map<String, String>>(){});
 		System.out.println(userInfo);
-		model.addAllAttributes(userInfo);
-		model.addAttribute("aToken", result.getAccess_token());
-		model.addAttribute("rToken", result.getRefresh_token());
+		
+		
+		
+		
 		
 		Map snsData=new HashMap();
 		snsData.put("id",userInfo.get("email"));
@@ -104,8 +105,8 @@ public class GoogleController {
 	@GetMapping("/google/revoke/token")
 	public String revokeToken(@RequestParam(value = "token") String token,SessionStatus ss) throws JsonProcessingException {
 		
-		//https://oauth2.googleapis.com/revoke?token=token°ª
-		//-- <li><a href="${path }/google/revoke/token?token=${login.ACCESS_TOKEN}">·Î±×¾Æ¿ô2</a></li>
+		//https://oauth2.googleapis.com/revoke?token=tokenï¿½ï¿½
+		//-- <li><a href="${path }/google/revoke/token?token=${login.ACCESS_TOKEN}">ï¿½Î±×¾Æ¿ï¿½2</a></li>
 		System.out.println(token);
 		System.out.println();
 		Map<String, String> result = new HashMap<>();

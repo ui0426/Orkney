@@ -30,7 +30,6 @@ public class MemberController {
 	
 	@RequestMapping("/member/memberLogin.do")
 	public String login() {
-		System.out.println(pwEncoder.encode("1234"));
 		return "member/login";
 	}
 	
@@ -45,7 +44,6 @@ public class MemberController {
 	}
 	@RequestMapping("/member/memberLogout.do")
 	public String logout(SessionStatus ss) {
-		System.out.println(1234);
 		if(!ss.isComplete()) {
 			ss.setComplete();
 		}

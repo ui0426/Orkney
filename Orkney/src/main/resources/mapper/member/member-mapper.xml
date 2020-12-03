@@ -18,13 +18,13 @@
   	WHERE EMAIL=#{id}
   </update>
   <insert id="insertSignup" parameterType="map">
-  	INSERT INTO MEMBER VALUES('m'||m_NUM.NEXTVAL,#{email},#{password},#{f_name}||#{g_name},SYSDATE,#{birthday},#{phone},default,default,#{emailCh})
+  	INSERT INTO MEMBER VALUES('m'||m_NUM.NEXTVAL,#{email},#{password},#{f_name}||#{g_name},SYSDATE,#{birthday},#{phone},default,default,#{emailCh},default)
   </insert>
   <select id="searchUser" parameterType="string" resultType="map">
   	SELECT * FROM MEMBER WHERE MEMBER_ID=#{email}
   </select>
   <insert id="addAdr" parameterType="map">
- 	INSERT INTO ADDR VALUES((SELECT MEMBER_NO FROM MEMBER WHERE MEMBER_ID=#{email}),#{adr},1)
+ 	INSERT INTO ADDR VALUES((SELECT MEMBER_NO FROM MEMBER WHERE MEMBER_ID=#{email}),#{adr},1,null,null,'addr'||addr_seq.nextval)
   </insert>
   <select id="chatRoomNo" parameterType="string" resultType="string">
   	SELECT DISTINCT CHAT_ROOM FROM CHATTING WHERE MEMBER_NO=#{no}
