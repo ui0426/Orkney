@@ -10,5 +10,8 @@
   		where member_no=#{memberNo}  
   	</select>
   	
+  	<delete id="deleteProduct" parameterType="map">
+  		DELETE FROM cart_detail WHERE cart_no=#{cartNo} and product_no=#{productNo}
+  	</delete>
   	
 </mapper>

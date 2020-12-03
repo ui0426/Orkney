@@ -1,6 +1,7 @@
 package com.palette.orkney.cart.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,15 @@ public class CartServiceImpl implements CartService{
 	public List<Cart> selectCart(String memberNo) {
 		return dao.selectCart(session,memberNo);
 	}
+
+	@Override
+	public int deleteProduct(Map<String, String> param) {
+		return dao.deleteProduct(session,param);
+	}
+
+
+
+
 	
 	
 	
