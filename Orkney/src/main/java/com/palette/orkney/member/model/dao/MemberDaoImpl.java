@@ -114,6 +114,12 @@ public class MemberDaoImpl implements MemberDao {
 	public Member currentMemberInformation(SqlSession session, String mNo) {
 		return session.selectOne("member.currentMemberInformation", mNo);
 	}
-	
+
+	//패스워드 수정
+	@Override
+	public int updateMemberPassword(SqlSession session, Map<String, Object> updateInformation) {
+		return session.update("member.updateMemberPassword", updateInformation);
+	}
+
 	
 }

@@ -127,6 +127,12 @@ public class MemberServiceImpl implements MemberService {
 	public Member currentMemberInformation(String mNo) {
 		return dao.currentMemberInformation(session, mNo);
 	}
+
+	//패스워드 수정
+	@Override
+	public int updateMemberPassword(Map<String, Object> updateInformation) {
+		return dao.updateMemberPassword(session, updateInformation);
+	}
 	
 	
 }

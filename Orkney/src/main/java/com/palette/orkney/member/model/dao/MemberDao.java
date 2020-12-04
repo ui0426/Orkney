@@ -50,4 +50,8 @@ public interface MemberDao {
 	//현재 로그인 된 유저 정보 받아오기
 	Member currentMemberInformation(SqlSession session, String mNo);
 
+	//패스워드 수정
+	int updateMemberPassword(SqlSession session, Map<String, Object> updateInformation);
+
+
 }

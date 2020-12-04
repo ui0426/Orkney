@@ -130,6 +130,7 @@ public class MemberController {
 		}
 		System.out.println(list2);
 		mv.addObject("addrList", list2);
+//		mv.setViewName("member/mypage");
 		mv.setViewName("member/mypage");
 		
 		return mv;
@@ -203,6 +204,39 @@ public class MemberController {
 		return data;
 	}
 	
+	//패스워드 수정
+	@RequestMapping("/member/updateMemberPassword.do")
+	@ResponseBody
+	public int updateMemberPassword(@RequestParam Map<String, Object> updateInformation, HttpSession session) {
+		Map login = ((Map)session.getAttribute("login")); //로그인 된 유저
+		
+		String mNo = (String)login.get("MEMBER_NO");
+		updateInformation.put("mNo", mNo);
+		
+		String pw = (String)updateInformation.get("originPw"); //입력받은 현재비번
+		System.out.println(pw);
+		
+		String newPw = pwEncoder.encode((String)updateInformation.get("newPw")); //입력받은 새 비번
+		
+		int result = 0;
+		System.out.println("매치값" + pwEncoder.matches(pw, (String)login.get("MEMBER_PWD")));
+		if(pwEncoder.matches(pw, (String)login.get("MEMBER_PWD"))) {
+			updateInformation.replace("newPwCk", newPw);
+			result = service.updateMemberPassword(updateInformation);
+			
+			if(result > 0 ) { //정보수정 성공
+				login.replace("MEMBER_PWD", newPw);
+			} else {
+				System.out.println("정보수정 실패 어디로.......");
+			}
+		} else { //현재비번이 틀렸을 경우
+			result = -2;
+		}
+		
+		
+		return result;
+	}
+	
 	//현재 로그인 된 유저 정보 받아오기
 	@RequestMapping("/member/currentMemberInformation.do")
 	@ResponseBody
@@ -216,4 +250,10 @@ public class MemberController {
 		System.out.println(m);
 		return m; //화면에서 널처리를 해줘야 하나?
 	}
+	
+//	//personal 업데이트 정보
+//	@RequestMapping("/member/personalJspUpdate.do")
+//	public String personalJspUpdate() {
+//		return "member/mypageDiv/personal.jsp";
+//	}
 }

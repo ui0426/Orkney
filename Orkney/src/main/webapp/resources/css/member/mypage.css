@@ -182,6 +182,7 @@
     transition: all .2s ease;
     font-size: 1rem;
     font-weight: 600;
+    color: #969393
 }
 /* .change-input-css{ */
 /* 	color: red; */
@@ -228,17 +229,19 @@
 	font-size: 0.775rem;
 	color: red;
 }
-#new-msg2{
+#newPw-type-ck-ul{
 	margin: 1em;
 	font-size: 0.675rem;
+	color: #212529;
 }
-#new-msg2 li{
+#newPw-type-ck-ul il{
 	margin: 0.4em 0;
 }
 
 .disabled{
 	color: #ccc !important;
-       cursor: context-menu;
+    cursor: context-menu;
+    background: white;
 }
 .font-weight{
 	font-weight: 600;

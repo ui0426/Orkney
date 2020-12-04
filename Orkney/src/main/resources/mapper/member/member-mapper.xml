@@ -69,6 +69,10 @@
   		update member set PHONE=#{phone} where member_no=#{mNo}
   	</update>
   	
+  	<!-- 패스워드 수정 -->
+  	<select id="updateMemberPassword" parameterType="map">
+  		update member set MEMBER_PWD=#{newPwCk} where member_no=#{mNo}
+  	</select>
   	<select id="currentMemberInformation" parameterType="string" resultMap="memberResultMap">
   		select * from MEMBER join ADDR on (member.MEMBER_NO=addr.MEMBER_NO) where member.member_no=#{mNo}
   	</select>

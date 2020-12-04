@@ -43,6 +43,10 @@ public interface MemberService {
 	//연락처수정
 	int updateMemberContact(Map<String, Object> updateInformation);
 
+	//패스워드수정
+	int updateMemberPassword(Map<String, Object> updateInformation);
+
 	//현재 로그인 된 유저 정보 받아오기
 	Member currentMemberInformation(String mNo);
+
 }
