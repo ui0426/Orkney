@@ -1,5 +1,6 @@
 package com.palette.orkney.cart.model.service;
 
+import java.lang.reflect.Member;
 import java.util.List;
 import java.util.Map;
 
@@ -23,11 +24,27 @@ public class CartServiceImpl implements CartService{
 	public List<Cart> selectCart(String memberNo) {
 		return dao.selectCart(session,memberNo);
 	}
+	
+	@Override
+	public String selectCartNo(String memberNo) {
+		return dao.selectCartNo(session,memberNo);
+	}
 
 	@Override
 	public int deleteProduct(Map<String, String> param) {
 		return dao.deleteProduct(session,param);
 	}
+		
+	@Override
+	public int deleteBasket(String cartNo) {
+		return dao.deleteBasket(session,cartNo);
+	}
+
+	@Override
+	public Member memberInfo(String memberNo) {
+		return dao.memberInfo(session,memberNo);
+	}
+
 
 
 

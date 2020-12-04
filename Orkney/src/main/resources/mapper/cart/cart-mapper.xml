@@ -9,9 +9,24 @@
   		join product_image using(product_no)
   		where member_no=#{memberNo}  
   	</select>
-  	
+
+  	<select id="selectCartNo" parameterType="string" resultType="string">
+  		select cart_no from member join cart using(member_no) where member_no=#{memberNo}
+  	</select>
+  	  	
   	<delete id="deleteProduct" parameterType="map">
   		DELETE FROM cart_detail WHERE cart_no=#{cartNo} and product_no=#{productNo}
   	</delete>
+  	
+  	<delete id="deleteBasket" parameterType="string">
+  		delete from cart_detail where cart_no=#{cartNo}  
+  	</delete>
+  	
+  	
+  	<select id="memberInfo" parameterType="string">
+  		SELECT * FROM MEMBER WHERE member_no=#{memberNo}
+  	</select>  	
+  	  	
+
   	
 </mapper>

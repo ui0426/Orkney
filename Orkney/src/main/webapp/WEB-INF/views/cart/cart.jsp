@@ -14,90 +14,40 @@
 <section>
     <div class="section-container">
         <div class="section1">        
-                <div class="title">
-                   <div>장바구니</div>
-                   <div><button class="remove_basket">장바구니 비우기</button></div>
-                </div>
-            <div class="line1"></div>              
-               
-<%--     <c:forEach items="${cart}" var="p">                           
-            <div class="product-container" id="pc">                                    
-                <div class="product-pic"><img src="${path}/resources/images/rooms/<c:out value="${p.product_pic}"/>"></div>                
-                <div class="price"> <fmt:formatNumber value="${p.product_price}"/>원 </div>                                                                                       
-                    
-                    <input type="text" value="${p.product_no}" name="productNo" id="pNo">
-                    <input type="text" value="${p.cart_no}" name="cartNo" id="cNo">
-                    
-                    
-                    <div class="product-detail">                                        
-                        <div><c:out value="${p.product_name}"/></div>
-                        <div><c:out value="${p.big_category}"/></div>                                
-                        <div><c:out value="${p.product_width}"/>*<c:out value="${p.product_height}"/>*<c:out value="${p.product_depth}"/></div>                    
-                    <div class="btn-container">                                                
-                        <div>
-                            <select class="mdb-select md-form">
-                                <option value="" disabled selected>1</option>
-                                <option value="1">2</option>
-                                <option value="2">3</option>
-                                <option value="3">4</option>
-                              </select>
-                        </div>
-                        <div><button class="remove_list remove">삭제</button></div>
-                        <div><button class="wish_btn" data-toggle="modal" data-target="#fullHeightModalRight">위시리스트 저장</button></div>
-                    </div>  
-                	</div><div class="line1"></div>                              
-                </div>
-	</c:forEach> --%>
-<%-- <c:forEach items="${cart}" var="p">
-<input type="text" value="${p.product_no}" name="productNo" id="pNo">
-<input type="text" value="${p.cart_no}" name="cartNo" id="cNo">
-</c:forEach> --%>
-
-
-
- <div id="re"></div>
-	<script>				
-		$(function(){
-			$.ajax({
-				url:"${path}/cart/deleteProduct.do",
-				success:data =>{					
-					$("#re").html(data);
-				}
-			})
-		})
-		$(document).on('click','.remove',e=>{
-			   let pNo=$(".pNo").val();         
-			    let cNo=$(".cNo").val();
-			         $.ajax({
-			            url:"${path}/cart/deleteProduct.do",
-			            data:{productNo:pNo, cartNo:cNo},
-			            success:data=>{
-			               console.log(data);
-			               $("#re").html('');
-			               $("#re").html(data);
-			            }
-			         });
-		});
+                    <div class="title">
+                   		<div>장바구니</div>
+	                   <div><button class="remove_basket" value="${cN}">장바구니 비우기</button></div>	   	                                                     
+					</div>
+            <div class="line1"></div>                            
+		 	
+		 	<div id="re"></div>	
+			<script>				
+				$(function(){
+					$.ajax({
+						url:"${path}/cart/deleteProduct.do",
+						success:data =>{					
+							$("#re").html(data);
+						}
+					})
+				})	
+			
+			/* 장바구니제거 */
+			$(".remove_basket").click(e=>{
+				let cNo=$(e.target).val();				
+				 $.ajax({
+					 url:"${path}/cart/deleteBasket.do",
+					 data:{cartNo:cNo},
+					 success:data=>{
+						console.log("cNo:"+cNo);	
+						$("#re").html(data);
+					 }
+				 });
+			 }); 
+			</script>
+								 		               
+		</div>
 		
-		/* $(".remove").click(e =>{
-			let pNo=$("#pNo").val();			
-			let cNo=$("#cNo").val();
-			$.ajax({
-				url:"${path}/cart/deleteProduct.do",
-				data:{productNo:pNo, cartNo:cNo},
-				success:data=>{
-					console.log(data);
-					$("#re").html('');
-					$("#re").html(data);
-				}
-			});
-		})  */
-	</script>
-	
-	 
-	
-	               
-</div>
+		
         <div class="section2">                                                        
                 <div class="service-container">                              
                     <div>전체 서비스 비용</div>
@@ -134,8 +84,8 @@
             </div>            
         </div>
         <div class="line1"></div>    
-    </div>
-    
+</div>
+      
     
     
     

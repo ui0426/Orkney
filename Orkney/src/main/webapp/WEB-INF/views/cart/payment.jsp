@@ -21,6 +21,7 @@
             <div style="display: flex;justify-content: space-between;">
             	<div class="etc-title">주문상품</div>
             	<div class="mod-product"><button class="btn2" onclick="location.href='${path }/cart/cart.do'">주문상품 수정</button> </div>        
+            
             </div>
             <div class="line1"></div>
             
@@ -46,85 +47,49 @@
             </div>            
         </div>
         
-                <div class="section1">            
+        <div class="section1">            
             <div class="etc-title"><span>주문자</span></div>
             <div class="line1"></div>
             <div class="field">
                 <span class="first-div">이름</span>
-                <div class="padding-input"><input type="text" class="input1 input1-extra" placeholder="윤진영" readonly> </div>
+                <div class="padding-input"><input type="text" class="input1 input1-extra" placeholder="<c:out value='${memberName}' />"> </div>
             </div>
 
             <div class="field">
                 <span class="first-div">이메일</span>
-                <div class="padding-input"><input type="text" class="input1 input1-extra" placeholder="jini@naver.com" readonly></div>
+                <div class="padding-input"><input type="text" class="input1 input1-extra" placeholder=""></div>
             </div>
 
             <div class="field">
                 <span class="first-div">휴대전화</span>
-                <div class="padding-input"><input type="text" class="input1 input1-extra" placeholder="010-2252-2525" readonly></div>
-            </div>
+                <div class="padding-input"><input type="text" class="input1 input1-extra" placeholder=""></div>
+            </div>                                    
+            
         </div>
         
         
         <div class="section1">
             <div class="etc-title">
-                  <span>배송지</span>   
-                  <button class="btn2">회원정보입력</button>
+                  <span>배송지</span>                                       
+                  <button class="btn2" onclick="location.href='${path}/member/selectInfo.do'">회원정보입력</button>
                   <button type="button" class="btn2" data-toggle="modal" data-target="#fullHeightModalRight">배송지조회 </button>
-            </div>
-            
-
-
-<!-- Full Height Modal Right -->
-<div class="modal fade right" id="fullHeightModalRight" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-  aria-hidden="true">
-
-  <!-- Add class .modal-full-height and then add class .modal-right (or other classes from list above) to set a position to the modal -->
-  <div class="modal-dialog modal-full-height modal-right" role="document">
-
-
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title w-100" id="myModalLabel">Modal title</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      
-      <div class="modal-body">...</div>
-      
-      <div class="modal-footer justify-content-center">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- Full Height Modal Right -->
-
-
+            </div>           
             <div class="line1"></div>
             <div class="field">
                 <span class="first-div">받는분</span>
                 <div><input type="text" class="input1 none-line"></div>
             </div>
-
             <div class="field">
                 <span class="first-div">우편번호</span>
                 <div><input type="text" class="input2 none-line" id="zip" disabled> </div>
                 <div class="btn-container"><button class="btn1" id="adrbtn">우편번호</button></div>
             </div>
-
             <div class="field">
                 <span class="first-div">주소</span>
                 <div><input type="text" class="input3 none-line" id="adrinput" disabled></div>
             </div>
             
-            <div class="field">                   
-                <div class="etc-div"><input type="text" class="input3  none-line"></div>                            
-            </div>
-            
-
+            <div class="field"><div class="etc-div"><input type="text" class="input3  none-line"></div></div>            
             <div class="field">
                 <div class="first-div">휴대전화</div>
                 <div><input type="text" class="input1 none-line"></div>
@@ -140,7 +105,7 @@
                 		<div class="preset" id="preset3">부재시 전화 주시거나 문자 남겨 주세요.</div>
                 	</div>
                 </div>
-            </div>
+            </div>            
             <script>       
             $("#message-input").click(e=>{
                 $(".messages").show();            
@@ -163,8 +128,7 @@
                 });    
                     $("#messages").hide();    
             });
-            </script>
-            
+            </script>            
              <div class="field">
                 <div class="checkdiv  marb">  
                     <div class="checkicon" stlye="width:172px;">
@@ -177,13 +141,7 @@
             </div>           
         </div>
         
- <!--        <div class="section1">
-            <div class="etc-title">
-                <span>쿠폰 (0장)</span> 
-                <button class="btn3">쿠폰열기</button> 
-            </div>
-        <div class="line1"></div>
-        </div> -->
+               
 
         <div class="section1">
             <div class="etc-title">포인트</div>
@@ -333,6 +291,39 @@
         </div>
             <button type="button" class="btn btn-dark event-bu"  onclick="location.href='${path }/cart/creditpay.do'"><span class="event-sp">결제하기</span></button> 
     </div>
+    
+    
+    
+    <!-- Full Height Modal Right -->
+<div class="modal fade right" id="fullHeightModalRight" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+
+  <!-- Add class .modal-full-height and then add class .modal-right (or other classes from list above) to set a position to the modal -->
+  <div class="modal-dialog modal-full-height modal-right" role="document">
+
+
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title w-100" id="myModalLabel">Modal title</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      
+      <div class="modal-body">...</div>
+      
+      <div class="modal-footer justify-content-center">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Full Height Modal Right -->
+    
+    
+    
+    
 </section>
 
  <script>
