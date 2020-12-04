@@ -10,6 +10,7 @@
    <jsp:param name="title" value="결제화면" />
 </jsp:include>
 <link rel="stylesheet" href="${path}/resources/css/cart/payment.css">
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
 
 <section>  
@@ -17,8 +18,10 @@
         
         <div class="section1">
             <div class="title-container">주문/결제</div>
-            <div class="etc-title">주문상품</div>        
-            
+            <div style="display: flex;justify-content: space-between;">
+            	<div class="etc-title">주문상품</div>
+            	<div class="mod-product"><button class="btn2" onclick="location.href='${path }/cart/cart.do'">주문상품 수정</button> </div>        
+            </div>
             <div class="line1"></div>
             
             <div class="product-container">
@@ -40,163 +43,235 @@
 	                    <div>1개</div>
 	                </div>
 	            </div>
-            </div>
-            
+            </div>            
         </div>
+        
+                <div class="section1">            
+            <div class="etc-title"><span>주문자</span></div>
+            <div class="line1"></div>
+            <div class="field">
+                <span class="first-div">이름</span>
+                <div class="padding-input"><input type="text" class="input1 input1-extra" placeholder="윤진영" readonly> </div>
+            </div>
+
+            <div class="field">
+                <span class="first-div">이메일</span>
+                <div class="padding-input"><input type="text" class="input1 input1-extra" placeholder="jini@naver.com" readonly></div>
+            </div>
+
+            <div class="field">
+                <span class="first-div">휴대전화</span>
+                <div class="padding-input"><input type="text" class="input1 input1-extra" placeholder="010-2252-2525" readonly></div>
+            </div>
+        </div>
+        
         
         <div class="section1">
             <div class="etc-title">
                   <span>배송지</span>   
-                  <button class="btn2">회원정보와 동일하게 채우기</button>
+                  <button class="btn2">회원정보입력</button>
+                  <button type="button" class="btn2" data-toggle="modal" data-target="#fullHeightModalRight">배송지조회 </button>
             </div>
+            
+
+
+<!-- Full Height Modal Right -->
+<div class="modal fade right" id="fullHeightModalRight" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+
+  <!-- Add class .modal-full-height and then add class .modal-right (or other classes from list above) to set a position to the modal -->
+  <div class="modal-dialog modal-full-height modal-right" role="document">
+
+
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title w-100" id="myModalLabel">Modal title</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      
+      <div class="modal-body">...</div>
+      
+      <div class="modal-footer justify-content-center">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Full Height Modal Right -->
+
+
             <div class="line1"></div>
             <div class="field">
                 <span class="first-div">받는분</span>
-                <div><input type="text" class="input1"></div>
+                <div><input type="text" class="input1 none-line"></div>
             </div>
 
             <div class="field">
                 <span class="first-div">우편번호</span>
-                <div><input type="text" class="input2"> </div>
-                <div class="btn-container"><button class="btn1">우편번호</button></div>
+                <div><input type="text" class="input2 none-line" id="zip" disabled> </div>
+                <div class="btn-container"><button class="btn1" id="adrbtn">우편번호</button></div>
             </div>
 
             <div class="field">
                 <span class="first-div">주소</span>
-                <div><input type="text" class="input3"></div>
+                <div><input type="text" class="input3 none-line" id="adrinput" disabled></div>
             </div>
             
             <div class="field">                   
-                <div class="etc-div"><input type="text" class="input3"></div>                            
+                <div class="etc-div"><input type="text" class="input3  none-line"></div>                            
             </div>
             
 
             <div class="field">
                 <div class="first-div">휴대전화</div>
-                <div><input type="text" class="input1"></div>
+                <div><input type="text" class="input1 none-line"></div>
             </div>
 
             <div class="field">
-                <div class="first-div">배송메모</div>
-                <div><input type="text" class="input3"></div>
-            </div>            
-        </div>
-        
-        <div class="section1">            
-            <div class="etc-title">
-                <span>주문자</span>  
-                <button class="btn2">회원정보와 동일하게 채우기</button>           
+                <div class="first-div">배송메모</div>                	
+                <div class="input-vertical">
+                	<input type="text" class="input3 none-line" id="message-input">
+                	<div class="messages" id="messages" style="display: none;">
+                		<div class="preset" id="preset1">배송 전에 미리 연락 바랍니다.</div>
+                		<div class="preset" id="preset2">부재시 경비실에 맡겨주세요.</div>
+                		<div class="preset" id="preset3">부재시 전화 주시거나 문자 남겨 주세요.</div>
+                	</div>
+                </div>
             </div>
-            <div class="line1"></div>
-            <div class="field">
-                <span class="first-div">이름</span>
-                <div><input type="text" class="input1"> </div>
-            </div>
-
-            <div class="field">
-                <span class="first-div">이메일</span>
-                <div><input type="text" class="input1"></div>
-            </div>
-
-            <div class="field">
-                <span class="first-div">휴대전화</span>
-                <div><input type="text" class="input1"></div>
-            </div>
-
-            <div class="field">
+            <script>       
+            $("#message-input").click(e=>{
+                $(".messages").show();            
+            });    
+            $("#preset1").click(e=>{
+                $("#message-input").attr({
+                	"value":"배송 전에 미리 연락 바랍니다."
+                });                 
+            $("#messages").hide();            
+            });
+            $("#preset2").click(e=>{
+                $("#message-input").attr({
+                	"value":"부재시 경비실에 맡겨주세요."
+                });            
+                    $("#messages").hide();            
+            });
+            $("#preset3").click(e=>{
+                $("#message-input").attr({
+                	"value":"부재시 전화 주시거나 문자 남겨 주세요."
+                });    
+                    $("#messages").hide();    
+            });
+            </script>
+            
+             <div class="field">
                 <div class="checkdiv  marb">  
                     <div class="checkicon" stlye="width:172px;">
                         <span><i class="far fa-check-circle fa-2x ixy i1"></i></span>
                         <span><i class="fas fa-check-circle fa-2x ixy i2"></i></span>
                         <input type="checkbox" class="ck" id="ch">
                     </div>
-                    <span class="spanwid">sms 수신 동의 (배송 정보를 SMS로 보내드립니다.)</span>
+                    <span class="spanwid marb">sms 수신 동의 (배송 정보를 SMS로 보내드립니다.)</span>
                 </div>                                 
-            </div>
-
+            </div>           
         </div>
-
-        <div class="section1">
+        
+ <!--        <div class="section1">
             <div class="etc-title">
                 <span>쿠폰 (0장)</span> 
                 <button class="btn3">쿠폰열기</button> 
             </div>
-            <div class="line1"></div>
-        </div>
+        <div class="line1"></div>
+        </div> -->
 
         <div class="section1">
             <div class="etc-title">포인트</div>
-            <div class="line1" ></div>   
-            <div class="etc-field">                     
-                <div class="pre-point"><input type="text" class="input4">P</div>
-            </div>  
+            <div class="line1" ></div>           
+            <div class="able-point">
+	            
+	            <div class="first-div first-div-add">사용 가능한 포인트</div>
+	            <div class="usable-point">0P</div>                                        
+	                 
+	            <div class="checkdiv">  
+	                    <div class="checkicon" stlye="width:172px;">
+	                        <span><i class="far fa-check-circle fa-2x ixy i1"></i></span>
+	                        <span><i class="fas fa-check-circle fa-2x ixy i2"></i></span>
+	                        <input type="checkbox" class="ck" id="ch">
+	                    </div>
+	                    <span class="spanwid">전액사용</span>
+	             </div>
+			</div>                
+            
+            <div class="able-point">
+            	<div class="first-div first-div-add">사용할 포인트</div>                     
+                <div><input type="text" class="input4 none-line" ></div>
+                <div class="pre-point" style="padding: 7px 0 0px 8px;">P</div>            	                         
+            </div>     
+               
+        </div>
 
-            <div>
-                <div style="padding-top: 14px;">사용 가능한 포인트</div>
-                <div class="usable-point">0P</div>
-                <div class="checkdiv  marb">  
-                    <div class="checkicon" stlye="width:172px;">
-                        <span><i class="far fa-check-circle fa-2x ixy i1"></i></span>
-                        <span><i class="fas fa-check-circle fa-2x ixy i2"></i></span>
-                        <input type="checkbox" class="ck" id="ch">
-                    </div>
-                    <span class="spanwid">전액사용</span>
+            <div class="section1">
+                <div class="etc-title">결제 세부 정보</div>
+                <div class="line1"></div>
+                <div class="total-title">
+                        <div class="pay-title">
+                            <div >주문 금액(배송비 제외)</div>
+                            <div>7,900</div>                    
+                        </div>
+                        <div class="pay-title">
+                            <div>전체 서비스 비용</div>
+                            <div>5,000</div>
+                        </div>
+                        <div class="pay-title">
+                            <div>주문 금액(부가세 제외)</div>
+                            <div>11,727</div>
+                        </div>
+                        <div class="pay-title">
+                            <div>부가세(10%)</div>
+                            <div>1,173</div>
+                        </div>
                 </div>                
-            </div>            
+                    <div class="line2">
+                        <div class="pay-title pay-font">
+                            <div>총 주문금액</div>
+                            <div>12,900</div>
+                        </div>
+                    </div>
+            </div>        
+        
+                
+       <div class="section1" style="display: flex;">            
+	            <div class="etc-title">예상 적립 포인트</div>                      
+	            <span class="field span-padding"><div class="pre-point">1,490P</div></span>
+                    	
         </div>
-
-        <div class="section1">
-            <div class="etc-title">예상 적립 포인트</div>
-            <div class="line1"></div>   
-            <div class="field">     
-                <div class="pre-point">1,490P</div>
-                <div style="padding-top: 5px;   font-weight: bold;">적립예정</div> 
-            </div>
             <!-- <div>VIP 등급은 4,470P 적립<a href="">더알아보기</a></div> -->
-        </div>
-
-        <div class="section1">
-            <div class="etc-title">최종 결제 금액</div>
-            <div class="line1"></div> 
-            <div class="last-field">
-                <div>총 상품 금액</div>
-                <div>149,000</div>
-            </div>
-            <div class="last-field">
-                <div>배송비</div>
-                <div>0</div>
-            </div>
-            <div class="last-field">
-                <div>쿠폰 사용</div>                
-                <div>0</div>
-            </div>
-            <div class="last-field">
-                <div>포인트 사용</div>                
-                <div>0</div>
-            </div>
-            <div class="total-price">149,000원</div>
-        </div>
 
         <div class="section1">
             <div class="etc-title">결제 수단</div>
             <div class="line1"></div> 
-            <div class="field">
-                <div class="last-field"></div>
-                <button id="credit-card" >
-                    <img src="${path}/resources/img/credit-card.png" alt="">
-                    <div class="card-title">카드</div>
-                </button>
-                <button id="coin" >                
-                    <img src="${path}/resources/img/money.png" alt="">
-                    <div class="coin-title">무통장입금</div>
-                </button>
+            <div class="field">                                
+                <div class="payment_panel">
+                	<input type="radio" name="options" id="option1" autocomplete="off" checked autocompleted style="display: none">
+                	<label class="pay-label" for="option1">
+                		<img alt="" src="${path}/resources/img/credit-card.png">
+                		<div class="payment-title">신용카드</div>
+                	</label>
+                	
+                	<input type="radio" name="options" id="option2" autocomplete="off" checked autocompleted style="display: none">
+                	<label class="pay-label" for="option2">
+                		<img alt="" src="${path}/resources/img/money.png" alt="">
+                		<div class="payment-title">무통장</div>
+                	</label>                	
+                </div>                                 
             </div>                                         
         </div>
         
         <div class="section1">
         
-        <div class="field">
-            <div class="checkdiv  marb">  
+        <div class="field field-add">
+            <div class="checkdiv">  
                 <div class="checkicon" stlye="width:172px;">
                     <span><i class="far fa-check-circle fa-2x ixy i1"></i></span>
                     <span><i class="fas fa-check-circle fa-2x ixy i2"></i></span>
@@ -206,14 +281,14 @@
             </div>
         </div>
 
-            <div class="contract">
+            <div class="contract contract-add">
                 <div>개인정보 제 3자 제공 및 결제대행 서비스 표준 이용약관</div>                
                 <div><button id="extendBtn1">보기</button></div>
             </div>
-            
             <div class="line1"></div> 
+            
             <div id="contract1" style="display:none;">
-                <div class="contract1">
+                <div class="contract1 contract-add">
                     <div>개인정보 제 3자 제공</div>                
                     <div><button id="extendBtn2">열기</button></div>                
                 </div>
@@ -228,7 +303,7 @@
             
 
             <div id="contract2" style="display:none;">
-                <div class="contract1">
+                <div class="contract1 contract-add">
                     <div>개인정보 수집 및 이용</div>                
                     <div><button id="extendBtn3">열기</button></div>                
                 </div>                
@@ -242,7 +317,7 @@
             </div>
 
             <div id="contract3" style="display:none;">
-                <div class="contract1">
+                <div class="contract1 contract-add">
                     <div>결제대행 서비스 이용약관</div>                
                     <div><button id="extendBtn4">열기</button></div>                
                 </div>                
@@ -255,11 +330,11 @@
                                 4. 동의 거부권 등에 대한 고지 : 정보주체는 개인정보의 수집 및 이용 동의를 거부할 권리가 있으나, 이 경우 상품 및 서비스 예약이 제한될 수 있습니다.            
                             </div> 
             </div>
-            <span class="pay-btn"><button type="button" class="btn btn-dark event-bu"  onclick="location.href='${path }/cart/complete.do'"><span class="event-sp">결제하기</span></button></span> 
         </div>
-
-
+            <button type="button" class="btn btn-dark event-bu"  onclick="location.href='${path }/cart/creditpay.do'"><span class="event-sp">결제하기</span></button> 
     </div>
+</section>
+
  <script>
      // 약관동의 자세히보기
     $("#extendBtn1").click(function() {
@@ -292,11 +367,59 @@
             $(i2).css("color","white");
             $(ch).prop("checked",false);
         }
-    });
-
-
+    });            
+     
 </script>
-</section>
+<script>
+/* 주소검색api */ 
+$("#adrbtn").click(e=>{
+	new daum.Postcode({
+		oncomplete: function(data) {
+			var addr =''; //주소변수
+			var extraAddr =''; //참고변수
+			var test=data.postcode;
+			console.log(test);
+			console.log(data.zonecode);
+			
+		//사용자가 선택한 주소 타입
+		//도로명
+		if(data.userSelectedType ==='R'){
+				addr =  data.roadAddress;    			
+		}else{
+			addr = data.jibunAddress;
+		}
+		
+		//사용자가 선택한 주소가 도로명 일때
+		if(data.userSelectedType === 'R'){
+			//법정동명
+			if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+				extraAddr +=data.bname;
+			}
+			//건물명, 공동주택
+			if(data.buildingName !== '' && data.apartment ==='Y'){
+				extraAddr += (extraAddr !== '' ? ',' + data.buildingName : data.buildingName);					
+			}
+			//표시할 참고항목이 있을시
+			if(extraAddr !== ''){
+				extraAddr = '(' + extraAddr + ')';
+			}								
+		}else{}
+		console.log(data.zonecode+" : "+addr);
+        
+		$("#zip").val(data.zonecode);
+        $("#adrinput").val(addr);
+        $("#zip").attr("disabled",false);
+        $("#adrinput").attr("disabled",false);
+        $("#zip").attr("readonly",true);
+        $("#adrinput").attr("readonly",true);
+        // 커서를 상세주소 필드로 이동
+        $("#detailadr").focus();
+        console.log(data.zonecode+" : "+addr+" : "+extraAddr);			    	
+	}
+	}).open();
+})
+</script>
+
 
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

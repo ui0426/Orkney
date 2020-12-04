@@ -5,7 +5,6 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <c:set var="path" value="${pageContext.request.contextPath }"/>
 
-
 <jsp:include page="/WEB-INF/views/common/header.jsp">      
    <jsp:param name="title" value="메인화면" />
 </jsp:include>
@@ -143,15 +142,24 @@
                 
                     <div class="line1"></div>
             <div class="service-conatainer">
-                    <div style="display: flex; justify-content: space-between;">
-                        <div class="etc-contant">오전 10시 - 오후 10시 (음력 설과 추석 당일은 휴무)</div> 
-                        <div class="field" style="margin: -3px 0;">
+                    <div class="field-inline">
+  		                  <div class="field">
                             <div><img src="${path}/resources/img/phone-call.png"></div> 
-                            <span>1111-2222</span>
-                        </div>
+                            <span>고객센터 : 1111-2222</span>
+                        </div>                        
                     </div> 
-
-                    <!-- <div class="service-title">서비스 이용 시 유의사항</div> -->
+                    <div class="field-inline">
+                    	 <div class="field">
+                    	 	<div><img src="${path}/resources/img/time.png"></div>
+                    	 	<span>오전 10시 - 오후 10시</span>                    	 
+                    	 </div>	
+                   	</div>                                             
+                    
+                    
+                    <div class="info-title">
+                    		<div><img src="${path}/resources/img/operator.png"></div>
+                    		<span>서비스 이용시 유의사항</span>
+                    </div>                   
                     <div class="service-detail">예정된 배송시간에 부재일 경우 배송비가 추가로 부과 될 수 있습니다.</div>             
                     <div class="line2">
                         <div class="service-detail">

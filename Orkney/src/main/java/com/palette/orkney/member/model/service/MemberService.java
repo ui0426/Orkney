@@ -31,7 +31,7 @@ public interface MemberService {
 
 	List<Map> chatAllData(String id);
 
-	int chatDataSave(Map m);
+	List chatDataSave(Map m);
 
 	String getAddress(String no);
 	

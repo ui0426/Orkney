@@ -18,13 +18,13 @@
   	WHERE EMAIL=#{id}
   </update>
   <insert id="insertSignup" parameterType="map">
-  	INSERT INTO MEMBER VALUES('m'||m_NUM.NEXTVAL,#{email},#{password},#{f_name}||#{g_name},SYSDATE,#{birthday},#{phone},default,default,#{emailCh})
+  	INSERT INTO MEMBER VALUES('m'||m_NUM.NEXTVAL,#{email},#{password},#{f_name}||#{g_name},SYSDATE,#{birthday},#{phone},default,default,#{emailCh},default)
   </insert>
   <select id="searchUser" parameterType="string" resultType="map">
   	SELECT * FROM MEMBER WHERE MEMBER_ID=#{email}
   </select>
   <insert id="addAdr" parameterType="map">
- 	INSERT INTO ADDR VALUES((SELECT MEMBER_NO FROM MEMBER WHERE MEMBER_ID=#{email}),#{adr},1)
+ 	INSERT INTO ADDR VALUES((SELECT MEMBER_NO FROM MEMBER WHERE MEMBER_ID=#{email}),#{adr},1,null,null,'addr'||addr_seq.nextval)
   </insert>
   <select id="chatRoomNo" parameterType="string" resultType="string">
   	SELECT DISTINCT CHAT_ROOM FROM CHATTING WHERE MEMBER_NO=#{no}
@@ -38,6 +38,7 @@
   <select id="chatAllData" parameterType="string" resultType="map">
   	SELECT * FROM CHATTING WHERE MEMBER_NO=#{id}
   </select>
+  
   <insert id="chatDataSave" parameterType="map">
   	INSERT INTO CHATTING VALUES(c_num.nextval,#{sender},#{reciver},#{message},SYSDATE,
   	<if test="room == 'new'">
@@ -47,7 +48,15 @@
   	#{room}
   	</if>
   	,#{userNo})
+  	<selectKey keyProperty="newNo" resultType="int" order="AFTER">
+  		SELECT C_NUM.CURRVAL FROM DUAL
+  	</selectKey>
   </insert>
+
+  <select id="newRoomNo" resultType="string" parameterType="int">
+  		SELECT CHAT_ROOM FROM CHATTING
+  		WHERE CHAT_NO=#{newNo}
+  </select>
   
   	<!-- 가입시 주소 가져오기 -->
   	<select id="getAddress" parameterType="string" resultType="string">
@@ -73,6 +82,7 @@
   	<select id="updateMemberPassword" parameterType="map">
   		update member set MEMBER_PWD=#{newPwCk} where member_no=#{mNo}
   	</select>
+  	
   	<select id="currentMemberInformation" parameterType="string" resultMap="memberResultMap">
   		select * from MEMBER join ADDR on (member.MEMBER_NO=addr.MEMBER_NO) where member.member_no=#{mNo}
   	</select>
@@ -91,7 +101,7 @@
 		<collection property="addr" resultMap="addrResultMap"/>
 	</resultMap>  	
 	
-	<resultMap type="Addr" id="addrResultMap">
+	<resultMap type="addr" id="addrResultMap">
 		<result column="MEMBER_NO" property="member_no"/>
 		<result column="ADDRESS" property="address"/>
 		<result column="ADDRESS_TYPE" property="address_type"/>
@@ -99,4 +109,6 @@
 		<result column="ADDRESS_PHONE" property="address_phone"/>
 	</resultMap>
 	
+
+
 </mapper>

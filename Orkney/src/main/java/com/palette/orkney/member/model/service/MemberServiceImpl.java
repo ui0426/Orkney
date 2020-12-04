@@ -7,6 +7,7 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.palette.orkney.member.model.dao.MemberDao;
 import com.palette.orkney.member.model.vo.Addr;
@@ -92,10 +93,19 @@ public class MemberServiceImpl implements MemberService {
 		return list;
 	}
 	
+	@Transactional
 	@Override
-	public int chatDataSave(Map m) {
+	public List chatDataSave(Map m) {
 		// TODO Auto-generated method stub
-		return dao.chatDataSave(session,m);
+		List result=new ArrayList();
+		int a=dao.chatDataSave(session,m);
+		String b="";
+		if(a>0) {
+		b=dao.newRoomNo(session,(int)(m.get("newNo")));
+		}
+		result.add(a);
+		result.add(b);
+		return result;
 	}
 	
 	//가입 시 주소 가져오기
