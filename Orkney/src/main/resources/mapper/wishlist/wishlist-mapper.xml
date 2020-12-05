@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="wishlist">
+<select id="selectWishlist" parameterType="string" resultMap="wishlistResultMap">
+	select * from (select * from wishlist where member_no = #{mNo} order by wishlist_no) where rownum = 1
+</select>
+
+<select id="selectWishlistCookie" parameterType="map" resultMap="wishlistResultMap">
+	select * from wishlist where member_no = #{mNo} and wishlist_no = #{wNo}
+</select>
+
+<select id="selectWishlistDetail" parameterType="string" resultMap="wishlist_detailResultMap">
+	select * from wishlist_detail where wishlist_no = #{wNo}
+</select>
+
+  <resultMap type="wishlist" id="wishlistResultMap">
+  	<id column="WISHLIST_NO" property="wishlist_no"/>
+  	<result column="MEMBER_NO" property="member_no"/>
+  	<result column="WISHLIST_NAME" property="wishlist_name"/>
+  	<collection property="wishlist_detail" resultMap="wishlist_detailResultMap">
+  	</collection>
+  </resultMap>
+  
+  <resultMap type="wishlist_detail" id="wishlist_detailResultMap">
+  	<result column="WISHLIST_NO" property="wishlist_no"/>
+  	<result column="PRODUCT_NO" property="product_no"/>
+  </resultMap>
+	
+</mapper>

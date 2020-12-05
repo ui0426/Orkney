@@ -113,7 +113,7 @@
                 </li>
                 </c:if>
                     
-                <li class="header-icon hambuger btn-aside">            
+                <li class="header-icon hambuger2 btn-aside">            
                     <span><svg aria-hidden="true" focusable="false" class="svg-icon  hnf-svg-icon" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" clip-rule="evenodd" d="M20 8H4V6H20V8ZM20 13H4V11H20V13ZM20 18H4V16H20V18Z"></path>
                  </svg></span></li>

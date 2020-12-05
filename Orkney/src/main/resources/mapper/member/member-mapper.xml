@@ -18,13 +18,13 @@
   	WHERE EMAIL=#{id}
   </update>
   <insert id="insertSignup" parameterType="map">
-  	INSERT INTO MEMBER VALUES('m'||m_NUM.NEXTVAL,#{email},#{password},#{f_name}||#{g_name},SYSDATE,#{birthday},#{phone},default,default,#{emailCh})
+  	INSERT INTO MEMBER VALUES('m'||m_NUM.NEXTVAL,#{email},#{password},#{f_name}||#{g_name},SYSDATE,#{birthday},#{phone},default,default,#{emailCh},default)
   </insert>
   <select id="searchUser" parameterType="string" resultType="map">
   	SELECT * FROM MEMBER WHERE MEMBER_ID=#{email}
   </select>
   <insert id="addAdr" parameterType="map">
- 	INSERT INTO ADDR VALUES((SELECT MEMBER_NO FROM MEMBER WHERE MEMBER_ID=#{email}),#{adr},1)
+ 	INSERT INTO ADDR VALUES((SELECT MEMBER_NO FROM MEMBER WHERE MEMBER_ID=#{email}),#{adr},1,null,null,'addr'||addr_seq.nextval)
   </insert>
   <select id="chatRoomNo" parameterType="string" resultType="string">
   	SELECT DISTINCT CHAT_ROOM FROM CHATTING WHERE MEMBER_NO=#{no}
@@ -67,5 +67,48 @@
   	<select id="addAddrList" parameterType="string" resultType="addr">
   		select * from addr where address_type=0 and member_no=#{mNo}
   	</select>
+  	
+  	<!-- 이름, 생일 수정 -->
+  	<update id="updateMemberPersonal" parameterType="map">
+  		update member set MEMBER_NAME=#{name},BIRTHDAY=#{birth} where member_no=#{mNo}
+  	</update>
+  	
+  	<!-- 연락처 수정 -->
+  	<update id="updateMemberContact" parameterType="map">
+  		update member set PHONE=#{phone} where member_no=#{mNo}
+  	</update>
+  	
+  	<!-- 패스워드 수정 -->
+  	<select id="updateMemberPassword" parameterType="map">
+  		update member set MEMBER_PWD=#{newPwCk} where member_no=#{mNo}
+  	</select>
+  	
+  	<select id="currentMemberInformation" parameterType="string" resultMap="memberResultMap">
+  		select * from MEMBER join ADDR on (member.MEMBER_NO=addr.MEMBER_NO) where member.member_no=#{mNo}
+  	</select>
+  	
+	<resultMap type="member" id="memberResultMap">
+		<id column="MEMBER_NO" property="member_no"/>
+		<result column="MEMBER_ID" property="member_id"/>
+		<result column="MEMBER_PWD" property="member_pwd"/>
+		<result column="MEMBER_NAME" property="member_name"/>
+		<result column="ENROLL_DATE" property="enroll_date"/>
+		<result column="BIRTHDAY" property="birthday"/>
+		<result column="PHONE" property="phone"/>
+		<result column="POINT" property="point"/>
+		<result column="AUTHORITY" property="authority"/>
+		<result column="EMAIL_CH" property="email_ch"/>
+		<collection property="addr" resultMap="addrResultMap"/>
+	</resultMap>  	
+	
+	<resultMap type="addr" id="addrResultMap">
+		<result column="MEMBER_NO" property="member_no"/>
+		<result column="ADDRESS" property="address"/>
+		<result column="ADDRESS_TYPE" property="address_type"/>
+		<result column="ADDRESS_NAME" property="address_name"/>
+		<result column="ADDRESS_PHONE" property="address_phone"/>
+	</resultMap>
+	
+
 
 </mapper>
