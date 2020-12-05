@@ -25,26 +25,22 @@
             </div>
             <div class="line1"></div>
             
+            
+            <c:forEach items="${cart }" var="p">
             <div class="product-container">
 	            <div class="order-container">
-	                <div class="product-pic"><img src="https://www.ikea.com/kr/ko/images/products/groenlid-chaise-longue-section-ljungen-light-red__0852499_PE780117_S3.JPG" alt=""></div>               
+	                <div class="product-pic"><img src="${path}/resources/images/rooms/<c:out value="${p.product_pic}"/>"></div>               
 	                <div class="product-detail">
-	                    <div>GRÖNLID 그뢴리드</div>
-	                    <div>15*12</div>
+	                    <div><c:out value="${p.product_name}"/></div>
+	                    <div><c:out value="${p.product_width}"/>*<c:out value="${p.product_height}"/>*<c:out value="${p.product_depth}"/></div>
 	                    <div>149,000원</div>
 	                    <div>1개</div>
 	                </div>
-	            </div>
-	             <div class="order-container">
-	                <div class="product-pic"><img src="https://www.ikea.com/kr/ko/images/products/groenlid-chaise-longue-section-ljungen-light-red__0852499_PE780117_S3.JPG" alt=""></div>               
-	                <div class="product-detail">
-	                    <div>GRÖNLID 그뢴리드</div>
-	                    <div>15*12</div>
-	                    <div>149,000원</div>
-	                    <div>1개</div>
-	                </div>
-	            </div>
-            </div>            
+	            </div>	            
+            </div>  
+            <div class="line3"></div>
+             </c:forEach>  
+                      
         </div>
         
         <div class="section1">            
@@ -52,17 +48,17 @@
             <div class="line1"></div>
             <div class="field">
                 <span class="first-div">이름</span>
-                <div class="padding-input"><input type="text" class="input1 input1-extra" placeholder="<c:out value='${memberName}' />"> </div>
+                <div class="padding-input"><input type="text" class="input1 input1-extra" placeholder="<c:out value="${member.member_name}"/>"> </div>
             </div>
 
             <div class="field">
                 <span class="first-div">이메일</span>
-                <div class="padding-input"><input type="text" class="input1 input1-extra" placeholder=""></div>
+                <div class="padding-input"><input type="text" class="input1 input1-extra" placeholder="<c:out value="${member.member_id}"/>"></div>
             </div>
 
             <div class="field">
                 <span class="first-div">휴대전화</span>
-                <div class="padding-input"><input type="text" class="input1 input1-extra" placeholder=""></div>
+                <div class="padding-input"><input type="text" class="input1 input1-extra" placeholder="<c:out value="${member.phone}"/>"></div>
             </div>                                    
             
         </div>
@@ -71,7 +67,7 @@
         <div class="section1">
             <div class="etc-title">
                   <span>배송지</span>                                       
-                  <button class="btn2" onclick="location.href='${path}/member/selectInfo.do'">회원정보입력</button>
+                  <button class="btn2">회원정보입력</button>
                   <button type="button" class="btn2" data-toggle="modal" data-target="#fullHeightModalRight">배송지조회 </button>
             </div>           
             <div class="line1"></div>
@@ -114,7 +110,7 @@
                 $("#message-input").attr({
                 	"value":"배송 전에 미리 연락 바랍니다."
                 });                 
-            $("#messages").hide();            
+            		$("#messages").hide();            
             });
             $("#preset2").click(e=>{
                 $("#message-input").attr({
@@ -149,7 +145,7 @@
             <div class="able-point">
 	            
 	            <div class="first-div first-div-add">사용 가능한 포인트</div>
-	            <div class="usable-point">0P</div>                                        
+	            <div class="usable-point"><c:out value="${member.point}"/>P</div>                                        
 	                 
 	            <div class="checkdiv">  
 	                    <div class="checkicon" stlye="width:172px;">

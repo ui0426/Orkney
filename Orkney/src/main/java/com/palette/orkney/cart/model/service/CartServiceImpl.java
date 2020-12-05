@@ -1,6 +1,5 @@
 package com.palette.orkney.cart.model.service;
 
-import java.lang.reflect.Member;
 import java.util.List;
 import java.util.Map;
 
@@ -10,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.palette.orkney.cart.model.dao.CartDao;
 import com.palette.orkney.cart.model.vo.Cart;
+import com.palette.orkney.cart.model.vo.CartDetail;
 
 @Service
 public class CartServiceImpl implements CartService{
@@ -41,11 +41,18 @@ public class CartServiceImpl implements CartService{
 	}
 
 	@Override
-	public Member memberInfo(String memberNo) {
+	public Cart memberInfo(String memberNo) {
 		return dao.memberInfo(session,memberNo);
 	}
 
+	@Override
+	public int updateDetail(CartDetail detail) {	
+		return dao.updateDetail(session,detail);
+	}
 
+	
+
+	
 
 
 

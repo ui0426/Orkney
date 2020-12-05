@@ -1,6 +1,5 @@
 package com.palette.orkney.cart.model.dao;
 
-import java.lang.reflect.Member;
 import java.util.List;
 import java.util.Map;
 
@@ -8,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.palette.orkney.cart.model.vo.Cart;
+import com.palette.orkney.cart.model.vo.CartDetail;
 
 @Repository
 public class CartDaoImpl implements CartDao{
@@ -33,10 +33,17 @@ public class CartDaoImpl implements CartDao{
 	}
 
 	@Override
-	public Member memberInfo(SqlSession session, String memberNo) {
+	public Cart memberInfo(SqlSession session, String memberNo) {
 		return session.selectOne("cart.memberInfo", memberNo);
 	}
 
+	@Override
+	public int updateDetail(SqlSession session, CartDetail detail) {	
+		return session.update("cart.updateDetail",detail);
+	}
+
+	
+	
 
 
 

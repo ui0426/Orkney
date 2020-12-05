@@ -1,12 +1,12 @@
 package com.palette.orkney.cart.model.dao;
 
-import java.lang.reflect.Member;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
 import com.palette.orkney.cart.model.vo.Cart;
+import com.palette.orkney.cart.model.vo.CartDetail;
 
 public interface CartDao {
 
@@ -18,6 +18,9 @@ public interface CartDao {
 	
 	int deleteBasket(SqlSession session,String cartNo);
 	
-	Member memberInfo(SqlSession session,String memberNo);
+	Cart memberInfo(SqlSession session,String memberNo);
 	
+	int updateDetail(SqlSession session,CartDetail detail);
 }
+
+

@@ -165,7 +165,14 @@
         border-bottom:2px dashed gray; 
         border-top:2px dashed gray;
         padding: 4px 0;
+        
         }
+     .line3{
+     border-top:2px dashed gray;
+      		width: 100%;
+            opacity: 20%;
+     }   
+        
     .address-container{
         padding-left: 100px;
     }

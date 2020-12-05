@@ -1,10 +1,10 @@
 package com.palette.orkney.cart.model.service;
 
-import java.lang.reflect.Member;
 import java.util.List;
 import java.util.Map;
 
 import com.palette.orkney.cart.model.vo.Cart;
+import com.palette.orkney.cart.model.vo.CartDetail;
 
 public interface CartService {
 
@@ -16,6 +16,8 @@ public interface CartService {
 	
 	int deleteBasket(String cartNo);
 	
-	Member memberInfo(String memberNo);
+	Cart memberInfo(String memberNo);
+	
+	int updateDetail(CartDetail detail);
 	
 }

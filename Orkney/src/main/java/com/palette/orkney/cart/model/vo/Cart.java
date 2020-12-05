@@ -10,9 +10,9 @@ import lombok.NoArgsConstructor;
 public class Cart {
 	
 	private String member_no;
-	private String cart_no;
-	private String product_no;
-	private String cart_qty;
+	private String cartNo;
+	private String productNo;
+	private String cartQTY;
 	
 	private String product_name;
 	private int product_price;
@@ -24,4 +24,11 @@ public class Cart {
 	private String small_category;
 	
 	private String product_pic;
+	
+	private String phone;
+	private String member_name;
+	private String member_id;
+	private int point;
+	
+	
 }

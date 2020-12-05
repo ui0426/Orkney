@@ -13,6 +13,7 @@
  
 <section>
     <div class="section-container">
+    <form name="amountSend" method="post">
         <div class="section1">        
                     <div class="title">
                    		<div>장바구니</div>
@@ -20,31 +21,7 @@
 					</div>
             <div class="line1"></div>                            
 		 	
-		 	<div id="re"></div>	
-			<script>				
-				$(function(){
-					$.ajax({
-						url:"${path}/cart/deleteProduct.do",
-						success:data =>{					
-							$("#re").html(data);
-						}
-					})
-				})	
-			
-			/* 장바구니제거 */
-			$(".remove_basket").click(e=>{
-				let cNo=$(e.target).val();				
-				 $.ajax({
-					 url:"${path}/cart/deleteBasket.do",
-					 data:{cartNo:cNo},
-					 success:data=>{
-						console.log("cNo:"+cNo);	
-						$("#re").html(data);
-					 }
-				 });
-			 }); 
-			</script>
-								 		               
+		 	<div id="re"></div>														 		               
 		</div>
 		
 		
@@ -69,7 +46,7 @@
         <div class="section3">
         	
   
-            <span class="pay-btn"><button type="button" class="btn-dark event-bu" onclick="location.href='${path }/cart/payment.do'"><span class="event-sp">결제하기</span></button></span>                                  
+            <span class="pay-btn"><button type="submit" class="btn-dark event-bu" onclick="javascript: form.action='${path}/cart/payment.do';"><span class="event-sp" >결제하기</span></button></span>                                  
             <div class="etc-line">
                 
                 <div>
@@ -84,7 +61,9 @@
             </div>            
         </div>
         <div class="line1"></div>    
+        </form>
 </div>
+
       
     
     
@@ -114,12 +93,38 @@
   </div>
 </div>
 <!-- Full Height Modal Right -->
+
+
 </section>
 
-<!-- <script>
-$(document).ready(function() {
-$('.mdb-select').materialSelect();
-});
-</script> -->
+
+<script>				
+				$(function(){
+					$.ajax({
+						url:"${path}/cart/deleteProduct.do",
+						success:data =>{					
+							$("#re").html(data);
+						}
+					})
+				})	
+			
+			/* 장바구니제거 */
+			$(".remove_basket").click(e=>{
+				let cNo=$(e.target).val();				
+				 $.ajax({
+					 url:"${path}/cart/deleteBasket.do",
+					 data:{cartNo:cNo},
+					 success:data=>{
+						console.log("cNo:"+cNo);	
+						$("#re").html(data);
+					 }
+				 });
+			 }); 
+
+/* 				$(document).ready(function() {
+					$('.mdb-select').materialSelect();
+					}); */				
+</script>
+	
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>	
