@@ -1,20 +1,27 @@
 package com.palette.orkney.member.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import com.palette.orkney.member.model.service.MemberService;
 import com.palette.orkney.member.model.vo.Addr;
@@ -38,15 +45,45 @@ public class MemberController {
 		return "member/signup";
 	}
 	
+	//이메일로 보낸 a태그 안에 값들이 맞으면 비밀번호 변경 페이지로 이동
 	@RequestMapping("/member/transPassword.do")
-	public String transPw() {
-		return "member/transPw";
+	public String transPw(@RequestParam(value="key") String key,@RequestParam(value="id") String id,Model m
+			,@CookieValue(value="trans") Cookie c,HttpServletResponse response) {
+		String adr="";
+		if(c.getValue().equals(key)) {
+			adr="member/transPw";
+		}else {
+			adr="member/transError";
+		}
+		m.addAttribute("id",id);
+//		c.setMaxAge(0);
+//		c.setPath("/");
+//		response.addCookie(c);
+		
+		return adr;
 	}
 	@RequestMapping("/member/memberLogout.do")
-	public String logout(SessionStatus ss) {
+	public String logout(SessionStatus ss,Model m) {
+
+		Map login=(Map)m.getAttribute("login");
+		String type=(String)login.get("SIGNUP_TYPE");
+		if(type.equals("구글")) {
+		String token=(String)login.get("ACCESS_TOKEN");
+		System.out.println(token);
+		System.out.println();
+		Map<String, String> result = new HashMap<>();
+		RestTemplate restTemplate = new RestTemplate();
+		String requestUrl = UriComponentsBuilder.fromHttpUrl("https://oauth2.googleapis.com/revoke")
+				.queryParam("token", token).encode().toUriString();
+		final String resultJson = restTemplate.postForObject(requestUrl,null,String.class);
+		result.put("result", "success");
+		result.put("resultJson", resultJson);
+		System.out.println(result);
+		}
 		if(!ss.isComplete()) {
 			ss.setComplete();
 		}
+		
 		return "redirect:/";
 	}
 	//로그인
@@ -56,12 +93,8 @@ public class MemberController {
 		Map login=service.loginCheck(id);
 		
 		if(login!=null&&pwEncoder.matches(pw,(String)login.get("MEMBER_PWD"))) {
-			String no=(String)login.get("MEMBER_NO");
-			List<String> chatRoomNo=service.chatRoomNo(no);
-			List chatData=service.chatData(chatRoomNo);
-			login.put("chatData",chatData);
-			
 			//가입할 때 주소 가져오기
+			String no=(String)login.get("MEMBER_NO");
 			String address = service.getAddress(no);
 			login.put("address", address);
 			
@@ -75,6 +108,21 @@ public class MemberController {
 		
 		return mv;
 	}
+	
+	//idcheck
+	@RequestMapping("/member/idCheck.do")
+	@ResponseBody
+	public boolean idCheck(String id, String pw) {
+		
+		Map login=service.loginCheck(id);
+		boolean flag=false;
+		if(login!=null&&pwEncoder.matches(pw,(String)login.get("MEMBER_PWD"))) {
+				flag=true;
+		}else {
+				flag=false;
+		}
+		return flag;
+	}
 
 	@RequestMapping("/member/insertSignup.do")
 	public ModelAndView insertSignup(@RequestParam Map userInfo,@RequestParam(value="adr1") String adr1,@RequestParam(value="adr2") String adr2, ModelAndView mv) {
@@ -87,6 +135,7 @@ public class MemberController {
 		int insertUser=service.insertSignup(userInfo);
 		if(insertUser>0) {
 			Map user=service.searchUser((String)userInfo.get("email"));
+			int wish=service.defaultWishList((String)user.get("MEMBER_NO"));
 			service.addAdr(userInfo);
 			mv.addObject("login",user);
 		}
@@ -134,6 +183,9 @@ public class MemberController {
 	//로그아웃(hy)
 	@RequestMapping("/member/loginout.do")	
 	public String loginout(SessionStatus status) {
+		
+		
+		
 		if(!status.isComplete()) status.setComplete();
 		
 		return "redirect:/";
@@ -145,4 +197,44 @@ public class MemberController {
 		
 		return service.chatAllData(id);
 	}
+	
+	//비밀번호 찾기 이메일 찾기용
+	@RequestMapping("/member/emailCh.do")
+	@ResponseBody
+	public boolean emailCh(@RequestParam Map data) {
+		boolean flag=false;
+		
+		Map emailCh=service.emailCh(data);
+		
+		if(emailCh!=null) flag=true;
+		
+		return flag;
+	}
+	
+	//비밀번호 수정 로직 과정 >> 이메일로 비밀번호 변경시
+	@RequestMapping("/member/transPwLast.do")
+	public ModelAndView transPwch(ModelAndView mv,@RequestParam Map data,@CookieValue(value="trans") Cookie c
+			,HttpServletResponse response) {
+		
+		String pw=(String)data.get("pw");
+		String pwbc=pwEncoder.encode(pw);
+		data.put("pw",pwbc);
+		
+		int pwChange=service.transPwch(data);
+		
+		if(pwChange>0) {
+			mv.setViewName("redirect:/");
+			c.setMaxAge(0);
+			c.setPath("/");
+			response.addCookie(c);
+		}else {
+			mv.addObject("msg","변경에 실패하였습니다.");
+			mv.addObject("loc","redirect:/");
+			mv.setViewName("common/msg");
+		}
+		
+			
+		return mv;
+	}
+	
 }

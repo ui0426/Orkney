@@ -43,4 +43,14 @@ public interface MemberDao {
 	//추가된 배송지 리스트 가져오기
 	List<Addr> addAddrList(SqlSession session, String mNo);
 
+	Map snsUserInfo(SqlSession session, String userId);
+
+	int updateSnsId(SqlSession session, Map snsData);
+
+	int defaultWishList(SqlSession session, String mNo);
+
+	Map emailCh(SqlSession session, Map id);
+
+	int transPwch(SqlSession session, Map data);
+
 }

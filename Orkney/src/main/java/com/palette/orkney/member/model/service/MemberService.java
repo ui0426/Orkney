@@ -35,4 +35,16 @@ public interface MemberService {
 	String getAddress(String no);
 	
 	List<Addr> addAddrList(String mNo);
+
+	int insertSignup(Map userData, Map snsData);
+
+	Map snsUserInfo(String userId);
+
+	int updateSnsId(Map snsData);
+
+	int defaultWishList(String mNo);
+
+	Map emailCh(Map data);
+
+	int transPwch(Map data);
 }

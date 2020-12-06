@@ -63,9 +63,9 @@ public class GoogleController {
 		GoogleOAuthResponse result=new Gson().fromJson(resultEntity.getBody(),GoogleOAuthResponse.class);
 		System.out.println(result);
 		//Token Request
-//		GoogleOAuthResponse result = mapper.readValue(resultEntity.getBody(), new TypeReference<GoogleOAuthResponse>() {
-//		});
+//		GoogleOAuthResponse result = mapper.readValue(resultEntity.getBody(), new TypeReference<GoogleOAuthResponse>() {});
 
+		
 		//ID Token만 추출 (사용자의 정보는 jwt로 인코딩 되어있다)
 		String jwtToken = result.getId_token();
 		String requestUrl = UriComponentsBuilder.fromHttpUrl("https://oauth2.googleapis.com/tokeninfo")
@@ -76,9 +76,8 @@ public class GoogleController {
 		Map<String,String> userInfo = mapper.readValue(resultJson, new TypeReference<Map<String, String>>(){});
 		System.out.println(userInfo);
 		
-		
-		
-		
+		String userId=userInfo.get("sub");
+		Map exist=service.loginCheck(userId);
 		
 		Map snsData=new HashMap();
 		snsData.put("id",userInfo.get("email"));
@@ -86,29 +85,40 @@ public class GoogleController {
 		snsData.put("profile",userInfo.get("picture"));
 		snsData.put("aToken",result.getAccess_token());
 		snsData.put("rToken",result.getRefresh_token());
-		System.out.println(snsData);
-		boolean flag=false;
-		//Map existId=service.searchGoogleId(snsData,flag);
-//		if(existId==null) {
-//			service.insertSnsLogin(snsData);
-//			existId=service.searchGoogleId(snsData,flag);
-//			model.addAttribute("login",existId);
-//		}else {
-//			flag=true;
-//			existId=service.searchGoogleId(snsData,flag);
-//			model.addAttribute("login",existId);
-//		}
-		return "index";
+		
+		if(exist==null) {
+			Map userData=new HashMap();
+			userData.put("email",userId);
+			userData.put("password","");
+			userData.put("f_name",userInfo.get("family_name"));
+			userData.put("g_name",userInfo.get("given_name"));
+			userData.put("birthday","00/01/01");
+			userData.put("phone",userInfo.get("exp"));
+			userData.put("emailCh","N");
+			userData.put("type","구글");
+			
+			int insertId=service.insertSignup(userData,snsData);
+			
+			if(insertId>0) model.addAttribute("login",service.snsUserInfo(userId));
+			
+		}else {
+				int update=service.updateSnsId(snsData);
+				model.addAttribute("login",service.snsUserInfo(userId));
+		}
+		
+		
+		return "redirect:/";
 
 	}
 	
 	@GetMapping("/google/revoke/token")
-	public String revokeToken(@RequestParam(value = "token") String token,SessionStatus ss) throws JsonProcessingException {
+	public String revokeToken(SessionStatus ss,Model m) throws JsonProcessingException {
+		Map login=(Map)m.getAttribute("login");
+		String token=(String)login.get("ACCESS_TOKEN");
 		
-		//https://oauth2.googleapis.com/revoke?token=token��
-		//-- <li><a href="${path }/google/revoke/token?token=${login.ACCESS_TOKEN}">�α׾ƿ�2</a></li>
+		
 		System.out.println(token);
-		System.out.println();
+		
 		Map<String, String> result = new HashMap<>();
 		RestTemplate restTemplate = new RestTemplate();
 		String requestUrl = UriComponentsBuilder.fromHttpUrl("https://oauth2.googleapis.com/revoke")
@@ -122,7 +132,7 @@ public class GoogleController {
 		}
 		
 		
-		return "index";
+		return "redirect:/";
 
 	}
 }

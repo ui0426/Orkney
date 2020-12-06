@@ -10,12 +10,11 @@
 
 	<style>
     body,html{height:100%}
-    div{border: 1px solid black;}
     .wid{width:100%;}
     .wid3{width:46%;}
-    .userInfo{height:500px;margin-left: 1.6rem;margin-top:1rem;margin-bottom: 1rem;}
+    .userInfo{height:500px;margin-left: 1.6rem;margin-top:1rem;margin-bottom: 1rem; border:1px black solid;}
     .userWrap{display:flex;flex-wrap: wrap;width:100%;padding: 0rem 4rem 0rem;}
-    .topContent{height:60px;padding: 1rem 1.5rem 0rem;text-align-last: justify;}
+    .topContent{height:60px;padding: 1rem 1.5rem 0rem;text-align-last: justify; border-bottom:1px black solid;}
     .bottomContent{display:flex;}
     .roomList{width:30%;height:440px;}
     .chatRoom{width:100%;height:440px;position: relative;padding: 1rem 0rem 3rem;padding-left: .5rem;}
@@ -43,9 +42,10 @@
     .flexEnd{justify-content: flex-end;}
     .disflex{display:flex;}
     .rtime{text-align: end;}
-	.roomAlarm{display: flex;flex-direction: column;height: 76px;justify-content: center;}
+	.roomAlarm{display: flex;flex-direction: column;height: 76px;justify-content: center;border-top: 1px solid;border-right: 1px solid;}
    	.alarmImg{text-align:center; color:red;}
    	.top{min-height:534px;}
+   	.roomData{border-top: 1px solid;}
 </style>
     <div class="reciver marb disno" id="cloneDiv">
         <div class="time">qweqw</div>
@@ -90,7 +90,7 @@
             <input type="hidden" class="userVal">
                 <div class="topContent"> <!-- 유저 아이디 정보등 작성 예정 -->
                     <span class="userId">아이디</span>
-                    <span class="userName">이름</span>
+                    <span class="userName">사용자</span>
                 </div>
                 <div class="bottomContent"> <!-- 채팅룸목록과 채팅방내용 -->
                     <div class="roomList"> <!-- 채팅룸목록 -->
@@ -299,11 +299,13 @@ function register(){
 								let send=$("#cloneDiv2").clone();
 								$(send).removeClass("disno");
 								$(send).find(".rcontent").html(data[i][j][k]["CHAT_CONTENT"]);
+								$(send).find(".time").html(dateFormat(data[i][j][k]["CHAT_DATE"]));
 								$(room).find(".chatContent").append(send);
 							}else if(data[i][j][k]["RECIVER"]=="m11"){
 								let recive=$("#cloneDiv").clone();
 								$(recive).removeClass("disno");
 								$(recive).find(".rcontent").html(data[i][j][k]["CHAT_CONTENT"]);
+								$(recive).find(".time").html(dateFormat(data[i][j][k]["CHAT_DATE"]));
 								$(room).find(".chatContent").append(recive);
 							}
 							$(div).find(".ajaxRoom").append(room);
@@ -333,6 +335,17 @@ function register(){
 	$(document).on('click','.alarmImg',e=>{
 		userChatList();
 	})
+	
+	function dateFormat(data){
+		let date=new Date(data);
+        let m=date.getMonth()+1;
+        let d=date.getDate();
+        let y=date.getFullYear().toString().substr(2);
+        let t=date.getHours();
+        let mi=date.getMinutes();
+        let c=y+"/"+m+"/"+d+" "+t+":"+mi;
+        return c;
+	}
 </script>
 
 
