@@ -1,6 +1,7 @@
 package com.palette.orkney.member.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -18,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.palette.orkney.member.model.service.MemberService;
 import com.palette.orkney.member.model.vo.Addr;
+import com.palette.orkney.member.model.vo.Member;
 
 @SessionAttributes("login")
 @Controller
@@ -30,7 +32,6 @@ public class MemberController {
 	
 	@RequestMapping("/member/memberLogin.do")
 	public String login() {
-		System.out.println(pwEncoder.encode("1234"));
 		return "member/login";
 	}
 	
@@ -45,7 +46,6 @@ public class MemberController {
 	}
 	@RequestMapping("/member/memberLogout.do")
 	public String logout(SessionStatus ss) {
-		System.out.println(1234);
 		if(!ss.isComplete()) {
 			ss.setComplete();
 		}
@@ -128,6 +128,7 @@ public class MemberController {
 		}
 		System.out.println(list2);
 		mv.addObject("addrList", list2);
+//		mv.setViewName("member/mypage");
 		mv.setViewName("member/mypage");
 		
 		return mv;
@@ -147,4 +148,110 @@ public class MemberController {
 		
 		return service.chatAllData(id);
 	}
+	
+	//이름, 생일 수정
+	@RequestMapping("/member/updateMemberPersonal.do")
+	@ResponseBody
+	public Map updateMemberPersonal(@RequestParam Map<String, Object> updateInformation, HttpSession session) {
+		
+		Map login = ((Map)session.getAttribute("login")); //로그인 된 유저
+		
+		String mNo = (String)login.get("MEMBER_NO");
+		updateInformation.put("mNo", mNo);
+		
+		int result = service.updateMemberPersonal(updateInformation);
+		
+		Map data = new HashMap<String, Object>();
+		if(result > 0 ) { //정보수정 성공
+			data = updateInformation;
+			login.replace("MEMBER_NAME", updateInformation.get("name"));
+			login.replace("BIRTHDAY", updateInformation.get("birth"));
+			
+			String[] b = ((String)updateInformation.get("birth")).split("-");
+			System.out.println(b[0] + b[1] + b[2]);
+			String birthPar = b[0] + "년도 " + b[1] + "월 " + b[2] + "일";
+			data.replace("birth", birthPar);
+		} else {
+			System.out.println("정보수정 실패 어디로.......");
+		}
+		
+		return data;
+		
+	}
+	
+	//연락처 수정
+	@RequestMapping("/member/updateMemberContact.do")
+	@ResponseBody
+	public Map updateMemberContact(@RequestParam Map<String, Object> updateInformation, HttpSession session) {
+		
+		Map login = ((Map)session.getAttribute("login")); //로그인 된 유저
+		
+		String mNo = (String)login.get("MEMBER_NO");
+		updateInformation.put("mNo", mNo);
+		
+		int result = service.updateMemberContact(updateInformation);
+		
+		Map data = new HashMap<String, Object>();
+		if(result > 0 ) { //정보수정 성공
+			data = updateInformation;
+			login.replace("PHONE", updateInformation.get("phone"));
+		} else {
+			System.out.println("정보수정 실패 어디로.......");
+		}
+		
+		return data;
+	}
+	
+	//패스워드 수정
+	@RequestMapping("/member/updateMemberPassword.do")
+	@ResponseBody
+	public int updateMemberPassword(@RequestParam Map<String, Object> updateInformation, HttpSession session) {
+		Map login = ((Map)session.getAttribute("login")); //로그인 된 유저
+		
+		String mNo = (String)login.get("MEMBER_NO");
+		updateInformation.put("mNo", mNo);
+		
+		String pw = (String)updateInformation.get("originPw"); //입력받은 현재비번
+		System.out.println(pw);
+		
+		String newPw = pwEncoder.encode((String)updateInformation.get("newPw")); //입력받은 새 비번
+		
+		int result = 0;
+		System.out.println("매치값" + pwEncoder.matches(pw, (String)login.get("MEMBER_PWD")));
+		if(pwEncoder.matches(pw, (String)login.get("MEMBER_PWD"))) {
+			updateInformation.replace("newPwCk", newPw);
+			result = service.updateMemberPassword(updateInformation);
+			
+			if(result > 0 ) { //정보수정 성공
+				login.replace("MEMBER_PWD", newPw);
+			} else {
+				System.out.println("정보수정 실패 어디로.......");
+			}
+		} else { //현재비번이 틀렸을 경우
+			result = -2;
+		}
+		
+		
+		return result;
+	}
+	
+	//현재 로그인 된 유저 정보 받아오기
+	@RequestMapping("/member/currentMemberInformation.do")
+	@ResponseBody
+	public Member currentMemberInformation(HttpSession session) {
+		Map login = ((Map)session.getAttribute("login")); //로그인 된 유저
+		String mNo = (String)login.get("MEMBER_NO");
+		
+		
+		Member m = service.currentMemberInformation(mNo);
+		
+		System.out.println(m);
+		return m; //화면에서 널처리를 해줘야 하나?
+	}
+	
+//	//personal 업데이트 정보
+//	@RequestMapping("/member/personalJspUpdate.do")
+//	public String personalJspUpdate() {
+//		return "member/mypageDiv/personal.jsp";
+//	}
 }

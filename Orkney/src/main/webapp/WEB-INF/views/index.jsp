@@ -59,14 +59,13 @@
             <!-- Add Pagination -->                        
             <div class="swiper-scrollbar"></div>
             <!-- Add Arrows -->                        
-              <div class="swiper-button-next"></div>            
-              <div class="swiper-button-prev"></div>
+            <img src="${path}/resources/images/rooms/pngegg2222.png" class="swiper-button-next">            
+             <img src="${path}/resources/images/rooms/pngegg.png" class="swiper-button-prev">
           </div>
         </div>
 
         <div class="populartitle">인기상품</div>
         <div class="popularProduct">
-
             <div class="buttonLine" >
               <button type="button" class="btn btn-dark event-bu1"><span class="event-sp">전체보기</span></button>
               <button type="button" class="btn btn-dark event-bu1"><span class="event-sp">책장/선반유닛</span></button>
@@ -104,13 +103,12 @@
 
             <div class="add">
               <button type="button" class="btn btn-dark event-bu2"><span class="event-sp">더보기</span></button>
-            </div>
-            
+            </div>            
         </div>
 
     </section>
            
-     <script>         
+   <script>         
     var swiper = new Swiper('.swiper-container', {
       slidesPerView: 3,
       spaceBetween: 10,
@@ -126,6 +124,28 @@
         nextEl: '.swiper-button-next',
         prevEl: '.swiper-button-prev',
       },
+      roundLengths: true,	
+		
+      //반응형
+		breakpointsInverse: true,
+		breakpoints: {
+			
+			320: {
+				slidesPerView: 1,
+				spaceBetween: 20
+			},
+		
+			480: {
+				slidesPerView: 1,
+				spaceBetween: 10
+			},
+			
+			640: {
+				slidesPerView: 3,
+				spaceBetween: 10
+			}
+			
+		}
     });  
   </script>
   <!-- <script src="../package/swiper-bundle.min.js"></script> -->

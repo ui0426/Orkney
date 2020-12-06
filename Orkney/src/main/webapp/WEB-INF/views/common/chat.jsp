@@ -66,6 +66,9 @@
             <div id="bottomcomment"><div id="moreInfo"><a>더보기</a></div></div>
             </div>
 			
+			<div class="sender" id="chatLogo2" style="display:none">
+                    <div class="mark"></div><div class="bName">Orkeny_furniture</div><div class="time">3:01&nbsp;PM</div>
+                </div>
 			
 			<div id="basicBody">
 			<div id="ajaxSend">
@@ -110,6 +113,13 @@
                     	</div>
                     </div>
                 </div>
+                <div class="reciver marb rec" id="cloneDiv2">
+                    <div class="time rtime"></div>
+                    <div class="mbody rbody">
+                        <div class="rcontent">
+                    	</div>
+                    </div>
+                </div>
             </div>
 
 
@@ -134,10 +144,7 @@
 <script type="text/javascript">
 	
 	 var id='${login.MEMBER_NO}';
-	if(id!='admin'){
-		$("#userList").css("display","none");
-	}
-	
+
 	
 	$("#sendBtn").click(function() {
 		if(id!='m11'){
@@ -156,13 +163,13 @@
 	function sendMessage() {//기본 메세지 일반 아이디 메세지 전송
 		var message=$("#message").val();
 		let room=$("#sendBtn").val();
+		console.log(room);
 		var test={
 				type:"text",
 				user:id,
 				ms:message,
 				sendId:'m11',
-				'room':room,
-				'new':room=='new'?true:false
+				'room':room
 		}
 		sock.send(JSON.stringify(test));
 		$("#message").val('');
@@ -187,12 +194,20 @@
 		let div;
 		let div2;
 		console.log(ms);
+		if(ms["newroom"]==null){
 		if(id==ms["user"]){//내가 보낸 메세지
 			div=$("#cloneDiv").clone();
 			$(div).removeClass("rec");
 			$(div).css("style","display:grid;");
 			$(div).find(".rtime").html('3:30PM');
 			$(div).find(".rcontent").html(ms["ms"]);
+			
+			$("#sendBtn").val(ms["room"]);
+			div2=$("#cloneDiv2").clone();
+			$(div2).removeClass("rec");
+			$(div2).css("style","display:grid;");
+			$(div2).find(".rtime").html('3:30PM');
+			$(div2).find(".rcontent").html(ms["ms"]);
 		}else if(id!="m11"&&"m11"==ms["user"]){//나한테 보낸 사람이 관리자
 			div=$("#cloneDiv").clone();
 			let logo=$("#chatLogo").clone();
@@ -202,16 +217,17 @@
 			$(div).prepend(logo);
 			$(div).find(".rtime").css('display','none');
 			$(div).find(".rcontent").html(ms["ms"]);
-			$("sendBtn").val(ms["room"]);
-			div2=$("#cloneDiv").clone();
-			let logo2=$("#chatLogo").clone();
+			$("#sendBtn").val(ms["room"]);
+			console.log(ms["room"]);
+			div2=$("#cloneDiv2").clone();
+			let logo2=$("#chatLogo2").clone();
+			$(logo2).css("display","flex");
 			$(div2).removeClass("rec");
 			$(div2).css("style","display:grid;");
 			$(div2).css("justify-content","flex-start");
 			$(div2).prepend(logo2);
 			$(div2).find(".rtime").css('display','none');
 			$(div2).find(".rcontent").html(ms["ms"]);
-			$(".new").find("#inputData").append(div2);
 			
 		}else if(id=="m11"&&"m11"!=ms["user"]){//나는 관리자  || 일반 유저가 보낸 것
 			div=$("#cloneDiv").clone();
@@ -227,11 +243,11 @@
 				$(v).find("#inputData").append(div);
 				$(v).scrollTop($(v)[0].scrollHeight);
 			}
-		})
-		if(ms["room"]=="new"){
-			$(".new").find("#inputData").append(div);
+			$(".new").find("#inputData").append(div2);
 			$(".new").scrollTop($(".new")[0].scrollHeight);
+		})
 		}
+		
 	}
 	// 서버와 연결을 끊었을 때
 	function onClose(evt) {
@@ -325,7 +341,7 @@
 	    		type:"post",
 	    		data:{"memberNo":id,"roomNo":room},
 	    		success:data=>{
-	    			
+	    			console.log(data);
 	    			$(".mb").each((i,v)=>{
    		    		 if($(v).hasClass(room)){
    		    			let c=$(v).find("#ajaxData");
@@ -418,6 +434,7 @@
 			 url:"${path}/member/chatAllData.do",
 			 data:{'id':id},
 			 success:data=>{
+				 console.log(data);
 				 $("#chatlistAll2").html('');
 				 for(let i=0;i<data.length;i++){
 				 let chatDiv=$(".chatClone").clone(true);
@@ -435,8 +452,8 @@
 	 };
 	 
     $(function(){//운영시간 해랑 달
-    	//let time=new Date(2020,11,26,13);
-    	let time=new Date();
+    	let time=new Date(2020,11,26,13);
+    	//let time=new Date();
     	if(time.getHours()>=18||time.getHours()<9){
     		$("#moon").css("display","block");
     		$("#sun").css("display","none");
@@ -463,7 +480,8 @@
     	let date=new Date(a);
     	let reDate;
     	reDate=(date.getMonth()+1)+"/"+date.getDate();
-    	return reDate;
-    	
+    	return reDate;	
     }
+    
+    
 </script>

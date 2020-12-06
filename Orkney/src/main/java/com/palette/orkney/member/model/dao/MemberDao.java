@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 
 import com.palette.orkney.member.model.vo.Addr;
+import com.palette.orkney.member.model.vo.Member;
 
 public interface MemberDao {
 
@@ -34,10 +35,26 @@ public interface MemberDao {
 
 	int chatDataSave(SqlSession session, Map m);
 
+
+	String newRoomNo(SqlSession session,int newNo);
+
 	//가입 시 주소가져오기
 	String getAddress(SqlSession session, String no);
 	
 	//추가된 배송지 리스트 가져오기
 	List<Addr> addAddrList(SqlSession session, String mNo);
+
+	//이름, 생일 수정
+	int updateMemberPersonal(SqlSession session, Map updateInformation);
+
+	//연락처 수정
+	int updateMemberContact(SqlSession session, Map<String, Object> updateInformation);
+
+	//현재 로그인 된 유저 정보 받아오기
+	Member currentMemberInformation(SqlSession session, String mNo);
+
+	//패스워드 수정
+	int updateMemberPassword(SqlSession session, Map<String, Object> updateInformation);
+
 
 }

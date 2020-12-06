@@ -7,13 +7,13 @@
         display: flex;
         flex-direction: column;                    
     }
-    .section1{
-        margin: 50px 0;        
-    }
+    .section1{ margin: 8% 0; }
+    .span-padding{padding-left: 10%;}
     .section-container{
           padding: 5% 20%;
           width: 100%;                                  
     }
+    .mod-product{margin: 20px 0;}
     .title-container{        
         width: 100%;        
         margin: 5% 0;
@@ -31,12 +31,20 @@
         font-weight: 1000;
         padding-right: 128px;
     }
+    .total-title{    padding: 20px 0px 7px 0;}
     .order-container{
     			width: 100%;
               height: 140px;
 			    margin: 30px 0;
 			    display: flex;
 			    flex-direction: row;
+    }
+    .pay-title{       
+	    font-size:18px; 
+	    margin: 6px 80px;
+	    display: flex;
+	    justify-content: space-between;
+	    min-width: 250px;
     }
     .product-pic img{
             width: 140px;
@@ -62,19 +70,12 @@
         display: flex;
         margin-top: 20px;
     }
-    .field p{
-        font-size: 18px;
-    }
+    .field p{font-size: 18px;}
     .etc-p{
         font-size: 16px;
         margin:10px 0;
     }
-    .last-field{
-        font-size: 18px;
-        display: flex;
-        justify-content: space-between;
-        margin: 5px 0;
-    }
+
     .first-div{
         min-width: 140px;
         width: 140px;        
@@ -82,11 +83,20 @@
         margin: 0 60px 0 0;     
         padding:10px;                   
     }
-
+    .first-div-add{min-width:200px}
     .input1{
         width:300px;
         height: 40px;
     }
+    .input1-extra{
+    	border:none;
+    	outline: none;
+        font-size: 20px;
+    }
+    .padding-input{padding-top: 6px}
+    
+    .able-point{display: flex;     margin-top: 20px;}
+    
     .input2{
         width: 150px;
         height: 40px;        
@@ -94,24 +104,23 @@
     .btn1{
         border: none;
         color: white;
-        background-color: black;
+        background-color: #0058a3;
         width: 140px;
         height: 40px;   
-        font-size:18px;     
+        font-size:18px;  
+        outline: none !important;   
     }
-    .btn2{    
-        border: 1px solid;
-        border-color: rgb(216, 216, 216);
+    .btn2{
+    	 outline: none !important;    
+        border: 1px solid rgb(216, 216, 216);        
         border-radius: 5px;
         background-color: white;
-        width: 240px;
+        width: 148px;
         height: 33px;
         font-size: 15px;
     }
- 
     .btn3 {
-        border: 1px solid;
-        border-color: rgb(216, 216, 216);
+        border: 1px solid rgb(216, 216, 216);        
         border-radius: 5px;
         background-color: white;
         width: 90px;
@@ -125,20 +134,38 @@
     .text-container{        
         margin-left:220px;                
     }
+    .none-line{border: 1px solid #ced4da; outline: none;}
     .input3{
         height: 45px;
-        width: 600px;
+        width: 600px;        
     }
+    /* .marb{position: absolute; z-index: 50;} */
+    .messages{
+    position: absolute; z-index: 100; display: block;
+    background: white;}
+    .input-vertical{    
+    -webkit-box-direction: normal;
+    -webkit-box-orient: vertical;    
+    flex-direction: column;}
+    .preset{ height: 45px;
+        width: 600px;        
+        padding: 10px;
+	    font-size: 13px;
+	    border-bottom: 1px solid #eee;
+	    border-right: 1px solid #eee;
+	    border-left: 1px solid #eee;
+	    cursor: pointer;
+        }
     .input4{
         width:300px;
         height: 40px;
         margin: 5px 10px;
     }
-    .total-price{
-        font-size: 24px;
-        font-weight: 1000;
-        float: right;
-    }
+    .line2{
+        border-bottom:2px dashed gray; 
+        border-top:2px dashed gray;
+        padding: 4px 0;
+        }
     .address-container{
         padding-left: 100px;
     }
@@ -146,14 +173,16 @@
     .event-bu{
             margin: 15px;
             border-radius: 50px;
-            width: 80% !important;
-            background-color: white !important;
-            border: white ;                       
+            width: 100% !important;
+            background-color: #0058a3 !important;
+            border: white ;
+            padding: 1.84rem 2.14rem !important;
+            outline:none !important;                        
         }
         .event-sp{
             font-size: 18px;
             font-weight: bold;
-            color: black !important;
+            color: white !important;            
         }
         .event-sp:hover {
             color: white !important;
@@ -162,35 +191,32 @@
           color: white !important;
         }
         .event-bu:hover{
-          background-color: black !important;        
+           background-color: #002b50 !important;         
         } 
-        .pay-btn{
-            height:100px;
-            display: flex;
-            justify-content: center;
-            text-align: center;            
-            width: 100%;    
-            margin: 50px 0;                     
-        }
         .etc-div{
             margin-left:200px ;
         }
         .i1{transition: 400ms;color:#0058a3;z-index:-1;}
         .i2{transition: 400ms;color:white;z-index:-1;}
         .ixy{position: absolute;left: 1%;top: 17%;z-index:-1;}
-        .checkdiv{position: relative; display:flex;cursor: pointer; height: 40px; margin-bottom: 10px;}
+        .checkdiv{    
+	        width: 100%;
+	    	position: relative;
+		    display: flex;
+		    cursor: pointer;
+		    height: 40px;		    
+		    }
+		/* .section-op{margin-top:23%;} */
         .ck{zoom: 5;position: relative;z-index: -1;opacity: 0;}
-        .checkicon{width: 14%;min-height: 56px;min-width: 50px;z-index: -1;position: relative;}
-        .spanwid{width:88%;font-size: .875rem; font-weight: 500; margin: 14px 0 30px 0; z-index: -1; position: relative; font-size: 18px;}
-
-        .contract{
-            display: flex;
+        .checkicon{width: 14%;min-height: 56px;min-width: 50px;z-index: -1;position: relative; margin-right: -9%;}
+        .spanwid{width:88%; font-weight: 500; margin: 14px 0 30px 0; z-index: -1; position: relative; font-size: 18px;padding-left: 2%;}
+		 .pay-font>div{font-weight: 800;}
+       
+        .contract-add{ 
+        	display: flex;
             justify-content: space-between;
-        }
-        .contract1{        
-            display: flex;
-            justify-content: space-between;
-        }
+            padding: 12px 0px;}
+       
         .content1,.content2,.content3{
             max-height:100px;
             overflow-y:scroll;
@@ -207,44 +233,37 @@
             outline: none;
             background-color: white;
         }
-        .etc-field{
-            display: flex;
-            justify-content: space-between;
-            padding-top: 14px;
-        }
-        .etc-field+div{
-            display: flex;
-            margin-top: 10px;
-        }
+		.field-add{margin-bottom:2%;}
         .usable-point{
-            padding: 10px 33px;
+            padding: 9px 9% 0px 12px;
             font-size: 22px;
             color: #35c5f0;
             font-weight: bold;
         }
-        #credit-card, #coin{
-            width: 140px;
-            height: 138px;
-            background-color: white;            
-            margin: 2%;
-            cursor: pointer;
-            border:none;
-            outline: none;
+        .payment_panel label img{
+        width: 350px;
+    	height: 150px;
+    	  padding: 0px 10px 0px 10px;
         }
-        #credit-card img, #coin img{
-            width: 95px;
-            height: 106px;
-            z-index: 50;
-        }  
-        .card-title, .coin-title{
+        .pay-label{border: 1px solid #eaebef; cursor: pointer;}
+        .payment-title{display: flex; justify-content: center; }
+        .payment_panel{
+			display: flex !important;    	
+	          width: 350px;
+    		height: 200px;
+	    	flex-direction: row;
+		}  
+/*         .card-title, .coin-title{
             z-index: 100;
-        }  
+        }   */
+        .payment_panel > input[type=radio]:checked + label {background: #eaebef;width: auto;height: auto;}        
+        
         .pre-point{
             padding: 0 50px 0 0;
             font-size: 22px;
             color: #35c5f0;
             font-weight: bold;
-        }
+        }        
         .product-container{
         	display:flex;
         	justify-content: space-between;
