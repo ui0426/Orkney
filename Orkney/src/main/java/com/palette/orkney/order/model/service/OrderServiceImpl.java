@@ -34,6 +34,17 @@ public class OrderServiceImpl implements OrderService {
 		return dao.selectOrderDetail(session, oNo);
 	}
 	
+
+	@Override
+	public int cancelRequest(Orders order) {
+		return dao.cancelRequest(session, order);
+	}
+
+	@Override
+	public String selectEmail(String oNo) {
+		return dao.selectEmail(session, oNo);
+	}
+
 	
 
 }

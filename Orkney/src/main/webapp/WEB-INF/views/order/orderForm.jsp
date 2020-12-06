@@ -15,11 +15,11 @@
 		<div class="order-container-inner">
 			<h1 class="orderform-title">주문 정보 확인</h1>
 			<div class="order-form-main">
-				<form action="${path }/order/orderView2.do">
+				<form id="oView" action="${path }/order/orderView.do">
 					<h2 class="order_information-title">주문정보</h2>
 				  	<div class="form-group">
 				  		<label class="order_information" for="orderNo">
-					    	<input type="text" name="orderNo" class="form-control order-infor-input order-form-number" id="orderNo">
+					    	<input type="text" name="oNo" class="form-control order-infor-input order-form-number" id="orderNo">
 					    	<span id="inputNo" class="order-input-center">주문번호(iSell)번호</span>
 				    	</label>
 				    	<div id="ordernum" class="form-text text-muted order-form-error-msg">
@@ -45,16 +45,42 @@
 				  	</div>
 				  	<div class="form-group">
 				  		<label class="order_information">
-					    	<input type="text" name="phone_email" class="form-control order-infor-input order-form-phone" id="orderpe">
-					   		<span id="inputphone" class="order-input-center">전화번호 또는 이메일</span>
+					    	<input type="text" name="mId" class="form-control order-infor-input order-form-phone" id="orderpe">
+					   		<span id="inputphone" class="order-input-center">이메일</span>
 				   		</label>
 				   		<div id="orderphone" class="form-text text-muted order-form-error-msg">
 				   			<svg viewBox="0 0 24 24" width="16px" height="16px"><g fill="none" fill-rule="evenodd"><path fill="#E00751" d="M22 12c0 5.523-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2s10 4.477 10 10z"></path><path fill="#FFF" fill-rule="nonzero" d="M13.414 12l4.233 4.234-1.414 1.414L12 13.415l-4.243 4.243-1.414-1.415 4.242-4.242L6.35 7.766l1.415-1.414L12 10.587l4.242-4.243 1.415 1.414-4.243 4.243z"></path></g></svg>
 				   			잘못 입력하셨습니다. 다시 시도해주세요.
 				   		</div>
 				  	</div>
-				  	<button type="submit" class="btn order-btn-color" id="order-submit">확인</button>
+				  	<button type="button" class="btn order-btn-color" id="order-submit">확인</button>
 				</form>
+				
+				 <!-- Button trigger modal -->
+				<button id="modalBtn" type="button" class="btn btn-primary" data-toggle="modal" data-target="#basicExampleModal" style="display:none;">
+				    Launch demo modal
+				 </button>
+				<!-- Modal -->
+				<div class="modal fade" id="basicExampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+				    aria-hidden="true">
+				    <div class="modal-dialog" role="document">
+				      <div class="modal-content">
+				        <div class="modal-header">
+				          <h5 class="modal-title" id="exampleModalLabel">죄송합니다. 주문 내역을 찾을 수 없습니다.</h5>
+				          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				            <span aria-hidden="true">&times;</span>
+				          </button>
+				        </div>
+				        <div class="modal-body">
+				         	주문 번호(iSell 번호)와 주문하신 회윈의 이메일을 정확하게 입력해주세요.
+				        </div>
+				        <div class="modal-footer">
+				          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				        </div>
+				      </div>
+				    </div>
+				  </div>
+				  <div id="modal-hidden"></div>
 			</div>
 		</div>
 	</div>
@@ -91,9 +117,22 @@
 	let noresult = false;
 	let peresult = false;
 	
+	
+	//엔터키 눌렀을때
+	$(".order-form-phone").keydown(function(key) {
+
+		if (key.keyCode == 13) {
+
+			$("#order-submit").trigger("click");
+
+		}
+
+		});
+
+	
 	$("#order-submit").click(function(){
 		
-		var no=$("#orderNo").val();
+		let no=$("#orderNo").val();
 		
 		var regex =/[0-9]/g;
 		
@@ -124,11 +163,28 @@
 		}
 
 		if(noresult==true && peresult==true){
-			return true;
+			console.log("주문번호, 이메일 공란 없이 잘 작성해서 ajax실행");
+			$.ajax({
+				url:"${path}/order/orderFormCheck.do",
+				data:{oNo:no,mId:pe},
+				success:data=>{
+					console.log(data);
+					if(data == true){
+						$("#oView").submit();
+					}else{
+						//모달 띄우기
+						//$("#basicExampleModal").addClass("show").css("display","block").removeAttr("aria-hidden").attr("aria-modal","true");
+						//$("#modal-hidden").addClass("modal-backdrop fade show");
+						$("#modalBtn").trigger("click");//그냥 부트스트랩에서 데려온 모달 버튼 자동클릭되게...
+					}
+				}
+			})
 		}else{
 			return false;
 		}
 	});
+	
+	
 </script>
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
