@@ -1,0 +1,248 @@
+input:focus { outline:none; }
+    button:focus { outline:none; }
+	.wi-box{
+	    display: flex;
+	    flex-direction: column;
+	    max-width: 60rem;
+	    padding: 3em;
+	    margin: auto;
+	        font-size: 0.875rem;
+	}
+	.wl-selector{
+		text-align: center;
+		    font-weight: 900;
+    font-size: 1.25rem;
+        margin-bottom: 2em;
+    padding-bottom: 1em;
+    border-bottom: 1px solid #ccc;
+    position: relative;
+	}
+	.wl-selector:hover{
+		cursor: pointer;
+		text-decoration: underline;
+	}
+	.wl-selector span{
+	    position: absolute;
+	    top: 12px;
+	    right: 227px;
+	    width: 0.5em;
+	    height: 0.5em;
+	    margin-top: -9px;
+	    border-right: 1px solid #333;
+	    border-bottom: 1px solid #333;
+	    -ms-transform: rotate(45deg);
+	    -webkit-transform: rotate(45deg);
+	    -moz-transform: rotate(45deg);
+	    transform: rotate(45deg);
+	}
+	.product-box{
+		display: grid;
+	    grid-template-columns: 160px auto;
+	    margin: 2em 0;
+	}
+	.product-img figure{
+		width: 130px;
+		height: 130px;
+	    background-repeat: no-repeat !important;
+    	background-size: contain !important;
+    	background-position: center !important;
+	}
+	.product-description h2{
+		font-size: 1rem;
+	    font-weight: 600;
+
+	}
+	.product-price{
+    	grid-column: 2/3;	
+    	font-weight: 700;
+	    font-size: 1.06rem;
+	    line-height: 1.2;
+	}
+	.product-control{
+    	grid-column: 1/3;	
+	}
+	.product-movelist{
+		text-align: end;
+	    color: #437baf;
+        height: 40px;
+	    margin: 1em 0;
+	    line-height: 40px;
+
+	}
+	.product-movelist:hover{
+		text-decoration: underline;
+		cursor: pointer;
+	}
+	.product-controlDetail{
+	    display: flex;
+	        justify-content: space-between;
+	        height: 40px;
+	}
+	.product-controlDetail .addCart{
+		flex: 1 1 auto;
+	    text-align: center;
+    	line-height: 40px;
+		
+	}
+	.product-controlDetail svg{
+		width: 1rem;
+	}
+	.delete{
+	    border: 1px solid #666;
+    /* height: 40px; */
+	    display: flex;
+	    width: 48px;
+	    justify-content: center;
+	    border-radius: 0.2rem;
+	}
+	.count-box{
+	    display: grid;
+    	grid-template-columns: auto auto;
+    	border-radius: 0.2rem;
+    	border: 1px solid #666;
+    	    margin: 0 0.5rem;
+	}
+	.count-box input{
+		grid-row: 1/3;
+	    width: 62px;
+	    /* height: 30px; */
+	    /* border-right: 1px solid #dfdfdf; */
+	    font-size: 12px;
+	    text-align: center;
+	    line-height: normal;
+	    border: none;
+	    border-right: 1px solid #666;
+	}
+	.countBtn{
+	padding: 0px 4px;
+	    height: 17px;
+	        line-height: 10px;
+	}
+	.countBtn svg{
+		width: 0.5rem;
+	}
+	.wl-price{
+	    border-top: 1px #666 dashed;
+	    border-bottom: 1px #666 dashed;
+	    padding: 1em 0;
+	    display: flex;
+   		justify-content: space-between;
+	}
+	.wl-price span:nth-child(1){
+		font-weight: 700;
+   		font-size: 1rem;
+	}
+	.wl-addcart{
+		text-align: center;
+	    bottom-top: 2rem;
+	    margin-top: 2rem;
+	}
+	
+	/* 모달창 */
+	.modal-box {
+	    position: fixed;
+	    top: 0;
+	    left: 0;
+	    right: 0;
+	    bottom: 0;
+	    background: hsla(0,0%,100%,.75);
+	    display: none;
+	    justify-content: center;
+	    align-items: baseline;
+	    /* margin-top: 3em; */
+	    padding-top: 12em;
+	    z-index: 1;
+	}
+    .modal-content{
+        overflow: auto;
+        max-height: 90vh;
+        width: 50vw;
+        padding: 1.5rem 1rem;
+        box-sizing: border-box;
+        border: none;
+        border-radius: 2px;
+        box-shadow: 0 0 7px 2px #ccc;
+        background: #fff;
+        outline: 0;
+        font-size: 0.875rem;
+    }
+    .modal-title-box{
+        display: flex;
+    	justify-content: space-between;
+    	margin-bottom: 1em;
+    }
+    .modal-title{
+	    font-size: 1.2rem;
+	    font-weight: 600;
+	    margin: 0;
+	    line-height: 26px;
+    }
+    .modal-closeBtn{
+        width: 1.5em;
+	    paddin-bottom: 2px;
+	    height: 1.5em;
+	    line-height: 1.5em;
+    }
+    .modal-list li{
+   	    color: #407ab1;
+	    padding: 2em 0;
+	    border-bottom: 1px solid #ccc;
+    }
+	.modal-list li:hover{
+		text-decoration: underline;
+		cursor: pointer;
+	}
+	.list-count{
+		background: #f9d616;
+	    font-size: .5rem;
+	    font-weight: 700;
+	    line-height: 1;
+	    margin-left: 5px;
+	    padding: .25rem;
+	    border-radius: .5rem;
+	    text-align: center;
+	    min-width: 1rem;
+	    text-decoration: none;
+	    display: inline-block;
+	}
+	.modal-list-add{
+	    display: flex;
+	    align-items: center;
+	    height: 20px;
+	    margin-top: 1em;
+	}
+	.modal-list-add button{
+	    width: 1.5em;
+	    height: 1.5em;
+	    line-height: 0.5em;
+	}
+	.modal-list-add span{
+		font-size: 0.775rem;
+	}
+	@media (min-width: 750px){
+		.product-box{
+			display: grid;
+		    grid-template-columns: 160px auto 47%;
+	    }
+	    .product-price {
+    		grid-column: auto;
+    		justify-self: end;
+    	}
+    	.product-control {
+    		grid-column: 3/4;;
+		}
+		.wl-selector {
+		    font-size: 1.5rem;
+		}
+		.product-description h2 {
+		    font-size: 1.2rem;
+		    font-weight: 600;
+		}
+		.product-price {
+		    font-size: 1.2rem;
+		}
+		.wl-price span {
+		    font-weight: 700 !important;
+		    font-size: 1rem !important;
+		}
+	

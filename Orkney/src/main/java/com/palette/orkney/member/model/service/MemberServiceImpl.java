@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.palette.orkney.member.model.dao.MemberDao;
 import com.palette.orkney.member.model.vo.Addr;
+import com.palette.orkney.member.model.vo.Member;
 
 @Service
 public class MemberServiceImpl implements MemberService {
@@ -159,6 +160,28 @@ public class MemberServiceImpl implements MemberService {
 	public int transPwch(Map data) {
 		// TODO Auto-generated method stub
 		return dao.transPwch(session,data);
+	}
+
+	public int updateMemberPersonal(Map updateInformation) {
+		return dao.updateMemberPersonal(session, updateInformation);
+	}
+
+	//연락처 수정
+	@Override
+	public int updateMemberContact(Map<String, Object> updateInformation) {
+		return dao.updateMemberContact(session, updateInformation);
+	}
+
+	//현재 로그인 된 유저 정보 받아오기
+	@Override
+	public Member currentMemberInformation(String mNo) {
+		return dao.currentMemberInformation(session, mNo);
+	}
+
+	//패스워드 수정
+	@Override
+	public int updateMemberPassword(Map<String, Object> updateInformation) {
+		return dao.updateMemberPassword(session, updateInformation);
 	}
 	
 	

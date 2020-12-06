@@ -24,8 +24,50 @@
 						  <button id="tab1" type="button" class="btn-light orderList-btn btn-clicked" aria-selected="true" aria-controls="panel1">처리중 주문</button>
 						  <button id="tab2" type="button" class="btn-light orderList-btn">지난 주문 내역</button>
 						</div>
-						<div id="panel1" aria-labelledby="tab1">
-							<table class="orderList_Table">
+						<div id="panel-container">
+							<c:forEach items="${list }" var="o">
+							<c:if test="${not fn:contains(o.ORDER_STATE,'완료')}">
+								<div class="panel1 panels">
+									<div class="ol-container">
+										<div>주문 번호(iSell 번호)</div>
+										<div><c:out value="${o.ORDER_NO }"/></div>
+									</div>
+									<div class="ol-container">
+										<div>주문 날짜</div>
+										<div><c:out value="${o.ORDER_DATE }"/></div>
+									</div>
+									<div class="ol-container">
+										<div>현황</div>
+										<div><c:out value="${o.ORDER_STATE }"/></div>
+									</div>
+									<div class="ol-container">
+										<a href="${path }/order/orderView.do?oNo=${o.ORDER_NO}">주문 내역 보기</a>
+									</div>
+								</div>
+							</c:if>
+							</c:forEach>
+							<c:forEach items="${list }" var="o">
+							<c:if test="${fn:contains(o.ORDER_STATE,'완료')}">
+								<div class="panel2 panels">
+									<div class="ol-container">
+										<div>주문 번호(iSell 번호)</div>
+										<div><c:out value="${o.ORDER_NO }"/></div>
+									</div>
+									<div class="ol-container">
+										<div>주문 날짜</div>
+										<div><c:out value="${o.ORDER_DATE }"/></div>
+									</div>
+									<div class="ol-container">
+										<div>현황</div>
+										<div><c:out value="${o.ORDER_STATE }"/></div>
+									</div>
+									<div class="ol-container">
+										<a href="${path }/order/orderView.do?oNo=${o.ORDER_NO}">주문 내역 보기</a>
+									</div>
+								</div>
+							</c:if>
+							</c:forEach>
+							<%-- <table class="orderList_Table">
 								<caption class="orderList_Caption">처리중 주문</caption>
 								<thead>
 									<tr>
@@ -43,12 +85,12 @@
 												<td class="list-item"><c:out value="${o.ORDER_NO }"/></td>
 												<td class="list-item"><c:out value="${o.ORDER_DATE }"/></td>
 												<td class="list-item"><c:out value="${o.ORDER_STATE }"/></td>
-												<td class="list-item"><a href="${path }/order/orderView.do?oNo=${o.ORDER_NO}">주문 내역 보기</a>
+												<td class="list-item"><a href="${path }/order/orderView.do?oNo=${o.ORDER_NO}">주문 내역 보기</a></td>
 											</tr>
 										
 									</c:forEach>
 								</tbody>
-							</table>
+							</table> --%>
 						</div>
 					</div>
 					<div class="orderList_desktop">
@@ -113,10 +155,14 @@
 	$("#tab1").click(e=>{
 		$("#tab1").addClass("btn-clicked");
 		$("#tab2").removeClass("btn-clicked");
+		$('.panel1').css("display","block");
+		$('.panel2').css("display","none");
 	});
 	$("#tab2").click(e=>{
 		$("#tab2").addClass("btn-clicked");
 		$("#tab1").removeClass("btn-clicked");
+		$('.panel1').css("display","none");
+		$('.panel2').css("display","block");
 	});
 </script>
 

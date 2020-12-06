@@ -1,0 +1,282 @@
+/* 특정 태그 클릭 시 생기는 테두리 없애기 */
+   input:focus { outline:none; }
+   button:focus { outline:none; }
+.mypage-container{
+    max-width: 70rem;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    margin: auto;
+   	
+}
+.mypage-container h1{
+	   	font-weight: 900;
+   	font-size: 1.25rem;
+
+}
+.mypage-container > div:first-child{
+	align-self: start;
+	height: 220px;
+	margin: 1rem;
+}
+.mypage-row{
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 1rem;
+}
+.mypage-row-box svg{
+	width: 1.5rem;
+	height: 1.5rem;
+}
+.mypage-row-box{
+	border: 1px solid #dfdfdf;
+    padding: 1.875rem;
+    margin: 1rem;
+    border-radius: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+	
+}
+.mypage-row-box:hover{
+	cursor: pointer;
+}
+.mypage-row-content{
+	display: flex;
+	flex-direction: column;
+}
+.mypage-row-content a{
+	font-size: 0.875em;
+	font-weight: 500;
+}
+.mypage-row-content span{
+	font-size: 0.775em;
+}
+.mypage-row-svg{
+	line-height: 33px;
+}
+.mypage-content{
+	margin: 1rem;
+}
+.mypage-content-tabList{
+	display: flex;
+}
+.mypage-active{
+	border-bottom: 2px solid #0058a3;
+	color: #111;
+}
+.mypage-nonactive{
+	border-bottom: 2px solid #dfdfdf;
+    color: #484848;
+}
+.mypage-nonactive:hover{
+	cursor: pointer;
+	color: #111;
+	border-bottom: 2px solid #b5b4b4;;
+}
+.mypage-content-tabList button{
+    flex: 1 0 auto;
+    font-size: .875rem;
+    font-weight: 700;
+    margin: 1rem 0;
+    padding: 0 .9375rem .9375rem 0;
+    text-align: left;
+	cursor: default;
+}
+.mypage-content-tabList button:focus{
+	outline: none;
+}
+.mypage-content-tab{
+	padding: 3.125rem 0;
+}
+.mypage-content-tabList button:nth-child(2){
+	margin: 1rem 1rem;
+}
+.panel-row{
+	font-size: 0.875rem;
+}
+.panel-row-title{
+    font-weight: bold;
+   	margin-bottom: 1.5rem;
+   	color: #111;
+}
+.panel-row-update{
+    font-weight: bold;
+   	color: #111 important;
+   	text-decoration: underline !important;
+}
+/* 	.panel-row-title span{ */
+/* 		font-size: 0.990rem; */
+/* 	} */
+.divForAddAdddrUpdate{
+	display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    border-bottom: 1px dotted #ccc;
+   	padding-bottom: 2.125em;
+   	margin-bottom: 2.125em;
+}
+.panel-row-title #personal,#contact,#password,#address,#deliveryAddress,#ad{
+	text-decoration: underline;
+}
+.flex-row-between{
+	display: flex;
+	justify-content: space-between;
+}
+.update-box{
+	display: flex;
+	flex-direction: column;
+	margin-top: 2.5rem;
+}
+[class*='addr-update-box']{
+	margin-top: 1.5rem !important;
+	flex-grow: 1;
+	
+}
+	.update-box input{
+		color: #484848; 
+		font-size: 1rem;
+	} 
+.personal-information-row{
+  		display: flex;
+  		flex-direction: column;
+  		margin-bottom: 3em;
+}
+.personal-information-row .title{
+	font-size: 0.775rem;
+}
+.personal-information-row input{
+    border: none;
+    border-bottom: 1px solid;
+    padding: 1px 0;
+    margin: 0.5em 0;
+    font-weight: 600;
+}
+.personal-information-row input:focus{
+	color: #0058a3;
+	border-bottom: 2px solid;
+}
+.personal-information-btn{
+	display: flex;
+	flex-direction: column;
+}
+.input-label-wrap{
+	position: relative;
+/* 	color: #969393; 인풋창 안 span색깔 */
+}
+.input-label-wrap .origin-input-css{
+	color: #484848;
+	font-size: 1rem;
+	border-bottom: 1px solid;
+}
+.input-label-wrap .input-label-2{
+    position: absolute;
+    top: -19px;
+    font-size: 0.775rem;
+    font-weight: 100;
+   	color: #212529;
+    transition: all .2s ease;
+}
+.input-label-wrap .input-label{
+    position: absolute;
+    top: 7px;
+    transition: all .2s ease;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #969393
+}
+/* .change-input-css{ */
+/* 	color: red; */
+/* 	border-bottom: 2px solid; */
+/* } */
+/* .change-label-2{ */
+/* 	position: absolute; */
+/*     top: -19px; */
+/* 	transform: translateY(-140%); */
+/* 	font-size: 1rem; */
+/* 	font-weight: 600; */
+/* 	color: #969393; */
+	
+/* } */
+/* 포커스가 지나간 상태에서 제어하려면 valid 선택자를 사용해야 함 */
+/* .input-label-wrap input:focus + .change-label-2, */
+/* .input-label-wrap input:valid + .change-label-2{ */
+/* 	transform: translateY(-300%); */
+/* 	font-size: 0.775rem !important; */
+/* 	font-weight: 100 !important; */
+/* 	color: #212529; */
+/* } */
+
+/* .origin-label-status{
+	font-size: 0.775rem;
+	font-weight: 100;
+	color: #212529;
+	transform: none;
+} */
+.input-label-wrap input:focus{
+	color: #0058a3;
+	border-bottom: 2px solid;
+}
+#deleteBtn{
+    font-weight: bold;
+   	margin-top: .625rem;
+   	color: #484848;
+}
+#deleteBtn:hover{
+    text-decoration: underline !important;
+}
+/* 비밀번호 메세지 */
+#origin-msg, #new-msg1, #new-msg2, #pwck-msg, .msg-not-null, .msg-style{
+	font-size: 0.775rem;
+	color: red;
+}
+#newPw-type-ck-ul{
+	margin: 1em;
+	font-size: 0.675rem;
+	color: #212529;
+}
+#newPw-type-ck-ul il{
+	margin: 0.4em 0;
+}
+
+.disabled{
+	color: #ccc !important;
+    cursor: context-menu;
+    background: white;
+}
+.font-weight{
+	font-weight: 600;
+	color: #333;
+}
+.addAddrBtn{
+	color: #484848 !important;
+}
+.addAddrBtn:hover{
+	color: #111 !important;
+	text-decoration: underline !important;
+}
+@media (min-width: 800px){
+	.mypage-container h1{
+    	font-weight: 700;	    	
+    	font-size: 2rem;
+	}
+	.mypage-row{
+	    flex-direction: row;
+	}
+	.mypage-row-box{
+		flex: 1 0 auto;
+	}
+	.update-box{
+		width: 440px;
+	}
+	[class*='addr-update-box']{
+	
+		flex-grow: 0;
+	}
+}
+@media (min-width: 1200px){
+	.mypage-container{
+		padding: 2rem 5.5em;
+	}
+	
+
+}

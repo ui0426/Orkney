@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 
 import com.palette.orkney.member.model.vo.Addr;
+import com.palette.orkney.member.model.vo.Member;
 
 public interface MemberDao {
 
@@ -43,6 +44,7 @@ public interface MemberDao {
 	//추가된 배송지 리스트 가져오기
 	List<Addr> addAddrList(SqlSession session, String mNo);
 
+
 	Map snsUserInfo(SqlSession session, String userId);
 
 	int updateSnsId(SqlSession session, Map snsData);
@@ -52,5 +54,19 @@ public interface MemberDao {
 	Map emailCh(SqlSession session, Map id);
 
 	int transPwch(SqlSession session, Map data);
+
+	//이름, 생일 수정
+	int updateMemberPersonal(SqlSession session, Map updateInformation);
+
+	//연락처 수정
+	int updateMemberContact(SqlSession session, Map<String, Object> updateInformation);
+
+	//현재 로그인 된 유저 정보 받아오기
+	Member currentMemberInformation(SqlSession session, String mNo);
+
+	//패스워드 수정
+	int updateMemberPassword(SqlSession session, Map<String, Object> updateInformation);
+
+
 
 }
