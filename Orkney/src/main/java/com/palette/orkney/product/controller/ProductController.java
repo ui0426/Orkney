@@ -13,14 +13,19 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.palette.orkney.product.model.service.ProductService;
 
+
 import lombok.extern.slf4j.Slf4j;
+
 
 @Controller
 @Slf4j
 public class ProductController {
 	
+
 	@Autowired
 	private ProductService service;
+
+
 	
 	@RequestMapping("/product/products.do")
 	@ResponseBody
@@ -86,5 +91,34 @@ public class ProductController {
 	public String productsCompare() {
 		return "/product/productsCompare";
 	}
+	
+//	===================================================================================
+	
+	
+	
+	@RequestMapping("/product/rooms.do")
+	public ModelAndView rooms(ModelAndView mv,@RequestParam String type) {
+		mv.addObject("rooms",service.selectRooms(type));
+		System.out.println(service.selectRooms(type));
+		 mv.addObject("roomsProduct",service.selectRoomsProduct(type)); 
+			 mv.addObject("roomsTitle",service.selectRoomsTitle(type)); 
+		mv.setViewName("product/rooms");
+	
+		return mv ;
+	}
+	  @RequestMapping("/product/roomsDetail.do")
+	  @ResponseBody 
+	  public List<Map> roomsDetail(String type) {
+	 return service.roomsDetail(type); 
+	  }
+	  @RequestMapping("product/backRoomsDetail.do")
+	  @ResponseBody
+	  public List<Map> backRoomsDetail(@RequestParam String type){
+		  return service.selectRoomsProduct(type);
+	  }
+	 
+
+	
+
 
 }

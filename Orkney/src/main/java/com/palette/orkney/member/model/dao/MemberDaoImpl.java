@@ -6,6 +6,9 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.palette.orkney.member.model.vo.Addr;
+import com.palette.orkney.member.model.vo.Member;
+
 @Repository
 public class MemberDaoImpl implements MemberDao {
 
@@ -68,5 +71,61 @@ public class MemberDaoImpl implements MemberDao {
 		// TODO Auto-generated method stub
 		return session.selectList("member.chatRoom",m);
 	}
+
+	@Override
+	public List<Map> chatAllData(SqlSession session, String id) {
+		// TODO Auto-generated method stub
+		return session.selectList("member.chatAllData",id);
+	}
+
+	@Override
+	public int chatDataSave(SqlSession session, Map m) {
+		// TODO Auto-generated method stub
+		return session.insert("member.chatDataSave",m);
+	}
+	
+	//가입 시 주소 가져오기
+	@Override
+	public String getAddress(SqlSession session, String no) {
+		return session.selectOne("member.getAddress", no);
+	}
+
+	@Override
+	public String newRoomNo(SqlSession session,int newNo) {
+		// TODO Auto-generated method stub
+		return session.selectOne("member.newRoomNo",newNo);
+	}
+	
+	//추가된 배송지 리스트 가져오기
+	@Override
+	public List<Addr> addAddrList(SqlSession session, String mNo) {
+		return session.selectList("member.addAddrList", mNo);
+	}
+
+	//이름, 생일 수정
+	@Override
+	public int updateMemberPersonal(SqlSession session, Map updateInformation) {
+		System.out.println("daoimpl");
+		return session.update("member.updateMemberPersonal", updateInformation);
+	}
+
+	//연락처 수정
+	@Override
+	public int updateMemberContact(SqlSession session, Map<String, Object> updateInformation) {
+		return session.update("member.updateMemberContact", updateInformation);
+	}
+
+	//현재 로그인 된 유저 정보 받아오기
+	@Override
+	public Member currentMemberInformation(SqlSession session, String mNo) {
+		return session.selectOne("member.currentMemberInformation", mNo);
+	}
+
+	//패스워드 수정
+	@Override
+	public int updateMemberPassword(SqlSession session, Map<String, Object> updateInformation) {
+		return session.update("member.updateMemberPassword", updateInformation);
+	}
+
 	
 }

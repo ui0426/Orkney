@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="order">
+	<select id="selectOrderList" parameterType="string" resultType="map">
+		SELECT * FROM ORDERS WHERE MEMBER_NO=#{mNo}
+	</select>
+	<select id="selectOrder" parameterType="string" resultType="order">
+		select * from orders where order_no=#{oNo}
+	</select>
+	<select id="selectOrderDetail" parameterType="string" resultType="orderDetail">
+		select * from order_detail join product using(product_no) join product_image using(product_no) join small_category using(small_category_no) where order_no=#{oNo}
+	</select>
+	<update id="updatecancelRequest" parameterType="order">
+		UPDATE ORDERS SET
+		<if test="order_state == '주문확인'">
+			ORDER_STATE='취소신청1',
+		</if>
+		<if test="order_state == '제품준비중'">
+			ORDER_STATE='취소신청2',
+		</if>
+		CANCEL_REASON=#{cancel_reason} WHERE ORDER_NO=#{order_no}
+	</update>
+	<select id="selectEmail" parameterType="string" resultType="string">
+		select member_id from member join orders using(member_no) where order_no=#{order_no}
+	</select>
+</mapper>

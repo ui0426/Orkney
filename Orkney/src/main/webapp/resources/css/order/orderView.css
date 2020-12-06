@@ -80,9 +80,13 @@ p{margin:0;}
 	}
 	.product-container{
 		display: none;
+	}
+	.od-product-content{
+		display:flex;
 		flex-direction: row;
 		padding: 1rem 0;
 		border-bottom: 1px solid #e5e5e5;
+		
 	}
 	.product-info{
 		width: 100%
@@ -193,6 +197,12 @@ p{margin:0;}
 		}
 		.paymentAmount{
 			font-size: 15px;
+		}
+		.disappear-line{
+			display: none;
+		}
+		.delivery-content{
+		    margin-top: 2em;
 		}
 	}
 	
@@ -322,7 +332,8 @@ p{margin:0;}
 		padding: 1em 0;
 		display: flex;
 		flex-direction: row;
-		width:100%
+		width:100%;
+		justify-content: center;
 	}
 	.stateIcon{
 		width: 24px;
@@ -334,6 +345,7 @@ p{margin:0;}
     	align-items: center;
     	flex-direction: column;
     	width:20%;
+    	justify-content: center;
 	}
 	.state-icon{
 		padding: 10px;
@@ -367,11 +379,94 @@ p{margin:0;}
 		font-size: 0.8em;
 	}
 	.state-icon-group{
-	display:flex;
-	flex-direction: row;
-	align-items: center;
-	width: 100%
+		display:flex;
+		flex-direction: row;
+		align-items: center;
+		width: 100%
 	}
 	.first-state{
 		visibility: hidden;
+	}
+	
+	/* 현재 상태인 것 */
+	
+	/* div.state-icon에 추가(현재 상태이거나 지나간거 배경색) */
+	.state_icon_opt{
+		background-color: #407ab1;
+	}
+	
+	/*div.state-connection이랑 아예 바꾸기*/
+	.state-connection_opt{
+		width: 100%;
+	}
+	.state-connection_opt::after{
+		content: "";
+	    display: block;
+	    height: 2px;
+	    width: 100%;
+	    background-color: #407ab1;
+	}
+	
+	.state_opt_weight{
+		font-weight: 900;
+	}
+
+
+	/*큰화면 아닌상태 state_icon*/
+	.desktop_state_none{
+		padding: 10px;
+	    border-radius: 50%;
+		border: 2px solid #cccccc;
+	}
+	.state_none_color{
+		color:#cccccc;
+	}
+	/* 배송상태에 관한 것들 중 작은 화면일 때 
+		현재 배송상태가 아닌 것들  */
+	
+	/*svg*/
+	.mobail_state_icon_hidden{
+		display: none;
+	}
+	
+	/* div.state-icon */
+	.modal_state_past_size{/*지나온 애*/
+		width: 1.3em;
+	    height: 0.8em;
+	    padding: 0px;
+	}
+	.mobail_state_none_size{/*아직 안지난 애*/
+		width: 1.3em;
+	    height: 0.8em;
+	    padding: 0px;
+        border: 2px solid #cccccc;
+	}
+	
+	/*배송완료 아이콘*/
+	.delivery_finish{
+	    margin: 1rem auto .5rem;
+	    border: 1px solid #3a7c33;
+	    border-radius: 50%;
+	    width: 2rem;
+	    height: 2rem;
+	    display: flex;
+	    justify-content: center;
+	    align-items: center;
+	}
+	.delivery_finish svg{
+	    width: 24px;
+	    height: 24px;
+	    fill: currentColor;
+	    fill-rule: evenodd;
+	    stroke: none;
+	    color: #3a7c33;
+	}
+	
+	.delivery_btn{
+		display:flex;
+		flex-direction: column;
+	    align-items: center;
+	}
+	.btn-center{
+		width: fit-content;
 	}

@@ -80,7 +80,6 @@
 				let group1 =$('input[name="group1"]:checked').val();
 				//사이즈
 				let group2 = $('input[name="group2"]:checked').val();
-
 				//카테고리
 				let group3 =$('input[name="group3"]:checked').val();
 				//가격
@@ -114,6 +113,7 @@
 
 						  let productClone = $("#products").clone();
 						
+						  $(productClone).find("#productMainImg").attr("src","${path}/resources/images/product/"+data[i]["PRODUCT_PIC"]);
 						  $(productClone).find("#product_name").html(data[i]["PRODUCT_NAME"]);
 						  $(productClone).find("#category").html(data[i]["BIG_CATEGORY_NO"]);
 						  $(productClone).find("#pr").html(numberWithCommas(data[i]["PRODUCT_PRICE"]));
@@ -574,8 +574,8 @@
 					<div class="card">
 						<!--Card image-->
 						<div class="view overlay zoom">
-							<img class="card-img-top"
-								src="https://www.ikea.com/kr/ko/images/products/kleppstad-wardrobe-with-3-doors-white__0753597_PE748785_S5.JPG?f=xs"
+							<img class="card-img-top imgHeight" 
+								src="${path}/resources/images/product/${p.PRODUCT_PIC}"
 								alt="Card image cap"> <a
 								href="${path}/product/productDetail.do">
 								<div class="mask rgba-white-slight"></div>
@@ -633,11 +633,11 @@
 									<button type="button" class="btn  btn-md color-Gray1 "
 										style="border: 1px solid darkgray !important;">Read
 										more</button>
-									<div class="row" style="margin: auto;">
+									<div class="row heartCart_icon" style="margin: auto;">
 										<a class="material-tooltip-main" data-toggle="tooltip"
 											data-placement="top" title="Add to Cart"> <i
 											class="fas fa-shopping-cart grey-text ml-3"></i>
-										</a> <a class="material-tooltip-main" data-toggle="tooltip"
+										</a> <a class="material-tooltip-main heart_icon" data-toggle="tooltip"
 											data-placement="top" title="Add to Wishlist"> <i
 											class="fas fa-heart grey-text ml-3"></i>
 										</a>
@@ -661,8 +661,8 @@
 					<div class="card">
 						<!--Card image-->
 						<div class="view overlay zoom">
-							<img class="card-img-top"
-								src="https://www.ikea.com/kr/ko/images/products/kleppstad-wardrobe-with-3-doors-white__0753597_PE748785_S5.JPG?f=xs"
+							<img class="card-img-top imgHeight" id="productMainImg"
+								src="${path}/resources/images/product/${p.PRODUCT_PIC}"
 								alt="Card image cap"> <a
 								href="${path}/product/productDetail.do">
 								<div class="mask rgba-white-slight"></div>
@@ -720,11 +720,11 @@
 									<button type="button" class="btn  btn-md color-Gray1 "
 										style="border: 1px solid darkgray !important;">Read
 										more</button>
-									<div class="row" style="margin: auto;">
+									<div class="row heartCart_icon" style="margin: auto;">
 										<a class="material-tooltip-main" data-toggle="tooltip"
 											data-placement="top" title="Add to Cart"> <i
 											class="fas fa-shopping-cart grey-text ml-3"></i>
-										</a> <a class="material-tooltip-main" data-toggle="tooltip"
+										</a> <a class="material-tooltip-main heart_icon" data-toggle="tooltip"
 											data-placement="top" title="Add to Wishlist"> <i
 											class="fas fa-heart grey-text ml-3"></i>
 										</a>
