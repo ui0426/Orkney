@@ -6,7 +6,6 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 
 import com.palette.orkney.cart.model.vo.Cart;
-import com.palette.orkney.cart.model.vo.CartDetail;
 
 public interface CartDao {
 
@@ -20,7 +19,9 @@ public interface CartDao {
 	
 	Cart memberInfo(SqlSession session,String memberNo);
 	
-	int updateDetail(SqlSession session,CartDetail detail);
+	int updateDetail(SqlSession session,Cart cart);
+	
+	int sumPrice(SqlSession session,String cartNo);
 }
 
 

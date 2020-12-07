@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import com.palette.orkney.cart.model.dao.CartDao;
 import com.palette.orkney.cart.model.vo.Cart;
-import com.palette.orkney.cart.model.vo.CartDetail;
 
 @Service
 public class CartServiceImpl implements CartService{
@@ -46,8 +45,13 @@ public class CartServiceImpl implements CartService{
 	}
 
 	@Override
-	public int updateDetail(CartDetail detail) {	
-		return dao.updateDetail(session,detail);
+	public int updateDetail(Cart cart) {	
+		return dao.updateDetail(session,cart);
+	}
+
+	@Override
+	public int sumPrice(String cartNo) {	
+		return dao.sumPrice(session,cartNo);
 	}
 
 	

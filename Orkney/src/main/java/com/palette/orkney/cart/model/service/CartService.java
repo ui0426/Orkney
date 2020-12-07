@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.palette.orkney.cart.model.vo.Cart;
-import com.palette.orkney.cart.model.vo.CartDetail;
 
 public interface CartService {
 
@@ -18,6 +17,8 @@ public interface CartService {
 	
 	Cart memberInfo(String memberNo);
 	
-	int updateDetail(CartDetail detail);
+	int updateDetail(Cart cart);
+	
+	int sumPrice(String cartNo);
 	
 }

@@ -23,8 +23,7 @@
             	<div class="mod-product"><button class="btn2" onclick="location.href='${path }/cart/cart.do'">주문상품 수정</button> </div>        
             
             </div>
-            <div class="line1"></div>
-            
+            <div class="line1"></div>           
             
             <c:forEach items="${cart }" var="p">
             <div class="product-container">
@@ -32,9 +31,9 @@
 	                <div class="product-pic"><img src="${path}/resources/images/rooms/<c:out value="${p.product_pic}"/>"></div>               
 	                <div class="product-detail">
 	                    <div><c:out value="${p.product_name}"/></div>
-	                    <div><c:out value="${p.product_width}"/>*<c:out value="${p.product_height}"/>*<c:out value="${p.product_depth}"/></div>
-	                    <div>149,000원</div>
-	                    <div>1개</div>
+	                    <div><c:out value="${p.product_width}"/>*<c:out value="${p.product_height}"/>*<c:out value="${p.product_depth}"/></div>	                  		                    
+	                    <div><c:out value="${p.cartQTY}"/>개</div>
+	                    <div><c:out value="${p.cartQTY * p.product_price}"/>원</div>	                     	                    
 	                </div>
 	            </div>	            
             </div>  
@@ -48,32 +47,31 @@
             <div class="line1"></div>
             <div class="field">
                 <span class="first-div">이름</span>
-                <div class="padding-input"><input type="text" class="input1 input1-extra" placeholder="<c:out value="${member.member_name}"/>"> </div>
+                <div class="padding-input"><input type="text" class="input1 input1-extra" id="membername" placeholder="<c:out value="${member.member_name}"/>" readonly> </div>
             </div>
 
             <div class="field">
                 <span class="first-div">이메일</span>
-                <div class="padding-input"><input type="text" class="input1 input1-extra" placeholder="<c:out value="${member.member_id}"/>"></div>
+                <div class="padding-input"><input type="text" class="input1 input1-extra" id="memberemail" placeholder="<c:out value="${member.member_id}"/>" readonly></div>
             </div>
 
             <div class="field">
                 <span class="first-div">휴대전화</span>
-                <div class="padding-input"><input type="text" class="input1 input1-extra" placeholder="<c:out value="${member.phone}"/>"></div>
+                <div class="padding-input"><input type="text" class="input1 input1-extra" id="memberphone" placeholder="<c:out value="${member.phone}"/>" readonly></div>
             </div>                                    
             
         </div>
-        
-        
+           
         <div class="section1">
             <div class="etc-title">
                   <span>배송지</span>                                       
-                  <button class="btn2">회원정보입력</button>
+                  <button class="btn2" id="input-member">회원정보입력</button>
                   <button type="button" class="btn2" data-toggle="modal" data-target="#fullHeightModalRight">배송지조회 </button>
             </div>           
             <div class="line1"></div>
             <div class="field">
                 <span class="first-div">받는분</span>
-                <div><input type="text" class="input1 none-line"></div>
+                <div><input type="text" class="input1 none-line" id="copyname"></div>
             </div>
             <div class="field">
                 <span class="first-div">우편번호</span>
@@ -88,9 +86,12 @@
             <div class="field"><div class="etc-div"><input type="text" class="input3  none-line"></div></div>            
             <div class="field">
                 <div class="first-div">휴대전화</div>
-                <div><input type="text" class="input1 none-line"></div>
-            </div>
-
+                <div><input type="text" class="input1 none-line" id="copyphone"></div>
+            </div> 
+            <div class="field">
+                <span class="first-div">이메일</span>
+                <div><input type="text" class="input1 none-line" id="copyemail"></div>
+            </div>      							
             <div class="field">
                 <div class="first-div">배송메모</div>                	
                 <div class="input-vertical">
@@ -101,15 +102,31 @@
                 		<div class="preset" id="preset3">부재시 전화 주시거나 문자 남겨 주세요.</div>
                 	</div>
                 </div>
-            </div>            
-            <script>       
+            </div>  
+       <!-- 회원정보입력 -->
+       <script>
+        $("#input-member").click(e=>{
+        	let name=$("#membername").attr("placeholder");
+        	let email=$("#memberemail").attr("placeholder");
+        	let phone=$("#memberphone").attr("placeholder");        	        	
+        	$("#copyname").attr({"value":name});        	
+        	$("#copyemail").attr({"value":email});
+        	$("#copyphone").attr({"value":phone});        	        	        	
+        });
+        </script>
+        
+        <!-- 배송메모 -->          
+        <script>       
             $("#message-input").click(e=>{
                 $(".messages").show();            
-            });    
+            });   
+      /*       $("#message-input").blur(e=>{
+                $(".messages").css("display","none");            
+            });   */                         
             $("#preset1").click(e=>{
                 $("#message-input").attr({
                 	"value":"배송 전에 미리 연락 바랍니다."
-                });                 
+                });                                
             		$("#messages").hide();            
             });
             $("#preset2").click(e=>{
@@ -136,18 +153,14 @@
                 </div>                                 
             </div>           
         </div>
-        
-               
-
+                       
         <div class="section1">
             <div class="etc-title">포인트</div>
             <div class="line1" ></div>           
-            <div class="able-point">
-	            
+            <div class="able-point">	            
 	            <div class="first-div first-div-add">사용 가능한 포인트</div>
-	            <div class="usable-point"><c:out value="${member.point}"/>P</div>                                        
-	                 
-	            <div class="checkdiv">  
+	            <div class="usable-point"><input type="text" id="pointuse" value="<c:out value="${member.point}"/>" readonly>P</div>                                        	                 
+	            <div class="checkdiv"  id="allpoint">  
 	                    <div class="checkicon" stlye="width:172px;">
 	                        <span><i class="far fa-check-circle fa-2x ixy i1"></i></span>
 	                        <span><i class="fas fa-check-circle fa-2x ixy i2"></i></span>
@@ -155,52 +168,65 @@
 	                    </div>
 	                    <span class="spanwid">전액사용</span>
 	             </div>
-			</div>                
-            
+			</div>                            
             <div class="able-point">
             	<div class="first-div first-div-add">사용할 포인트</div>                     
-                <div><input type="text" class="input4 none-line" ></div>
+                <div><input type="text" class="input4 none-line" id="usablepoint" value=""></div>
                 <div class="pre-point" style="padding: 7px 0 0px 8px;">P</div>            	                         
-            </div>     
-               
+            </div>                    
         </div>
+        
+        <!-- 포인트사용 -->
+        <script>
+        	$("#allpoint").click(e=>{
+        		let up=$("#pointuse").val();
+        		
+        		console.log(up);
+        		$("#usablepoint").attr({
+        			"value":up
+        		});
+        	});
+        </script>
+        
+        
 
             <div class="section1">
                 <div class="etc-title">결제 세부 정보</div>
                 <div class="line1"></div>
                 <div class="total-title">
                         <div class="pay-title">
-                            <div >주문 금액(배송비 제외)</div>
-                            <div>7,900</div>                    
+                            <div >총 상품 금액</div>
+                            <div><input type="text" value="7,900"></div>                    
                         </div>
                         <div class="pay-title">
-                            <div>전체 서비스 비용</div>
-                            <div>5,000</div>
+                            <div>배송비 비용</div>
+                            <div><input type="text" value="2,500"></div>
                         </div>
                         <div class="pay-title">
-                            <div>주문 금액(부가세 제외)</div>
-                            <div>11,727</div>
+                            <div>포인트 사용</div>
+                            <div><input type="text" value="1,500"></div>
                         </div>
                         <div class="pay-title">
                             <div>부가세(10%)</div>
-                            <div>1,173</div>
+                            <div><input type="text" value="2,500"></div>
                         </div>
                 </div>                
                     <div class="line2">
                         <div class="pay-title pay-font">
                             <div>총 주문금액</div>
-                            <div>12,900</div>
+                            <div><input type="text" value="12,900"></div>
                         </div>
                     </div>
             </div>        
         
                 
-       <div class="section1" style="display: flex;">            
+       <div class="section1" style=" display: flex; flex-direction: column;   " >
+       		<div style="display: flex;">            
 	            <div class="etc-title">예상 적립 포인트</div>                      
 	            <span class="field span-padding"><div class="pre-point">1,490P</div></span>
-                    	
+	         </div>                    	
+            <div>총 주문 금액의 5%가 적립됩니다.<a href="">더알아보기</a></div>
         </div>
-            <!-- <div>VIP 등급은 4,470P 적립<a href="">더알아보기</a></div> -->
 
         <div class="section1">
             <div class="etc-title">결제 수단</div>

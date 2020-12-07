@@ -7,7 +7,6 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.palette.orkney.cart.model.vo.Cart;
-import com.palette.orkney.cart.model.vo.CartDetail;
 
 @Repository
 public class CartDaoImpl implements CartDao{
@@ -38,8 +37,13 @@ public class CartDaoImpl implements CartDao{
 	}
 
 	@Override
-	public int updateDetail(SqlSession session, CartDetail detail) {	
-		return session.update("cart.updateDetail",detail);
+	public int updateDetail(SqlSession session, Cart cart) {	
+		return session.update("cart.updateDetail",cart);
+	}
+
+	@Override
+	public int sumPrice(SqlSession session, String cartNo) {	
+		return session.selectOne("cart.sumPrice",cartNo);
 	}
 
 	

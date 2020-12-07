@@ -14,7 +14,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.palette.orkney.cart.model.service.CartService;
 import com.palette.orkney.cart.model.vo.Cart;
-import com.palette.orkney.cart.model.vo.CartDetail;
 
 @Controller
 public class CartController {
@@ -50,10 +49,11 @@ public class CartController {
 	public ModelAndView deletecontent(
 			@RequestParam(value="productNo",defaultValue="0") String productNo,
 			@RequestParam(value="cartNo",defaultValue="0") String cartNo, ModelAndView mv, HttpSession session){								
-		String memberNo = (String)((Map)session.getAttribute("login")).get("MEMBER_NO");																
-		Map<String, String> param =new HashMap();
-	 	param.put("cartNo",cartNo);
-		param.put("productNo",productNo);								
+			
+			String memberNo = (String)((Map)session.getAttribute("login")).get("MEMBER_NO");																
+			Map<String, String> param =new HashMap();
+		 	param.put("cartNo",cartNo);
+			param.put("productNo",productNo);								
 		
 			if(!productNo.equals("0") && !cartNo.equals("0")) {							 
 				int product = service.deleteProduct(param);													
@@ -66,35 +66,53 @@ public class CartController {
 			return mv;
 	}			
 	
-	//4. 결제전 화면이동
+	//4. 수량 저장 ajax처리
+	@RequestMapping("/cart/updateQty.do")
+	public ModelAndView updateQty(ModelAndView mv, int qty, String cartNo, String productNo, HttpSession session){		
+		
+		System.out.println("수량:"+qty);
+		System.out.println("카트번호:"+cartNo);		
+		
+		Cart cart = new Cart();
+		cart.setCartQTY(qty);
+		cart.setCartNo(cartNo);
+		cart.setProductNo(productNo);
+				
+		System.out.println("장바구니 수량:"+cart);		
+		
+		//수량저장
+		int rs=service.updateDetail(cart);
+		
+		
+		//총가격(상품가격*수량)
+		int sum =service.sumPrice(cartNo);
+		
+		System.out.println(sum);
+		
+		String memberNo = (String)((Map)session.getAttribute("login")).get("MEMBER_NO");
+		List<Cart> c = service.selectCart(memberNo);
+		
+		mv.addObject("cart",c);	
+		mv.addObject("sumprice",sum);
+		mv.setViewName("ajax/cartproduct");
+		return mv;
+	}
+		
+	
+	
+	//5. 결제전 화면이동
 	@RequestMapping("/cart/payment.do")
-	public ModelAndView payment(ModelAndView mv, HttpSession session,
-			@RequestParam int[] amount, @RequestParam String[] productNo) {
+	public ModelAndView payment(ModelAndView mv, HttpSession session) {
 		
 		String memberNo = (String)((Map)session.getAttribute("login")).get("MEMBER_NO");																
-		List<Cart> c = service.selectCart(memberNo);																			
-		
+		List<Cart> c = service.selectCart(memberNo);																					
 		Cart cart= service.memberInfo(memberNo);
-		System.out.println(cart);		
-				
 		
-		//상품번호 받아오기
-		//수량받아오기
-		//cart_detail 수정
-		for(int i=0; i<productNo.length;i++) {
-			CartDetail detail=new CartDetail();
-			detail.setCartQTY(amount[i]);
-			detail.setProductNo(productNo[i]);
-			System.out.println("장바구니상세:"+detail);
-			
-			int re = service.updateDetail(detail);			
-		}
-		
-						
-
+		System.out.println("cartlist내용 :"+c);
 		
 		
-		mv.addObject("member",cart);
+	
+		mv.addObject("member",cart); //회원정보
 		mv.addObject("cart",c);
 		mv.setViewName("cart/payment");
 		return mv;

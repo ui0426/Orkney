@@ -6,6 +6,7 @@
  		<result column="cart_no"    property="cartNo"/>
  		<result column="product_no"  property="productNo"/>
  		<result column="cart_qty"   property="cartQTY"/>
+ 		<result column="member_no"   property="memberNo"/>
  	</resultMap>
  	
   	<select id="selectCart" parameterType="string" resultMap="cartMap">
@@ -32,10 +33,13 @@
   		SELECT * FROM MEMBER join cart using(member_no) WHERE member_no=#{memberNo}
   	</select>  	
   	  	
-  	<update id="updateDetail" parameterType="cartdetail">
-  		UPDATE CART_DETAIL SET CART_QTY = #{cartQTY} WHERE PRODUCT_NO = #{productNo}
+  	<update id="updateDetail" parameterType="cart">
+  		UPDATE CART_DETAIL SET CART_QTY = #{cartQTY} WHERE PRODUCT_NO = #{productNo} and cart_no=#{cartNo}
   	</update>
   	 
+  	 <select id="sumPrice" parameterType="string" resultType="_int">
+  	 	select sum(product_price*cart_qty) from cart join cart_detail using(cart_no) join product using (product_no) where cart_no=#{cartNo}
+  	 </select>
 
   	
 </mapper>

@@ -12,8 +12,7 @@
 <link rel="stylesheet" href="${path}/resources/css/cart/cart.css">
  
 <section>
-    <div class="section-container">
-    <form name="amountSend" method="post">
+    <div class="section-container">    
         <div class="section1">        
                     <div class="title">
                    		<div>장바구니</div>
@@ -22,33 +21,13 @@
             <div class="line1"></div>                            
 		 	
 		 	<div id="re"></div>														 		               
-		</div>
-		
-		
-        <div class="section2">                                                        
-                <div class="service-container">                              
-                    <div>전체 서비스 비용</div>
-                    <div>이 금액에는 배송비가 포함되어 있지 않으며, 배송지에 따라 구매가 불가할 수 있습니다</div>
-                </div>                                       
-        </div>
-        <div class="line2"></div> 
+		</div>		
 
-        <div class="total-container">
-            <div class="total-title">총 주문금액</div>
-            <div class="total-price">
-            	<c:set var="total" value="0"/>
-            	<c:forEach var="list" items="${cart}">
-            		<c:set var="total" value="${total + list.product_price}"/>
-            	</c:forEach> <fmt:formatNumber value="${total}"/> 원
-            </div>
-        </div>
     
         <div class="section3">
         	
-  
-            <span class="pay-btn"><button type="submit" class="btn-dark event-bu" onclick="javascript: form.action='${path}/cart/payment.do';"><span class="event-sp" >결제하기</span></button></span>                                  
-            <div class="etc-line">
-                
+            <span class="pay-btn"><button type="submit" class="btn-dark event-bu" onclick="location.href='${path}/cart/payment.do'"><span class="event-sp" >결제하기</span></button></span>                                  
+            <div class="etc-line">                
                 <div>
                 	<div><img src="${path}/resources/img/refund.png"> </div>
                 	<span  class="etc-detail">반품 정책 365일 이내에 제품 환불 가능</span>
@@ -60,16 +39,9 @@
                 
             </div>            
         </div>
-        <div class="line1"></div>    
-        </form>
+        <div class="line1"></div>            
 </div>
 
-      
-    
-    
-    
-    
-    
     <!-- Full Height Modal Right -->
 <div class="modal fade right" id="fullHeightModalRight" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
   aria-hidden="true">
@@ -99,7 +71,7 @@
 
 
 <script>				
-				$(function(){
+		  $(function(){
 					$.ajax({
 						url:"${path}/cart/deleteProduct.do",
 						success:data =>{					
