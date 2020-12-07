@@ -37,6 +37,19 @@ public interface MemberService {
 	
 	List<Addr> addAddrList(String mNo);
 
+
+	int insertSignup(Map userData, Map snsData);
+
+	Map snsUserInfo(String userId);
+
+	int updateSnsId(Map snsData);
+
+	int defaultWishList(String mNo);
+
+	Map emailCh(Map data);
+
+	int transPwch(Map data);
+
 	//이름,생일 수정
 	int updateMemberPersonal(Map updateInformation);
 

@@ -6,14 +6,15 @@
 <c:set var="path" value="${pageContext.request.contextPath }"/>
 
 
-<jsp:include page="/WEB-INF/views/common/header.jsp">		
-	<jsp:param name="title" value="장바구니" />
+<jsp:include page="/WEB-INF/views/common/header.jsp">      
+   <jsp:param name="title" value="장바구니" />
 </jsp:include>
 <link rel="stylesheet" href="${path}/resources/css/cart/cart.css">
  
 <section>
     <div class="section-container">    
         <div class="section1">        
+
                     <div class="title">
                    		<div>장바구니</div>
 	                   <div><button class="remove_basket" value="${cN}">장바구니 비우기</button></div>	   	                                                     
@@ -23,24 +24,32 @@
 		 	<div id="re"></div>														 		               
 		</div>		
 
+
     
         <div class="section3">
-        	
-            <span class="pay-btn"><button type="submit" class="btn-dark event-bu" onclick="location.href='${path}/cart/payment.do'"><span class="event-sp" >결제하기</span></button></span>                                  
-            <div class="etc-line">                
+        
+
+           
+  
+            <span class="pay-btn"><button type="button" class="btn-dark event-bu" onclick="location.href='${path }/cart/payment.do'"><span class="event-sp">결제하기</span></button></span>                                  
+            <div class="etc-line">
+                
+
                 <div>
-                	<div><img src="${path}/resources/img/refund.png"> </div>
-                	<span  class="etc-detail">반품 정책 365일 이내에 제품 환불 가능</span>
+                   <div><img src="${path}/resources/img/refund.png"> </div>
+                   <span  class="etc-detail">반품 정책 365일 이내에 제품 환불 가능</span>
                 </div>
                 <div>
-                 	<div><img src="${path}/resources/img/lock.png"> </div>
-                	<span  class="etc-detail">안전한 쇼핑SSD 데이터 암호화로 안전한 쇼핑</span>                 	
+                    <div><img src="${path}/resources/img/lock.png"> </div>
+                   <span  class="etc-detail">안전한 쇼핑SSD 데이터 암호화로 안전한 쇼핑</span>                    
                 </div>
                 
             </div>            
         </div>
+
         <div class="line1"></div>            
 </div>
+
 
     <!-- Full Height Modal Right -->
 <div class="modal fade right" id="fullHeightModalRight" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
@@ -99,4 +108,4 @@
 </script>
 	
 
-<jsp:include page="/WEB-INF/views/common/footer.jsp"/>	
+<jsp:include page="/WEB-INF/views/common/footer.jsp"/>   

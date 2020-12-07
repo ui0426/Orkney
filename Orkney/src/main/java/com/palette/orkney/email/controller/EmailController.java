@@ -1,10 +1,12 @@
 package com.palette.orkney.email.controller;
 
-import java.util.Map;
+import java.util.Random;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -22,15 +24,46 @@ public class EmailController {
 	@Autowired
 	private JavaMailSender mailSender;
 
-	@RequestMapping(value="/transPw.do", method=RequestMethod.GET)
-    public ModelAndView sendEmailAction (@RequestParam Map<String, Object> paramMap, ModelMap model, ModelAndView mv) throws Exception {
+	@RequestMapping(value="/transPw.do", method=RequestMethod.POST)
+    public ModelAndView sendEmailAction (@RequestParam(value="email") String email, ModelMap model, ModelAndView mv,HttpServletResponse response) throws Exception {
  
 //        String USERNAME = (String) paramMap.get("username");
-		String USERNAME="이세현";
+		//String USERNAME="이세현";
 //        String EMAIL = (String) paramMap.get("email");
-		String EMAIL="ul0426@naver.com";
-//        String PASSWORD = "1111111111";
+		String EMAIL=email;
+		mv.addObject("ani","true");
 		
+		StringBuffer temp = new StringBuffer();
+		Random rnd = new Random();
+		for (int i = 0; i < 20; i++) {
+		    int rIndex = rnd.nextInt(3);
+		    switch (rIndex) {
+		    case 0:
+		        // a-z
+		        temp.append((char) ((int) (rnd.nextInt(26)) + 97));
+		        break;
+		    case 1:
+		        // A-Z
+		        temp.append((char) ((int) (rnd.nextInt(26)) + 65));
+		        break;
+		    case 2:
+		        // 0-9
+		        temp.append((rnd.nextInt(10)));
+		        break;
+		    }
+		}
+		
+		
+		String key=temp.toString();
+		
+		Cookie c=new Cookie("trans",key);
+		c.setMaxAge(60*60*60*60);
+		c.setPath("/");
+		response.addCookie(c);
+		
+		
+		
+		System.out.println(email);
 		String noticeEmail=
 				"    <div style=\"width:100%;height:500px;min-height:500px;text-align: -webkit-center;\">\r\n" + 
 				"      <div style=\"width:65%;height:100%;display:flex; flex-direction: column; justify-content: center; background-color:rgb(242, 245, 247);max-width:709px ;\">\r\n" + 
@@ -49,8 +82,9 @@ public class EmailController {
 				"        <div style=\"height: 47%;\">비밀번호 변경을 요청하셨습니다.<br><br>\r\n" + 
 				"          고객님께서 요청하시지 않았다면, 보안을 위해 IKEA 계정에 로그인하실 수 있는지 확인해 주세요.<br><br>          \r\n" + 
 				"          비밀번호 변경을 요청하셨다면 아래 버튼을 눌러 비밀번호를 변경해주세요.</div>\r\n" + 
-				"          <div style=\"text-align-last: center;\"><button style=\"padding: 15px 37px 35px; border:none;background-color:#0058a3;border-radius: 30px;color: white; font-weight: 700;\">비밀번호 변경</button></div>\r\n" + 
-				"          <div><p>ORKNEY.KO</p></div>\r\n" + 
+				"          <div style=\"text-align-last: center;\"><a target='_blank'"
+				+ "href='http://localhost:9090/orkney/member/transPassword.do?id="+email+"&key="+key+"' style=\"padding: 18px 37px 24px; border:none;background-color:#0058a3;border-radius: 30px;color: white; font-weight: 700;\">비밀번호 변경</a></div>\r\n" + 
+				"          <div><p>ORKNEY.KO</p></div>\r\n" +
 				"      </div>\r\n" + 
 				"      </div>\r\n" + 
 				"    </div>\r\n" + 
@@ -71,8 +105,8 @@ public class EmailController {
             e.printStackTrace();
         }
 //        mv.setViewName("redirect:/emailSuccess");
-        mv.setViewName("redirect:/member/memberLogin.do");
+        mv.setViewName("/member/login");
+        
         return mv;
     }
-
 }
