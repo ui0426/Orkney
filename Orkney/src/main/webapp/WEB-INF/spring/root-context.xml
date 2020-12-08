@@ -46,5 +46,17 @@
 			<property name="dataSource" ref="dataSource"/>
 		</bean>
 		
-	<tx:annotation-driven transaction-manager="transactionManager"/>		
+	<tx:annotation-driven transaction-manager="transactionManager"/>
+	
+	<tx:advice id="txAdivce" transaction-manager="transactionManager">
+			<tx:attributes>
+				<tx:method name="insert*" rollback-for="Exception"/>
+				<tx:method name="update*" rollback-for="Exception"/>
+			</tx:attributes>
+		</tx:advice>
+		
+		<aop:config proxy-target-class="true">
+			<aop:pointcut expression="execution(* com.palette.orkney..*ServiceImpl.insert*(..))" id="insertService"/>
+			<aop:advisor advice-ref="txAdivce" pointcut-ref="insertService"/>
+		</aop:config>	
 </beans>

@@ -83,7 +83,11 @@
 	</select>
 	
 	<update id="updateSnsId" parameterType="map">
-		UPDATE SNS_LOGIN SET SNS_NAME=#{name},SNS_PROFILE=#{profile},ACCESS_TOKEN=#{aToken},REFRESH_TOKEN=#{rToken} WHERE SNS_ID=#{id}
+		UPDATE SNS_LOGIN SET SNS_NAME=#{name},SNS_PROFILE=#{profile},ACCESS_TOKEN=#{aToken}
+		<if test="rToken != null">
+		,REFRESH_TOKEN=#{rToken}
+		</if>
+		WHERE SNS_ID=#{id}
 	</update>
 	
 	<insert id="defaultWishList" parameterType="string">

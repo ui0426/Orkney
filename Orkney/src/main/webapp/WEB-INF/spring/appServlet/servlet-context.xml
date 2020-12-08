@@ -46,5 +46,22 @@
 		</beans:property>
 	</beans:bean>
 	
+	<interceptors>
+		<interceptor>
+			<mapping path="/member/memberLogin.do"/>
+			<mapping path="/member/signup.do"/>
+				<beans:bean id="login" class="com.palette.orkney.common.interceptor.LoginInterceptor">
+			</beans:bean>
+		</interceptor>
+	</interceptors>
+	
+	<interceptors>
+		<interceptor>
+			<mapping path="/admin/*"/>
+				<beans:bean id="adminLogin" class="com.palette.orkney.common.interceptor.adminLoginInterceptor">
+			</beans:bean>
+		</interceptor>
+	</interceptors>
+	
 	
 </beans:beans>

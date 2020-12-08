@@ -120,7 +120,8 @@ public class MemberServiceImpl implements MemberService {
 		return dao.addAddrList(session, mNo);
 		
 	}
-
+	
+	@Transactional
 	@Override
 	public int insertSignup(Map userData, Map snsData) {
 		// TODO Auto-generated method stub

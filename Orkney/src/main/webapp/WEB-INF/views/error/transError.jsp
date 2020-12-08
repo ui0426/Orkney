@@ -55,6 +55,7 @@
     content: "";
     width:88px;
     height:44px;
+    cursor:pointer;
     }
     #svgicon{
     height: 2.7rem;
@@ -117,9 +118,27 @@
                     </div>
                 </div>
                 <div>
-                    <h1 class="fw hfs" id="logintitle">죄송합니다.<br> 활성화 되어있지 <br>않은 링크입니다.</h1>
-                    <p class="ptext" id="logintext">이미 사용됐거나 만료된 링크입니다.
-                    	</p>
+                    <h1 class="fw hfs" id="logintitle">죄송합니다.
+                    <c:if test="${requestScope['javax.servlet.error.status_code'] == 400}">
+				<br> 활성화 되어있지 <br>않은 링크입니다.
+				<p class="ptext" id="logintext">이미 사용됐거나 만료된 링크입니다.</p>  
+				</c:if>	
+				
+				<c:if test="${requestScope['javax.servlet.error.status_code'] == 404}">
+					<br>요청하신 페이지를 찾을 수 없습니다.   
+				</c:if>
+				
+				<c:if test="${requestScope['javax.servlet.error.status_code'] == 405}">
+					요청된 메소드가 허용되지 않습니다. 
+				</c:if>
+				
+				<c:if test="${requestScope['javax.servlet.error.status_code'] == 500}">
+					서버에 오류가 발생하여 요청을 수행할 수 없습니다.
+				</c:if>
+				
+				<c:if test="${requestScope['javax.servlet.error.status_code'] == 503}">
+					서비스를 사용할 수 없습니다.
+				</c:if></h1>
                     <div></div>
                 </div>
                 <div class="itemstart">
@@ -141,5 +160,10 @@
             </div>
         </div>
         </div>
+        <script>
+        	$(".logoimg").click(e=>{
+        		location.href='${path}';
+        	})
+        </script>
 </body>
 </html>

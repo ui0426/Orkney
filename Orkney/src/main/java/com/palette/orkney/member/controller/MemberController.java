@@ -54,7 +54,7 @@ public class MemberController {
 		if(c.getValue().equals(key)) {
 			adr="member/transPw";
 		}else {
-			adr="member/transError";
+			adr="error/transError";
 		}
 		m.addAttribute("id",id);
 //		c.setMaxAge(0);

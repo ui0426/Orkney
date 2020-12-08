@@ -6,7 +6,7 @@
 <c:set var="path" value="${pageContext.request.contextPath }"/>
 
 
-<jsp:include page="/WEB-INF/views/common/header.jsp"/>
+<jsp:include page="/WEB-INF/views/common/adminHeader.jsp"/>
 
 	<style>
     body,html{height:100%}
@@ -44,8 +44,10 @@
     .rtime{text-align: end;}
 	.roomAlarm{display: flex;flex-direction: column;height: 76px;justify-content: center;border-top: 1px solid;border-right: 1px solid;}
    	.alarmImg{text-align:center; color:red;}
-   	.top{min-height:534px;}
+   	.top{min-height:643px;}
    	.roomData{border-top: 1px solid;}
+   	.sender{text-align: end;}
+   	#titleDiv{text-align: center;padding: 2rem 2rem 1rem;}
 </style>
     <div class="reciver marb disno" id="cloneDiv">
         <div class="time">qweqw</div>
@@ -83,6 +85,11 @@
             </div>
         </div>
     </div>
+    </div>
+    
+    <div id="titleDiv">
+    	<h1>채팅창 관리</h1>
+    	<hr>
     </div>
     <div class="wid top"> <!-- 제일 상위 div -->
 		
@@ -200,7 +207,7 @@ function onMessage(msg) {
 	if(id==ms["user"]){//내가 보낸 메세지
 		div=$("#cloneDiv4").clone();
 		$(div).removeClass("disno");
-		$(div).find(".rtime").html('3:30PM');
+		$(div).find(".time").html('3:30PM');
 		$(div).find(".rcontent").html(ms["ms"]);
 	}else if(id!=ms["user"]){//나는 관리자  || 일반 유저가 보낸 것
 		div=$("#cloneDiv3").clone();
@@ -342,7 +349,11 @@ function register(){
         let d=date.getDate();
         let y=date.getFullYear().toString().substr(2);
         let t=date.getHours();
+        if(t<10){
+        	t="0"+t;
+        }
         let mi=date.getMinutes();
+        if(mi<10) mi="0"+mi;
         let c=y+"/"+m+"/"+d+" "+t+":"+mi;
         return c;
 	}
@@ -350,4 +361,4 @@ function register(){
 
 
 
-<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
+<jsp:include page="/WEB-INF/views/common/adminFooter.jsp"/>

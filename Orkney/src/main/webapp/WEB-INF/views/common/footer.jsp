@@ -103,11 +103,11 @@
 
         <!--Copyright-->
         <p class="text-center text-md-left">© 2020 Copyright:
-          <a href="https://mdbootstrap.com/">
-            <strong> MDBootstrap.com</strong>
+          <a href="#">
+            <strong> Orkney. All Right Reserved.</strong>
           </a>
-         <pre style="color:white;">KKEA 코리아
-주소 : (우) 14352 경기도 성남시 분당구  KKEA분당본사
+         <pre style="color:white;">ORKNEY 코리아
+주소 : (우) 14352 경기도 성남시 분당구  ORKNEY분당본사
 사업자 등록번호 : 186-XX-82XX1 사업자정보확인
 대표자 : 강세영
 통신판매업 신고 : 2XX8-경기분당-02XX
