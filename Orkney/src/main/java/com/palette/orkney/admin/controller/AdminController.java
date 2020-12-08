@@ -47,4 +47,10 @@ public class AdminController {
 		return list;
 	}
 	
+	@RequestMapping("/admin/adminPage.do")
+	public String adminPage() {
+		
+		return "admin/adminBasic";
+	}
+	
 }
