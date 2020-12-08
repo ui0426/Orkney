@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="review">
+	<select id="selectOrderDetail" parameterType="_int" resultType="orderDetail">
+		SELECT * FROM ORDER_DETAIL JOIN PRODUCT USING(PRODUCT_NO) 
+				JOIN PRODUCT_IMAGE P USING(PRODUCT_NO)
+				JOIN SMALL_CATEGORY USING(SMALL_CATEGORY_NO) 
+				JOIN ORDERS USING(ORDER_NO) JOIN MEMBER USING(MEMBER_NO) WHERE ORDER_DETAIL_NO=#{odNo} AND P.PRODUCT_COLOR='normal'
+	</select>
+	
+	<insert id="insertReview" parameterType="review">
+		INSERT INTO REVIEW VALUES(R_SEQ.NEXTVAL, #{product_grade}, #{review_content}, #{member_no}, #{product_no}, DEFAULT, #{order_detail_no})
+		<selectKey keyProperty="review_no" resultType="_int" order="AFTER">
+			SELECT R_SEQ.NEXTVAL FROM DUAL
+		</selectKey>
+	</insert>
+	
+	<insert id="insertReviewImage" parameterType="reviewImage">
+		INSERT INTO REVIEWIMAGE VALUES(RI_SEQ.NEXTVAL, #{review_no}, #{originalFileName}, #{renamedFileName})
+	</insert>
+</mapper>

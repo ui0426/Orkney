@@ -66,21 +66,20 @@
 				    <div class="modal-dialog" role="document">
 				      <div class="modal-content">
 				        <div class="modal-header">
-				          <h5 class="modal-title" id="exampleModalLabel">죄송합니다. 주문 내역을 찾을 수 없습니다.</h5>
+				          <h5 class="modal-title orderform-modal-title" id="exampleModalLabel">죄송합니다. 주문 내역을 찾을 수 없습니다.</h5>
 				          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 				            <span aria-hidden="true">&times;</span>
 				          </button>
 				        </div>
-				        <div class="modal-body">
+				        <div class="modal-body orderform-modal-content">
 				         	주문 번호(iSell 번호)와 주문하신 회윈의 이메일을 정확하게 입력해주세요.
 				        </div>
 				        <div class="modal-footer">
-				          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				          <button type="button" class="btn btn-indigo" data-dismiss="modal">Close</button>
 				        </div>
 				      </div>
 				    </div>
-				  </div>
-				  <div id="modal-hidden"></div>
+				 </div>
 			</div>
 		</div>
 	</div>

@@ -55,7 +55,7 @@ public class OrderController {
 		return mv;
 	}
 	
-	//로그인 안한 상태로 주문관리 클릭 후 주문조회만을 위한 로그인 할 때
+	//로그인 안한 상태로 주문관리 클릭 후 로그인 할 때
 	@RequestMapping("/order/orderLogin.do")
 	@ResponseBody
 	public String orderLoginAjax(String id, String pw, Model m) throws IOException {

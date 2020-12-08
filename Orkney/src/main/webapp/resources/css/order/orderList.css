@@ -76,7 +76,7 @@
     	font-weight: 600;
 	}
 	.panels{
-		border-bottom: 2px solid;
+		border-bottom: 2px solid #ccc;
     	padding: 1em 0;
 	}
 	.ol-container{

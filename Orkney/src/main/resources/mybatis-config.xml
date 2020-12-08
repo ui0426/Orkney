@@ -9,6 +9,8 @@
 		<typeAlias type="com.palette.orkney.order.model.vo.OrderDetail" alias="orderDetail"/>
 		<typeAlias type="com.palette.orkney.member.model.vo.Addr" alias="addr"/>
 		<typeAlias type="com.palette.orkney.cart.model.vo.Cart" alias="cart"/>
+		<typeAlias type="com.palette.orkney.review.model.vo.Review" alias="review"/>
+		<typeAlias type="com.palette.orkney.review.model.vo.ReviewImage" alias="reviewImage"/>		
 	</typeAliases>
 
 </configuration>

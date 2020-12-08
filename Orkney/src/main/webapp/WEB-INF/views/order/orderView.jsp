@@ -58,52 +58,63 @@
 					</div>
 					<c:if test="${order.order_state eq '주문확인' or order.order_state eq '제품준비중'  }">
 					<div class="cancelCheck">
-						<button class="cancel-btn" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">
-							<svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="clipboard-check" class="svg-inline--fa fa-clipboard-check fa-w-12 stateCheck-icon" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path fill="currentColor" d="M336 64h-80c0-35.3-28.7-64-64-64s-64 28.7-64 64H48C21.5 64 0 85.5 0 112v352c0 26.5 21.5 48 48 48h288c26.5 0 48-21.5 48-48V112c0-26.5-21.5-48-48-48zM192 40c13.3 0 24 10.7 24 24s-10.7 24-24 24-24-10.7-24-24 10.7-24 24-24zm121.2 231.8l-143 141.8c-4.7 4.7-12.3 4.6-17-.1l-82.6-83.3c-4.7-4.7-4.6-12.3.1-17L99.1 285c4.7-4.7 12.3-4.6 17 .1l46 46.4 106-105.2c4.7-4.7 12.3-4.6 17 .1l28.2 28.4c4.7 4.8 4.6 12.3-.1 17z"></path></svg>
+						<button type="button" class="cancel-btn" data-toggle="modal" data-target="#staticBackdrop">
+						  <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="clipboard-check" class="svg-inline--fa fa-clipboard-check fa-w-12 stateCheck-icon" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path fill="currentColor" d="M336 64h-80c0-35.3-28.7-64-64-64s-64 28.7-64 64H48C21.5 64 0 85.5 0 112v352c0 26.5 21.5 48 48 48h288c26.5 0 48-21.5 48-48V112c0-26.5-21.5-48-48-48zM192 40c13.3 0 24 10.7 24 24s-10.7 24-24 24-24-10.7-24-24 10.7-24 24-24zm121.2 231.8l-143 141.8c-4.7 4.7-12.3 4.6-17-.1l-82.6-83.3c-4.7-4.7-4.6-12.3.1-17L99.1 285c4.7-4.7 12.3-4.6 17 .1l46 46.4 106-105.2c4.7-4.7 12.3-4.6 17 .1l28.2 28.4c4.7 4.8 4.6 12.3-.1 17z"></path></svg>
 							<p class="cancel-btn-name">주문취소</p>
 						</button>
 					</div>
+					</c:if>
+					<c:if test="${order.order_state eq '취소신청1' or order.order_state eq '취소신청2' }">
+						<div class="cancelCheck cancelRequestMsg">
+							<div class="cancel-request-msg">
+								<svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="clipboard-check" class="svg-inline--fa fa-clipboard-check fa-w-12 stateCheck-icon" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path fill="currentColor" d="M336 64h-80c0-35.3-28.7-64-64-64s-64 28.7-64 64H48C21.5 64 0 85.5 0 112v352c0 26.5 21.5 48 48 48h288c26.5 0 48-21.5 48-48V112c0-26.5-21.5-48-48-48zM192 40c13.3 0 24 10.7 24 24s-10.7 24-24 24-24-10.7-24-24 10.7-24 24-24zm121.2 231.8l-143 141.8c-4.7 4.7-12.3 4.6-17-.1l-82.6-83.3c-4.7-4.7-4.6-12.3.1-17L99.1 285c4.7-4.7 12.3-4.6 17 .1l46 46.4 106-105.2c4.7-4.7 12.3-4.6 17 .1l28.2 28.4c4.7 4.8 4.6 12.3-.1 17z"></path></svg>
+								<p class="cancel-msg-name">주문 취소 요청이 접수되었습니다.</p>
+							</div>
+						</div>
+					</c:if>
 					
 					<!-- 주문취소 모달 -->
-					<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+					<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 					  <div class="modal-dialog">
 					    <div class="modal-content">
 					      <div class="modal-header">
-					        <h5 class="modal-title" id="exampleModalLabel">주문 취소</h5>
-					        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					        <h5 class="modal-title" id="staticBackdropLabel">주문 취소</h5>
+					        <button type="button" class="close c-request-1" data-dismiss="modal" aria-label="Close">
+					          <span aria-hidden="true">&times;</span>
+					        </button>
+					        <button type="button" class="close c-request-2" data-dismiss="modal" aria-label="Close" onclick="location.href='${path}/order/orderView.do?oNo=${order.order_no }'">
 					          <span aria-hidden="true">&times;</span>
 					        </button>
 					      </div>
 					      <div class="modal-body">
-					      	<div class="c-request-1">
-					        <form>
-					        	<input id="oNo" value="${order.order_no }"/>
-					        	<input id="oState" value="${order.order_state }"/>
-					          <div class="form-group col-md-4">
-							      <label for="inputState">사유 선택</label>
-							      <select id="inputState" class="form-control" style="width: initial;" >
-							      	<option selected>사유 선택</option>
-							        <option>사이즈, 제품, 수량 등 변경</option>
-							        <option>초과 구매</option>
-							        <option>타사 제품 구매</option>
-							      </select>
-							    </div>
-					        </form>
-					        </div>
-					        
-					        
-					        <div class="c-request-2">
-					        	<h5>주문 취소 요청이 접수되었습니다.</h5>
-					        	<h5>승인되기까지 약 5분이상 소요될 수 있습니다.</h5>
-					        	<br>
-					        	<h5>확인 메일이 전송될 예정입니다.</h5>
-					        	<h5 class="order-email"></h5>
-					        </div>
-					        
+					        <div class="c-request-1">
+					          <form>
+					            <input type="hidden" id="oNo" value="${order.order_no }"/>
+					            <input type="hidden" id="oState" value="${order.order_state }"/>
+					            <div class="form-group modal-select">
+						            <label for="inputState">사유 선택</label>
+						            <select id="inputState" class="form-control" >
+						              <option selected>사유 선택</option>
+						              <option>사이즈, 제품, 수량 등 변경</option>
+						              <option>초과 구매</option>
+						              <option>타사 제품 구매</option>
+						            </select>
+						          </div>
+					          </form>
+					          </div>
+					          
+					          
+					          <div class="c-request-2 c-request-success">
+					            <h4 class="c-s-content c-s-title">주문 취소 요청이 접수되었습니다.</h4>
+					            <br>
+					            <h5 class="c-s-content">확인 메일이 전송될 예정입니다.</h5>
+					            <h5 class="order-email"></h5>
+					          </div>
 					      </div>
 					      <div class="modal-footer">
-						        <button type="button" class="btn btn-secondary" data-dismiss="modal">주문내역으로 돌아가기</button>
-						        <button type="button" class="btn btn-primary c-request-1" id="cancel-request">확인</button>
+					        <button id="cancel-back" type="button" class="btn btn-indigo c-request-1" data-dismiss="modal">주문내역으로 돌아가기</button>
+					        <button type="button" class="btn btn-light-blue c-request-1" id="cancel-request">취소 신청</button>
+					        <button id="cancel-back" type="button" class="btn btn-light-blue c-request-2" data-dismiss="modal" onclick="location.href='${path}/order/orderView.do?oNo=${order.order_no }'">확인</button>
 					      </div>
 					    </div>
 					  </div>
@@ -122,13 +133,20 @@
 									$(".c-request-1").css("display","none");
 									$(".c-request-2").css("display","block");
 									$(".order-email").html(data);
+									//$("#cancel-back").attr("id","cancel-success");
 								}
 							})
-						})
+						});
+						
+						/* $("#cancel-success").click(e=>{
+							window.opener.parent.location.reload(); // 부모창 새로고침 
+							window.self.close(); // 현재 팝업 닫기
+
+						}) */
 					</script>
 					
 					
-					</c:if>
+					
 				</div>
 			</div>
 			
@@ -161,7 +179,7 @@
 											<c:choose>
 											
 											<%-- 주문확인 일 때 --%>
-											<c:when test="${order.order_state eq '주문확인'}">
+											<c:when test="${order.order_state eq '주문확인' or order.order_state eq '취소신청1'}">
 											<!-- 주문확인 -->
 											<div class="statecourse">
 												<div class="state-icon-group">
@@ -229,7 +247,7 @@
 											</c:when>
 											
 											<%-- 제품준비중일때--%>
-											<c:when test="${order.order_state eq '제품준비중'}">
+											<c:when test="${order.order_state eq '제품준비중' or order.order_state eq '취소신청2'}">
 											<!-- 주문확인 -->
 											<div class="statecourse">
 												<div class="state-icon-group">
@@ -447,7 +465,12 @@
 									
 										<div class="delivery-content">
 										<!-- 	<p class="state-title">주문 진행 상태</p> -->
+										<c:if test="${order.order_state ne '취소신청1' and order.order_state ne '취소신청2' }">
 											<h4 class="state-content-text"><c:out value="${order.order_state }"/></h4>
+										</c:if>
+										<c:if test="${order.order_state eq '취소신청1' or order.order_state eq '취소신청2' }">
+											<h4 class="state-content-text">주문 취소 요청이 처리중입니다.</h4>
+										</c:if>
 										</div>
 									</div>
 								</div>
@@ -529,6 +552,7 @@
 								</div>
 									<div id="pro-con" class="product-container">
 								<c:forEach items="${order.odList }" var="od">
+									<div class="orderView-product">
 										<div class="od-product-content">
 										<div class="product-img">
 											<img src="${path }/resources/images/rooms/${od.product_pic}">
@@ -544,9 +568,16 @@
 													<p class="price-amount"><fmt:setLocale value="ko_KR"/><fmt:formatNumber type="currency" value="${od.product_qty * od.product_price }"/></p>
 											</div>
 											<p class="product-text"><c:out value="${od.product_color }"/></p>
-											<p class="product-code"><c:out value="${od.product_no }"/></p>
 										</div>
 										</div>
+										<c:if test="${order.order_state eq '배송완료' }">
+											<div class="od-review-btn">
+												<input type="hidden" value="${od.order_detail_no }"/>
+												<button type="button" class="btn btn-outline-default waves-effect btnsize review_do">리뷰쓰기</button>
+											</div>
+										</c:if>
+									</div>
+										
 								</c:forEach>
 									</div>
 							</div>
@@ -598,7 +629,7 @@
 										<c:choose>
 											
 											<%-- 주문확인 일 때 --%>
-											<c:when test="${order.order_state eq '주문확인'}">
+											<c:when test="${order.order_state eq '주문확인' or order.order_state eq '취소신청1'}">
 												<!-- 주문확인 -->
 												<div class="statecourse">
 													<div class="state-icon-group">
@@ -671,7 +702,7 @@
 											</c:when>
 											
 											<%-- 제품준비중일때--%>
-											<c:when test="${order.order_state eq '제품준비중'}">
+											<c:when test="${order.order_state eq '제품준비중' or order.order_state eq '취소신청2'}">
 												<!-- 주문확인 -->
 												<div class="statecourse">
 													<div class="state-icon-group">
@@ -919,6 +950,9 @@
 											<h4 class="state-content-text"><c:out value="${order.order_state }"/></h4>
 										</div>
 									</div> --%>
+									<c:if test="${order.order_state eq '취소신청1' or order.order_state eq '취소신청2' }">
+										<h4 class="state-content-text">주문 취소 요청이 처리중입니다.</h4>
+									</c:if>
 								</div>
 								<div class="delivery_btn">
 									<button type="button" class="btn btn-light-blue btn-center">배송 위치 확인</button>
@@ -937,24 +971,31 @@
 									<h5>제품</h5>
 								</div>
 								<c:forEach items="${order.odList }" var="od">
-								<div class="product-container">
-									<div class="product-img">
-										<img src="${path }/resources/images/rooms/${od.product_pic}">
-									</div>
-									<div class="product-info">
-										<p class="product-text"><c:out value="${od.product_name }"/></p>
-										<p class="product-text"><c:out value="${od.small_category_content }"/></p>
-										<div class="price-container">
-											<div>
-												<p class="product-price"><fmt:setLocale value="ko_KR"/><fmt:formatNumber type="currency" value="${od.product_price}" /></p>
-												<p class="product-price">수량 : <c:out value="${od.product_qty }"/></p>
+									<div class="orderView-product">
+										<div class="product-container">
+											<div class="product-img">
+												<img src="${path }/resources/images/rooms/${od.product_pic}">
 											</div>
-												<p class="price-amount"><fmt:setLocale value="ko_KR"/><fmt:formatNumber type="currency" value="${od.product_qty * od.product_price }"/></p>
+											<div class="product-info">
+												<p class="product-text"><c:out value="${od.product_name }"/></p>
+												<p class="product-text"><c:out value="${od.small_category_content }"/></p>
+												<div class="price-container">
+													<div>
+														<p class="product-price"><fmt:setLocale value="ko_KR"/><fmt:formatNumber type="currency" value="${od.product_price}" /></p>
+														<p class="product-price">수량 : <c:out value="${od.product_qty }"/></p>
+													</div>
+														<p class="price-amount"><fmt:setLocale value="ko_KR"/><fmt:formatNumber type="currency" value="${od.product_qty * od.product_price }"/></p>
+												</div>
+												<p class="product-text"><c:out value="${od.product_color }"/></p>
+											</div>
 										</div>
-										<p class="product-text"><c:out value="${od.product_color }"/></p>
-										<p class="product-code"><c:out value="${od.product_no }"/></p>
+										<c:if test="${order.order_state eq '배송완료' }">
+											<div class="od-review-btn">
+												<input type="hidden" value="${od.order_detail_no }"/>
+												<button type="button" class="btn btn-outline-default waves-effect btnsize review_do">리뷰쓰기</button>
+											</div>
+										</c:if>
 									</div>
-								</div>
 								</c:forEach>
 							</div>
 						</div>
@@ -990,7 +1031,6 @@
 												<p class="price-amount"><fmt:setLocale value="ko_KR"/><fmt:formatNumber type="currency" value="${od.product_qty * od.product_price }"/></p>
 										</div>
 										<p class="product-text"><c:out value="${od.product_color }"/></p>
-										<p class="product-code"><c:out value="${od.product_no }"/></p>
 									</div>
 								</div>
 								</c:forEach>
@@ -1081,6 +1121,30 @@
 			
 		</div>
 	</div>
+	 <!-- Button trigger modal -->
+	<button id="modalBtn" type="button" class="btn btn-primary" data-toggle="modal" data-target="#basicExampleModal" style="display:none;">
+	    Launch demo modal
+	 </button>
+	<!-- Modal -->
+	<div class="modal fade" id="basicExampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+	    aria-hidden="true">
+	    <div class="modal-dialog" role="document">
+	      <div class="modal-content">
+	        <div class="modal-header">
+	          <h5 class="modal-title" id="exampleModalLabel">로그인 후 사용 가능합니다.</h5>
+	          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	            <span aria-hidden="true">&times;</span>
+	          </button>
+	        </div>
+	        <div class="modal-body">
+	         	리뷰 작성은 로그인 후 가능합니다.
+	        </div>
+	        <div class="modal-footer">
+	          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+	        </div>
+	      </div>
+	    </div>
+	  </div>
 </section>
 
 <script type="text/javascript">
@@ -1111,6 +1175,27 @@
 			$("#p-minus").css("display","block");
 			$(".mobile-line").css("display","none");
 		}
+	});
+	
+	$(".review_do").click(e=>{
+		console.log("클릭");
+		//구매한 각각의 상품에 있는 리뷰쓰기를 눌렀을 때 그에 해당하는 orderdetail_no를 받아온다.
+		var odNo = $(event.target).parent().children("input").val();
+		console.log(odNo);
+		$.ajax({
+			url:"${path}/review/reviewLoginCheck.do",
+			success:data => {
+				console.log(data);
+				if(data == true){
+					location.href="${path}/review/reviewForm.do?odNo="+odNo;
+				}else{
+					console.log("456");
+					$("#modalBtn").trigger("click");
+				}
+			}
+		})
+		
+		
 	})
 </script>
 
