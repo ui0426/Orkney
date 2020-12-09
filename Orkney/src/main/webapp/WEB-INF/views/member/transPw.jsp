@@ -55,6 +55,7 @@
     content: "";
     width:88px;
     height:44px;
+    cursor:pointer;
     }
     #svgicon{
     height: 2.7rem;
@@ -138,20 +139,21 @@
             <div id="rightForm">
                 <div class="transPw" id="sPw">
                     <div>
-                            <form action=""  class="transform">
+                            <form action="${path}/member/transPwLast.do"  class="transform" method="post">
                         <div class="md-form mdmar mb">
-                            <input type="password" id="transPwin" class="form-control bb">
+                            <input type="password" id="transPwin" class="form-control bb" name="pw">
                             <label for="fname" class="labcolor fc">새로운 비밀번호</label>
                             <span class="errorspan disno" id="transspan">계속하기 위해 비밀번호가 필요합니다.</span>
                        </div>
                        <div  class="md-form mdmar">
-                            <input type="password" id="transPwinCh" class="form-control bb">
+                            <input type="password" id="transPwinCh" class="form-control bb" name="pwch">
                             <label for="fname2" class="labcolor fc">새로운 비밀번호 확인</label>
                             <span class="errorspan disno" id="transchspan">비밀번호가 일치하지 않습니다.</span>
                         </div>
                         <div>
-                        	<button type="button" class="btn btn-primary btnattr">비밀번호 재설정</button>
+                        	<button type="submit" class="btn btn-primary btnattr" onclick="return pwCheck();">비밀번호 재설정</button>
                         </div>
+                        <input type="hidden" value="${id}" name="id">
                             </form>
                         </div>
                         </div>
@@ -161,7 +163,8 @@
         </div>
         </div>
    <script>
-
+	let pw=false;
+	let pwCh=false;
         $("#transPwin").on("blur",e=>{//비밀번호가 안적혔을 때
             var v=$(e.target).val().length;
        		var val=$(e.target).val();
@@ -172,6 +175,7 @@
                 $(e.target).addClass("errored");
                 $("#transspan").css("display","block");
                 $("#transsapn").html("비밀번호를 입력해주세요.");
+                pw=false;
            }else{
             $(e.target).removeClass("errored");
             $("#transspan").css("display","none");
@@ -180,10 +184,12 @@
         	   if((v>=8&&v<=20)&&t1.test(val)&&t2.test(val)&&t3.test(val)){
                    $(e.target).removeClass("errored");
                    $("#transspan").css("display","none");
+                   pw=true;
                }else{
                    $(e.target).addClass("errored");
                    $("#transspan").css("display","block");
                    $("#transspan").html("비밀번호 형식이 올바르지 않습니다.");
+                   pw=false;
            }
            }
         })
@@ -193,9 +199,11 @@
         	if(newPw!=chPw){
         		$(e.target).addClass("errored");
         		$("#transchspan").css("display","block");
+        		pwCh=false;
         	}else{
         		$(e.target).removeClass("errored");
         		$("#transchspan").css("display","none");
+        		pwCh=true;
         	}
         })
         $("#transPwin").keyup(e=>{
@@ -204,6 +212,7 @@
         	if(newPw==chPw){
         		$("#transchspan").css("display","none");
         		$("#transPwinCh").removeClass("errored");
+        		pwCh=true;
         	}
         })
         
@@ -253,6 +262,16 @@
                 $("#transspan").css("display","block");
                 $("#transspan").html("비밀번호 형식이 올바르지 않습니다.");
             }
+        })
+        
+        function pwCheck(){
+        	if(pw==true&&pwCh==true){
+        		return true;
+        	}
+        	return false;
+        }
+        $(".logoimg").click(e=>{
+        	location.href="${path}";
         })
 	</script>
 </body>

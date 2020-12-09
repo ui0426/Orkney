@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.palette.orkney.member.model.dao.MemberDao;
 import com.palette.orkney.member.model.vo.Addr;
+import com.palette.orkney.member.model.vo.Member;
 
 @Service
 public class MemberServiceImpl implements MemberService {
@@ -118,6 +119,70 @@ public class MemberServiceImpl implements MemberService {
 	public List<Addr> addAddrList(String mNo) {
 		return dao.addAddrList(session, mNo);
 		
+	}
+	
+	@Transactional
+	@Override
+	public int insertSignup(Map userData, Map snsData) {
+		// TODO Auto-generated method stub
+		int result=dao.insertSignup(session, userData);
+		if(result>0) {
+			snsData.put("mNo",userData.get("mNo"));
+			dao.insertSnsLogin(session, snsData);
+		}
+		return result;
+	}
+
+	@Override
+	public Map snsUserInfo(String userId) {
+		// TODO Auto-generated method stub
+		return dao.snsUserInfo(session,userId);
+	}
+
+	@Override
+	public int updateSnsId(Map snsData) {
+		// TODO Auto-generated method stub
+		return dao.updateSnsId(session,snsData);
+	}
+
+	@Override
+	public int defaultWishList(String mNo) {
+		// TODO Auto-generated method stub
+		return dao.defaultWishList(session, mNo);
+	}
+
+	@Override
+	public Map emailCh(Map id) {
+		// TODO Auto-generated method stub
+		return dao.emailCh(session,id);
+	}
+
+	@Override
+	public int transPwch(Map data) {
+		// TODO Auto-generated method stub
+		return dao.transPwch(session,data);
+	}
+
+	public int updateMemberPersonal(Map updateInformation) {
+		return dao.updateMemberPersonal(session, updateInformation);
+	}
+
+	//연락처 수정
+	@Override
+	public int updateMemberContact(Map<String, Object> updateInformation) {
+		return dao.updateMemberContact(session, updateInformation);
+	}
+
+	//현재 로그인 된 유저 정보 받아오기
+	@Override
+	public Member currentMemberInformation(String mNo) {
+		return dao.currentMemberInformation(session, mNo);
+	}
+
+	//패스워드 수정
+	@Override
+	public int updateMemberPassword(Map<String, Object> updateInformation) {
+		return dao.updateMemberPassword(session, updateInformation);
 	}
 	
 	

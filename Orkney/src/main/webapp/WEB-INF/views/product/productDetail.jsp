@@ -144,7 +144,7 @@
 								aria-expanded="false" aria-controls="collapseThree3">
 
 								<div class="row justify-content-between">
-									<h5 class="mb-0 dark-grey-text col">고지사항</h5>
+									<h5 class="mb-0 dark-grey-text col">공지사항</h5>
 									<i class="fas fa-angle-down rotate-icon dark-grey-text col-1"></i>
 
 								</div>

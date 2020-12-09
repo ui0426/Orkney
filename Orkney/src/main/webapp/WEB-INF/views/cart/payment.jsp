@@ -69,8 +69,40 @@
         <div class="section1">
             <div class="etc-title">
                   <span>배송지</span>   
-                  <button class="btn2">회원정보와 동일하게 채우기</button>
+                  <button class="btn2">회원정보입력</button>
+                  <button type="button" class="btn2" data-toggle="modal" data-target="#fullHeightModalRight">배송지조회 </button>
             </div>
+            
+
+
+<!-- Full Height Modal Right -->
+<div class="modal fade right" id="fullHeightModalRight" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+
+  <!-- Add class .modal-full-height and then add class .modal-right (or other classes from list above) to set a position to the modal -->
+  <div class="modal-dialog modal-full-height modal-right" role="document">
+
+
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title w-100" id="myModalLabel">Modal title</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      
+      <div class="modal-body">...</div>
+      
+      <div class="modal-footer justify-content-center">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Full Height Modal Right -->
+
+
             <div class="line1"></div>
             <div class="field">
                 <span class="first-div">받는분</span>
@@ -99,9 +131,39 @@
             </div>
 
             <div class="field">
-                <div class="first-div">배송메모</div>
-                <div><input type="text" class="input3 none-line"></div>
+                <div class="first-div">배송메모</div>                	
+                <div class="input-vertical">
+                	<input type="text" class="input3 none-line" id="message-input">
+                	<div class="messages" id="messages" style="display: none;">
+                		<div class="preset" id="preset1">배송 전에 미리 연락 바랍니다.</div>
+                		<div class="preset" id="preset2">부재시 경비실에 맡겨주세요.</div>
+                		<div class="preset" id="preset3">부재시 전화 주시거나 문자 남겨 주세요.</div>
+                	</div>
+                </div>
             </div>
+            <script>       
+            $("#message-input").click(e=>{
+                $(".messages").show();            
+            });    
+            $("#preset1").click(e=>{
+                $("#message-input").attr({
+                	"value":"배송 전에 미리 연락 바랍니다."
+                });                 
+            $("#messages").hide();            
+            });
+            $("#preset2").click(e=>{
+                $("#message-input").attr({
+                	"value":"부재시 경비실에 맡겨주세요."
+                });            
+                    $("#messages").hide();            
+            });
+            $("#preset3").click(e=>{
+                $("#message-input").attr({
+                	"value":"부재시 전화 주시거나 문자 남겨 주세요."
+                });    
+                    $("#messages").hide();    
+            });
+            </script>
             
              <div class="field">
                 <div class="checkdiv  marb">  
@@ -189,16 +251,20 @@
         <div class="section1">
             <div class="etc-title">결제 수단</div>
             <div class="line1"></div> 
-            <div class="field">
-                <div class="last-field"></div>
-                <button id="credit-card" onclick="location.href='${path }/cart/creditpay.do'">
-                    <img src="${path}/resources/img/credit-card.png" alt="">
-                    <div class="card-title">카드</div>
-                </button>
-                <button id="coin" >                
-                    <img src="${path}/resources/img/money.png" alt="">
-                    <div class="coin-title">무통장입금</div>
-                </button>
+            <div class="field">                                
+                <div class="payment_panel">
+                	<input type="radio" name="options" id="option1" autocomplete="off" checked autocompleted style="display: none">
+                	<label class="pay-label" for="option1">
+                		<img alt="" src="${path}/resources/img/credit-card.png">
+                		<div class="payment-title">신용카드</div>
+                	</label>
+                	
+                	<input type="radio" name="options" id="option2" autocomplete="off" checked autocompleted style="display: none">
+                	<label class="pay-label" for="option2">
+                		<img alt="" src="${path}/resources/img/money.png" alt="">
+                		<div class="payment-title">무통장</div>
+                	</label>                	
+                </div>                                 
             </div>                                         
         </div>
         
@@ -265,7 +331,7 @@
                             </div> 
             </div>
         </div>
-            <button type="button" class="btn btn-dark event-bu"  onclick="location.href='${path }/cart/complete.do'"><span class="event-sp">결제하기</span></button> 
+            <button type="button" class="btn btn-dark event-bu"  onclick="location.href='${path }/cart/creditpay.do'"><span class="event-sp">결제하기</span></button> 
     </div>
 </section>
 

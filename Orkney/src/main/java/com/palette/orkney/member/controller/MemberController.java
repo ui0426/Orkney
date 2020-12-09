@@ -1,23 +1,31 @@
 package com.palette.orkney.member.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import com.palette.orkney.member.model.service.MemberService;
 import com.palette.orkney.member.model.vo.Addr;
+import com.palette.orkney.member.model.vo.Member;
 
 @SessionAttributes("login")
 @Controller
@@ -30,7 +38,6 @@ public class MemberController {
 	
 	@RequestMapping("/member/memberLogin.do")
 	public String login() {
-		System.out.println(pwEncoder.encode("1234"));
 		return "member/login";
 	}
 	
@@ -39,16 +46,45 @@ public class MemberController {
 		return "member/signup";
 	}
 	
+	//이메일로 보낸 a태그 안에 값들이 맞으면 비밀번호 변경 페이지로 이동
 	@RequestMapping("/member/transPassword.do")
-	public String transPw() {
-		return "member/transPw";
+	public String transPw(@RequestParam(value="key") String key,@RequestParam(value="id") String id,Model m
+			,@CookieValue(value="trans") Cookie c,HttpServletResponse response) {
+		String adr="";
+		if(c.getValue().equals(key)) {
+			adr="member/transPw";
+		}else {
+			adr="error/transError";
+		}
+		m.addAttribute("id",id);
+//		c.setMaxAge(0);
+//		c.setPath("/");
+//		response.addCookie(c);
+		
+		return adr;
 	}
 	@RequestMapping("/member/memberLogout.do")
-	public String logout(SessionStatus ss) {
-		System.out.println(1234);
+	public String logout(SessionStatus ss,Model m) {
+
+		Map login=(Map)m.getAttribute("login");
+		String type=(String)login.get("SIGNUP_TYPE");
+		if(type.equals("구글")) {
+		String token=(String)login.get("ACCESS_TOKEN");
+		System.out.println(token);
+		System.out.println();
+		Map<String, String> result = new HashMap<>();
+		RestTemplate restTemplate = new RestTemplate();
+		String requestUrl = UriComponentsBuilder.fromHttpUrl("https://oauth2.googleapis.com/revoke")
+				.queryParam("token", token).encode().toUriString();
+		final String resultJson = restTemplate.postForObject(requestUrl,null,String.class);
+		result.put("result", "success");
+		result.put("resultJson", resultJson);
+		System.out.println(result);
+		}
 		if(!ss.isComplete()) {
 			ss.setComplete();
 		}
+		
 		return "redirect:/";
 	}
 	//로그인
@@ -58,12 +94,8 @@ public class MemberController {
 		Map login=service.loginCheck(id);
 		
 		if(login!=null&&pwEncoder.matches(pw,(String)login.get("MEMBER_PWD"))) {
-			String no=(String)login.get("MEMBER_NO");
-			List<String> chatRoomNo=service.chatRoomNo(no);
-			List chatData=service.chatData(chatRoomNo);
-			login.put("chatData",chatData);
-			
 			//가입할 때 주소 가져오기
+			String no=(String)login.get("MEMBER_NO");
 			String address = service.getAddress(no);
 			login.put("address", address);
 			
@@ -77,6 +109,21 @@ public class MemberController {
 		
 		return mv;
 	}
+	
+	//idcheck
+	@RequestMapping("/member/idCheck.do")
+	@ResponseBody
+	public boolean idCheck(String id, String pw) {
+		
+		Map login=service.loginCheck(id);
+		boolean flag=false;
+		if(login!=null&&pwEncoder.matches(pw,(String)login.get("MEMBER_PWD"))) {
+				flag=true;
+		}else {
+				flag=false;
+		}
+		return flag;
+	}
 
 	@RequestMapping("/member/insertSignup.do")
 	public ModelAndView insertSignup(@RequestParam Map userInfo,@RequestParam(value="adr1") String adr1,@RequestParam(value="adr2") String adr2, ModelAndView mv) {
@@ -89,6 +136,7 @@ public class MemberController {
 		int insertUser=service.insertSignup(userInfo);
 		if(insertUser>0) {
 			Map user=service.searchUser((String)userInfo.get("email"));
+			int wish=service.defaultWishList((String)user.get("MEMBER_NO"));
 			service.addAdr(userInfo);
 			mv.addObject("login",user);
 		}
@@ -128,6 +176,7 @@ public class MemberController {
 		}
 		System.out.println(list2);
 		mv.addObject("addrList", list2);
+//		mv.setViewName("member/mypage");
 		mv.setViewName("member/mypage");
 		
 		return mv;
@@ -136,6 +185,9 @@ public class MemberController {
 	//로그아웃(hy)
 	@RequestMapping("/member/loginout.do")	
 	public String loginout(SessionStatus status) {
+		
+		
+		
 		if(!status.isComplete()) status.setComplete();
 		
 		return "redirect:/";
@@ -147,4 +199,151 @@ public class MemberController {
 		
 		return service.chatAllData(id);
 	}
+	
+
+	//비밀번호 찾기 이메일 찾기용
+	@RequestMapping("/member/emailCh.do")
+	@ResponseBody
+	public boolean emailCh(@RequestParam Map data) {
+		boolean flag=false;
+		
+		Map emailCh=service.emailCh(data);
+		
+		if(emailCh!=null) flag=true;
+		
+		return flag;
+	}
+	
+	//비밀번호 수정 로직 과정 >> 이메일로 비밀번호 변경시
+	@RequestMapping("/member/transPwLast.do")
+	public ModelAndView transPwch(ModelAndView mv,@RequestParam Map data,@CookieValue(value="trans") Cookie c
+			,HttpServletResponse response) {
+		
+		String pw=(String)data.get("pw");
+		String pwbc=pwEncoder.encode(pw);
+		data.put("pw",pwbc);
+		
+		int pwChange=service.transPwch(data);
+		
+		if(pwChange>0) {
+			mv.setViewName("redirect:/");
+			c.setMaxAge(0);
+			c.setPath("/");
+			response.addCookie(c);
+		}else {
+			mv.addObject("msg","변경에 실패하였습니다.");
+			mv.addObject("loc","redirect:/");
+			mv.setViewName("common/msg");
+		}
+		
+			
+		return mv;
+	}
+	
+
+	//이름, 생일 수정
+	@RequestMapping("/member/updateMemberPersonal.do")
+	@ResponseBody
+	public Map updateMemberPersonal(@RequestParam Map<String, Object> updateInformation, HttpSession session) {
+		
+		Map login = ((Map)session.getAttribute("login")); //로그인 된 유저
+		
+		String mNo = (String)login.get("MEMBER_NO");
+		updateInformation.put("mNo", mNo);
+		
+		int result = service.updateMemberPersonal(updateInformation);
+		
+		Map data = new HashMap<String, Object>();
+		if(result > 0 ) { //정보수정 성공
+			data = updateInformation;
+			login.replace("MEMBER_NAME", updateInformation.get("name"));
+			login.replace("BIRTHDAY", updateInformation.get("birth"));
+			
+			String[] b = ((String)updateInformation.get("birth")).split("-");
+			System.out.println(b[0] + b[1] + b[2]);
+			String birthPar = b[0] + "년도 " + b[1] + "월 " + b[2] + "일";
+			data.replace("birth", birthPar);
+		} else {
+			System.out.println("정보수정 실패 어디로.......");
+		}
+		
+		return data;
+		
+	}
+	
+	//연락처 수정
+	@RequestMapping("/member/updateMemberContact.do")
+	@ResponseBody
+	public Map updateMemberContact(@RequestParam Map<String, Object> updateInformation, HttpSession session) {
+		
+		Map login = ((Map)session.getAttribute("login")); //로그인 된 유저
+		
+		String mNo = (String)login.get("MEMBER_NO");
+		updateInformation.put("mNo", mNo);
+		
+		int result = service.updateMemberContact(updateInformation);
+		
+		Map data = new HashMap<String, Object>();
+		if(result > 0 ) { //정보수정 성공
+			data = updateInformation;
+			login.replace("PHONE", updateInformation.get("phone"));
+		} else {
+			System.out.println("정보수정 실패 어디로.......");
+		}
+		
+		return data;
+	}
+	
+	//패스워드 수정
+	@RequestMapping("/member/updateMemberPassword.do")
+	@ResponseBody
+	public int updateMemberPassword(@RequestParam Map<String, Object> updateInformation, HttpSession session) {
+		Map login = ((Map)session.getAttribute("login")); //로그인 된 유저
+		
+		String mNo = (String)login.get("MEMBER_NO");
+		updateInformation.put("mNo", mNo);
+		
+		String pw = (String)updateInformation.get("originPw"); //입력받은 현재비번
+		System.out.println(pw);
+		
+		String newPw = pwEncoder.encode((String)updateInformation.get("newPw")); //입력받은 새 비번
+		
+		int result = 0;
+		System.out.println("매치값" + pwEncoder.matches(pw, (String)login.get("MEMBER_PWD")));
+		if(pwEncoder.matches(pw, (String)login.get("MEMBER_PWD"))) {
+			updateInformation.replace("newPwCk", newPw);
+			result = service.updateMemberPassword(updateInformation);
+			
+			if(result > 0 ) { //정보수정 성공
+				login.replace("MEMBER_PWD", newPw);
+			} else {
+				System.out.println("정보수정 실패 어디로.......");
+			}
+		} else { //현재비번이 틀렸을 경우
+			result = -2;
+		}
+		
+		
+		return result;
+	}
+	
+	//현재 로그인 된 유저 정보 받아오기
+	@RequestMapping("/member/currentMemberInformation.do")
+	@ResponseBody
+	public Member currentMemberInformation(HttpSession session) {
+		Map login = ((Map)session.getAttribute("login")); //로그인 된 유저
+		String mNo = (String)login.get("MEMBER_NO");
+		
+		
+		Member m = service.currentMemberInformation(mNo);
+		
+		System.out.println(m);
+		return m; //화면에서 널처리를 해줘야 하나?
+	}
+	
+//	//personal 업데이트 정보
+//	@RequestMapping("/member/personalJspUpdate.do")
+//	public String personalJspUpdate() {
+//		return "member/mypageDiv/personal.jsp";
+//	}
 }

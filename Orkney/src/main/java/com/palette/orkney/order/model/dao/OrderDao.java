@@ -15,4 +15,8 @@ public interface OrderDao {
 	Orders selectOrder(SqlSession session, String oNo);
 
 	List<OrderDetail> selectOrderDetail(SqlSession session, String oNo);
+	
+	int cancelRequest(SqlSession session, Orders order);
+	
+	String selectEmail(SqlSession session, String oNo);
 }

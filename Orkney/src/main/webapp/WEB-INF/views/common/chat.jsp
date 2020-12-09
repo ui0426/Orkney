@@ -163,7 +163,7 @@
 	function sendMessage() {//기본 메세지 일반 아이디 메세지 전송
 		var message=$("#message").val();
 		let room=$("#sendBtn").val();
-		console.log(room);
+		
 		var test={
 				type:"text",
 				user:id,
@@ -193,7 +193,7 @@
 		var ms=JSON.parse(data);
 		let div;
 		let div2;
-		console.log(ms);
+		
 		if(ms["newroom"]==null){
 		if(id==ms["user"]){//내가 보낸 메세지
 			div=$("#cloneDiv").clone();
@@ -218,7 +218,7 @@
 			$(div).find(".rtime").css('display','none');
 			$(div).find(".rcontent").html(ms["ms"]);
 			$("#sendBtn").val(ms["room"]);
-			console.log(ms["room"]);
+			
 			div2=$("#cloneDiv2").clone();
 			let logo2=$("#chatLogo2").clone();
 			$(logo2).css("display","flex");
@@ -235,7 +235,7 @@
 			$(div).css("style","display:grid;");
 			$(div).css("justify-content","flex-start");
 			//$(div).find(".rtime").css('display','none');
-			$(div).find(".rtime").html('3:30PM');
+			$(div).find(".rtime").html(fDate2(data[i]["CHAT_DATE"]));
 			$(div).find(".rcontent").html(ms["ms"]);
 		}
 		$(".mb").each((i,v)=>{//넘어온 room 값이 있는 채팅방에다가 값을 추가시킴.
@@ -341,7 +341,7 @@
 	    		type:"post",
 	    		data:{"memberNo":id,"roomNo":room},
 	    		success:data=>{
-	    			console.log(data);
+	    			
 	    			$(".mb").each((i,v)=>{
    		    		 if($(v).hasClass(room)){
    		    			let c=$(v).find("#ajaxData");
@@ -352,13 +352,15 @@
 	    					div=$("#cloneDiv").clone();
 	    					$(div).removeClass("rec");
 	    					$(div).css("style","display:grid;");
-	    					$(div).find(".rtime").html('3:30PM');
+	    					$(div).find(".rtime").html(fDate2(data[i]["CHAT_DATE"]));
 	    					$(div).find(".rcontent").html(data[i]["CHAT_CONTENT"]);
 	    				}else if(id!=data[i]["SENDER"]){
 	    					div=$("#cloneDiv").clone();
 	    					let logo=$("#chatLogo").clone();
+	    					$(logo).find(".time").html(fDate2(data[i]["CHAT_DATE"]));
 	    					$(div).removeClass("rec");
 	    					$(div).css("style","display:grid;");
+	    					$(div).find(".rtime").html(fDate2(data[i]["CHAT_DATE"]));
 	    					$(div).css("justify-content","flex-start");
 	    					$(div).prepend(logo);
 	    					$(div).find(".rtime").css('display','none');
@@ -412,12 +414,14 @@
 			 url:"${path}/member/chatAllData.do",
 			 data:{'id':id},
 			 success:data=>{
+				
 				 $("#chatlistAll").html('');
 				 for(let i=0;i<data.length;i++){
 				 let chatDiv=$(".chatClone").clone(true);
+				 let size=data[i].length-1;
 				 $(chatDiv).removeClass("chatClone");
 				 $(chatDiv).find("#chatContent").html(data[i][0]["CHAT_CONTENT"]);
-				 $(chatDiv).find("#dateData").html(fDate(data[i][0]["CHAT_DATE"]));
+				 $(chatDiv).find("#dateData").html(fDate(data[i][size]["CHAT_DATE"]));
 				 $(chatDiv).find("[type='hidden']").val(data[i][0]["CHAT_ROOM"]);
 				 b[i]=chatDiv;
 				 }
@@ -434,13 +438,14 @@
 			 url:"${path}/member/chatAllData.do",
 			 data:{'id':id},
 			 success:data=>{
-				 console.log(data);
+				 
 				 $("#chatlistAll2").html('');
 				 for(let i=0;i<data.length;i++){
 				 let chatDiv=$(".chatClone").clone(true);
 				 $(chatDiv).removeClass("chatClone");
+				 let size=data[i].length-1;
 				 $(chatDiv).find("#chatContent").html(data[i][0]["CHAT_CONTENT"]);
-				 $(chatDiv).find("#dateData").html(fDate(data[i][0]["CHAT_DATE"]));
+				 $(chatDiv).find("#dateData").html(fDate(data[i][size]["CHAT_DATE"]));
 				 $(chatDiv).find("[type='hidden']").val(data[i][0]["CHAT_ROOM"]);
 				 b[i]=chatDiv;
 				 }
@@ -481,6 +486,28 @@
     	let reDate;
     	reDate=(date.getMonth()+1)+"/"+date.getDate();
     	return reDate;	
+    }
+    function fDate2(b){
+    	let date=new Date(b);
+    	let h=date.getHours();
+    	let m=date.getMinutes();
+    	if(m<10){
+			m="0"+m;	
+		}
+    	
+    	if(h>12){
+    		let dd=(h-12);
+    		if(dd<10){
+    			dd="0"+dd;
+    		}
+    		return dd+":"+m+"&nbspPM";
+        }else{
+        	if(h<10){
+    			h="0"+h;
+    		}
+            return h+":"+m+"&nbspAM";
+        }
+    	
     }
     
     

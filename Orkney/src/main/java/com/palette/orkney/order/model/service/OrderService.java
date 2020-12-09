@@ -13,4 +13,8 @@ public interface OrderService {
 	Orders selectOrder(String oNo);
 	
 	List<OrderDetail> selectOrderDetail(String oNo);
+	
+	int cancelRequest(Orders order);
+	
+	String selectEmail(String oNo);
 }

@@ -21,5 +21,14 @@ public class Orders {
 	private int order_qty;
 	private int total_price;
 	private String order_state;
+	private String order_memo;
+	private String payment_method;
+	private String cancel_reason;
+	private String address_post;
+	private String address_addr;
+	private String address_detail;
 	private List<OrderDetail> odList;
+	
+	//member
+	private String member_name;
 }

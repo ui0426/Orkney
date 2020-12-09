@@ -26,6 +26,16 @@ public class OrderDaoImpl implements OrderDao {
 	public List<OrderDetail> selectOrderDetail(SqlSession session, String oNo) {
 		return session.selectList("order.selectOrderDetail", oNo);
 	}
+
+	@Override
+	public int cancelRequest(SqlSession session, Orders order) {
+		return session.update("order.updatecancelRequest", order);
+	}
+
+	@Override
+	public String selectEmail(SqlSession session, String oNo) {
+		return session.selectOne("order.selectEmail", oNo);
+	}
 	
 	
 	

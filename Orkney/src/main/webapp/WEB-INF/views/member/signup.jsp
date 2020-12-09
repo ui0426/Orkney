@@ -34,7 +34,7 @@
                 <div class="nonespace"></div>
                 <div class="joindata">
                     <div>
-                        <form action="${path }/member/insertSignup.do">
+                        <form action="${path }/member/insertSignup.do" method="post">
                             <div class="emailcheck">
                                 <fieldset>
                                     <legend class="marb lgfs">ORKNEY Family에 가입하시겠어요?</legend>
@@ -322,6 +322,23 @@
                 email=false;
             }
            }
+           $.ajax({
+			   url:"${path}/member/emailCh.do",
+			   data:{"id":$("#email").val()},
+			   success: data => {
+				   if(data==false){
+					console.log(data);
+				   }else{
+					   let a=$(e.target).val();
+					   let reg=/^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/g;
+					   if(reg.test(a)){
+					   $(e.target).addClass("errorred");
+				   $("#emailspan").html('이메일이 존재합니다.');
+				   $("#emailspan").css('display','block');
+					   }
+				   }
+				}
+		   }) 
         })
 
         $("#pw").on("blur",e=>{//비밀번호가 안적혔을 때

@@ -84,6 +84,7 @@
 		</div>
 	</div>
 
+
 	<div class="populartitle">인기상품</div>
 	<div class="popularProduct">
 
@@ -106,19 +107,16 @@
 			<button type="button" class="btn btn-dark event-bu1 event-target"><span class="event-sp">조명</span></button>
 			<button type="button" class="btn btn-dark event-bu1 event-target"><span class="event-sp">식탁/책상</span></button>
 		</div>
-
 		<div class="pp-img">
 			<div class="pp-img-mg-id oneClass">
 				<div class="pp-img-ib tjf ">
 					<img class="pp-img-wdhe" src="">
 				</div>
 			</div>
-
 			<div class="pp-img-mg-id twoClass">
 				<div class="pp-img-ib wls ">
 					<img class="pp-img-wdhe" src="">
 				</div>
-
 			</div>
 			<div class="pp-img-mg-id threeClass">
 				<div class="pp-img-ib gh ">
@@ -345,9 +343,7 @@
 		navigation : {
 			nextEl : '.swiper-button-next',
 			prevEl : '.swiper-button-prev',
-		},
-		
-		
+		},		
 		//반응형
 		breakpointsInverse : true,
 		breakpoints : {
