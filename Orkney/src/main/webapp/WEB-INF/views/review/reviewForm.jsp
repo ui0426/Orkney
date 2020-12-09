@@ -167,7 +167,7 @@ display:flex; }
 						<div>
 							<div class="filebox review-file">
 								<div id="file1">
-								<input type="file" id="image" accept="image/*" onchange="setThumbnail(event);"/> 
+								<input type="file" id="review_img" name="review_img" accept="image/*" onchange="setThumbnail(event);"/> 
 								</div>
 							</div>
 							<div id="image_container"></div> 

@@ -570,7 +570,7 @@
 											<p class="product-text"><c:out value="${od.product_color }"/></p>
 										</div>
 										</div>
-										<c:if test="${order.order_state eq '배송완료' }">
+										<c:if test="${order.order_state eq '배송완료' and od.review_no eq 0 }">
 											<div class="od-review-btn">
 												<input type="hidden" value="${od.order_detail_no }"/>
 												<button type="button" class="btn btn-outline-default waves-effect btnsize review_do">리뷰쓰기</button>
@@ -989,7 +989,7 @@
 												<p class="product-text"><c:out value="${od.product_color }"/></p>
 											</div>
 										</div>
-										<c:if test="${order.order_state eq '배송완료' }">
+										<c:if test="${order.order_state eq '배송완료' and od.review_no eq 0 }">
 											<div class="od-review-btn">
 												<input type="hidden" value="${od.order_detail_no }"/>
 												<button type="button" class="btn btn-outline-default waves-effect btnsize review_do">리뷰쓰기</button>

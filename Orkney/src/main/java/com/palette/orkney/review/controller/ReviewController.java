@@ -56,14 +56,14 @@ public class ReviewController {
 	}
 	
 	@RequestMapping(value="/review/reviewInsert.do", method = RequestMethod.POST)
-	public ModelAndView insertReview(Review review, ModelAndView mv, @RequestParam(value="fileupload", required=false) MultipartFile[] multi, HttpSession session ) {
+	public ModelAndView insertReview(Review review, ModelAndView mv, @RequestParam(value="review_img", required=false) MultipartFile[] multi, HttpSession session ) {
 		Map login = (Map)session.getAttribute("login");
 		review.setMember_no((String)login.get("MEMBER_NO"));
 		System.out.println("주문디테일 번호 : "+review.getOrder_detail_no());
 		System.out.println("상품번호 : "+review.getProduct_no());
 		System.out.println("별점 : "+review.getProduct_grade());
 		System.out.println("리뷰내용 : "+review.getReview_content());
-		
+		System.out.println("multi : "+multi);
 
 		//저장경로 지정
 		String path=session.getServletContext().getRealPath("/resources/upload/review");
@@ -75,9 +75,11 @@ public class ReviewController {
 		List<ReviewImage> files=new ArrayList();
 		
 		for(MultipartFile f : multi) {
+			System.out.println("file "+f);
 			if(!f.isEmpty()) {
 				String originalName = f.getOriginalFilename();
 				String ext = originalName.substring(originalName.lastIndexOf(".")+1);
+				System.out.println(ext);
 				
 				SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd_HHmmssSSS");
 				int rndValue = (int)(Math.random()*10000);

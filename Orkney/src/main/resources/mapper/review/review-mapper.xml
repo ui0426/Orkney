@@ -11,12 +11,12 @@
 	<insert id="insertReview" parameterType="review">
 		INSERT INTO REVIEW VALUES(R_SEQ.NEXTVAL, #{product_grade}, #{review_content}, #{member_no}, #{product_no}, DEFAULT, #{order_detail_no})
 		<selectKey keyProperty="review_no" resultType="_int" order="AFTER">
-			SELECT R_SEQ.NEXTVAL FROM DUAL
+			SELECT R_SEQ.CURRVAL FROM DUAL
 		</selectKey>
 	</insert>
 	
 	<insert id="insertReviewImage" parameterType="reviewImage">
-		INSERT INTO REVIEWIMAGE VALUES(RI_SEQ.NEXTVAL, #{review_no}, #{originalFileName}, #{renamedFileName})
+		INSERT INTO REVIEW_IMAGE VALUES(RI_SEQ.NEXTVAL, #{review_no}, #{originalFileName}, #{renamedFileName})
 	</insert>
 	
 	<select id="selectReviewList" parameterType="string" resultType="review">
@@ -28,7 +28,7 @@
 	</select>
 	
 	<select id="selectReviewImage" parameterType="_int" resultType="reviewImage">
-		SELECT * FROM REVIEWIMAGE WHERE REVIEW_NO=#{rNo}
+		SELECT * FROM REVIEW_IMAGE WHERE REVIEW_NO=#{rNo}
 	</select>
 	
 	<select id="selectBeforeReviewList" parameterType="string" resultType="review">

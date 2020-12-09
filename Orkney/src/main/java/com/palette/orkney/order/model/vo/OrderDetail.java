@@ -31,4 +31,7 @@ public class OrderDetail {
 	
 	//member
 	private String member_name;
+	
+	//review
+	private int review_no;
 }

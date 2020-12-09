@@ -8,7 +8,7 @@
 		select * from orders where order_no=#{oNo}
 	</select>
 	<select id="selectOrderDetail" parameterType="string" resultType="orderDetail">
-		select * from order_detail join product using(product_no) join product_image p using(product_no) join small_category using(small_category_no) where order_no=#{oNo} and p.product_color='normal'
+		select * from order_detail d join product using(product_no) join product_image p using(product_no) join small_category using(small_category_no) left outer join review r on d.order_detail_no=r.order_detail_no where order_no=#{oNo} and p.product_color='normal'
 	</select>
 	<update id="updatecancelRequest" parameterType="order">
 		UPDATE ORDERS SET
