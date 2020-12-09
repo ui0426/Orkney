@@ -9,31 +9,35 @@
 <link rel="stylesheet" href="${path}/resources/css/cart/cart.css">
    
       
-
+<c:choose>
+	<c:when test="">
+		장바구니가 비어있습니다.
+	</c:when>
+	
+	<c:otherwise>	
     <c:forEach items="${cart}" var="p">                           
             <div class="product-container" id="pc">                                                                                     
                 <div class="product-pic"><img src="${path}/resources/images/rooms/<c:out value="${p.product_pic}"/>"></div>                
 
-                <div class="price"> <fmt:formatNumber value="${p.product_price}"/>원 </div>
-                
-                <input type="hidden" value="${p.product_price }" name="productPrice">                                                                                                            
+                <div class="price"> <fmt:formatNumber value="${p.totalPrice}"/>&nbsp;원 </div>                
+                <input type="hidden" value="${p.totalPrice }" name="totalPrice ">                                                                                                            
                 <input type="hidden" value="${p.productNo }"  name="productNo">                                       
                     <div class="product-detail"> 
-
-
-
-                        <div><c:out value="${p.product_name}"/></div>
+                        <div><c:out value="${p.productName}"/></div>
                         <div><c:out value="${p.big_category}"/></div>                                
                         <div><c:out value="${p.product_width}"/>*<c:out value="${p.product_height}"/>*<c:out value="${p.product_depth}"/></div>                    
                     <div class="btn-container">                                                
-
                         <div>                        	   
                             <select class="mdb-select md-form amount" id="se">
                             	<c:forEach begin="1" end="10" var="i">
-                                  <option value="${i}">${i}&nbsp;개 </option>                                   
-								</c:forEach>
+                            		<c:if test="${p.cartQTY == i}">                            		                                  
+                                  		<option value="${p.cartQTY}" selected>${i}</option>
+                                  	</c:if>                                            	                        	
+                                     <option value="${i}"/>${i}</option>                                                                 	                                  		                                                                                            
+								</c:forEach>							
                              </select>
-                             <input type="hidden" value="${p.cartNo }" id="${p.productNo}">                       
+                             <input type="hidden" value="${p.cartNo }" id="${p.productNo}" class="${p.totalPrice}">
+                             <input type="hidden" value="${p.productPrice}">                       
                         </div>                        
                        
                         <div><button class="remove_list remove" id="${p.productNo}" value="${p.cartNo}">삭제</button></div>
@@ -41,10 +45,10 @@
                     </div>  
 
                 	</div><div class="line1"></div>               
-             </div>
-             
-	</c:forEach>
-	
+             </div>             
+	</c:forEach>	
+	</c:otherwise>
+</c:choose>
 			
         <div class="section2">                                                        
                 <div class="service-container">                              
@@ -56,15 +60,11 @@
 		
         <div class="total-container">
             <div class="total-title">총 주문금액</div>
-            <div class="total-price">
-            	<c:set var="total" value="0"/>
-            	
-           <%--  	<c:forEach var="list" items="${cart}">
-            		<c:set var="total" value="${total + list.product_price}"/>
-            	</c:forEach>  --%>
-            	<fmt:formatNumber value="${total+sum}"/> 원
+            <div class="total-price">                      
+            	<fmt:formatNumber value="${total+sumprice}"/> 원           
             </div>
         </div>
+
 		
 	<script>
 	/* 상품내용제거 */
@@ -86,14 +86,20 @@
 		let qty=$(e.target).val();
 		let cNo=$(e.target).next().val();
 		let pNo=$(e.target).next().attr("id");
+		let tp=$(e.target).next().attr("class");
+		let pr=$(e.target).next().next().val();
 		
 		console.log("수량변경:"+qty);		
 		console.log("상품번호:"+pNo);
 		console.log("카트번호:"+cNo);
+		console.log("상품가격:"+pr);
+		console.log("총가격:"+tp);
+						
 		
+	
 		$.ajax({
 			url:"${path}/cart/updateQty.do",
-			data:{qty:qty, cartNo:cNo, productNo:pNo },
+			data:{qty:qty, cartNo:cNo, productNo:pNo, totalPrice :tp, productPrice:pr},
 			success:data=>{
 				console.log("qty:"+qty);
 				$("#re").html(data);

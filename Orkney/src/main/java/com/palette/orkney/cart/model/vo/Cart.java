@@ -14,8 +14,8 @@ public class Cart {
 	private String productNo;
 	private int cartQTY;
 	
-	private String product_name;
-	private int product_price;
+	private String productName;
+	private int productPrice;
 	private String product_color;
 	private String product_width;
 	private String product_height;
@@ -25,11 +25,14 @@ public class Cart {
 	
 	private String product_pic;
 	
+	
+	private int point;
+	private String totalPrice;
+	
+	
 	private String phone;
 	private String member_name;
 	private String member_id;
-	
-	private int point;
 	
 	
 	

@@ -1,5 +1,6 @@
 package com.palette.orkney.cart.model.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -7,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.palette.orkney.cart.model.vo.Cart;
+import com.palette.orkney.cart.model.vo.CartDetail;
 
 @Repository
 public class CartDaoImpl implements CartDao{
@@ -32,8 +34,8 @@ public class CartDaoImpl implements CartDao{
 	}
 
 	@Override
-	public Cart memberInfo(SqlSession session, String memberNo) {
-		return session.selectOne("cart.memberInfo", memberNo);
+	public CartDetail memberInfo(SqlSession session, Map<String, String>param2) {
+		return session.selectOne("cart.memberInfo", param2);
 	}
 
 	@Override
@@ -46,6 +48,30 @@ public class CartDaoImpl implements CartDao{
 		return session.selectOne("cart.sumPrice",cartNo);
 	}
 
+	@Override
+	public int productSum(SqlSession session, Map<String, String> param1) {	
+		return session.update("cart.productSum",param1);
+	}
+
+	@Override
+	public int countCart(SqlSession session, String productNo, String memberNo) {	
+		Map<String, Object>map = new HashMap<String,Object>();
+		map.put("productNo", productNo);
+		map.put("memberNo", memberNo);
+		return session.selectOne("cart.countCart",map);
+	}
+
+	@Override
+	public int updateCart(SqlSession session, Cart cart) {	
+		return session.update("cart.updateCart",cart);
+	}
+
+	@Override
+	public int insertCart(SqlSession session, Cart cart) {	
+		return session.insert("cart.insertCart",cart);
+	}
+
+	
 	
 	
 

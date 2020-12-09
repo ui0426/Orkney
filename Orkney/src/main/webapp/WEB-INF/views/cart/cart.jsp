@@ -17,24 +17,17 @@
 
                     <div class="title">
                    		<div>장바구니</div>
-	                   <div><button class="remove_basket" value="${cN}">장바구니 비우기</button></div>	   	                                                     
+	                   	 <div><button class="remove_basket" value="${cN}">장바구니 비우기</button></div>
+	                   	<input type="hidden" value="${sumprice }" id="sumprice">		 						   	                                                     
 					</div>
-            <div class="line1"></div>                            
+            <div class="line1"></div>                            		 	
 		 	
 		 	<div id="re"></div>														 		               
 		</div>		
-
-
-    
-        <div class="section3">
-        
-
-           
-  
+ 
+        <div class="section3">  
             <span class="pay-btn"><button type="button" class="btn-dark event-bu" onclick="location.href='${path }/cart/payment.do'"><span class="event-sp">결제하기</span></button></span>                                  
-            <div class="etc-line">
-                
-
+            <div class="etc-line">                
                 <div>
                    <div><img src="${path}/resources/img/refund.png"> </div>
                    <span  class="etc-detail">반품 정책 365일 이내에 제품 환불 가능</span>
@@ -79,17 +72,20 @@
 </section>
 
 
-<script>				
+<script>	
+		//1. ajax처리 onload
 		  $(function(){
+					let sumPrice = $("#sumprice").val();											
 					$.ajax({
 						url:"${path}/cart/deleteProduct.do",
+						data:{sumPrice:sumPrice},
 						success:data =>{					
 							$("#re").html(data);
 						}
 					})
 				})	
 			
-			/* 장바구니제거 */
+			//2. 장바구니 전체제거시
 			$(".remove_basket").click(e=>{
 				let cNo=$(e.target).val();				
 				 $.ajax({

@@ -30,10 +30,10 @@
 	            <div class="order-container">
 	                <div class="product-pic"><img src="${path}/resources/images/rooms/<c:out value="${p.product_pic}"/>"></div>               
 	                <div class="product-detail">
-	                    <div><c:out value="${p.product_name}"/></div>
+	                    <div><c:out value="${p.productName}"/></div>
 	                    <div><c:out value="${p.product_width}"/>*<c:out value="${p.product_height}"/>*<c:out value="${p.product_depth}"/></div>	                  		                    
 	                    <div><c:out value="${p.cartQTY}"/>개</div>
-	                    <div><c:out value="${p.cartQTY * p.product_price}"/>원</div>	                     	                    
+	                    <div><c:out value="${p.cartQTY * p.productPrice}"/>원</div>	                     	                    
 	                </div>
 	            </div>	            
             </div>  
@@ -142,16 +142,7 @@
                     $("#messages").hide();    
             });
             </script>            
-             <div class="field">
-                <div class="checkdiv  marb">  
-                    <div class="checkicon" stlye="width:172px;">
-                        <span><i class="far fa-check-circle fa-2x ixy i1"></i></span>
-                        <span><i class="fas fa-check-circle fa-2x ixy i2"></i></span>
-                        <input type="checkbox" class="ck" id="ch">
-                    </div>
-                    <span class="spanwid marb">sms 수신 동의 (배송 정보를 SMS로 보내드립니다.)</span>
-                </div>                                 
-            </div>           
+                     
         </div>
                        
         <div class="section1">
@@ -174,56 +165,47 @@
                 <div><input type="text" class="input4 none-line" id="usablepoint" value=""></div>
                 <div class="pre-point" style="padding: 7px 0 0px 8px;">P</div>            	                         
             </div>                    
-        </div>
+        </div>                    
         
-        <!-- 포인트사용 -->
-        <script>
+<div id="detail"></div>
+<script>
+$(function(){	
+	$.ajax({
+		url:"${path}/cart/updatePayment.do",		
+		success:data =>{					
+			$("#detail").html(data);
+		}
+	})
+})
+
+<!-- 포인트사용 -->
         	$("#allpoint").click(e=>{
-        		let up=$("#pointuse").val();
-        		
+        		let up=$("#pointuse").val();        		
         		console.log(up);
         		$("#usablepoint").attr({
         			"value":up
-        		});
+        		});        		        		
         	});
-        </script>
-        
-        
-
-            <div class="section1">
-                <div class="etc-title">결제 세부 정보</div>
-                <div class="line1"></div>
-                <div class="total-title">
-                        <div class="pay-title">
-                            <div >총 상품 금액</div>
-                            <div><input type="text" value="7,900"></div>                    
-                        </div>
-                        <div class="pay-title">
-                            <div>배송비 비용</div>
-                            <div><input type="text" value="2,500"></div>
-                        </div>
-                        <div class="pay-title">
-                            <div>포인트 사용</div>
-                            <div><input type="text" value="1,500"></div>
-                        </div>
-                        <div class="pay-title">
-                            <div>부가세(10%)</div>
-                            <div><input type="text" value="2,500"></div>
-                        </div>
-                </div>                
-                    <div class="line2">
-                        <div class="pay-title pay-font">
-                            <div>총 주문금액</div>
-                            <div><input type="text" value="12,900"></div>
-                        </div>
-                    </div>
-            </div>        
+        	
+      /*   	$("#usablepoint").keyup(e=>{
+        		let willpoint = $("#usablepoint").val();
+        		console.log(willpoint);	
+        		$.ajax({
+        			url:"${path}/cart/updatePayment.do",
+        			data:{willpoint:willpoint},
+        			success:data=>{
+        				$("#detail").html(data);
+        			}        			
+        		})
+        	}) */
+        	
+</script>           
         
                 
-       <div class="section1" style=" display: flex; flex-direction: column;   " >
+       <div class="section1" style=" display: flex; flex-direction: column;" >
        		<div style="display: flex;">            
 	            <div class="etc-title">예상 적립 포인트</div>                      
-	            <span class="field span-padding"><div class="pre-point">1,490P</div></span>
+	            <span class="field span-padding"><div class="pre-point"><c:out value="${member.predicpoint }"/>P</div></span>
 	         </div>                    	
             <div>총 주문 금액의 5%가 적립됩니다.<a href="">더알아보기</a></div>
         </div>

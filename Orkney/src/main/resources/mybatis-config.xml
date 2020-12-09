@@ -17,6 +17,7 @@
 
 		
 		<typeAlias type="com.palette.orkney.cart.model.vo.Cart" alias="cart"/>	
+		<typeAlias type="com.palette.orkney.cart.model.vo.CartDetail" alias="cartdetail"/>	
 			
 	</typeAliases>
 
