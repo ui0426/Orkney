@@ -19,8 +19,8 @@
       </div>
       <div class="mypage-row">
          <div class="mypage-row-box">
-            <div class="mypage-row-content">
-               <a href="">주문 내역</a>
+            <div class="mypage-row-content" onclick="location.href='${ path }/order/orderList.do'">
+               <a>주문 내역</a>
                <span>진행 중인 주문 없음</span>
             </div>
             <div class="mypage-row-svg">
@@ -36,10 +36,10 @@
                <svg focusable="false" viewBox="0 0 24 24" class="profile__svg-icon profile__link-box-arrow-right" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M19.2937 12.7074L20.0008 12.0003L19.2938 11.2932L12.0008 3.99927L10.5865 5.41339L16.1727 11.0003H4V13.0003H16.1723L10.5855 18.5868L11.9996 20.0011L19.2937 12.7074Z"></path></svg>
             </div>
          </div>
-         <div class="mypage-row-box">
+         <div class="mypage-row-box" onclick="location.href='${ path }/review/reviewList.do'">
             <div class="mypage-row-content">
-               <a href="">배송 관리</a>
-               <span>진행 중인 배송 없음</span>
+               <a>나의 리뷰</a>
+               <span>작성 가능한 리뷰 없음</span>
             </div>
             <div class="mypage-row-svg">
                <svg focusable="false" viewBox="0 0 24 24" class="profile__svg-icon profile__link-box-arrow-right" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M19.2937 12.7074L20.0008 12.0003L19.2938 11.2932L12.0008 3.99927L10.5865 5.41339L16.1727 11.0003H4V13.0003H16.1723L10.5855 18.5868L11.9996 20.0011L19.2937 12.7074Z"></path></svg>

@@ -8,7 +8,11 @@ import com.palette.orkney.review.model.vo.ReviewImage;
 
 public interface ReviewService {
 
-	OrderDetail selectOrderDetail(int odNo);
+	Review selectReview(int odNo);
 	
 	int insertReview(Review review, List<ReviewImage> list);
+	
+	List<Review> selectReviewList(String mNo);
+	
+	List<Review> selectBeforeReviewList(String mNo);
 }

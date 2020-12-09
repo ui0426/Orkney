@@ -38,7 +38,7 @@ public class ReviewController {
 	@ResponseBody
 	public boolean reviewForm(HttpSession session) {
 		Map login = (Map)session.getAttribute("login");
-		if(login != null && !login.isEmpty()) {		
+		if(login != null && !login.isEmpty() ) {		
 			return true;
 		}else {			
 			return false;
@@ -48,16 +48,17 @@ public class ReviewController {
 	@RequestMapping("/review/reviewForm.do")
 	public ModelAndView reviewForm(int odNo, ModelAndView mv) {
 		System.out.println(odNo);
-		OrderDetail od = service.selectOrderDetail(odNo);
-		System.out.println(od);
-		mv.addObject("od", od);
+		Review r = service.selectReview(odNo);
+		System.out.println(r);
+		mv.addObject("review", r);
 		mv.setViewName("review/reviewForm");
 		return mv;
 	}
 	
 	@RequestMapping(value="/review/reviewInsert.do", method = RequestMethod.POST)
 	public ModelAndView insertReview(Review review, ModelAndView mv, @RequestParam(value="fileupload", required=false) MultipartFile[] multi, HttpSession session ) {
-		
+		Map login = (Map)session.getAttribute("login");
+		review.setMember_no((String)login.get("MEMBER_NO"));
 		System.out.println("주문디테일 번호 : "+review.getOrder_detail_no());
 		System.out.println("상품번호 : "+review.getProduct_no());
 		System.out.println("별점 : "+review.getProduct_grade());
@@ -101,8 +102,16 @@ public class ReviewController {
 	}
 	
 	@RequestMapping("/review/reviewList.do")
-	public String reviewList() {
-		return "review/reviewList";
+	public ModelAndView reviewList(HttpSession session, ModelAndView mv) {
+		Map login = (Map)session.getAttribute("login");
+		List<Review> beforeReview=service.selectBeforeReviewList((String)login.get("MEMBER_NO"));
+		List<Review> review = service.selectReviewList((String)login.get("MEMBER_NO"));
+		mv.addObject("beforeReview", beforeReview);
+		mv.addObject("review", review);
+		System.out.println("작성 가능한 리뷰 : "+beforeReview);
+		System.out.println("작성 한 리뷰 : "+review);
+		mv.setViewName("/review/reviewList");
+		return mv;
 	}
 
 }

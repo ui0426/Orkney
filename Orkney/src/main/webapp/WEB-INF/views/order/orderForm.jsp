@@ -71,8 +71,8 @@
 				            <span aria-hidden="true">&times;</span>
 				          </button>
 				        </div>
-				        <div class="modal-body orderform-modal-content">
-				         	주문 번호(iSell 번호)와 주문하신 회윈의 이메일을 정확하게 입력해주세요.
+				        <div id="modal-msg" class="modal-body orderform-modal-content">
+				         	
 				        </div>
 				        <div class="modal-footer">
 				          <button type="button" class="btn btn-indigo" data-dismiss="modal">Close</button>
@@ -168,12 +168,13 @@
 				data:{oNo:no,mId:pe},
 				success:data=>{
 					console.log(data);
-					if(data == true){
+					if(data == "true"){
 						$("#oView").submit();
 					}else{
 						//모달 띄우기
 						//$("#basicExampleModal").addClass("show").css("display","block").removeAttr("aria-hidden").attr("aria-modal","true");
 						//$("#modal-hidden").addClass("modal-backdrop fade show");
+						$("#modal-msg").html(data);
 						$("#modalBtn").trigger("click");//그냥 부트스트랩에서 데려온 모달 버튼 자동클릭되게...
 					}
 				}

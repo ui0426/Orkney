@@ -29,7 +29,7 @@ h1, h3{margin : 0;}
 }
 @media(min-width: 769px){
 	.review-small-container{
-	    grid-template-columns: 30% 1fr;
+	    grid-template-columns: 25% 1fr;
 	    display: grid;
 	}
 	.review-sub-title{
@@ -60,6 +60,10 @@ h1, h3{margin : 0;}
 }
 .p-name{
 	font-size: 1.3em;
+}
+.img-size{
+    width: 10em;
+    height: auto;
 }
 .star-list{
 display:flex; }
@@ -120,12 +124,12 @@ display:flex; }
 				<div class="review-small-container">
 					<h3 class="review-sub-title">상품</h3>
 					<div class="media">
-						<input type="hidden" name="order_detail_no" value="${od.order_detail_no }"/>
-						<input type="hidden" name="product_no" value="${od.product_no }"/>
-					  	<img class="d-flex mr-3" src="${path }/resources/images/product/${od.product_pic}" alt="상품 이미지">
+						<input type="hidden" name="order_detail_no" value="${review.order_detail_no }"/>
+						<input type="hidden" name="product_no" value="${review.product_no }"/>
+					  	<img class="d-flex mr-3 img-size" src="${path }/resources/images/product/${review.product_pic}" alt="상품 이미지">
 						<div class="media-body p-info">
-					    	<h5 class="mt-0 font-weight-bold p-name"><c:out value="${od.product_name }"/> </h5> 
-					    	<c:out value="${od.small_category_content }"/>/<c:out value="${od.product_color }"/>&nbsp;&nbsp;<c:out value="${od.product_width }"/>*<c:out value="${od.product_height }"/>*<c:out value="${od.product_depth }"/>
+					    	<h5 class="mt-0 font-weight-bold p-name"><c:out value="${review.product_name }"/> </h5> 
+					    	<c:out value="${review.small_category_content }"/>/<c:out value="${review.product_color }"/>&nbsp;&nbsp;<c:out value="${review.product_width }"/>*<c:out value="${review.product_height }"/>*<c:out value="${review.product_depth }"/>
 					  	</div> 
 					</div>
 				</div>

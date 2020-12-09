@@ -89,27 +89,29 @@ h1, h3{margin : 0;}
 						</div>
 						<div id="panel-container">
 								<div class="panel1 panels">
+									<c:forEach items="${beforeReview }" var="r">
 									<div class="media">
-									  	<img class="d-flex mr-3 img-size" src="${path }/resources/images/product/pngegg2222.png" alt="상품 이미지">
+									  	<img class="d-flex mr-3 img-size" src="${path }/resources/images/product/${r.product_pic}" alt="상품 이미지">
 										<div class="media-body p-info">
-									    	<h5 class="mt-0 font-weight-bold p-name">상품이름 </h5> 
-									    	상품의작은카테고리/색깔&nbsp;&nbsp;너비*높이*깊이
+									    	<h5 class="mt-0 font-weight-bold p-name"><c:out value="${r.product_name }"/></h5> 
+									    	<c:out value="${r.small_category_content }"/>/<c:out value="${r.product_color }"/>&nbsp;&nbsp;<c:out value="${r.product_width }"/>*<c:out value="${r.product_height }"/>*<c:out value="${r.product_depth }"/>
 									  	</div> 
 									  	<div>
-									  		<button>리뷰 작성하기 ></button>
+									  		<button onclick="location.href='${path}/review/reviewForm.do?odNo=${r.order_detail_no }'">리뷰 작성하기 ></button>
 									  	</div>
 									</div>
-									
+									</c:forEach>
 								</div>
 									
 								<div class="panel2 panels">
+									<c:forEach items="${review }" var="r">
 									<div>
 										<div class="media reviewList">
-										  	<img class="d-flex mr-3 img-size" src="${path }/resources/images/product/pngegg2222.png" alt="상품 이미지">
+										  	<img class="d-flex mr-3 img-size" src="${path }/resources/images/product/${r.product_pic}" alt="상품 이미지">
 											<div class="media-body p-info">
-										    	<h5 class="mt-0 font-weight-bold p-name">상품이름 </h5> 
-										    	상품의작은카테고리/색깔&nbsp;&nbsp;너비*높이*깊이
-										  	</div>
+										    	<h5 class="mt-0 font-weight-bold p-name"><c:out value="${r.product_name }"/></h5> 
+										    	<c:out value="${r.small_category_content }"/>/<c:out value="${r.product_color }"/>&nbsp;&nbsp;<c:out value="${r.product_width }"/>*<c:out value="${r.product_height }"/>*<c:out value="${r.product_depth }"/>
+										  	</div> 
 										</div>
 										<div class="reviewNone">
 											<div>
@@ -117,13 +119,16 @@ h1, h3{margin : 0;}
 												<div><button>수정</button></div>
 											</div>
 											<div>
-												리뷰내용
+												<c:out value="${r.review_content }"/>
 											</div>
 											<div>
-												첨부사진
+												<%-- <c:forEach items="${r.riList }" var="ri">
+													<img src="${path }/resources/upload/review/${ri. } }
+												</c:forEach> --%>
 											</div>
 										</div>
 									</div>
+									</c:forEach>
 								</div>
 						</div>
 					</div>

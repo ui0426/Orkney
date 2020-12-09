@@ -555,7 +555,7 @@
 									<div class="orderView-product">
 										<div class="od-product-content">
 										<div class="product-img">
-											<img src="${path }/resources/images/rooms/${od.product_pic}">
+											<img src="${path }/resources/images/product/${od.product_pic}">
 										</div>
 										<div class="product-info">
 											<p class="product-text"><c:out value="${od.product_name }"/></p>
@@ -974,7 +974,7 @@
 									<div class="orderView-product">
 										<div class="product-container">
 											<div class="product-img">
-												<img src="${path }/resources/images/rooms/${od.product_pic}">
+												<img src="${path }/resources/images/product/${od.product_pic}">
 											</div>
 											<div class="product-info">
 												<p class="product-text"><c:out value="${od.product_name }"/></p>
@@ -1018,7 +1018,7 @@
 								<c:forEach items="${order.odList }" var="od">
 								<div class="product-container">
 									<div class="product-img">
-										<img src="${path }/resources/images/rooms/${od.product_pic}">
+										<img src="${path }/resources/images/product/${od.product_pic}">
 									</div>
 									<div class="product-info">
 										<p class="product-text"><c:out value="${od.product_name }"/></p>

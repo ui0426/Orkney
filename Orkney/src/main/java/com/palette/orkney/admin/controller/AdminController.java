@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.palette.orkney.admin.model.service.AdminService;
 
@@ -51,6 +52,18 @@ public class AdminController {
 	public String adminPage() {
 		
 		return "admin/adminBasic";
+	}
+	
+	@RequestMapping("/admin/orderList.do")
+	public ModelAndView orderList(ModelAndView mv) {
+		mv.addObject("order", service.selectOrderList());
+		mv.setViewName("admin/order/adminOrderList");
+		return mv;
+	}
+	
+	@RequestMapping("admin/orderView.do")
+	public String orderView() {
+		return "admin/order/adminOrderView";
 	}
 	
 }
