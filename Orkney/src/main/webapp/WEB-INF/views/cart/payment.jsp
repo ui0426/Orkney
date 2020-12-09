@@ -6,6 +6,11 @@
 <c:set var="path" value="${pageContext.request.contextPath }"/>
 
 
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-x.y.z.js"></script>
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+
+
 <jsp:include page="/WEB-INF/views/common/header.jsp">      
    <jsp:param name="title" value="결제화면" />
 </jsp:include>
@@ -25,6 +30,8 @@
             </div>
             <div class="line1"></div>           
             
+            <fmt:formatNumber value="${p.totalPrice}"/>&nbsp;
+            
             <c:forEach items="${cart }" var="p">
             <div class="product-container">
 	            <div class="order-container">
@@ -33,7 +40,7 @@
 	                    <div><c:out value="${p.productName}"/></div>
 	                    <div><c:out value="${p.product_width}"/>*<c:out value="${p.product_height}"/>*<c:out value="${p.product_depth}"/></div>	                  		                    
 	                    <div><c:out value="${p.cartQTY}"/>개</div>
-	                    <div><c:out value="${p.cartQTY * p.productPrice}"/>원</div>	                     	                    
+	                    <div><fmt:formatNumber value="${p.cartQTY * p.productPrice}"/>&nbsp;원</div>	                     	                    
 	                </div>
 	            </div>	            
             </div>  
@@ -145,59 +152,19 @@
                      
         </div>
                        
-        <div class="section1">
-            <div class="etc-title">포인트</div>
-            <div class="line1" ></div>           
-            <div class="able-point">	            
-	            <div class="first-div first-div-add">사용 가능한 포인트</div>
-	            <div class="usable-point"><input type="text" id="pointuse" value="<c:out value="${member.point}"/>" readonly>P</div>                                        	                 
-	            <div class="checkdiv"  id="allpoint">  
-	                    <div class="checkicon" stlye="width:172px;">
-	                        <span><i class="far fa-check-circle fa-2x ixy i1"></i></span>
-	                        <span><i class="fas fa-check-circle fa-2x ixy i2"></i></span>
-	                        <input type="checkbox" class="ck" id="ch">
-	                    </div>
-	                    <span class="spanwid">전액사용</span>
-	             </div>
-			</div>                            
-            <div class="able-point">
-            	<div class="first-div first-div-add">사용할 포인트</div>                     
-                <div><input type="text" class="input4 none-line" id="usablepoint" value=""></div>
-                <div class="pre-point" style="padding: 7px 0 0px 8px;">P</div>            	                         
-            </div>                    
-        </div>                    
+                 
         
 <div id="detail"></div>
 <script>
 $(function(){	
-	$.ajax({
-		url:"${path}/cart/updatePayment.do",		
+	$.ajax({		
+		url:"${path}/cart/updatePayment.do",				
 		success:data =>{					
 			$("#detail").html(data);
 		}
 	})
 })
 
-<!-- 포인트사용 -->
-        	$("#allpoint").click(e=>{
-        		let up=$("#pointuse").val();        		
-        		console.log(up);
-        		$("#usablepoint").attr({
-        			"value":up
-        		});        		        		
-        	});
-        	
-      /*   	$("#usablepoint").keyup(e=>{
-        		let willpoint = $("#usablepoint").val();
-        		console.log(willpoint);	
-        		$.ajax({
-        			url:"${path}/cart/updatePayment.do",
-        			data:{willpoint:willpoint},
-        			success:data=>{
-        				$("#detail").html(data);
-        			}        			
-        		})
-        	}) */
         	
 </script>           
         
@@ -215,13 +182,13 @@ $(function(){
             <div class="line1"></div> 
             <div class="field">                                
                 <div class="payment_panel">
-                	<input type="radio" name="options" id="option1" autocomplete="off" checked autocompleted style="display: none">
+                	<input type="radio" name="options" id="option1" autocomplete="off" checked autocompleted style="display: none" value="card" >
                 	<label class="pay-label" for="option1">
                 		<img alt="" src="${path}/resources/img/credit-card.png">
                 		<div class="payment-title">신용카드</div>
-                	</label>
+                	</label>                	           
                 	
-                	<input type="radio" name="options" id="option2" autocomplete="off" checked autocompleted style="display: none">
+                	<input type="radio" name="options" id="option2" autocomplete="off" checked autocompleted style="display: none"  value="bankTransfer">
                 	<label class="pay-label" for="option2">
                 		<img alt="" src="${path}/resources/img/money.png" alt="">
                 		<div class="payment-title">무통장</div>
@@ -293,12 +260,61 @@ $(function(){
                             </div> 
             </div>
         </div>
-            <button type="button" class="btn btn-dark event-bu"  onclick="location.href='${path }/cart/creditpay.do'"><span class="event-sp">결제하기</span></button> 
+            <button type="button" class="btn btn-dark event-bu" id="paybtn"><span class="event-sp">결제하기</span></button> 
     </div>
+
+
+        
+<div class="request_pay"></div>
+        
+        
+<script>
+$("#paybtn").click(e=>{
+	
+	let payment=$("input[name=options]:checked").val();
+	console.log(payment);
+	
+	if(payment=="card"){
+		
+		IMP.init('imp27633438');
+		
+		IMP.request_pay({
+		    pg : 'html5_inicis', // version 1.1.0부터 지원.
+		    pay_method : 'card',
+		    merchant_uid : 'merchant_' + new Date().getTime(),
+		    name : '주문명:결제테스트',
+		    amount : 14000, //판매 가격
+		    buyer_email : 'iamport@siot.do',
+		    buyer_name : '구매자이름',
+		    buyer_tel : '010-1234-5678',
+		    buyer_addr : '서울특별시 강남구 삼성동',
+		    buyer_postcode : '123-456'
+		}, function(rsp) {
+		    if ( rsp.success ) {
+		        var msg = '결제가 완료되었습니다.';
+		        msg += '고유ID : ' + rsp.imp_uid;
+		        msg += '상점 거래ID : ' + rsp.merchant_uid;
+		        msg += '결제 금액 : ' + rsp.paid_amount;
+		        msg += '카드 승인번호 : ' + rsp.apply_num;
+		    } else {
+		        var msg = '결제에 실패하였습니다.';
+		        msg += '에러내용 : ' + rsp.error_msg;
+		    }
+		    alert(msg);
+		});		
+	}else if(payment=="bankTransfer"){
+		
+	}
+
+})
+
+</script> 
     
     
     
-    <!-- Full Height Modal Right -->
+    
+    
+<!-- Full Height Modal Right -->
 <div class="modal fade right" id="fullHeightModalRight" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
   aria-hidden="true">
 

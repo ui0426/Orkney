@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.palette.orkney.cart.model.service.CartService;
@@ -159,29 +160,39 @@ public class CartController {
 	
 	//6. 포인트사용시 값 변경
 	@RequestMapping("/cart/updatePayment.do")
-	public ModelAndView updatePayment(ModelAndView mv,HttpSession session) {
+	@ResponseBody
+	public ModelAndView updatePayment(ModelAndView mv,HttpSession session, String willpoint) {
 		String memberNo = (String)((Map)session.getAttribute("login")).get("MEMBER_NO");																
 		List<Cart> c = service.selectCart(memberNo);				
 		
 		CartDetail m = new CartDetail();
 		m.setCartNo(c.get(0).getCartNo());
 		m.setPoint(c.get(0).getPoint());
+
+		System.out.println("포인트사용값:"+willpoint);
+		int sum=service.sumPrice(m.getCartNo());		
 		
-		int sum=service.sumPrice(m.getCartNo());
 		
 		Map<String, Object>map = new HashMap<String, Object>();
 		int shipFee = sum>= 50000 ? 0 : 2500; //주문금액 50000원 넘을시 무료
-		int additionalTax = (int)(((sum+shipFee)-m.getPoint())*0.1);
-		int totalFee = ((sum+shipFee)-m.getPoint())+additionalTax;		
+		int additionalTax = (int)(sum*0.1);
 		
-		System.out.println("부가세:"+additionalTax);
+		int willpoint2=0;
+		if(willpoint!=null) willpoint2=Integer.parseInt(willpoint);		
+
+		int	totalFee = ((sum+shipFee)-(willpoint2))+additionalTax;				
+		
 		map.put("sumprice",sum);
 		map.put("shipFee",shipFee);
 		map.put("point",m.getPoint());
 		map.put("addTax", additionalTax);
 		map.put("totalFee",totalFee);		
-		//예상적립포인트
+		map.put("willpoint",willpoint);		
 		
+		
+		System.out.println("부가세:"+additionalTax);
+		
+		//예상적립포인트		
 		mv.addObject("map",map);
 		mv.setViewName("ajax/paymentDetail");
 		return mv;

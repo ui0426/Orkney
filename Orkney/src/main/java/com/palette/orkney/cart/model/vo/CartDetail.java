@@ -16,4 +16,5 @@ public class CartDetail {
 	private String cartNo;
 	
 	private int predicpoint;
+	private int willpoint;
 }
