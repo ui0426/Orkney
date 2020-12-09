@@ -6,6 +6,8 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.palette.orkney.order.model.vo.Orders;
+
 @Repository
 public class AdminDaoImpl implements AdminDao {
 
@@ -26,6 +28,12 @@ public class AdminDaoImpl implements AdminDao {
 		// TODO Auto-generated method stub
 		return session.selectList("admin.roomNo",data);
 	}
+
+	@Override
+	public List<Orders> selectOrderList(SqlSession session) {
+		return session.selectList("admin.selectOrderList");
+	}
+	
 	
 	
 }

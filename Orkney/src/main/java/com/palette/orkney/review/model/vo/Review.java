@@ -1,4 +1,7 @@
-package com.palette.orkney.order.model.vo;
+package com.palette.orkney.review.model.vo;
+
+import java.sql.Date;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,12 +10,16 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class OrderDetail {
-
-	private int order_detail_no;
+public class Review {
+	private int review_no;
+	private int product_grade;
+	private String review_content;
+	private String member_no;
 	private String product_no;
-	private int product_qty;
-	private String order_no;
+	private Date review_date;
+	private int order_detail_no;
+	
+	private List<ReviewImage> riList;
 	
 	//product
 	private String product_name;
@@ -32,6 +39,6 @@ public class OrderDetail {
 	//member
 	private String member_name;
 	
-	//review
-	private int review_no;
+	//첨부 이미지 갯수
+	private int img_count;
 }

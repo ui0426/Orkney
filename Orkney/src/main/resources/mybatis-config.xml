@@ -2,11 +2,6 @@
 <!DOCTYPE configuration PUBLIC "-//mybatis.org/DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd" >
 <configuration>
 
-
-
-
-
-
 	<typeAliases>
 		<typeAlias type="com.palette.orkney.member.model.vo.Member" alias="member"/>
 		<typeAlias type="com.palette.orkney.wishlist.model.vo.Wishlist" alias="wishlist"/>
@@ -14,11 +9,10 @@
 		<typeAlias type="com.palette.orkney.order.model.vo.Orders" alias="order"/>
 		<typeAlias type="com.palette.orkney.order.model.vo.OrderDetail" alias="orderDetail"/>
 		<typeAlias type="com.palette.orkney.member.model.vo.Addr" alias="addr"/>
+		<typeAlias type="com.palette.orkney.cart.model.vo.Cart" alias="cart"/>
+		<typeAlias type="com.palette.orkney.review.model.vo.Review" alias="review"/>
+		<typeAlias type="com.palette.orkney.review.model.vo.ReviewImage" alias="reviewImage"/>		
 
-		
-		<typeAlias type="com.palette.orkney.cart.model.vo.Cart" alias="cart"/>	
-		<typeAlias type="com.palette.orkney.cart.model.vo.CartDetail" alias="cartdetail"/>	
-			
 	</typeAliases>
 
 
