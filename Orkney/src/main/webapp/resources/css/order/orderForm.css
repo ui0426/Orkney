@@ -112,3 +112,12 @@
 		font-size: 1.375rem;
 	}
 }
+
+/*모달*/
+.orderform-modal-title{
+    font-size: 1em;
+    font-weight: 600;
+}
+.orderform-modal-content{
+	font-size: .8em;
+}

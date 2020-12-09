@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.palette.orkney.admin.model.dao.AdminDao;
+import com.palette.orkney.order.model.vo.Orders;
 
 @Service
 public class AdminServiceImpl implements AdminService {
@@ -34,5 +35,12 @@ public class AdminServiceImpl implements AdminService {
 		// TODO Auto-generated method stub
 		return dao.roomNo(session,data);
 	}
+
+	@Override
+	public List<Orders> selectOrderList() {
+		return dao.selectOrderList(session);
+	}
+	
+	
 	
 }

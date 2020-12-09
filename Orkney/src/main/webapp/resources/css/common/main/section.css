@@ -22,7 +22,7 @@ section {
 
 .explain {
 	display: inline-block;
-	background-color: #864687;
+	background-color: #e53616;
 	width: 40%;
 	height: auto;
 }
@@ -114,27 +114,31 @@ section {
 	display: flex;
 	flex-flow: row wrap;
 	margin-bottom: 20px;
+	
 }
 
 .pp-img-ib {
 	margin-bottom: 20px;
+	display:none;
 }
 
 .pp-img-mg-id {
-	display: flex;
+	
+	display:flex;
 	flex-direction: column;
 	margin: 10px;
+	width: 31%;
 }
 
 .pp-img-wdhe {
-	width: 489.14px;
+	width: 100%;
 	height: 481.69px;
 }
-
 .pp-img-wdhe-2 {
-	width: 489.14px;
+	width: 100%;
 	height: 395.47px;
 }
+
 
 /* 3. 인기상품 */
 .event-bu1:hover>.event-sp, .event-bu2:hover>.event-sp {

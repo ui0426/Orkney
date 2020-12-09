@@ -38,7 +38,7 @@
 									</div>
 									<div class="ol-container">
 										<div>현황</div>
-										<div><c:out value="${o.ORDER_STATE }"/></div>
+										<div>진행 중</div>
 									</div>
 									<div class="ol-container">
 										<a href="${path }/order/orderView.do?oNo=${o.ORDER_NO}">주문 내역 보기</a>
@@ -111,7 +111,7 @@
 											<tr>
 												<td class="list-item"><c:out value="${o.ORDER_NO }"/></td>
 												<td class="list-item"><c:out value="${o.ORDER_DATE }"/></td>
-												<td class="list-item"><c:out value="${o.ORDER_STATE }"/></td>
+												<td class="list-item">진행 중</td>
 												<td class="list-item"><a href="${path }/order/orderView.do?oNo=${o.ORDER_NO}">주문 내역 보기</a>
 											</tr>
 										</c:if>
