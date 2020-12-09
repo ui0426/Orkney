@@ -169,7 +169,7 @@
 		                	<c:if test="${login.AUTHORITY eq '관리자'}">
 		                	<li><a class="hnf-small-ex hnf-link-color" href="${path}/admin/adminPage.do">관리 페이지</a></li>
 		                	</c:if>
-		                    <li><a class="hnf-small-ex hnf-link-color" href="#">고객지원</a></li>
+		                    <li><a class="hnf-small-ex hnf-link-color" href="${path}/notice/question.do">고객지원</a></li>
 		                    <li><a class="hnf-small-ex hnf-link-color" href="${path }/order/order.do">배송조회</a></li>
 		                    <li><a class="hnf-small-ex hnf-link-color" href="#">내 프로필</a></li>
 		                 <c:if test="${not empty login }">
