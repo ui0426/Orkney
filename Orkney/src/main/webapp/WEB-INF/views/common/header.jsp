@@ -284,7 +284,7 @@
 		        				</a>
 		        			</li>
 		        			<li>
-		        				<a href="${path}/product/rooms.do?type=현관">
+		        				<a href="${path}/product/rooms.do?type=비지니스">
 		        					<span>
 		        						<img alt="현관" src="https://www.ikea.com/images/ikea-hemnes-pinnig-665c8a366698cec21d5a1aa930f071fe.jpg?f=xxxs" >
 		        					</span>

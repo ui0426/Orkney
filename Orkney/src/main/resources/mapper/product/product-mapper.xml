@@ -2,22 +2,53 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="product">
   	<select id="selectRooms" resultType="map" parameterType="string">
-  		SELECT * FROM SHOWROOM WHERE ROOM_CODE=#{type}
+  		SELECT * FROM SHOWROOM WHERE ROOM_CATEGORY=#{type}
   	</select>
    	<select id="selectRoomsProduct" resultType="map" parameterType="string">
   		SELECT * FROM ROOMS E
 				JOIN PRODUCT R ON E.PRODUCT_NO= R.PRODUCT_NO
 				 JOIN PRODUCT_IMAGE J ON E.PRODUCT_NO= J.PRODUCT_NO
                  JOIN SHOWROOM Q ON Q.ROOM_NO= E.ROOM_NO
-                WHERE ROOM_CODE= #{type}
+                WHERE ROOM_CATEGORY= #{type} 
 	</select> 
 	<select id="roomsDetail" resultType="map" parameterType="string">
 		 SELECT * FROM ROOMS E
 				JOIN PRODUCT R ON E.PRODUCT_NO= R.PRODUCT_NO
 				JOIN PRODUCT_IMAGE J ON E.PRODUCT_NO= J.PRODUCT_NO
-				WHERE E.ROOM_NO=#{type}
+				WHERE E.ROOM_NO=#{type} 
 	</select>
 	<select id="selectRoomsTitle" resultType="map" parameterType="string">
-		SELECT * FROM ROOMS_TITLE WHERE ROOM_CODE=#{type}
+		SELECT * FROM ROOMS_TITLE WHERE ROOM_CATEGORY=#{type}
 	</select>
+	<select id="listProduct" resultType="map" parameterType="string">
+		
+		 SELECT * FROM PRODUCT E
+				JOIN PRODUCT_IMAGE J ON E.PRODUCT_NO= J.PRODUCT_NO
+				WHERE J.PRODUCT_COLOR='normal' AND ROWNUM <![CDATA[<]]> #{type} 
+				
+	</select>
+	<select id="allProductList" resultType="string">
+		SELECT COUNT(*)FROM PRODUCT E
+				JOIN PRODUCT_IMAGE J ON E.PRODUCT_NO= J.PRODUCT_NO
+				WHERE J.PRODUCT_COLOR='normal'
+	</select>
+	<select id="productCategory" parameterType="map" resultType="map">
+		
+		 SELECT * FROM PRODUCT E
+				JOIN PRODUCT_IMAGE J ON E.PRODUCT_NO= J.PRODUCT_NO
+				  JOIN BIG_CATEGORY T ON T.BIG_CATEGORY_NO=E.BIG_CATEGORY_NO
+				WHERE J.PRODUCT_COLOR='normal' AND ROWNUM <![CDATA[<]]> #{type} 
+				 <if test=" text!='' ">
+				AND T.BIG_CATEGORY_CONTENT=#{text}
+				</if>
+				
+	</select>
+	<select id="sale" resultType="map">
+		
+				
+		 SELECT * FROM PRODUCT E
+				JOIN PRODUCT_IMAGE J ON E.PRODUCT_NO= J.PRODUCT_NO
+				  JOIN BIG_CATEGORY T ON T.BIG_CATEGORY_NO=E.BIG_CATEGORY_NO
+				WHERE J.PRODUCT_COLOR='normal' AND E.SALE_PER IS NOT NULL			
+	</select>		
 </mapper>
