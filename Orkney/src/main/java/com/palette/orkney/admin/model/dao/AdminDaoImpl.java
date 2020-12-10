@@ -33,6 +33,12 @@ public class AdminDaoImpl implements AdminDao {
 	public List<Orders> selectOrderList(SqlSession session) {
 		return session.selectList("admin.selectOrderList");
 	}
+
+	@Override
+	public int updateOrderState(SqlSession session, Map o) {
+		return session.update("admin.updateOrderState", o);
+	}
+	
 	
 	
 	

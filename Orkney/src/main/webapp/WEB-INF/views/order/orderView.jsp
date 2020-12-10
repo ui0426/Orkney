@@ -563,7 +563,7 @@
 											<div class="price-container">
 												<div>
 													<p class="product-price"><fmt:setLocale value="ko_KR"/><fmt:formatNumber type="currency" value="${od.product_price}" /></p>
-													<p class="product-price">수량 : <c:out value="${od.product_qty }"/></p>
+													<p class="product-price product-qty">수량 : <c:out value="${od.product_qty }"/></p>
 												</div>
 													<p class="price-amount"><fmt:setLocale value="ko_KR"/><fmt:formatNumber type="currency" value="${od.product_qty * od.product_price }"/></p>
 											</div>
@@ -573,7 +573,7 @@
 										<c:if test="${order.order_state eq '배송완료' and od.review_no eq 0 }">
 											<div class="od-review-btn">
 												<input type="hidden" value="${od.order_detail_no }"/>
-												<button type="button" class="btn btn-outline-default waves-effect btnsize review_do">리뷰쓰기</button>
+												<button type="button" class="btn btn-outline-default waves-effect btnsize review_do btn-sm">리뷰쓰기</button>
 											</div>
 										</c:if>
 									</div>
@@ -982,7 +982,7 @@
 												<div class="price-container">
 													<div>
 														<p class="product-price"><fmt:setLocale value="ko_KR"/><fmt:formatNumber type="currency" value="${od.product_price}" /></p>
-														<p class="product-price">수량 : <c:out value="${od.product_qty }"/></p>
+														<p class="product-price product-qty">수량 : <c:out value="${od.product_qty }"/></p>
 													</div>
 														<p class="price-amount"><fmt:setLocale value="ko_KR"/><fmt:formatNumber type="currency" value="${od.product_qty * od.product_price }"/></p>
 												</div>
@@ -992,7 +992,7 @@
 										<c:if test="${order.order_state eq '배송완료' and od.review_no eq 0 }">
 											<div class="od-review-btn">
 												<input type="hidden" value="${od.order_detail_no }"/>
-												<button type="button" class="btn btn-outline-default waves-effect btnsize review_do">리뷰쓰기</button>
+												<button type="button" class="btn btn-outline-default waves-effect btnsize review_do btn-sm">리뷰쓰기</button>
 											</div>
 										</c:if>
 									</div>
@@ -1026,7 +1026,7 @@
 										<div class="price-container">
 											<div>
 												<p class="product-price"><fmt:setLocale value="ko_KR"/><fmt:formatNumber type="currency" value="${od.product_price}" /></p>
-												<p class="product-price">수량 : <c:out value="${od.product_qty }"/></p>
+												<p class="product-price product-qty">수량 : <c:out value="${od.product_qty }"/></p>
 											</div>
 												<p class="price-amount"><fmt:setLocale value="ko_KR"/><fmt:formatNumber type="currency" value="${od.product_qty * od.product_price }"/></p>
 										</div>
