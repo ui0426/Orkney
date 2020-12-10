@@ -169,7 +169,7 @@
 		                	<c:if test="${login.AUTHORITY eq '관리자'}">
 		                	<li><a class="hnf-small-ex hnf-link-color" href="${path}/admin/adminPage.do">관리 페이지</a></li>
 		                	</c:if>
-		                    <li><a class="hnf-small-ex hnf-link-color" href="#">고객지원</a></li>
+		                    <li><a class="hnf-small-ex hnf-link-color" href="${path}/notice/question.do">고객지원</a></li>
 		                    <li><a class="hnf-small-ex hnf-link-color" href="${path }/order/order.do">배송조회</a></li>
 		                 <c:if test="${not empty login }">
 		                    <li><a class="hnf-small-ex hnf-link-color" href="${path}/member/mypage.do">내 프로필</a></li>
@@ -291,7 +291,7 @@
 		        				</a>
 		        			</li>
 		        			<li>
-		        				<a href="${path}/product/rooms.do?type=현관">
+		        				<a href="${path}/product/rooms.do?type=비지니스">
 		        					<span>
 		        						<img alt="현관" src="https://www.ikea.com/images/ikea-hemnes-pinnig-665c8a366698cec21d5a1aa930f071fe.jpg?f=xxxs" >
 		        					</span>

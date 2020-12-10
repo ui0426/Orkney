@@ -12,54 +12,22 @@
 <link rel="stylesheet" href="${path}/resources/css/cart/cart.css">
  
 <section>
-    <div class="section-container">
+    <div class="section-container">    
         <div class="section1">        
-                <div class="title">
-                   <div>장바구니</div>
-                   <div><button class="remove_basket">장바구니 비우기</button></div>
-                </div>
-            <div class="line1"></div>                            
-          
-          <div id="re"></div>   
-         <script>            
-            $(function(){
-               $.ajax({
-                  url:"${path}/cart/deleteProduct.do",
-                  success:data =>{               
-                     $("#re").html(data);
-                  }
-               })
-            })   
-         </script>
-         
-                                     
-      </div>
-      
-      
-        <div class="section2">                                                        
-                <div class="service-container">                              
-                    <div>전체 서비스 비용</div>
-                    <div>이 금액에는 배송비가 포함되어 있지 않으며, 배송지에 따라 구매가 불가할 수 있습니다</div>
-                </div>                                       
-        </div>
-        <div class="line2"></div> 
 
-        <div class="total-container">
-            <div class="total-title">총 주문금액</div>
-            <div class="total-price">
-               <c:set var="total" value="0"/>
-               <c:forEach var="list" items="${cart}">
-                  <c:set var="total" value="${total + list.product_price}"/>
-               </c:forEach> <fmt:formatNumber value="${total}"/> 원
-            </div>
-        </div>
-    
-        <div class="section3">
-           
-  
+                    <div class="title">
+                   		<div>장바구니</div>
+	                   	 <div><button class="remove_basket" value="${cN}">장바구니 비우기</button></div>
+	                   	<input type="hidden" value="${sumprice }" id="sumprice">		 						   	                                                     
+					</div>
+            <div class="line1"></div>                            		 	
+		 	
+		 	<div id="re"></div>														 		               
+		</div>		
+ 
+        <div class="section3">  
             <span class="pay-btn"><button type="button" class="btn-dark event-bu" onclick="location.href='${path }/cart/payment.do'"><span class="event-sp">결제하기</span></button></span>                                  
-            <div class="etc-line">
-                
+            <div class="etc-line">                
                 <div>
                    <div><img src="${path}/resources/img/refund.png"> </div>
                    <span  class="etc-detail">반품 정책 365일 이내에 제품 환불 가능</span>
@@ -71,14 +39,11 @@
                 
             </div>            
         </div>
-        <div class="line1"></div>    
+
+        <div class="line1"></div>            
 </div>
-      
-    
-    
-    
-    
-    
+
+
     <!-- Full Height Modal Right -->
 <div class="modal fade right" id="fullHeightModalRight" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
   aria-hidden="true">
@@ -102,12 +67,41 @@
   </div>
 </div>
 <!-- Full Height Modal Right -->
+
+
 </section>
 
-<!-- <script>
-$(document).ready(function() {
-$('.mdb-select').materialSelect();
-});
-</script> -->
+
+<script>	
+		//1. ajax처리 onload
+		  $(function(){
+					let sumPrice = $("#sumprice").val();											
+					$.ajax({
+						url:"${path}/cart/deleteProduct.do",
+						data:{sumPrice:sumPrice},
+						success:data =>{					
+							$("#re").html(data);
+						}
+					})
+				})	
+			
+			//2. 장바구니 전체제거시
+			$(".remove_basket").click(e=>{
+				let cNo=$(e.target).val();				
+				 $.ajax({
+					 url:"${path}/cart/deleteBasket.do",
+					 data:{cartNo:cNo},
+					 success:data=>{
+						console.log("cNo:"+cNo);	
+						$("#re").html(data);
+					 }
+				 });
+			 }); 
+
+/* 				$(document).ready(function() {
+					$('.mdb-select').materialSelect();
+					}); */				
+</script>
+	
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>   

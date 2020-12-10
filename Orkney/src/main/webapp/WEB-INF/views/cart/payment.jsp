@@ -6,6 +6,11 @@
 <c:set var="path" value="${pageContext.request.contextPath }"/>
 
 
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-x.y.z.js"></script>
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+
+
 <jsp:include page="/WEB-INF/views/common/header.jsp">      
    <jsp:param name="title" value="결제화면" />
 </jsp:include>
@@ -21,115 +26,79 @@
             <div style="display: flex;justify-content: space-between;">
             	<div class="etc-title">주문상품</div>
             	<div class="mod-product"><button class="btn2" onclick="location.href='${path }/cart/cart.do'">주문상품 수정</button> </div>        
-            </div>
-            <div class="line1"></div>
             
+            </div>
+            <div class="line1"></div>           
+            
+            <fmt:formatNumber value="${p.totalPrice}"/>&nbsp;
+            
+            <c:forEach items="${cart }" var="p">
             <div class="product-container">
 	            <div class="order-container">
-	                <div class="product-pic"><img src="https://www.ikea.com/kr/ko/images/products/groenlid-chaise-longue-section-ljungen-light-red__0852499_PE780117_S3.JPG" alt=""></div>               
+	                <div class="product-pic"><img src="${path}/resources/images/rooms/<c:out value="${p.product_pic}"/>"></div>               
 	                <div class="product-detail">
-	                    <div>GRÖNLID 그뢴리드</div>
-	                    <div>15*12</div>
-	                    <div>149,000원</div>
-	                    <div>1개</div>
+	                    <div><c:out value="${p.productName}"/></div>
+	                    <div><c:out value="${p.product_width}"/>*<c:out value="${p.product_height}"/>*<c:out value="${p.product_depth}"/></div>	                  		                    
+	                    <div><c:out value="${p.cartQTY}"/>개</div>
+	                    <div><fmt:formatNumber value="${p.cartQTY * p.productPrice}"/>&nbsp;원</div>	                     	                    
 	                </div>
-	            </div>
-	             <div class="order-container">
-	                <div class="product-pic"><img src="https://www.ikea.com/kr/ko/images/products/groenlid-chaise-longue-section-ljungen-light-red__0852499_PE780117_S3.JPG" alt=""></div>               
-	                <div class="product-detail">
-	                    <div>GRÖNLID 그뢴리드</div>
-	                    <div>15*12</div>
-	                    <div>149,000원</div>
-	                    <div>1개</div>
-	                </div>
-	            </div>
-            </div>            
+	            </div>	            
+            </div>  
+            <div class="line3"></div>
+             </c:forEach>  
+                      
         </div>
         
-                <div class="section1">            
+        <div class="section1">            
             <div class="etc-title"><span>주문자</span></div>
             <div class="line1"></div>
             <div class="field">
                 <span class="first-div">이름</span>
-                <div class="padding-input"><input type="text" class="input1 input1-extra" placeholder="윤진영" readonly> </div>
+                <div class="padding-input"><input type="text" class="input1 input1-extra" id="membername" placeholder="<c:out value="${member.member_name}"/>" readonly> </div>
             </div>
 
             <div class="field">
                 <span class="first-div">이메일</span>
-                <div class="padding-input"><input type="text" class="input1 input1-extra" placeholder="jini@naver.com" readonly></div>
+                <div class="padding-input"><input type="text" class="input1 input1-extra" id="memberemail" placeholder="<c:out value="${member.member_id}"/>" readonly></div>
             </div>
 
             <div class="field">
                 <span class="first-div">휴대전화</span>
-                <div class="padding-input"><input type="text" class="input1 input1-extra" placeholder="010-2252-2525" readonly></div>
-            </div>
+                <div class="padding-input"><input type="text" class="input1 input1-extra" id="memberphone" placeholder="<c:out value="${member.phone}"/>" readonly></div>
+            </div>                                    
+            
         </div>
-        
-        
+           
         <div class="section1">
             <div class="etc-title">
-                  <span>배송지</span>   
-                  <button class="btn2">회원정보입력</button>
+                  <span>배송지</span>                                       
+                  <button class="btn2" id="input-member">회원정보입력</button>
                   <button type="button" class="btn2" data-toggle="modal" data-target="#fullHeightModalRight">배송지조회 </button>
-            </div>
-            
-
-
-<!-- Full Height Modal Right -->
-<div class="modal fade right" id="fullHeightModalRight" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-  aria-hidden="true">
-
-  <!-- Add class .modal-full-height and then add class .modal-right (or other classes from list above) to set a position to the modal -->
-  <div class="modal-dialog modal-full-height modal-right" role="document">
-
-
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title w-100" id="myModalLabel">Modal title</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      
-      <div class="modal-body">...</div>
-      
-      <div class="modal-footer justify-content-center">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- Full Height Modal Right -->
-
-
+            </div>           
             <div class="line1"></div>
             <div class="field">
                 <span class="first-div">받는분</span>
-                <div><input type="text" class="input1 none-line"></div>
+                <div><input type="text" class="input1 none-line" id="copyname"></div>
             </div>
-
             <div class="field">
                 <span class="first-div">우편번호</span>
                 <div><input type="text" class="input2 none-line" id="zip" disabled> </div>
                 <div class="btn-container"><button class="btn1" id="adrbtn">우편번호</button></div>
             </div>
-
             <div class="field">
                 <span class="first-div">주소</span>
                 <div><input type="text" class="input3 none-line" id="adrinput" disabled></div>
             </div>
             
-            <div class="field">                   
-                <div class="etc-div"><input type="text" class="input3  none-line"></div>                            
-            </div>
-            
-
+            <div class="field"><div class="etc-div"><input type="text" class="input3  none-line"></div></div>            
             <div class="field">
                 <div class="first-div">휴대전화</div>
-                <div><input type="text" class="input1 none-line"></div>
-            </div>
-
+                <div><input type="text" class="input1 none-line" id="copyphone"></div>
+            </div> 
+            <div class="field">
+                <span class="first-div">이메일</span>
+                <div><input type="text" class="input1 none-line" id="copyemail"></div>
+            </div>      							
             <div class="field">
                 <div class="first-div">배송메모</div>                	
                 <div class="input-vertical">
@@ -140,16 +109,32 @@
                 		<div class="preset" id="preset3">부재시 전화 주시거나 문자 남겨 주세요.</div>
                 	</div>
                 </div>
-            </div>
-            <script>       
+            </div>  
+       <!-- 회원정보입력 -->
+       <script>
+        $("#input-member").click(e=>{
+        	let name=$("#membername").attr("placeholder");
+        	let email=$("#memberemail").attr("placeholder");
+        	let phone=$("#memberphone").attr("placeholder");        	        	
+        	$("#copyname").attr({"value":name});        	
+        	$("#copyemail").attr({"value":email});
+        	$("#copyphone").attr({"value":phone});        	        	        	
+        });
+        </script>
+        
+        <!-- 배송메모 -->          
+        <script>       
             $("#message-input").click(e=>{
                 $(".messages").show();            
-            });    
+            });   
+      /*       $("#message-input").blur(e=>{
+                $(".messages").css("display","none");            
+            });   */                         
             $("#preset1").click(e=>{
                 $("#message-input").attr({
                 	"value":"배송 전에 미리 연락 바랍니다."
-                });                 
-            $("#messages").hide();            
+                });                                
+            		$("#messages").hide();            
             });
             $("#preset2").click(e=>{
                 $("#message-input").attr({
@@ -163,103 +148,47 @@
                 });    
                     $("#messages").hide();    
             });
-            </script>
-            
-             <div class="field">
-                <div class="checkdiv  marb">  
-                    <div class="checkicon" stlye="width:172px;">
-                        <span><i class="far fa-check-circle fa-2x ixy i1"></i></span>
-                        <span><i class="fas fa-check-circle fa-2x ixy i2"></i></span>
-                        <input type="checkbox" class="ck" id="ch">
-                    </div>
-                    <span class="spanwid marb">sms 수신 동의 (배송 정보를 SMS로 보내드립니다.)</span>
-                </div>                                 
-            </div>           
+            </script>            
+                     
         </div>
+                       
+                 
         
- <!--        <div class="section1">
-            <div class="etc-title">
-                <span>쿠폰 (0장)</span> 
-                <button class="btn3">쿠폰열기</button> 
-            </div>
-        <div class="line1"></div>
-        </div> -->
+<div id="detail"></div>
+<script>
+$(function(){	
+	$.ajax({		
+		url:"${path}/cart/updatePayment.do",				
+		success:data =>{					
+			$("#detail").html(data);
+		}
+	})
+})
 
-        <div class="section1">
-            <div class="etc-title">포인트</div>
-            <div class="line1" ></div>           
-            <div class="able-point">
-	            
-	            <div class="first-div first-div-add">사용 가능한 포인트</div>
-	            <div class="usable-point">0P</div>                                        
-	                 
-	            <div class="checkdiv">  
-	                    <div class="checkicon" stlye="width:172px;">
-	                        <span><i class="far fa-check-circle fa-2x ixy i1"></i></span>
-	                        <span><i class="fas fa-check-circle fa-2x ixy i2"></i></span>
-	                        <input type="checkbox" class="ck" id="ch">
-	                    </div>
-	                    <span class="spanwid">전액사용</span>
-	             </div>
-			</div>                
-            
-            <div class="able-point">
-            	<div class="first-div first-div-add">사용할 포인트</div>                     
-                <div><input type="text" class="input4 none-line" ></div>
-                <div class="pre-point" style="padding: 7px 0 0px 8px;">P</div>            	                         
-            </div>     
-               
-        </div>
-
-            <div class="section1">
-                <div class="etc-title">결제 세부 정보</div>
-                <div class="line1"></div>
-                <div class="total-title">
-                        <div class="pay-title">
-                            <div >주문 금액(배송비 제외)</div>
-                            <div>7,900</div>                    
-                        </div>
-                        <div class="pay-title">
-                            <div>전체 서비스 비용</div>
-                            <div>5,000</div>
-                        </div>
-                        <div class="pay-title">
-                            <div>주문 금액(부가세 제외)</div>
-                            <div>11,727</div>
-                        </div>
-                        <div class="pay-title">
-                            <div>부가세(10%)</div>
-                            <div>1,173</div>
-                        </div>
-                </div>                
-                    <div class="line2">
-                        <div class="pay-title pay-font">
-                            <div>총 주문금액</div>
-                            <div>12,900</div>
-                        </div>
-                    </div>
-            </div>        
+        	
+</script>           
         
                 
-       <div class="section1" style="display: flex;">            
+       <div class="section1" style=" display: flex; flex-direction: column;" >
+       		<div style="display: flex;">            
 	            <div class="etc-title">예상 적립 포인트</div>                      
-	            <span class="field span-padding"><div class="pre-point">1,490P</div></span>
-                    	
+	            <span class="field span-padding"><div class="pre-point"><c:out value="${member.predicpoint }"/>P</div></span>
+	         </div>                    	
+            <div>총 주문 금액의 5%가 적립됩니다.<a href="">더알아보기</a></div>
         </div>
-            <!-- <div>VIP 등급은 4,470P 적립<a href="">더알아보기</a></div> -->
 
         <div class="section1">
             <div class="etc-title">결제 수단</div>
             <div class="line1"></div> 
             <div class="field">                                
                 <div class="payment_panel">
-                	<input type="radio" name="options" id="option1" autocomplete="off" checked autocompleted style="display: none">
+                	<input type="radio" name="options" id="option1" autocomplete="off" checked autocompleted style="display: none" value="card" >
                 	<label class="pay-label" for="option1">
                 		<img alt="" src="${path}/resources/img/credit-card.png">
                 		<div class="payment-title">신용카드</div>
-                	</label>
+                	</label>                	           
                 	
-                	<input type="radio" name="options" id="option2" autocomplete="off" checked autocompleted style="display: none">
+                	<input type="radio" name="options" id="option2" autocomplete="off" checked autocompleted style="display: none"  value="bankTransfer">
                 	<label class="pay-label" for="option2">
                 		<img alt="" src="${path}/resources/img/money.png" alt="">
                 		<div class="payment-title">무통장</div>
@@ -331,8 +260,90 @@
                             </div> 
             </div>
         </div>
-            <button type="button" class="btn btn-dark event-bu"  onclick="location.href='${path }/cart/creditpay.do'"><span class="event-sp">결제하기</span></button> 
+            <button type="button" class="btn btn-dark event-bu" id="paybtn"><span class="event-sp">결제하기</span></button> 
     </div>
+
+
+        
+<div class="request_pay"></div>
+        
+        
+<script>
+$("#paybtn").click(e=>{
+	
+	let payment=$("input[name=options]:checked").val();
+	console.log(payment);
+	
+	if(payment=="card"){
+		
+		IMP.init('imp27633438');
+		
+		IMP.request_pay({
+		    pg : 'html5_inicis', // version 1.1.0부터 지원.
+		    pay_method : 'card',
+		    merchant_uid : 'merchant_' + new Date().getTime(),
+		    name : '주문명:결제테스트',
+		    amount : 14000, //판매 가격
+		    buyer_email : 'iamport@siot.do',
+		    buyer_name : '구매자이름',
+		    buyer_tel : '010-1234-5678',
+		    buyer_addr : '서울특별시 강남구 삼성동',
+		    buyer_postcode : '123-456'
+		}, function(rsp) {
+		    if ( rsp.success ) {
+		        var msg = '결제가 완료되었습니다.';
+		        msg += '고유ID : ' + rsp.imp_uid;
+		        msg += '상점 거래ID : ' + rsp.merchant_uid;
+		        msg += '결제 금액 : ' + rsp.paid_amount;
+		        msg += '카드 승인번호 : ' + rsp.apply_num;
+		    } else {
+		        var msg = '결제에 실패하였습니다.';
+		        msg += '에러내용 : ' + rsp.error_msg;
+		    }
+		    alert(msg);
+		});		
+	}else if(payment=="bankTransfer"){
+		
+	}
+
+})
+
+</script> 
+    
+    
+    
+    
+    
+<!-- Full Height Modal Right -->
+<div class="modal fade right" id="fullHeightModalRight" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+
+  <!-- Add class .modal-full-height and then add class .modal-right (or other classes from list above) to set a position to the modal -->
+  <div class="modal-dialog modal-full-height modal-right" role="document">
+
+
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title w-100" id="myModalLabel">Modal title</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      
+      <div class="modal-body">...</div>
+      
+      <div class="modal-footer justify-content-center">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Full Height Modal Right -->
+    
+    
+    
+    
 </section>
 
  <script>
