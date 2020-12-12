@@ -71,6 +71,11 @@ public class CartDaoImpl implements CartDao{
 		return session.insert("cart.insertCart",cart);
 	}
 
+	@Override
+	public int selectCount(SqlSession session, String cartNo) {	
+		return session.selectOne("cart.selectCount",cartNo);
+	}
+
 	
 	
 	

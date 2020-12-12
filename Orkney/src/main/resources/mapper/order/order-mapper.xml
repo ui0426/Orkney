@@ -23,4 +23,29 @@
 	<select id="selectEmail" parameterType="string" resultType="string">
 		select member_id from member join orders using(member_no) where order_no=#{order_no}
 	</select>
+	
+	
+	<insert id="insertOrders" parameterType="order">
+		insert into orders values(TO_CHAR(O_SEQ.nextval,'FM000000000'),#{member_no},sysdate,#{order_name},#{order_phone},#{order_address},#{order_qty},#{total_price},default,#{order_memo},#{payment_method},default )
+		
+		<selectKey keyProperty="order_no" resultType="string" order="AFTER">
+		select TO_CHAR(O_SEQ.CURRVAL,'FM000000000') from dual 
+		</selectKey>
+		
+	</insert>
+	
+	<insert id="insertDetail" parameterType="cart">
+	  insert into order_detail values(OD_SEQ.nextval,#{productNo},#{cartQTY},#{cartNo})
+	</insert>
+	
+	<insert id="insertPoint" parameterType="point">
+		insert into point values(PO_SEQ.nextval,#{member_no},sysdate, #{willPoint},'차감','사용' )
+	</insert>
+	
+	<insert id="insertPoint2" parameterType="point">
+		insert into point values(PO_SEQ.nextval,#{member_no},sysdate, #{predicPoint},'적립','추가' )
+	</insert>
+	
+	
+	
 </mapper>

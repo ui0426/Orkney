@@ -1,6 +1,9 @@
 package com.palette.orkney.order.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -14,7 +17,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.palette.orkney.cart.model.service.CartService;
+import com.palette.orkney.cart.model.vo.Cart;
 import com.palette.orkney.member.model.service.MemberService;
+import com.palette.orkney.member.model.vo.Point;
 import com.palette.orkney.order.model.service.OrderService;
 import com.palette.orkney.order.model.vo.Orders;
 
@@ -28,7 +34,113 @@ public class OrderController {
 	private MemberService mservice;
 	@Autowired
 	private BCryptPasswordEncoder pwEncoder;
+	@Autowired
+	private CartService cservice;	
 	
+	
+	
+	//결제후 화면이동
+	@RequestMapping("/cart/complete.do")
+	public ModelAndView complete(ModelAndView mv,
+			String reName,String rePhone,HttpSession session,
+			String reAddress, String message,int kopQty, String paymentMethod,	
+			Orders orders,int totalFee, int shipFee,int sumProduct, int addTax, int willPoint, int predicPoint
+			)throws NumberFormatException {
+		
+		String memberNo = (String)((Map)session.getAttribute("login")).get("MEMBER_NO");
+		String memberId = (String)((Map)session.getAttribute("login")).get("MEMBER_ID");
+		
+		System.out.println("받는사람이름:"+reName+"/"+rePhone+"/"+totalFee+"/"+memberNo
+			+"/"+message);
+		System.out.println("주소:"+reAddress);
+		System.out.println("상품종류수량:"+kopQty);
+		System.out.println("결제방법:"+paymentMethod);
+		
+		
+		//order insert 필요한거  
+		//회원번호0, 받는사람 이름0, 받는사람 전화번호0, 받는사람 주소0, 주문수량(상품종류 몇개인지)0, 상품 총가격0, 결제방법0		
+		orders.setMember_no(memberNo);
+		orders.setOrder_name(reName);
+		orders.setOrder_phone(rePhone);
+		orders.setOrder_address(reAddress);		
+		orders.setOrder_qty(kopQty);
+		orders.setTotal_price(totalFee);
+		orders.setPayment_method(paymentMethod);
+		orders.setOrder_memo(message);	
+		orders.setMember_id(memberId);
+		
+		List<Cart> c = cservice.selectCart(memberNo);	
+		int insertOrders = service.insertOrders(orders,c); 				
+		
+		
+		System.out.println("적립포인트:"+predicPoint);
+		System.out.println("차감포인트:"+willPoint );
+		
+
+		
+		
+		Map<String, Object>map = new HashMap<String, Object>();					
+		map.put("sumprice",sumProduct);
+		map.put("shipFee",shipFee);
+		map.put("willPoint",willPoint); //사용할 포인트
+		map.put("addTax", addTax);
+		map.put("totalFee",totalFee);		
+
+		
+		//차감로직
+		List<Point> point = new ArrayList<Point>();
+		for(int i=0;i<100;i++) {
+			
+		}
+		if(willPoint!=0) {
+			((Point) point).setPoint_type("차감");
+			((Point) point).setPoint_content("사용");
+		}
+		
+		//point.setMember_no(memberNo);		
+//		point.setWillPoint(willPoint);						
+//		point.setPredicPoint(predicPoint);
+//		System.out.println(point);
+		
+		//포인트 사용시
+//		if(willPoint!=0) {
+//			point.setPoint_type("차감");
+//			point.setPoint_content("사용");
+//		}else if(predicPoint!=0) {
+//			point.setPoint_type("적립");
+//			point.setPoint_content("추가");
+//		}
+		System.out.println(point);
+		
+		
+		
+//		int insertPoint=0;
+//		int insertPoint2=0;
+//		if(willPoint!=0) { //포인트 이용시
+//			insertPoint = service.insertPoint(point);	//포인트 차감
+//			insertPoint2 = service.insertPoint2(point);	//포인트 적립
+//		}   insertPoint2 = service.insertPoint2(point);	//아닐시 : 포인트 적립만 
+		
+		
+		
+		
+		
+		
+		
+		mv.addObject("map",map);		
+		mv.addObject("cart",c);
+		mv.addObject("orders",orders);		
+		mv.setViewName("cart/complete");
+		return mv;
+	}
+	
+
+	private int parseInt(String totalFee) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
 	@RequestMapping("/order/order.do")
 	public String orderMain(HttpSession session) {
 		return "order/orderMain";

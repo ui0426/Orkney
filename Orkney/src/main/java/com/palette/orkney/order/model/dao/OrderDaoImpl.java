@@ -6,6 +6,8 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.palette.orkney.cart.model.vo.Cart;
+import com.palette.orkney.member.model.vo.Point;
 import com.palette.orkney.order.model.vo.OrderDetail;
 import com.palette.orkney.order.model.vo.Orders;
 
@@ -35,6 +37,26 @@ public class OrderDaoImpl implements OrderDao {
 	@Override
 	public String selectEmail(SqlSession session, String oNo) {
 		return session.selectOne("order.selectEmail", oNo);
+	}
+
+	@Override
+	public int insertOrders(SqlSession session, Orders orders) {
+		return session.insert("order.insertOrders",orders);
+	}
+
+	@Override
+	public int insertDetail(SqlSession session, Cart cart) {	
+		return session.insert("order.insertDetail",cart);
+	}
+
+	@Override
+	public int insertPoint(SqlSession session, Point point) {	
+		return session.insert("order.insertPoint",point);
+	}
+
+	@Override
+	public int insertPoint2(SqlSession session, Point point) {	
+		return session.insert("order.inserPoint2",point);
 	}
 	
 	

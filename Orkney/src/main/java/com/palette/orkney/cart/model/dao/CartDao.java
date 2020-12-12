@@ -31,6 +31,8 @@ public interface CartDao {
 	int updateCart(SqlSession session,Cart cart);
 	
 	int insertCart(SqlSession session,Cart cart);
+	
+	int selectCount(SqlSession session,String cartNo);
 }
 
 
