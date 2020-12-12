@@ -13,6 +13,8 @@ public interface AdminService {
 
 	List<String> roomNo(String data);
 	
-	List<Orders> selectOrderList(); 
+	List<Orders> selectOrderList();
+	
+	int updateOrderState(Map o);
 
 }

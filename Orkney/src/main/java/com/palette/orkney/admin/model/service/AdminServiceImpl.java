@@ -40,6 +40,11 @@ public class AdminServiceImpl implements AdminService {
 	public List<Orders> selectOrderList() {
 		return dao.selectOrderList(session);
 	}
+
+	@Override
+	public int updateOrderState(Map o) {
+		return dao.updateOrderState(session, o);
+	}
 	
 	
 	

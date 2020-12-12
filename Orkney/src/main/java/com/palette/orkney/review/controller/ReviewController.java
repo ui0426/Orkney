@@ -115,5 +115,11 @@ public class ReviewController {
 		mv.setViewName("/review/reviewList");
 		return mv;
 	}
+	
+	@RequestMapping("/review/reviewUpdate.do")
+	public String reviewUpdate() {
+		
+		return "review/reviewUpdate";
+	}
 
 }

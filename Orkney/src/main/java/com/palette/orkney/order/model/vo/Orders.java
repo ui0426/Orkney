@@ -31,6 +31,9 @@ public class Orders {
 	
 	
 	//member
-	private String member_name;
 	private String member_id;
+	private String member_name;
+
+	private String phone;
+
 }

@@ -14,4 +14,8 @@
   	<select id="selectOrderList" resultType="order">
   		SELECT * FROM ORDERS JOIN MEMBER USING(MEMBER_NO) ORDER BY ORDER_DATE DESC
   	</select>
+  	
+  	<update id="updateOrderState" parameterType="map">
+  		UPDATE ORDERS SET ORDER_STATE=#{state} WHERE ORDER_NO=#{oNo}
+  	</update>
 </mapper>

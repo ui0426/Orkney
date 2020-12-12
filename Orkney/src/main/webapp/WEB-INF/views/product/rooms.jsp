@@ -12,6 +12,7 @@
 <link rel="stylesheet" href="${path}/resources/css/product/rooms.css">
 <link rel="stylesheet"
 	href="${path }/resources/css/product/products.css">
+	
 <section class="rm-container ">
 	<div class="rm-container-inner">
 		<div class="rm-top">
@@ -26,8 +27,9 @@
 		<div>
 		
 			<div class="rm-hd">
-			<c:forEach items="${roomsTitle}" var="q" varStatus="w">
-				<h1 class="rm-h1">${q.ROOM_CODE}</h1>
+			
+				<h1 class="rm-h1">${param.type}</h1>
+				<c:forEach items="${roomsTitle}" var="q" varStatus="w">
 				<c:if test="${w.index== 0 }">
 				<span class="rm-sp">${q.ROOM_H2 }</span> 
 				<span class="rm-sps">${q.ROOM_CONTEXT }</span>
@@ -37,6 +39,7 @@
 				
 			
 		</div>
+		
 		<div class="wrapper">
 			<c:forEach items="${rooms}" var="r" varStatus="l" end="4">
 			<input type="text" class="rm-none" value="${l.index}">
@@ -53,8 +56,10 @@
 									<a class="rm-a-a" href="${path}">
 										<div class="rm-pd-box">
 											<div class="rm-pd-box-box">
-												<span class="rm-pb-et-new">NEW</span> <span
-													class="rm-pb-et-p">더 낮은 새로운 가격</span>
+												<span class="rm-pb-et-new">NEW</span>
+												<c:if test="${p.SALE_PER!=null}">
+												<span class="rm-pb-et-p">더 낮은 새로운 가격</span>
+												</c:if>
 												<div class="rm-bt-pb">
 													<div class="rm-bt-name">${p.PRODUCT_NAME}</div>
 													<div class="rm-bt-context">
@@ -65,6 +70,7 @@
 											<img class="rm-bt-ig"
 												src="${path}/resources/images/rooms/KakaoTalk_20201120_194609.png">
 										</div>
+										<c:if test="${p.SALE_PER!=null}">
 										<div>
 											<div class="rm-bt-price">
 												<fmt:setLocale value="ko_KR" />
@@ -74,9 +80,20 @@
 										<div>
 											<div class="rm-bt-et-price">
 												<fmt:setLocale value="ko_KR" />
-												<fmt:formatNumber type="currency" value="${p.PRODUCT_PRICE}" />
+												<fmt:formatNumber type="currency" value="${p.PRODUCT_PRICE*(1-p.SALE_PER/100)}" />
+											
 											</div>
 										</div>
+										</c:if>
+										<c:if test="${p.SALE_PER==null}">
+										<div>
+											<div class="rm-bt-et-price">
+												<fmt:setLocale value="ko_KR" />
+												<fmt:formatNumber type="currency" value="${p.PRODUCT_PRICE}" />
+											
+											</div>
+										</div>
+										</c:if>
 									</a>
 								</div>
 							</div>
@@ -85,7 +102,7 @@
 				</div>
 			</c:forEach>
 		</div>
-		<div>
+		
 			<div class="rm-md-container">
 				<div class="rm-md-container-inner">
 					<div class="rm-md-info">
@@ -99,14 +116,27 @@
 				
 				</div>
 				<a class="rm-md-secondary" href="${path}"> 
-					<span class="rm-md-small"> 
-						<span class="rm-md-label">모든침대/매트리스 보러가기 </span>
+					<span class="rm-md-small">
+						<c:choose>
+						    <c:when test="${param.type=='침실'}">
+						       <span class="rm-md-label">모든침대/매트리스 보러가기 </span>
+						    </c:when>
+						    <c:when test="${param.type=='거실'}">
+						       <span class="rm-md-label">모든 거실 상품 보러가기 </span>
+						         <c:set var="loop_flag" value="true" />
+						    </c:when>
+						    <c:when test="${param.type=='주방'}">
+						       <span class="rm-md-label">모든 주방 상품 보러가기</span>
+						         <c:set var="loop_flag" value="true" />
+						    </c:when>
+						    <c:when test="${param.type=='현관'}">
+						       <span class="rm-md-label">모든 현관 상품 보러가기 </span>
+						         <c:set var="loop_flag" value="true" />
+						    </c:when>
+						</c:choose>
 					</span>
 				</a>
 			</div>
-
-
-
 			<div class="newProduct">
 				<div class="swiper-container">
 					<div class="swiper-wrapper abc">
@@ -126,12 +156,23 @@
 									</div>
 									<!--Card content-->
 									<div class="card-body">
+									<c:if test="${p.SALE_PER!=null}">
+												<span class="rm-pb-et-p">더 낮은 새로운 가격</span>
+												</c:if>
 										<!--Title-->
-										<h4 class="card-title">${p.PRODUCT_NAME}</h4>
+										<h4 class="card-title event-product-name">${p.PRODUCT_NAME}</h4>
 										<!--Text-->
-										<p class="card-text marginZero each">${p.SMALL_CATEGORY_NO}</p>
-										<p class="card-text marginZero"><fmt:setLocale value="ko_KR" />
+										<p class="card-text marginZero each ">${p.SMALL_CATEGORY_NO}</p>
+										<c:if test="${p.SALE_PER!=null}">
+										<p class="card-text marginZero event-price"><fmt:setLocale value="ko_KR" />
 												<fmt:formatNumber type="currency" value="${p.PRODUCT_PRICE}" /></p>
+										<p class="card-text marginZero product-price"><fmt:setLocale value="ko_KR" />
+												<fmt:formatNumber type="currency" value="${p.PRODUCT_PRICE*(1-p.SALE_PER/100)}" /></p>
+										</c:if>
+										<c:if test="${p.SALE_PER==null}">
+										<p class="card-text marginZero product-price"><fmt:setLocale value="ko_KR" />
+												<fmt:formatNumber type="currency" value="${p.PRODUCT_PRICE}" /></p>
+										</c:if>
 										<div class="">
 											<svg focusable="false" viewBox="0 0 24 24" class="star"
 												aria-hidden="true">
@@ -261,9 +302,17 @@
 						class="swiper-button-prev">
 				</div>
 			</div>
-
 		</div>
+	</div>
 </section>
+						
+
+
+
+
+
+
+
 
 
 
@@ -272,9 +321,7 @@
 
 <script>
 
-	
-	
- 
+		
 	
 	
 	
@@ -297,8 +344,8 @@
 	});   
 	 
 	
-	let oneClickCount=1;
 	
+	let oneClickCount=1;
 	$(".one,.two,.three,.four,.five").click(oneOneClick);
 	function oneChangeEvent(){
 		console.log(oneClickCount);
@@ -316,11 +363,11 @@
 	}
 
 	function oneOneClick() {
+		
 		$(window).off("resize");
 		console.log("oneOneClick");
 		$(".rm-ig-box").css("display","none ");
 		$(this).attr("style","grid-area:1/1/9/4 !important ; display:block; ");
-		console.log(this);
 		 if ($(window).width() > 900) {
 			$(".wrapper").css({
 				"position" : "relative",
@@ -358,6 +405,7 @@
 		});   
 		  
 			 let type=$(this).prev().val();
+			 console.log(type);
 			$.ajax({
 								
 			    url: '${path}/product/roomsDetail.do', // 클라이언트가 요청을 보낼 서버의 URL 주소
@@ -368,6 +416,7 @@
 				
 			    success: function(data){
 				     	$(".abc").html("");
+				     	
 			    	      for(let i=0;i<data.length;i++){
 			    	    	  let cl=$(".cltjf").clone();
 			    	    	  $(cl).removeClass("cltjf");
@@ -378,6 +427,23 @@
 					    	   $(cl).find(".ht-two").html(data[i]["PRODUCT_PRICE"]);
 					    	   $(".abc").append(cl);
 			    	    	} 
+			    	      
+			    	      console.log(data.length,'1');
+			    	      if(data.length<4){ 
+			    	    	  console.log(data.length,'2');
+			    	  		$(".swiper-wrapper").css({"displye":"flex","justify-content":"center"});
+			    	  		
+			    	      }
+			    	      if(data.length<=4){ 
+			    	    	  $(".swiper-button-next , .swiper-button-prev").attr("style","display:none ;");
+			    	      }
+			    	      if(data.length>=5){
+			    	    	  console.log(data.length,'3');
+			    	    	  $(".swiper-button-next , .swiper-button-prev").attr("style","display:block;");
+			    	    	 
+			    	      }  
+			    			
+			    	    
 				      swiperClass(); 
 			    } 
 		});  
@@ -388,6 +454,8 @@
 	
 		   
 		 function secondOneClick() {
+			 $(".swiper-wrapper").css({"displye":"flex","justify-content":"end"});
+			 $(".swiper-button-next , .swiper-button-prev").attr("style","display:block;");
 			 $(window).off("resize");
 				console.log("secondOneClick");
 				if ($(window).width() <= 900) {
@@ -430,13 +498,15 @@
 					}
 					
 				});  
-				 
-					 let type=$(this).prev().val();
+				    let text=$(".rm-h1").text(); 
+				    console.log(text);
 					$.ajax({
 										
 					    url: '${path}/product/backRoomsDetail.do', // 클라이언트가 요청을 보낼 서버의 URL 주소
+					     data: { 'type': text },   
 					    type: 'post',                             // HTTP 요청 방식(GET, POST)
 					    success: function(data){
+					    	 console.log(data);
 						     	$(".abc").html("");
 					    	      for(let i=0;i<data.length;i++){
 					    	    	  let cl=$(".cltjf").clone();
@@ -448,9 +518,9 @@
 							    	   $(cl).find(".ht-two").html(data[i]["PRODUCT_PRICE"]);
 							    	   $(".abc").append(cl);
 					    	    	} 
-						      swiperClass(); 
+					    	      swiperClass(); 
 					    } 
-						
+					    
 				});  
 					 oneClickCount++;
 						oneChangeEvent();
@@ -467,18 +537,20 @@
 		spaceBetween : 5,
 		slidesPerGroup : 1,
 		loop : false,
+		simulateTouch: false,
+		 allowTouchMove: false,
 		loopFillGroupWithBlank : false,
-		scrollbar : {
+		 scrollbar : {
 			el : '.swiper-scrollbar',
 			hide : true,
-		},
+		}, 
 
 		navigation : {
 			nextEl : '.swiper-button-next',
 			prevEl : '.swiper-button-prev',
 		},
 		
-		centeredSlides: true,
+		
 		//반응형
 		breakpointsInverse : true,
 		breakpoints : {
@@ -501,11 +573,11 @@
 			
 			800 : {
 				slidesPerView : 3,
-				spaceBetween : 15
+				spaceBetween : 10
 			} ,
 			1200 :{
 				slidesPerView : 4,
-				spaceBetween : 15
+				spaceBetween : 10
 			}
 			
 		}

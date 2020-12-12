@@ -279,6 +279,12 @@ public class OrderController {
 		return email;
 	}
 	
+	//비밀번호 찾기 페이지로 이동
+	@RequestMapping("/order/passwordCheck.do")
+	public String passwordCheck() {
+		return "order/orderPasswordCheck";
+	}
+	
 
 	//임시
 	@RequestMapping("/order/orderEndView.do")

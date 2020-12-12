@@ -169,7 +169,7 @@
 		                	<c:if test="${login.AUTHORITY eq '관리자'}">
 		                	<li><a class="hnf-small-ex hnf-link-color" href="${path}/admin/adminPage.do">관리 페이지</a></li>
 		                	</c:if>
-		                    <li><a class="hnf-small-ex hnf-link-color" href="#">고객지원</a></li>
+		                    <li><a class="hnf-small-ex hnf-link-color" href="${path}/notice/question.do">고객지원</a></li>
 		                    <li><a class="hnf-small-ex hnf-link-color" href="${path }/order/order.do">배송조회</a></li>
 		                 <c:if test="${not empty login }">
 		                    <li><a class="hnf-small-ex hnf-link-color" href="${path}/member/mypage.do">내 프로필</a></li>
@@ -269,7 +269,7 @@
 		        			<li>
 		        				<a href="${path}/product/rooms.do?type=침실">
 		        					<span>
-		        						<img  alt="침실" src="https://www.ikea.com/images/bj-and-ouml-rksn-and-auml-s-bj-and-ouml-rksn-and-auml-s-772a90648be3b0ef7d6d47a7f7b7a5f2.jpg?f=xxxs" >
+		        						<img class="showroom-imgsize"  alt="침실" src="https://www.ikea.com/images/bj-and-ouml-rksn-and-auml-s-bj-and-ouml-rksn-and-auml-s-772a90648be3b0ef7d6d47a7f7b7a5f2.jpg?f=xxxs" >
 		        					</span>
 		        					<span>침실</span>
 		        				</a>
@@ -277,25 +277,25 @@
 		        			<li>
 		        				<a href="${path}/product/rooms.do?type=거실">
 		        					<span>
-		        						<img alt="거실" src="https://www.ikea.com/images/stocksund-besta-tv-55b0bb08ee1014c9fe23a98bc9381d2d.jpg?f=xxxs" >
+		        						<img class="showroom-imgsize" alt="거실" src="https://www.ikea.com/images/stocksund-besta-tv-55b0bb08ee1014c9fe23a98bc9381d2d.jpg?f=xxxs" >
 		        					</span>
 		        					<span>거실</span>
 		        				</a>
 		        			</li>
-		        			<li id="imgSize">
-		        				<a id="imgSize" href="${path}/product/rooms.do?type=주방">
-		        					<span id="imgSize">
-		        						<img id="imgSize" alt="주방" src="https://www.ikea.com/images/-cb470d9a37de90b10df90823f72c2b68.jpg?f=xxxs" >
+		        			<li>
+		        				<a href="${path}/product/rooms.do?type=주방">
+		        					<span>
+		        						<img class="showroom-imgsize" alt="주방" src="https://www.ikea.com/images/-cb470d9a37de90b10df90823f72c2b68.jpg?f=xxxs" >
 		        					</span>
 		        					<span>주방</span>
 		        				</a>
 		        			</li>
 		        			<li>
-		        				<a href="${path}/product/rooms.do?type=현관">
+		        				<a href="${path}/product/rooms.do?type=비지니스">
 		        					<span>
-		        						<img alt="현관" src="https://www.ikea.com/images/ikea-hemnes-pinnig-665c8a366698cec21d5a1aa930f071fe.jpg?f=xxxs" >
+		        						<img class="showroom-imgsize" alt="비지니스" src="https://www.ikea.com/images/-79df77736e888bb0f725d907b5f90331.jpg?f=xxxs" >
 		        					</span>
-		        					<span>현관</span>
+		        					<span>비지니스</span>
 		        				</a>
 		        			</li>
 		        		</ul>
