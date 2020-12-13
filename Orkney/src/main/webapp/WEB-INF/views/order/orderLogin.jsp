@@ -32,7 +32,7 @@
 				   		</label>
 				  	</div>
 				  	<p>
-				  		<a href="">비밀번호가 기억나지 않으세요?</a>
+				  		<a href="${path}/order/passwordCheck.do">비밀번호가 기억나지 않으세요?</a>
 				  	</p>	
 				  	<button disabled="disabled" type="button" class="btn order-btn-color" id="order-submit">확인</button>
 				<!-- </form> -->

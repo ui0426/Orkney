@@ -98,8 +98,44 @@
     .disno{display:none;}
     .errored{border-bottom: 1px red solid !important;box-shadow: 0 1px 0 #e00751 !important;}
     .lfs{color:black !important;}
+    #email-alarm{
+	  position:absolute;
+	  padding: 0.6rem 3rem 1rem;
+	  left: 105%;
+	  font-weight: 600;
+      top: 13%;
+	  width:200px;
+	  height:70px;
+	  margin-left:-50px;
+	  background-color:#000;
+	  color:#fff;
+	  /* 애니메이션 이름 */
+	  /* animation-name: emailDiv; */
+	  animation-duration:3s;
+	  animation-duration: leaner;
+	  animation-iteration-count:1;
+	  animation-direction:alternate;
+	  animation-fill-mode: forwards;
+	  border-radius: 10px;
+    }
+    
+    @-webkit-keyframes emailDiv {
+  0% {
+    left:105%;
+  }
+  50%{
+    left:70%;
+  }
+  100% {
+    left:105%;
+  }
+}
+
 </style>
 <body>
+<div id="email-alarm">
+	이메일이 전송되었습니다.
+</div>
     <div id="totalForm">
         <div id="semiForm">
             <div id="leftForm">
@@ -115,7 +151,7 @@
                 </div>
                 <div>
                     <h1 class="fw hfs" id="logintitle">로그인</h1>
-                    <p class="ptext" id="logintext">외워야 할 비밀번호가 많아 불편하셨죠?<br>이제 일회용 코드를 이용하여 간편하게  로그인하세요. <br><br>* 이메일 또는 휴대폰 번호 최초 인증 후 사용 가능</p>
+                    <p class="ptext" id="logintext">orkney에 오신 것을 환영합니다!<br><br>구글 아이디를 이용하여 간편하게  로그인하세요. <br><br>* 이메일 인증을 확인해주세요.</p>
                     <div></div>
                 </div>
                 <div class="itemstart">
@@ -126,13 +162,13 @@
             <div id="rightForm">
                 <div id="loginForm">
                     <div></div>
-                    <form action="${path }/member/login.do" id="logininput" method="post">
+                    <form action="${path }/member/login.do" id="logininput" method="post" name="signupForm">
                         <div class="md-form mdmar">
                             <input type="text" id="idinput" class="form-control borderb" name="userId">
                             <label for="inputLGEx" class="lfs">아이디 입력</label>
                             <div class="errorspan disno marb disno" id="iddiv">이메일을 입력해주세요.</div>
                           </div>
-                        <div><span class="fs">다른 옵션 : </span><span id="googlelogin" style="cursor:pointer" class="fs fwtd" style="color:black;">구글</span></div>
+                        <div><span class="fs">다른 옵션 : </span><span id="googlelogin" style="cursor:pointer" class="fs fwtd" style="color:black;">구글 로그인</span></div>
                         <div class="md-form mdmar">
                             <input type="password" id="pwinput" class="form-control borderb" name="userPw">
                             <label for="inputLGEx"  class="lfs">비밀번호 입력</label>
@@ -140,18 +176,18 @@
                           </div>
                           <div class="fs"><a class="fwtd" id="searchPwBtn">비밀번호찾기</a></div>
                         <div></div>
-                        <div><button id="loginBtn" type="submit" class="btn btn-dark logbtn mar bc">로그인</button></div>
+                        <div><button id="loginBtn" type="submit" class="btn btn-dark logbtn mar bc" onclick="return idCheck();">로그인</button></div>
                         <div><button type="button" class="btn btn-light logbtn" id="sign_up">회원 가입</button></div>
                     </form>
                 </div>
                 <div class="searchPw" id="sPw">
                     <div>
                         <div class="md-form mdmar">
-                            <form action=""  class="searchform">
-                            <input type="text" id="fname" class="form-control bb">
+                            <form action="${path }/transPw.do"  class="searchform" name="emailChForm" method="post">
+                            <input type="text" id="fname" class="form-control bb" name="email">
                             <label for="fname" class="labcolor">이메일</label>
                             <span class="errorspan disno" id="fnspan">이메일은 필수 필드입니다.</span>
-                            <div><button id="transbtn" type="button" class="btn btn-primary btnattr">비밀번호 재설정</button></div>
+                            <div><button id="transbtn" type="button" class="btn btn-primary btnattr" onclick="return emailCh();">비밀번호 재설정</button></div>
                             </form>
                         </div>
                     </div>
@@ -159,7 +195,73 @@
             </div>
         </div>
         </div>
+        <input type="hidden" value=${ani} id="ech">
    <script>
+   
+   let ch=$("#ech").val();
+   if(ch=='true'){
+	   $("#email-alarm").css('animation-name','emailDiv');
+   }
+   
+   function idCheck(){
+	   let flag=false;
+	   $.ajax({
+		   url:"${path}/member/idCheck.do",
+		   data:{id:$("#idinput").val(),pw:$("#pwinput").val()},
+		   success:data => {
+			   if(data==true){
+				   signupForm.submit();
+			   }else{
+				   $("#iddiv").html("정보가 일치하지 않습니다.");
+				   $("#iddiv").css("display","block");
+			   }
+		   }
+	   })
+	   return flag;
+   }
+   function emailCh(){
+	
+
+		    $.ajax({
+			   url:"${path}/member/emailCh.do",
+			   data:{"id":$("#fname").val(),"auth":"Y"},
+			   type:'post',
+			   success: data => {
+				   if(data==true){
+					emailChForm.submit(); 
+				   }else{
+				   $("#fnspan").html('이메일이 존재하지 않습니다.');
+				   $("#fnspan").css('display','block');
+				   }
+				}
+		   }) 
+	   return false;
+	   
+   }
+   
+   $("#fname").on("blur",e=>{//이메일이 안적혔을 때
+       var v=$(e.target).val().length;
+       var val=$(e.target).val();
+      if(v==0){
+           $(e.target).removeClass("errored");
+           $("#fnspan").css("display","none");
+      }else{
+       $(e.target).removeClass("errored");
+       $("#fnspan").css("display","none");
+      }
+      if(v>=1){
+       let reg=/^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/g;
+       if(reg.test(val)){
+           $(e.target).removeClass("erroredn");
+           $("#fnspan").css("display","none");
+       }else{
+           $(e.target).addClass("errored");
+           $("#fnspan").css("display","block");
+           $("#fnspan").html("이메일 형식이 올바르지 않습니다.");
+       }
+      }
+   })
+   
     $("#searchPwBtn").click(e=>{
         $("#loginForm").css("display","none");
         $("#sPw").css("display","flex");
@@ -203,9 +305,7 @@
             $("#pwdiv").css("display","none");
            }
         })
-        $("#transbtn").click(e=>{
-        	location.href="${path}/transPw.do";
-        })
+        
         $("#sign_up").click(e=>{
         	location.href="${path}/member/signup.do";
         })
@@ -222,6 +322,7 @@
 				// 	"","width=400,height=400,left=600");
  	}
 	
+ 	
     
 	</script>
 </body>

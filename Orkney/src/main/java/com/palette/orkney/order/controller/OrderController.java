@@ -55,7 +55,7 @@ public class OrderController {
 		return mv;
 	}
 	
-	//로그인 안한 상태로 주문관리 클릭 후 주문조회만을 위한 로그인 할 때
+	//로그인 안한 상태로 주문관리 클릭 후 로그인 할 때
 	@RequestMapping("/order/orderLogin.do")
 	@ResponseBody
 	public String orderLoginAjax(String id, String pw, Model m) throws IOException {
@@ -102,26 +102,48 @@ public class OrderController {
 		return mv;
 	}
 	
-	@RequestMapping("/order/orderFormCheck.do")
+	@RequestMapping(value="/order/orderFormCheck.do",produces="text/plain;charset=UTF-8")
 	@ResponseBody
-	public boolean orderFormCheck(String oNo, String mId) {
+	public String orderFormCheck(String oNo, String mId, HttpSession session) {
 		System.out.println(oNo);
-		Orders order = service.selectOrder(oNo);
-		Map login=mservice.loginCheck(mId);
-		System.out.println("입력한 주문번호가 있는 건가?"+order);
-		System.out.println("입력한 아이디가 있는 건가?"+login);
-		if(order != null && login != null) {
-			order.setOdList(service.selectOrderDetail(oNo));
-			if(order.getMember_no().equals((String)login.get("MEMBER_NO"))) {//주문번호로 주문한 회원과 입력한 아이디가 동일한 회원이 맞는지도 확인해야함!!
-				return true;
-			}else {
-				System.out.println("주문번호로 조회한 주문정보에 담긴 회원번호와 입력한 회원번호가 일치하지 않음");
-				return false;
+		Map member=mservice.loginCheck(mId);
+		System.out.println("입력한 아이디의 화원번호?"+member.get("MEMBER_NO"));
+		
+		Map login = (Map)session.getAttribute("login");
+		System.out.println("로그인 한 회원번호 : "+member.get("MEMBER_NO"));
+		if(login != null) {//로그인 한 상태에서 접속하려고 할 때
+			if(member != null && member.get("MEMBER_NO").equals(login.get("MEMBER_NO")) ) {//지금 입력한 아이디와 로그인한 회원의 아이디가 일치하면
+				Orders order = service.selectOrder(oNo);
+				System.out.println("입력한 주문번호가 있는 건가?"+order);
+				if(order != null) {//주문번호 있는건지 확인
+					order.setOdList(service.selectOrderDetail(oNo));
+					if(order.getMember_no().equals((String)member.get("MEMBER_NO"))) {//주문번호로 주문한 회원과 입력한 아이디가 동일한 회원이 맞는지도 확인해야함!!
+						return "true";
+					}else {//주문번호와 회원번호 불일치
+						System.out.println("주문번호로 조회한 주문정보에 담긴 회원번호와 입력한 회원번호가 일치하지 않음");
+						return "주문 번호(iSell 번호)와 주문하신 회윈의 이메일을 정확하게 입력해주세요.";
+					}
+				}else {//주문번호 잘못 입력
+					return "주문 번호(iSell 번호)와 주문하신 회윈의 이메일을 정확하게 입력해주세요.";
+				}
+			}else {//지금 입력한 아이디와 로그인한 회원의 아이디가 불일치
+				return "입력하신 이메일과 회원정보가 일치하지 않습니다.";
 			}
-		}else {
-			return false;
+		}else {//로그인 안 한 상태에서 접속하려고 할 때
+			Orders order = service.selectOrder(oNo);
+			System.out.println("입력한 주문번호가 있는 건가?"+order);
+			if(order != null) {//주문번호 있는건지 확인
+				order.setOdList(service.selectOrderDetail(oNo));
+				if(order.getMember_no().equals((String)member.get("MEMBER_NO"))) {//주문번호로 주문한 회원과 입력한 아이디가 동일한 회원이 맞는지도 확인해야함!!
+					return "true";
+				}else {//주문번호와 회원번호 불일치
+					System.out.println("주문번호로 조회한 주문정보에 담긴 회원번호와 입력한 회원번호가 일치하지 않음");
+					return "주문 번호(iSell 번호)와 주문하신 회윈의 이메일을 정확하게 입력해주세요.";
+				}
+			}else {//주문번호 잘못 입력
+				return "주문 번호(iSell 번호)와 주문하신 회윈의 이메일을 정확하게 입력해주세요.";
+			}
 		}
-		//return order != null && login != null? true : false; 
 	}
 	
 	//취소요청 모달 ajax
@@ -143,6 +165,12 @@ public class OrderController {
 			System.out.println("주문자의 이메일 : "+email);
 		}
 		return email;
+	}
+	
+	//비밀번호 찾기 페이지로 이동
+	@RequestMapping("/order/passwordCheck.do")
+	public String passwordCheck() {
+		return "order/orderPasswordCheck";
 	}
 	
 

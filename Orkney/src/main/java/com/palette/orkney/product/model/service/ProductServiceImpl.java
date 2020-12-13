@@ -105,6 +105,29 @@ public class ProductServiceImpl implements ProductService{
 	  return dao.selectRoomsTitle(session,type); }
 
 
+	@Override
+	public List<Map> listProduct(String type) {
+		// TODO Auto-generated method stub
+		return dao.listProduct(session,type);
+	}
+
+	@Override
+	public String allProductList() {
+		// TODO Auto-generated method stub
+		return dao.allProductList(session);
+	}
+
+	@Override
+	public List<Map> productCategory(Map texts) {
+		// TODO Auto-generated method stub
+		return dao.productCategory(session,texts);
+	}
+
+	@Override
+	public List<Map> sale() {
+		// TODO Auto-generated method stub
+		return dao.sale(session);
+	}
 
 	 
 

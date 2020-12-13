@@ -66,21 +66,20 @@
 				    <div class="modal-dialog" role="document">
 				      <div class="modal-content">
 				        <div class="modal-header">
-				          <h5 class="modal-title" id="exampleModalLabel">죄송합니다. 주문 내역을 찾을 수 없습니다.</h5>
+				          <h5 class="modal-title orderform-modal-title" id="exampleModalLabel">죄송합니다. 주문 내역을 찾을 수 없습니다.</h5>
 				          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 				            <span aria-hidden="true">&times;</span>
 				          </button>
 				        </div>
-				        <div class="modal-body">
-				         	주문 번호(iSell 번호)와 주문하신 회윈의 이메일을 정확하게 입력해주세요.
+				        <div id="modal-msg" class="modal-body orderform-modal-content">
+				         	
 				        </div>
 				        <div class="modal-footer">
-				          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				          <button type="button" class="btn btn-indigo" data-dismiss="modal">Close</button>
 				        </div>
 				      </div>
 				    </div>
-				  </div>
-				  <div id="modal-hidden"></div>
+				 </div>
 			</div>
 		</div>
 	</div>
@@ -169,12 +168,13 @@
 				data:{oNo:no,mId:pe},
 				success:data=>{
 					console.log(data);
-					if(data == true){
+					if(data == "true"){
 						$("#oView").submit();
 					}else{
 						//모달 띄우기
 						//$("#basicExampleModal").addClass("show").css("display","block").removeAttr("aria-hidden").attr("aria-modal","true");
 						//$("#modal-hidden").addClass("modal-backdrop fade show");
+						$("#modal-msg").html(data);
 						$("#modalBtn").trigger("click");//그냥 부트스트랩에서 데려온 모달 버튼 자동클릭되게...
 					}
 				}

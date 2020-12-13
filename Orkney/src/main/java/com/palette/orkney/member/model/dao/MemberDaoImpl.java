@@ -86,8 +86,8 @@ public class MemberDaoImpl implements MemberDao {
 	
 	//가입 시 주소 가져오기
 	@Override
-	public String getAddress(SqlSession session, String no) {
-		return session.selectOne("member.getAddress", no);
+	public Addr getAddress(SqlSession session, String no) {
+		return session.selectOne("member.getBasicAddress", no);
 	}
 
 	@Override
@@ -100,6 +100,37 @@ public class MemberDaoImpl implements MemberDao {
 	@Override
 	public List<Addr> addAddrList(SqlSession session, String mNo) {
 		return session.selectList("member.addAddrList", mNo);
+	}
+
+
+	@Override
+	public Map snsUserInfo(SqlSession session, String userId) {
+		// TODO Auto-generated method stub
+		return session.selectOne("member.snsUserInfo",userId);
+	}
+
+	@Override
+	public int updateSnsId(SqlSession session, Map snsData) {
+		// TODO Auto-generated method stub
+		return session.update("member.updateSnsId",snsData);
+	}
+
+	@Override
+	public int defaultWishList(SqlSession session, String mNo) {
+		// TODO Auto-generated method stub
+		return session.insert("member.defaultWishList",mNo);
+	}
+
+	@Override
+	public Map emailCh(SqlSession session, Map id) {
+		// TODO Auto-generated method stub
+		return session.selectOne("member.emailCh",id);
+	}
+
+	@Override
+	public int transPwch(SqlSession session, Map data) {
+		// TODO Auto-generated method stub
+		return session.update("member.transPwch",data);
 	}
 
 	//이름, 생일 수정
@@ -127,5 +158,34 @@ public class MemberDaoImpl implements MemberDao {
 		return session.update("member.updateMemberPassword", updateInformation);
 	}
 
+	//기본주소수정
+	@Override
+	public int updateMemberAddress(SqlSession session, Map<String, Object> updateInformation) {
+		return session.update("member.updateMemberAddress", updateInformation);
+	}
+
+	//주소넘으로 주소가져오기
+	@Override
+	public Addr getAddress(SqlSession session, Map data) {
+		return session.selectOne("member.getAddress", data);
+	}
+
+	//주소 추가하기
+	@Override
+	public int insertAddr(SqlSession session, Map<String, Object> updateInformation) {
+		return session.insert("member.insertAddr", updateInformation);
+	}
+
+	//배송지 삭제
+	@Override
+	public int deleteAddress(SqlSession session, Map data) {
+		return session.delete("member.deleteAddress", data);
+	}
+
+	//탈퇴하기
+	@Override
+	public int deleteMember(SqlSession session, String mNo) {
+		return session.delete("member.deleteMember", mNo);
+	}
 	
 }

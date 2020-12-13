@@ -8,6 +8,14 @@
   		SELECT * FROM CHATTING WHERE MEMBER_NO=#{id} AND CHAT_ROOM=#{rNo}
   	</select>
   	<select id="roomNo" parameterType="string" resultType="string">
-  		SELECT DISTINCT(CHAT_ROOM) FROM CHATTING WHERE MEMBER_NO=#{data}
+  		SELECT CHAT_ROOM FROM CHATTING WHERE MEMBER_NO=#{data} GROUP BY CHAT_ROOM ORDER BY CHAT_ROOM DESC
   	</select>
+  	
+  	<select id="selectOrderList" resultType="order">
+  		SELECT * FROM ORDERS JOIN MEMBER USING(MEMBER_NO) ORDER BY ORDER_DATE DESC
+  	</select>
+  	
+  	<update id="updateOrderState" parameterType="map">
+  		UPDATE ORDERS SET ORDER_STATE=#{state} WHERE ORDER_NO=#{oNo}
+  	</update>
 </mapper>

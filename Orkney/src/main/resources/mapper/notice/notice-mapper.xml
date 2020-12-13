@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="notice">
+ <select id="popularFAQ" resultType="map">
+ 	SELECT * FROM (SELECT ROWNUM AS RNUM,F.* FROM (SELECT * FROM FAQ ORDER BY POPULAR DESC)F) WHERE RNUM  <![CDATA[<]]> =5
+ </select>
+ <select id="totalFAQ" resultType="map">
+ 	SELECT * FROM FAQ
+ </select>
+ <select id="categoryFAQ" resultType="map" parameterType="map">
+ 	SELECT * FROM FAQ
+ 	<if test="type!='전체보기'">
+ 	WHERE CATEGORY=#{type}
+ 	</if>
+ </select>
+</mapper>

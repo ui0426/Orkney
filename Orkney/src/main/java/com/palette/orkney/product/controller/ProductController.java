@@ -1,6 +1,10 @@
 package com.palette.orkney.product.controller;
 
+
 import java.util.ArrayList;
+
+import java.util.HashMap;
+
 import java.util.List;
 import java.util.Map;
 
@@ -20,6 +24,7 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @Slf4j
 public class ProductController {
+
 	
 
 	@Autowired
@@ -27,6 +32,7 @@ public class ProductController {
 
 
 	
+
 	@RequestMapping("/product/products.do")
 	@ResponseBody
 	public ModelAndView products(ModelAndView mv) {
@@ -34,6 +40,7 @@ public class ProductController {
 		mv.setViewName("product/products");
 		return mv;
 	}
+
 //	▼인기순 정렬▼  추후 확인 바람 db 에서 어떻게 할지
 	@RequestMapping("/product/bestFilter.do")
 	@ResponseBody
@@ -83,6 +90,7 @@ public class ProductController {
 	
 	
 	
+
 	@RequestMapping("/product/productDetail.do")
 	public ModelAndView productDetail(ModelAndView mv,
 									@RequestParam(name="productno") String productno
@@ -94,7 +102,9 @@ public class ProductController {
 		mv.setViewName("/product/productDetail");
 		return mv;
 	}
+
 	@RequestMapping("/product/productsCompare.do")
+
 	public ModelAndView productsCompare(ModelAndView mv,
 			@RequestParam(name = "checkboxname")ArrayList<String> checkboxname) {
 
@@ -102,36 +112,79 @@ public class ProductController {
 		mv.addObject("list",service.checkProduct(checkboxname));
 		mv.setViewName("/product/productsCompare");
 		return mv;
-	
+	}
+
+	public String productsCompare() {
+		return "/product/productsCompare";
+
+
 	}
 	
 //	===================================================================================
 	
 	
 	
+	
+
 	@RequestMapping("/product/rooms.do")
-	public ModelAndView rooms(ModelAndView mv,@RequestParam String type) {
-		mv.addObject("rooms",service.selectRooms(type));
-		System.out.println(service.selectRooms(type));
-		 mv.addObject("roomsProduct",service.selectRoomsProduct(type)); 
-			 mv.addObject("roomsTitle",service.selectRoomsTitle(type)); 
+	public ModelAndView rooms(ModelAndView mv, @RequestParam String type) {
+		mv.addObject("rooms", service.selectRooms(type));
+		mv.addObject("roomsProduct", service.selectRoomsProduct(type));
+		mv.addObject("roomsTitle", service.selectRoomsTitle(type));
 		mv.setViewName("product/rooms");
-	
-		return mv ;
+
+		return mv;
 	}
-	  @RequestMapping("/product/roomsDetail.do")
-	  @ResponseBody 
-	  public List<Map> roomsDetail(String type) {
-	 return service.roomsDetail(type); 
-	  }
-	  @RequestMapping("product/backRoomsDetail.do")
-	  @ResponseBody
-	  public List<Map> backRoomsDetail(@RequestParam String type){
-		  return service.selectRoomsProduct(type);
-	  }
-	 
 
+	@RequestMapping("/product/roomsDetail.do")
+	@ResponseBody
+	public List<Map> roomsDetail(String type) {
+		return service.roomsDetail(type);
+	}
+
+	@RequestMapping("/product/backRoomsDetail.do")
+	@ResponseBody
+	public List<Map> backRoomsDetail(String type) {
+
+		return service.selectRoomsProduct(type);
+	}
+
+	@RequestMapping("/product/listProduct.do")
+	@ResponseBody
+	public List<Map> listProduct(String type) {
+
+		return service.listProduct(type);
+	}
+
+	@RequestMapping("/product/allProductList.do")
+	@ResponseBody
+	public String allProductList() {
+
+		return service.allProductList();
+	}
+
+	@RequestMapping("/product/productCategory.do")
+	@ResponseBody
+	public List<Map> productCategory(String text, String type) {
+		System.out.println(text);
+		System.out.println(type);
+		Map texts = new HashMap();
+		texts.put("text", text);
+		texts.put("type", type);
+
+		return service.productCategory(texts);
+	}
+
+	@RequestMapping("/product/sale.do")
+	public ModelAndView sale(ModelAndView mv) {
+		mv.addObject("sale",service.sale());
+		System.out.println(service.sale());
+		mv.setViewName("product/sale");
+		return mv;
+	}
 	
-
-
+	
+	/* @RequestMapping("/product/insertRoom.do") */
+	 
+	 
 }

@@ -5,21 +5,26 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import com.palette.orkney.member.model.service.MemberService;
 import com.palette.orkney.member.model.vo.Addr;
-import com.palette.orkney.member.model.vo.Member;
 
 @SessionAttributes("login")
 @Controller
@@ -40,15 +45,45 @@ public class MemberController {
 		return "member/signup";
 	}
 	
+	//이메일로 보낸 a태그 안에 값들이 맞으면 비밀번호 변경 페이지로 이동
 	@RequestMapping("/member/transPassword.do")
-	public String transPw() {
-		return "member/transPw";
+	public String transPw(@RequestParam(value="key") String key,@RequestParam(value="id") String id,Model m
+			,@CookieValue(value="trans") Cookie c,HttpServletResponse response) {
+		String adr="";
+		if(c.getValue().equals(key)) {
+			adr="member/transPw";
+		}else {
+			adr="error/transError";
+		}
+		m.addAttribute("id",id);
+//		c.setMaxAge(0);
+//		c.setPath("/");
+//		response.addCookie(c);
+		
+		return adr;
 	}
 	@RequestMapping("/member/memberLogout.do")
-	public String logout(SessionStatus ss) {
+	public String logout(SessionStatus ss,Model m) {
+
+		Map login=(Map)m.getAttribute("login");
+		String type=(String)login.get("SIGNUP_TYPE");
+		if(type.equals("구글")) {
+		String token=(String)login.get("ACCESS_TOKEN");
+		System.out.println(token);
+		System.out.println();
+		Map<String, String> result = new HashMap<>();
+		RestTemplate restTemplate = new RestTemplate();
+		String requestUrl = UriComponentsBuilder.fromHttpUrl("https://oauth2.googleapis.com/revoke")
+				.queryParam("token", token).encode().toUriString();
+		final String resultJson = restTemplate.postForObject(requestUrl,null,String.class);
+		result.put("result", "success");
+		result.put("resultJson", resultJson);
+		System.out.println(result);
+		}
 		if(!ss.isComplete()) {
 			ss.setComplete();
 		}
+		
 		return "redirect:/";
 	}
 	//로그인
@@ -59,12 +94,9 @@ public class MemberController {
 		
 		if(login!=null&&pwEncoder.matches(pw,(String)login.get("MEMBER_PWD"))) {
 			String no=(String)login.get("MEMBER_NO");
-			List<String> chatRoomNo=service.chatRoomNo(no);
-			List chatData=service.chatData(chatRoomNo);
-			login.put("chatData",chatData);
 			
 			//가입할 때 주소 가져오기
-			String address = service.getAddress(no);
+			String address = service.getAddress(no).getAddress();
 			login.put("address", address);
 			
 			mv.addObject("login",login);
@@ -75,7 +107,23 @@ public class MemberController {
 		
 		mv.setViewName("redirect:/");
 		
+		
 		return mv;
+	}
+	
+	//idcheck
+	@RequestMapping("/member/idCheck.do")
+	@ResponseBody
+	public boolean idCheck(String id, String pw) {
+		
+		Map login=service.loginCheck(id);
+		boolean flag=false;
+		if(login!=null&&pwEncoder.matches(pw,(String)login.get("MEMBER_PWD"))) {
+				flag=true;
+		}else {
+				flag=false;
+		}
+		return flag;
 	}
 
 	@RequestMapping("/member/insertSignup.do")
@@ -89,6 +137,7 @@ public class MemberController {
 		int insertUser=service.insertSignup(userInfo);
 		if(insertUser>0) {
 			Map user=service.searchUser((String)userInfo.get("email"));
+			int wish=service.defaultWishList((String)user.get("MEMBER_NO"));
 			service.addAdr(userInfo);
 			mv.addObject("login",user);
 		}
@@ -128,7 +177,6 @@ public class MemberController {
 		}
 		System.out.println(list2);
 		mv.addObject("addrList", list2);
-//		mv.setViewName("member/mypage");
 		mv.setViewName("member/mypage");
 		
 		return mv;
@@ -137,6 +185,9 @@ public class MemberController {
 	//로그아웃(hy)
 	@RequestMapping("/member/loginout.do")	
 	public String loginout(SessionStatus status) {
+		
+		
+		
 		if(!status.isComplete()) status.setComplete();
 		
 		return "redirect:/";
@@ -149,6 +200,47 @@ public class MemberController {
 		return service.chatAllData(id);
 	}
 	
+
+	//비밀번호 찾기 이메일 찾기용
+	@RequestMapping("/member/emailCh.do")
+	@ResponseBody
+	public boolean emailCh(@RequestParam Map data) {
+		boolean flag=false;
+		
+		Map emailCh=service.emailCh(data);
+		
+		if(emailCh!=null) flag=true;
+		
+		return flag;
+	}
+	
+	//비밀번호 수정 로직 과정 >> 이메일로 비밀번호 변경시
+	@RequestMapping("/member/transPwLast.do")
+	public ModelAndView transPwch(ModelAndView mv,@RequestParam Map data,@CookieValue(value="trans") Cookie c
+			,HttpServletResponse response) {
+		
+		String pw=(String)data.get("pw");
+		String pwbc=pwEncoder.encode(pw);
+		data.put("pw",pwbc);
+		
+		int pwChange=service.transPwch(data);
+		
+		if(pwChange>0) {
+			mv.setViewName("redirect:/");
+			c.setMaxAge(0);
+			c.setPath("/");
+			response.addCookie(c);
+		}else {
+			mv.addObject("msg","변경에 실패하였습니다.");
+			mv.addObject("loc","redirect:/");
+			mv.setViewName("common/msg");
+		}
+		
+			
+		return mv;
+	}
+	
+
 	//이름, 생일 수정
 	@RequestMapping("/member/updateMemberPersonal.do")
 	@ResponseBody
@@ -235,23 +327,181 @@ public class MemberController {
 		return result;
 	}
 	
-	//현재 로그인 된 유저 정보 받아오기
-	@RequestMapping("/member/currentMemberInformation.do")
+	//기본 주소 수정
+	@RequestMapping("/member/updateMemberAddress.do")
 	@ResponseBody
-	public Member currentMemberInformation(HttpSession session) {
+	public int updateMemberAddress(@RequestParam Map<String, Object> updateInformation, HttpSession session) {
+		Map login = ((Map)session.getAttribute("login")); //로그인 된 유저
+		String mNo = (String)login.get("MEMBER_NO");
+		updateInformation.put("mNo", mNo);
+		
+		String address = (String)updateInformation.get("address_post") + "/" + (String)updateInformation.get("address_addr") + "/" + (String)updateInformation.get("address_detail");
+		updateInformation.put("address", address);
+		
+		System.out.println(updateInformation);
+		int result = service.updateMemberAddress(updateInformation);
+		
+		if(result> 0) {
+			if(updateInformation.get("address_name") == null) {
+				login.replace("address", address);
+			}
+		}
+		
+		return result;
+	}
+	
+	//수정 눌렀을 때 페이지 보여주기
+	@RequestMapping("/member/currentMemberInformation.do")
+	public String currentMemberInformation(HttpSession session, String param, Model model) {
 		Map login = ((Map)session.getAttribute("login")); //로그인 된 유저
 		String mNo = (String)login.get("MEMBER_NO");
 		
 		
-		Member m = service.currentMemberInformation(mNo);
+		if(param.equals("#personal")) {
+			return "member/mypageDiv/personal";
+		} else if(param.equals("#contact")) {
+			return "member/mypageDiv/contact";
+		} else if(param.equals("#password")) {
+			return "member/mypageDiv/password";
+		} else if(param.equals("#address")) {
+			Addr address = service.getAddress(mNo);
+			String fullAddr = address.getAddress();
+
+			String[] a=fullAddr.split("/");
+			address.setAddress_post(a[0]);
+			address.setAddress_addr(a[1]);
+			address.setAddress_detail(a[2]);
+			
+			model.addAttribute("addr", address);
+			System.out.println("address" + address);
+			return "member/mypageDiv/address";
+		}
 		
-		System.out.println(m);
-		return m; //화면에서 널처리를 해줘야 하나?
+		return ""; //화면에서 널처리를 해줘야 하나?
 	}
 	
-//	//personal 업데이트 정보
-//	@RequestMapping("/member/personalJspUpdate.do")
-//	public String personalJspUpdate() {
-//		return "member/mypageDiv/personal.jsp";
-//	}
+	//추가된 주소 수정 눌렀을 떄 페이지 보여주기
+	@RequestMapping("/member/addAddrInformation.do")
+	public String addAddrInformation(HttpSession session, String addrNo, Model model) {
+		Map login = ((Map)session.getAttribute("login")); //로그인 된 유저
+		String mNo = (String)login.get("MEMBER_NO");
+		
+		Map data = new HashMap();
+		data.put("mNo", mNo);
+		data.put("addrNo", addrNo);
+		
+		System.out.println(mNo + addrNo);
+		
+		Addr address = service.getAddress(data);
+		String fullAddr = address.getAddress();
+
+		String[] a=fullAddr.split("/");
+		address.setAddress_post(a[0]);
+		address.setAddress_addr(a[1]);
+		address.setAddress_detail(a[2]);
+		
+		model.addAttribute("address", address);
+		
+		return "member/mypageDiv/addAddr";
+	}
+	
+	//Form 보여주기(주소추가, 회원탈퇴)
+	@RequestMapping("/member/insertForm.do")
+	public String insertAddrFrom(String form) {
+		return form;
+	}
+	
+	//주소추가하기
+	@RequestMapping("/member/insertAddr.do")
+	public String insertAddr(@RequestParam Map<String, Object> updateInformation, HttpSession session, Model m) {
+		System.out.println("요거" + updateInformation);
+		
+		Map login = ((Map)session.getAttribute("login")); //로그인 된 유저
+		String mNo = (String)login.get("MEMBER_NO");
+		updateInformation.put("mNo", mNo);
+		
+		String address = (String)updateInformation.get("post") + "/" + (String)updateInformation.get("addr") + "/" + (String)updateInformation.get("detail");
+		updateInformation.put("address", address);
+		
+		int result = service.insertAddr(updateInformation);
+		
+		if(result > 0) {
+			List<Addr> list = service.addAddrList(mNo);
+			
+			List<Addr> list2 = new ArrayList<Addr>();
+			//주소 떼내기
+			for(Addr addr : list) {
+				System.out.println(addr);
+				String fullAddr = addr.getAddress();
+				System.out.println(fullAddr);
+				String[] a=fullAddr.split("/");
+				addr.setAddress_post(a[0]);
+				addr.setAddress_addr(a[1]);
+				addr.setAddress_detail(a[2]);
+				list2.add(addr);
+			}
+			System.out.println(list2);
+			m.addAttribute("addrList", list2);
+			return "member/mypageDiv/addrList";
+		} else {
+			return ""; //어디로..........
+		}
+		
+	}
+	
+	//배송지 삭제하기
+	@RequestMapping("/member/deleteAddress.do")
+	public String deleteAddress(String addrNo, HttpSession session, Model m) {
+		Map login = ((Map)session.getAttribute("login")); //로그인 된 유저
+		String mNo = (String)login.get("MEMBER_NO");
+		
+		Map data = new HashMap();
+		data.put("mNo", mNo);
+		data.put("addrNo", addrNo);
+		
+		int result = service.deleteAddress(data);
+		
+		if(result > 0) {
+			List<Addr> list = service.addAddrList(mNo);
+			
+			List<Addr> list2 = new ArrayList<Addr>();
+			//주소 떼내기
+			for(Addr addr : list) {
+				System.out.println(addr);
+				String fullAddr = addr.getAddress();
+				System.out.println(fullAddr);
+				String[] a=fullAddr.split("/");
+				addr.setAddress_post(a[0]);
+				addr.setAddress_addr(a[1]);
+				addr.setAddress_detail(a[2]);
+				list2.add(addr);
+			}
+			System.out.println(list2);
+			m.addAttribute("addrList", list2);
+			return "member/mypageDiv/addrList";
+		} else {
+			return ""; //어디......
+		}
+		
+	}
+	
+	//탈퇴하기
+	@RequestMapping("/member/deleteMember.do")
+	@ResponseBody
+	public int deleteMember(String pwck, HttpSession session) {
+		Map login = ((Map)session.getAttribute("login")); //로그인 된 유저
+		String mNo = (String)login.get("MEMBER_NO");
+		String pw = (String)login.get("MEMBER_PWD");
+		
+		int result = 0;
+		if(pwEncoder.matches(pwck, pw)) {
+			result = service.deleteMember(mNo);
+		} else {
+			result = -2;
+		}
+		
+		
+		
+		return result;
+	}
 }

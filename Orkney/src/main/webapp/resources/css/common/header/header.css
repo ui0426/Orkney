@@ -78,14 +78,18 @@
     background-repeat: no-repeat;
     background-size: cover;
 }
-.header-search input{
-
-    border: none;
+.search-input{
+	border-style: double;
+    border-color: #eee;
     flex: 1 0 auto;
     border-radius: 50em;
     background-color: #eee;
     padding: .5rem 3.375rem;
 }
+/* .search-input:hover{ */
+/* 	background-color: #cecdcd; */
+/* 	border-color: #cecdcd; */
+/* } */
 .delivery{
     display: none;
 }

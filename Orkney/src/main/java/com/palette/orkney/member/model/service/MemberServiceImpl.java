@@ -110,7 +110,7 @@ public class MemberServiceImpl implements MemberService {
 	
 	//가입 시 주소 가져오기
 	@Override
-	public String getAddress(String no) {
+	public Addr getAddress(String no) {
 		return dao.getAddress(session, no);
 	}
 
@@ -120,8 +120,49 @@ public class MemberServiceImpl implements MemberService {
 		return dao.addAddrList(session, mNo);
 		
 	}
+	
+	@Transactional
+	@Override
+	public int insertSignup(Map userData, Map snsData) {
+		// TODO Auto-generated method stub
+		int result=dao.insertSignup(session, userData);
+		if(result>0) {
+			snsData.put("mNo",userData.get("mNo"));
+			dao.insertSnsLogin(session, snsData);
+		}
+		return result;
+	}
 
 	@Override
+	public Map snsUserInfo(String userId) {
+		// TODO Auto-generated method stub
+		return dao.snsUserInfo(session,userId);
+	}
+
+	@Override
+	public int updateSnsId(Map snsData) {
+		// TODO Auto-generated method stub
+		return dao.updateSnsId(session,snsData);
+	}
+
+	@Override
+	public int defaultWishList(String mNo) {
+		// TODO Auto-generated method stub
+		return dao.defaultWishList(session, mNo);
+	}
+
+	@Override
+	public Map emailCh(Map id) {
+		// TODO Auto-generated method stub
+		return dao.emailCh(session,id);
+	}
+
+	@Override
+	public int transPwch(Map data) {
+		// TODO Auto-generated method stub
+		return dao.transPwch(session,data);
+	}
+
 	public int updateMemberPersonal(Map updateInformation) {
 		return dao.updateMemberPersonal(session, updateInformation);
 	}
@@ -142,6 +183,36 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public int updateMemberPassword(Map<String, Object> updateInformation) {
 		return dao.updateMemberPassword(session, updateInformation);
+	}
+
+	//기본 주소 수정
+	@Override
+	public int updateMemberAddress(Map<String, Object> updateInformation) {
+		return dao.updateMemberAddress(session, updateInformation);
+	}
+
+	//주소넘으로 주소가져오기
+	@Override
+	public Addr getAddress(Map data) {
+		return dao.getAddress(session, data);
+	}
+
+	//주소추가하기
+	@Override
+	public int insertAddr(Map<String, Object> updateInformation) {
+		return dao.insertAddr(session, updateInformation);
+	}
+
+	//배송지 삭제
+	@Override
+	public int deleteAddress(Map data) {
+		return dao.deleteAddress(session, data);
+	}
+
+	//탈퇴하기
+	@Override
+	public int deleteMember(String mNo) {
+		return dao.deleteMember(session, mNo);
 	}
 	
 	
