@@ -12,6 +12,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Product {
 
+
+
+
    private String productNo;
    private String productName;
    private int productPrice;
@@ -28,4 +31,5 @@ public class Product {
    private Product_image product_image;
    
 }
+
 

@@ -165,7 +165,14 @@
         border-bottom:2px dashed gray; 
         border-top:2px dashed gray;
         padding: 4px 0;
+        
         }
+     .line3{
+     border-top:2px dashed gray;
+      		width: 100%;
+            opacity: 20%;
+     }   
+        
     .address-container{
         padding-left: 100px;
     }
@@ -234,17 +241,21 @@
             background-color: white;
         }
 		.field-add{margin-bottom:2%;}
-        .usable-point{
-            padding: 9px 9% 0px 12px;
+        .usable-point{           
             font-size: 22px;
             color: #35c5f0;
             font-weight: bold;
+            padding: 9px 0px 0px 7px;
         }
         .payment_panel label img{
         width: 350px;
     	height: 150px;
     	  padding: 0px 10px 0px 10px;
         }
+        .non-input{border: none;
+    		    width: 76px;
+    		    outline:none;
+    		    }
         .pay-label{border: 1px solid #eaebef; cursor: pointer;}
         .payment-title{display: flex; justify-content: center; }
         .payment_panel{
@@ -258,8 +269,8 @@
         }   */
         .payment_panel > input[type=radio]:checked + label {background: #eaebef;width: auto;height: auto;}        
         
-        .pre-point{
-            padding: 0 50px 0 0;
+        .pre-point{  
+            margin: 3px 0px 0px 0px;          
             font-size: 22px;
             color: #35c5f0;
             font-weight: bold;

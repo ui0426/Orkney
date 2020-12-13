@@ -75,3 +75,16 @@
     	z-index: 1;
     	font-weight: 600;
 	}
+	.panels{
+		border-bottom: 2px solid #ccc;
+    	padding: 1em 0;
+	}
+	.ol-container{
+		display: flex;
+	    flex-direction: row;
+	    justify-content: space-around;
+	    margin-bottom: 0.2em;
+	}
+	.panel2{
+		display: none;
+	}

@@ -102,6 +102,37 @@ public class MemberDaoImpl implements MemberDao {
 		return session.selectList("member.addAddrList", mNo);
 	}
 
+
+	@Override
+	public Map snsUserInfo(SqlSession session, String userId) {
+		// TODO Auto-generated method stub
+		return session.selectOne("member.snsUserInfo",userId);
+	}
+
+	@Override
+	public int updateSnsId(SqlSession session, Map snsData) {
+		// TODO Auto-generated method stub
+		return session.update("member.updateSnsId",snsData);
+	}
+
+	@Override
+	public int defaultWishList(SqlSession session, String mNo) {
+		// TODO Auto-generated method stub
+		return session.insert("member.defaultWishList",mNo);
+	}
+
+	@Override
+	public Map emailCh(SqlSession session, Map id) {
+		// TODO Auto-generated method stub
+		return session.selectOne("member.emailCh",id);
+	}
+
+	@Override
+	public int transPwch(SqlSession session, Map data) {
+		// TODO Auto-generated method stub
+		return session.update("member.transPwch",data);
+	}
+
 	//이름, 생일 수정
 	@Override
 	public int updateMemberPersonal(SqlSession session, Map updateInformation) {
@@ -156,6 +187,5 @@ public class MemberDaoImpl implements MemberDao {
 	public int deleteMember(SqlSession session, String mNo) {
 		return session.delete("member.deleteMember", mNo);
 	}
-
 	
 }

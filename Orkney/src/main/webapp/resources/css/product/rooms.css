@@ -105,7 +105,7 @@ a {
 	justify-content: center;
 	opacity: 0;
 	visibility: hidden;
-	z-index: 0;
+	z-index: 1;
 }
 
 .rm-a::after {
@@ -130,7 +130,7 @@ a {
 
 .rm-bt {
 	position: absolute;
-	z-index:1 ;
+	
 	
 }
 
@@ -150,6 +150,7 @@ a {
 	text-decoration: none;
 	color: #000;
 	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.55);
+	position: relative;
 }
 
 
@@ -356,15 +357,34 @@ a {
 	height: 100%;
 	width: 100%;
 }
-
-
+.event-price{
+	text-decoration: line-through;
+}
+.product-price{
+	font-weight: 700 !important;
+    color: #000 !important;
+	font-size: 1.375rem !important;
+}
+.event-product-name{
+	font-size: .875rem !important;
+	font-weight: bold !important;
+}
+.ev-pb-et-p-rm {
+	text-transform: capitalize;
+    color: #ed022a;
+    font-size: .875rem;
+    font-weight: 700;
+}
   .swiper-button-next , .swiper-button-prev  {
+	/* display: none; */
 	width: 44px;
     background-color: #fff;
     border-radius: 30px;
     opacity: 0;
 	visibility: hidden;
 	z-index: 0;
+	border: 0;
+	outline: 0 ;
 	
 } 
 
@@ -383,18 +403,19 @@ a {
  .rm-ig-box:hover .rm-bt >  .rm-a{
 	opacity: 1;
 	visibility: visible;
-	z-index: 1;
+	 
 } 
 .rm-bt > .rm-a:hover ~ .rm-pd-a{
 	opacity: 1;
 	visibility: visible;
-	z-index: 1;
+	z-index: 3;
 	
 }
+
 .rm-pd-a:hover{
 	opacity: 1;
 	visibility: visible;
-	z-index: 1;
+	z-index: 3;
 	
 }
 .rm-pd-a:hover .rm-bt-name{
@@ -417,6 +438,10 @@ a {
 .cltjf{
 	display: none;
 }
+.rm-am{
+	z-index: 1 !important;
+}
+
 @media ( min-width : 320px) {
 	.col{
 	max-width: 70% ;

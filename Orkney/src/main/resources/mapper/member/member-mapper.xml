@@ -5,7 +5,7 @@
   	SELECT * FROM MEMBER WHERE MEMBER_ID=#{userId}
   </select>
   <insert id="insertSnsLogin" parameterType="map">
-  	INSERT INTO SNS_LOGIN VALUES(SNS_NO.NEXTVAL,#{id},#{name},#{profile},SYSDATE,#{aToken},#{rToken})
+  	INSERT INTO SNS_LOGIN VALUES(#{id},#{name},#{profile},#{aToken},#{rToken},'m'||#{mNo})
   </insert>
   <select id="searchGoogleId" parameterType="map" resultType="map">
   	SELECT * FROM SNS_LOGIN WHERE EMAIL=#{id}
@@ -18,7 +18,17 @@
   	WHERE EMAIL=#{id}
   </update>
   <insert id="insertSignup" parameterType="map">
-  	INSERT INTO MEMBER VALUES('m'||m_NUM.NEXTVAL,#{email},#{password},#{f_name}||#{g_name},SYSDATE,#{birthday},#{phone},default,default,#{emailCh},default)
+  	INSERT INTO MEMBER VALUES('m'||m_NUM.NEXTVAL,#{email},#{password},#{f_name}||#{g_name},SYSDATE,#{birthday},#{phone},default,default,#{emailCh},
+  	<if test="type == null">
+  	 DEFAULT
+  	</if>
+  	<if test="type != null">
+  	 #{type}
+  	</if>
+  	,default)
+  <selectKey keyProperty="mNo" resultType="string" order="AFTER">
+  	SELECT M_NUM.CURRVAL FROM DUAL
+  </selectKey>
   </insert>
   <select id="searchUser" parameterType="string" resultType="map">
   	SELECT * FROM MEMBER WHERE MEMBER_ID=#{email}
@@ -27,7 +37,7 @@
  	INSERT INTO ADDR VALUES((SELECT MEMBER_NO FROM MEMBER WHERE MEMBER_ID=#{email}),#{adr},1,null,null,'addr'||addr_seq.nextval)
   </insert>
   <select id="chatRoomNo" parameterType="string" resultType="string">
-  	SELECT DISTINCT CHAT_ROOM FROM CHATTING WHERE MEMBER_NO=#{no}
+  	SELECT CHAT_ROOM FROM CHATTING WHERE MEMBER_NO=#{no} GROUP BY CHAT_ROOM ORDER BY CHAT_ROOM
   </select>
   <select id="chatData" parameterType="string" resultType="map">
   	SELECT * FROM CHATTING WHERE CHAT_ROOM=#{chatRoomNo}
@@ -36,7 +46,7 @@
   	SELECT * FROM CHATTING WHERE MEMBER_NO=#{memberNo} AND CHAT_ROOM=#{roomNo} 
   </select>
   <select id="chatAllData" parameterType="string" resultType="map">
-  	SELECT * FROM CHATTING WHERE MEMBER_NO=#{id}
+  	SELECT * FROM CHATTING WHERE MEMBER_NO=#{id} order by chat_date desc
   </select>
   
   <insert id="chatDataSave" parameterType="map">
@@ -67,6 +77,33 @@
   	<select id="addAddrList" parameterType="string" resultType="addr">
   		select * from addr where address_type=0 and member_no=#{mNo} order by address_no
   	</select>
+	
+	<select id="snsUserInfo" parameterType="string" resultType="map">
+		SELECT * FROM MEMBER JOIN SNS_LOGIN USING(MEMBER_NO) WHERE MEMBER_ID=#{userId}
+	</select>
+	
+	<update id="updateSnsId" parameterType="map">
+		UPDATE SNS_LOGIN SET SNS_NAME=#{name},SNS_PROFILE=#{profile},ACCESS_TOKEN=#{aToken}
+		<if test="rToken != null">
+		,REFRESH_TOKEN=#{rToken}
+		</if>
+		WHERE SNS_ID=#{id}
+	</update>
+	
+	<insert id="defaultWishList" parameterType="string">
+		INSERT INTO WISHLIST VALUES(WISHLIST_SEQ.NEXTVAL,#{mNo},'위시리스트')
+	</insert>
+	
+	<select id="emailCh" parameterType="map" resultType="map">
+		SELECT * FROM MEMBER WHERE MEMBER_ID=#{id}
+		<if test="auth != null">
+		AND EMAIL_AUTH='Y'
+		</if>
+	</select>
+	
+	<update id="transPwch" parameterType="map">
+		UPDATE MEMBER SET MEMBER_PWD=#{pw} WHERE MEMBER_ID=#{id}
+	</update>
   	
   	<!-- 이름, 생일 수정 -->
   	<update id="updateMemberPersonal" parameterType="map">
@@ -141,6 +178,4 @@
 		<result column="ADDRESS_NO" property="address_no"/>
 	</resultMap>
 	
-
-
 </mapper>

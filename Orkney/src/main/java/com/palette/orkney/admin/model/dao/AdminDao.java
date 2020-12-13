@@ -5,6 +5,8 @@ import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
+import com.palette.orkney.order.model.vo.Orders;
+
 public interface AdminDao {
 
 	List<String> userCount(SqlSession session);
@@ -13,4 +15,7 @@ public interface AdminDao {
 
 	List<String> roomNo(SqlSession session, String data);
 
+	List<Orders> selectOrderList(SqlSession session);
+	
+	int updateOrderState(SqlSession session, Map o);
 }
