@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -19,7 +20,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.palette.orkney.member.model.service.MemberService;
 import com.palette.orkney.member.model.vo.Addr;
-import com.palette.orkney.member.model.vo.Member;
 
 @SessionAttributes("login")
 @Controller
@@ -64,7 +64,7 @@ public class MemberController {
 			login.put("chatData",chatData);
 			
 			//가입할 때 주소 가져오기
-			String address = service.getAddress(no);
+			String address = service.getAddress(no).getAddress();
 			login.put("address", address);
 			
 			mv.addObject("login",login);
@@ -128,7 +128,6 @@ public class MemberController {
 		}
 		System.out.println(list2);
 		mv.addObject("addrList", list2);
-//		mv.setViewName("member/mypage");
 		mv.setViewName("member/mypage");
 		
 		return mv;
@@ -235,23 +234,181 @@ public class MemberController {
 		return result;
 	}
 	
-	//현재 로그인 된 유저 정보 받아오기
-	@RequestMapping("/member/currentMemberInformation.do")
+	//기본 주소 수정
+	@RequestMapping("/member/updateMemberAddress.do")
 	@ResponseBody
-	public Member currentMemberInformation(HttpSession session) {
+	public int updateMemberAddress(@RequestParam Map<String, Object> updateInformation, HttpSession session) {
+		Map login = ((Map)session.getAttribute("login")); //로그인 된 유저
+		String mNo = (String)login.get("MEMBER_NO");
+		updateInformation.put("mNo", mNo);
+		
+		String address = (String)updateInformation.get("address_post") + "/" + (String)updateInformation.get("address_addr") + "/" + (String)updateInformation.get("address_detail");
+		updateInformation.put("address", address);
+		
+		System.out.println(updateInformation);
+		int result = service.updateMemberAddress(updateInformation);
+		
+		if(result> 0) {
+			if(updateInformation.get("address_name") == null) {
+				login.replace("address", address);
+			}
+		}
+		
+		return result;
+	}
+	
+	//수정 눌렀을 때 페이지 보여주기
+	@RequestMapping("/member/currentMemberInformation.do")
+	public String currentMemberInformation(HttpSession session, String param, Model model) {
 		Map login = ((Map)session.getAttribute("login")); //로그인 된 유저
 		String mNo = (String)login.get("MEMBER_NO");
 		
 		
-		Member m = service.currentMemberInformation(mNo);
+		if(param.equals("#personal")) {
+			return "member/mypageDiv/personal";
+		} else if(param.equals("#contact")) {
+			return "member/mypageDiv/contact";
+		} else if(param.equals("#password")) {
+			return "member/mypageDiv/password";
+		} else if(param.equals("#address")) {
+			Addr address = service.getAddress(mNo);
+			String fullAddr = address.getAddress();
+
+			String[] a=fullAddr.split("/");
+			address.setAddress_post(a[0]);
+			address.setAddress_addr(a[1]);
+			address.setAddress_detail(a[2]);
+			
+			model.addAttribute("addr", address);
+			System.out.println("address" + address);
+			return "member/mypageDiv/address";
+		}
 		
-		System.out.println(m);
-		return m; //화면에서 널처리를 해줘야 하나?
+		return ""; //화면에서 널처리를 해줘야 하나?
 	}
 	
-//	//personal 업데이트 정보
-//	@RequestMapping("/member/personalJspUpdate.do")
-//	public String personalJspUpdate() {
-//		return "member/mypageDiv/personal.jsp";
-//	}
+	//추가된 주소 수정 눌렀을 떄 페이지 보여주기
+	@RequestMapping("/member/addAddrInformation.do")
+	public String addAddrInformation(HttpSession session, String addrNo, Model model) {
+		Map login = ((Map)session.getAttribute("login")); //로그인 된 유저
+		String mNo = (String)login.get("MEMBER_NO");
+		
+		Map data = new HashMap();
+		data.put("mNo", mNo);
+		data.put("addrNo", addrNo);
+		
+		System.out.println(mNo + addrNo);
+		
+		Addr address = service.getAddress(data);
+		String fullAddr = address.getAddress();
+
+		String[] a=fullAddr.split("/");
+		address.setAddress_post(a[0]);
+		address.setAddress_addr(a[1]);
+		address.setAddress_detail(a[2]);
+		
+		model.addAttribute("address", address);
+		
+		return "member/mypageDiv/addAddr";
+	}
+	
+	//Form 보여주기(주소추가, 회원탈퇴)
+	@RequestMapping("/member/insertForm.do")
+	public String insertAddrFrom(String form) {
+		return form;
+	}
+	
+	//주소추가하기
+	@RequestMapping("/member/insertAddr.do")
+	public String insertAddr(@RequestParam Map<String, Object> updateInformation, HttpSession session, Model m) {
+		System.out.println("요거" + updateInformation);
+		
+		Map login = ((Map)session.getAttribute("login")); //로그인 된 유저
+		String mNo = (String)login.get("MEMBER_NO");
+		updateInformation.put("mNo", mNo);
+		
+		String address = (String)updateInformation.get("post") + "/" + (String)updateInformation.get("addr") + "/" + (String)updateInformation.get("detail");
+		updateInformation.put("address", address);
+		
+		int result = service.insertAddr(updateInformation);
+		
+		if(result > 0) {
+			List<Addr> list = service.addAddrList(mNo);
+			
+			List<Addr> list2 = new ArrayList<Addr>();
+			//주소 떼내기
+			for(Addr addr : list) {
+				System.out.println(addr);
+				String fullAddr = addr.getAddress();
+				System.out.println(fullAddr);
+				String[] a=fullAddr.split("/");
+				addr.setAddress_post(a[0]);
+				addr.setAddress_addr(a[1]);
+				addr.setAddress_detail(a[2]);
+				list2.add(addr);
+			}
+			System.out.println(list2);
+			m.addAttribute("addrList", list2);
+			return "member/mypageDiv/addrList";
+		} else {
+			return ""; //어디로..........
+		}
+		
+	}
+	
+	//배송지 삭제하기
+	@RequestMapping("/member/deleteAddress.do")
+	public String deleteAddress(String addrNo, HttpSession session, Model m) {
+		Map login = ((Map)session.getAttribute("login")); //로그인 된 유저
+		String mNo = (String)login.get("MEMBER_NO");
+		
+		Map data = new HashMap();
+		data.put("mNo", mNo);
+		data.put("addrNo", addrNo);
+		
+		int result = service.deleteAddress(data);
+		
+		if(result > 0) {
+			List<Addr> list = service.addAddrList(mNo);
+			
+			List<Addr> list2 = new ArrayList<Addr>();
+			//주소 떼내기
+			for(Addr addr : list) {
+				System.out.println(addr);
+				String fullAddr = addr.getAddress();
+				System.out.println(fullAddr);
+				String[] a=fullAddr.split("/");
+				addr.setAddress_post(a[0]);
+				addr.setAddress_addr(a[1]);
+				addr.setAddress_detail(a[2]);
+				list2.add(addr);
+			}
+			System.out.println(list2);
+			m.addAttribute("addrList", list2);
+			return "member/mypageDiv/addrList";
+		} else {
+			return ""; //어디......
+		}
+		
+	}
+	
+	//탈퇴하기
+	@RequestMapping("/member/deleteMember.do")
+	@ResponseBody
+	public int deleteMember(String pwck, HttpSession session) {
+		Map login = ((Map)session.getAttribute("login")); //로그인 된 유저
+		String mNo = (String)login.get("MEMBER_NO");
+		String pw = (String)login.get("MEMBER_PWD");
+		
+		int result = 0;
+		if(pwEncoder.matches(pwck, pw)) {
+			result = service.deleteMember(mNo);
+		} else {
+			result = -2;
+		}
+		
+		
+		
+		return result;
+	}
 }

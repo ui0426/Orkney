@@ -110,7 +110,7 @@ public class MemberServiceImpl implements MemberService {
 	
 	//가입 시 주소 가져오기
 	@Override
-	public String getAddress(String no) {
+	public Addr getAddress(String no) {
 		return dao.getAddress(session, no);
 	}
 
@@ -142,6 +142,36 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public int updateMemberPassword(Map<String, Object> updateInformation) {
 		return dao.updateMemberPassword(session, updateInformation);
+	}
+
+	//기본 주소 수정
+	@Override
+	public int updateMemberAddress(Map<String, Object> updateInformation) {
+		return dao.updateMemberAddress(session, updateInformation);
+	}
+
+	//주소넘으로 주소가져오기
+	@Override
+	public Addr getAddress(Map data) {
+		return dao.getAddress(session, data);
+	}
+
+	//주소추가하기
+	@Override
+	public int insertAddr(Map<String, Object> updateInformation) {
+		return dao.insertAddr(session, updateInformation);
+	}
+
+	//배송지 삭제
+	@Override
+	public int deleteAddress(Map data) {
+		return dao.deleteAddress(session, data);
+	}
+
+	//탈퇴하기
+	@Override
+	public int deleteMember(String mNo) {
+		return dao.deleteMember(session, mNo);
 	}
 	
 	

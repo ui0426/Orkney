@@ -39,7 +39,7 @@ public interface MemberDao {
 	String newRoomNo(SqlSession session,int newNo);
 
 	//가입 시 주소가져오기
-	String getAddress(SqlSession session, String no);
+	Addr getAddress(SqlSession session, String no);
 	
 	//추가된 배송지 리스트 가져오기
 	List<Addr> addAddrList(SqlSession session, String mNo);
@@ -55,6 +55,21 @@ public interface MemberDao {
 
 	//패스워드 수정
 	int updateMemberPassword(SqlSession session, Map<String, Object> updateInformation);
+
+	//기본 주소 수정
+	int updateMemberAddress(SqlSession session, Map<String, Object> updateInformation);
+	
+	//주소넘으로 주소가져오기
+	Addr getAddress(SqlSession session, Map data);
+
+	//주소 추가하기
+	int insertAddr(SqlSession session, Map<String, Object> updateInformation);
+
+	//배송지 삭제
+	int deleteAddress(SqlSession session, Map data);
+
+	//탈퇴하기
+	int deleteMember(SqlSession session, String mNo);
 
 
 }
