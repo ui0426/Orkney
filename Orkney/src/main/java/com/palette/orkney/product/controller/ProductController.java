@@ -1,18 +1,18 @@
 package com.palette.orkney.product.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.palette.orkney.product.model.service.ProductService;
-
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -84,12 +84,25 @@ public class ProductController {
 	
 	
 	@RequestMapping("/product/productDetail.do")
-	public String productDetail() {
-		return "/product/productDetail";
+	public ModelAndView productDetail(ModelAndView mv,
+									@RequestParam(name="productno") String productno
+			) {
+		System.out.println("디테일로 가져가는 값:"+productno);
+		
+		mv.addObject("review",service.review(productno));
+		mv.addObject("list", service.productDetail(productno));
+		mv.setViewName("/product/productDetail");
+		return mv;
 	}
 	@RequestMapping("/product/productsCompare.do")
-	public String productsCompare() {
-		return "/product/productsCompare";
+	public ModelAndView productsCompare(ModelAndView mv,
+			@RequestParam(name = "checkboxname")ArrayList<String> checkboxname) {
+
+		System.out.println("이름 !!!"+checkboxname.size());
+		mv.addObject("list",service.checkProduct(checkboxname));
+		mv.setViewName("/product/productsCompare");
+		return mv;
+	
 	}
 	
 //	===================================================================================

@@ -15,6 +15,7 @@
 		<typeAlias type="com.palette.orkney.order.model.vo.OrderDetail" alias="orderDetail"/>
 		<typeAlias type="com.palette.orkney.member.model.vo.Addr" alias="addr"/>
 		<typeAlias type="com.palette.orkney.cart.model.vo.Cart" alias="cart"/>
+		<typeAlias type="com.palette.orkney.product.model.vo.Product" alias="product"/>
 	</typeAliases>
 
 

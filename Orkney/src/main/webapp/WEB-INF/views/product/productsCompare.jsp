@@ -11,7 +11,210 @@
 </jsp:include>
 <link rel="stylesheet"
 	href="${path }/resources/css/product/productsCompare.css">
+<style>
+<c:choose>
+	<c:when test="${fn:length(list)==2}">
+	@media (min-width: 576px) {
+	.img_siz{
+	    height: 13rem;
+	}
+	.carousel-multi-item.v-2 .carousel-item-right.active,
+		.carousel-multi-item.v-2 .carousel-item-next {
+		-webkit-transform: translateX(50%);
+		-ms-transform: translateX(50%);
+		transform: translateX(50%);
+	}
+	
+	.carousel-multi-item.v-2 .carousel-item-left.active,
+		.carousel-multi-item.v-2 .carousel-item-prev {
+		-webkit-transform: translateX(-50%);
+		-ms-transform: translateX(-50%);
+		transform: translateX(-50%);
+	}
+	
+	.carousel-multi-item.v-2 .carousel-item-right, .carousel-multi-item.v-2 .carousel-item-left
+		{
+		-webkit-transform: translateX(0);
+		-ms-transform: translateX(0);
+		transform: translateX(0);
+	}
+	}
+	@media(min-width:992px){
+	.img_siz{
+	    width: 23rem;
+    	height: 27rem;
+	}
+	</c:when>
+	
+	<c:when test="${fn:length(list)==3}">
+	@media (min-width: 768px) {
+	.carousel-multi-item.v-2 .carousel-item-right.active, 
+ 		.carousel-multi-item.v-2 .carousel-item-next { 
+ 		-webkit-transform: translateX(33.3%); 
+ 		-ms-transform: translateX(33.3%); 
+ 		transform: translateX(33.3%); 
+ 	} 
+	
+ 	.carousel-multi-item.v-2 .carousel-item-left.active, 
+ 		.carousel-multi-item.v-2 .carousel-item-prev { 
+ 		-webkit-transform: translateX(-33.3%); 
+ 		-ms-transform: translateX(-33.3%); 
+ 		transform: translateX(-33.3%); 
+ 	} 
+	
+ 	.carousel-multi-item.v-2 .carousel-item-right, .carousel-multi-item.v-2 .carousel-item-left 
+ 		{ 
+ 		-webkit-transform: translateX(0); 
+ 		-ms-transform: translateX(0); 
+ 		transform: translateX(0); 
+	} 
+	}
+	@media (min-width: 576px) { 
+	.goright {
+    margin-left: 31rem !important;
+    z-index: 1;
+    top: 18.5rem !important;
+}
+	.img_siz{
+		
+		height: 200px;
+	}
 
+	.carousel-multi-item.v-2 .carousel-item-right.active,
+		.carousel-multi-item.v-2 .carousel-item-next {
+		-webkit-transform: translateX(50%);
+		-ms-transform: translateX(50%);
+		transform: translateX(50%);
+	}
+	
+	.carousel-multi-item.v-2 .carousel-item-left.active,
+		.carousel-multi-item.v-2 .carousel-item-prev {
+		-webkit-transform: translateX(-50%);
+		-ms-transform: translateX(-50%);
+		transform: translateX(-50%);
+	}
+	
+	.carousel-multi-item.v-2 .carousel-item-right, .carousel-multi-item.v-2 .carousel-item-left
+		{
+		-webkit-transform: translateX(0);
+		-ms-transform: translateX(0);
+		transform: translateX(0);
+	}
+}
+	</c:when>
+	
+	<c:otherwise>
+	
+	
+
+@media (min-width: 576px) { 
+	.goright {
+    margin-left: 31rem !important;
+    z-index: 1;
+    top: 18.5rem !important;
+}
+	.img_siz{
+		
+		height: 200px;
+	}
+
+	.carousel-multi-item.v-2 .carousel-item-right.active,
+		.carousel-multi-item.v-2 .carousel-item-next {
+		-webkit-transform: translateX(50%);
+		-ms-transform: translateX(50%);
+		transform: translateX(50%);
+	}
+	
+	.carousel-multi-item.v-2 .carousel-item-left.active,
+		.carousel-multi-item.v-2 .carousel-item-prev {
+		-webkit-transform: translateX(-50%);
+		-ms-transform: translateX(-50%);
+		transform: translateX(-50%);
+	}
+	
+	.carousel-multi-item.v-2 .carousel-item-right, .carousel-multi-item.v-2 .carousel-item-left
+		{
+		-webkit-transform: translateX(0);
+		-ms-transform: translateX(0);
+		transform: translateX(0);
+	}
+}
+
+@media (min-width:768px) {
+	.goright {
+    margin-left: 42.5rem !important;
+    z-index: 1;
+    top: 18.5rem !important;
+}
+		.img_siz{
+		
+		height: 190px;
+	}
+
+	.carousel-multi-item.v-2 .carousel-item-right.active,
+		.carousel-multi-item.v-2 .carousel-item-next {
+		-webkit-transform: translateX(33.3%);
+		-ms-transform: translateX(33.3%);
+		transform: translateX(33.3%);
+	}
+	
+	.carousel-multi-item.v-2 .carousel-item-left.active,
+		.carousel-multi-item.v-2 .carousel-item-prev {
+		-webkit-transform: translateX(-33.3%);
+		-ms-transform: translateX(-33.3%);
+		transform: translateX(-33.3%);
+	}
+	
+	.carousel-multi-item.v-2 .carousel-item-right, .carousel-multi-item.v-2 .carousel-item-left
+		{
+		-webkit-transform: translateX(0);
+		-ms-transform: translateX(0);
+		transform: translateX(0);
+	}
+}
+@media (min-width: 992px) {
+	.goright {
+    margin-left: 57.5rem !important;
+    z-index: 1;
+    top: 18.5rem !important;
+}
+
+	.carousel-multi-item.v-2 .carousel-item-right.active,
+		.carousel-multi-item.v-2 .carousel-item-next {
+		-webkit-transform: translateX(25%);
+		-ms-transform: translateX(25%);
+		transform: translateX(25%);
+	}
+	
+	.carousel-multi-item.v-2 .carousel-item-left.active,
+		.carousel-multi-item.v-2 .carousel-item-prev {
+		-webkit-transform: translateX(-25%);
+		-ms-transform: translateX(-25%);
+		transform: translateX(-25%);
+	}
+	
+	.carousel-multi-item.v-2 .carousel-item-right, .carousel-multi-item.v-2 .carousel-item-left
+		{
+		-webkit-transform: translateX(0);
+		-ms-transform: translateX(0);
+		transform: translateX(0);
+	}
+}
+@media (min-width: 1200px) {
+	.goright {
+    margin-left: 68.8rem !important;
+    z-index: 1;
+    top: 18.4rem !important;
+}
+}
+</c:otherwise> 
+</c:choose>
+
+.darkCol {
+	background-color: rgb(180, 179, 179) !important;
+}
+
+</style>
 
 <div class="container my-5">
 
@@ -31,96 +234,55 @@
 
 					<!--Controls-->
 					<div class="controls-top">
-						<a class="btn-floating bg-transparent z-depth-0 m-0"
-							href="#carousel-example-multi" data-slide="prev"><i
-							class="dark-grey-text fas fa-chevron-left"></i></a> <a
-							class="btn-floating bg-transparent z-depth-0 m-0"
-							href="#carousel-example-multi" data-slide="next"><i
-							class="dark-grey-text fas fa-chevron-right"></i></a>
+
 					</div>
 					<!--/.Controls-->
 
 					<div class="carousel-inner" role="listbox">
-
-
+						<a class="btn-floating bg-transparent z-depth-0 m-0 goleft dark-grey-text fas fa-chevron-left"
+							href="#carousel-example-multi" data-slide="prev">
+						</a> 
+						<a class="btn-floating bg-transparent z-depth-0 m-0 goright dark-grey-text fas fa-chevron-right"
+							href="#carousel-example-multi" data-slide="next">
+							
+						</a>
 
 
 
 						<!-- Grid column -->
-						<div class="carousel-item active">
-							<!-- Card -->
-							<div class="col-12 col-lg-3 col-sm-6 col-md-4  mx-auto">
-								<!-- Pricing card -->
-								<div
-									class="text-white text-center pricing-card d-flex align-items-center rgba-stylish-strong py-3 px-3 rounded darkCol">
-									<!-- Content -->
-									<div class="card-body view rounded z-depth-1-half">
-										<h5>제품명</h5>
-										<!-- Price -->
-										<div class="price pt-0 imgCenter">
-											<img alt=""
-												src="https://www.ikea.com/kr/ko/images/products/muddus-drop-leaf-table-white__0871689_PE596029_S5.JPG?f=xs">
-										</div>
-										<hr>
-										<ul class="striped mb-0 row">
-											<li class="col-12">
-												<p>
-													<strong>별점 : </strong> #
-												</p>
-											</li>
-											<li class="col-12">
-												<p>
-													<strong>가격 : </strong> # 원
-												</p>
-											</li>
-
-											<li class="col-12">
-												<p>
-													<strong>폭 : </strong> # cm
-												</p>
-											</li class="col-12">
-											<li class="col-12">
-												<p>
-													<strong>높이 : </strong> # cm
-												</p>
-											</li>
-											<li class="col-12">
-												<p>
-													<strong>깊이 : </strong> # cm
-												</p>
-											</li>
-										</ul>
-										<a class="btn btn-outline-white">Buy now</a>
-									</div>
-									<!-- Content -->
-								</div>
-								<!-- Pricing card -->
-							</div>
-							<!-- Card -->
-						</div>
+						<div class="carousel-item active"></div>
 						<!-- Grid column -->
 
-
+	<!--Section: Content-->
+<c:forEach items="${list }" var="p">
 						<!-- Grid column -->
 						<div class="carousel-item ">
-
 							<!-- Card -->
-							<div class="col-12 col-lg-3 col-sm-6 col-md-4  mx-auto">
 
+							
+							<c:choose>
+							    <c:when test="${fn:length(list)==2}">
+								<div class="col-12 col-lg-6 col-sm-6 col-md-6  mx-auto" id="product_List">
+							    </c:when>
+							    <c:when test="${fn:length(list)==3}">
+								<div class="col-12 col-lg-4 col-sm-12 col-md-4  mx-auto" id="product_List">
+							    </c:when>
+							    <c:otherwise>
+								<div class="col-12 col-lg-3 col-sm-6 col-md-4  mx-auto" id="product_List">
+							    </c:otherwise> 
+							</c:choose>
+							
 								<!-- Pricing card -->
 								<div
 									class="text-white text-center pricing-card d-flex align-items-center rgba-stylish-strong py-3 px-3 rounded darkCol">
-
 									<!-- Content -->
 									<div class="card-body view rounded z-depth-1-half">
-										<h5>제품명</h5>
-
+										<h5><c:out value="${p.PRODUCT_NAME}" /></h5>
 										<!-- Price -->
 										<div class="price pt-0 imgCenter">
 											<img alt=""
-												src="https://www.ikea.com/kr/ko/images/products/micke-desk-white__0851508_PE565256_S5.JPG?f=xs">
+												src="${path}/resources/images/product/${p.PRODUCT_PIC}" class="img_siz">
 										</div>
-
 										<hr>
 										<ul class="striped mb-0 row">
 											<li class="col-12">
@@ -130,353 +292,39 @@
 											</li>
 											<li class="col-12">
 												<p>
-													<strong>가격 : </strong> # 원
+													<strong>가격 : </strong><fmt:formatNumber type="number" maxFractionDigits="3" value='${p.PRODUCT_PRICE}' />  원
 												</p>
 											</li>
 
 											<li class="col-12">
 												<p>
-													<strong>폭 : </strong> # cm
+													<strong>폭 : </strong> <c:out value="${p.PRODUCT_WIDTH}"/> cm
 												</p>
 											</li class="col-12">
 											<li class="col-12">
 												<p>
-													<strong>높이 : </strong> # cm
+													<strong>높이 : </strong> <c:out value="${p.PRODUCT_HEIGHT}"/> cm
 												</p>
 											</li>
 											<li class="col-12">
 												<p>
-													<strong>깊이 : </strong> # cm
-												</p>
-											</li>
-										</ul>
-										<a class="btn btn-outline-white">Buy now</a>
-
-									</div>
-									<!-- Content -->
-
-								</div>
-								<!-- Pricing card -->
-
-							</div>
-							<!-- Card -->
-
-						</div>
-						<!-- Grid column -->
-
-
-						<!-- Grid column -->
-						<div class="carousel-item ">
-
-							<!-- Card -->
-							<div class="col-12 col-lg-3 col-sm-6 col-md-4  mx-auto">
-
-								<!-- Pricing card -->
-								<div
-									class="text-white text-center pricing-card d-flex align-items-center rgba-stylish-strong py-3 px-3 rounded darkCol">
-
-									<!-- Content -->
-									<div class="card-body view rounded z-depth-1-half">
-										<h5>제품명</h5>
-
-										<!-- Price -->
-										<div class="price pt-0 imgCenter">
-											<img alt=""
-												src="https://www.ikea.com/kr/ko/images/products/malm-desk-with-pull-out-panel-white__0849930_PE660335_S5.JPG?f=xs">
-										</div>
-
-										<hr>
-										<ul class="striped mb-0 row">
-											<li class="col-12">
-												<p>
-													<strong>별점 : </strong> #
-												</p>
-											</li>
-											<li class="col-12">
-												<p>
-													<strong>가격 : </strong> # 원
-												</p>
-											</li>
-
-											<li class="col-12">
-												<p>
-													<strong>폭 : </strong> # cm
-												</p>
-											</li class="col-12">
-											<li class="col-12">
-												<p>
-													<strong>높이 : </strong> # cm
-												</p>
-											</li>
-											<li class="col-12">
-												<p>
-													<strong>깊이 : </strong> # cm
+													<strong>깊이 : </strong> <c:out value="${p.PRODUCT_DEPTH}"/> cm
 												</p>
 											</li>
 										</ul>
 										<a class="btn btn-outline-white">Buy now</a>
-
 									</div>
 									<!-- Content -->
-
 								</div>
 								<!-- Pricing card -->
-
 							</div>
 							<!-- Card -->
-
 						</div>
 						<!-- Grid column -->
+</c:forEach>
 
 
-						<!-- Grid column -->
-						<div class="carousel-item ">
-
-							<!-- Card -->
-							<div class="col-12 col-lg-3 col-sm-6 col-md-4  mx-auto">
-
-								<!-- Pricing card -->
-								<div
-									class="text-white text-center pricing-card d-flex align-items-center rgba-stylish-strong py-3 px-3 rounded darkCol">
-
-									<!-- Content -->
-									<div class="card-body view rounded z-depth-1-half">
-										<h5>제품명</h5>
-
-										<!-- Price -->
-										<div class="price pt-0 imgCenter">
-											<img alt=""
-												src="https://www.ikea.com/kr/ko/images/products/alex-desk-white__0403182_PE565241_S5.JPG?f=xs">
-										</div>
-
-										<hr>
-										<ul class="striped mb-0 row">
-											<li class="col-12">
-												<p>
-													<strong>별점 : </strong> #
-												</p>
-											</li>
-											<li class="col-12">
-												<p>
-													<strong>가격 : </strong> # 원
-												</p>
-											</li>
-
-											<li class="col-12">
-												<p>
-													<strong>폭 : </strong> # cm
-												</p>
-											</li class="col-12">
-											<li class="col-12">
-												<p>
-													<strong>높이 : </strong> # cm
-												</p>
-											</li>
-											<li class="col-12">
-												<p>
-													<strong>깊이 : </strong> # cm
-												</p>
-											</li>
-										</ul>
-										<a class="btn btn-outline-white">Buy now</a>
-
-									</div>
-									<!-- Content -->
-
-								</div>
-								<!-- Pricing card -->
-
-							</div>
-							<!-- Card -->
-
-						</div>
-						<!-- Grid column -->
-						<!-- Grid column -->
-						<div class="carousel-item ">
-
-							<!-- Card -->
-							<div class="col-12 col-lg-3 col-sm-6 col-md-4  mx-auto">
-
-								<!-- Pricing card -->
-								<div
-									class="text-white text-center pricing-card d-flex align-items-center rgba-stylish-strong py-3 px-3 rounded darkCol">
-
-									<!-- Content -->
-									<div class="card-body view rounded z-depth-1-half">
-										<h5>제품명</h5>
-
-										<!-- Price -->
-										<div class="price pt-0 imgCenter">
-											<img alt=""
-												src="https://www.ikea.com/kr/ko/images/products/alex-desk-white__0403182_PE565241_S5.JPG?f=xs">
-										</div>
-
-										<hr>
-										<ul class="striped mb-0 row">
-											<li class="col-12">
-												<p>
-													<strong>별점 : </strong> #
-												</p>
-											</li>
-											<li class="col-12">
-												<p>
-													<strong>가격 : </strong> # 원
-												</p>
-											</li>
-
-											<li class="col-12">
-												<p>
-													<strong>폭 : </strong> # cm
-												</p>
-											</li class="col-12">
-											<li class="col-12">
-												<p>
-													<strong>높이 : </strong> # cm
-												</p>
-											</li>
-											<li class="col-12">
-												<p>
-													<strong>깊이 : </strong> # cm
-												</p>
-											</li>
-										</ul>
-										<a class="btn btn-outline-white">Buy now</a>
-
-									</div>
-									<!-- Content -->
-
-								</div>
-								<!-- Pricing card -->
-
-							</div>
-							<!-- Card -->
-
-						</div>
-						<!-- Grid column -->
-						<!-- Grid column -->
-						<div class="carousel-item ">
-
-							<!-- Card -->
-							<div class="col-12 col-lg-3 col-sm-6 col-md-4  mx-auto">
-
-								<!-- Pricing card -->
-								<div
-									class="text-white text-center pricing-card d-flex align-items-center rgba-stylish-strong py-3 px-3 rounded darkCol">
-
-									<!-- Content -->
-									<div class="card-body view rounded z-depth-1-half">
-										<h5>제품명</h5>
-
-										<!-- Price -->
-										<div class="price pt-0 imgCenter">
-											<img alt=""
-												src="https://www.ikea.com/kr/ko/images/products/alex-desk-white__0403182_PE565241_S5.JPG?f=xs">
-										</div>
-
-										<hr>
-										<ul class="striped mb-0 row">
-											<li class="col-12">
-												<p>
-													<strong>별점 : </strong> #
-												</p>
-											</li>
-											<li class="col-12">
-												<p>
-													<strong>가격 : </strong> # 원
-												</p>
-											</li>
-
-											<li class="col-12">
-												<p>
-													<strong>폭 : </strong> # cm
-												</p>
-											</li class="col-12">
-											<li class="col-12">
-												<p>
-													<strong>높이 : </strong> # cm
-												</p>
-											</li>
-											<li class="col-12">
-												<p>
-													<strong>깊이 : </strong> # cm
-												</p>
-											</li>
-										</ul>
-										<a class="btn btn-outline-white">Buy now</a>
-
-									</div>
-									<!-- Content -->
-
-								</div>
-								<!-- Pricing card -->
-
-							</div>
-							<!-- Card -->
-
-						</div>
-						<!-- Grid column -->
-						<!-- Grid column -->
-						<div class="carousel-item ">
-
-							<!-- Card -->
-							<div class="col-12 col-lg-3 col-sm-6 col-md-4  mx-auto">
-
-								<!-- Pricing card -->
-								<div
-									class="text-white text-center pricing-card d-flex align-items-center rgba-stylish-strong py-3 px-3 rounded darkCol">
-
-									<!-- Content -->
-									<div class="card-body view rounded z-depth-1-half">
-										<h5>제품명</h5>
-
-										<!-- Price -->
-										<div class="price pt-0 imgCenter">
-											<img alt=""
-												src="https://www.ikea.com/kr/ko/images/products/alex-desk-white__0403182_PE565241_S5.JPG?f=xs">
-										</div>
-
-										<hr>
-										<ul class="striped mb-0 row">
-											<li class="col-12">
-												<p>
-													<strong>별점 : </strong> #
-												</p>
-											</li>
-											<li class="col-12">
-												<p>
-													<strong>가격 : </strong> # 원
-												</p>
-											</li>
-
-											<li class="col-12">
-												<p>
-													<strong>폭 : </strong> # cm
-												</p>
-											</li class="col-12">
-											<li class="col-12">
-												<p>
-													<strong>높이 : </strong> # cm
-												</p>
-											</li>
-											<li class="col-12">
-												<p>
-													<strong>깊이 : </strong> # cm
-												</p>
-											</li>
-										</ul>
-										<a class="btn btn-outline-white">Buy now</a>
-
-									</div>
-									<!-- Content -->
-
-								</div>
-								<!-- Pricing card -->
-
-							</div>
-							<!-- Card -->
-
-						</div>
-						<!-- Grid column -->
+					
 
 
 						
@@ -500,6 +348,12 @@
 
 
 <script>
+
+// product_List
+// $(function () {
+
+// });
+
 	$('.carousel, .carousel-multi-item, .v-2, .carousel-item').each(function() {
       
 		var next = $(this).next();
