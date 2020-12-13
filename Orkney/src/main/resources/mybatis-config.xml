@@ -13,6 +13,7 @@
 		<typeAlias type="com.palette.orkney.cart.model.vo.CartDetail" alias="cartdetail"/>
 		<typeAlias type="com.palette.orkney.review.model.vo.Review" alias="review"/>
 		<typeAlias type="com.palette.orkney.review.model.vo.ReviewImage" alias="reviewImage"/>		
+		<typeAlias type="com.palette.orkney.product.model.vo.Product" alias="product"/>
 
 	</typeAliases>
 

@@ -2,13 +2,48 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="product">
 
-
-
+	<select id="review" resultType="map" parameterType="String">
+		SELECT * 
+	    FROM REVIEW R
+	    LEFT OUTER JOIN MEMBER M
+	    ON R.MEMBER_NO = M.MEMBER_NO
+	    LEFT OUTER JOIN REVIEW_IMAGE RI
+	    ON R.REVIEW_NO = RI.REVIEW_NO
+		WHERE R.PRODUCT_NO = #{productNo}
+	</select>
 	
+	<select id="productDetail" resultType="map" parameterType="String">
+		SELECT * 
+	    FROM PRODUCT P
+	    LEFT OUTER JOIN PRODUCT_IMAGE I
+	    ON P.PRODUCT_NO = I.PRODUCT_NO
+	    LEFT OUTER JOIN REVIEW R
+	    ON I.PRODUCT_NO = R.PRODUCT_NO
+	    LEFT OUTER JOIN MEMBER M
+	    ON R.MEMBER_NO = M.MEMBER_NO
+	    LEFT OUTER JOIN REVIEW_IMAGE RI
+	    ON R.REVIEW_NO = RI.REVIEW_NO
+		WHERE P.PRODUCT_NO = #{productNo}
+	</select>
+
+
+	<select id="checkProduct" resultType="map" parameterType="java.util.ArrayList">
+	   SELECT *
+	   FROM PRODUCT P
+	   JOIN PRODUCT_IMAGE I 
+	   ON P.PRODUCT_NO = I.PRODUCT_NO
+	   WHERE I.PRODUCT_PIC IN 
+		<if test="list.size != 0">
+	    <foreach collection="list" item="item" index="index" separator="," open="(" close=")">
+            	#{item}
+        </foreach>
+        </if>
+		
+	</select>
 
 	<select id="productList" resultType="map">
 	
-	   SELECT p.*, I.*
+	   SELECT *
 	   FROM PRODUCT P
 	   JOIN PRODUCT_IMAGE I 
 	   ON P.PRODUCT_NO = I.PRODUCT_NO
@@ -18,7 +53,7 @@
 	<select id="filter" resultType="map" parameterType="map">
 		<choose>
 			<when test="group1=='best'">
-			   SELECT P.*, I.*
+			   SELECT *
 			   FROM PRODUCT P
 			   JOIN PRODUCT_IMAGE I 
 			   ON P.PRODUCT_NO = I.PRODUCT_NO
@@ -60,7 +95,7 @@
 			</when>
 			
 			<when test="group1=='lowPrice'">
-			   SELECT P.*, I.*
+			   SELECT *
 			   FROM PRODUCT P
 			   JOIN PRODUCT_IMAGE I 
 			   ON P.PRODUCT_NO = I.PRODUCT_NO
@@ -102,7 +137,7 @@
 			</when>
 			
 			<when test="group1=='highPrice'">
-			   SELECT P.*, I.*
+			   SELECT *
 			   FROM PRODUCT P
 			   JOIN PRODUCT_IMAGE I 
 			   ON P.PRODUCT_NO = I.PRODUCT_NO
@@ -144,7 +179,7 @@
 			</when>
 			
 			<when test="group1=='newProduct'">
-			   SELECT P.*, I.*
+			   SELECT *
 			   FROM PRODUCT P
 			   JOIN PRODUCT_IMAGE I 
 			   ON P.PRODUCT_NO = I.PRODUCT_NO
@@ -186,7 +221,7 @@
 			</when>
 			
 			<when test="group1=='name'">
-			   SELECT P.*, I.*
+			   SELECT *
 			   FROM PRODUCT P
 			   JOIN PRODUCT_IMAGE I 
 			   ON P.PRODUCT_NO = I.PRODUCT_NO
