@@ -93,6 +93,7 @@ public class ProductController {
 			) {
 		System.out.println("디테일로 가져가는 값:"+productno);
 		
+		mv.addObject("reviewImg",service.reviewImg(productno));
 		mv.addObject("review",service.review(productno));
 		mv.addObject("list", service.productDetail(productno));
 		mv.setViewName("/product/productDetail");

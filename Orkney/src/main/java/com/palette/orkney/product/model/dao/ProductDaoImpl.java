@@ -71,6 +71,12 @@ public class ProductDaoImpl implements ProductDao{
 		System.out.println("리뷰정보:"+session.selectList("product.review",productNo));
 		return session.selectList("product.review",productNo);
 	}
+	@Override
+	public List<Map> reviewImg(SqlSession session, String productNo) {
+		// TODO Auto-generated method stub
+		System.out.println("리뷰이미지정보:"+session.selectList("product.reviewImg",productNo));
+		return session.selectList("product.reviewImg",productNo);
+	}
 	
 	
 //====================================================================

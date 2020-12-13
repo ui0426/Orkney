@@ -697,14 +697,65 @@
 
 
 	</div>
+	
+<!--Modal: modalVM-->
+<div class="modal fade" id="modalVM" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+
+    <!--Content-->
+    <div class="modal-content">
+
+      <!--Body-->
+      <div class="modal-body mb-0 p-0">
+
+        <div class="embed-responsive embed-responsive-16by9 z-depth-1-half">
+          <iframe class="embed-responsive-item" src="https://player.vimeo.com/video/115098447"
+            allowfullscreen></iframe>
+        </div>
+
+      </div>
+
+      <!--Footer-->
+      <div class="modal-footer justify-content-center flex-column flex-md-row">
+        <span class="mr-4">Spread the word!</span>
+        <div>
+          <a type="button" class="btn-floating btn-sm btn-fb">
+            <i class="fab fa-facebook-f"></i>
+          </a>
+          <!--Twitter-->
+          <a type="button" class="btn-floating btn-sm btn-tw">
+            <i class="fab fa-twitter"></i>
+          </a>
+          <!--Google +-->
+          <a type="button" class="btn-floating btn-sm btn-gplus">
+            <i class="fab fa-google-plus-g"></i>
+          </a>
+          <!--Linkedin-->
+          <a type="button" class="btn-floating btn-sm btn-ins">
+            <i class="fab fa-linkedin-in"></i>
+          </a>
+        </div>
+        <button type="button" class="btn btn-outline-primary btn-rounded btn-md ml-4"
+          data-dismiss="modal">Close</button>
+
+      </div>
+
+    </div>
+    <!--/.Content-->
+
+  </div>
+</div>
+<!--Modal: modalVM-->
+
 <div style="display: none">
 <div class="media mb-3" id="reviewClone">
 <!-- 						▼▼▼▼회원 이미지 OR 상품 이미지▼▼▼▼ -->
-							<a>
+							<a id="reviewImgCon" data-toggle="modal" data-target="#modalVM">
 							<img id="productImg"
-								class="card-img-100 rounded-circle z-depth-1-half d-flex mr-3"
-								src="https://mdbootstrap.com/img/Photos/Avatars/img (8).jpg"
-								alt="Generic placeholder image">
+									class="card-img-100 rounded-circle z-depth-1-half d-flex mr-3"
+									src="https://mdbootstrap.com/img/Photos/Avatars/img (8).jpg"
+									alt="Generic placeholder image">
 							</a>
 							<div class="media-body">
 							
@@ -756,14 +807,18 @@
 		})
 	</script>
 <script type="text/javascript">
+
+
 // ▼리뷰▼
 $(function() {
 	
 <c:forEach items="${review}" var="r">
 if ("${r.REVIEW_NO}"!=null) {
 	let reviewClone = $("#reviewClone").clone();
-	$(reviewClone).find("#productImg").attr("src","");
 	$(reviewClone).find("#memberId").text('${r.MEMBER_ID}');
+	
+
+		
 	if ("${r.PRODUCT_GRADE}"==1) {
 		$(reviewClone).find("#starGray1").removeClass("grey-text").addClass("blue-text");
 	}else if ("${r.PRODUCT_GRADE}"==2) {
@@ -788,15 +843,22 @@ if ("${r.REVIEW_NO}"!=null) {
 	$(reviewClone).find("#reviewDate").text('${r.REVIEW_DATE}');
 	$(reviewClone).find("#review").text('${r.REVIEW_CONTENT}');
 	$("#reviewCon").append(reviewClone);
+	<c:forEach items="${reviewImg}" var="ri">
+	if ("${ri.RENAMEDFILENAME}"!=null) {
+		
+		$("#productImg").attr("src","${path}/resources/upload/review/"+"${ri.RENAMEDFILENAME}");
+	}
+	</c:forEach>
+	
+
 	
 }else {
 // 	댓글이 없습니다.
 } 
 </c:forEach>
-	
-
-	
 });
+//@리뷰이미지 컨트롤
+
 
 //	3자리 마다 , 표시
 function numberWithCommas(x) {

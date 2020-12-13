@@ -18,6 +18,7 @@ public interface ProductDao {
 		List<Map> nameFilter(SqlSession session);
 		List<Map> productDetail(SqlSession session, String productno);
 		List<Map> review(SqlSession session, String productno);
+		List<Map> reviewImg(SqlSession session, String productno);
 //==================================================================================
 	List<Map> selectRooms(SqlSession session,String type);
 	List<Map>selectRoomsProduct(SqlSession session ,String type);

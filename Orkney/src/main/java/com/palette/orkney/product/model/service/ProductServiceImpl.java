@@ -72,6 +72,11 @@ public class ProductServiceImpl implements ProductService{
 		// TODO Auto-generated method stub
 		return dao.review(session,productno);
 	}
+	@Override
+	public List<Map> reviewImg(String productno) {
+		// TODO Auto-generated method stub
+		return dao.reviewImg(session,productno);
+	}
 
 
 
