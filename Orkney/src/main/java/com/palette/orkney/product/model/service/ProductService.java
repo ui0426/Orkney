@@ -16,6 +16,7 @@ public interface ProductService {
 	List<Map> nameFilter();
 	List<Map> productDetail(String productno);
 	List<Map> review(String productno);
+	List<Map> reviewImg(String productno);
 
 
 //	진호
