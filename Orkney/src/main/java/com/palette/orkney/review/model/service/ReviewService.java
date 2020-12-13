@@ -15,4 +15,8 @@ public interface ReviewService {
 	List<Review> selectReviewList(String mNo);
 	
 	List<Review> selectBeforeReviewList(String mNo);
+	
+	Review selectReviewToUpdate(int rNo);
+	
+	int updateReview(Review review, List<ReviewImage> list);
 }

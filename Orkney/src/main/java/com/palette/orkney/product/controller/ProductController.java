@@ -1,13 +1,9 @@
 package com.palette.orkney.product.controller;
-
-
 import java.util.ArrayList;
-
 import java.util.HashMap;
-
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -103,6 +99,10 @@ public class ProductController {
 		return mv;
 	}
 
+
+
+
+
 	@RequestMapping("/product/productsCompare.do")
 
 	public ModelAndView productsCompare(ModelAndView mv,
@@ -112,6 +112,7 @@ public class ProductController {
 		mv.addObject("list",service.checkProduct(checkboxname));
 		mv.setViewName("/product/productsCompare");
 		return mv;
+
 	}
 
 	public String productsCompare() {

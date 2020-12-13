@@ -28,4 +28,9 @@ public interface ProductDao {
 	List<Map>sale(SqlSession session);
 	List<Map>selectRoomsTitle(SqlSession session,String type); 
 
+
+
+
+
+
 }
