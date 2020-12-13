@@ -46,12 +46,16 @@ public class ReviewController {
 	}
 	
 	@RequestMapping("/review/reviewForm.do")
-	public ModelAndView reviewForm(int odNo, ModelAndView mv) {
-		System.out.println(odNo);
-		Review r = service.selectReview(odNo);
-		System.out.println(r);
-		mv.addObject("review", r);
-		mv.setViewName("review/reviewForm");
+	public ModelAndView reviewForm(int odNo, ModelAndView mv, HttpSession session) {
+		Map login = (Map)session.getAttribute("login");
+		
+		if(login != null) {			
+			System.out.println(odNo);
+			Review r = service.selectReview(odNo);
+			System.out.println(r);
+			mv.addObject("review", r);
+			mv.setViewName("review/reviewForm");
+		}
 		return mv;
 	}
 	
@@ -117,9 +121,53 @@ public class ReviewController {
 	}
 	
 	@RequestMapping("/review/reviewUpdate.do")
-	public String reviewUpdate() {
+	public ModelAndView reviewUpdate(int rNo, ModelAndView mv, HttpSession session) {
+		Map login = (Map)session.getAttribute("login");
+		if(login != null) {			
+			Review review=service.selectReviewToUpdate(rNo);
+			mv.addObject("review", review);
+			System.out.println("수정할 것: "+review);
+			mv.setViewName("review/reviewUpdate");
+		}
+		return mv;
+	}
+	
+	@RequestMapping("/review/reviewUpdateEnd.do")
+	public ModelAndView reviewUpdateEnd(@RequestParam(value="review_img", required=false) MultipartFile[] multi, HttpSession session, ModelAndView mv) {
+		System.out.println("수정하고 데려온 것 : "+multi);
+		String path=session.getServletContext().getRealPath("/resources/upload/review");
 		
-		return "review/reviewUpdate";
+		File dir = new File(path);
+		
+		List<ReviewImage> files=new ArrayList();
+		
+		for(MultipartFile f : multi) {
+			if(!f.isEmpty()) {
+				String originalName = f.getOriginalFilename();
+				String ext = originalName.substring(originalName.lastIndexOf(".")+1);
+				System.out.println(ext);
+				
+				SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd_HHmmssSSS");
+				int rndValue = (int)(Math.random()*10000);
+				String reName=sdf.format(System.currentTimeMillis())+"_"+rndValue+"."+ext;
+				try {
+					f.transferTo(new File(path+"/"+reName));
+				}catch(IOException e) {
+					e.printStackTrace();
+				}
+				//ReviewImage ri=ReviewImage.builder().review_no(review.getReview_no()).originalFileName(originalName).renamedFileName(reName).build();
+				//files.add(ri);
+			}
+
+		}
+		//int result=service.updateReview(review, files);
+		
+		//mv.addObject("msg", result>0?"입력성공":"입력실패");
+		mv.addObject("loc", "/review/reviewList.do");
+		
+		mv.setViewName("/common/msg");
+		
+		return mv;
 	}
 
 }

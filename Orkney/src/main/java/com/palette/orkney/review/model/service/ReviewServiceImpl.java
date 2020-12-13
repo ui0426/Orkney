@@ -57,6 +57,24 @@ public class ReviewServiceImpl implements ReviewService {
 	public List<Review> selectBeforeReviewList(String mNo) {
 		return dao.selectBeforeReviewList(session, mNo);
 	}
+
+	@Override
+	public Review selectReviewToUpdate(int rNo) {
+		return dao.selectReviewToUpdate(session, rNo);
+	}
+
+	@Override
+	public int updateReview(Review review, List<ReviewImage> list) {
+		int result = dao.updateReview(session, review);
+		if(result>0) {
+			if(list!=null) {				
+				for(ReviewImage ri : list) {
+					/* result = dao.updateReviewImage(session, ri); */
+				}
+			}
+		}
+		return result;
+	}
 	
 	
 	

@@ -41,6 +41,21 @@ public class ReviewDaoImpl implements ReviewDao {
 	public List<Review> selectBeforeReviewList(SqlSession session, String mNo) {
 		return session.selectList("review.selectBeforeReviewList", mNo);
 	}
+
+	@Override
+	public Review selectReviewToUpdate(SqlSession session, int rNo) {
+		return session.selectOne("review.selectReviewToUpdate", rNo);
+	}
+
+	@Override
+	public int updateReview(SqlSession session, Review review) {
+		return session.update("review.updateReview", review);
+	}
+
+	@Override
+	public int updateReviewImage(SqlSession session, ReviewImage ri) {
+		return session.update("review.updateReviewImage", ri);
+	}
 	
 	
 	
