@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.palette.orkney.order.model.dao.OrderDao;
 import com.palette.orkney.order.model.vo.OrderDetail;
 import com.palette.orkney.order.model.vo.Orders;
+import com.palette.orkney.product.model.dao.ProductDao;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -18,6 +19,8 @@ public class OrderServiceImpl implements OrderService {
 	private OrderDao dao;
 	@Autowired
 	private SqlSession session;
+	@Autowired
+	private ProductDao pDao;
 		
 	@Override
 	public List<Map> selectOrderList(String mNo) {
@@ -45,6 +48,23 @@ public class OrderServiceImpl implements OrderService {
 		return dao.selectEmail(session, oNo);
 	}
 
+	@Override
+	public int updateSort(OrderDetail od) {
+		int result =  dao.updateSort(session, od);
+		if(result>0 && od.getSort().equals("구매확정")) {
+			result = dao.insertShipped(session, od);
+			if(result >0) {
+				List<Map> p = pDao.productDetail(session, od.getProduct_no());
+				
+				
+			}
+		}
+		return result;
+	}
+
+	
+
+	
 	
 
 }

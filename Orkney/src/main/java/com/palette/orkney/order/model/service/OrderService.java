@@ -17,4 +17,7 @@ public interface OrderService {
 	int cancelRequest(Orders order);
 	
 	String selectEmail(String oNo);
+	
+	int updateSort(OrderDetail od);
+	
 }

@@ -36,6 +36,20 @@ public class OrderDaoImpl implements OrderDao {
 	public String selectEmail(SqlSession session, String oNo) {
 		return session.selectOne("order.selectEmail", oNo);
 	}
+
+	@Override
+	public int updateSort(SqlSession session, OrderDetail od) {
+		return session.update("order.updateSort", od);
+	}
+	
+	
+	//입출고 테이블에 
+	@Override
+	public int insertShipped(SqlSession session, OrderDetail od) {
+		return session.insert("shipped.insertShipped", od);
+	}
+
+
 	
 	
 	

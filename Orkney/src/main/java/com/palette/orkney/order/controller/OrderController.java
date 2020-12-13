@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.palette.orkney.member.model.service.MemberService;
 import com.palette.orkney.order.model.service.OrderService;
+import com.palette.orkney.order.model.vo.OrderDetail;
 import com.palette.orkney.order.model.vo.Orders;
 
 @SessionAttributes("login")
@@ -68,20 +69,6 @@ public class OrderController {
 			return "false";
 		}
 	}
-//	public String orderLogin(String id, String password, Model m) {
-//		
-//		Map login=mservice.loginCheck(id);
-//		
-//		if(login!=null&&pwEncoder.matches(password,(String)login.get("MEMBER_PWD"))) {
-//			String mNo = (String)login.get("MEMBER_NO");
-//			m.addAttribute("login",login);
-//			m.addAttribute("list", service.selectOrderList(mNo));
-//			return "order/orderList";
-//		}else {
-//			m.addAttribute("msg", "사용하신 인증정보가 올바르지 않습니다. 확인 후 다시 시도해주세요.");
-//			return "order/orderLogin";
-//		}
-//	}
 	
 	//주문상세내역 보기
 	@RequestMapping("/order/orderView.do")
@@ -171,6 +158,21 @@ public class OrderController {
 	@RequestMapping("/order/passwordCheck.do")
 	public String passwordCheck() {
 		return "order/orderPasswordCheck";
+	}
+	
+	@RequestMapping(value="/order/updateSort.do", produces="text/plain;charset=UTF-8")
+	@ResponseBody
+	public String updateSort(int odNo, String sort) {
+		OrderDetail od = OrderDetail.builder().order_detail_no(odNo).sort(sort).build();
+		int result = service.updateSort(od);
+		return result>0?"요청이 완료되었습니다.":"요청 실패! 고객센터에 문의바랍니다.";
+	}
+	
+	@RequestMapping("/order/orderConfirm.do")
+	public String orderConfirm(OrderDetail od) {
+		System.out.println(od);
+		service.updateSort(od);
+		return "redirect:/order/orderView.do?oNo="+od.getOrder_no();
 	}
 	
 

@@ -570,12 +570,33 @@
 											<p class="product-text"><c:out value="${od.product_color }"/></p>
 										</div>
 										</div>
-										<c:if test="${order.order_state eq '배송완료' and od.review_no eq 0 }">
+										<c:if test="${order.order_state eq '배송완료' and od.sort eq null}">
+											<div class="od-review-btn">
+												<input class="order_detail_no_input" type="hidden" value="${od.order_detail_no }"/>
+												<input class="product_qty_input" type="hidden" value="${od.product_qty }"/>
+												<input class="product_no_input" type="hidden" value="${od.product_no }"/>
+												<button type="button" class="btn btn-outline-default waves-effect btnsize change_do btn-sm">교환신청</button>
+												<button type="button" class="btn btn-outline-default waves-effect btnsize refund_do btn-sm">반품신청</button>
+												<button type="button" class="btn btn-outline-default waves-effect btnsize confirm_do btn-sm">구매확정</button>
+											</div>
+										</c:if>
+										<c:if test="${order.order_state eq '배송완료' and od.sort eq '구매확정' and od.review_no eq 0 }">
 											<div class="od-review-btn">
 												<input type="hidden" value="${od.order_detail_no }"/>
 												<button type="button" class="btn btn-outline-default waves-effect btnsize review_do btn-sm">리뷰쓰기</button>
 											</div>
 										</c:if>
+										<c:if test="${od.sort eq '교환신청' }">
+										<div class="od-review-btn">
+											교환  처리중입니다.
+										</div>
+										</c:if>
+										<c:if test="${od.sort eq '반품신청' }">
+										<div class="od-review-btn">
+											반품 처리중입니다.
+										</div>
+										</c:if>
+										
 									</div>
 										
 								</c:forEach>
@@ -583,6 +604,46 @@
 							</div>
 						</div>
 					</div>
+					<script>
+						$(".change_do").click(e=>{
+							var odNo = $(event.target).parent().children("input.order_detail_no_input").val();
+							console.log(odNo);
+							$.ajax({
+								url:"${path}/order/updateSort.do",
+								data:{odNo:odNo,sort:'교환신청'},
+								success:msg=>{
+									alert(msg);									
+									$(e.target).css("display","none");
+									$(e.target).siblings().css("display","none");
+									$(e.target).parent().html("교환 처리중입니다.");
+								}
+							});
+						});
+						
+						$(".refund_do").click(e=>{
+							var odNo = $(event.target).parent().children("input.order_detail_no_input").val();
+							console.log(odNo);
+							$.ajax({
+								url:"${path}/order/updateSort.do",
+								data:{odNo:odNo,sort:'반품신청'},
+								success:msg=>{
+									alert(msg);
+									$(e.target).css("display","none");
+									$(e.target).siblings().css("display","none");
+									$(e.target).parent().html("교환 처리중입니다.");
+								}
+							});
+						});
+						
+						 $(".confirm_do").click(e=>{
+							var oNo = $("#oNo").val();
+							var odNo = $(event.target).parent().children("input.order_detail_no_input").val();
+							var pQty = $(event.target).parent().children("input.product_qty_input").val();
+							var pNo = $(event.target).parent().children("input.product_no_input").val();
+							console.log(oNo);
+							location.href ='${path}/order/orderConfirm.do?order_no='+oNo+'&order_detail_no='+odNo+'&sort=구매확정&product_qty='+pQty+'&product_no='+pNo;
+						});
+					</script>
 					
 					<div class="part-line mobile-line"><hr class="line-c"></div>
 				</div>
@@ -1189,7 +1250,6 @@
 				if(data == true){
 					location.href="${path}/review/reviewForm.do?odNo="+odNo;
 				}else{
-					console.log("456");
 					$("#modalBtn").trigger("click");
 				}
 			}

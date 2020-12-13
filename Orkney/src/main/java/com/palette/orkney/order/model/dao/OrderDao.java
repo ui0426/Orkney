@@ -19,4 +19,8 @@ public interface OrderDao {
 	int cancelRequest(SqlSession session, Orders order);
 	
 	String selectEmail(SqlSession session, String oNo);
+	
+	int updateSort(SqlSession session, OrderDetail od);
+	
+	int insertShipped(SqlSession session, OrderDetail od);
 }
