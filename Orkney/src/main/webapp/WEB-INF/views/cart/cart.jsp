@@ -42,8 +42,7 @@
 
 <script>
 	$("#cartBtn").click(e=>{
-		let sumPrice = $("#sumprice").val();		
-		
+		let sumPrice = $("#sumprice").val();				
 		if(sumPrice  == 0){
 			alert("장바구니가 비어있습니다.");
 			return false;
@@ -106,10 +105,7 @@
 					 }
 				 });
 			 }); 
-
-/* 				$(document).ready(function() {
-					$('.mdb-select').materialSelect();
-					}); */				
+		
 </script>
 	
 

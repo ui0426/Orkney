@@ -37,6 +37,8 @@ public class CartController {
 		String memberNo = (String)((Map)session.getAttribute("login")).get("MEMBER_NO");										
 		List<Cart> c = service.selectCart(memberNo);											
 		
+		
+		
 		//2. 경록이형 연결시 추가 ( 상품번호 가져옴)
 		Cart cart = new Cart();
 		cart.setMemberNo(memberNo);

@@ -64,14 +64,22 @@ public class OrderController {
 		//orders/order_detail insert
 		List<Cart> c = cservice.selectCart(memberNo);	
 		int insertOrders = service.insertOrders(orders,c); 																		
-				
+		
+		int afterPoint=totalPoint-willPoint;
+		Map<String, Object> uppo = new HashMap();
+		uppo.put("member_no", memberNo);
+		uppo.put("point",afterPoint);
+		
+		System.out.println(uppo);
+		
 		//point inert
 		Map<String, Object> point =new HashMap();
 		point.put("member_no", memberNo);
 		point.put("point_point",willPoint);							
 		if(willPoint!=0) {
 			int insertPoint = service.insertPoint(point); //포인트 차감
-		}
+			int updatePoint = mservice.updatePoint(uppo);
+		}				
 		
 		Map<String, Object>mapping = new HashMap<String, Object>();														
 		mapping.put("sumprice",sumProduct);
@@ -82,8 +90,7 @@ public class OrderController {
 		mapping.put("willpoint",willPoint);
 									
 		session.setAttribute("info", mapping);
-		session.setAttribute("orders", orders);		
-		
+		session.setAttribute("orders", orders);				
 		return mv;
 	}
 	
@@ -101,6 +108,7 @@ public class OrderController {
 		mv.addObject("orders",orders);
 		mv.addObject("map",info);
 		mv.setViewName("cart/complete");
+		int cartDelete = cservice.cartDelete(c.get(0).getCartNo());
 		return mv;
 	}
 

@@ -181,7 +181,7 @@
 	
 	<!-- point update -->
 	<update id="updatePoint" parameterType="map">
-		UPDATE member SET point=#{point}  WHERE member_no=#{memberNo}
+		UPDATE member SET point=#{point}  WHERE member_no=#{member_no}
 	</update>
 	
 	
