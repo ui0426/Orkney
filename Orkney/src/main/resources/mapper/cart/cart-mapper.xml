@@ -45,13 +45,7 @@
   	<delete id="deleteBasket" parameterType="string">
   		delete from cart_detail where cart_no=#{cartNo}  
   	</delete>  
-  	
-  	<select id="memberInfo" parameterType="map" resultType="cartdetail">
-  		SELECT * FROM MEMBER 
-		join cart using(member_no) 
-		join cart_detail using(cart_no)
-		join product using(product_no) WHERE member_no=#{memberNo} and product_no=#{productNo}
-  	</select>  	
+  
   	  	
   	<update id="updateDetail" parameterType="cart">
   		UPDATE CART_DETAIL SET CART_QTY = #{cartQTY} WHERE PRODUCT_NO = #{productNo} and cart_no=#{cartNo}
@@ -64,5 +58,13 @@
 	<select id="productSum" parameterType="map">
 		update cart_detail set total_price = #{totalPrice} where product_no=#{productNo}
 	</select>
+  	
+  	<select id="selectCount" parameterType="string" resultType="_int">
+  		select count(*) from cart_detail where cart_no=#{cartNo}
+  	</select>
+  	
+  	<delete id="cartDelete" parameterType="string">
+  		delete from cart where cart_no=#{cartNo}
+  	</delete>
   	
 </mapper>

@@ -96,6 +96,8 @@ public class AdminDaoImpl implements AdminDao {
 		return session.update("admin.pointModify",data);
 	}
 
-	
+	public int updateOrderState(SqlSession session, Map o) {
+		return session.update("admin.updateOrderState", o);
+	}	
 	
 }

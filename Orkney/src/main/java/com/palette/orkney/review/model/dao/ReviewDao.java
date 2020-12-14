@@ -20,5 +20,11 @@ public interface ReviewDao {
 	List<ReviewImage> selectReviewImage(SqlSession session, int rNo);
 	
 	List<Review> selectBeforeReviewList(SqlSession session, String mNo);
+	
+	Review selectReviewToUpdate(SqlSession session, int rNo);
+	
+	int updateReview(SqlSession session, Review review);
+	
+	int updateReviewImage(SqlSession session, ReviewImage ri);
 
 }

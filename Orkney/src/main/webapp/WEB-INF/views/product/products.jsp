@@ -18,7 +18,40 @@
 
 
 
+						<style>
+@media (max-width:700px) {
+	#compare_btn{
+	    width: 458px;
+	    margin-left: 16px !important;
+	}
+	#check_clean_but{
+	 	width: 458px !important;
+	 	margin-left: 0rem !important;
+	}
 
+	}
+ 	@media (max-width:1470px) { 
+ 	#bottom_img_con{
+ 		width: 100% !important;
+ 		
+ 	}
+
+/* #compare_btn{ */
+/* 	    width: 100%; */
+/* 	    margin-left: 16px !important; */
+/* 	} */
+/* 	#check_clean_but{ */
+/* 	 	width: 100% !important; */
+/* 	 	margin-left: 0rem !important; */
+/* 	} */
+ 	} 
+	.plp-comparison-bar__image {
+    width: 82px;
+    max-height: 53px;
+    margin-right: -17px;
+}
+
+						</style>
 
 
 
@@ -27,49 +60,70 @@
 
 
 
-	<!-- 모달 필터  아래 모달 비교-->
-	<div class="modal fade bottom" id="frameModalBottomSuccess"
-		tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-		aria-hidden="true" data-backdrop="false">
-		<div
-			class=" modal-frame modal-bottom modal-notify modal-success modal-dialog bottomSiz"
-			role="document">
-			<!--Content-->
-			<div class="modal-content">
-				<!--Body-->
-				<div class="modal-body container">
-					<div class="row px-4 jagan">
-						<div>
-							<a type="button"
-								class="btn btn-outline-success waves-effect color-Gray1 btnBol"
-								data-dismiss="modal">전체 삭제</a> <img
-								src="https://www.ikea.com/kr/ko/images/products/kleppstad-wardrobe-with-sliding-doors-white__0823547_PE775917_S5.JPG?f=xs"
-								alt="KLEPPSTAD 클렙스타드" title="KLEPPSTAD 클렙스타드"
-								class="plp-comparison-bar__image"> <img
-								src="https://www.ikea.com/kr/ko/images/products/kleppstad-wardrobe-with-sliding-doors-white__0823547_PE775917_S5.JPG?f=xs"
-								alt="KLEPPSTAD 클렙스타드" title="KLEPPSTAD 클렙스타드"
-								class="plp-comparison-bar__image"> <img
-								src="https://www.ikea.com/kr/ko/images/products/kleppstad-wardrobe-with-sliding-doors-white__0823547_PE775917_S5.JPG?f=xs"
-								alt="KLEPPSTAD 클렙스타드" title="KLEPPSTAD 클렙스타드"
-								class="plp-comparison-bar__image">
-						</div>
-						<div class="row">
-							<p style="margin-top: auto;">#개</p>
-							<a type="button"
-								class="btn btn-success waves-effect waves-light btnBol text-white"
-								style="background-color: gray !important;"
-								href="${path}/product/productsCompare.do"> 제품비교 <i
-								class="far fa-gem ml-1 text-white"></i>
-							</a>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!--/.Content-->
-		</div>
-	</div>
+	
 
 <!-- filter 정렬 ajax -->
+<script type="text/javascript">
+
+function clean_check() {
+// 	alert("체크 해제");
+	$("#product_list").find('input').prop("checked", false); 
+	$("#bottomIMG-Box").html("");
+	checkBoxArr = [];
+	$("#compare").find("#compare_count").text(checkBoxArr.length+"개 제품 선택 (2개 이상 제품 선택)");
+	$("#compare_btn").attr("style","background-color:gray !important; border-radius: 80px; margin: auto; margin-right: 2rem;");
+}
+
+function check_PIC(e) {
+	
+
+var checkBoxArr = [];
+$("input[name=checkboxname]:checked").each(function(i){
+checkBoxArr.push($(this).val());
+});
+
+if (checkBoxArr.length > 1) {
+
+	$("#compare_btn").attr("style","background-color:black !important; border-radius: 80px; margin: auto; margin-right: 2rem;");
+ 	$("#compare_btn").attr('disabled',false);
+
+}else {
+	$("#compare_btn").attr("style","background-color:gray !important; border-radius: 80px; margin: auto; margin-right: 2rem;");
+ 	$("#compare_btn").attr('disabled','disabled');
+}
+
+
+$("#bottomIMG-Box").html("");
+for ( var i=0; i<checkBoxArr.length;i++){
+	
+	let picClone = $("#modarBottom_Pic").clone();
+
+  	  $(picClone).attr("src","${path}/resources/images/product/"+checkBoxArr[i]);
+ 	  
+ 	  $("#compare").find("#compare_count").text(checkBoxArr.length+"개 제품 선택(2개 이상 제품 선택)");
+	  
+	  $("#bottomIMG-Box").append(picClone);
+
+}
+
+jQuery.noConflict();
+$("#frameModalBottomSuccess").modal('show');
+// alert(checkBoxArr);
+
+	
+
+
+//	for ( var i=0;i <= checkPic.length;i++){
+
+//		  let picClone = $("#bottomIMG-BoxClone").clone();
+//		  $(picClone).find("#modarBottom_Pic").attr("src",checkPic);
+
+
+//		  $("#bottomIMG-Box").append(picClone);
+			
+//		}
+}
+</script>
 <script type="text/javascript">
 
 
@@ -106,19 +160,22 @@
 					
 					},
 					success:data=>{
-						alert(group1);
+						
 					  $("#product_list").html("");
 					  
 						for ( var i=0;i <= data.length;i++){
 
 						  let productClone = $("#products").clone();
 						
+						  $(productClone).find("#checkbox").val(data[i]["PRODUCT_PIC"]);
 						  $(productClone).find("#productMainImg").attr("src","${path}/resources/images/product/"+data[i]["PRODUCT_PIC"]);
 						  $(productClone).find("#product_name").html(data[i]["PRODUCT_NAME"]);
 						  $(productClone).find("#category").html(data[i]["BIG_CATEGORY_NO"]);
 						  $(productClone).find("#pr").html(numberWithCommas(data[i]["PRODUCT_PRICE"]));
+						  $(productClone).find("#productA").attr("href","${path}/product/productDetail.do?productno="+data[i]["PRODUCT_NO"]);
+						  $(productClone).find("#readMore").attr("onclick","location.href = \'${path}/product/productDetail.do?productno="+data[i]["PRODUCT_NO"]+"\'");
 						  $("#product_list").append(productClone);
-								
+// 						  										
 						}
 					}
 				})		
@@ -538,7 +595,7 @@
 			</button>
 			<button type="button"
 				class="btn round col-2 filterSiz col-md-1 btnH35"
-				data-toggle="modal" data-target="#frameModalBottomSuccess">
+				data-toggle="modal" data-target="#frameModalBottomSuccess" onclick="checkbox_all()">
 				<span class="fontborder fontColorGray">비교</span>
 			</button>
 			<button type="button"
@@ -565,19 +622,27 @@
 		</div>
 		<!-- 헤더 필터 버튼 end -->
 
-
+				<form action="${path}/product/productsCompare.do" method="get">
+				
 		<!-- 제품 목록 -->
 		<div class="row row-cols-1 row-cols-md-3 row-cols-sm-2 row-cols-lg-4 " id="product_list">
 		<c:forEach items="${list }" var="p">
-<div class="col products" id="products">
+<div class="col products" id="products" onmouseover="checkbox_Over()" onmouseout="checkbox_Out()" >
+
+
+
 					<!-- Card -->
-					<div class="card">
+					<div class="card" id="card">
+<div class="plp-checkbox" id="plp-checkbox" onclick="check_PIC();" >
+<input type="checkbox" name="checkboxname" id="checkbox" black="true" value="${p.PRODUCT_PIC}" >
+</div>
+					
 						<!--Card image-->
-						<div class="view overlay zoom">
-							<img class="card-img-top imgHeight" 
+						<div class="view overlay zoom" >
+							<img class="card-img-top imgHeight " 
 								src="${path}/resources/images/product/${p.PRODUCT_PIC}"
-								alt="Card image cap"> <a
-								href="${path}/product/productDetail.do">
+								alt="Card image cap" > <a
+								href="${path}/product/productDetail.do?productno=${p.PRODUCT_NO}">
 								<div class="mask rgba-white-slight"></div>
 							</a>
 						</div>
@@ -593,7 +658,7 @@
 							</p>
 							<p class="card-text marginZero">
 							<div class="row marginZero">
-							<div id="pr"><fmt:formatNumber type="number" maxFractionDigits="3" value="${p.PRODUCT_PRICE}" /></div>
+							<div id="pr"><fmt:formatNumber type="number" maxFractionDigits="3" value='${p.PRODUCT_PRICE}' /></div>
 							<div>원</div>
 							</div>
 							</p>
@@ -631,8 +696,8 @@
 								<hr>
 								<div class="row">
 									<button type="button" class="btn  btn-md color-Gray1 "
-										style="border: 1px solid darkgray !important;">Read
-										more</button>
+										style="border: 1px solid darkgray !important;" onclick = "location.href = '${path}/product/productDetail.do?productno=${p.PRODUCT_NO}'" >
+										Read more</button>
 									<div class="row heartCart_icon" style="margin: auto;">
 										<a class="material-tooltip-main" data-toggle="tooltip"
 											data-placement="top" title="Add to Cart"> <i
@@ -654,24 +719,32 @@
 
 
 		</div>
+
 		<!-- 제품 목록 -->
 <div id="removeProducts" style="display: none;">
-				<div class="col products" id="products">
+				<div class="col products" id="products" onmouseover="checkbox_Over()" onmouseout="checkbox_Out()">
+
+
 					<!-- Card -->
-					<div class="card">
+					<div class="card" >
 						<!--Card image-->
+<div class="plp-checkbox" id="plp-checkbox"  onclick="check_PIC();">
+<input type="checkbox" name="checkboxname" id="checkbox" black="true" value="${p.PRODUCT_PIC}">
+</div>
 						<div class="view overlay zoom">
+						
+
 							<img class="card-img-top imgHeight" id="productMainImg"
 								src="${path}/resources/images/product/${p.PRODUCT_PIC}"
-								alt="Card image cap"> <a
-								href="${path}/product/productDetail.do">
+								alt="Card image cap"> <a id="productA"
+								href="">
 								<div class="mask rgba-white-slight"></div>
 							</a>
 						</div>
 						<!--Card content-->
 						<div class="card-body">
 							<!--Title-->
-							<h4 class="card-title" id="product_name">
+							<h4 class="card-title" id="product_name" >
 								<c:out value="${p.PRODUCT_NAME}" />
 							</h4>
 							<!--Text-->
@@ -717,7 +790,7 @@
 							<div>
 								<hr>
 								<div class="row">
-									<button type="button" class="btn  btn-md color-Gray1 "
+									<button type="button" class="btn  btn-md color-Gray1 " id="readMore"
 										style="border: 1px solid darkgray !important;">Read
 										more</button>
 									<div class="row heartCart_icon" style="margin: auto;">
@@ -736,15 +809,78 @@
 					<!-- Card -->
 					<hr>
 				</div>
+</div>
+<!-- 모달 필터  아래 모달 비교-->
+	<div class="modal fade bottom" id="frameModalBottomSuccess"
+		tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+		aria-hidden="true"   data-backdrop="false"  style=" pointer-events:none;" >
+		<div
+			class=" modal-frame modal-bottom modal-notify modal-success modal-dialog bottomSiz"
+			role="document" id="modar_bottom" >
+			<!--Content-->
+			<div class="modal-content">
+				<!--Body-->
+				<div class="modal-body container" style="display: contents;">
+					<div class="row px-4 jagan">
+							<a type="button"
+								class="btn btn-success waves-effect waves-light btnBol color-Gray1"
+								style="background-color: white !important;  border-radius: 80px; margin-left: 1.3rem; width: 144px; height: 50px;"
+								 onclick="clean_check()" id="check_clean_but">선택해제
+							</a>
+							<div id="bottom_img_con" style="width: 59%">
+							
+							
+							
+								<div id="bottomIMG-BoxClone" style="display: none;" class="row" >
+								<img src=""class="plp-comparison-bar__image col" id="modarBottom_Pic"> 	
+								</div>
+								
+								<div id="bottomIMG-Box" class="col" style=" margin-top: 7px;overflow:auto;">
+								</div>
+						
+						
+							
+							</div>
+
+						<div class="row" id="compare">
+							<p style="margin-top: 1.7rem; margin-right: 1rem; margin-left: 1rem;"  id="compare_count"></p>
+
+							<button type="submit"
+								class="btn btn-success waves-effect waves-light btnBol text-white" id="compare_btn"
+								style="background-color: gray !important; margin: auto; margin-right: 2rem; border-radius: 80px;"
+								 disabled="disabled"> 제품비교 <i
+								class="far fa-gem ml-1 text-white"></i>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--/.Content-->
+		</div>
+	</div>
+				</form>
 
 
-			
 
 
 </div>
 
 
+
+
+</section>
+
 		<script>
+// 		@화면 로드시 체크박스 해제
+		$(function(){
+		$('input[name="group1"]:checked').prop('checked', false);
+		$('input[name="group2"]:checked').prop('checked', false);
+		$('input[name="group3"]:checked').prop('checked', false);
+		$('input[name="group4"]:checked').prop('checked', false);
+		$('input[name="group5"]:checked').prop('checked', false);
+		$('input[name="checkboxname"]:checked').prop('checked', false);
+		});
+		
 			$(document).ready(function() {
 
 				$('#sort').click(function() {
@@ -765,12 +901,20 @@
 
 			})
 		</script>
+<!-- 		제품 체크박스 hover 이벤트  -->
+		<script type="text/javascript">
+		function checkbox_Over(e) {
+			$(".plp-checkbox").css({"z-index": "1"});
+			
+		}
+		function checkbox_Out(e) {
+			$(".plp-checkbox").css("z-index", "0");
+			
+		}
+		function checkbox_all() {
+			$(".plp-checkbox").css("z-index", "1");
+		}
 
-
-
-	</div>
-
-
-
-</section>
+ 		
+		</script>
 <jsp:include page="/WEB-INF/views/common/footer.jsp" />

@@ -18,4 +18,6 @@ public class Addr {
 	private String address_addr;
 	private String address_detail;
 
+	private String address_no;
+
 }

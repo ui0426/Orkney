@@ -32,5 +32,7 @@ public interface AdminService {
 	int deleteMember(String no);
 
 	int modifyPoint(Map data);
+	
+	int updateOrderState(Map o);
 
 }

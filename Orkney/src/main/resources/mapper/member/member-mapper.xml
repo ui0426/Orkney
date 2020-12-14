@@ -69,13 +69,13 @@
   </select>
   
   	<!-- 가입시 주소 가져오기 -->
-  	<select id="getAddress" parameterType="string" resultType="string">
-  		select address from addr where member_no=#{ no } and address_type = 1
+  	<select id="getBasicAddress" parameterType="string" resultType="addr">
+  		select * from addr where member_no=#{ no } and address_type = 1
   	</select>
   	
   	<!-- 추가된 배송지 리스트 가져오기 -->
   	<select id="addAddrList" parameterType="string" resultType="addr">
-  		select * from addr where address_type=0 and member_no=#{mNo}
+  		select * from addr where address_type=0 and member_no=#{mNo} order by address_no
   	</select>
 	
 	<select id="snsUserInfo" parameterType="string" resultType="map">
@@ -120,9 +120,40 @@
   		update member set MEMBER_PWD=#{newPwCk} where member_no=#{mNo}
   	</select>
   	
+  	<!-- 기본 주소 수정 -->
+  	<update id="updateMemberAddress" parameterType="map">
+  		update addr set address=#{address} 
+  		<if test="address_name == null">
+  		where MEMBER_NO=#{mNo} and ADDRESS_TYPE='1'
+  		</if>
+  		<if test="address_name != null">
+  		, ADDRESS_NAME=#{address_name}, ADDRESS_PHONE=#{address_phone} where ADDRESS_NO=#{address_no}
+  		</if>
+  	</update>
+  	
   	<select id="currentMemberInformation" parameterType="string" resultMap="memberResultMap">
   		select * from MEMBER join ADDR on (member.MEMBER_NO=addr.MEMBER_NO) where member.member_no=#{mNo}
   	</select>
+  	
+  	<!-- 주소넘으로 가져오기 -->
+  	<select id="getAddress" parameterType="map" resultMap="addrResultMap">
+  		select * from addr where member_no=#{mNo} and address_no=#{addrNo}
+  	</select>
+  	
+  	<!-- 주소추가하기 -->
+  	<insert id="insertAddr" parameterType="map">
+  		insert into addr values(#{mNo}, #{address}, 0, #{name}, #{phone}, 'addr'||addr_seq.nextval)
+  	</insert>
+  	
+  	<!-- 배송지 삭제하기 -->
+  	<delete id="deleteAddress" parameterType="map">
+  		DELETE FROM addr where member_no=#{mNo} and address_no=#{addrNo}
+  	</delete>
+  	
+  	<!-- 탈퇴하기 -->
+  	<delete id="deleteMember" parameterType="string">
+  		delete from member where member_no=#{mNo}
+  	</delete>
   	
 	<resultMap type="member" id="memberResultMap">
 		<id column="MEMBER_NO" property="member_no"/>
@@ -144,6 +175,14 @@
 		<result column="ADDRESS_TYPE" property="address_type"/>
 		<result column="ADDRESS_NAME" property="address_name"/>
 		<result column="ADDRESS_PHONE" property="address_phone"/>
+		<result column="ADDRESS_NO" property="address_no"/>
 	</resultMap>
+	
+	
+	<!-- point update -->
+	<update id="updatePoint" parameterType="map">
+		UPDATE member SET point=#{point}  WHERE member_no=#{member_no}
+	</update>
+	
 	
 </mapper>

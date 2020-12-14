@@ -115,6 +115,7 @@ public class EmailController {
         return mv;
     }
 	
+
 	@RequestMapping(value="/member/emailAuth.do", method=RequestMethod.POST)//가입시 이메일 인증
     public String emailAuth(@RequestParam Map userInfo,Model m,HttpServletResponse response,HttpSession session) throws Exception {
 		
@@ -177,4 +178,5 @@ public class EmailController {
         
         return "redirect:emailPage.do";
     }
+
 }

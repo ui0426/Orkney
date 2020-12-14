@@ -1,5 +1,6 @@
 package com.palette.orkney.cart.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,6 +17,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.palette.orkney.cart.model.service.CartService;
 import com.palette.orkney.cart.model.vo.Cart;
 import com.palette.orkney.cart.model.vo.CartDetail;
+import com.palette.orkney.member.model.service.MemberService;
+import com.palette.orkney.member.model.vo.Addr;
 
 @Controller
 public class CartController {
@@ -23,15 +26,18 @@ public class CartController {
 	
 	@Autowired
 	private CartService service;	
-		
+	
+	@Autowired
+	private MemberService mservice;
+	
 	//1.장바구니 화면 이동(장바구니 확인 /추가/수정)
 	@RequestMapping("/cart/cart.do")
 	public ModelAndView cart(HttpSession session, ModelAndView mv,String productNo) {					
 		
 		String memberNo = (String)((Map)session.getAttribute("login")).get("MEMBER_NO");										
-		List<Cart> c = service.selectCart(memberNo);
-		System.out.println("첫카트list:"+c);
-		System.out.println(c.get(0).getCartNo());							
+		List<Cart> c = service.selectCart(memberNo);											
+		
+		
 		
 		//2. 경록이형 연결시 추가 ( 상품번호 가져옴)
 		Cart cart = new Cart();
@@ -46,11 +52,13 @@ public class CartController {
 //		if (count==0)  count = service.insertCart(cart);
 //		else count = service.updateCart(cart);
 		
-		int sum=service.sumPrice(c.get(0).getCartNo());	
+		if(count==1) {			
+			int sum=service.sumPrice(c.get(0).getCartNo());
+			mv.addObject("sumprice",sum);
+			mv.addObject("cN",c.get(0).getCartNo());	
+		}
 		
-//		mv.addObject("cart",c);
-		mv.addObject("cN",c.get(0).getCartNo());
-		mv.addObject("sumprice",sum);				
+//		mv.addObject("cart",c);					
 		mv.setViewName("cart/cart");
 		return mv;
 	}
@@ -91,10 +99,6 @@ public class CartController {
 	//4. 수량 저장 ajax처리
 	@RequestMapping("/cart/updateQty.do")	
 	public ModelAndView updateQty(ModelAndView mv, int qty, String cartNo, String productNo, String totalPrice, HttpSession session, int productPrice){		
-		System.out.println("상품가격"+totalPrice);
-		System.out.println("수량:"+qty);
-		System.out.println("카트번호:"+cartNo);		
-		
 		//수량저장
 		Cart cart = new Cart();
 		cart.setCartQTY(qty);
@@ -121,7 +125,8 @@ public class CartController {
 			
 		List<Cart> c1 = service.selectCart(memberNo);
 		mv.addObject("cart",c1);
-		mv.addObject("sumprice",sum);		
+		mv.addObject("sumprice",sum);
+		
 		mv.setViewName("ajax/cartproduct");
 		return mv;
 	}	
@@ -132,26 +137,53 @@ public class CartController {
 		
 		String memberNo = (String)((Map)session.getAttribute("login")).get("MEMBER_NO");																
 		List<Cart> c = service.selectCart(memberNo);																											
+		System.out.println(c);
+				
+		//추가주소
+		List<Addr> list = mservice.addAddrList(memberNo);		
+		List<Addr> list2 = new ArrayList<Addr>();
+				
+		//주소 떼내기
+		for(Addr addr : list) {
+			String fullAddr = addr.getAddress();
 
+			System.out.println("추가주소리스트:"+addr);
+			System.out.println("원래주소:"+fullAddr);
+			
+			String[] a=fullAddr.split("/");
+			addr.setAddress_post(a[0]);
+			addr.setAddress_addr(a[1]);
+			addr.setAddress_detail(a[2]);
+			list2.add(addr);
+		}
 		
+		
+		System.out.println("해당회원주소:"+list2);
+		
+		//회원정보만 가져와서 저장
 		CartDetail m = new CartDetail();		
 		m.setMember_name(c.get(0).getMember_name());
 		m.setPhone(c.get(0).getPhone());
 		m.setPoint(c.get(0).getPoint());		
 		m.setMember_id(c.get(0).getMember_id());
 		m.setCartNo(c.get(0).getCartNo());
+
 		
-		System.out.println("memberInfo:"+m);		
-		System.out.println("cartlist내용 :"+c);					
-				
-		int sum=service.sumPrice(m.getCartNo());
-		int shipFee = sum>= 30000 ? 0 : 2500; //주문금액 30000원 넘을시 무료
-		int additionalTax = (int)(((sum+shipFee)-m.getPoint())*0.1);
-		int totalFee = ((sum+shipFee)-m.getPoint())+additionalTax;
-		int predicpoint = (int) (totalFee*0.05); 
+		
+		//결제관련 logic
+		int sum=service.sumPrice(m.getCartNo());						//상품 총 가격
+		int shipFee = sum>= 30000 ? 0 : 5000; 							//배송비 : 기본 5000원, 주문금액 30000원 넘을시 무료
+		int additionalTax = (int)(((sum+shipFee)-m.getPoint())*0.1);    //부가세
+		int totalFee = ((sum+shipFee)-m.getPoint())+additionalTax;		//총 계산된 값
+		int predicpoint = (int) (totalFee*0.05); 						//예상되는 포인트적립 (총가격의 0.05)
 		m.setPredicpoint(predicpoint);
 		
+		//상품종류의 수량(ordertable)
+		int kopQty = service.selectCount(c.get(0).getCartNo()); 
 		
+		
+		mv.addObject("addrList", list2);
+		mv.addObject("kopQty",kopQty);
 		mv.addObject("member",m);
 		mv.addObject("cart",c);
 		mv.setViewName("cart/payment");
@@ -161,57 +193,36 @@ public class CartController {
 	//6. 포인트사용시 값 변경
 	@RequestMapping("/cart/updatePayment.do")
 	@ResponseBody
-	public ModelAndView updatePayment(ModelAndView mv,HttpSession session, String willpoint) {
+	public ModelAndView updatePayment(ModelAndView mv,HttpSession session, String willpoint)throws NumberFormatException {
 		String memberNo = (String)((Map)session.getAttribute("login")).get("MEMBER_NO");																
 		List<Cart> c = service.selectCart(memberNo);				
 		
 		CartDetail m = new CartDetail();
 		m.setCartNo(c.get(0).getCartNo());
 		m.setPoint(c.get(0).getPoint());
-
-		System.out.println("포인트사용값:"+willpoint);
+		
 		int sum=service.sumPrice(m.getCartNo());		
-		
-		
+			
 		Map<String, Object>map = new HashMap<String, Object>();
-		int shipFee = sum>= 50000 ? 0 : 2500; //주문금액 50000원 넘을시 무료
-		int additionalTax = (int)(sum*0.1);
-		
+		int shipFee = sum>= 50000 ? 0 : 5000; //주문금액 50000원 넘을시 무료
+		int additionalTax = (int)(sum*0.1);		
 		int willpoint2=0;
 		if(willpoint!=null) willpoint2=Integer.parseInt(willpoint);		
 
-		int	totalFee = ((sum+shipFee)-(willpoint2))+additionalTax;				
-		
+		int	totalFee = ((sum+shipFee)-(willpoint2))+additionalTax;						
 		map.put("sumprice",sum);
 		map.put("shipFee",shipFee);
 		map.put("point",m.getPoint());
 		map.put("addTax", additionalTax);
 		map.put("totalFee",totalFee);		
 		map.put("willpoint",willpoint);		
-		
-		
-		System.out.println("부가세:"+additionalTax);
-		
-		//예상적립포인트		
+								
 		mv.addObject("map",map);
 		mv.setViewName("ajax/paymentDetail");
 		return mv;
 	}
+		
 	
-	
-	
-	//결제화면이동
-		@RequestMapping("/cart/creditpay.do")
-		public String pay() {
-			return "cart/pay";
-		}
-	
-	
-	//결제후 화면이동
-	@RequestMapping("/cart/complete.do")
-	public String complete() {
-		return "cart/complete";
-	}
 	
 	
 	

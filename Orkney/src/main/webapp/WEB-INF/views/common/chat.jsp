@@ -175,18 +175,6 @@
 		$("#message").val('');
 	}
 	
-	function sendMessage2() {//관리자가 보내는 메세지
-		var message=$("#message").val();
-		var sendId=$("#sendId").val();
-		var test={
-				type:"text",
-				user:id,
-				ms:message,
-				sendId:"m9",
-				room:'r2'
-		}
-		sock.send(JSON.stringify(test));
-	}
 	// 서버로부터 메시지를 받았을 때
 	function onMessage(msg) {
 		var data = msg.data;
@@ -214,6 +202,7 @@
 			$(div).removeClass("rec");
 			$(div).css("style","display:grid;");
 			$(div).css("justify-content","flex-start");
+			$(logo).find(".time").html(fDate2(new Date().getTime()));
 			$(div).prepend(logo);
 			$(div).find(".rtime").css('display','none');
 			$(div).find(".rcontent").html(ms["ms"]);

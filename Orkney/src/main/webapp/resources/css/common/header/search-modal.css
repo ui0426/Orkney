@@ -1,0 +1,69 @@
+.search-form{
+width: 100%;
+    height: 100%;
+    /* border: dashed; */
+    display: flex;
+    flex-direction: column;
+    /* flex-wrap: nowrap; */
+    z-index: 2;
+}
+.search-close:after{
+    position: absolute;
+    top: 1.1rem;
+    left: 1.5rem;
+    width: 0.7rem;
+    /* pointer-events: none; */
+    content: "";
+    background-image: url(../../../svg/times-solid.svg);
+    background-repeat: no-repeat;
+    background-size: cover;	
+}
+.modal-input{
+	height: 100%;
+    z-index: 2;
+    border-color: #0058a3 !important;
+    background-color: white;
+}
+.search-input-box{
+    position: absolute;
+    height: 140%;
+    background: white;
+    width: 102%;
+    left: -0.25rem;
+    /* flex: none; */
+    top: -0.5rem;
+    border-radius: .5rem;
+    
+}
+.search-dropbox{
+    background: white;
+    position: absolute;
+    top: 50px;
+    width: 102%;
+    left: -0.25rem;
+    border-radius: .5rem;
+}
+.dropbox-container{
+	margin: 1em 3em;
+}
+.dropbox-container li{
+    margin: 1em 0;
+}
+.search-log{
+    margin-bottom: 1.875rem;
+    font-size: .75rem;
+    font-weight: 400;
+    color: var(--color-mid-gray);
+}
+.modal-layer{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+.header-search:after{
+	z-index: 3;
+}

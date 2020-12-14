@@ -36,4 +36,6 @@ public interface AdminDao {
 	int modifyPoint(SqlSession session, Map data);
 
 	int pointModify(SqlSession session, Map data);
+	
+	int updateOrderState(SqlSession session, Map o);
 }

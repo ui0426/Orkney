@@ -18,6 +18,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.palette.orkney.admin.model.service.AdminService;
 import com.palette.orkney.common.page.PageFactory;
 import com.palette.orkney.notice.model.service.NoticeService;
+import com.palette.orkney.order.model.service.OrderService;
+import com.palette.orkney.order.model.vo.Orders;
 
 @Controller
 public class AdminController {
@@ -25,7 +27,10 @@ public class AdminController {
 	@Autowired
 	private AdminService service;
 	@Autowired
+
 	private NoticeService nService;
+	private OrderService oservice;
+
 	
 	@RequestMapping("/admin/adminChat.do")
 	public String adminChat() {
@@ -70,8 +75,17 @@ public class AdminController {
 	}
 	
 	@RequestMapping("admin/orderView.do")
-	public String orderView() {
-		return "admin/order/adminOrderView";
+	public ModelAndView orderView(String oNo, ModelAndView mv) {
+		Orders order = oservice.selectOrder(oNo);
+		String[] addr = order.getOrder_address().split("/");
+		order.setAddress_post(addr[0]);
+		order.setAddress_addr(addr[1]);
+		order.setAddress_detail(addr[2]);
+		order.setOdList(oservice.selectOrderDetail(oNo));
+		mv.addObject("order", order);
+		mv.setViewName("order/orderView");
+		mv.setViewName("admin/order/adminOrderView");
+		return mv;
 	}
 	
 	@RequestMapping("admin/question.do")
@@ -180,4 +194,21 @@ public class AdminController {
 		
 		return flag;
 	}
+	
+	@RequestMapping(value="/admin/updateOrderState.do",produces="text/plain;charset=UTF-8")
+	@ResponseBody
+	public String updateOrderState(String oNo, String state) {
+		System.out.println(oNo);
+		Map o = new HashMap();
+		o.put("oNo", oNo);
+		o.put("state", state);
+		int result = service.updateOrderState(o);
+		
+		if(result>0) {			
+			return state;
+		}else {
+			return "실패";
+		}
+	}
+	
 }

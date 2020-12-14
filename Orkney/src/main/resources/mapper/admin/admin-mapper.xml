@@ -50,5 +50,9 @@
   		+#{point}
   		</if>
   		WHERE MEMBER_NO=#{no}
+  		</update>
+  	
+  	<update id="updateOrderState" parameterType="map">
+  		UPDATE ORDERS SET ORDER_STATE=#{state} WHERE ORDER_NO=#{oNo}
   	</update>
 </mapper>

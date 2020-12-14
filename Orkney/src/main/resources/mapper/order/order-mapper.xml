@@ -5,7 +5,7 @@
 		SELECT * FROM ORDERS WHERE MEMBER_NO=#{mNo} ORDER BY ORDER_DATE DESC
 	</select>
 	<select id="selectOrder" parameterType="string" resultType="order">
-		select * from orders where order_no=#{oNo}
+		select * from orders join member using(member_no) where order_no=#{oNo}
 	</select>
 	<select id="selectOrderDetail" parameterType="string" resultType="orderDetail">
 		select * from order_detail d join product using(product_no) join product_image p using(product_no) join small_category using(small_category_no) left outer join review r on d.order_detail_no=r.order_detail_no where order_no=#{oNo} and p.product_color='normal'
@@ -23,4 +23,33 @@
 	<select id="selectEmail" parameterType="string" resultType="string">
 		select member_id from member join orders using(member_no) where order_no=#{order_no}
 	</select>
+	
+	
+	<insert id="insertOrders" parameterType="order">
+		insert into orders values(TO_CHAR(O_SEQ.nextval,'FM000000000'),#{member_no},sysdate,#{order_name},#{order_phone},#{order_address},#{order_qty},#{total_price},default,#{order_memo},#{payment_method},default )
+		
+		<selectKey keyProperty="order_no" resultType="string" order="AFTER">
+		select TO_CHAR(O_SEQ.CURRVAL,'FM000000000') from dual 
+		</selectKey>
+		
+	</insert>
+	
+	<insert id="insertDetail" parameterType="cart">
+	  insert into order_detail values(OD_SEQ.nextval,#{productNo},#{cartQTY},#{cartNo},'')
+	</insert>
+	
+	<insert id="insertPoint" parameterType="map">
+		insert into point values(PO_SEQ.nextval,#{member_no},sysdate, #{point_point},'차감','사용' )
+	</insert>
+	
+	<!-- <insert id="insertPoint2" parameterType="point">
+		insert into point values(PO_SEQ.nextval,#{member_no},sysdate, #{predicPoint},'적립','추가' )
+	</insert> -->
+		
+	<select id="selectOno" parameterType="order" resultType="string">
+		select order_no from orders where member_no=#{member_no} and sysdate=sysdate and order_name=#{order_name} and total_price=#{total_price} and order_address=#{order_address}
+	</select>
+	
+	
+	
 </mapper>

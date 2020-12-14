@@ -169,8 +169,7 @@
             </div>
     </div>
 
-
-    <script>
+	<script>
     //조건값으로 사용하기 위해 변수 설정
        var familyName=false;
        var givenName=false;
@@ -532,5 +531,6 @@
     }).open();
      })
    </script>
+    
    
    <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

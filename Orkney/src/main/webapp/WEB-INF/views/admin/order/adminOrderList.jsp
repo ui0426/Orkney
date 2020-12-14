@@ -52,14 +52,14 @@
         </thead>
         <tbody>
         <c:forEach items="${order }" var="o">
-          <tr onclick="location.href='${path}/admin/orderView.do'">
+          <tr>
             <td scope="row"><input type="checkbox" name="xxx" value="yyy"></td>
-            <td><c:out value="${o.order_date}"/></td>
-            <td><c:out value="${o.order_no}"/></td>
-            <td><c:out value="${o.total_price}"/></td>
-            <td><c:out value="${o.member_name}"/></td>
-            <td><c:out value="${o.order_name}"/></td>
-            <td><c:out value="${o.order_state}"/></td>
+            <td onclick="location.href='${path}/admin/orderView.do?oNo=${o.order_no} '"><c:out value="${o.order_date}"/></td>
+            <td onclick="location.href='${path}/admin/orderView.do?oNo=${o.order_no}'"><c:out value="${o.order_no}"/></td>
+            <td onclick="location.href='${path}/admin/orderView.do?oNo=${o.order_no}'"><c:out value="${o.total_price}"/></td>
+            <td onclick="location.href='${path}/admin/orderView.do?oNo=${o.order_no}'"><c:out value="${o.member_name}"/></td>
+            <td onclick="location.href='${path}/admin/orderView.do?oNo=${o.order_no}'"><c:out value="${o.order_name}"/></td>
+            <td onclick="location.href='${path}/admin/orderView.do?oNo=${o.order_no}'"><c:out value="${o.order_state}"/></td>
           </tr>
           </c:forEach>
       </table>

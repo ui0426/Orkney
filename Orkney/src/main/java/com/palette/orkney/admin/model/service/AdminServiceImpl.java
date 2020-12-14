@@ -101,4 +101,7 @@ public class AdminServiceImpl implements AdminService {
 		return result;
 	}
 	
+	public int updateOrderState(Map o) {
+		return dao.updateOrderState(session, o);
+	}
 }

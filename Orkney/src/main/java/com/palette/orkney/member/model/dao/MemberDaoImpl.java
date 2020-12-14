@@ -86,8 +86,8 @@ public class MemberDaoImpl implements MemberDao {
 	
 	//가입 시 주소 가져오기
 	@Override
-	public String getAddress(SqlSession session, String no) {
-		return session.selectOne("member.getAddress", no);
+	public Addr getAddress(SqlSession session, String no) {
+		return session.selectOne("member.getBasicAddress", no);
 	}
 
 	@Override
@@ -157,7 +157,41 @@ public class MemberDaoImpl implements MemberDao {
 	public int updateMemberPassword(SqlSession session, Map<String, Object> updateInformation) {
 		return session.update("member.updateMemberPassword", updateInformation);
 	}
+	
+	//포인트 업데이트
+	@Override
+	public int updatePoint(SqlSession session, Map<String, Object> uppo) {
+		return session.update("member.updatePoint",uppo);
+	}
 
+	//기본주소수정
+	@Override
+	public int updateMemberAddress(SqlSession session, Map<String, Object> updateInformation) {
+		return session.update("member.updateMemberAddress", updateInformation);
+	}
 
+	//주소넘으로 주소가져오기
+	@Override
+	public Addr getAddress(SqlSession session, Map data) {
+		return session.selectOne("member.getAddress", data);
+	}
+
+	//주소 추가하기
+	@Override
+	public int insertAddr(SqlSession session, Map<String, Object> updateInformation) {
+		return session.insert("member.insertAddr", updateInformation);
+	}
+
+	//배송지 삭제
+	@Override
+	public int deleteAddress(SqlSession session, Map data) {
+		return session.delete("member.deleteAddress", data);
+	}
+
+	//탈퇴하기
+	@Override
+	public int deleteMember(SqlSession session, String mNo) {
+		return session.delete("member.deleteMember", mNo);
+	}
 	
 }
