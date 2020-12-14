@@ -75,6 +75,11 @@ public class CartServiceImpl implements CartService{
 		return dao.insertCart(session,cart);
 	}
 
+	@Override
+	public int selectCount(String cartNo) {
+		return dao.selectCount(session,cartNo);
+	}
+
 	
 	
 

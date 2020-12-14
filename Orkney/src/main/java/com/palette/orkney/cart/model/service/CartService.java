@@ -40,5 +40,7 @@ public interface CartService {
 	//상품가격(수량*상품)
 	int productSum(Map<String, String> param1);
 	
+	//상품 종류 수량
+	int selectCount(String cartNo);
 	
 }

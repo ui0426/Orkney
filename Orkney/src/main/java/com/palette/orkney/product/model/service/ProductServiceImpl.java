@@ -1,6 +1,7 @@
 package com.palette.orkney.product.model.service;
 
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -25,6 +26,11 @@ public class ProductServiceImpl implements ProductService{
 	public List<Map> productList() {
 		// TODO Auto-generated method stub
 		return dao.productList(session);
+	}
+	@Override
+	public List<Map> checkProduct(ArrayList<String> checkboxname) {
+		// TODO Auto-generated method stub
+		return dao.checkProduct(session, checkboxname);
 	}
 
 	@Override
@@ -55,6 +61,21 @@ public class ProductServiceImpl implements ProductService{
 	public List<Map> filter(Map<String, Object> filter) {
 		// TODO Auto-generated method stub
 		return dao.filter(session,filter);
+	}
+	@Override
+	public List<Map> productDetail(String productno) {
+		// TODO Auto-generated method stub
+		return dao.productDetail(session,productno);
+	}
+	@Override
+	public List<Map> review(String productno) {
+		// TODO Auto-generated method stub
+		return dao.review(session,productno);
+	}
+	@Override
+	public List<Map> reviewImg(String productno) {
+		// TODO Auto-generated method stub
+		return dao.reviewImg(session,productno);
 	}
 
 
@@ -88,6 +109,7 @@ public class ProductServiceImpl implements ProductService{
 		  // TODO Auto-generated method stub 
 	  return dao.selectRoomsTitle(session,type); }
 
+
 	@Override
 	public List<Map> listProduct(String type) {
 		// TODO Auto-generated method stub
@@ -111,6 +133,7 @@ public class ProductServiceImpl implements ProductService{
 		// TODO Auto-generated method stub
 		return dao.sale(session);
 	}
+
 	 
 
 	  

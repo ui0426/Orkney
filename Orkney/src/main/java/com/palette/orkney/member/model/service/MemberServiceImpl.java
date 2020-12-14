@@ -185,6 +185,14 @@ public class MemberServiceImpl implements MemberService {
 		return dao.updateMemberPassword(session, updateInformation);
 	}
 
+
+	//포인트 업데이트
+	@Override
+	public int updatePoint(Map<String, Object> uppo) {
+		return dao.updatePoint(session,uppo);
+	}
+	
+
 	//기본 주소 수정
 	@Override
 	public int updateMemberAddress(Map<String, Object> updateInformation) {
@@ -214,6 +222,7 @@ public class MemberServiceImpl implements MemberService {
 	public int deleteMember(String mNo) {
 		return dao.deleteMember(session, mNo);
 	}
+
 	
 	
 }

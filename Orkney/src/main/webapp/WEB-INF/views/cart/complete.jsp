@@ -22,37 +22,32 @@
                     <div class="title-container">주문해주셔서 감사합니다!</div>                                
                     <div class="order-no">
                         <div>주문번호 : </div> 
-                        <div class="check" style="margin-left: 6px;">172398866 </div> 
-                    </div>
-                    <button type="button" class="adrBtn marb" id="adrbtn">배송조회하기</button>
+                        <div class="check" style="margin-left: 6px;">${orders.order_no} </div> 
+                    </div>                    
+                    <button type="button" class="adrBtn marb" id="adrbtn" onclick="location.href='${path }/order/orderView.do?oNo=${orders.order_no}'">배송조회하기</button>
                     <div>주문 확인서가 다음으로 전송되었습니다.</div>
-                    <div class="check" style="margin-top: 6px;">j131@naver.com</div>                               
+                    <div class="check" style="margin-top: 6px;">${orders.member_id}</div>                               
                 </div>
             </div>
 
             <div class="section1">                
                     <div class="etc-title">주문 정보</div>
                     <div class="line1"></div>
-                 <div class="product-container">    
-                    <div class="order-container">
-                        <div class="product-pic"><img src="https://www.ikea.com/kr/ko/images/products/groenlid-chaise-longue-section-ljungen-light-red__0852499_PE780117_S3.JPG" alt=""></div>               
-                        <div class="product-detail">
-                            <div>GRÖNLID 그뢴리드</div>
-                            <div>15*12</div>
-                            <div>149,000원</div>
-                            <div>1개</div>
-                        </div>
-                    </div>
-                     <div class="order-container">
-                        <div class="product-pic"><img src="https://www.ikea.com/kr/ko/images/products/groenlid-chaise-longue-section-ljungen-light-red__0852499_PE780117_S3.JPG" alt=""></div>               
-                        <div class="product-detail">
-                            <div>GRÖNLID 그뢴리드</div>
-                            <div>15*12</div>
-                            <div>149,000원</div>
-                            <div>1개</div>
-                        </div>
-                    </div>
-                  </div>                                    
+<c:forEach items="${cart }" var="p">
+            <div class="product-container">
+	            <div class="order-container">
+	                <div class="product-pic"><img src="${path}/resources/images/rooms/<c:out value="${p.product_pic}"/>"></div>               
+	                <div class="product-detail">
+	                    <div><c:out value="${p.productName}"/></div>
+	                    <div><c:out value="${p.product_width}"/>*<c:out value="${p.product_height}"/>*<c:out value="${p.product_depth}"/></div>	                  		                    
+	                    <div><c:out value="${p.cartQTY}"/>개</div>
+	                    <div><fmt:formatNumber value="${p.cartQTY * p.productPrice}"/>&nbsp;원</div>	                     	                    
+	                </div>
+	            </div>	            
+            </div>  
+            <div class="line3"></div>
+</c:forEach>  
+                                                        
             </div>
 
 
@@ -63,11 +58,11 @@
 	           		<div class="field-inline">
 		                <div class="field ">
 		                    <div><img src="${path}/resources/img/user.png" alt=""></div> 
-		                    <span>이윤나</span>                    
+		                    <span>${orders.order_name}</span>                    
 		                </div>
 		                <div class="field">
 		                    <div><img src="${path}/resources/img/mail.png" alt=""></div> 
-		                    <span>j131@naver.com</span>                    
+		                    <span>${orders.member_id}</span>                    
 		                </div>                              
 	                </div>
 	            
@@ -76,49 +71,50 @@
 	                
 		                <div class="field">
 		                    <div><img src="${path}/resources/img/phone-call.png" alt=""></div> 
-		                    <span>010-5252-1515</span>
+		                    <span>${orders.order_phone}</span>
 		                </div>
 		                <div class="field">
 		                    <div><img src="${path}/resources/img/address.png" alt=""></div> 
-		                    <span>경기 평택시 공도읍 924-2 어울림 202-151 대한민국 14950</span>
+		                    <span>${orders.order_address}</span>
 		                </div>
 		             </div>	         
             </div>
 
-            <div class="section1 section-op">
+ <div class="section1">
                 <div class="etc-title">결제 세부 정보</div>
                 <div class="line1"></div>
                 <div class="total-title">
                         <div class="pay-title">
-                            <div >주문 금액(배송비 제외)</div>
-                            <div>7,900</div>                    
+                            <div >총 상품 금액</div>
+                            <div><input type="text" class="non-input" id="sumProduct" value="<fmt:formatNumber value="${map.sumprice}"/>" readonly>&nbsp;</div>                    
                         </div>
                         <div class="pay-title">
-                            <div>전체 서비스 비용</div>
-                            <div>5,000</div>
-                        </div>
-                        <div class="pay-title">
-                            <div>주문 금액(부가세 제외)</div>
-                            <div>11,727</div>
-                        </div>
+                            <div>배송비 비용</div>
+                            <div><input type="text" class="non-input" id="shipFee" value="<fmt:formatNumber value="${map.shipFee}"/>"  readonly>&nbsp;</div>
+                        </div>                        
+	                    
+	                    <div class="pay-title">
+	                            <div>포인트 사용</div>
+	                            <div><input type="text" class="non-input" id="willPoint" value="<fmt:formatNumber value="${total+map.willpoint}"/>"  readonly>&nbsp;</div>
+	                    </div>
+	                       
                         <div class="pay-title">
                             <div>부가세(10%)</div>
-                            <div>1,173</div>
+                            <div><input type="text" class="non-input" id="addTax" value="<fmt:formatNumber value="${map.addTax}"/>" readonly>&nbsp;</div>
                         </div>
                 </div>                
                     <div class="line2">
                         <div class="pay-title pay-font">
                             <div>총 주문금액</div>
-                            <div>12,900</div>
+                            <div><input type="text" class="non-input" id="totalFee" value="<fmt:formatNumber value="${map.totalFee}"/>" readonly> &nbsp;원</div>                           	
                         </div>
                     </div>
-            </div>
+             </div>  
 
             <div class="section1" style="margin: 10% 0;">
                 <div class="etc-title">배송 정보/배송질문</div>
                 <div class="line1"></div>
-                <div class="etc-contant">택배 배송 (택배는 아래 선택한 배송 날짜로부터 3-5일 소요되며, 제품 특성에 따라 2박스 이상으로 분리배송 될 수 있습니다.)</div>
-                <!-- <div class="between"> -->
+                <div class="etc-contant">택배 배송 (택배는 아래 선택한 배송 날짜로부터 3-5일 소요되며, 제품 특성에 따라 2박스 이상으로 분리배송 될 수 있습니다.)</div>               
                 
                 <div class="field-inline">
                     <div class="field">
@@ -132,9 +128,9 @@
                         <span> 2020.11.23 09:00 -21:00</span>
                     </div>                    
                   </div>
-                    
-                <!-- </div> -->
-                <!-- <div class="etc-contant">배송기사님이 배송전 알아야 하는 정보가 있나요? (주차제한, 출입가능 시간제한 등)</div> -->                
+                                    
+                 <div class="etc-contant">배송기사님이 배송전 알아야 하는 정보가 있나요? (주차제한, 출입가능 시간제한 등)</div>
+                 <div>${orders.order_memo} </div>                
             </div>
 
             <div class="section1 section-op1">            

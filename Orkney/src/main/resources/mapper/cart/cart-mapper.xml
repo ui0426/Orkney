@@ -65,4 +65,8 @@
 		update cart_detail set total_price = #{totalPrice} where product_no=#{productNo}
 	</select>
   	
+  	<select id="selectCount" parameterType="string" resultType="_int">
+  		select count(*) from cart_detail where cart_no=#{cartNo}
+  	</select>
+  	
 </mapper>
