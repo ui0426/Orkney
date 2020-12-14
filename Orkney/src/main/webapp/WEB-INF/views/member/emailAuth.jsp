@@ -55,7 +55,6 @@
     content: "";
     width:88px;
     height:44px;
-    cursor:pointer;
     }
     #svgicon{
     height: 2.7rem;
@@ -101,12 +100,8 @@
     .lfs{color:black !important;}
     .leftdiv{display:contents;}
     .mb{margin-bottom: 2rem;}
-    @media(max-width:750px){
-    	#semiForm{display:block;}
-    	#leftForm{width:100%;height:50%;}
-    	.transPw{width:100%;height:57%;}
-    	#rightForm{width:100%;}
-    }
+    .authInput{width:3rem;text-align: center;}
+    .auth{display:flex;justify-content: space-between;margin-bottom:2rem;}
 </style>
 <body>
     <div id="totalForm">
@@ -124,27 +119,13 @@
                     </div>
                 </div>
                 <div>
-                    <h1 class="fw hfs" id="logintitle">죄송합니다.
-                    <c:if test="${requestScope['javax.servlet.error.status_code'] == 400}">
-				<br> 활성화 되어있지 <br>않은 링크입니다.
-				<p class="ptext" id="logintext">이미 사용됐거나 만료된 링크입니다.</p>  
-				</c:if>	
-				
-				<c:if test="${requestScope['javax.servlet.error.status_code'] == 404}">
-					<br>요청하신 페이지를 찾을 수 없습니다.   
-				</c:if>
-				
-				<c:if test="${requestScope['javax.servlet.error.status_code'] == 405}">
-					요청된 메소드가 허용되지 않습니다. 
-				</c:if>
-				
-				<c:if test="${requestScope['javax.servlet.error.status_code'] == 500}">
-					서버에 오류가 발생하여 요청을 수행할 수 없습니다.
-				</c:if>
-				
-				<c:if test="${requestScope['javax.servlet.error.status_code'] == 503}">
-					서비스를 사용할 수 없습니다.
-				</c:if></h1>
+                    <h1 class="fw hfs" id="logintitle">이메일 <b style="color:yellow;">확인</b><br>
+                    </h1>
+                    <p class="ptext" id="logintext">
+                        ORKNEY 계정의 보안을 강화하고 보다 다양한<br>
+                        방법으로 계정에 액세스하려면 이메일을 등록하고 <br>
+                        확인 절차를 거쳐야 합니다.
+                    	</p>
                     <div></div>
                 </div>
                 <div class="itemstart">
@@ -156,20 +137,72 @@
             <div id="rightForm">
                 <div class="transPw" id="sPw">
                     <div>
+                    <div class="md-form mdmar">
+                        <input type="text" id="idinput" class="form-control borderb" name="userId" value="${userInfo.email }" readonly>
+                        <label for="inputLGEx" class="lfs"></label>
+                        <div class="errorspan disno marb disno" id="iddiv">이메일을 입력해주세요.</div>
+                      </div>
+                      <form name="authForm" method="post" action="${path}/member/insertSignup.do">
+                      <div class="auth">
+                      <div class="md-form mdmar">
+                        <input type="text" id="idinput1" class="form-control borderb authInput" name="key1" maxlength="1">
+                        <label for="inputLGEx" class="lfs"></label>
+                      </div>
+                      <div class="md-form mdmar">
+                        <input type="text" id="idinput2" class="form-control borderb authInput" name="key2" maxlength="1">
+                        <label for="inputLGEx" class="lfs"></label>
+                      </div>
+                      <div class="md-form mdmar">
+                        <input type="text" id="idinput3" class="form-control borderb authInput" name="key3" maxlength="1">
+                        <label for="inputLGEx" class="lfs"></label>
+                      </div>
+                      <div class="md-form mdmar">
+                        <input type="text" id="idinput4" class="form-control borderb authInput" name="key4" maxlength="1">
+                        <label for="inputLGEx" class="lfs"></label>
+                      </div>
+                      <div class="md-form mdmar">
+                        <input type="text" id="idinput5" class="form-control borderb authInput" name="key5" maxlength="1">
+                        <label for="inputLGEx" class="lfs"></label>
+                      </div>
+                      <div class="md-form mdmar">
+                        <input type="text" id="idinput6" class="form-control borderb authInput" name="key6" maxlength="1">
+                        <label for="inputLGEx" class="lfs"></label>
+                      </div>
+                    </div>
+                    <div class="errorspan disno marb" id="authDiv">인증 번호가 일치하지 않습니다.</div>
+                    <div>
                         <div>
-                        	<button type="submit" class="btn btn-primary btnattr" onclick="location.href='${path}';">메인으로</button>
+                        	<button type="button" class="btn btn-primary btnattr" onclick="return authLogin();">로그인</button>
                         </div>
+                        <div>
+                        	<button type="submit" class="btn btn-primary btnattr" style="background:#f5f5f5 !important;color:black;">다음에 하기</button>
+                        </div>
+                    </div>
+                    </form>
                     </div>
                     </div>
                 </div>
             </div>
             </div>
-        </div>
-        </div>
-        <script>
-        	$(".logoimg").click(e=>{
-        		location.href='${path}';
-        	})
-        </script>
 </body>
+<script>
+	function authLogin(){
+		$.ajax({
+			url:"${path}/member/keyCheck.do",
+			data:{key1:$("#idinput1").val(),key2:$("#idinput2").val(),key3:$("#idinput3").val()
+				,key4:$("#idinput4").val(),key5:$("#idinput5").val(),key6:$("#idinput6").val()},
+			type:'POST',
+			success:data => {
+				console.log(data);
+				if(data == true){
+					authForm.submit();
+				}else{
+					$("#authDiv").css('display','block');
+				}
+			}
+			
+		})
+		return false;
+	}
+</script>
 </html>

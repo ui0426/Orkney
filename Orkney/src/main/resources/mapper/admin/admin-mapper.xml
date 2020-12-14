@@ -14,4 +14,41 @@
   	<select id="selectOrderList" resultType="order">
   		SELECT * FROM ORDERS JOIN MEMBER USING(MEMBER_NO) ORDER BY ORDER_DATE DESC
   	</select>
+  	<update id="modifyFAQ" parameterType="map">
+  		UPDATE FAQ SET FAQ_TITLE=#{title},FAQ_CONTENT=#{content},CATEGORY=#{category} WHERE FAQ_NO=#{no}
+  	</update>
+  	<insert id="addFAQ" parameterType="map">
+  		INSERT INTO FAQ VALUES('f'||FAQ_NO.NEXTVAL,#{title},#{content},default,#{category})
+  	</insert>
+  	<delete id="deleteFAQ" parameterType="string">
+  		DELETE FAQ WHERE FAQ_NO=#{no}
+  	</delete>
+  	<select id="memberList" resultType="map">
+  		SELECT M.*,(SELECT SUM(TOTAL_PRICE) FROM ORDERS A WHERE M.MEMBER_NO=A.MEMBER_NO) AS PRICE FROM MEMBER M
+  	</select>
+  	<select id="totalData" resultType="_int">
+  		SELECT COUNT(*) FROM MEMBER
+  	</select>
+  	<select id="memberAddr" resultType="map" parameterType="string">
+  		SELECT * FROM ADDR WHERE MEMBER_NO=#{no}
+  	</select>
+  	<select id="orderList" parameterType="string" resultType="map">
+  		SELECT * FROM ORDERS WHERE MEMBER_NO=#{no}
+  	</select>
+  	<delete id="deleteMember">
+  		DELETE FROM MEMBER WHERE MEMBER_NO=#{no}
+  	</delete>
+  	<insert id="modifyPoint" parameterType="map">
+  		INSERT INTO POINT VALUES(PO_SEQ.NEXTVAL,#{no},SYSDATE,#{point},#{type},#{reason})
+  	</insert>
+  	<update id="pointModify" parameterType="map">
+  		UPDATE MEMBER SET POINT=POINT
+  		<if test="type=='차감'">
+  		-#{point}
+  		</if>
+  		<if test="type=='적립'">
+  		+#{point}
+  		</if>
+  		WHERE MEMBER_NO=#{no}
+  	</update>
 </mapper>

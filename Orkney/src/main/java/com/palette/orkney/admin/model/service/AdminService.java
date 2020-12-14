@@ -13,6 +13,24 @@ public interface AdminService {
 
 	List<String> roomNo(String data);
 	
-	List<Orders> selectOrderList(); 
+	List<Orders> selectOrderList();
+
+	int modifyFAQ(Map data);
+
+	int addFAQ(Map data);
+
+	int deleteFAQ(String no);
+
+	List<Map> memberList(int cPage, int numPerPage);
+
+	int totalData();
+
+	List<Map> memberAddr(String no);
+
+	List<Map> orderList(String no);
+
+	int deleteMember(String no);
+
+	int modifyPoint(Map data);
 
 }

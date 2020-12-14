@@ -130,7 +130,13 @@
     left:105%;
   }
 }
-
+@media (max-width:750px){
+	#semiForm{display:grid;}
+	#loginForm{padding:0;display:block;}
+	#leftForm{width:100%}
+	#logininput{max-width:100%;}
+	#rightForm{width:100%;}
+}
 </style>
 <body>
 <div id="email-alarm">

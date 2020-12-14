@@ -25,7 +25,7 @@
   	<if test="type != null">
   	 #{type}
   	</if>
-  	,default)
+  	,#{auth})
   <selectKey keyProperty="mNo" resultType="string" order="AFTER">
   	SELECT M_NUM.CURRVAL FROM DUAL
   </selectKey>

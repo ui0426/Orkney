@@ -177,6 +177,14 @@
     line-height: 1.33333;
     }
     .active{background:#ffe160;}
+    
+    @media(max-width:740px){
+    .category-li{
+    width:47%;}
+    *{font-size:10px;}
+    .txt{font-size:10px;}
+    }
+    .Bbtn:hover{border:1px solid black;}
  </style>
  <div class="wrapDiv"><!-- 전체감싸는 -->
  	<div class="questionHeader">
@@ -196,6 +204,7 @@
  				<li class="li">
  				<div class="questionWrap">
  					<div class="question">
+ 					<input type="hidden" value="${p.FAQ_NO }" class="fNo">
  						<div class="tag">
  						카테고리 : <span>${p.CATEGORY}</span>
  						</div>
@@ -236,6 +245,7 @@
  				<li class="li faq-li">
  				<div class="questionWrap">
  					<div class="question qdiv">
+ 					<input type="hidden" value="${l.FAQ_NO }" class="fNo">
  						<div class="tag">
  						카테고리 : <span>${l.CATEGORY }</span>
  						</div>
@@ -271,7 +281,16 @@
  		let q=$(e.target).next();
  		if($(q).hasClass("answer")){
  			if($(q).css("display")=='none'){
- 				
+ 				let val=$(e.target).find(".fNo").val();
+		 			$.ajax({
+		 				url:'${path}/notice/increasePopular.do',
+		 				data:{no:val},
+		 				success:data => {
+		 					if(data==true) console.log('증가');
+		 					else console.log('실패');
+		 				}
+		 				
+		 			})
  			}
  			$(q).slideToggle(1000);
  		}

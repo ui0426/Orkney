@@ -16,4 +16,24 @@ public interface AdminDao {
 	List<String> roomNo(SqlSession session, String data);
 
 	List<Orders> selectOrderList(SqlSession session);
+
+	int modifyFAQ(SqlSession session, Map data);
+
+	int addFAQ(SqlSession session, Map data);
+
+	int deleteFAQ(SqlSession session, String no);
+
+	List<Map> memberList(SqlSession session, int cPage, int numPerPage);
+
+	int totalData(SqlSession session);
+
+	List<Map> memberAddr(SqlSession session, String no);
+
+	List<Map> orderList(SqlSession session, String no);
+
+	int deleteMember(SqlSession session, String no);
+
+	int modifyPoint(SqlSession session, Map data);
+
+	int pointModify(SqlSession session, Map data);
 }

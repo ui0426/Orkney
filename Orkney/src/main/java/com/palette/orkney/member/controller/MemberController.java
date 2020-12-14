@@ -14,7 +14,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -125,24 +127,24 @@ public class MemberController {
 		return flag;
 	}
 
-	@RequestMapping("/member/insertSignup.do")
-	public ModelAndView insertSignup(@RequestParam Map userInfo,@RequestParam(value="adr1") String adr1,@RequestParam(value="adr2") String adr2, ModelAndView mv) {
-		String adr=(String)userInfo.get("adr1")+"/"+(String)userInfo.get("adr2")+"/"+(String)userInfo.get("adr3");
-		userInfo.put("adr",adr);
-		userInfo.put("password",pwEncoder.encode((String)userInfo.get("password")));
-		if(userInfo.get("emailCh")==null) {
-			userInfo.put("emailCh","N");
-		}
-		int insertUser=service.insertSignup(userInfo);
-		if(insertUser>0) {
-			Map user=service.searchUser((String)userInfo.get("email"));
-			int wish=service.defaultWishList((String)user.get("MEMBER_NO"));
-			service.addAdr(userInfo);
-			mv.addObject("login",user);
-		}
-		mv.setViewName("redirect:/");
-		return mv;
-	}
+//	@RequestMapping("/member/insertSignup.do")
+//	public ModelAndView insertSignup(@RequestParam Map userInfo,@RequestParam(value="adr1") String adr1,@RequestParam(value="adr2") String adr2, ModelAndView mv) {
+//		String adr=(String)userInfo.get("adr1")+"/"+(String)userInfo.get("adr2")+"/"+(String)userInfo.get("adr3");
+//		userInfo.put("adr",adr);
+//		userInfo.put("password",pwEncoder.encode((String)userInfo.get("password")));
+//		if(userInfo.get("emailCh")==null) {
+//			userInfo.put("emailCh","N");
+//		}
+//		int insertUser=service.insertSignup(userInfo);
+//		if(insertUser>0) {
+//			Map user=service.searchUser((String)userInfo.get("email"));
+//			int wish=service.defaultWishList((String)user.get("MEMBER_NO"));
+//			service.addAdr(userInfo);
+//			mv.addObject("login",user);
+//		}
+//		mv.setViewName("redirect:/");
+//		return mv;
+//	}
 
 	@RequestMapping("/member/chatRoom.do")
 	@ResponseBody
@@ -266,7 +268,7 @@ public class MemberController {
 		} else {
 			System.out.println("정보수정 실패 어디로.......");
 		}
-		
+
 		return data;
 		
 	}
@@ -292,6 +294,8 @@ public class MemberController {
 		}
 		
 		return data;
+		
+		
 	}
 	
 	//패스워드 수정
@@ -346,4 +350,57 @@ public class MemberController {
 //	public String personalJspUpdate() {
 //		return "member/mypageDiv/personal.jsp";
 //	}
+	
+	@RequestMapping("/member/emailPage.do")//이메일인증페이지 전환용
+	public String emailAuth() {
+		
+		return "member/emailAuth";
+	}
+	
+	@RequestMapping("/member/insertSignup.do")//회원가입 수정함
+	public ModelAndView insertSignup(ModelAndView mv,HttpSession session) {
+		Map userInfo=(Map)session.getAttribute("userInfo");
+		String adr=(String)userInfo.get("adr1")+"/"+(String)userInfo.get("adr2")+"/"+(String)userInfo.get("adr3");
+		userInfo.put("adr",adr);
+		userInfo.put("password",pwEncoder.encode((String)userInfo.get("password")));
+		if(userInfo.get("emailCh")==null) {
+			userInfo.put("emailCh","N");
+		}
+		
+		int insertUser=service.insertSignup(userInfo);
+		if(insertUser>0) {
+			Map user=service.searchUser((String)userInfo.get("email"));
+			int wish=service.defaultWishList((String)user.get("MEMBER_NO"));
+			service.addAdr(userInfo);
+			mv.addObject("login",user);
+		}
+		session.removeAttribute("userInfo");
+		mv.setViewName("redirect:/");
+		return mv;
+	}
+	
+	@RequestMapping(value="/member/keyCheck.do",method=RequestMethod.POST)//인증키 확인 ajax
+	@ResponseBody
+	public boolean keyCheck(@RequestParam(required=false) String key1,@RequestParam(required=false) String key2,
+			@RequestParam(required=false) String key3,@RequestParam(required=false) String key4,
+			@RequestParam(required=false) String key5,@RequestParam(required=false) String key6,HttpSession session) {
+		Map userInfo=(Map)session.getAttribute("userInfo");
+		boolean flag=false;
+	
+		if(key1!=null&&key2!=null&&key3!=null&&key4!=null&&key5!=null&&key6!=null) {
+			String key=key1+key2+key3+key4+key5+key6;
+			System.out.println(key);
+			if(key.equals(userInfo.get("key"))) {
+				userInfo.put("auth","Y");
+				session.setAttribute("userInfo", userInfo);
+				flag = true;
+			}else flag = false;
+		}
+		return flag;
+	}
+	
+	@RequestMapping("/")
+	public String index() {
+		return "index";
+	}
 }

@@ -11,4 +11,8 @@ public interface NoticeService {
 
 	List<Map> categoryFAQ(Map type);
 
+	List<String> categoryList();
+
+	int increasePopular(String no);
+
 }

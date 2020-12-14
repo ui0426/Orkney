@@ -199,14 +199,14 @@
 			div=$("#cloneDiv").clone();
 			$(div).removeClass("rec");
 			$(div).css("style","display:grid;");
-			$(div).find(".rtime").html('3:30PM');
+			$(div).find(".rtime").html(fDate2(new Date().getTime()));
 			$(div).find(".rcontent").html(ms["ms"]);
 			
 			$("#sendBtn").val(ms["room"]);
 			div2=$("#cloneDiv2").clone();
 			$(div2).removeClass("rec");
 			$(div2).css("style","display:grid;");
-			$(div2).find(".rtime").html('3:30PM');
+			$(div2).find(".rtime").html(fDate2(new Date().getTime()));
 			$(div2).find(".rcontent").html(ms["ms"]);
 		}else if(id!="m11"&&"m11"==ms["user"]){//나한테 보낸 사람이 관리자
 			div=$("#cloneDiv").clone();
