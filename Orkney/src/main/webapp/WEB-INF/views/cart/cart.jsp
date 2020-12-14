@@ -14,19 +14,18 @@
 <section>
     <div class="section-container">    
         <div class="section1">        
-
                     <div class="title">
-                   		<div>장바구니</div>
-	                   	 <div><button class="remove_basket" value="${cN}">장바구니 비우기</button></div>
-	                   	<input type="hidden" value="${sumprice }" id="sumprice">		 						   	                                                     
+                   		<div>장바구니</div>                                  		
+	                   	 	<div><button class="remove_basket" value="${cN}">장바구니 비우기</button></div>	                   	 
+	                   		<input type="hidden" value="${sumprice }" id="sumprice">					   	                                                     
 					</div>
             <div class="line1"></div>                            		 	
 		 	
 		 	<div id="re"></div>														 		               
 		</div>		
  
-        <div class="section3">  
-            <span class="pay-btn"><button type="button" class="btn-dark event-bu" onclick="location.href='${path }/cart/payment.do'"><span class="event-sp">결제하기</span></button></span>                                  
+        <div class="section3">        				
+            <span class="pay-btn"><button type="button" id="cartBtn" class="btn-dark event-bu"><span class="event-sp">결제하기</span></button></span>                                              
             <div class="etc-line">                
                 <div>
                    <div><img src="${path}/resources/img/refund.png"> </div>
@@ -35,16 +34,24 @@
                 <div>
                     <div><img src="${path}/resources/img/lock.png"> </div>
                    <span  class="etc-detail">안전한 쇼핑SSD 데이터 암호화로 안전한 쇼핑</span>                    
-                </div>
-                
+                </div>                
             </div>            
         </div>
-
         <div class="line1"></div>            
 </div>
 
+<script>
+	$("#cartBtn").click(e=>{
+		if(test="${cart.size() !=0}"){
+			alert("장바구니가 비어있습니다.");
+			return false;
+		}
+		location.href=("${path }/cart/payment.do");
+	})
+</script>
 
-    <!-- Full Height Modal Right -->
+
+<!-- Full Height Modal Right -->
 <div class="modal fade right" id="fullHeightModalRight" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
   aria-hidden="true">
 

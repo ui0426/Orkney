@@ -50,11 +50,13 @@ public class CartController {
 //		if (count==0)  count = service.insertCart(cart);
 //		else count = service.updateCart(cart);
 		
-		int sum=service.sumPrice(c.get(0).getCartNo());	
+		if(count==1) {			
+			int sum=service.sumPrice(c.get(0).getCartNo());
+			mv.addObject("sumprice",sum);
+			mv.addObject("cN",c.get(0).getCartNo());	
+		}
 		
-//		mv.addObject("cart",c);
-		mv.addObject("cN",c.get(0).getCartNo());
-		mv.addObject("sumprice",sum);				
+//		mv.addObject("cart",c);					
 		mv.setViewName("cart/cart");
 		return mv;
 	}
