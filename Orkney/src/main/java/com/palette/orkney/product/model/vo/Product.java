@@ -1,6 +1,7 @@
 package com.palette.orkney.product.model.vo;
 
 import java.sql.Date;
+import java.util.ArrayList;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,7 +17,7 @@ public class Product {
 
    private String productNo;
    private String productName;
-   private String productPrice;
+   private int productPrice;
    private String productColor;
    private String productWidth;
    private String productHeight;
@@ -27,7 +28,7 @@ public class Product {
    private String productBigCategoryNo;
    private String productSmallCategoryNo;
    private String eventCode;
-   
+   private Product_image product_image;
    
 }
 

@@ -17,7 +17,7 @@ public class Addr {
 	private String address_post;
 	private String address_addr;
 	private String address_detail;
-	
+
 	private String address_no;
 
 }

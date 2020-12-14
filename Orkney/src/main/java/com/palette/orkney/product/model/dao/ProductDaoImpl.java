@@ -1,5 +1,7 @@
 package com.palette.orkney.product.model.dao;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -17,6 +19,12 @@ public class ProductDaoImpl implements ProductDao{
 		/* 받은 데이터 확인 ( 삭제 ) */
 		return session.selectList("product.productList");
 	}
+	@Override
+	public List<Map> checkProduct(SqlSession session, ArrayList<String> list) {
+		// TODO Auto-generated method stub
+		return session.selectList("product.checkProduct",list);
+	}
+	 
 
 	@Override
 	public List<Map> lowPriceFilter(SqlSession session) {
@@ -51,6 +59,24 @@ public class ProductDaoImpl implements ProductDao{
 		System.out.println("dao:"+session.selectList("product.filter",filter));
 		return session.selectList("product.filter",filter);
 	}
+	@Override
+	public List<Map> productDetail(SqlSession session, String productNo) {
+		// TODO Auto-generated method stub
+		System.out.println("제품정보:"+session.selectList("product.productDetail",productNo));
+		return session.selectList("product.productDetail",productNo);
+	}
+	@Override
+	public List<Map> review(SqlSession session, String productNo) {
+		// TODO Auto-generated method stub
+		System.out.println("리뷰정보:"+session.selectList("product.review",productNo));
+		return session.selectList("product.review",productNo);
+	}
+	@Override
+	public List<Map> reviewImg(SqlSession session, String productNo) {
+		// TODO Auto-generated method stub
+		System.out.println("리뷰이미지정보:"+session.selectList("product.reviewImg",productNo));
+		return session.selectList("product.reviewImg",productNo);
+	}
 	
 	
 //====================================================================
@@ -79,6 +105,7 @@ public class ProductDaoImpl implements ProductDao{
 	 { // TODO Auto-generated method stub return
 		 return session.selectList("product.selectRoomsTitle",type); }
 
+
 	@Override
 	public List<Map> listProduct(SqlSession session,String type) {
 		// TODO Auto-generated method stub
@@ -103,6 +130,7 @@ public class ProductDaoImpl implements ProductDao{
 		return session.selectList("product.sale");
 	}
 	 
+
 
 
 }

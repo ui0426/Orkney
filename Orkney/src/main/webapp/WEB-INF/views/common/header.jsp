@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="${path}/resources/css/common/header/header.css">
     <link rel="stylesheet" href="${path}/resources/css/common/header/header-aside.css">
     <link rel="stylesheet" href="${path}/resources/css/common/header/test.css">
+    <link rel="stylesheet" href="${path}/resources/css/common/header/search-modal.css">
     
     
     
@@ -54,15 +55,14 @@
 <!-- MDB core JavaScript -->
 <script type="text/javascript" src="${path }/resources/js/mdb.min.js"></script>
 <!-- Your custom scripts (optional) -->
-
+	
 </head>
 
 
 
 <body>
+	
     <header>
-        
-    
         <div class="header-container">
             <div class="header-hambuger" >
                 <div class="btn-aside">
@@ -79,7 +79,22 @@
                 <span><a href="${path}/product/rooms.do">디지털 쇼룸</a></span>
             </div>
             <div class="header-search">
-                <input type="text">
+           		<form class="search-form">
+	                <input class="search-input" type="search" placeholder="검색어 입력">
+	           		<div class="search-input-box" style="display:none;"></div>
+	                <div class="search-dropbox" style="display:none;">
+	                	<div class="dropbox-container">
+		                	<h2 style="display: none;" class="search-log">내 검색 기록 <a>삭제</a></h2>
+		                	<ul>
+		                		<li>책상</li>
+		                		<li>의자</li>
+		                		<li>선반</li>
+		                		<li>수납장</li>
+		                	</ul>
+	                	</div>
+	                </div>
+				</form>
+				<div class="modal-layer" style="display:none;"></div>
             </div>
             <ul class="header-icons">
                 <li class="header-icon delivery">
@@ -400,8 +415,24 @@
             	
             });
            
-     
+     	
+            //검색창 눌렀을 때~~~
+            $('.search-input').click(e=>{
+            	$('.modal-layer').fadeIn();
+            	$('.search-input').addClass('modal-input');
+            	$('.header-search').addClass('search-close');
+            	$('.search-input-box').css('display','block');
+            	$('.search-dropbox').css('display','block');
+            })
             
+            $("#modal_close_btn, .modal-layer").click(function(){
+       			$(".modal-layer").fadeOut();
+				$('.search-input').removeClass('modal-input');
+				$('.header-search').removeClass('search-close');
+				$('.search-input-box').css('display','none');
+				$('.search-dropbox').css('display','none');
+    		});
+           
             
         </script>
   

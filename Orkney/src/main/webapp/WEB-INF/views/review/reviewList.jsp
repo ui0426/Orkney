@@ -60,9 +60,7 @@ h1, h3{margin : 0;}
 	display: none;
 }
 .reviewView{
-	display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+	
     padding: 0.5em;
     margin: 1em;
     background-color: #e6f9fd;
@@ -100,6 +98,11 @@ color: #ffc107;
 	width: 20em;
     margin: .3em;
     border-radius: 1em;
+}
+.reviewcontent{
+	display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 @media(min-width: 769px){
 	.ri-img-size{
@@ -154,6 +157,7 @@ color: #ffc107;
 									</div>
 									<div class="reviewNone">
 										<div class="reviewcontent">
+											<div>
 											<div class="score">
 											 <c:choose>
 											 	<c:when test="${r.product_grade eq 1 }">
@@ -196,17 +200,18 @@ color: #ffc107;
 											<div class="content">
 												<c:out value="${r.review_content }"/>
 											</div>
-											<div class="picture">
-												<c:forEach items="${r.riList }" var="ri">
-													<img class="ri-img-size" src="${path }/resources/upload/review/${ri.renamedFileName }"/>
-												</c:forEach>
-											</div>
 										</div>
 										<div class="update-btn">
-											<button class="btn btn-outline-info waves-effect btn-sm" onclick="location.href='${path}/review/reviewUpdate.do'">수정</button>
+											<button class="btn btn-outline-info waves-effect btn-sm" onclick="updateReview(${r.review_no});">수정</button>
+										</div>
+										</div>
+										<div class="picture">
+											<c:forEach items="${r.riList }" var="ri">
+												<img class="ri-img-size" src="${path }/resources/upload/review/${ri.renamedFileName }"/>
+											</c:forEach>
 										</div>
 									</div>
-								</div>
+									</div>
 								</c:forEach>
 							</div>
 						</div>
@@ -216,6 +221,12 @@ color: #ffc107;
 	</div>
 </section>
 <script>
+	function updateReview(rNo){
+		console.log("띄워라");
+		console.log(rNo);
+		window.open('${path}/review/reviewUpdate.do?rNo='+rNo,'review', 'width=650px,height=800px,toolbars=no'); return false;
+		
+	}
 	$("#tab1").click(e=>{
 		$("#tab1").addClass("btn-clicked");
 		$("#tab2").removeClass("btn-clicked");
@@ -231,9 +242,9 @@ color: #ffc107;
 	
 	$(".reviewList").click(function(){
 		if($(this).next().hasClass("reviewView") == true){
-			$(this).next().removeClass("reviewView").addClass("reviewNone");
+			$(this).next().removeClass("reviewView").addClass("reviewNone").slideUp(500);
 		}else{
-			$(this).next().removeClass("reviewNone").addClass("reviewView");
+			$(this).next().removeClass("reviewNone").addClass("reviewView").slideDown(500);
 		}
 	})
 	
