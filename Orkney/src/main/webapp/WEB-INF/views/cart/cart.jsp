@@ -17,7 +17,7 @@
                     <div class="title">
                    		<div>장바구니</div>                                  		
 	                   	 	<div><button class="remove_basket" value="${cN}">장바구니 비우기</button></div>	                   	 
-	                   		<input type="hidden" value="${sumprice }" id="sumprice">					   	                                                     
+	                   		<input type="hidden" value="${sumprice }" id="sumprice">		                   					   	                                                     
 					</div>
             <div class="line1"></div>                            		 	
 		 	
@@ -42,7 +42,9 @@
 
 <script>
 	$("#cartBtn").click(e=>{
-		if(test="${cart.size() !=0}"){
+		let sumPrice = $("#sumprice").val();		
+		
+		if(sumPrice  == 0){
 			alert("장바구니가 비어있습니다.");
 			return false;
 		}
