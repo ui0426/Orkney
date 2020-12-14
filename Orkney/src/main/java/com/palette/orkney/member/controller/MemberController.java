@@ -138,8 +138,11 @@ public class MemberController {
 		if(insertUser>0) {
 			Map user=service.searchUser((String)userInfo.get("email"));
 			int wish=service.defaultWishList((String)user.get("MEMBER_NO"));
+			
+			
 			service.addAdr(userInfo);
 			mv.addObject("login",user);
+			
 		}
 		mv.setViewName("redirect:/");
 		return mv;
@@ -492,15 +495,18 @@ public class MemberController {
 		Map login = ((Map)session.getAttribute("login")); //로그인 된 유저
 		String mNo = (String)login.get("MEMBER_NO");
 		String pw = (String)login.get("MEMBER_PWD");
-		
+		System.out.println(mNo);
+		System.out.println(pw);
 		int result = 0;
 		if(pwEncoder.matches(pwck, pw)) {
+			System.out.println(1);
 			result = service.deleteMember(mNo);
+			System.out.println(2);
 		} else {
 			result = -2;
 		}
 		
-		
+		System.out.println(result);
 		
 		return result;
 	}
