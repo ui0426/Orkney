@@ -61,5 +61,12 @@ public interface MemberService {
 
 	//현재 로그인 된 유저 정보 받아오기
 	Member currentMemberInformation(String mNo);
+	
+	//포인트 업데이트
+	int updatePoint(Map<String,Object> uppo);	
 
+	
+	
+	
+	
 }

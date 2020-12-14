@@ -26,7 +26,9 @@ public interface OrderDao {
 	
 	int insertDetail(SqlSession session,Cart cart);
 	
-	int insertPoint(SqlSession session,Point point);
+	int insertPoint(SqlSession session,Map<String, Object> point);
 	
-	int insertPoint2(SqlSession session, Point point);
+//	int insertPoint2(SqlSession session, Point point);
+	
+	String selectOno(SqlSession session,Orders orders);
 }

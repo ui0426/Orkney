@@ -13,8 +13,7 @@ public class Point {
 	private String member_no;
 	private String point_date;
 	
-	private int willPoint; //차감포인트
-	private int predicPoint; //적립포인트
+	private int point_point;	
 	
 	private String point_type;
 	private String point_content;

@@ -146,4 +146,11 @@
 		<result column="ADDRESS_PHONE" property="address_phone"/>
 	</resultMap>
 	
+	
+	<!-- point update -->
+	<update id="updatePoint" parameterType="map">
+		UPDATE member SET point=#{point}  WHERE member_no=#{memberNo}
+	</update>
+	
+	
 </mapper>

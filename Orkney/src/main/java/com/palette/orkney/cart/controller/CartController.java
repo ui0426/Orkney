@@ -121,7 +121,8 @@ public class CartController {
 			
 		List<Cart> c1 = service.selectCart(memberNo);
 		mv.addObject("cart",c1);
-		mv.addObject("sumprice",sum);		
+		mv.addObject("sumprice",sum);
+		
 		mv.setViewName("ajax/cartproduct");
 		return mv;
 	}	
@@ -199,7 +200,7 @@ public class CartController {
 		int sum=service.sumPrice(m.getCartNo());		
 			
 		Map<String, Object>map = new HashMap<String, Object>();
-		int shipFee = sum>= 50000 ? 0 : 2500; //주문금액 50000원 넘을시 무료
+		int shipFee = sum>= 50000 ? 0 : 5000; //주문금액 50000원 넘을시 무료
 		int additionalTax = (int)(sum*0.1);		
 		int willpoint2=0;
 		if(willpoint!=null) willpoint2=Integer.parseInt(willpoint);		
@@ -211,11 +212,7 @@ public class CartController {
 		map.put("addTax", additionalTax);
 		map.put("totalFee",totalFee);		
 		map.put("willpoint",willpoint);		
-		
-		
-		System.out.println("부가세:"+additionalTax);
-		
-		//예상적립포인트		
+								
 		mv.addObject("map",map);
 		mv.setViewName("ajax/paymentDetail");
 		return mv;

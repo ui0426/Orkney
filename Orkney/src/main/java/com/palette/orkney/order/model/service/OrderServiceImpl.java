@@ -61,15 +61,23 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public int insertPoint(Point point) {
+	public int insertPoint(Map<String, Object> point) {
 		return dao.insertPoint(session,point);
 	}
 
 	@Override
-	public int insertPoint2(Point point) {	
-		return dao.insertPoint(session, point);
+	public String selectOno(Orders orders) {	
+		return dao.selectOno(session, orders);
 	}
+	
+	
 
+//	@Override
+//	public int insertPoint2(Point point) {	
+//		return dao.insertPoint(session, point);
+//	}
+
+	
 	
 	
 

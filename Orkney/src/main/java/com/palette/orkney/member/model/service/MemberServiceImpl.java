@@ -184,6 +184,13 @@ public class MemberServiceImpl implements MemberService {
 	public int updateMemberPassword(Map<String, Object> updateInformation) {
 		return dao.updateMemberPassword(session, updateInformation);
 	}
+
+	//포인트 업데이트
+	@Override
+	public int updatePoint(Map<String, Object> uppo) {
+		return dao.updatePoint(session,uppo);
+	}
+	
 	
 	
 }

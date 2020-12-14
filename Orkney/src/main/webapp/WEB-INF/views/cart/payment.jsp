@@ -6,7 +6,7 @@
 <c:set var="path" value="${pageContext.request.contextPath }"/>
 
 
-<!-- <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-x.y.z.js"></script> -->
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-x.y.z.js"></script>
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
 
@@ -123,7 +123,7 @@
             <div class="field">
                 <div class="first-div">배송메모</div>                	
                 <div class="input-vertical">
-                	<input type="text" class="input3 none-line" id="message-input">
+                	<input type="text" class="input3 none-line" id="message-input" autocomplete="off">
                 	<div class="messages" id="messages" style="display: none;">
                 		<div class="preset" id="preset1">배송 전에 미리 연락 바랍니다.</div>
                 		<div class="preset" id="preset2">부재시 경비실에 맡겨주세요.</div>
@@ -335,37 +335,21 @@ $("#paybtn").click(e=>{
         return false;
     } */
 	
-    let payment=$("input[name=options]:checked").val(); //결제방법
-    
     
 	//let email = $("#copyemail").val(); //받는사람 이메일
-			
+    
+	let payment=$("input[name=options]:checked").val(); //결제방법    			
 	let phone = $("#copyphone").val(); //받는사람  핸드폰
 	let name = $("#copyname").val();   //받는사람 이름							
 	let address = $("#zip").val()+"/" + $("#adrinput").val()+"/"+$("#adrdetail").val();  
-	let message = $("#message-input").val();
-	
-	
+	let message = $("#message-input").val();		
 	let totalFee = parseInt( $("#total").val()); //총금액	
 	let sumProduct = parseInt( $("#fee").val());				 //상품총
-	let shipFee = parseInt( $("#fee").attr("class"));			//배송비
-	
+	let shipFee = parseInt( $("#fee").attr("class"));			//배송비	
 	let willPoint = parseInt($("#total").attr("name"));		//사용할 point
-	let predicPoint = parseInt($("#point").val());		//적립 point
-	
-	let addTax = parseInt( $("#total").attr("class"));				//부가세
-	
-	
-	
-	
-	console.log(predicPoint,typeof(predicPoint));
-	console.log(totalFee,typeof(totalFee));
-	
-	console.log(sumProduct,typeof(sumProduct));	
-	console.log(shipFee,typeof(shipFee));
-	
-	console.log(willPoint, typeof(willPoint) );
-	console.log(addTax,typeof(addTax));
+	let predicPoint = parseInt($("#point").val());		//적립 point	
+	let addTax = parseInt( $("#total").attr("class"));				//부가세		
+	let totalPoint = parseInt($("#pointuse").val());			
 	
 	if(payment=="card"){		
 		IMP.init('imp27633438');
@@ -383,27 +367,35 @@ $("#paybtn").click(e=>{
 		    buyer_postcode : '123-456'
 		}, function(rsp) {
 		    if ( rsp.success ) {
-		        var msg = '결제가 완료되었습니다.';		    	
-		    	
-		        let paymentMethod="카드결제"; 
-		        
+		        var msg = '결제가 완료되었습니다.';
+		        let paymentMethod="카드결제";
 		        msg += '고유ID : ' + rsp.imp_uid;
 		        msg += '상점 거래ID : ' + rsp.merchant_uid;
 		        msg += '결제 금액 : ' + rsp.paid_amount;
-		        msg += '카드 승인번호 : ' + rsp.apply_num;
-		        //ordercontroller					
-				location.assign("${path}/cart/complete.do?rePhone="+phone+"&reName="+name+"&totalFee="+totalFee+"&reAddress="+address+"&message="+message+"&kopQty=${kopQty}"+"&paymentMethod="+paymentMethod+"&sumProduct="+sumProduct+"&shipFee="+shipFee+"&addTax="+addTax+"&willPoint="+willPoint+"&predicPoint="+predicPoint);
+		        msg += '카드 승인번호 : ' + rsp.apply_num;	
+		        
+		        $.ajax({
+		        	url:"${path}/cart/complete.do",
+		        	data:{rePhone:phone,reName:name,totalFee:totalFee,reAddress:address,message:message,kopQty:${kopQty},paymentMethod:paymentMethod,willPoint:willPoint,predicPoint:predicPoint
+		        		,addTax:addTax,totalPoint:totalPoint,sumProduct:sumProduct,shipFee:shipFee},		        	 
+		        	type:"post",
+		        	datatype:"json",
+		        	success:data=>{ 		        		
+		        		location.replace("${path}/cart/completeEnd.do");		        		
+		        	}
+		        })
+		        		        
+		        
+		        
 		    } else {
 		        var msg = '결제에 실패하였습니다.';
 		        msg += '에러내용 : ' + rsp.error_msg;
 		    }
 		    alert(msg);
 		});		
-	}else if(payment=="bankTransfer"){
-		
-	}
+	}else if(payment=="bankTransfer"){}
 
-})
+});
 
 </script> 
     

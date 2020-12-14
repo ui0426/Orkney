@@ -23,8 +23,8 @@
                     <div class="order-no">
                         <div>주문번호 : </div> 
                         <div class="check" style="margin-left: 6px;">${orders.order_no} </div> 
-                    </div>
-                    <button type="button" class="adrBtn marb" id="adrbtn">배송조회하기</button>
+                    </div>                    
+                    <button type="button" class="adrBtn marb" id="adrbtn" onclick="location.href='${path }/order/orderView.do?oNo=${orders.order_no}'">배송조회하기</button>
                     <div>주문 확인서가 다음으로 전송되었습니다.</div>
                     <div class="check" style="margin-top: 6px;">${orders.member_id}</div>                               
                 </div>

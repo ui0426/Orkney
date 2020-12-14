@@ -50,14 +50,20 @@ public class OrderDaoImpl implements OrderDao {
 	}
 
 	@Override
-	public int insertPoint(SqlSession session, Point point) {	
+	public int insertPoint(SqlSession session, Map<String, Object> point) {	
 		return session.insert("order.insertPoint",point);
 	}
 
 	@Override
-	public int insertPoint2(SqlSession session, Point point) {	
-		return session.insert("order.inserPoint2",point);
+	public String selectOno(SqlSession session, Orders orders) {	
+		return session.selectOne("order.selectOno",orders);
 	}
+
+	
+//	@Override
+//	public int insertPoint2(SqlSession session, Point point) {	
+//		return session.insert("order.inserPoint2",point);
+//	}
 	
 	
 	
