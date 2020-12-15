@@ -54,7 +54,7 @@
     
     #chatAll{
         position: fixed;
-        min-width: 280px;
+        min-width: 360px;
         max-width: 360px;
         min-height:515px;
         max-height:515px;
@@ -157,3 +157,11 @@
         .chatClone{display:none;}
         .alarm{color:red;display:none;}
         .contentIndex{position:relative;z-index:-10;}
+        
+        @media(max-width:1000px){
+        	#chatAll{left:52%;}
+        }
+        @media(max-width:700px){
+        	#chatAll{display:none;}
+        }
+        

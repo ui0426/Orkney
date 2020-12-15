@@ -16,7 +16,7 @@
 	      <div>
 	<%--          <h1>안녕하세요, <c:out value="${ fn:substring(login.MEMBER_NAME,1,fn:length(login.MEMBER_NAME)) }"/>님!</h1> --%>
 	         <h1>안녕하세요, <span id="title-name"><c:out value="${ login.MEMBER_NAME }"/></span>님!</h1>
-	         <span>로그아웃을 하고 싶으신가요? <a href="${ path }/member/loginout.do" style="text-decoration: underline;">로그아웃</a></span>
+	         <span>로그아웃을 하고 싶으신가요? <a href="${ path }/member/memberLogout.do" style="text-decoration: underline;">로그아웃</a></span>
 	      </div>
 	      <div class="point-box">
 	      	<div>Orkney POINT</div>

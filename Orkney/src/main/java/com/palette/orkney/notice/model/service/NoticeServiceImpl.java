@@ -36,4 +36,16 @@ public class NoticeServiceImpl implements NoticeService {
 		return dao.categoryFAQ(session,type);
 	}
 
+	@Override
+	public List<String> categoryList() {
+		// TODO Auto-generated method stub
+		return dao.categoryList(session);
+	}
+
+	@Override
+	public int increasePopular(String no) {
+		// TODO Auto-generated method stub
+		return dao.increasePopular(session,no);
+	}
+
 }

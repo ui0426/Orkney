@@ -8,6 +8,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.palette.orkney.cart.model.vo.Cart;
+import com.palette.orkney.member.model.vo.Point;
 import com.palette.orkney.order.model.dao.OrderDao;
 import com.palette.orkney.order.model.vo.OrderDetail;
 import com.palette.orkney.order.model.vo.Orders;
@@ -48,6 +50,7 @@ public class OrderServiceImpl implements OrderService {
 	public String selectEmail(String oNo) {
 		return dao.selectEmail(session, oNo);
 	}
+	
 
 	@Override
 	public int updateSort(OrderDetail od) {
@@ -69,7 +72,34 @@ public class OrderServiceImpl implements OrderService {
 		return result;
 	}
 
+	@Override
+	public int insertOrders(Orders orders, List<Cart> c) {
+		int result =dao.insertOrders(session, orders);
+		if(result>0) {
+			for(Cart cart : c) {
+				cart.setCartNo(orders.getOrder_no());
+				result =dao.insertDetail(session,cart );
+			}			
+		}		
+		return result;
+	}
+
+	@Override
+	public int insertPoint(Map<String, Object> point) {
+		return dao.insertPoint(session,point);
+	}
+
+	@Override
+	public String selectOno(Orders orders) {	
+		return dao.selectOno(session, orders);
+	}
 	
+	
+
+//	@Override
+//	public int insertPoint2(Point point) {	
+//		return dao.insertPoint(session, point);
+//	}
 
 	
 	

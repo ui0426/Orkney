@@ -6,7 +6,6 @@
 <c:set var="path" value="${pageContext.request.contextPath }"/>
 
 
-<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-x.y.z.js"></script>
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
 
@@ -65,10 +64,30 @@
             <div class="field">
                 <span class="first-div">휴대전화</span>
                 <div class="padding-input"><input type="text" class="input1 input1-extra" id="memberphone" placeholder="<c:out value="${member.phone}"/>" readonly></div>
+            </div>
+            
+            <!-- 기본주소 -->
+            <c:forTokens items="${ login.address }" delims="/" var="add" varStatus="addStatus">
+                     <c:if test="${ addStatus.first }">
+                        <c:set var="orizip" value="${ add }"/>
+                     </c:if>
+                     <c:if test="${ !addStatus.first && !addStatus.last }">
+                        <c:set var="post" value="${ add }"/>
+                     </c:if>
+                     <c:if test="${ addStatus.last }">
+                        <c:set var="addrDetail" value="${ add }"/>
+                     </c:if>
+            </c:forTokens>
+            
+            <div class="field">
+            	<span class="first-div">주소</span>
+            	<div class="padding-input"><input type="text" class="input1 input1-extra" id="post" placeholder="<c:out value="${ post }"/>" readonly></div>    
+            	<div class="padding-input"><input type="text" class="input1 input1-extra" id="addrDetail" placeholder="<c:out value="${ addrDetail }"/>" readonly></div>    
+            	<div class="padding-input"><input type="text" class="input1 input1-extra" id="orizip" placeholder="<c:out value="${ orizip }"/>" readonly></div>    
             </div>                                    
             
         </div>
-           
+                      
         <div class="section1">
             <div class="etc-title">
                   <span>배송지</span>                                       
@@ -76,9 +95,10 @@
                   <button type="button" class="btn2" data-toggle="modal" data-target="#fullHeightModalRight">배송지조회 </button>
             </div>           
             <div class="line1"></div>
+      
             <div class="field">
                 <span class="first-div">받는분</span>
-                <div><input type="text" class="input1 none-line" id="copyname"></div>
+                <div><input type="text" class="input1 none-line" id="copyname" name="reName"></div>
             </div>
             <div class="field">
                 <span class="first-div">우편번호</span>
@@ -88,21 +108,21 @@
             <div class="field">
                 <span class="first-div">주소</span>
                 <div><input type="text" class="input3 none-line" id="adrinput" disabled></div>
-            </div>
+            </div>         
+            <div class="field"><div class="etc-div"><input type="text" class="input3  none-line" id="adrdetail"></div></div>            
             
-            <div class="field"><div class="etc-div"><input type="text" class="input3  none-line"></div></div>            
             <div class="field">
                 <div class="first-div">휴대전화</div>
                 <div><input type="text" class="input1 none-line" id="copyphone"></div>
             </div> 
-            <div class="field">
+    <!--    <div class="field">
                 <span class="first-div">이메일</span>
-                <div><input type="text" class="input1 none-line" id="copyemail"></div>
-            </div>      							
+                <div><input type="text" class="input1 none-line" id="copyemail" ></div>
+            </div>      --> 							
             <div class="field">
                 <div class="first-div">배송메모</div>                	
                 <div class="input-vertical">
-                	<input type="text" class="input3 none-line" id="message-input">
+                	<input type="text" class="input3 none-line" id="message-input" autocomplete="off">
                 	<div class="messages" id="messages" style="display: none;">
                 		<div class="preset" id="preset1">배송 전에 미리 연락 바랍니다.</div>
                 		<div class="preset" id="preset2">부재시 경비실에 맡겨주세요.</div>
@@ -110,15 +130,27 @@
                 	</div>
                 </div>
             </div>  
+ 
        <!-- 회원정보입력 -->
        <script>
         $("#input-member").click(e=>{
         	let name=$("#membername").attr("placeholder");
         	let email=$("#memberemail").attr("placeholder");
-        	let phone=$("#memberphone").attr("placeholder");        	        	
-        	$("#copyname").attr({"value":name});        	
-        	$("#copyemail").attr({"value":email});
-        	$("#copyphone").attr({"value":phone});        	        	        	
+        	let phone=$("#memberphone").attr("placeholder");
+        	
+        	/* 주소 */
+        	let post=$("#post").attr("placeholder");
+        	let addrDetail=$("#addrDetail").attr("placeholder");
+        	let zip=$("#orizip").attr("placeholder");
+        	
+        		
+        	$("#copyname").attr({"value":name});        	        	
+        	$("#copyphone").attr({"value":phone});   
+        	
+        	$("#zip").attr({"value":zip});
+        	$("#adrinput").attr({"value":post});
+        	$("#adrdetail").attr({"value":addrDetail});
+        	
         });
         </script>
         
@@ -172,9 +204,14 @@ $(function(){
        <div class="section1" style=" display: flex; flex-direction: column;" >
        		<div style="display: flex;">            
 	            <div class="etc-title">예상 적립 포인트</div>                      
-	            <span class="field span-padding"><div class="pre-point"><c:out value="${member.predicpoint }"/>P</div></span>
+	            <span class="field span-padding">
+	            	<div class="pre-point"> 
+	            	<c:out value="${member.predicpoint }"/>	P</div>
+	            </span>
 	         </div>                    	
             <div>총 주문 금액의 5%가 적립됩니다.<a href="">더알아보기</a></div>
+            
+            <input type="hidden" id="point" value="${member.predicpoint }">
         </div>
 
         <div class="section1">
@@ -186,8 +223,7 @@ $(function(){
                 	<label class="pay-label" for="option1">
                 		<img alt="" src="${path}/resources/img/credit-card.png">
                 		<div class="payment-title">신용카드</div>
-                	</label>                	           
-                	
+                	</label>                	                           	
                 	<input type="radio" name="options" id="option2" autocomplete="off" checked autocompleted style="display: none"  value="bankTransfer">
                 	<label class="pay-label" for="option2">
                 		<img alt="" src="${path}/resources/img/money.png" alt="">
@@ -195,7 +231,7 @@ $(function(){
                 	</label>                	
                 </div>                                 
             </div>                                         
-        </div>
+        </div> 
         
         <div class="section1">
         
@@ -270,20 +306,59 @@ $(function(){
         
 <script>
 $("#paybtn").click(e=>{
+
+/* if($(".ck").is(":checked")==false){
+	alert("약관에 동의해 주세요");
+	return false;
+} 
 	
-	let payment=$("input[name=options]:checked").val();
-	console.log(payment);
 	
-	if(payment=="card"){
-		
+	let regEmail = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+	let regName = /^[가-힣]{2,4}|[a-zA-Z]{2,10}\s[a-zA-Z]{2,10}$/;
+	let regPhone =/^\d{2,3}-\d{3,4}-\d{4}$/;
+	
+	let email = document.getElementById("copyemail");
+	let phone = document.getElementById("copyphone");
+	let name = document.getElementById("copyname");
+	
+	if (!regEmail.test(email.value)) {
+        alert("이메일을 입력해주세요");
+        return false;
+    }
+	if (!regPhone.test(phone.value)) {
+        alert("핸드폰번호를 입력해주세요");
+        return false;
+    }
+	if (!regName.test(name.value)) {
+        alert("이름을 입력해주세요");
+        return false;
+    } */
+	
+    
+	//let email = $("#copyemail").val(); //받는사람 이메일
+    
+	let payment=$("input[name=options]:checked").val(); //결제방법    			
+	let phone = $("#copyphone").val(); //받는사람  핸드폰
+	let name = $("#copyname").val();   //받는사람 이름							
+	let address = $("#zip").val()+"/" + $("#adrinput").val()+"/"+$("#adrdetail").val();  
+	let message = $("#message-input").val();		
+	let totalFee = parseInt( $("#total").val()); //총금액	
+	let sumProduct = parseInt( $("#fee").val());				 //상품총
+	let shipFee = parseInt( $("#fee").attr("class"));			//배송비	
+	let willPoint = parseInt($("#total").attr("name"));		//사용할 point
+	let predicPoint = parseInt($("#point").val());		//적립 point	
+	let addTax = parseInt( $("#total").attr("class"));				//부가세		
+	let totalPoint = parseInt($("#pointuse").val());			
+	
+	if(payment=="card"){		
 		IMP.init('imp27633438');
-		
 		IMP.request_pay({
 		    pg : 'html5_inicis', // version 1.1.0부터 지원.
 		    pay_method : 'card',
 		    merchant_uid : 'merchant_' + new Date().getTime(),
 		    name : '주문명:결제테스트',
-		    amount : 14000, //판매 가격
+		    //amount : totalFee, //판매 가격
+		    amount : 100,
 		    buyer_email : 'iamport@siot.do',
 		    buyer_name : '구매자이름',
 		    buyer_tel : '010-1234-5678',
@@ -292,21 +367,34 @@ $("#paybtn").click(e=>{
 		}, function(rsp) {
 		    if ( rsp.success ) {
 		        var msg = '결제가 완료되었습니다.';
+		        let paymentMethod="카드결제";
 		        msg += '고유ID : ' + rsp.imp_uid;
 		        msg += '상점 거래ID : ' + rsp.merchant_uid;
 		        msg += '결제 금액 : ' + rsp.paid_amount;
-		        msg += '카드 승인번호 : ' + rsp.apply_num;
+		        msg += '카드 승인번호 : ' + rsp.apply_num;	
+		        
+		        $.ajax({
+		        	url:"${path}/cart/complete.do",
+		        	data:{rePhone:phone,reName:name,totalFee:totalFee,reAddress:address,message:message,kopQty:${kopQty},paymentMethod:paymentMethod,willPoint:willPoint,predicPoint:predicPoint
+		        		,addTax:addTax,totalPoint:totalPoint,sumProduct:sumProduct,shipFee:shipFee},		        	 
+		        	type:"post",
+		        	datatype:"json",
+		        	success:data=>{ 		        		
+		        		location.replace("${path}/cart/completeEnd.do");		        		
+		        	}
+		        })
+		        		        
+		        
+		        
 		    } else {
 		        var msg = '결제에 실패하였습니다.';
 		        msg += '에러내용 : ' + rsp.error_msg;
 		    }
 		    alert(msg);
 		});		
-	}else if(payment=="bankTransfer"){
-		
-	}
+	}else if(payment=="bankTransfer"){}
 
-})
+});
 
 </script> 
     
@@ -324,24 +412,76 @@ $("#paybtn").click(e=>{
 
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title w-100" id="myModalLabel">Modal title</h4>
+        <h4 class="modal-title w-100" id="myModalLabel">배송지 조회</h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       
-      <div class="modal-body">...</div>
+      <div class="modal-body">        
+        <c:if test="${ addrList.size() == 0 }">
+                     <div>저장된 주소가 없습니다. 편리한 쇼핑을 위해 주소를 입력해주세요.</div>
+        </c:if>      
+      	<c:if test="${ addrList.size() != 0 }">
+      	    <c:forEach var="addr" items="${ addrList }" varStatus="status">	      		
+		      	<div class="addrDiv" style="border: 1px solid;">		      			 
+		      			 <div>
+			      			 <input type="text" value="<c:out value="${ addr.address_name }"/>" readonly> 
+			      			 <input type="button" class="chbt" id="${ addr.address_phone }" value="선택">      		 
+			      			 <input type="hidden" value="${ addr.address_addr }" class="${ addr.address_detail }" id="${ addr.address_post }">
+		      			 </div>
+		      			 
+		      			 <div>
+			      			 <div><c:out value="${ addr.address_addr }"/> </div>
+			      		     <div><c:out value="${ addr.address_detail }"/></div>
+			      		     <div><c:out value="${ addr.address_post }"/></div> 			      		      
+		      			</div>
+		      			
+		      			<div><c:out value="${ addr.address_phone }"/></div>
+		      	</div>		      				      			 		      		      			      				      				
+      			 <div class="line1"></div>
+      			 	      			      				
+      		 </c:forEach>
+        </c:if>
+        
+        <script>
+        	$(".chbt").click(e=>{
+        		let adnm = $(e.target).prev().val(); //이름
+        		let adad = $(e.target).next().val(); //주소번호
+        		let addt = $(e.target).next().attr("class");//주소 detail
+        		let adpo = $(e.target).next().attr("id"); //주소
+        		let adtl = $(e.target).attr("id"); //전화번호
+        		console.log(adnm);
+        		console.log(adad);
+        		console.log(addt);
+        		console.log(adpo);
+        		console.log(adtl);
+        		
+            	$("#copyname").attr({"value":adnm});        	            	
+            	$("#copyphone").attr({"value":adtl}); 
+        		
+            	$("#zip").attr({"value":adad});
+            	$("#adrinput").attr({"value":adpo});
+            	$("#adrdetail").attr({"value":addt});
+        		
+            	
+            	
+        	})
+        </script>
+        
+        
+        
+      
+      </div>
       
       <div class="modal-footer justify-content-center">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
       </div>
     </div>
   </div>
 </div>
 <!-- Full Height Modal Right -->
-    
-    
     
     
 </section>
@@ -363,7 +503,6 @@ $("#paybtn").click(e=>{
     $("#extendBtn4").click(function() {
         $(".content3").slideToggle(500);
     })
-
 
     $(".checkdiv").click(e=>{//체크 박스 선택 체크 확인
         var ch=$(e.target).find("[type=checkbox]");

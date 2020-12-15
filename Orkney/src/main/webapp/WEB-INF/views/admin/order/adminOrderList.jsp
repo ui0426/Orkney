@@ -7,30 +7,49 @@
 <c:set var="path" value="${pageContext.request.contextPath }"/>
 
 <jsp:include page="/WEB-INF/views/common/adminHeader.jsp"/>
-<style>
-.order-container{
-	padding: 0 2rem 0 2rem;
-}
-.order-title{
-	margin-bottom: 2.5rem;
-}
-.order-title-text{
-	font-weight: bold;
-    font-size: 1.5rem;
-}
-.order-btn-title{
-	color: #111;
-    font-size: 1.125rem;
-    line-height: 1.44444;
-    font-weight: 700;
-}
-</style>
+
+<link rel="stylesheet" href="${path}/resources/css/admin/order.css">
 <section class="order-container">
  <div class="order-container-inner">
 		<div class="order-content order">
 			<div class="order-title">
 				<h1 class="order-title-text">주문 리스트</h1>
 			</div>
+			
+			<div class="info-title">
+				<div>
+					 <span>주문확인</span>  
+					 <input type="text" class="input-form" value="">
+					 <span>건</span> 
+				</div>
+				<div>
+					<span>취소신청</span>
+					<input type="text" class="input-form" value="">
+					<span>건</span>
+				</div>
+				<div>
+					 <span>교환신청</span>  
+					 <input type="text" class="input-form" value="">
+					 <span>건</span>
+				</div>
+				<div>
+					 <span>환불신청</span> 
+					<input type="text"  class="input-form" value="">
+					 <span>건</span>
+				</div>	 
+			</div>
+			
+			<div class="search-container">
+				<select class="browser-default custom-select" style="width: 21%;">
+				  <option selected>Open this select menu</option>
+				  <option value="1">주문번호</option>
+				  <option value="2">주문자</option>
+				  <option value="3">수령자</option>
+				</select>
+				<input type="text" id="exampleForm2" class="form-control">
+				<span style="padding: 5px;"><button class="searchBtn"></button></span> 
+			</div>
+				
 		</div>
 		<div><h2>주문검색</h2></div>
 		<div>
@@ -38,7 +57,8 @@
 				<h2 class="order-btn-title">주문 리스트</h2>
 			</div>
 			<div>
-				<table class="table table-hover table-dark">
+	  
+	  	<table class="table table-hover table-dark">
         <thead>
           <tr>
             <th scope="col">체크박스</th>
@@ -64,6 +84,18 @@
           </c:forEach>
       </table>
 			</div>
+		</div>
+		
+		<div class="change-status">
+			<div style="padding: 6px 28px;">선택한 주문 상태변경</div>
+			<span>
+				<select class="browser-default custom-select">
+				  <option selected>Open this select menu</option>
+				  <option value="1">주문번호</option>
+				  <option value="2">주문자</option>
+				  <option value="3">수령자</option>
+				</select>
+			</span>	
 		</div>
 	</div>
 </section>

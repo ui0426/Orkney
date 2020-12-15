@@ -48,6 +48,9 @@
    	.roomData{border-top: 1px solid;}
    	.sender{text-align: end;}
    	#titleDiv{text-align: center;padding: 2rem 2rem 1rem;}
+   	@media(max-width:800px){
+   	.wid3{width:100%;}
+   	}
 </style>
     <div class="reciver marb disno" id="cloneDiv">
         <div class="time">qweqw</div>
@@ -207,13 +210,13 @@ function onMessage(msg) {
 	if(id==ms["user"]){//내가 보낸 메세지
 		div=$("#cloneDiv4").clone();
 		$(div).removeClass("disno");
-		$(div).find(".time").html('3:30PM');
+		$(div).find(".time").html(dateFormat(new Date().getTime()));
 		$(div).find(".rcontent").html(ms["ms"]);
 	}else if(id!=ms["user"]){//나는 관리자  || 일반 유저가 보낸 것
 		div=$("#cloneDiv3").clone();
 		$(div).removeClass("disno");
 		//$(div).find(".rtime").css('display','none');
-		$(div).find(".rtime").html('3:30PM');
+		$(div).find(".time").html(dateFormat(new Date().getTime()));
 		$(div).find(".rcontent").html(ms["ms"]);
 	}
 	let mNo;

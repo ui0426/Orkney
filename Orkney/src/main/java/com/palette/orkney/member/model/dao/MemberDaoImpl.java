@@ -157,6 +157,12 @@ public class MemberDaoImpl implements MemberDao {
 	public int updateMemberPassword(SqlSession session, Map<String, Object> updateInformation) {
 		return session.update("member.updateMemberPassword", updateInformation);
 	}
+	
+	//포인트 업데이트
+	@Override
+	public int updatePoint(SqlSession session, Map<String, Object> uppo) {
+		return session.update("member.updatePoint",uppo);
+	}
 
 	//기본주소수정
 	@Override
