@@ -16,8 +16,8 @@
         <div class="section1">        
                     <div class="title">
                    		<div>장바구니</div>                                  		
-	                   	 	<div><button class="remove_basket" value="${cN}">장바구니 비우기</button></div>	                   	 
-	                   		<input type="hidden" value="${sumprice }" id="sumprice">		                   					   	                                                     
+	                   	 	<div><button class="remove_basket" id="${cN}">장바구니 비우기</button></div>	
+	                   	 	   <input type="hidden" value="${sumprice }" id="sumprice">	                   	 	   	                     	 	                   			                   					   	                                                     
 					</div>
             <div class="line1"></div>                            		 	
 		 	
@@ -42,8 +42,9 @@
 
 <script>
 	$("#cartBtn").click(e=>{
-		let sumPrice = $("#sumprice").val();				
-		if(sumPrice  == 0){
+		let cN = $(".basketNo").attr("id");
+		console.log(cN);
+		if(!cN){
 			alert("장바구니가 비어있습니다.");
 			return false;
 		}
@@ -83,10 +84,12 @@
 <script>	
 		//1. ajax처리 onload
 		  $(function(){
-					let sumPrice = $("#sumprice").val();											
+					let sumPrice = $("#sumprice").val();	
+					let cNo= $(".remove_basket").attr("id");
+					console.log(cNo);
 					$.ajax({
 						url:"${path}/cart/deleteProduct.do",
-						data:{sumPrice:sumPrice},
+						data:{sumPrice:sumPrice,cN:cNo},
 						success:data =>{					
 							$("#re").html(data);
 						}
@@ -95,10 +98,11 @@
 			
 			//2. 장바구니 전체제거시
 			$(".remove_basket").click(e=>{
-				let cNo=$(e.target).val();				
+				let sumPrice = $("#sumprice").val();	
+				let cNo=$(e.target).attr("id");				
 				 $.ajax({
 					 url:"${path}/cart/deleteBasket.do",
-					 data:{cartNo:cNo},
+					 data:{cartNo:cNo,sumPrice:sumPrice},
 					 success:data=>{
 						console.log("cNo:"+cNo);	
 						$("#re").html(data);

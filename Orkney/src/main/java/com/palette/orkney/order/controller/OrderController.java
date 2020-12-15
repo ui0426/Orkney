@@ -109,6 +109,7 @@ public class OrderController {
 		mv.addObject("map",info);
 		mv.setViewName("cart/complete");
 		int cartDelete = cservice.cartDelete(c.get(0).getCartNo());
+		session.removeAttribute("info");
 		return mv;
 	}
 

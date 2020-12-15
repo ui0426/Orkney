@@ -14,10 +14,7 @@ public interface CartDao {
 	
 	String selectCartNo(SqlSession session,String memberNo);
 	
-	int deleteProduct(SqlSession session,Map<String, String>param);
-	
-	int deleteBasket(SqlSession session,String cartNo);
-	
+	int deleteProduct(SqlSession session,Map<String, String>param);			
 	
 	int updateDetail(SqlSession session,Cart cart);
 	

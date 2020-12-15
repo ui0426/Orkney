@@ -27,11 +27,6 @@ public class CartDaoImpl implements CartDao{
 	public int deleteProduct(SqlSession session, Map<String, String> param) {
 		return session.delete("cart.deleteProduct", param);
 	}		
-	
-	@Override
-	public int deleteBasket(SqlSession session, String cartNo) {		
-		return session.delete("cart.deleteBasket",cartNo);
-	}
 
 
 	@Override

@@ -23,11 +23,7 @@ public interface CartService {
 	String selectCartNo(String memberNo);
 
 	//장바구니 상품만 삭제
-	int deleteProduct(Map<String, String> param);
-	
-	//장바구니 자체 삭제
-	int deleteBasket(String cartNo);
-		
+	int deleteProduct(Map<String, String> param);					
 	
 	//장바구니 수량 저장을 위한 수정
 	int updateDetail(Cart cart);

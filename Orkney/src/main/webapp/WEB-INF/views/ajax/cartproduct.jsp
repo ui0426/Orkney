@@ -44,7 +44,7 @@
                         <div><button class="wish_btn" data-toggle="modal" data-target="#fullHeightModalRight">위시리스트 저장</button></div>
                     </div>  
 
-                	</div><div class="line1"></div>               
+                	</div><div class="line1"></div>                           
              </div>             
 	</c:forEach>	
 	</c:if>
@@ -63,7 +63,7 @@
             	<fmt:formatNumber value="${total+sumprice}"/> 원           
             </div>
         </div>
-
+		<input type="hidden" class="basketNo" id="${cN}" value="${cN}">       
 		
 	<script>
 	/* 상품내용제거 */

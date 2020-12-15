@@ -35,9 +35,7 @@ public class CartController {
 	public ModelAndView cart(HttpSession session, ModelAndView mv,String productNo) {					
 		
 		String memberNo = (String)((Map)session.getAttribute("login")).get("MEMBER_NO");										
-		List<Cart> c = service.selectCart(memberNo);											
-		
-		
+		List<Cart> c = service.selectCart(memberNo);															
 		
 		//2. 경록이형 연결시 추가 ( 상품번호 가져옴)
 		Cart cart = new Cart();
@@ -65,9 +63,23 @@ public class CartController {
 		
 	//2. 장바구니 전체 삭제
 	@RequestMapping("/cart/deleteBasket.do")
-	public ModelAndView deletebasket(ModelAndView mv, @RequestParam(value="cartNo",defaultValue="0") String cartNo) {		
-		int basket = service.deleteBasket(cartNo);			
-		mv.setViewName("cart/cart");
+	public ModelAndView deletebasket(ModelAndView mv, 
+			@RequestParam(value="cartNo",defaultValue="0") String cartNo,HttpSession session,
+			@RequestParam(value="sumPrice",defaultValue="0") String sumPrice) {		
+		String memberNo = (String)((Map)session.getAttribute("login")).get("MEMBER_NO");		
+		System.out.println("cartNo"+cartNo);
+		
+		sumPrice=null;
+		int basket = service.cartDelete(cartNo);
+		System.out.println("sum:"+sumPrice);
+		cartNo=null;
+		System.out.println("cartNo"+cartNo);		
+		
+		List<Cart> c = service.selectCart(memberNo);
+		mv.addObject("cart",c);
+		mv.addObject("cN",cartNo);
+		mv.addObject("sumprice",sumPrice);
+		mv.setViewName("ajax/cartproduct");
 		return mv;
 	}		
 	
@@ -76,7 +88,7 @@ public class CartController {
 	public ModelAndView deletecontent(
 			@RequestParam(value="productNo",defaultValue="0") String productNo,
 			@RequestParam(value="cartNo",defaultValue="0") String cartNo, ModelAndView mv, HttpSession session,
-			@RequestParam(value="sumPrice",defaultValue="0") int sumPrice ){											
+			@RequestParam(value="sumPrice",defaultValue="0") int sumPrice, String cN ){											
 			String memberNo = (String)((Map)session.getAttribute("login")).get("MEMBER_NO");				
 			
 			Map<String, String> param =new HashMap();
@@ -89,7 +101,8 @@ public class CartController {
 			
 			List<Cart> c = service.selectCart(memberNo);			
 			
-			
+			System.out.println(cN);
+			mv.addObject("cN",cN);
 			mv.addObject("sumprice",sumPrice);
 			mv.addObject("cart",c);								 
 			mv.setViewName("ajax/cartproduct");
@@ -122,11 +135,10 @@ public class CartController {
 				 sum=service.sumPrice(cartNo);		
 			}else {}
 		}
-			
+					
 		List<Cart> c1 = service.selectCart(memberNo);
 		mv.addObject("cart",c1);
-		mv.addObject("sumprice",sum);
-		
+		mv.addObject("sumprice",sum);		
 		mv.setViewName("ajax/cartproduct");
 		return mv;
 	}	

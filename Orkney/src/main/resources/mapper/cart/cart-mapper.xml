@@ -41,10 +41,7 @@
   	<delete id="deleteProduct" parameterType="map">
   		DELETE FROM cart_detail WHERE cart_no=#{cartNo} and product_no=#{productNo}
   	</delete>
-  	
-  	<delete id="deleteBasket" parameterType="string">
-  		delete from cart_detail where cart_no=#{cartNo}  
-  	</delete>  
+  
   
   	  	
   	<update id="updateDetail" parameterType="cart">
