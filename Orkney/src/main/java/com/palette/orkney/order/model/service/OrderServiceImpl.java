@@ -1,5 +1,6 @@
 package com.palette.orkney.order.model.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -54,9 +55,15 @@ public class OrderServiceImpl implements OrderService {
 		if(result>0 && od.getSort().equals("구매확정")) {
 			result = dao.insertShipped(session, od);
 			if(result >0) {
-				List<Map> p = pDao.productDetail(session, od.getProduct_no());
-				
-				
+				int pStock=0;
+				for(Map p : pDao.productDetail(session, od.getProduct_no())){
+					pStock=Integer.parseInt(String.valueOf(p.get("PRODUCT_STOCK")));
+				}
+				System.out.println("출고 전 재고 : "+pStock);
+				Map m = new HashMap();
+				m.put("stock", String.valueOf(pStock-(int)od.getProduct_qty()));
+				m.put("no", od.getProduct_no());
+				pDao.updateStock(session, m);
 			}
 		}
 		return result;
