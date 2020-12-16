@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.palette.orkney.member.model.dao.MemberDao;
 import com.palette.orkney.member.model.vo.Addr;
 import com.palette.orkney.member.model.vo.Member;
+import com.palette.orkney.member.model.vo.Point;
 
 @Service
 public class MemberServiceImpl implements MemberService {
@@ -185,6 +186,14 @@ public class MemberServiceImpl implements MemberService {
 		return dao.updateMemberPassword(session, updateInformation);
 	}
 
+
+	//포인트 업데이트
+	@Override
+	public int updatePoint(Map<String, Object> uppo) {
+		return dao.updatePoint(session,uppo);
+	}
+	
+
 	//기본 주소 수정
 	@Override
 	public int updateMemberAddress(Map<String, Object> updateInformation) {
@@ -214,6 +223,14 @@ public class MemberServiceImpl implements MemberService {
 	public int deleteMember(String mNo) {
 		return dao.deleteMember(session, mNo);
 	}
+
+	//포인트 내역 가져오기
+	@Override
+	public List<Point> pointList(Map data) {
+		return dao.pointList(session, data);
+	}
+
+
 	
 	
 }

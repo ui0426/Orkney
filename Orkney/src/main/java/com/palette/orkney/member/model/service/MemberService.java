@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.palette.orkney.member.model.vo.Addr;
 import com.palette.orkney.member.model.vo.Member;
+import com.palette.orkney.member.model.vo.Point;
 
 @Service
 public interface MemberService {
@@ -61,6 +62,10 @@ public interface MemberService {
 
 	//현재 로그인 된 유저 정보 받아오기
 	Member currentMemberInformation(String mNo);
+	
+	//포인트 업데이트
+	int updatePoint(Map<String,Object> uppo);	
+
 
 	//기본주소 수정
 	int updateMemberAddress(Map<String, Object> updateInformation);
@@ -76,5 +81,9 @@ public interface MemberService {
 
 	//탈퇴하기
 	int deleteMember(String mNo);
+
+	//포인트 내역 가져오기
+	List<Point> pointList(Map data);
+
 
 }

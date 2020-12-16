@@ -109,7 +109,12 @@ public class ProductDaoImpl implements ProductDao{
 	}
 
 	 
-
+//재고갱신
+	@Override
+	public int updateStock(SqlSession session, Map m) {
+		return session.update("product.updateStock", m);
+	}
+	
 
 
 }

@@ -101,6 +101,12 @@
     .lfs{color:black !important;}
     .leftdiv{display:contents;}
     .mb{margin-bottom: 2rem;}
+    @media(max-width:750px){
+    	#semiForm{display:block;}
+    	#leftForm{width:100%;height:50%;}
+    	.transPw{width:100%;height:57%;}
+    	#rightForm{width:100%;}
+    }
 </style>
 <body>
     <div id="totalForm">

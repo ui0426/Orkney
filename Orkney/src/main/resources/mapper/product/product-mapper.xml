@@ -426,6 +426,14 @@
 				JOIN PRODUCT_IMAGE J ON E.PRODUCT_NO= J.PRODUCT_NO
 				  JOIN BIG_CATEGORY T ON T.BIG_CATEGORY_NO=E.BIG_CATEGORY_NO
 				WHERE J.PRODUCT_COLOR='normal' AND E.SALE_PER IS NOT NULL			
-	</select>		
+	</select>	
+	
+	
+	
+	
+	<!--재고갱신 -->
+	<update id="updateStock" parameterType="map">
+		UPDATE PRODUCT SET PRODUCT_STOCK=#{stock} WHERE PRODUCT_NO=#{no}
+	</update>	
 </mapper>
 

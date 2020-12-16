@@ -1,18 +1,21 @@
 package com.palette.orkney.order.model.vo;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class OrderDetail {
 
 	private int order_detail_no;
 	private String product_no;
 	private int product_qty;
 	private String order_no;
+	private String sort;
 	
 	//product
 	private String product_name;
@@ -34,4 +37,8 @@ public class OrderDetail {
 	
 	//review
 	private int review_no;
+	
+	//refund
+	private String refund_qty;
+	private String member_id;	
 }

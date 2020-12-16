@@ -13,4 +13,10 @@
  	WHERE CATEGORY=#{type}
  	</if>
  </select>
+ <select id="categoryList" resultType="string">
+ 	SELECT * FROM FAQ_CATEGORY
+ </select>
+ <update id="increasePopular" parameterType="string">
+ 	UPDATE FAQ SET POPULAR=POPULAR+1 WHERE FAQ_NO=#{no}
+ </update>
 </mapper>

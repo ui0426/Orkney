@@ -27,6 +27,9 @@ public interface ProductDao {
 	List<Map>sale(SqlSession session);
 	List<Map>selectRoomsTitle(SqlSession session,String type); 
 
+//==================================================================================
+	//재고 갱신
+	int updateStock(SqlSession session, Map m);
 
 
 

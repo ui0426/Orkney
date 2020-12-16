@@ -27,16 +27,7 @@ public class CartDaoImpl implements CartDao{
 	public int deleteProduct(SqlSession session, Map<String, String> param) {
 		return session.delete("cart.deleteProduct", param);
 	}		
-	
-	@Override
-	public int deleteBasket(SqlSession session, String cartNo) {		
-		return session.delete("cart.deleteBasket",cartNo);
-	}
 
-	@Override
-	public CartDetail memberInfo(SqlSession session, Map<String, String>param2) {
-		return session.selectOne("cart.memberInfo", param2);
-	}
 
 	@Override
 	public int updateDetail(SqlSession session, Cart cart) {	
@@ -71,6 +62,17 @@ public class CartDaoImpl implements CartDao{
 		return session.insert("cart.insertCart",cart);
 	}
 
+	@Override
+	public int selectCount(SqlSession session, String cartNo) {	
+		return session.selectOne("cart.selectCount",cartNo);
+	}
+
+	@Override
+	public int cartDelete(SqlSession session, String cartNo) {
+		return session.delete("cart.cartDelete",cartNo);
+	}
+
+	
 	
 	
 	

@@ -12,9 +12,13 @@ public class CartDetail {
 	private String phone;
 	private String member_name;
 	private String member_id;
-	private int point;
 	private String cartNo;
+	private String oriaddress;
 	
+	
+	private int point;		
 	private int predicpoint;
-	private int willpoint;
+	private int willpoint;	
+	private int totalFee;
+	
 }

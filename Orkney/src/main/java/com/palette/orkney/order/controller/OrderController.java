@@ -1,8 +1,11 @@
 package com.palette.orkney.order.controller;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,21 +17,104 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.palette.orkney.cart.model.service.CartService;
+import com.palette.orkney.cart.model.vo.Cart;
 import com.palette.orkney.member.model.service.MemberService;
 import com.palette.orkney.order.model.service.OrderService;
+import com.palette.orkney.order.model.vo.OrderDetail;
 import com.palette.orkney.order.model.vo.Orders;
 
 @SessionAttributes("login")
 @Controller
 public class OrderController {
 	
+	private static final String Map = null;
 	@Autowired
 	private OrderService service;
 	@Autowired
 	private MemberService mservice;
 	@Autowired
 	private BCryptPasswordEncoder pwEncoder;
+	@Autowired
+	private CartService cservice;	
 	
+	//결제후
+	@RequestMapping("/cart/complete.do")
+	@ResponseBody
+	public ModelAndView complete(ModelAndView mv,
+			String reName,String rePhone,HttpSession session,
+			String reAddress, String message,int kopQty, String paymentMethod,	
+			Orders orders,int totalFee, int willPoint,int addTax,int totalPoint,int sumProduct,int shipFee
+			)throws NumberFormatException {
+		
+		String memberNo = (String)((Map)session.getAttribute("login")).get("MEMBER_NO");
+		String memberId = (String)((Map)session.getAttribute("login")).get("MEMBER_ID");				
+		
+		//order insert 필요한거  
+		//회원번호0, 받는사람 이름0, 받는사람 전화번호0, 받는사람 주소0, 주문수량(상품종류 몇개인지)0, 상품 총가격0, 결제방법0		
+		orders.setMember_no(memberNo);
+		orders.setOrder_name(reName);
+		orders.setOrder_phone(rePhone);
+		orders.setOrder_address(reAddress);		
+		orders.setOrder_qty(kopQty);
+		orders.setTotal_price(totalFee);
+		orders.setPayment_method(paymentMethod);
+		orders.setOrder_memo(message);	
+		orders.setMember_id(memberId);
+		
+		//orders/order_detail insert
+		List<Cart> c = cservice.selectCart(memberNo);	
+		int insertOrders = service.insertOrders(orders,c); 																		
+		
+		int afterPoint=totalPoint-willPoint;
+		Map<String, Object> uppo = new HashMap();
+		uppo.put("member_no", memberNo);
+		uppo.put("point",afterPoint);
+		
+		System.out.println(uppo);
+		
+		//point inert
+		Map<String, Object> point =new HashMap();
+		point.put("member_no", memberNo);
+		point.put("point_point",willPoint);							
+		if(willPoint!=0) {
+			int insertPoint = service.insertPoint(point); //포인트 차감
+			int updatePoint = mservice.updatePoint(uppo);
+		}				
+		
+		Map<String, Object>mapping = new HashMap<String, Object>();														
+		mapping.put("sumprice",sumProduct);
+		mapping.put("shipFee",shipFee);
+		mapping.put("point",totalPoint);
+		mapping.put("addTax", addTax);
+		mapping.put("totalFee",totalFee);		
+		mapping.put("willpoint",willPoint);
+									
+		session.setAttribute("info", mapping);
+		session.setAttribute("orders", orders);				
+		return mv;
+	}
+	
+	
+	//화면이동
+	@RequestMapping("/cart/completeEnd.do")
+	public ModelAndView completeEnd(ModelAndView mv,HttpSession session){
+		String memberNo = (String)((Map)session.getAttribute("login")).get("MEMBER_NO");
+		List<Cart> c = cservice.selectCart(memberNo);													
+		
+		Map info=((Map)session.getAttribute("info"));
+		Orders orders=((Orders)session.getAttribute("orders"));		
+		
+		mv.addObject("cart",c);
+		mv.addObject("orders",orders);
+		mv.addObject("map",info);
+		mv.setViewName("cart/complete");
+		int cartDelete = cservice.cartDelete(c.get(0).getCartNo());
+		session.removeAttribute("info");
+		return mv;
+	}
+
+
 	@RequestMapping("/order/order.do")
 	public String orderMain(HttpSession session) {
 		return "order/orderMain";
@@ -68,20 +154,6 @@ public class OrderController {
 			return "false";
 		}
 	}
-//	public String orderLogin(String id, String password, Model m) {
-//		
-//		Map login=mservice.loginCheck(id);
-//		
-//		if(login!=null&&pwEncoder.matches(password,(String)login.get("MEMBER_PWD"))) {
-//			String mNo = (String)login.get("MEMBER_NO");
-//			m.addAttribute("login",login);
-//			m.addAttribute("list", service.selectOrderList(mNo));
-//			return "order/orderList";
-//		}else {
-//			m.addAttribute("msg", "사용하신 인증정보가 올바르지 않습니다. 확인 후 다시 시도해주세요.");
-//			return "order/orderLogin";
-//		}
-//	}
 	
 	//주문상세내역 보기
 	@RequestMapping("/order/orderView.do")
@@ -171,6 +243,21 @@ public class OrderController {
 	@RequestMapping("/order/passwordCheck.do")
 	public String passwordCheck() {
 		return "order/orderPasswordCheck";
+	}
+	
+	@RequestMapping(value="/order/updateSort.do", produces="text/plain;charset=UTF-8")
+	@ResponseBody
+	public String updateSort(int odNo, String sort) {
+		OrderDetail od = OrderDetail.builder().order_detail_no(odNo).sort(sort).build();
+		int result = service.updateSort(od);
+		return result>0?"요청이 완료되었습니다.":"요청 실패! 고객센터에 문의바랍니다.";
+	}
+	
+	@RequestMapping("/order/orderConfirm.do")
+	public String orderConfirm(OrderDetail od) {
+		System.out.println(od);
+		service.updateSort(od);
+		return "redirect:/order/orderView.do?oNo="+od.getOrder_no();
 	}
 	
 

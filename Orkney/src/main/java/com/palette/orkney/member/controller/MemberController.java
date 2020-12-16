@@ -1,7 +1,9 @@
 package com.palette.orkney.member.controller;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -10,11 +12,13 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -25,6 +29,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import com.palette.orkney.member.model.service.MemberService;
 import com.palette.orkney.member.model.vo.Addr;
+import com.palette.orkney.member.model.vo.Point;
 
 @SessionAttributes("login")
 @Controller
@@ -96,9 +101,11 @@ public class MemberController {
 			String no=(String)login.get("MEMBER_NO");
 			
 			//가입할 때 주소 가져오기
-			String address = service.getAddress(no).getAddress();
+			Addr adr=service.getAddress(no);
+			if(adr!=null) {
+			String address=	adr.getAddress();
 			login.put("address", address);
-			
+			}
 			mv.addObject("login",login);
 			mv.setViewName("redirect:/");
 		}else {
@@ -126,24 +133,24 @@ public class MemberController {
 		return flag;
 	}
 
-	@RequestMapping("/member/insertSignup.do")
-	public ModelAndView insertSignup(@RequestParam Map userInfo,@RequestParam(value="adr1") String adr1,@RequestParam(value="adr2") String adr2, ModelAndView mv) {
-		String adr=(String)userInfo.get("adr1")+"/"+(String)userInfo.get("adr2")+"/"+(String)userInfo.get("adr3");
-		userInfo.put("adr",adr);
-		userInfo.put("password",pwEncoder.encode((String)userInfo.get("password")));
-		if(userInfo.get("emailCh")==null) {
-			userInfo.put("emailCh","N");
-		}
-		int insertUser=service.insertSignup(userInfo);
-		if(insertUser>0) {
-			Map user=service.searchUser((String)userInfo.get("email"));
-			int wish=service.defaultWishList((String)user.get("MEMBER_NO"));
-			service.addAdr(userInfo);
-			mv.addObject("login",user);
-		}
-		mv.setViewName("redirect:/");
-		return mv;
-	}
+//	@RequestMapping("/member/insertSignup.do")
+//	public ModelAndView insertSignup(@RequestParam Map userInfo,@RequestParam(value="adr1") String adr1,@RequestParam(value="adr2") String adr2, ModelAndView mv) {
+//		String adr=(String)userInfo.get("adr1")+"/"+(String)userInfo.get("adr2")+"/"+(String)userInfo.get("adr3");
+//		userInfo.put("adr",adr);
+//		userInfo.put("password",pwEncoder.encode((String)userInfo.get("password")));
+//		if(userInfo.get("emailCh")==null) {
+//			userInfo.put("emailCh","N");
+//		}
+//		int insertUser=service.insertSignup(userInfo);
+//		if(insertUser>0) {
+//			Map user=service.searchUser((String)userInfo.get("email"));
+//			int wish=service.defaultWishList((String)user.get("MEMBER_NO"));
+//			service.addAdr(userInfo);
+//			mv.addObject("login",user);
+//		}
+//		mv.setViewName("redirect:/");
+//		return mv;
+//	}
 
 	@RequestMapping("/member/chatRoom.do")
 	@ResponseBody
@@ -266,7 +273,7 @@ public class MemberController {
 		} else {
 			System.out.println("정보수정 실패 어디로.......");
 		}
-		
+
 		return data;
 		
 	}
@@ -292,6 +299,8 @@ public class MemberController {
 		}
 		
 		return data;
+		
+		
 	}
 	
 	//패스워드 수정
@@ -380,6 +389,66 @@ public class MemberController {
 		return ""; //화면에서 널처리를 해줘야 하나?
 	}
 	
+
+//	//personal 업데이트 정보
+//	@RequestMapping("/member/personalJspUpdate.do")
+//	public String personalJspUpdate() {
+//		return "member/mypageDiv/personal.jsp";
+//	}
+	
+	@RequestMapping("/member/emailPage.do")//이메일인증페이지 전환용
+	public String emailAuth() {
+		
+		return "member/emailAuth";
+	}
+	
+	@RequestMapping("/member/insertSignup.do")//회원가입 수정함
+	public ModelAndView insertSignup(ModelAndView mv,HttpSession session) {
+		Map userInfo=(Map)session.getAttribute("userInfo");
+		String adr=(String)userInfo.get("adr1")+"/"+(String)userInfo.get("adr2")+"/"+(String)userInfo.get("adr3");
+		userInfo.put("adr",adr);
+		userInfo.put("password",pwEncoder.encode((String)userInfo.get("password")));
+		if(userInfo.get("emailCh")==null) {
+			userInfo.put("emailCh","N");
+		}
+		
+		int insertUser=service.insertSignup(userInfo);
+		if(insertUser>0) {
+			Map user=service.searchUser((String)userInfo.get("email"));
+			int wish=service.defaultWishList((String)user.get("MEMBER_NO"));
+			service.addAdr(userInfo);
+			mv.addObject("login",user);
+		}
+		session.removeAttribute("userInfo");
+		mv.setViewName("redirect:/");
+		return mv;
+	}
+	
+	@RequestMapping(value="/member/keyCheck.do",method=RequestMethod.POST)//인증키 확인 ajax
+	@ResponseBody
+	public boolean keyCheck(@RequestParam(required=false) String key1,@RequestParam(required=false) String key2,
+			@RequestParam(required=false) String key3,@RequestParam(required=false) String key4,
+			@RequestParam(required=false) String key5,@RequestParam(required=false) String key6,HttpSession session) {
+		Map userInfo=(Map)session.getAttribute("userInfo");
+		boolean flag=false;
+	
+		if(key1!=null&&key2!=null&&key3!=null&&key4!=null&&key5!=null&&key6!=null) {
+			String key=key1+key2+key3+key4+key5+key6;
+			System.out.println(key);
+			if(key.equals(userInfo.get("key"))) {
+				userInfo.put("auth","Y");
+				session.setAttribute("userInfo", userInfo);
+				flag = true;
+			}else flag = false;
+		}
+		return flag;
+	}
+	
+	@RequestMapping("/")
+	public String index() {
+		return "index";
+	}
+
 	//추가된 주소 수정 눌렀을 떄 페이지 보여주기
 	@RequestMapping("/member/addAddrInformation.do")
 	public String addAddrInformation(HttpSession session, String addrNo, Model model) {
@@ -409,6 +478,11 @@ public class MemberController {
 	@RequestMapping("/member/insertForm.do")
 	public String insertAddrFrom(String form) {
 		return form;
+	}
+	
+	@RequestMapping("/test")
+	public String test() {
+		return "admin/emailTest";
 	}
 	
 	//주소추가하기
@@ -492,16 +566,101 @@ public class MemberController {
 		Map login = ((Map)session.getAttribute("login")); //로그인 된 유저
 		String mNo = (String)login.get("MEMBER_NO");
 		String pw = (String)login.get("MEMBER_PWD");
-		
+		System.out.println(mNo);
+		System.out.println(pw);
 		int result = 0;
 		if(pwEncoder.matches(pwck, pw)) {
+			System.out.println(1);
 			result = service.deleteMember(mNo);
+			System.out.println(2);
 		} else {
 			result = -2;
 		}
 		
-		
+		System.out.println(result);
 		
 		return result;
 	}
+	
+	///포인트 페이지로 이동
+	@RequestMapping("/point/pointForm.do")
+	public String pointForm() {
+		return "member/point";
+	}
+	
+	
+	//포인트 페이지로 이동 (month로 조회하기)
+	@RequestMapping("/point/point.do")
+	public String pointForm(HttpSession session, Model m, @RequestParam(value="startDate", required = false) String startDate,
+															@RequestParam(value="endDate", required = false) String endDate,
+															@RequestParam(value="type", required = false) String type) {
+		Map login = ((Map)session.getAttribute("login")); //로그인 된 유저
+		String mNo = (String)login.get("MEMBER_NO");
+		
+		System.out.println(startDate + endDate + type);
+		
+//		Calendar c = Calendar.getInstance();
+//		if(month != null) { //month가 null 아닐 때
+//			month = month.substring(0, month.length()-1);
+//			if(month.length() == 1) {
+//				
+//				month = "0" + month;
+//			}
+//			
+//			month = c.get(Calendar.YEAR) + month;
+//		}
+//		
+//		
+//		System.out.println(month);
+		Map data = new HashMap();
+		data.put("mNo", mNo);
+		data.put("sd", startDate);
+		data.put("ed", endDate);
+		data.put("type", type);
+		
+		List<Point> list = service.pointList(data);
+		
+		List<Point> list2 = new ArrayList<Point>();
+		
+		HashSet months = new HashSet();
+		for(Point p : list) {
+			String[] dateStr = p.getPoint_date().split(" ");
+			p.setPoint_date(dateStr[0]);
+			list2.add(p);
+			
+			months.add(p.getPoint_date().substring(0, 7));
+		}
+		
+		System.out.println(list2);
+		m.addAttribute("list", list2);
+		m.addAttribute("months", months);
+		
+		
+		return "member/pointList";
+	}
+	
+	//month로 조회하기
+//	@RequestMapping("/member/selectMonthPoint")
+//	@ResponseBody
+//	public String selectMonthPoint(String month, HttpSession session) {
+//		Map login = ((Map)session.getAttribute("login")); //로그인 된 유저
+//		String mNo = (String)login.get("MEMBER_NO");
+//		
+//		Calendar c = Calendar.getInstance();
+//		month = month.substring(0, month.length()-1);
+//		if(month.length() == 1) {
+//			month = "0" + month;
+//		}
+//		System.out.println(c.get(Calendar.YEAR) + month);
+//		
+//		Map data = new HashMap();
+//		data.put("mNo", mNo);
+//		data.put("month", month);
+//		
+//		List<Point> list = service.selectMonthPoint(data);
+//		System.out.println(list);
+//		
+//		
+//		return "";
+//	}
 }

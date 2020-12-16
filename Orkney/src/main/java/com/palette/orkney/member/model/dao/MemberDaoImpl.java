@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.palette.orkney.member.model.vo.Addr;
 import com.palette.orkney.member.model.vo.Member;
+import com.palette.orkney.member.model.vo.Point;
 
 @Repository
 public class MemberDaoImpl implements MemberDao {
@@ -157,6 +158,12 @@ public class MemberDaoImpl implements MemberDao {
 	public int updateMemberPassword(SqlSession session, Map<String, Object> updateInformation) {
 		return session.update("member.updateMemberPassword", updateInformation);
 	}
+	
+	//포인트 업데이트
+	@Override
+	public int updatePoint(SqlSession session, Map<String, Object> uppo) {
+		return session.update("member.updatePoint",uppo);
+	}
 
 	//기본주소수정
 	@Override
@@ -187,5 +194,12 @@ public class MemberDaoImpl implements MemberDao {
 	public int deleteMember(SqlSession session, String mNo) {
 		return session.delete("member.deleteMember", mNo);
 	}
+
+	//포인트 내역 가져오기
+	@Override
+	public List<Point> pointList(SqlSession session, Map data) {
+		return session.selectList("member.pointList", data);
+	}
+
 	
 }

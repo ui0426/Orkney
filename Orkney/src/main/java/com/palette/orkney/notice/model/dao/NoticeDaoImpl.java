@@ -27,6 +27,16 @@ public class NoticeDaoImpl implements NoticeDao {
 		return session.selectList("notice.categoryFAQ",type);
 	}
 
-	
+	@Override
+	public List<String> categoryList(SqlSession session) {
+		// TODO Auto-generated method stub
+		return session.selectList("notice.categoryList");
+	}
+
+	@Override
+	public int increasePopular(SqlSession session, String no) {
+		// TODO Auto-generated method stub
+		return session.update("notice.increasePopular",no);
+	}
 	
 }

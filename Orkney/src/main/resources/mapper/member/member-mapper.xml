@@ -25,7 +25,7 @@
   	<if test="type != null">
   	 #{type}
   	</if>
-  	,default)
+  	,#{auth})
   <selectKey keyProperty="mNo" resultType="string" order="AFTER">
   	SELECT M_NUM.CURRVAL FROM DUAL
   </selectKey>
@@ -155,6 +155,34 @@
   		delete from member where member_no=#{mNo}
   	</delete>
   	
+  	<!-- 포인트 내역 가져오기 -->
+  	<select id="pointList" parameterType="map" resultType="point">
+  		select * 
+		from point
+		<if test="sd == null and type == null">
+		where member_no = #{mNo} 
+		</if>
+		<if test='sd == null and type != null and type.equals("전체")'>
+		where member_no = #{mNo}
+		</if>
+		<if test='sd == null and type != null and !type.equals("전체")'>
+		where member_no = #{mNo} and point_type = #{type}
+		</if>
+		<if test='sd != null and type.equals("1")'>
+		where point_date between to_date(#{sd}) and to_date(#{ed})+1 and member_no=#{mNo}
+		</if>
+		<if test='sd != null and !type.equals("1")'>
+		where point_date between to_date(#{sd}) and to_date(#{ed})+1 and point_type = #{type} and member_no=#{mNo}
+		</if>
+		order by point_date desc
+  	</select>
+  	
+  	<!-- month로 포인트 조회하기 -->
+<!--   	<select id="selectMonthPoint" parameterType="map" resultType="point"> -->
+<!--   		select point_date from point where to_char(point_date,'YYYYMM')=#{month} and member_no=#{mNo} -->
+<!--   	</select> -->
+  	
+  	
 	<resultMap type="member" id="memberResultMap">
 		<id column="MEMBER_NO" property="member_no"/>
 		<result column="MEMBER_ID" property="member_id"/>
@@ -177,5 +205,12 @@
 		<result column="ADDRESS_PHONE" property="address_phone"/>
 		<result column="ADDRESS_NO" property="address_no"/>
 	</resultMap>
+	
+	
+	<!-- point update -->
+	<update id="updatePoint" parameterType="map">
+		UPDATE member SET point=#{point}  WHERE member_no=#{member_no}
+	</update>
+	
 	
 </mapper>

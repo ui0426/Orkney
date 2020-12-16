@@ -71,27 +71,33 @@
                 <div class="total-title">
                         <div class="pay-title">
                             <div >총 상품 금액</div>
-                            <div><input type="text" class="non-input" value="<fmt:formatNumber value="${map.sumprice}"/>" readonly>&nbsp;</div>                    
+                            <div><input type="text" class="non-input" id="sumProduct" value="<fmt:formatNumber value="${map.sumprice}"/>" readonly>&nbsp;</div>                    
                         </div>
                         <div class="pay-title">
                             <div>배송비 비용</div>
-                            <div><input type="text" class="non-input" value="<fmt:formatNumber value="${map.shipFee}"/>" readonly>&nbsp;</div>
+                            <div><input type="text" class="non-input" id="shipFee" value="<fmt:formatNumber value="${map.shipFee}"/>"  readonly>&nbsp;</div>
                         </div>                        
 	                    
 	                    <div class="pay-title">
-	                            <div>포인트 사용</div>
-	                            <div><input type="text" class="non-input" value="<fmt:formatNumber value="${map.willpoint}"/>" readonly>&nbsp;</div>
+	                            <div>포인트 사용</div>	                            
+	                            <div><input type="text" class="non-input" id="willPoint" value="<fmt:formatNumber value="${total+map.willpoint}"/>"  readonly>&nbsp;</div>
 	                    </div>
 	                       
                         <div class="pay-title">
                             <div>부가세(10%)</div>
-                            <div><input type="text" class="non-input" value="<fmt:formatNumber value="${map.addTax}"/>" readonly>&nbsp;</div>
+                            <div><input type="text" class="non-input" id="addTax" value="<fmt:formatNumber value="${map.addTax}"/>" readonly>&nbsp;</div>
                         </div>
                 </div>                
                     <div class="line2">
                         <div class="pay-title pay-font">
                             <div>총 주문금액</div>
-                            <div><input type="text" class="non-input" value="<fmt:formatNumber value="${map.totalFee}"/>" readonly>&nbsp;원</div>
+                            <div>
+                            <input type="text" class="non-input" id="totalFee" value="<fmt:formatNumber value="${map.totalFee}"/>" readonly>
+                            <input type="hidden" id="total" class="${map.addTax}" value="${map.totalFee}" name="${total+map.willpoint}"/>
+                        	<input type="hidden" id="fee" class="${map.shipFee}" value="${map.sumprice}">
+                            &nbsp;원                            
+                            </div>
+                        	
                         </div>
                     </div>
              </div>   
