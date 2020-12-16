@@ -37,8 +37,11 @@ public class OrderDetail {
 	private String small_category_content;
 	
 	//member
+	private String member_id;
 	private String member_name;
 	
 	//review
 	private int review_no;
+	
+		
 }

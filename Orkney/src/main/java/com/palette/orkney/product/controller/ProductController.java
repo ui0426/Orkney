@@ -31,85 +31,55 @@ public class ProductController {
 
 	@RequestMapping("/product/products.do")
 	@ResponseBody
-	public ModelAndView products(ModelAndView mv) {
-		mv.addObject("list",service.productList());
+	public ModelAndView products(ModelAndView mv
+			,@RequestParam(name="category") String bicCategory
+			) {
+		
+		Map<String, Object> category = new HashMap();
+		category.put("category", bicCategory);
+		System.out.println(category);
+		
+		mv.addObject("list",service.productList(category));
 		mv.setViewName("product/products");
 		return mv;
 	}
 
-//	▼인기순 정렬▼  추후 확인 바람 db 에서 어떻게 할지
+//	▼인기순 정렬▼  전체 정렬로 변경함
 	@RequestMapping("/product/bestFilter.do")
 	@ResponseBody
 	public  List<Map>Filter (@RequestParam Map<String,Object> filter) {
-		System.out.println("나오냐고 !!!:"+filter);
-//		Map filter = new HashMap();
-//		filter.put("group1",group1);
-//		filter.put("group2",group2);
-//		filter.put("group3",group3);
-//		filter.put("group4",group4);
-//		filter.put("group5",group5);
-	
+		System.out.println(filter);
 		return service.filter(filter);
 	}
-//	▼낮은 가격순 정렬▼
-	@RequestMapping("/product/lowPriceFilter.do")
-	@ResponseBody
-	public  List<Map>lowPriceFilter(@RequestParam(value = "group1") String group1){
-		
-		System.out.println("찍힘? :" +group1);
-		return service.lowPriceFilter();
-	}
-//	▼높은 가격순 정렬▼
-	@RequestMapping("/product/highPriceFilter.do")
-	@ResponseBody
-	public  List<Map>highPriceFilter(@RequestParam(value = "group1") String group1){
-		
-		System.out.println("찍힘? :" +group1);
-		return service.highPriceFilter();
-	}
-//	▼최신순 정렬▼
-	@RequestMapping("/product/newProductFilter.do")
-	@ResponseBody
-	public  List<Map>newProductFilter(@RequestParam(value = "group1") String group1){
-		
-		System.out.println("찍힘? :" +group1);
-		return service.newProductFilter();
-	}
-//	▼이름순 정렬▼
-	@RequestMapping("/product/nameFilter.do")
-	@ResponseBody
-	public  List<Map>nameFilter(@RequestParam(value = "group1") String group1){
-		
-		System.out.println("찍힘? :" +group1);
-		return service.nameFilter();
-	}
 	
-	
-	
+	@RequestMapping("/product/sCategory/.do")
+	@ResponseBody
+	public  List<Map>sCategory (@RequestParam Map<String,Object> sCategory) {
+		System.out.println("카테고리 나와?"+sCategory);
+		return service.sCategory(sCategory);
+	}
+	@RequestMapping("/product/reviewImg.do")
+	@ResponseBody
+	public List<Map>reviewImg(@RequestParam Map<String,Object> id){
+		System.out.println("아이디:"+id+":"+service.reviewImg(id));
+		
+		return service.reviewImg(id);
+	}
 
 	@RequestMapping("/product/productDetail.do")
 	public ModelAndView productDetail(ModelAndView mv,
 									@RequestParam(name="productno") String productno
 			) {
-		System.out.println("디테일로 가져가는 값:"+productno);
-		
-		mv.addObject("reviewImg",service.reviewImg(productno));
 		mv.addObject("review",service.review(productno));
 		mv.addObject("list", service.productDetail(productno));
 		mv.setViewName("/product/productDetail");
 		return mv;
 	}
 
-
-
-
-
 	@RequestMapping("/product/productsCompare.do")
-
 	public ModelAndView productsCompare(ModelAndView mv,
 			@RequestParam(name = "checkboxname")ArrayList<String> checkboxname) {
 
-		System.out.println("이름 !!!"+checkboxname.size());
 		mv.addObject("list",service.checkProduct(checkboxname));
 		mv.setViewName("/product/productsCompare");
 		return mv;

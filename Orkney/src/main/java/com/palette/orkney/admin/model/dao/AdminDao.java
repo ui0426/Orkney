@@ -5,6 +5,8 @@ import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
+import com.palette.orkney.order.model.vo.OrderDetail;
+import com.palette.orkney.order.model.vo.OrderDetail;
 import com.palette.orkney.order.model.vo.Orders;
 
 public interface AdminDao {
@@ -15,7 +17,7 @@ public interface AdminDao {
 
 	List<String> roomNo(SqlSession session, String data);
 
-	List<Orders> selectOrderList(SqlSession session);
+	List<Orders> selectOrderList(SqlSession session,int cPage, int numPerPage);
 
 	int modifyFAQ(SqlSession session, Map data);
 
@@ -38,6 +40,12 @@ public interface AdminDao {
 	int pointModify(SqlSession session, Map data);
 	
 	int updateOrderState(SqlSession session, Map o);
-	
+
 	int updateOrderInfo(SqlSession session, Map orderInfo);
+
+	Map countOrderState(SqlSession session);
+	
+	int totalOrder(SqlSession session);
+	
+	List<OrderDetail> selectChangeList(SqlSession session);
 }

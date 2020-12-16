@@ -75,7 +75,7 @@
                 <a href="${path}"><img src="https://www.ikea.com/kr/ko/static/ikea-logo.f88b07ceb5a8c356b7a0fdcc9a563d63.svg" alt=""></a>
             </div>
             <div class="header-menu">
-                <span><a href="${path }/product/products.do">모든제품</a> </span>
+                <span><a href="${path }/product/products.do?category=all">모든제품</a> </span>
                 <span><a href="${path}/product/rooms.do">디지털 쇼룸</a></span>
             </div>
             <div class="header-search">
@@ -177,7 +177,7 @@
 		                        <div class="hnf-small-link hnf-link-color aside-btn-event">이달의 혜택</div>
 		                    </li>
 		                    <li>
-		                        <a class="hnf-small-link hnf-link-color" href="#">신제품</a>
+		                        <a class="hnf-small-link hnf-link-color" href="${path }/product/products.do?category=new">신제품</a>
 		                    </li>
 		                </ul>
 		                <ul class="hnf-small-link hnf-menu_nav_aux">
@@ -203,72 +203,72 @@
 		        		<span class="hnf-menu-container-product-head">모든 상품</span>
 						<ul class="hnf-menu-container-product-main">
 							<li>
-								<a>
+								<a  href="${path }/product/products.do?category=책장/선반유닛">
 									책장/선반유닛
 								</a>
 							</li>
 							<li>
-								<a>
+								<a href="${path }/product/products.do?category=서랍">
 									서랍
 								</a>
 							</li>
 							<li>
-								<a>
+								<a href="${path }/product/products.do?category=의자">
 									의자
 								</a>
 							</li>
 							<li>
-								<a>
+								<a href="${path }/product/products.do?category=바테이블/의자">
 									바테이블/의자
 								</a>
 							</li>
 							<li>
-								<a>
+								<a href="${path }/product/products.do?category=카페가구">
 									카페가구
 								</a>
 							</li>
 							<li>
-								<a>
+								<a href="${path }/product/products.do?category=아동식선반">
 									이동식 선반
 								</a>
 							</li>
 							<li>
-								<a>
+								<a href="${path }/product/products.do?category=옷장">
 									옷장
 								</a>
 							</li>
 							<li>
-								<a>
+								<a href="${path }/product/products.do?category=수납장/장식장">
 									수납장/장식장
 								</a>
 							</li>
 							<li>
-								<a>
+								<a href="${path }/product/products.do?category=거실장/전장/콘솔테이블">
 									거실장/천장/콘솔테이블
 								</a>
 							</li>
 							<li>
-								<a>
+								<a href="${path }/product/products.do?category=TV/멀티미디어가구">
 									TV/멀티미디어가구
 								</a>
 							</li>
 							<li>
-								<a>
+								<a href="${path }/product/products.do?category=침대">
 									침대
 								</a>
 							</li>
 							<li>
-								<a>
+								<a href="${path }/product/products.do?category=소파/암체어">
 									소파/암체어
 								</a>
 							</li>
 							<li>
-								<a>
+								<a href="${path }/product/products.do?category=조명">
 									조명
 								</a>
 							</li>
 							<li>
-								<a>
+								<a href="${path }/product/products.do?category=식탁/책상">
 									식탁/책상
 								</a>
 							</li>

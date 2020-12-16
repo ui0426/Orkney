@@ -7,16 +7,14 @@ import java.util.Map;
 public interface ProductService {
 
 //	경록
-	List<Map> productList();
+	List<Map> sCategory(Map<String, Object> sCategory);
+	List<Map> reviewImg(Map<String, Object> id);
+	List<Map> productList(Map<String, Object> category);
 	List<Map> checkProduct(ArrayList<String> checkboxname);
 	List<Map> filter(Map<String, Object> filter);
-	List<Map> lowPriceFilter();
-	List<Map> highPriceFilter();
-	List<Map> newProductFilter();
-	List<Map> nameFilter();
 	List<Map> productDetail(String productno);
 	List<Map> review(String productno);
-	List<Map> reviewImg(String productno);
+
 
 
 //	진호

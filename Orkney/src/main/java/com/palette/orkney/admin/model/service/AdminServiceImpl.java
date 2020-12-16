@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.palette.orkney.admin.model.dao.AdminDao;
+import com.palette.orkney.order.model.vo.OrderDetail;
 import com.palette.orkney.order.model.vo.Orders;
 
 @Service
@@ -37,8 +38,8 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public List<Orders> selectOrderList() {
-		return dao.selectOrderList(session);
+	public List<Orders> selectOrderList(int cPage,int numPerPage) {
+		return dao.selectOrderList(session,cPage,numPerPage);
 	}
 
 	@Override
@@ -96,8 +97,7 @@ public class AdminServiceImpl implements AdminService {
 		int result2=0;
 		if(result>0) {
 			result2=dao.pointModify(session,data);
-		}
-		
+		}		
 		return result;
 	}
 	
@@ -108,6 +108,21 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public int updateOrderInfo(Map orderInfo) {
 		return dao.updateOrderInfo(session, orderInfo);
+	}
+	
+	@Override
+	public Map countOrderState() {	
+		return dao.countOrderState(session);
+	}
+
+	@Override
+	public int totalOrder() {	
+		return dao.totalOrder(session);
+	}
+
+	@Override
+	public List<OrderDetail> selectChangeList() {	
+		return dao.selectChangeList(session);
 	}
 	
 	

@@ -29,11 +29,9 @@ public class Orders {
 	private String address_detail;
 	private List<OrderDetail> odList;
 	
-	
 	//member
 	private String member_id;
 	private String member_name;
 
 	private String phone;
-
 }
