@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 
 import com.palette.orkney.member.model.vo.Addr;
 import com.palette.orkney.member.model.vo.Member;
+import com.palette.orkney.member.model.vo.Point;
 
 public interface MemberDao {
 
@@ -85,6 +86,10 @@ public interface MemberDao {
 
 	//탈퇴하기
 	int deleteMember(SqlSession session, String mNo);
+
+	//포인트 내역 가져오기
+	List<Point> pointList(SqlSession session, Map data);
+
 
 
 }
