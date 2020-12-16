@@ -43,5 +43,7 @@ public interface AdminService {
 	Map countOrderState();
 	
 	int totalOrder();
+	
+	List<Orders> updateOrderListState(int cPage, int numPerPage, Map m);
 
 }

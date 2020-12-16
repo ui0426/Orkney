@@ -1,5 +1,6 @@
 package com.palette.orkney.admin.model.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -124,6 +125,18 @@ public class AdminServiceImpl implements AdminService {
 	public List<OrderDetail> selectChangeList() {	
 		return dao.selectChangeList(session);
 	}
+
+	@Override
+	public List<Orders> updateOrderListState(int cPage, int numPerPage, Map m) {
+		int result = dao.updateOrderListState(session, m);
+		List<Orders> list = new ArrayList();
+		if(result > 0) {
+			list = dao.selectOrderList(session,cPage,numPerPage);
+		}
+		return list;
+	}
+	
+	
 	
 	
 }

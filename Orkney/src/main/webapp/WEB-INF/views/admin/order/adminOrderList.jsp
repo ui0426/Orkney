@@ -93,18 +93,51 @@
 		</div>
 		
 		<div class="change-status">
-			<div style="padding: 6px 28px;">주문 선택 일괄 처리</div>
+			<div style="padding: 6px 28px;">주문 상태 일괄 처리</div>
 			<span>
-				<select class="browser-default custom-select">
-				  <option selected>Open this select menu</option>
-				  <option value="1">제품준비중</option>
-				  <option value="2">배송터미널도착</option>
-				  <option value="3">배송중</option>
-				  <option value="4">배송완료</option>
+				<select id="state" class="browser-default custom-select">
+				  <option selected>주문 상태 선택</option>
+				  <option>제품준비중</option>
+				  <option>배송터미널도착</option>
+				  <option>배송중</option>
+				  <option>배송완료</option>
 				</select>
+			</span>
+			<span>
+				<button id="state-change" class="btn btn-primary btn-sm">적용</button>
 			</span>	
 		</div>
-		
+<script>
+$("#state-change").click(e=>{
+	// name이 같은 체크박스의 값들을 배열에 담는다.
+	var state = $("#state").val();
+    var oNos = [];
+	if(state == '주문 상태 선택'){
+		alert("주문 상태를 선택해주세요.");
+		return false;
+	}
+    $("input[name='oNo']:checked").each(function(i) {
+    	console.log($(this));
+        oNos.push($(this).val());
+    });
+
+	console.log(oNos);
+	console.log(state);
+	$.ajax({
+		type:"GET",
+		url:"${path}/admin/updateOrderListState.do",
+		data:{"state":state,"oNos":oNos},
+		success:data => {
+			if(data =="실패"){			
+				alert("배송상태 변경 실패!");
+			}else{
+				alert("배송상태 변경 완료");
+				$("#list").html(data);							
+			}
+		}
+	})
+})
+</script>
 		
 		
 		

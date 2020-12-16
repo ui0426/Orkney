@@ -74,4 +74,10 @@
   	<select id="selectChangeList" resultType="orderDetail">
   		SELECT * FROM ORDERS JOIN order_detail USING(order_NO) join member using(member_no) join product using(product_no) where sort='교환신청' or sort='반품신청' ORDER BY ORDER_DATE DESC
   	</select>
+  	
+  	<update id="updateOrderListState" parameterType="map">
+  		<foreach item="oNo" collection="oNos" separator=";" open="DECLARE BEGIN" close="; END;">
+  			UPDATE ORDERS SET ORDER_STATE=#{state} WHERE ORDER_NO=#{oNo}
+  		</foreach>
+  	</update>
 </mapper>

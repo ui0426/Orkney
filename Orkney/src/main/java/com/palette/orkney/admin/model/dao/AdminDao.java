@@ -48,4 +48,6 @@ public interface AdminDao {
 	int totalOrder(SqlSession session);
 	
 	List<OrderDetail> selectChangeList(SqlSession session);
+	
+	int updateOrderListState(SqlSession session, Map m);
 }
