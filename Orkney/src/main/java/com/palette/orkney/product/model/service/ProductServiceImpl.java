@@ -21,40 +21,27 @@ public class ProductServiceImpl implements ProductService{
 	private ProductDao dao;
 	@Autowired
 	private SqlSession session;
-
+	
 	@Override
-	public List<Map> productList() {
+	public List<Map> sCategory(Map<String, Object> sCategory) {
 		// TODO Auto-generated method stub
-		return dao.productList(session);
+		return dao.sCategory(session,sCategory);
+	}
+	@Override
+	public List<Map> reviewImg(Map<String, Object> id) {
+		// TODO Auto-generated method stub
+		return dao.reviewImg(session,id);
+	}
+	
+	@Override
+	public List<Map> productList( Map<String,Object> category) {
+		// TODO Auto-generated method stub
+		return dao.productList(session,category);
 	}
 	@Override
 	public List<Map> checkProduct(ArrayList<String> checkboxname) {
 		// TODO Auto-generated method stub
 		return dao.checkProduct(session, checkboxname);
-	}
-
-	@Override
-	public List<Map> lowPriceFilter() {
-		// TODO Auto-generated method stub
-		return dao.lowPriceFilter(session);
-	}
-
-	@Override
-	public List<Map> highPriceFilter() {
-		// TODO Auto-generated method stub
-		return dao.highPriceFilter(session);
-	}
-
-	@Override
-	public List<Map> newProductFilter() {
-		// TODO Auto-generated method stub
-		return dao.newProductFilter(session);
-	}
-
-	@Override
-	public List<Map> nameFilter() {
-		// TODO Auto-generated method stub
-		return dao.nameFilter(session);
 	}
 
 	@Override
@@ -71,11 +58,6 @@ public class ProductServiceImpl implements ProductService{
 	public List<Map> review(String productno) {
 		// TODO Auto-generated method stub
 		return dao.review(session,productno);
-	}
-	@Override
-	public List<Map> reviewImg(String productno) {
-		// TODO Auto-generated method stub
-		return dao.reviewImg(session,productno);
 	}
 
 
@@ -133,6 +115,7 @@ public class ProductServiceImpl implements ProductService{
 		// TODO Auto-generated method stub
 		return dao.sale(session);
 	}
+
 
 	 
 

@@ -18,6 +18,12 @@
 .fontbor {
 	font-weight: 900;
 }
+.embed-responsive-16by9::before {
+    padding-top: 0% !important;
+}
+.h32rem{
+height: 32rem;
+}
 </style>
 
 <section id="content">
@@ -345,9 +351,9 @@
 						<span aria-hidden="true" class="white-text">×</span>
 					</button>
 				</div>
-				<div class="container my-5">
+				<div class="container my-5" style="overflow:auto !important;">
 				<!--Body-->
-  				<section class="dark-grey-text mb-5" id="reviewCon">
+  				<section class="dark-grey-text mb-5" id="reviewCon" >
 						<!-- Section heading -->
 						<h3 class="font-weight-bold text-center mb-5">Product Reviews</h3>
 
@@ -387,7 +393,7 @@
 					<!--Carousel Wrapper-->
 					<div id="carousel-thumb"
 						class="carousel slide carousel-fade carousel-thumbnails"
-						data-ride="carousel">
+						data-ride="carousel" data-interval="false">
 
 						<!--Slides-->
 						<div class="carousel-inner text-center text-md-left" id="imgcon"
@@ -413,12 +419,12 @@
 						<!--Thumbnails-->
 						<a class="carousel-control-prev" href="#carousel-thumb"
 							role="button" data-slide="prev"> <span
-							class="carousel-control-prev-icon" aria-hidden="true"></span> <span
+							class="carousel-control-prev-icon " aria-hidden="true" style="background-color: dimgrey;"></span> <span
 							class="sr-only">Previous</span>
 						</a> <a class="carousel-control-next" href="#carousel-thumb"
 							role="button" data-slide="next"> <span
-							class="carousel-control-next-icon" aria-hidden="true"></span> <span
-							class="sr-only">Next</span>
+							class="carousel-control-next-icon" aria-hidden="true" style="background-color: dimgrey;"></span> <span
+							class="sr-only" >Next</span>
 						</a>
 						<!--/.Thumbnails-->
 
@@ -429,7 +435,7 @@
 
 				<div class="col-lg-5 text-center text-md-left">
 
-					<h1
+					<h1 id="productName"
 						class="h2-responsive text-center text-md-left product-name font-weight-bold dark-grey-text mb-1 ml-xl-0 ml-4">
 						<c:out value="${p.PRODUCT_NAME}"></c:out>
 					</h1>
@@ -698,7 +704,8 @@
 
 	</div>
 	
-<!--Modal: modalVM-->
+<!--Modal: modalVM 리뷰 사진확대-->
+
 <div class="modal fade" id="modalVM" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
   aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
@@ -710,31 +717,97 @@
       <div class="modal-body mb-0 p-0">
 
         <div class="embed-responsive embed-responsive-16by9 z-depth-1-half">
-          <iframe class="embed-responsive-item" src="https://player.vimeo.com/video/115098447"
-            allowfullscreen></iframe>
+        
+        <div class="container my-5">
+
+  <!--Section: Content-->
+  <section class="text-center dark-grey-text mb-5">
+    <div class="row">
+      <div class="col-md-12">
+
+        <!--Carousel Wrapper-->
+        <div id="carousel-example-1z" class="carousel slide" data-ride="carousel" data-interval="false">
+          <!--Indicators-->
+          <ol class="carousel-indicators">
+            <li data-target="#carousel-example-1z" data-slide-to="0" class="active" id="imgDat1"></li>
+            <li data-target="#carousel-example-1z" data-slide-to="1" id="imgDat2"></li>
+            <li data-target="#carousel-example-1z" data-slide-to="2" id="imgDat3"></li>
+          </ol>
+          <!--/.Indicators-->
+          <!--Slides-->
+          <div class="carousel-inner" role="listbox" id="reviewImgZoomCon">
+            <!--First slide-->
+            <div class="carousel-item active">
+              <img class="d-block w-100 h32rem" id="reviewImgZoom1" src="https://mdbootstrap.com/img/Photos/Horizontal/Architecture/12-col/img%20(10).jpg"
+                alt="First slide">
+            </div>
+            <!--/First slide-->
+            <!--Second slide-->
+
+            <!--/Second slide-->
+            <!--Third slide-->
+     
+            <!--/Third slide-->
+          </div>
+          <!--/.Slides-->
+          <!--Controls-->
+          <a class="carousel-control-prev" href="#carousel-example-1z" role="button" data-slide="prev" id="prevId">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next" href="#carousel-example-1z" role="button" data-slide="next" id="nextId">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
+          <!--/.Controls-->
+        </div>
+        <!--/.Carousel Wrapper-->
+
+      </div>
+    </div>
+
+  </section>
+              <div style="display: none;">
+            <div class="carousel-item" id="imgMiniNone1" >
+              <img class="d-block w-100 h32rem" id="reviewImgZoom2" src="https://mdbootstrap.com/img/Photos/Horizontal/Architecture/12-col/img%20(11).jpg"
+                alt="Second slide">
+            </div>
+            </div>
+            <div style="display: none;">
+            <div class="carousel-item h32rem" id="imgMiniNone2" >
+              <img class="d-block w-100" id="reviewImgZoom3" src="https://mdbootstrap.com/img/Photos/Horizontal/Architecture/12-col/img%20(12).jpg"
+                alt="Third slide">
+            </div>
+            </div>
+  <!--Section: Content-->
+
+
+</div>
+<!--           <iframe class="embed-responsive-item" src="https://player.vimeo.com/video/115098447" -->
+<!--             allowfullscreen></iframe> -->
         </div>
 
       </div>
 
       <!--Footer-->
       <div class="modal-footer justify-content-center flex-column flex-md-row">
-        <span class="mr-4">Spread the word!</span>
+<!--         <span class="mr-4">Spread the word!</span> -->
         <div>
-          <a type="button" class="btn-floating btn-sm btn-fb">
-            <i class="fab fa-facebook-f"></i>
-          </a>
-          <!--Twitter-->
-          <a type="button" class="btn-floating btn-sm btn-tw">
-            <i class="fab fa-twitter"></i>
-          </a>
-          <!--Google +-->
-          <a type="button" class="btn-floating btn-sm btn-gplus">
-            <i class="fab fa-google-plus-g"></i>
-          </a>
-          <!--Linkedin-->
-          <a type="button" class="btn-floating btn-sm btn-ins">
-            <i class="fab fa-linkedin-in"></i>
-          </a>
+<!--           <a type="button" class="btn-floating btn-sm btn-fb"> -->
+<!--             <i class="fab fa-facebook-f"></i> -->
+<!--           </a> -->
+<!--           Twitter -->
+<!--           <a type="button" class="btn-floating btn-sm btn-tw"> -->
+<!--             <i class="fab fa-twitter"></i> -->
+<!--           </a> -->
+<!--           Google + -->
+<!--           <a type="button" class="btn-floating btn-sm btn-gplus"> -->
+<!--             <i class="fab fa-google-plus-g"></i> -->
+<!--           </a> -->
+<!--           Linkedin -->
+<!--           <a type="button" class="btn-floating btn-sm btn-ins"> -->
+<!--             <i class="fab fa-linkedin-in"></i> -->
+<!--           </a> -->
         </div>
         <button type="button" class="btn btn-outline-primary btn-rounded btn-md ml-4"
           data-dismiss="modal">Close</button>
@@ -746,17 +819,20 @@
 
   </div>
 </div>
+
 <!--Modal: modalVM-->
 
 <div style="display: none">
-<div class="media mb-3" id="reviewClone">
+<div class="media mb-3" id="reviewClone" >
 <!-- 						▼▼▼▼회원 이미지 OR 상품 이미지▼▼▼▼ -->
-							<a id="reviewImgCon" data-toggle="modal" data-target="#modalVM">
+							<div id="reviewImgCon">
+							<a  data-toggle="modal" data-target="#modalVM" id="imgZoom">
 							<img id="productImg"
 									class="card-img-100 rounded-circle z-depth-1-half d-flex mr-3"
-									src="https://mdbootstrap.com/img/Photos/Avatars/img (8).jpg"
+									src=""
 									alt="Generic placeholder image">
 							</a>
+							</div>
 							<div class="media-body">
 							
 								
@@ -799,12 +875,13 @@
 								</div>
 							</div>
 </div>
-				
+			
 
 	<script>
 		$('.carousel').carousel({
-			interval : 3000
-		})
+			interval : false
+		});
+
 	</script>
 <script type="text/javascript">
 
@@ -812,28 +889,39 @@
 // ▼리뷰▼
 $(function() {
 	
-<c:forEach items="${review}" var="r">
+<c:forEach items="${review}" var="r" varStatus="s">
 if ("${r.REVIEW_NO}"!=null) {
 	let reviewClone = $("#reviewClone").clone();
+	
 	$(reviewClone).find("#memberId").text('${r.MEMBER_ID}');
 	
 
 		
-	if ("${r.PRODUCT_GRADE}"==1) {
+	if ("${r.PRODUCT_GRADE}"=='1') {
 		$(reviewClone).find("#starGray1").removeClass("grey-text").addClass("blue-text");
-	}else if ("${r.PRODUCT_GRADE}"==2) {
+		$(reviewClone).find("#starGray2").removeClass("blue-text").addClass("grey-text");
+		$(reviewClone).find("#starGray3").removeClass("blue-text").addClass("grey-text");
+		$(reviewClone).find("#starGray4").removeClass("blue-text").addClass("grey-text");
+		$(reviewClone).find("#starGray5").removeClass("blue-text").addClass("grey-text");
+	}else if ("${r.PRODUCT_GRADE}"=='2') {
 		$(reviewClone).find("#starGray1").removeClass("grey-text").addClass("blue-text");
 		$(reviewClone).find("#starGray2").removeClass("grey-text").addClass("blue-text");
-	}else if ("${r.PRODUCT_GRADE}"==3) {
+		$(reviewClone).find("#starGray3").removeClass("blue-text").addClass("grey-text");
+		$(reviewClone).find("#starGray4").removeClass("blue-text").addClass("grey-text");
+		$(reviewClone).find("#starGray5").removeClass("blue-text").addClass("grey-text");
+	}else if ("${r.PRODUCT_GRADE}"=='3') {
 		$(reviewClone).find("#starGray1").removeClass("grey-text").addClass("blue-text");
 		$(reviewClone).find("#starGray2").removeClass("grey-text").addClass("blue-text");
 		$(reviewClone).find("#starGray3").removeClass("grey-text").addClass("blue-text");
-	}else if ("${r.PRODUCT_GRADE}"==4) {
+		$(reviewClone).find("#starGray4").removeClass("blue-text").addClass("grey-text");
+		$(reviewClone).find("#starGray5").removeClass("blue-text").addClass("grey-text");
+	}else if ("${r.PRODUCT_GRADE}"=='4') {
 		$(reviewClone).find("#starGray1").removeClass("grey-text").addClass("blue-text");
 		$(reviewClone).find("#starGray2").removeClass("grey-text").addClass("blue-text");
 		$(reviewClone).find("#starGray3").removeClass("grey-text").addClass("blue-text");
 		$(reviewClone).find("#starGray4").removeClass("grey-text").addClass("blue-text");
-	}else if ("${r.PRODUCT_GRADE}"==5) {
+		$(reviewClone).find("#starGray5").removeClass("blue-text").addClass("grey-text");
+	}else if ("${r.PRODUCT_GRADE}"=='5') {
 		$(reviewClone).find("#starGray1").removeClass("grey-text").addClass("blue-text");
 		$(reviewClone).find("#starGray2").removeClass("grey-text").addClass("blue-text");
 		$(reviewClone).find("#starGray3").removeClass("grey-text").addClass("blue-text");
@@ -842,19 +930,110 @@ if ("${r.REVIEW_NO}"!=null) {
 	}
 	$(reviewClone).find("#reviewDate").text('${r.REVIEW_DATE}');
 	$(reviewClone).find("#review").text('${r.REVIEW_CONTENT}');
+// 	만드는중 	a태그 target 변경
+	$(reviewClone).find("#imgZoom").attr("data-target","#modalVM"+'${s.index}');	
 	$("#reviewCon").append(reviewClone);
-	<c:forEach items="${reviewImg}" var="ri">
-	if ("${ri.RENAMEDFILENAME}"!=null) {
-		
-		$("#productImg").attr("src","${path}/resources/upload/review/"+"${ri.RENAMEDFILENAME}");
-	}
-	</c:forEach>
-	
+// 만드는중	클론생성
+	let imgZoomClone = $("#modalVM").clone().attr("id","modalVM"+'${s.index}');
+	$(imgZoomClone).find("#reviewImgZoomCon").attr("id","reviewImgZoomCon"+'${s.index}');
+	$(imgZoomClone).find("#carousel-example-1z").attr("id","carousel-example-1z"+'${s.index}');
+	$(imgZoomClone).find("#imgDat1").attr("data-target","#carousel-example-1z"+'${s.index}');
+	$(imgZoomClone).find("#imgDat2").attr("data-target","#carousel-example-1z"+'${s.index}');
+	$(imgZoomClone).find("#imgDat3").attr("data-target","#carousel-example-1z"+'${s.index}');
+	$(imgZoomClone).find("#prevId").attr("href","#carousel-example-1z"+'${s.index}');
+	$(imgZoomClone).find("#nextId").attr("href","#carousel-example-1z"+'${s.index}');
+// 	$(imgZoomClone).attr("id","modalVM"+'${s.index}');
 
 	
+	
+	var no='${r.REVIEW_NO}';
+	$.ajax({
+		url:"${path}/product/reviewImg.do",
+		async : false,
+		data: {
+			"no":no
+		},
+		success:data=>{
+			for (var i = 0; i < data.length; i++) {
+			console.log('${s.index}:'+i+":"+data[i]["REVIEW_NO"]+":"+'${r.REVIEW_NO}'+"데이타:"+data[i]["RENAMEDFILENAME"]);
+				if (data[i]["REVIEW_NO"]=='${r.REVIEW_NO}') {
+					$("#productImg").attr("src","${path}/resources/upload/review/"+data[0]["RENAMEDFILENAME"]);
+					
+					
+					
+ 					if (i=='0') {
+ 						console.log("첫번째"+data[0]["RENAMEDFILENAME"]);
+					$(imgZoomClone).find("#reviewImgZoom1").attr("src","${path}/resources/upload/review/"+data[i]["RENAMEDFILENAME"]);
+
+ 					$(imgZoomClone).find("#imgDat2"+'${s.index}').css("display","none");
+ 					$(imgZoomClone).find("#imgDat3"+'${s.index}').css("display","none");
+					}
+ 					if(i=='1'){
+
+//  					$(imgZoomClone).find("#reviewImgZoom2").attr("src","${path}/resources/upload/review/"+data[1]["RENAMEDFILENAME"]);
+
+ 					$(imgZoomClone).find("#imgDat2"+'${s.index}').css("display","block");
+ 					$(imgZoomClone).find("#imgDat3"+'${s.index}').css("display","none");
+//  					$(imgZoomClone).find("#imgMiniNone2").css("display","block");
+						
+					}if(i=='2'){
+
+//  					$(imgZoomClone).find("#reviewImgZoom3").attr("src","${path}/resources/upload/review/"+data[2]["RENAMEDFILENAME"]);
+
+ 					$(imgZoomClone).find("#imgDat2"+'${s.index}').css("display","block");
+ 					$(imgZoomClone).find("#imgDat3"+'${s.index}').css("display","block");
+//  					$(imgZoomClone).find("#imgMiniNone3").css("display","block");
+						
+					}
+					
+				}
+				
+			}
+			if (data=="") {
+					$("#reviewImgCon").html("");
+				
+			}
+		}
+	
+
+	});
+
+	
+	$("#content").append(imgZoomClone);
+	
+	let imgMiniNone1 = $("#modalVM"+'${s.index}').find("#imgMiniNone1").clone();
+	let imgMiniNone2 = $("#modalVM"+'${s.index}').find("#imgMiniNone2").clone();
+	$.ajax({
+		url:"${path}/product/reviewImg.do",
+		async : false,
+		data: {
+			"no":no
+		},
+		success:data=>{
+			for (var i = 0; i < data.length; i++) {	
+ 					if ('${r.REVIEW_NO}'==data[i]["REVIEW_NO"] && i=="1") {
+ 						console.log("두번쨰"+data[i]["RENAMEDFILENAME"]);
+ 					$(imgMiniNone1).find("#reviewImgZoom2").attr("src","${path}/resources/upload/review/"+data[1]["RENAMEDFILENAME"]);
+					$("#reviewImgZoomCon"+'${s.index}').append(imgMiniNone1);
+					
+					}
+ 					if ('${r.REVIEW_NO}'==data[i]["REVIEW_NO"] && i=="2") {
+ 						console.log("세번쨰"+data[i]["RENAMEDFILENAME"]);
+					$(imgMiniNone2).find("#reviewImgZoom3").attr("src","${path}/resources/upload/review/"+data[2]["RENAMEDFILENAME"]);
+					$("#reviewImgZoomCon"+'${s.index}').append(imgMiniNone2);
+					}
+ 					
+					
+				}
+				
+			
+				
+			}
+	});
 }else {
 // 	댓글이 없습니다.
 } 
+// console.log('${s.index}');
 </c:forEach>
 });
 //@리뷰이미지 컨트롤
@@ -870,6 +1049,7 @@ function numberWithCommas(x) {
 $(function(){
 	<c:forEach items="${list}" var="i">
 	
+	$("#productName").text(("${i.PRODUCT_NAME}"));
 	$("#productPrice").text(numberWithCommas(("${i.PRODUCT_PRICE}")));
 	$("#width").text(("${i.PRODUCT_WIDTH}"));
 	$("#depth").text(("${i.PRODUCT_DEPTH}"));

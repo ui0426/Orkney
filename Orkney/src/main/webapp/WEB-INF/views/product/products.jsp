@@ -109,24 +109,41 @@ for ( var i=0; i<checkBoxArr.length;i++){
 jQuery.noConflict();
 $("#frameModalBottomSuccess").modal('show');
 // alert(checkBoxArr);
-
-	
-
-
-//	for ( var i=0;i <= checkPic.length;i++){
-
-//		  let picClone = $("#bottomIMG-BoxClone").clone();
-//		  $(picClone).find("#modarBottom_Pic").attr("src",checkPic);
-
-
-//		  $("#bottomIMG-Box").append(picClone);
-			
-//		}
 }
 </script>
 <script type="text/javascript">
+// ★url 파라미터값을 가져올수 있게 하는 함수 
+				function getParameterByName(name) {
+				    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+				    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+				            results = regex.exec(location.search);
+				    return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+				}
 
-
+				$(function(){
+					
+				let category = getParameterByName('category');
+				if (category=="all") {
+					$("#categoryNone").css("display","none");
+				}
+				$.ajax({
+					url:"${path}/product/sCategory/.do",
+					type:"get",
+					async : false,
+					data:{
+						"category":category,			
+					},
+					success:data=>{		
+						for (var i = 0; i < data.length; i++) {
+							let categoryClone = $("#categoryClone").clone();
+							$(categoryClone).find("#categoryCheck").attr("value",data[i]["SMALL_CATEGORY_CONTENT"]);
+							$(categoryClone).find("#categoryName").text(data[i]["SMALL_CATEGORY_CONTENT"]);
+							
+							$("#categoryMenu").append(categoryClone);		
+						}		  										
+					}
+				})	
+			});
 
 
 				function filter() {
@@ -140,12 +157,11 @@ $("#frameModalBottomSuccess").modal('show');
 				let group4 = $('input[name="group4"]:checked').val();
 				// 색상
 				let group5 = $('input[name="group5"]:checked').val();
-
-// 				let filter= {"group1":group1,"group2":group2,"group3":group3,"group4":group4,"group5":group5};
-			
 				
-//		 		▼인기순 정렬▼
-//			if (group1=="best") {
+			
+				let category = getParameterByName('category');
+
+
 				
 				$.ajax({
 					url:"${path}/product/bestFilter.do",
@@ -156,15 +172,17 @@ $("#frameModalBottomSuccess").modal('show');
 						"group2":group2,			
 						"group3":group3,			
 						"group4":group4,			
-						"group5":group5			
+						"group5":group5,
+						"category":category
 					
 					},
 					success:data=>{
-						
+						alert(category);
 					  $("#product_list").html("");
 					  
 						for ( var i=0;i <= data.length;i++){
-
+						if (data[i]["PRODUCT_COLOR"]=="normal") {
+							
 						  let productClone = $("#products").clone();
 						
 						  $(productClone).find("#checkbox").val(data[i]["PRODUCT_PIC"]);
@@ -174,123 +192,12 @@ $("#frameModalBottomSuccess").modal('show');
 						  $(productClone).find("#pr").html(numberWithCommas(data[i]["PRODUCT_PRICE"]));
 						  $(productClone).find("#productA").attr("href","${path}/product/productDetail.do?productno="+data[i]["PRODUCT_NO"]);
 						  $(productClone).find("#readMore").attr("onclick","location.href = \'${path}/product/productDetail.do?productno="+data[i]["PRODUCT_NO"]+"\'");
-						  $("#product_list").append(productClone);
-// 						  										
+						  $("#product_list").append(productClone);						  										
+						}
 						}
 					}
 				})		
-//			}
-//		 		▼낮은가격순 정렬▼
-// 			if (group1=="lowPrice") {
-				
-// 				$.ajax({
-// 					url:"${path}/product/lowPriceFilter.do",
-// 					type:"get",
-// 					async : false,
-// 						data:{
-// 								'group1' : group1
-// 						},
-// 					success:data=>{
-// 						alert(group1);
-// 					  $("#product_list").html("");
-					  
-// 						for ( var i=0;i <= data.length;i++){
-					
-// 						  let productClone = $("#products").clone();
-						
-// 						  $(productClone).find("#product_name").html(data[i]["PRODUCT_NAME"]);
-// 						  $(productClone).find("#category").html(data[i]["BIG_CATEGORY_NO"]);
-// 						  $(productClone).find("#pr").html(numberWithCommas(data[i]["PRODUCT_PRICE"]));
-// 						  $("#product_list").append(productClone);
-								
-// 						}
-// 					}
-// 				})		
-// 			}
-// //		 		▼높은가격순 정렬▼
-// 			else if (group1=="highPrice") {
-				
-// 				$.ajax({
-// 					url:"${path}/product/highPriceFilter.do",
-// 					type:"get",
-// 					async : false,
-// 						data:{
-// 								'group1' : group1
-// 						},
-// 					success:data=>{
-// 						alert(group1);
-// 					  $("#product_list").html("");
-					  
-// 						for ( var i=0;i <= data.length;i++){
-					
-// 						  let productClone = $("#products").clone();
-						
-// 						  $(productClone).find("#product_name").html(data[i]["PRODUCT_NAME"]);
-// 						  $(productClone).find("#category").html(data[i]["BIG_CATEGORY_NO"]);
-// 						  $(productClone).find("#pr").html(numberWithCommas(data[i]["PRODUCT_PRICE"]));
-// 						  $("#product_list").append(productClone);
-								
-// 						}
-// 					}
-// 				})		
-// 			}
-		
-// //		 		▼최신순 정렬▼
-// 			else if (group1=="newProduct") {
-				
-// 				$.ajax({
-// 					url:"${path}/product/newProductFilter.do",
-// 					type:"get",
-// 					async : false,
-// 						data:{
-// 								'group1' : group1
-// 						},
-// 					success:data=>{
-// 						alert(group1);
-// 					  $("#product_list").html("");
-					  
-// 						for ( var i=0;i <= data.length;i++){
-					
-// 						  let productClone = $("#products").clone();
-						
-// 						  $(productClone).find("#product_name").html(data[i]["PRODUCT_NAME"]);
-// 						  $(productClone).find("#category").html(data[i]["BIG_CATEGORY_NO"]);
-// 						  $(productClone).find("#pr").html(numberWithCommas(data[i]["PRODUCT_PRICE"]));
-// 						  $("#product_list").append(productClone);
-								
-// 						}
-// 					}
-// 				})		
-// 			}
-		
-// //		 		▼이름순 정렬▼
-// 			else if (group1=="name") {
-				
-// 				$.ajax({
-// 					url:"${path}/product/nameFilter.do",
-// 					type:"get",
-// 					async : false,
-// 						data:{
-// 								'group1' : group1
-// 						},
-// 					success:data=>{
-// 						alert(group1);
-// 					  $("#product_list").html("");
-					  
-// 						for ( var i=0;i <= data.length;i++){
-					
-// 						  let productClone = $("#products").clone();
-						
-// 						  $(productClone).find("#product_name").html(data[i]["PRODUCT_NAME"]);
-// 						  $(productClone).find("#category").html(data[i]["BIG_CATEGORY_NO"]);
-// 						  $(productClone).find("#pr").html(numberWithCommas(data[i]["PRODUCT_PRICE"]));
-// 						  $("#product_list").append(productClone);
-								
-// 						}
-// 					}
-// 				})		
-// 			}
- 		}
+ 			}
 
 
 // 	3자리 마다 , 표시
@@ -446,7 +353,7 @@ $("#frameModalBottomSuccess").modal('show');
 
 								</div>
 							</div>
-							<div class="row">
+							<div class="row" id="categoryNone">
 								<div class="btn-group col-12 row">
 									<button type="button" id="category" class="btn col-12"
 										data-toggle="dropdown" aria-expanded="false">
@@ -456,7 +363,21 @@ $("#frameModalBottomSuccess").modal('show');
 										</div>
 									</button>
 
-									<div id="categoryMenu" style="display: none;"col-12"">카테고리</div>
+									<div id="categoryMenu" style="display: none;"col-12"">
+										<div class="form-check mb-4">
+											<input class="form-check-input " name="group3" type="radio" value="null" id="allCategory"  onclick="filter();"> 
+											<label	class="form-check-label fontborder " for="allCategory">전체 선택</label>
+										</div>
+									<div style="display: none">
+										<div class="form-check mb-4" id="categoryClone">
+											
+											<label class="form-check-label fontborder">
+											<input class="form-check-input " name="group3" type="radio" id="categoryCheck"  onclick="filter();">
+												<strong id="categoryName"></strong>
+											</label>
+										</div>
+									</div>
+									</div>
 
 								</div>
 							</div>
@@ -627,6 +548,7 @@ $("#frameModalBottomSuccess").modal('show');
 		<!-- 제품 목록 -->
 		<div class="row row-cols-1 row-cols-md-3 row-cols-sm-2 row-cols-lg-4 " id="product_list">
 		<c:forEach items="${list }" var="p">
+		<c:if test="${p.PRODUCT_COLOR == 'normal'}">
 <div class="col products" id="products" onmouseover="checkbox_Over()" onmouseout="checkbox_Out()" >
 
 
@@ -714,7 +636,7 @@ $("#frameModalBottomSuccess").modal('show');
 					<!-- Card -->
 					<hr>
 				</div>
-			
+			</c:if>
 </c:forEach>
 
 
