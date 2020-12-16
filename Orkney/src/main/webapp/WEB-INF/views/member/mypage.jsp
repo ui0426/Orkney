@@ -18,10 +18,10 @@
 	         <h1>안녕하세요, <span id="title-name"><c:out value="${ login.MEMBER_NAME }"/></span>님!</h1>
 	         <span>로그아웃을 하고 싶으신가요? <a href="${ path }/member/memberLogout.do" style="text-decoration: underline;">로그아웃</a></span>
 	      </div>
-	      <div class="point-box">
+	      <div class="point-box" onclick="location.href='${path}/point/pointForm.do'">
 	      	<div>Orkney POINT</div>
 	      	<div>사용가능 포인트</div>
-	      	<div>2,090p</div>
+	      	<div class="myPoint"><fmt:formatNumber value="${login.POINT }" pattern="###,###"/>p</div>
 	      </div>   
       </div>
       <div class="mypage-row">
@@ -251,6 +251,12 @@
        
     </div>
 <script>
+$('.point-box').mouseenter(e=>{
+	$('.point-box').css('cursor','pointer');
+	$('.myPoint').css({'text-decoration':'underline', 'text-underline-position':'under'});
+}).mouseleave(e=>{
+	$('.myPoint').css('text-decoration','none');
+})
 let makeAjax = function(url, data, success){
 		   $.ajax({
 			   type: 'post',
@@ -262,16 +268,16 @@ let makeAjax = function(url, data, success){
    
 	/* 회원탈퇴 */
 $("#deleteBtn").click(function() {
-	
-  $("#delete-modal,.delete-modal-cover,html").addClass("open");
-  window.location.hash = "#open";
+	location.href="${path}/test";  
+//   $("#delete-modal,.delete-modal-cover,html").addClass("open");
+//   window.location.hash = "#open";
   
-  makeAjax('${path}/member/insertForm.do', {form: 'member/mypageDiv/deleteModal'}, data=>{
-		  console.log(data);
-		  $.parseHTML(data);
-		  $('#delete-modal').html(data);
+//   makeAjax('${path}/member/insertForm.do', {form: 'member/mypageDiv/deleteModal'}, data=>{
+// 		  console.log(data);
+// 		  $.parseHTML(data);
+// 		  $('#delete-modal').html(data);
 	  
-  })
+//   })
   
 });
 

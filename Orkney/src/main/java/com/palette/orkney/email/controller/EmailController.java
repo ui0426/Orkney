@@ -115,6 +115,60 @@ public class EmailController {
         return mv;
     }
 	
+	
+	@RequestMapping("/hy/sendMail.do")
+	public String sendMail() {
+		
+		String noticeEmail=
+				"    <div style=\"width:100%;height:500px;min-height:500px;text-align: -webkit-center;\">\r\n" + 
+				"      <div style=\"width:65%;height:100%;display:flex; flex-direction: column; justify-content: center; background-color:rgb(242, 245, 247);max-width:709px ;\">\r\n" + 
+				"        <div style=\"width: 85%;height: 85%;align-self: center; background-color:white;padding:.5rem .8rem 0rem;text-align: -webkit-left;\">\r\n" + 
+				"          <div style=\"text-align: -webkit-center;\">\r\n" + 
+				"            <div style=\"background-image: url(https://kr.accounts.ikea.com/resources/static/logo.svg);\r\n" + 
+				"          background-repeat: no-repeat;\r\n" + 
+				"            background-size: 88px 44px;\r\n" + 
+				"            content: '';\r\n" + 
+				"            width:88px;\r\n" + 
+				"            height:44px;\r\n" + 
+				"            background-color:#0058a3;\"></div></div>\r\n" + 
+				"          <br>\r\n" + 
+				"        <div><h1 style=\"margin:0;\">안녕하세요.</h1></div>\r\n" + 
+				"        <br>\r\n" + 
+				"        <div style=\"height: 47%;\">비밀번호 변경을 요청하셨습니다.<br><br>\r\n" + 
+				"          고객님께서 요청하시지 않았다면, 보안을 위해 IKEA 계정에 로그인하실 수 있는지 확인해 주세요.<br><br>          \r\n" + 
+				"          비밀번호 변경을 요청하셨다면 아래 버튼을 눌러 비밀번호를 변경해주세요.</div>\r\n" + 
+				"          <div style=\"text-align-last: center;\"><a target='_blank'"
+				+ "href='http://localhost:9090/orkney' style=\"padding: 18px 37px 24px; border:none;background-color:#0058a3;border-radius: 30px;color: white; font-weight: 700;\">비밀번호 변경</a></div>\r\n" + 
+				"          <div><p>ORKNEY.KO</p></div>\r\n" +
+				"      </div>\r\n" + 
+				"      </div>\r\n" + 
+				"    </div>\r\n" + 
+				"</body>\r\n" + 
+				"</html>";
+             
+        try {
+            MimeMessage msg = mailSender.createMimeMessage();
+            MimeMessageHelper messageHelper = new MimeMessageHelper(msg, true,"UTF-8");
+            messageHelper.setFrom("ckfEhrlEHrl@gmail.com");
+            messageHelper.setSubject("ORKNEY 비밀번호 재설정");
+            messageHelper.setText(noticeEmail,true);
+            InternetAddress[] toAddr = new InternetAddress[2];
+            toAddr[0] = new InternetAddress("dlgkdud7845@naver.com");
+            toAddr[1] = new InternetAddress("tkdgur1239@naver.com");
+            messageHelper.setTo(toAddr);
+            msg.setRecipients(MimeMessage.RecipientType.TO , toAddr);
+            mailSender.send(msg);
+             
+        }catch(MessagingException e) {
+            e.printStackTrace();
+        }
+		
+		
+		return "";
+	}
+	
+	
+	
 
 	@RequestMapping(value="/member/emailAuth.do", method=RequestMethod.POST)//가입시 이메일 인증
     public String emailAuth(@RequestParam Map userInfo,Model m,HttpServletResponse response,HttpSession session) throws Exception {
