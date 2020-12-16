@@ -5,8 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.Cookie;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,8 +25,8 @@ public class AdminController {
 	@Autowired
 	private AdminService service;
 	@Autowired
-
 	private NoticeService nService;
+	@Autowired
 	private OrderService oservice;
 
 	
@@ -76,7 +74,9 @@ public class AdminController {
 	
 	@RequestMapping("admin/orderView.do")
 	public ModelAndView orderView(String oNo, ModelAndView mv) {
+		System.out.println(oNo);
 		Orders order = oservice.selectOrder(oNo);
+		System.out.println(order);
 		String[] addr = order.getOrder_address().split("/");
 		order.setAddress_post(addr[0]);
 		order.setAddress_addr(addr[1]);

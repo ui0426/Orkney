@@ -130,7 +130,12 @@ public class ProductDaoImpl implements ProductDao{
 		return session.selectList("product.sale");
 	}
 	 
-
+//재고갱신
+	@Override
+	public int updateStock(SqlSession session, Map m) {
+		return session.update("product.updateStock", m);
+	}
+	
 
 
 }

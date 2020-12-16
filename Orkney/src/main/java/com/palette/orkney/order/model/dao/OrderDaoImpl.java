@@ -40,6 +40,18 @@ public class OrderDaoImpl implements OrderDao {
 	}
 
 	@Override
+	public int updateSort(SqlSession session, OrderDetail od) {
+		return session.update("order.updateSort", od);
+	}
+	
+	
+	//입출고 테이블에 
+	@Override
+	public int insertShipped(SqlSession session, OrderDetail od) {
+		return session.insert("shipped.insertShipped", od);
+	}
+
+	@Override
 	public int insertOrders(SqlSession session, Orders orders) {
 		return session.insert("order.insertOrders",orders);
 	}

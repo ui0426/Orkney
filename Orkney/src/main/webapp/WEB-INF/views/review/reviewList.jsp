@@ -220,6 +220,7 @@ color: #ffc107;
 		</div>
 	</div>
 </section>
+<input type="hidden" id="s" value="${s }"/>
 <script>
 	function updateReview(rNo){
 		console.log("띄워라");
@@ -227,6 +228,12 @@ color: #ffc107;
 		window.open('${path}/review/reviewUpdate.do?rNo='+rNo,'review', 'width=650px,height=800px,toolbars=no'); return false;
 		
 	}
+	$(function(){
+		console.log($("#s").val());
+		if($("#s").val()=='wrote'){
+			$("#tab2").click();
+		}
+	});
 	$("#tab1").click(e=>{
 		$("#tab1").addClass("btn-clicked");
 		$("#tab2").removeClass("btn-clicked");
