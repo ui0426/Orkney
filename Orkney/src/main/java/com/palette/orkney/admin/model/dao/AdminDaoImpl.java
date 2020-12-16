@@ -98,6 +98,13 @@ public class AdminDaoImpl implements AdminDao {
 
 	public int updateOrderState(SqlSession session, Map o) {
 		return session.update("admin.updateOrderState", o);
+	}
+
+	@Override
+	public int updateOrderInfo(SqlSession session, Map orderInfo) {
+		return session.update("admin.updateOrderInfo", orderInfo);
 	}	
+	
+	
 	
 }

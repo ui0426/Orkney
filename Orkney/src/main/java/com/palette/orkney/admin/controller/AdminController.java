@@ -204,11 +204,17 @@ public class AdminController {
 		o.put("state", state);
 		int result = service.updateOrderState(o);
 		
-		if(result>0) {			
-			return state;
-		}else {
-			return "실패";
-		}
+		return result>0? state:"실패";
 	}
 	
+	@RequestMapping(value="/admin/updateOrderInfo.do",produces="text/plain;charset=UTF-8")
+	@ResponseBody
+	public String updateOrderInfo(@RequestParam Map<String, Object> orderInfo) {
+		System.out.println(orderInfo);
+		String address = (String)orderInfo.get("post") + "/" + (String)orderInfo.get("addr") + "/" + (String)orderInfo.get("detail");
+		orderInfo.put("address", address);
+		int result = service.updateOrderInfo(orderInfo);
+		
+		return result>0? "성공":"실패";
+	}
 }

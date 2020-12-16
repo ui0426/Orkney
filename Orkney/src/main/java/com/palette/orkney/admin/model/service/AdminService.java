@@ -34,5 +34,7 @@ public interface AdminService {
 	int modifyPoint(Map data);
 	
 	int updateOrderState(Map o);
+	
+	int updateOrderInfo(Map orderInfo);
 
 }

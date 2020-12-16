@@ -1,11 +1,13 @@
 package com.palette.orkney.order.controller;
 
+import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +15,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.palette.orkney.cart.model.service.CartService;
@@ -23,6 +27,7 @@ import com.palette.orkney.member.model.service.MemberService;
 import com.palette.orkney.order.model.service.OrderService;
 import com.palette.orkney.order.model.vo.OrderDetail;
 import com.palette.orkney.order.model.vo.Orders;
+import com.palette.orkney.review.model.vo.ReviewImage;
 
 @SessionAttributes("login")
 @Controller
@@ -245,18 +250,45 @@ public class OrderController {
 		return "order/orderPasswordCheck";
 	}
 	
-	@RequestMapping(value="/order/updateSort.do", produces="text/plain;charset=UTF-8")
+	@RequestMapping(value="/order/updateRefund.do", produces="text/plain;charset=UTF-8", method = RequestMethod.POST)
 	@ResponseBody
-	public String updateSort(int odNo, String sort) {
-		OrderDetail od = OrderDetail.builder().order_detail_no(odNo).sort(sort).build();
-		int result = service.updateSort(od);
-		return result>0?"요청이 완료되었습니다.":"요청 실패! 고객센터에 문의바랍니다.";
+	public String updateRefund(OrderDetail od, MultipartFile file, HttpSession session) throws IOException {
+		System.out.println("교환 혹은 환불 신청 한 오더 디테일 : "+od);
+		String path=session.getServletContext().getRealPath("/resources/upload/order-refund");
+		
+		File dir = new File(path);
+		
+		if(!dir.exists()) dir.mkdirs();
+
+		if(file!=null) {
+			String originalName = file.getOriginalFilename();
+			String ext = originalName.substring(originalName.lastIndexOf(".")+1);
+			System.out.println(ext);
+			
+			SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd_HHmmssSSS");
+			int rndValue = (int)(Math.random()*10000);
+			String reName="refund"+sdf.format(System.currentTimeMillis())+"_"+rndValue+"."+ext;
+			try {
+				file.transferTo(new File(path+"/"+reName));
+			}catch(IOException e) {
+				e.printStackTrace();
+			}
+			od.setRefund_pic(reName);
+			System.out.println(od);
+		}
+		int result = service.updateRefund(od);
+		return result>0? od.getSort():"실패다.";
+//		return "";
 	}
 	
 	@RequestMapping("/order/orderConfirm.do")
-	public String orderConfirm(OrderDetail od) {
-		System.out.println(od);
-		service.updateSort(od);
+	public String orderConfirm(String mNo, OrderDetail od, HttpSession session) {
+		System.out.println("구매확정 한 회원번호 : "+mNo);
+		System.out.println("구매확정 한 오더 디테일 번호 : "+od);
+		Map login = (Map)session.getAttribute("login");
+		if(login.get("MEMBER_NO").equals(mNo)) {			
+			service.orderConfirm(od, mNo); 
+		}
 		return "redirect:/order/orderView.do?oNo="+od.getOrder_no();
 	}
 	

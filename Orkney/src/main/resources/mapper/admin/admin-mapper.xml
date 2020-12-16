@@ -55,4 +55,8 @@
   	<update id="updateOrderState" parameterType="map">
   		UPDATE ORDERS SET ORDER_STATE=#{state} WHERE ORDER_NO=#{oNo}
   	</update>
+  	
+  	<update id="updateOrderInfo" parameterType="map">
+  		UPDATE ORDERS SET ORDER_NAME=#{name}, ORDER_PHONE=#{phone}, ORDER_ADDRESS=#{address} WHERE ORDER_NO=#{no}
+  	</update>
 </mapper>

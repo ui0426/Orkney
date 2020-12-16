@@ -104,4 +104,11 @@ public class AdminServiceImpl implements AdminService {
 	public int updateOrderState(Map o) {
 		return dao.updateOrderState(session, o);
 	}
+
+	@Override
+	public int updateOrderInfo(Map orderInfo) {
+		return dao.updateOrderInfo(session, orderInfo);
+	}
+	
+	
 }

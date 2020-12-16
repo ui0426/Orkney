@@ -16,6 +16,10 @@ public class OrderDetail {
 	private int product_qty;
 	private String order_no;
 	private String sort;
+	private int refund_qty;
+	private String refund_reason;
+	private String refund_content;
+	private String refund_pic;
 	
 	//product
 	private String product_name;
