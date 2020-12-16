@@ -22,6 +22,10 @@ public interface OrderDao {
 	
 	String selectEmail(SqlSession session, String oNo);
 	
+	int updateSort(SqlSession session, OrderDetail od);
+	
+	int insertShipped(SqlSession session, OrderDetail od);
+
 	int insertOrders(SqlSession session,Orders orders);
 	
 	int insertDetail(SqlSession session,Cart cart);

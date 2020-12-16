@@ -1,5 +1,6 @@
 package com.palette.orkney.order.model.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -12,6 +13,7 @@ import com.palette.orkney.member.model.vo.Point;
 import com.palette.orkney.order.model.dao.OrderDao;
 import com.palette.orkney.order.model.vo.OrderDetail;
 import com.palette.orkney.order.model.vo.Orders;
+import com.palette.orkney.product.model.dao.ProductDao;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -20,6 +22,8 @@ public class OrderServiceImpl implements OrderService {
 	private OrderDao dao;
 	@Autowired
 	private SqlSession session;
+	@Autowired
+	private ProductDao pDao;
 		
 	@Override
 	public List<Map> selectOrderList(String mNo) {
@@ -47,6 +51,26 @@ public class OrderServiceImpl implements OrderService {
 		return dao.selectEmail(session, oNo);
 	}
 	
+
+	@Override
+	public int updateSort(OrderDetail od) {
+		int result =  dao.updateSort(session, od);
+		if(result>0 && od.getSort().equals("구매확정")) {
+			result = dao.insertShipped(session, od);
+			if(result >0) {
+				int pStock=0;
+				for(Map p : pDao.productDetail(session, od.getProduct_no())){
+					pStock=Integer.parseInt(String.valueOf(p.get("PRODUCT_STOCK")));
+				}
+				System.out.println("출고 전 재고 : "+pStock);
+				Map m = new HashMap();
+				m.put("stock", String.valueOf(pStock-(int)od.getProduct_qty()));
+				m.put("no", od.getProduct_no());
+				pDao.updateStock(session, m);
+			}
+		}
+		return result;
+	}
 
 	@Override
 	public int insertOrders(Orders orders, List<Cart> c) {
@@ -77,7 +101,6 @@ public class OrderServiceImpl implements OrderService {
 //		return dao.insertPoint(session, point);
 //	}
 
-	
 	
 	
 

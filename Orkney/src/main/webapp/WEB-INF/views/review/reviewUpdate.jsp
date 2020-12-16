@@ -192,6 +192,11 @@ h1, h3{margin : 0;}
 	display: none;
 }
 
+.reviewForm-btn{
+	display: flex;
+	justify-content: center;
+}
+
 </style>
 </head>
 <body onload="mark(${review.product_grade});" >
@@ -277,132 +282,122 @@ h1, h3{margin : 0;}
 </section>
 <script> 
 
-    //별점
-    //별점
-    var locked = 0;
-    var text = "";
-    
-    //별 위에 마우스 댔을 때
-    function show(star){
-    	var i;
-    	var image;
-    	var el;
-    	var e = document.getElementById('startext');
-    	var stateMsg;
+//별점
+var locked = 0;
+var text = "";
+
+//별 위에 마우스 댔을 때
+function show(star){
+	if(locked>0) return false;
+	var i;
+	var image;
+	var el;
+	var e = document.getElementById('startext');
+	var stateMsg;
+	for(i = 1; i <= star; i++){
+		image = 'image' + i;
+		el = document.getElementById(image);
+		el.src = "${path}/resources/svg/star-1.svg";
+	}
+	switch(star){
+		case 1:
+			stateMsg = "매우 별로";
+			break;
+		case 2:
+			stateMsg = "별로";
+			break;
+		case 3:
+			stateMsg = "보통";
+			break;
+		case 4 :
+			stateMsg = "만족";
+			break;
+		case 5 :
+			stateMsg = "매우 만족";
+			break;
+		default:
+			stateMsg = "";
+ 	}
+	e.innerHTML = stateMsg;
+}
+
+//별에 올렸던 마우스를 치웠을 때
+function noshow(star){
+	var i;
+	var image;
+	var el;
+	var e = document.getElementById('startext');
     	
-    	for(i = 1; i <= star; i++){
-    		image = 'image' + i;
-    		el = document.getElementById(image);
-    		el.src = "${path}/resources/svg/star-1.svg";
+	if(locked > 0 ){
+		for(i=1; i<=locked; i++){
+    		image="image"+i;
+    		el=document.getElementById(image);
+    		el.src="${path}/resources/svg/star-1.svg";
     	}
-    	switch(star){
-    		case 1:
-    			stateMsg = "매우 별로";
-    			break;
-    		case 2:
-    			stateMsg = "별로";
-    			break;
-    		case 3:
-    			stateMsg = "보통";
-    			break;
-    		case 4 :
-    			stateMsg = "만족";
-    			break;
-    		case 5 :
-    			stateMsg = "매우 만족";
-    			break;
-    		default:
-    			stateMsg = "";
-     	}
-    	e.innerHTML = stateMsg;
-    }
-    
-    //별에 올렸던 마우스를 치웠을 때
-    function noshow(star){
-    	var i;
-    	var image;
-    	var el;
-    	var e = document.getElementById('startext');
-	    	
-    	if(locked > 0 ){
-    		for(i=1; i<=locked; i++){
-	    		image="image"+i;
-	    		el=document.getElementById(image);
-	    		el.src="${path}/resources/svg/star-1.svg";
-	    	}
-    		for(i=5; i>locked; i--){
-	    		image="image"+i;
-	    		el=document.getElementById(image);
-	    		el.src="${path}/resources/svg/star-0.svg";
-    		}
-    		e.innerHTML = text;
-    		return;
-    	}else{
-	    	for(i=1; i<=star; i++){
-	    		image="image"+i;
-	    		el=document.getElementById(image);
-	    		el.src="${path}/resources/svg/star-0.svg";
-	    	}
-	    	e.innerHTML = text;
+		for(i=5; i>locked; i--){
+    		image="image"+i;
+    		el=document.getElementById(image);
+    		el.src="${path}/resources/svg/star-0.svg";
+		}
+		e.innerHTML = text;
+		return;
+	}else{
+    	for(i=1; i<=star; i++){
+    		image="image"+i;
+    		el=document.getElementById(image);
+    		el.src="${path}/resources/svg/star-0.svg";
     	}
-    }
-    
-    
-    function lock(star){
-    	show(star);
-    	locked = star;
-    }
-    
-    //클릭했을 때
-    function mark(star){
-    	lock(star);
-    	var e = document.getElementById('startext');
-    	var stateMsg;
-    	switch(star){
-			case 1:
-				stateMsg = "매우 별로";
-				break;
-			case 2:
-				stateMsg = "별로";
-				break;
-			case 3:
-				stateMsg = "보통";
-				break;
-			case 4 :
-				stateMsg = "만족";
-				break;
-			case 5 :
-				stateMsg = "매우 만족";
-				break;
-			default:
-				stateMsg = "";
-	 	}
-		e.innerHTML = stateMsg;
-		text = stateMsg;
-    	console.log("선택"+star);
-    	document.getElementById("grade").value=star;
-    }
-    	
+    	e.innerHTML = text;
+	}
+}
 
-     	//업로드 한 이미지 미리보기
-        function setThumbnail(event) { 
 
-            // 파일 읽는 객체 생성
-            var reader = new FileReader();
-            
-            // 파일이 올라갔을 시 발생할 이벤트 작성
-            reader.onload = function(event) { //파일이 올라갔을 때
-                
-                var img = document.createElement("img"); //이미지 태그 생성
-                img.setAttribute("src", event.target.result); //생성된 이미지태그에 src속성을 생성하고 input태그에 들어간 값(파일명)을 넣어서 이미지가 나오게한다
-                img.setAttribute("width","100px");
-                img.setAttribute("height","100px");
-                document.querySelector("div#image_container").appendChild(img);
-                
-            };
+function lock(star){
+	show(star);
+	locked = star;
+}
 
-            reader.readAsDataURL(event.target.files[0]);
-        }; 
+//클릭했을 때
+function mark(star){
+	console.log(${review.review_no});
+	lock(star);
+	for(i = 1; i <= star; i++){
+		image = 'image' + i;
+		el = document.getElementById(image);
+		el.src = "${path}/resources/svg/star-1.svg";
+	}
+	for(i = 5; i>star; i--){
+		image = 'image' + i;
+		el = document.getElementById(image);
+		el.src = "${path}/resources/svg/star-0.svg";
+	}
+	var e = document.getElementById('startext');
+	var stateMsg;
+	switch(star){
+		case 1:
+			stateMsg = "매우 별로";
+			break;
+		case 2:
+			stateMsg = "별로";
+			break;
+		case 3:
+			stateMsg = "보통";
+			break;
+		case 4 :
+			stateMsg = "만족";
+			break;
+		case 5 :
+			stateMsg = "매우 만족";
+			break;
+		default:
+			stateMsg = "";
+ 	}
+	e.innerHTML = stateMsg;
+	text = stateMsg;
+	console.log("선택"+star);
+	document.getElementById("grade").value=star;
+}
+
         
    		
         $("#review-update").click(e  =>{
@@ -419,10 +414,10 @@ h1, h3{margin : 0;}
         			return false;
         		};
         		
-        		//$("#reviewForm").submit();
+        		$("#reviewForm").submit();
                
-        		var form = $("#reviewForm")[0];
-        		var forData = new FormData(form);
+        		/* var form = $("#reviewForm")[0];
+        		var formData = new FormData(form);
         		var rNo = ${review.review_no };
         		var pGrade = $("#grade").val();
         		var rContent = $("#exampleFormControlTextarea6").val();
@@ -449,7 +444,7 @@ h1, h3{margin : 0;}
                         console.log(error);
                         console.log(error.status);
                     }
-        		})
+        		}) */
         		
         })
 		 

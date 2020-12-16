@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="shipped">
+  <insert id="insertShipped" parameterType="orderDetail">
+  	INSERT INTO SHIPPED VALUES(SH_SEQ.NEXTVAL, #{product_no}, DEFAULT, #{product_qty}, '출고')
+  </insert>
+</mapper>

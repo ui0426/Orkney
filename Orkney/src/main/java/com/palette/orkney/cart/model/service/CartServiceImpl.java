@@ -34,16 +34,6 @@ public class CartServiceImpl implements CartService{
 	public int deleteProduct(Map<String, String> param) {
 		return dao.deleteProduct(session,param);
 	}
-		
-	@Override
-	public int deleteBasket(String cartNo) {
-		return dao.deleteBasket(session,cartNo);
-	}
-
-	@Override
-	public CartDetail memberInfo(Map<String, String> param2) {
-		return dao.memberInfo(session,param2);
-	}
 
 	@Override
 	public int updateDetail(Cart cart) {	
@@ -78,6 +68,11 @@ public class CartServiceImpl implements CartService{
 	@Override
 	public int selectCount(String cartNo) {
 		return dao.selectCount(session,cartNo);
+	}
+
+	@Override
+	public int cartDelete(String cartNo) {
+		return dao.cartDelete(session,cartNo);
 	}
 
 	

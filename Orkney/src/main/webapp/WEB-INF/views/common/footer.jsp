@@ -28,9 +28,9 @@
 
       <!-- Grid column -->
       <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
-        <h6 class="text-uppercase mb-4 font-weight-bold">KKEA CREW</h6>
-        <p>KKEA CREW에 가입하고 다양한 혜택을 즐겨보세요</p>
-        <button class="btn btn-black enBtn">KKEA CREW 가입하기</button>
+        <h6 class="text-uppercase mb-4 font-weight-bold">ORKNEY CREW</h6>
+        <p>ORKNEY CREW에 가입하고 다양한 혜택을 즐겨보세요</p>
+        <button class="btn btn-black enBtn">ORKNEY CREW 가입하기</button>
       </div>
       <!-- Grid column -->
 
@@ -157,7 +157,11 @@
 
 </footer>
 <!-- Footer -->
-
+<script>
+	$(".enBtn").click(e=>{
+		location.href='${path}/member/signup.do';
+	})
+</script>
  
  
 </body>

@@ -13,4 +13,8 @@ public interface NoticeDao {
 
 	List<Map> categoryFAQ(SqlSession session, Map type);
 
+	List<String> categoryList(SqlSession session);
+
+	int increasePopular(SqlSession session, String no);
+
 }

@@ -42,10 +42,66 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
+	public int modifyFAQ(Map data) {
+		// TODO Auto-generated method stub
+		return dao.modifyFAQ(session,data);
+	}
+
+	@Override
+	public int addFAQ(Map data) {
+		// TODO Auto-generated method stub
+		return dao.addFAQ(session,data);
+	}
+
+	@Override
+	public int deleteFAQ(String no) {
+		// TODO Auto-generated method stub
+		return dao.deleteFAQ(session,no);
+	}
+
+	@Override
+	public List<Map> memberList(int cPage,int numPerPage) {
+		// TODO Auto-generated method stub
+		return dao.memberList(session,cPage,numPerPage);
+	}
+
+	@Override
+	public int totalData() {
+		// TODO Auto-generated method stub
+		return dao.totalData(session);
+	}
+
+	@Override
+	public List<Map> memberAddr(String no) {
+		// TODO Auto-generated method stub
+		return dao.memberAddr(session,no);
+	}
+
+	@Override
+	public List<Map> orderList(String no) {
+		// TODO Auto-generated method stub
+		return dao.orderList(session,no);
+	}
+
+	@Override
+	public int deleteMember(String no) {
+		// TODO Auto-generated method stub
+		return dao.deleteMember(session,no);
+	}
+
+	@Override
+	public int modifyPoint(Map data) {
+		// TODO Auto-generated method stub
+		int result=dao.modifyPoint(session,data);
+		int result2=0;
+		if(result>0) {
+			result2=dao.pointModify(session,data);
+		}
+		
+		return result;
+	}
+	
 	public int updateOrderState(Map o) {
 		return dao.updateOrderState(session, o);
 	}
-	
-	
-	
 }

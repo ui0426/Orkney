@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.palette.orkney.notice.model.service.NoticeService;
 
@@ -34,6 +35,15 @@ public class NoticeController {
 		m.addAttribute("list",service.categoryFAQ(type));
 		
 		return "ajax/popularQuestion";
+	}
+	
+	@RequestMapping("/notice/increasePopular.do")
+	@ResponseBody
+	public boolean increasePopular(@RequestParam(value="no") String no) {
+		boolean flag=false;
+		int result=service.increasePopular(no);
+		if(result>0) flag=true;
+		return flag;
 	}
 	
 }

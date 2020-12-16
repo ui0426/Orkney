@@ -24,6 +24,11 @@
 		select member_id from member join orders using(member_no) where order_no=#{order_no}
 	</select>
 	
+	<!-- 교환, 반품신청, 구매확정 -->
+	<update id="updateSort" parameterType="orderDetail">
+		UPDATE ORDER_DETAIL SET SORT=#{sort} WHERE ORDER_DETAIL_NO=#{order_detail_no}
+	</update>
+
 	
 	<insert id="insertOrders" parameterType="order">
 		insert into orders values(TO_CHAR(O_SEQ.nextval,'FM000000000'),#{member_no},sysdate,#{order_name},#{order_phone},#{order_address},#{order_qty},#{total_price},default,#{order_memo},#{payment_method},default )
