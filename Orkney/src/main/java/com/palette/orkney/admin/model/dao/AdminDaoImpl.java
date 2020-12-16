@@ -7,6 +7,7 @@ import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.palette.orkney.order.model.vo.OrderDetail;
 import com.palette.orkney.order.model.vo.Orders;
 
 @Repository
@@ -31,8 +32,9 @@ public class AdminDaoImpl implements AdminDao {
 	}
 
 	@Override
-	public List<Orders> selectOrderList(SqlSession session) {
-		return session.selectList("admin.selectOrderList");
+	public List<Orders> selectOrderList(SqlSession session,int cPage,int numPerPage) {
+		RowBounds rs=new RowBounds((cPage-1)*numPerPage,numPerPage);
+		return session.selectList("admin.selectOrderList",null,rs);
 	}
 
 	@Override
@@ -98,6 +100,23 @@ public class AdminDaoImpl implements AdminDao {
 
 	public int updateOrderState(SqlSession session, Map o) {
 		return session.update("admin.updateOrderState", o);
+	}
+
+	@Override
+	public Map countOrderState(SqlSession session) {	
+		return session.selectOne("admin.countOrderState");
+	}
+
+	@Override
+	public int totalOrder(SqlSession session) {	
+		return session.selectOne("admin.totalOrder");
+	}
+
+	@Override
+	public List<OrderDetail> selectChangeList(SqlSession session) {	
+		return session.selectList("admin.selectChangeList");
 	}	
+	
+	
 	
 }

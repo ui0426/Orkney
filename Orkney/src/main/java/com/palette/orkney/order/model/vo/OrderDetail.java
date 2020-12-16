@@ -37,4 +37,8 @@ public class OrderDetail {
 	
 	//review
 	private int review_no;
+	
+	//refund
+	private String refund_qty;
+	private String member_id;	
 }

@@ -14,6 +14,7 @@
   	<select id="selectOrderList" resultType="order">
   		SELECT * FROM ORDERS JOIN MEMBER USING(MEMBER_NO) ORDER BY ORDER_DATE DESC
   	</select>
+  	
   	<update id="modifyFAQ" parameterType="map">
   		UPDATE FAQ SET FAQ_TITLE=#{title},FAQ_CONTENT=#{content},CATEGORY=#{category} WHERE FAQ_NO=#{no}
   	</update>
@@ -55,4 +56,18 @@
   	<update id="updateOrderState" parameterType="map">
   		UPDATE ORDERS SET ORDER_STATE=#{state} WHERE ORDER_NO=#{oNo}
   	</update>
+  	
+  	<select id="countOrderState" resultType="map">
+	select count(case when order_state='주문확인' then 1 end) as "주문확인",count(case when order_state='취소신청' then 1 end) as "취소신청",
+	count(case when sort='교환신청' then 1 end)as "교환신청",count(case when sort='반품신청' then 1 end)as "반품신청"
+	from order_detail join orders using(order_no)
+  	</select>
+  	
+  	<select id="totalOrder" resultType="_int">
+  		SELECT COUNT(*) FROM orders
+  	</select>
+  	
+  	<select id="selectChangeList" resultType="orderDetail">
+  		SELECT * FROM ORDERS JOIN order_detail USING(order_NO) join member using(member_no) join product using(product_no) where sort='교환신청' or sort='반품신청' ORDER BY ORDER_DATE DESC
+  	</select>
 </mapper>

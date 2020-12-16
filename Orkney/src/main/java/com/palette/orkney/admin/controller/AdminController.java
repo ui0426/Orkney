@@ -17,6 +17,7 @@ import com.palette.orkney.admin.model.service.AdminService;
 import com.palette.orkney.common.page.PageFactory;
 import com.palette.orkney.notice.model.service.NoticeService;
 import com.palette.orkney.order.model.service.OrderService;
+import com.palette.orkney.order.model.vo.OrderDetail;
 import com.palette.orkney.order.model.vo.Orders;
 
 @Controller
@@ -65,10 +66,38 @@ public class AdminController {
 		return "admin/adminBasic";
 	}
 	
+	//주문리스트
 	@RequestMapping("/admin/orderList.do")
-	public ModelAndView orderList(ModelAndView mv) {
-		mv.addObject("order", service.selectOrderList());
+	public ModelAndView orderList(ModelAndView mv) {			
+		Map rs=service.countOrderState();		
+		mv.addObject("count",rs);		
 		mv.setViewName("admin/order/adminOrderList");
+		return mv;
+	}
+	
+	@RequestMapping("/admin/orderListData.do")
+	public ModelAndView orderListData(ModelAndView mv,@RequestParam(value="cPage",defaultValue="0") int cPage) {
+		int numPerPage=10;
+		List<Orders> list=service.selectOrderList(cPage,numPerPage);
+		
+		System.out.println("list:"+list);
+		
+		int totalOrder = service.totalOrder();
+		String pageBar=PageFactory.getPageBar(totalOrder, cPage);		
+
+		mv.addObject("order", list);
+		mv.addObject("pageBar", pageBar);
+		mv.setViewName("ajax/orderList");
+		return mv;
+	}
+
+	@RequestMapping("/admin/orderChangeList.do")
+	public ModelAndView orderChangeList(ModelAndView mv) {
+		
+		List<OrderDetail> list=service.selectChangeList();
+		System.out.println(list);		
+		mv.addObject("change",list);		
+		mv.setViewName("ajax/orderChangeList");
 		return mv;
 	}
 	
@@ -82,8 +111,7 @@ public class AdminController {
 		order.setAddress_addr(addr[1]);
 		order.setAddress_detail(addr[2]);
 		order.setOdList(oservice.selectOrderDetail(oNo));
-		mv.addObject("order", order);
-		mv.setViewName("order/orderView");
+		mv.addObject("order", order);		
 		mv.setViewName("admin/order/adminOrderView");
 		return mv;
 	}
