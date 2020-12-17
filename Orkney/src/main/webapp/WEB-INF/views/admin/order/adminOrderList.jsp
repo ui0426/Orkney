@@ -75,29 +75,43 @@
 				}) */
 			</script>
 			
-			<div class="search-container">
+		<div class="search-container">			
 				<select class="browser-default custom-select" style="width: 21%;">
-				  <option selected>Open this select menu</option>
-				  <option value="1">주문번호</option>
-				  <option value="2">주문자</option>
-				  <option value="3">수령자</option>
+				  <option value="all" <c:if test="${map.search_option=='all'}">selected </c:if>>전체보기</option>
+				  <option value="ono" <c:if test="${map.search_option=='ono'}">selected </c:if>>주문번호</option>
+				  <option value="name" <c:if test="${map.search_option=='name'}">selected </c:if>>주문자</option>
+				  <option value="status" <c:if test="${map.search_option=='status'}">selected </c:if>>진행상태</option>
 				</select>
-				<input type="text" id="exampleForm2" class="form-control">
-				<span style="padding: 5px;"><button class="searchBtn"></button></span> 
-			</div>
+				<input type="text" name="keyword" class="form-control" value="${map.keyword}" placeholder="검색어 입력"/>				
+				<span style="padding: 5px;">
+					<input type="button" class="searchBtn">
+				</span> 			
+		</div>
 				
 		</div>
 		<div><h5>주문검색</h5></div>
 		<div>			
 			<div id="list"></div>			
 			<script>
-				$(function(){
+				$(function(){										
 					$.ajax({
 						url:"${path}/admin/orderListData.do",						
 						success:data=>{
 							$("#list").html(data);
 						}
 					})					
+				})
+				$(".searchBtn").click(function(){
+					console.log("되구있나");
+					let keyword=$(".form-control").val();
+					console.log(keyword);
+					$.ajax({
+						url:"${path}/admin/orderListData.do",	
+						data:{keyword:keyword},
+						success:data=>{
+							$("#list").html(data);
+						}
+					})
 				})
 				
 				function fn_paging(cPage){

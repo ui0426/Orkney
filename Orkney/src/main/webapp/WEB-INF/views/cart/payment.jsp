@@ -81,9 +81,9 @@
             
             <div class="field">
             	<span class="first-div">주소</span>
-            	<div class="padding-input"><input type="text" class="input1 input1-extra" id="post" placeholder="<c:out value="${ post }"/>" readonly></div>    
-            	<div class="padding-input"><input type="text" class="input1 input1-extra" id="addrDetail" placeholder="<c:out value="${ addrDetail }"/>" readonly></div>    
-            	<div class="padding-input"><input type="text" class="input1 input1-extra" id="orizip" placeholder="<c:out value="${ orizip }"/>" readonly></div>    
+            	<div class="padding-input"><input type="text" class="input1-extra" id="post" placeholder="<c:out value="${ post }"/>" readonly></div>    
+            	<div class="padding-input"><input type="text" class="input1-extra" id="addrDetail" placeholder="<c:out value="${ addrDetail }"/>" readonly></div>    
+            	<div class="padding-input"><input type="text" class="input1-extra" id="orizip" placeholder="<c:out value="${ orizip }"/>" readonly></div>    
             </div>                                    
             
         </div>

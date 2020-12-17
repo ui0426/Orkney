@@ -37,7 +37,8 @@
         } 
 
         /* section1 */
-        .section1{          
+        .section1{        
+        	min-width: 450px;      
             width: 100%;
         }       
         .product-pic img{

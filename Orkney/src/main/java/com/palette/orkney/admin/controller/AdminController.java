@@ -75,15 +75,19 @@ public class AdminController {
 	}
 
 	@RequestMapping("/admin/orderListData.do")
-	public ModelAndView orderListData(ModelAndView mv, @RequestParam(value = "cPage", defaultValue = "0") int cPage) {
+	public ModelAndView orderListData(ModelAndView mv, 
+			@RequestParam(value = "cPage", defaultValue = "0") int cPage,
+			@RequestParam(defaultValue="all") String search_option,
+			@RequestParam(defaultValue="") String keyword) {
 		int numPerPage = 10;
-		List<Orders> list = service.selectOrderList(cPage, numPerPage);
+		
+		List<Orders> list = service.selectOrderList(cPage, numPerPage,search_option,keyword);
 
 		System.out.println("list:" + list);
 
 		int totalOrder = service.totalOrder();
 		String pageBar = PageFactory.getPageBar(totalOrder, cPage);
-
+				
 		mv.addObject("order", list);
 		mv.addObject("pageBar", pageBar);
 		mv.setViewName("ajax/orderList");
