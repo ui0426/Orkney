@@ -37,6 +37,7 @@
 	border:none;
 	outline:none;
 	width:50px;	
+    text-align: center;
 }
 .searchBtn{
     width: 30px;
@@ -45,4 +46,10 @@
     background-size: 30px 30px;
     border: none;
     outline: none;         
+}
+
+.topList{
+	display: none;
+    margin: 0 1em;
+    border: tomato 5px solid;
 }

@@ -16,7 +16,7 @@ public interface AdminService {
 		
 	List<Orders> selectOrderList(int cPage, int numPerPage);
 
-	List<OrderDetail> selectChangeList();
+	List<Orders> selectOrderChangeList(Map s);
 	
 	int modifyFAQ(Map data);
 
@@ -45,5 +45,7 @@ public interface AdminService {
 	int totalOrder();
 	
 	List<Orders> updateOrderListState(int cPage, int numPerPage, Map m);
+	
+	List<OrderDetail> selectOrderDetailChangeList(String state);
 
 }

@@ -71,8 +71,16 @@
   		SELECT COUNT(*) FROM orders
   	</select>
   	
-  	<select id="selectChangeList" resultType="orderDetail">
-  		SELECT * FROM ORDERS JOIN order_detail USING(order_NO) join member using(member_no) join product using(product_no) where sort='교환신청' or sort='반품신청' ORDER BY ORDER_DATE DESC
+  	<select id="selectOrderChangeList" parameterType="map" resultType="order">
+  		SELECT * FROM ORDERS join member using(member_no) where 
+  		<if test='state=="취소신청"'>
+  			order_state='취소신청1' OR ORDER_STATE='취소신청2'
+  		</if>
+  		<if test='state=="주문확인"'>  		
+  		order_state=#{state} 
+  		</if>
+  		
+  		ORDER BY ORDER_DATE DESC
   	</select>
   	
   	<update id="updateOrderListState" parameterType="map">
@@ -80,4 +88,8 @@
   			UPDATE ORDERS SET ORDER_STATE=#{state} WHERE ORDER_NO=#{oNo}
   		</foreach>
   	</update>
+  	
+  	<select id="selectOrderDetailChangeList" parameterType="string" resultType="orderDetail">
+  		SELECT * FROM ORDER_DETAIL JOIN ORDERS USING(ORDER_NO) JOIN MEMBER USING(MEMBER_NO) JOIN PRODUCT USING(PRODUCT_NO) WHERE SORT=#{state}
+  	</select>
 </mapper>

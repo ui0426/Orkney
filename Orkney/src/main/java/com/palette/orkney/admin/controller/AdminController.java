@@ -90,12 +90,24 @@ public class AdminController {
 		return mv;
 	}
 
-	@RequestMapping("/admin/orderChangeList.do")
-	public ModelAndView orderChangeList(ModelAndView mv) {
-
-		List<OrderDetail> list = service.selectChangeList();
+	@RequestMapping("/admin/selectOrderChangeList.do")
+	public ModelAndView orderChangeList(String state, ModelAndView mv) {
+		System.out.println("주문확인 또는 취소신청 나와야함 : "+state);
+		Map s = new HashMap();
+		s.put("state", state);
+		List<Orders> list = service.selectOrderChangeList(s);
 		System.out.println(list);
-		mv.addObject("change", list);
+		mv.addObject("order", list);
+		mv.setViewName("ajax/orderChangeList");
+		return mv;
+	}
+	
+	@RequestMapping("/admin/selectOrderDetailChangeList.do")
+	public ModelAndView orderDetailChangeList(String state, ModelAndView mv) {
+		System.out.println("교환신청 또는 반품신청 나와야함 : "+state);
+		List<OrderDetail> list = service.selectOrderDetailChangeList(state);
+		System.out.println(list);
+		mv.addObject("orderDetail", list);
 		mv.setViewName("ajax/orderChangeList");
 		return mv;
 	}
