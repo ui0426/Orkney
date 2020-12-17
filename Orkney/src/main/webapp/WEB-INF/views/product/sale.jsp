@@ -35,7 +35,7 @@
 						생각해요. 그래서 디자인, 제작, 플랫팩 포장 과정 전반에 걸쳐 가장 좋은 방법을 찾기 위해 많은 시간을 투자하고
 						있죠. 투자한 시간만큼 모두가 비용을 절약할 수 있게 됩니다. IKEA는 생산 비용을, 고객 여러분은 구매 비용을
 						말이죠. 작은 빨간라벨은 단순히 좋은 가격만 나타내는 것이 아니에요. 더 낮은 가격에 더 좋은 것을 제공하기 위한
-						IKEA의 노력에도 끝이란 없습니다.</span> <a class="ev-md-secondary-2nd" href="${path}">
+						IKEA의 노력에도 끝이란 없습니다.</span> <a class="ev-md-secondary-2nd" href="${path}/product/products.do?category=all&sale=sale">
 						<span class="ev-md-small"> <span class="ev-md-label">더
 								낮은 새로운 가격의 제품 보기 </span>
 					</span>
@@ -53,13 +53,13 @@
 							<a> 
 								 <fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today" />  
 								<fmt:formatDate value="${p.PRODUCT_ENROLL_DATE }" pattern="yyyy-MM-dd" var="write_dt"/>
-								<span class="rm-pb-et-new" style="display: inline;">${today >= write_dt?'NEW':""}</span>
-								<span class="ev-pb-et-p">더 낮은 새로운 가격</span> 
-								<span class="ev-bt-name">${p.PRODUCT_NAME}</span> 
-								<span class="rm-bt-sp"> ${p.BIG_CATEGORY_CONTENT} </span>
-								<span class="rm-bt-et-price"><fmt:setLocale value="ko_KR" />
+								<span class="rm-pb-et-new bottom-mig" style="display: inline;">${today >= write_dt?'NEW':""}</span>
+								<span class="ev-pb-et-p bottom-mig">더 낮은 새로운 가격</span> 
+								<span class="ev-bt-name bottom-mig">${p.PRODUCT_NAME}</span> 
+								<span class="rm-bt-sp bottom-mig"> ${p.BIG_CATEGORY_CONTENT} </span>
+								<span class="rm-bt-et-price bottom-mig"><fmt:setLocale value="ko_KR" />
 								<fmt:formatNumber type="currency" value="${p.PRODUCT_PRICE*(p.SALE_PER/100)}" /></span> 
-								<span class="ev-bt-price"><fmt:setLocale value="ko_KR" /> 
+								<span class="ev-bt-price" style="font-size:1rem;"><fmt:setLocale value="ko_KR" /> 
 								<fmt:formatNumber type="currency" value="${p.PRODUCT_PRICE}" /></span>
 							</a>
 						</li>
@@ -81,7 +81,7 @@
 						</div>
 
 					</div>
-					<a class="ev-md-secondary" href="${path}" style="color:black;"> <span
+					<a class="ev-md-secondary" href="${path}/product/products.do?category=all&sale=sale" style="color:black;"> <span
 						class="ev-md-small-ww"> <span class="ev-md-label-ww">더 많은
 								제품 확인하기 </span>
 					</span>

@@ -35,12 +35,13 @@ public class ProductController {
 
    @RequestMapping("/product/products.do")
    @ResponseBody
-   public ModelAndView products(ModelAndView mv
-         ,@RequestParam(name="category") String bicCategory
-         ) {
+   public ModelAndView products(ModelAndView mv  ,@RequestParam(name="sale")String sale,@RequestParam(name="category") String bicCategory) {
       
       Map<String, Object> category = new HashMap();
       category.put("category", bicCategory);
+		
+	 category.put("sale",sale);
+		 
       System.out.println(category);
       
       mv.addObject("list",service.productList(category));

@@ -54,10 +54,10 @@
 						<c:if test="${r.ROOM_NO == p.ROOM_NO}">
 							<div class="rm-bt"
 								style="top:${p.ROOMS_TOP>'0.4'?p.ROOMS_TOP:'0.4'}%; left:${p.ROOMS_LEFT<'94'?p.ROOMS_LEFT:'94'}%;">
-								<a class="rm-a" href="${path}"></a>
+								<a class="rm-a" ></a>
 								<div class="rm-pd-a"
 									style="transform: translateX(-42%) translateY(-87%) translateY(-1.5rem);">
-									<a class="rm-a-a" href="${path}">
+									<a class="rm-a-a" href="${path}/product/productDetail.do?productno=${p.PRODUCT_NO}">
 										<div class="rm-pd-box">
 											<div class="rm-pd-box-box">
 											 <fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today" />  
@@ -140,17 +140,15 @@
 								<div class="card">
 									<!--Card image-->
 									<div class="view overlay zoom">
-										<img class="card-img-top"
-											src="${path}/resources/images/product/${p.PRODUCT_PIC}"
-											alt="Card image cap"> <a
-											href="${path}/product/productDetail.do">
+										<img class="card-img-top" src="${path}/resources/images/product/${p.PRODUCT_PIC}" alt="Card image cap">
+											 <a class="a-link" href="${path}/product/productDetail.do?productno=${p.PRODUCT_NO}">
 											<div class="mask rgba-white-slight"></div>
 										</a>
 									</div>
 									<!--Card content-->
 									<div class="card-body">
 									<fmt:formatDate value="${p.PRODUCT_ENROLL_DATE }" pattern="yyyy-MM-dd" var="write_dt"/>
-												<span class="rm-pb-et-new">${today >= write_dt?'NEW':""}</span>
+												<span class="rm-pb-et-new">${today <= write_dt?'NEW':""}</span>
 												<span class="rm-pb-et-p">${p.SALE_PER!=null?"더 낮은 새로운 가격":""}</span>												
 																		
 										<!--Title-->
@@ -226,7 +224,7 @@
 									<div class="view overlay zoom">
 									 <img class="card-img-top"
 											src=""  alt="Card image cap" > 
-											<a href="${path}/product/productDetail.do"> 
+											<a class="a-link" href=""> 
 											<div class="mask rgba-white-slight"></div>
 										</a>
 									</div>
@@ -432,6 +430,7 @@ function numberWithCommas(x) {
 					    	  $(cl).find(".card-img-top").attr("src","${path}/resources/images/product/" +data[i]["PRODUCT_PIC"]  );   
 					    	   $(cl).find(".card-title").html(data[i]["PRODUCT_NAME"]);
 					    	   $(cl).find(".ht-one").html(data[i]["SMALL_CATEGORY_NO"]);
+					    	   $(cl).find(".a-link").attr("href","${path}/product/productDetail.do?productno="+data[i]["SMALL_CATEGORY_NO"]);
 					    	   if(today<endDate){
 					    	   $(cl).find(".rm-pb-et-new").text('');
 					    	 	}
@@ -538,6 +537,7 @@ function numberWithCommas(x) {
 							    	  $(cl).find(".card-img-top").attr("src","${path}/resources/images/product/" +data[i]["PRODUCT_PIC"]  );   
 							    	   $(cl).find(".card-title").html(data[i]["PRODUCT_NAME"]);
 							    	   $(cl).find(".ht-one").html(data[i]["SMALL_CATEGORY_NO"]);
+							    	   $(cl).find(".a-link").attr("href","${path}/product/productDetail.do?productno="+data[i]["SMALL_CATEGORY_NO"]);
 							    	   if(today<endDate){
 								    	   $(cl).find(".rm-pb-et-new").text('');
 								    	 	}
