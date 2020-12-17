@@ -81,7 +81,7 @@
   	</update>
   	
   	<select id="countOrderState" resultType="map">
-	select count(case when order_state='주문확인' then 1 end) as "주문확인",count(case when order_state='취소신청' then 1 end) as "취소신청",
+	select count(case when order_state='주문확인' then 1 end) as "주문확인",count(case when order_state='취소신청1' or order_state='취소신청2' then 1 end) as "취소신청",
 	count(case when sort='교환신청' then 1 end)as "교환신청",count(case when sort='반품신청' then 1 end)as "반품신청"
 	from order_detail join orders using(order_no)
   	</select>
