@@ -30,7 +30,7 @@
 	margin-bottom: 2em;
 }
 .basic-info-container{
-	border: yellowgreen 1px solid;
+	border: #4285f4 1px solid;
     border-radius: .2em;
     padding: .5em;
     margin: .5em 0;

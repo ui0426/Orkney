@@ -127,11 +127,13 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public List<Orders> updateOrderListState(int cPage, int numPerPage, Map m) {
+	public List<Orders> updateOrderListState(int cPage, int numPerPage, Map m, String search_option, String keyword) {
 		int result = dao.updateOrderListState(session, m);
+		System.out.println("업데이트 결과 값"+result);
 		List<Orders> list = new ArrayList();
-		if(result > 0) {
-//			list = dao.selectOrderList(session,cPage,numPerPage);
+		if(result != 0) {
+			list = dao.selectOrderList(session,cPage,numPerPage, search_option, keyword);
+			System.out.println("리스트 갱신 : "+list);
 		}
 		return list;
 	}

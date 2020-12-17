@@ -267,7 +267,11 @@ public class AdminController {
 
 	@RequestMapping("/admin/updateOrderListState.do")
 	@ResponseBody
-	public ModelAndView updateOrderListState(@RequestParam(value = "state") String state, @RequestParam(value = "oNos[]") List<String> oNos, @RequestParam(value = "cPage", defaultValue = "0") int cPage, ModelAndView mv) {
+	public ModelAndView updateOrderListState(@RequestParam(value = "state") String state, 
+			@RequestParam(value = "oNos[]") List<String> oNos, 
+			@RequestParam(value = "cPage", defaultValue = "0") int cPage, 
+			@RequestParam(defaultValue="all") String search_option,
+			@RequestParam(defaultValue="") String keyword, ModelAndView mv) {
 
 		int numPerPage = 10;
 		Map m = new HashMap();
@@ -275,7 +279,7 @@ public class AdminController {
 		m.put("state", state);
 		System.out.println(m);
 		
-		 List<Orders> list = service.updateOrderListState(cPage, numPerPage, m);
+		 List<Orders> list = service.updateOrderListState(cPage, numPerPage, m, search_option, keyword);
 		  
 		//List<Orders> list=service.selectOrderList(cPage,numPerPage);
 		 
@@ -285,7 +289,9 @@ public class AdminController {
 		 
 		 String pageBar=PageFactory.getPageBar(totalOrder, cPage);
 		  
-		 mv.addObject("order", list); mv.addObject("pageBar", pageBar); mv.setViewName("ajax/orderList");
+		 mv.addObject("order", list); 
+		 mv.addObject("pageBar", pageBar); 
+		 mv.setViewName("ajax/orderList");
 		 
 		return mv;
 	}

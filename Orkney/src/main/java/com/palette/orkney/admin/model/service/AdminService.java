@@ -44,7 +44,7 @@ public interface AdminService {
 	
 	int totalOrder();
 	
-	List<Orders> updateOrderListState(int cPage, int numPerPage, Map m);
+	List<Orders> updateOrderListState(int cPage, int numPerPage, Map m, String search_option, String keyword);
 	
 	List<OrderDetail> selectOrderDetailChangeList(String state);
 
