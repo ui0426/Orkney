@@ -74,6 +74,7 @@ public class ProductController {
    public ModelAndView productDetail(ModelAndView mv,
                            @RequestParam(name="productno") String productno
          ) {
+	   
       mv.addObject("review",service.review(productno));
       mv.addObject("list", service.productDetail(productno));
       mv.setViewName("/product/productDetail");
