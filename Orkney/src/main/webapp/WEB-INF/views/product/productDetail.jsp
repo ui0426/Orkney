@@ -400,7 +400,7 @@ height: 32rem;
 							role="listbox">
 							
 							<div class="carousel-item active">
-								<img id="img_main"
+								<img class="img_main"
 									src=""
 									alt="First slide" class="img-fluid">
 							</div>
@@ -435,9 +435,9 @@ height: 32rem;
 
 				<div class="col-lg-5 text-center text-md-left">
 
-					<h1 id="productName"
+					<h1 class="productName"
 						class="h2-responsive text-center text-md-left product-name font-weight-bold dark-grey-text mb-1 ml-xl-0 ml-4">
-						<c:out value="${p.PRODUCT_NAME}"></c:out>
+						<c:out value="${p.PRODUCT_NAME}"/>
 					</h1>
 <!-- 					할인표시 -->
 <!-- 					<span class="badge badge-danger product mb-4 ml-xl-0 ml-4">bestseller</span> -->
@@ -587,16 +587,57 @@ height: 32rem;
 							<div class="row mt-3">
 								<div class="col-md-12 text-center text-md-left">
 								<br>
-									<button class="btn btn-primary btn-rounded col-8" style="background-color: #004f93 !important; border-radius: 52px; width ">
-										<i class="fas fa-cart-plus mr-2" aria-hidden="true"></i> Add
-										to cart
-									</button>
+								
+<button class="btn btn-primary btn-rounded col-8 productNo" style="background-color: #004f93 !important; border-radius: 52px; width " data-toggle="modal" data-target="#modalAbandonedCart" onclick="">
+			<i class="fas fa-cart-plus mr-2" aria-hidden="true"></i>																				
+</button>									
 									<button class="" style="border: 1px solid gray; border-radius: 52px; width: 40px; height: 40px;">
 										<i class="far fa-heart"></i>
 									</button>
 								</div>
 							</div>
-
+				
+<!-- Modal: modalAbandonedCart-->
+<div class="modal fade right" id="modalAbandonedCart" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true" data-backdrop="false">
+  <div class="modal-dialog modal-side modal-top-right modal-notify modal-info" role="document">
+    <!--Content-->
+    <div class="modal-content">
+      <!--Header-->
+      <div class="modal-header">
+        <p class="heading">장바구니</p>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true" class="white-text">&times;</span>
+        </button>
+      </div>
+      <!--Body-->
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-3">                       
+            <img class="img_main" src="">
+          </div>
+          <div class="col-9">
+            <p>상품을 더 구매하시겠습니까??</p>
+            <div style="display:flex;">            
+            	<div class="productName"><c:out value="${p.PRODUCT_NAME}"/></div>
+            	<div>상품이</div>
+            </div>
+            <p>장바구니에 추가되었습니다.</p>
+          </div>
+        </div>
+      </div>
+      <!--Footer-->
+      <div class="modal-footer justify-content-center">
+        <a type="button" class="btn btn-info">장바구니로 가기</a>        
+      </div>
+    </div>
+    <!--/.Content-->
+  </div>
+</div>
+<!-- Modal: modalAbandonedCart-->
+								
+								
+								
 							<!--             좋아요 버튼 -->
 
 
@@ -1021,13 +1062,8 @@ if ("${r.REVIEW_NO}"!=null) {
  						console.log("세번쨰"+data[i]["RENAMEDFILENAME"]);
 					$(imgMiniNone2).find("#reviewImgZoom3").attr("src","${path}/resources/upload/review/"+data[2]["RENAMEDFILENAME"]);
 					$("#reviewImgZoomCon"+'${s.index}').append(imgMiniNone2);
-					}
- 					
-					
-				}
-				
-			
-				
+					} 										
+				}									
 			}
 	});
 }else {
@@ -1047,15 +1083,16 @@ function numberWithCommas(x) {
 
 // @제품정보 컨트롤
 $(function(){
-	<c:forEach items="${list}" var="i">
-	
-	$("#productName").text(("${i.PRODUCT_NAME}"));
+		
+	<c:forEach items="${list}" var="i">	
+	$("#productNo").text(("${i.PRODUCT_NO}"));	
+	$(".productName").text(("${i.PRODUCT_NAME}"));
 	$("#productPrice").text(numberWithCommas(("${i.PRODUCT_PRICE}")));
 	$("#width").text(("${i.PRODUCT_WIDTH}"));
 	$("#depth").text(("${i.PRODUCT_DEPTH}"));
 	$("#height").text(("${i.PRODUCT_HEIGHT}"));
 	
-	
+	$(".productNo").attr("onclick","location.href='${path }/cart/cartInsert.do?productNo=${i.PRODUCT_NO}'");
 	</c:forEach>
 });
 
@@ -1066,9 +1103,9 @@ $(function(){
 						
 // 	alert(imgarr);
 	<c:forEach items="${list}" var="i"  varStatus="s">
-// 		alert("${s.index}"+":"+"${i.PRODUCT_PIC}");
+// 		alert("${s.index}"+":"+"${i.PRODUCT_PIC}");		
 		if ('${s.index}'=='0') {
-			$("#img_main").attr("src","${path}/resources/images/product/"+'${i.PRODUCT_PIC}');
+			$(".img_main").attr("src","${path}/resources/images/product/"+'${i.PRODUCT_PIC}');
 		}
 		if('${s.index}'!='0') {
 			let productclone=$("#productclone").clone();

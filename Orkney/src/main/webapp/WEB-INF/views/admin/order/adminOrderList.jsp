@@ -79,8 +79,9 @@
 				<select class="browser-default custom-select" style="width: 21%;" id="sel">
 				  <option value="all" >전체보기</option>
 				  <option value="ono" >주문번호</option>
-				  <option value="name"  >주문자</option>
-				  <option value="status" >진행상태</option>
+				  <option value="member_name">주문자</option>
+				  <option value="order_name">수령자</option>
+				  <option value="status">진행상태</option>
 				</select>
 				<input type="text" class="form-control" value="${map.keyword}" placeholder="검색어 입력"/>				
 				<span style="padding: 5px;">
