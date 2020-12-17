@@ -94,6 +94,7 @@ p{margin:0;}
 		width: 100%
 	}
 	.product-img{
+	    margin-right: 2em;
 		width: 70px;
     	height: 70px;
 	}
@@ -113,6 +114,9 @@ p{margin:0;}
 	}
 	.product-price{
 		font-weight: 700;
+	}
+	.product-qty{
+		font-size: .5em;
 	}
 	.price-amount{
 		font-size: 1rem;
@@ -200,6 +204,7 @@ p{margin:0;}
 		.productList{display:none;}
 		.product-container{
 			display: flex;
+			margin: .5em 1em;
 		}
 		.detail-content{
 			display: flex;
@@ -516,4 +521,11 @@ p{margin:0;}
 	}
 	.btn-center{
 		width: fit-content;
+	}
+	
+	.exchange-content{
+		width: 100%;
+	}
+	.r-request-2{
+		display: none;
 	}

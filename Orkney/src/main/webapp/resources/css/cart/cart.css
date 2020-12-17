@@ -39,7 +39,7 @@
         /* section1 */
         .section1{          
             width: 100%;
-        }
+        }       
         .product-pic img{
             width: 140px;
             height: 140px;            
@@ -47,14 +47,14 @@
             margin: 0 50px;            
         }
         .price{
-            width: 10%;
-            height: 140px;
+            width: 10%;           
             float: right;
-            /* border: 1px solid; */
+            margin: -6% 0 0% 0;            
         }
-        .product-detail{               
-            padding: 5px;
-            margin-left: 20%;
+        .product-container{
+            padding: 7% 0 2% 0;
+        }
+        .product-detail{                          	         
             font-size: 18px;
         } 
         .product-detail div{
@@ -120,11 +120,6 @@
         .total-price{
             font-size: 25px;
         }
-
-        .product-container{                        
-            height: 140px;
-            margin: 130px 0;            
-        }
         .section3 div, .section2 div{font-size: 18px;}    
         .service-container{
             display: flex;
@@ -135,3 +130,12 @@
         .etc-line img{margin: 20px;width: 30px; height:30px ;}
 		.etc-line div{display:flex}
         .etc-detail{padding: 24px 0px 0px 1%; font-weight: 500;}
+
+		.empty{
+			    text-align: center;
+    justify-content: center;
+		}
+        .empty img{
+        width: 60%;
+    	height: 60%;
+        }

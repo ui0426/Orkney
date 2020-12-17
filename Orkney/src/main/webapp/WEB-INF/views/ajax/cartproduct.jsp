@@ -9,23 +9,28 @@
 <link rel="stylesheet" href="${path}/resources/css/cart/cart.css">
    
       
-<c:choose>
-	<c:when test="">
-		장바구니가 비어있습니다.
-	</c:when>
-	
-	<c:otherwise>	
-    <c:forEach items="${cart}" var="p">                           
-            <div class="product-container" id="pc">                                                                                     
-                <div class="product-pic"><img src="${path}/resources/images/rooms/<c:out value="${p.product_pic}"/>"></div>                
 
-                <div class="price"> <fmt:formatNumber value="${p.totalPrice}"/>&nbsp;원 </div>                
+	<c:if test="${cart.size() ==0}">
+	<div class="empty">
+		<img src="${path}/resources/img/emptycart.png"/>
+	</div>
+	</c:if>
+	
+	<c:if test="${cart.size() !=0}">	
+    <c:forEach items="${cart}" var="p">                           
+            <div class="product-container" id="pc">                                                                                                                     
+                
                 <input type="hidden" value="${p.totalPrice }" name="totalPrice ">                                                                                                            
                 <input type="hidden" value="${p.productNo }"  name="productNo">                                       
-                    <div class="product-detail"> 
+                    
+                    <div class="product-detail">
+                    	<div class="product-pic">
+                    		<img src="${path}/resources/images/rooms/<c:out value="${p.product_pic}"/>">
+                    	</div> 
                         <div><c:out value="${p.productName}"/></div>
-                        <div><c:out value="${p.big_category}"/></div>                                
-                        <div><c:out value="${p.product_width}"/>*<c:out value="${p.product_height}"/>*<c:out value="${p.product_depth}"/></div>                    
+                        <div><c:out value="${p.product_color}"/></div>                                
+                        <div><c:out value="${p.product_width}"/>*<c:out value="${p.product_height}"/>*<c:out value="${p.product_depth}"/></div>
+                        <div class="price"> <fmt:formatNumber value="${p.totalPrice}"/>&nbsp;원 </div>                                    
                     <div class="btn-container">                                                
                         <div>                        	   
                             <select class="mdb-select md-form amount" id="se">
@@ -43,13 +48,15 @@
                         <div><button class="remove_list remove" id="${p.productNo}" value="${p.cartNo}">삭제</button></div>
                         <div><button class="wish_btn" data-toggle="modal" data-target="#fullHeightModalRight">위시리스트 저장</button></div>
                     </div>  
-
-                	</div><div class="line1"></div>               
+                	</div> 
+                	<div> 
+						<div class="line1"></div>
+					</div>	
+                	                         
              </div>             
 	</c:forEach>	
-	</c:otherwise>
-</c:choose>
-			
+	</c:if>
+
         <div class="section2">                                                        
                 <div class="service-container">                              
                     <div>전체 서비스 비용</div>
@@ -64,7 +71,7 @@
             	<fmt:formatNumber value="${total+sumprice}"/> 원           
             </div>
         </div>
-
+		<input type="hidden" class="basketNo" id="${cN}" value="${cN}">       
 		
 	<script>
 	/* 상품내용제거 */

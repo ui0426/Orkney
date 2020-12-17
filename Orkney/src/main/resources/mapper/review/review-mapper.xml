@@ -2,10 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="review">
 	<select id="selectOrderDetail" parameterType="_int" resultType="review">
-		SELECT * FROM ORDER_DETAIL JOIN PRODUCT USING(PRODUCT_NO) 
-				JOIN PRODUCT_IMAGE P USING(PRODUCT_NO)
-				JOIN SMALL_CATEGORY USING(SMALL_CATEGORY_NO) 
-				JOIN ORDERS USING(ORDER_NO) JOIN MEMBER USING(MEMBER_NO) WHERE ORDER_DETAIL_NO=#{odNo} AND P.PRODUCT_COLOR='normal'
+		SELECT O.*, P.*, I.*, S.*, R.REVIEW_NO FROM ORDER_DETAIL O JOIN PRODUCT P ON O.PRODUCT_NO=P.PRODUCT_NO 
+				JOIN PRODUCT_IMAGE I ON P.PRODUCT_NO=I.PRODUCT_NO
+				JOIN SMALL_CATEGORY S ON P.SMALL_CATEGORY_NO=S.SMALL_CATEGORY_NO
+                left OUTER join review R on O.order_detail_no=R.order_detail_no WHERE O.ORDER_DETAIL_NO=#{odNo} AND I.PRODUCT_COLOR='normal'
 	</select>
 	
 	<insert id="insertReview" parameterType="review">
@@ -24,7 +24,7 @@
 		FROM REVIEW R JOIN PRODUCT P ON R.PRODUCT_NO=P.PRODUCT_NO
 				JOIN PRODUCT_IMAGE A ON P.PRODUCT_NO = A.PRODUCT_NO
 				JOIN SMALL_CATEGORY S ON S.SMALL_CATEGORY_NO=P.SMALL_CATEGORY_NO 
-				JOIN MEMBER M ON M.MEMBER_NO=R.MEMBER_NO WHERE R.MEMBER_NO=#{mNo} AND A.PRODUCT_COLOR='normal'
+				JOIN MEMBER M ON M.MEMBER_NO=R.MEMBER_NO WHERE R.MEMBER_NO=#{mNo} AND A.PRODUCT_COLOR='normal' ORDER BY R.REVIEW_NO DESC
 	</select>
 	
 	<select id="selectReviewImage" parameterType="_int" resultType="reviewImage">
@@ -38,6 +38,18 @@
 							JOIN SMALL_CATEGORY S ON P.SMALL_CATEGORY_NO=S.SMALL_CATEGORY_NO
 							left outer join REVIEW B on A.ORDER_DETAIL_NO=B.ORDER_DETAIL_NO
 							JOIN ORDERS C ON A.order_NO=C.ORDER_NO
-							where C.MEMBER_NO=#{mNo} AND C.ORDER_STATE='배송완료' AND I.PRODUCT_COLOR='normal' AND B.ORDER_DETAIL_NO is null
+							where C.MEMBER_NO=#{mNo} AND C.ORDER_STATE='배송완료' AND I.PRODUCT_COLOR='normal' AND B.ORDER_DETAIL_NO is null ORDER BY A.ORDER_DETAIL_NO DESC
 	</select>
+	
+	<select id="selectReviewToUpdate" parameterType="_int" resultType="review">
+		SELECT * FROM REVIEW JOIN PRODUCT USING(PRODUCT_NO) JOIN PRODUCT_IMAGE USING(PRODUCT_NO) JOIN SMALL_CATEGORY USING(SMALL_CATEGORY_NO) WHERE REVIEW_NO=#{rNo}
+	</select>
+	
+	<update id="updateReview" parameterType="review">
+		UPDATE REVIEW SET PRODUCT_GRADE=#{product_grade}, REVIEW_CONTENT=#{review_content} where review_no=#{review_no}
+	</update>
+	
+<!-- 	<update id="updateReviewImage" parameterType="reviewImage">
+		UPDATE REVIEW_IMAGE SET 
+	</update> -->
 </mapper>

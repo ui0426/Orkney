@@ -7,64 +7,142 @@
 <c:set var="path" value="${pageContext.request.contextPath }"/>
 
 <jsp:include page="/WEB-INF/views/common/adminHeader.jsp"/>
-<style>
-.order-container{
-	padding: 0 2rem 0 2rem;
-}
-.order-title{
-	margin-bottom: 2.5rem;
-}
-.order-title-text{
-	font-weight: bold;
-    font-size: 1.5rem;
-}
-.order-btn-title{
-	color: #111;
-    font-size: 1.125rem;
-    line-height: 1.44444;
-    font-weight: 700;
-}
-</style>
+
+<link rel="stylesheet" href="${path}/resources/css/admin/order.css">
 <section class="order-container">
  <div class="order-container-inner">
 		<div class="order-content order">
 			<div class="order-title">
 				<h1 class="order-title-text">주문 리스트</h1>
 			</div>
-		</div>
-		<div><h2>주문검색</h2></div>
-		<div>
-			<div>
-				<h2 class="order-btn-title">주문 리스트</h2>
+			
+			<div class="info-title">
+				<div>
+					 <span>주문확인</span>  
+					 <input type="text" class="input-form" value="${count.get("주문확인")}" readonly>
+					 <span>건</span> 
+				</div>
+				<div>
+					<span>취소신청</span>
+					<input type="text" class="input-form" value="${count.get("취소신청")}" readonly>
+					<span>건</span>
+				</div>
+				<div>
+					 <span>교환신청</span>  
+					 <input type="text" class="input-form" value="${count.get("교환신청")}" readonly>
+					 <span>건</span>
+				</div>
+				<div>
+					 <span>반품신청</span> 
+					<input type="text"  class="input-form" value="${count.get("반품신청")}" readonly>
+					 <span>건</span>
+				</div>	 
 			</div>
+			
+			<div><h5>교환/반품현황</h5></div>
 			<div>
-				<table class="table table-hover table-dark">
-        <thead>
-          <tr>
-            <th scope="col">체크박스</th>
-            <th scope="col">주문일시</th>
-            <th scope="col">주문번호</th>
-            <th scope="col">결제금액</th>
-            <th scope="col">주문자</th>
-            <th scope="col">수령자</th>
-            <th scope="col">진행상태</th>
-          </tr>
-        </thead>
-        <tbody>
-        <c:forEach items="${order }" var="o">
-          <tr onclick="location.href='${path}/admin/orderView.do'">
-            <td scope="row"><input type="checkbox" name="xxx" value="yyy"></td>
-            <td><c:out value="${o.order_date}"/></td>
-            <td><c:out value="${o.order_no}"/></td>
-            <td><c:out value="${o.total_price}"/></td>
-            <td><c:out value="${o.member_name}"/></td>
-            <td><c:out value="${o.order_name}"/></td>
-            <td><c:out value="${o.order_state}"/></td>
-          </tr>
-          </c:forEach>
-      </table>
+				<div id="change"></div>
 			</div>
+			<script>
+				$(function(){
+					$.ajax({
+						url:"${path}/admin/orderChangeList.do",
+						success:data=>{
+							$("#change").html(data);
+						}
+					})
+				})
+			</script>
+			
+			<div class="search-container">
+				<select class="browser-default custom-select" style="width: 21%;">
+				  <option selected>Open this select menu</option>
+				  <option value="1">주문번호</option>
+				  <option value="2">주문자</option>
+				  <option value="3">수령자</option>
+				</select>
+				<input type="text" id="exampleForm2" class="form-control">
+				<span style="padding: 5px;"><button class="searchBtn"></button></span> 
+			</div>
+				
 		</div>
+		<div><h5>주문검색</h5></div>
+		<div>			
+			<div id="list"></div>			
+			<script>
+				$(function(){
+					$.ajax({
+						url:"${path}/admin/orderListData.do",						
+						success:data=>{
+							$("#list").html(data);
+						}
+					})					
+				})
+				
+				function fn_paging(cPage){
+					$.ajax({
+						url:"${path}/admin/orderListData.do",
+						data:{cPage:cPage},
+						success:data=>{
+							$("#list").html(data);
+						}
+					})
+				}
+			</script>
+			
+		</div>
+		
+		<div class="change-status">
+			<div style="padding: 6px 28px;">주문 상태 일괄 처리</div>
+			<span>
+				<select id="state" class="browser-default custom-select">
+				  <option selected>주문 상태 선택</option>
+				  <option>제품준비중</option>
+				  <option>배송터미널도착</option>
+				  <option>배송중</option>
+				  <option>배송완료</option>
+				</select>
+			</span>
+			<span>
+				<button id="state-change" class="btn btn-primary btn-sm">적용</button>
+			</span>	
+		</div>
+<script>
+$("#state-change").click(e=>{
+	// name이 같은 체크박스의 값들을 배열에 담는다.
+	var state = $("#state").val();
+    var oNos = [];
+	if(state == '주문 상태 선택'){
+		alert("주문 상태를 선택해주세요.");
+		return false;
+	}
+    $("input[name='oNo']:checked").each(function(i) {
+    	console.log($(this));
+        oNos.push($(this).val());
+    });
+
+	console.log(oNos);
+	console.log(state);
+	$.ajax({
+		type:"GET",
+		url:"${path}/admin/updateOrderListState.do",
+		data:{"state":state,"oNos":oNos},
+		success:data => {
+			if(data =="실패"){			
+				alert("배송상태 변경 실패!");
+			}else{
+				alert("배송상태 변경 완료");
+				$("#list").html(data);							
+			}
+		}
+	})
+})
+</script>
+		
+		
+		
+		
+		
 	</div>
 </section>
 <jsp:include page="/WEB-INF/views/common/adminFooter.jsp"/>

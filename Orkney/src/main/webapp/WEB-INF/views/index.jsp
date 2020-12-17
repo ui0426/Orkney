@@ -34,9 +34,7 @@
 				<h2 class="event-h2">적은 비용으로 큰 행복을 누리세요!</h2>
 				<p class="event-p">IKEA는 항상 조금씩 더 낮출 수 있는 가격이 좋은 가격이라고 생각해요. 그렇기에 가격을 낮추기 위한 IKEA의 노력은 끝이 없습니다. 작은 빨간라벨을 눈여겨보세요. 많은 사람들에게 더욱 합리적인 가격으로 더 좋은 생활을 제공하려는 IKEA의 노력을 의미하니까요.</p>
 				<button type="button" class="btn btn-dark event-bu" id="testBtn">
-				<a href="${path}/product/sale.do">
-					<span class="event-sp">자세히보기</span>
-				</a>
+				<a href="${path}/product/sale.do"><span class="event-sp">자세히보기</span></a>
 				</button>
 			</div>
 

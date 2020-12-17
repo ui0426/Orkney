@@ -10,9 +10,70 @@
 </select>
 
 <select id="selectWishlistDetail" parameterType="string" resultMap="wishlist_detailResultMap">
-	select * from wishlist_detail where wishlist_no = #{wNo}
+	select * from wishlist_detail join product on (wishlist_detail.product_no = product.product_no) 
+                                join product_image on (product.product_no = product_image.product_no) 
+                                join small_category on (small_category.small_category_no = product.small_category_no)
+                                where wishlist_no = #{wNo}
+<!-- 사진 다 들어가면 아래꺼로 바꾸기 -->
+<!--     select * from wishlist_detail join product on (wishlist_detail.product_no = product.product_no)  -->
+<!--                                 join product_image on (product.product_no = product_image.product_no)  -->
+<!--                                 join small_category on (small_category.small_category_no = product.small_category_no) -->
+<!--                                 where wishlist_no = 'w1' and product.product_color = product_image.product_color; -->
 </select>
 
+<!-- 위시리스트들의 리스트 가져오기 -->
+<select id="wishlistList" parameterType="string" resultMap="wishlistResultMap">
+	select * from wishlist where member_no = #{mNo} order by wishlist_no
+</select>
+
+<!-- 위시리스트 제품 삭제하기 -->
+<delete id="deleteWishProduct" parameterType="map"> 
+	delete from wishlist_detail where wishlist_no = #{wNo} and product_no = #{pNo}
+</delete>
+
+<!-- 위시리스트에 제품 추가하기 -->
+<insert id="insertWishProduct" parameterType="map">
+	insert into wishlist_detail VALUES (#{IwNo},#{pNo},#{pQty})
+</insert>
+
+<!-- 위시리스트에 특정 제품 있는지 확인 -->
+<select id="isProductNo" parameterType="map" resultMap="wishlist_detailResultMap">
+	select * from wishlist_detail where wishlist_no = #{IwNo} and product_no = #{pNo} 
+</select>
+
+<!-- 위시리스트 이름바꾸기 -->
+<update id="wishNameUpdate" parameterType="map">
+	update wishlist set wishlist_name=#{wName} where wishlist_no=#{wNo}
+</update>
+
+<!-- 위시리스트 삭제하기 -->
+<delete id="deleteWishlist" parameterType="string">
+	delete from wishlist where wishlist_no=#{wNo}
+</delete>
+
+<!-- 위시리스트 추가하기 -->
+<insert id="addWishlist" parameterType="map">
+	<selectKey keyProperty="newwNo" resultType="int" order="AFTER">
+		SELECT wishlist_seq.CURRVAL FROM DUAL
+	</selectKey>
+	insert into wishlist values('w'||wishlist_seq.nextval,#{mNo},#{addWName})
+</insert>
+
+<!-- 제품수량 업하기 -->
+<update id="countUp" parameterType="map">
+	update wishlist_detail set 
+	<if test="IwNo == null">
+	product_qty = product_qty+1 where product_no = #{pNo} and wishlist_no=#{wNo}
+	</if>
+	<if test="IwNo != null">
+	product_qty = product_qty+#{pQty} where product_no = #{pNo} and wishlist_no=#{IwNo}
+	</if>
+</update>
+
+<!-- 제품 수량 다운하기 -->
+<update id="countDown" parameterType="map">
+	update wishlist_detail set product_qty = product_qty-1 where product_no =#{pNo} and wishlist_no=#{wNo}
+</update>
   <resultMap type="wishlist" id="wishlistResultMap">
   	<id column="WISHLIST_NO" property="wishlist_no"/>
   	<result column="MEMBER_NO" property="member_no"/>
@@ -24,6 +85,31 @@
   <resultMap type="wishlist_detail" id="wishlist_detailResultMap">
   	<result column="WISHLIST_NO" property="wishlist_no"/>
   	<result column="PRODUCT_NO" property="product_no"/>
+  	<result column="PRODUCT_QTY" property="product_qty"/>
+  	<result column="SMALL_CATEGORY_CONTENT" property="small_category_content"/>
+  	<association property="product" resultMap="productResultMap"></association>
   </resultMap>
-	
+
+<resultMap type="product" id="productResultMap">
+	<id column="PRODUCT_NO" property="productNo"/>
+	<result column="PRODUCT_NAME" property="productName"/>
+	<result column="PRODUCT_PRICE" property="productPrice"/>
+	<result column="PRODUCT_COLOR" property="productColor"/>
+	<result column="PRODUCT_WIDTH" property="productWidth"/>
+	<result column="PRODUCT_HEIGHT" property="productHeight"/>
+	<result column="PRODUCT_DEPTH" property="productDepth"/>
+	<result column="PRODUCT_STOCK" property="productStock"/>
+	<result column="PRODUCT_INFO" property="productInfo"/>
+	<result column="PRODUCT_ENROLL_DATE" property="productEnrolldate"/>
+	<result column="BIG_CATEGORY_NO" property="productBigCategoryNo"/>
+	<result column="SMALL_CATEGORY_NO" property="productSmallCategoryNo"/>
+	<result column="EVENT_CODE" property="eventCode"/>
+	<association property="product_image" resultMap="product_imageResultMap"></association>
+</resultMap>
+
+<resultMap type="product_image" id="product_imageResultMap">
+	<result column="PRODUCT_PIC" property="product_pic"/>
+	<result column="PRODUCT_NO" property="product_no"/>
+	<result column="PRODUCT_COLOR" property="product_color"/>
+</resultMap>
 </mapper>

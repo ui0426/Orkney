@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="${path}/resources/css/common/header/header.css">
     <link rel="stylesheet" href="${path}/resources/css/common/header/header-aside.css">
     <link rel="stylesheet" href="${path}/resources/css/common/header/test.css">
+    <link rel="stylesheet" href="${path}/resources/css/common/header/search-modal.css">
     
     
     
@@ -54,15 +55,14 @@
 <!-- MDB core JavaScript -->
 <script type="text/javascript" src="${path }/resources/js/mdb.min.js"></script>
 <!-- Your custom scripts (optional) -->
-
+	
 </head>
 
 
 
 <body>
+	
     <header>
-        
-    
         <div class="header-container">
             <div class="header-hambuger" >
                 <div class="btn-aside">
@@ -75,11 +75,26 @@
                 <a href="${path}"><img src="https://www.ikea.com/kr/ko/static/ikea-logo.f88b07ceb5a8c356b7a0fdcc9a563d63.svg" alt=""></a>
             </div>
             <div class="header-menu">
-                <span><a href="${path }/product/products.do">모든제품</a> </span>
+                <span><a href="${path }/product/products.do?category=all">모든제품</a> </span>
                 <span><a href="${path}/product/rooms.do">디지털 쇼룸</a></span>
             </div>
             <div class="header-search">
-                <input type="text">
+           		<form class="search-form">
+	                <input class="search-input" type="search" placeholder="검색어 입력">
+	           		<div class="search-input-box" style="display:none;"></div>
+	                <div class="search-dropbox" style="display:none;">
+	                	<div class="dropbox-container">
+		                	<h2 style="display: none;" class="search-log">내 검색 기록 <a>삭제</a></h2>
+		                	<ul>
+		                		<li>책상</li>
+		                		<li>의자</li>
+		                		<li>선반</li>
+		                		<li>수납장</li>
+		                	</ul>
+	                	</div>
+	                </div>
+				</form>
+				<div class="modal-layer" style="display:none;"></div>
             </div>
             <ul class="header-icons">
                 <li class="header-icon delivery">
@@ -162,14 +177,14 @@
 		                        <div class="hnf-small-link hnf-link-color aside-btn-event">이달의 혜택</div>
 		                    </li>
 		                    <li>
-		                        <a class="hnf-small-link hnf-link-color" href="#">신제품</a>
+		                        <a class="hnf-small-link hnf-link-color" href="${path }/product/products.do?category=new">신제품</a>
 		                    </li>
 		                </ul>
 		                <ul class="hnf-small-link hnf-menu_nav_aux">
 		                	<c:if test="${login.AUTHORITY eq '관리자'}">
 		                	<li><a class="hnf-small-ex hnf-link-color" href="${path}/admin/adminPage.do">관리 페이지</a></li>
 		                	</c:if>
-		                    <li><a class="hnf-small-ex hnf-link-color" href="#">고객지원</a></li>
+		                    <li><a class="hnf-small-ex hnf-link-color" href="${path}/notice/question.do">고객지원</a></li>
 		                    <li><a class="hnf-small-ex hnf-link-color" href="${path }/order/order.do">배송조회</a></li>
 		                 <c:if test="${not empty login }">
 		                    <li><a class="hnf-small-ex hnf-link-color" href="${path}/member/mypage.do">내 프로필</a></li>
@@ -188,72 +203,72 @@
 		        		<span class="hnf-menu-container-product-head">모든 상품</span>
 						<ul class="hnf-menu-container-product-main">
 							<li>
-								<a>
+								<a  href="${path }/product/products.do?category=책장/선반유닛">
 									책장/선반유닛
 								</a>
 							</li>
 							<li>
-								<a>
+								<a href="${path }/product/products.do?category=서랍">
 									서랍
 								</a>
 							</li>
 							<li>
-								<a>
+								<a href="${path }/product/products.do?category=의자">
 									의자
 								</a>
 							</li>
 							<li>
-								<a>
+								<a href="${path }/product/products.do?category=바테이블/의자">
 									바테이블/의자
 								</a>
 							</li>
 							<li>
-								<a>
+								<a href="${path }/product/products.do?category=카페가구">
 									카페가구
 								</a>
 							</li>
 							<li>
-								<a>
+								<a href="${path }/product/products.do?category=아동식선반">
 									이동식 선반
 								</a>
 							</li>
 							<li>
-								<a>
+								<a href="${path }/product/products.do?category=옷장">
 									옷장
 								</a>
 							</li>
 							<li>
-								<a>
+								<a href="${path }/product/products.do?category=수납장/장식장">
 									수납장/장식장
 								</a>
 							</li>
 							<li>
-								<a>
+								<a href="${path }/product/products.do?category=거실장/전장/콘솔테이블">
 									거실장/천장/콘솔테이블
 								</a>
 							</li>
 							<li>
-								<a>
+								<a href="${path }/product/products.do?category=TV/멀티미디어가구">
 									TV/멀티미디어가구
 								</a>
 							</li>
 							<li>
-								<a>
+								<a href="${path }/product/products.do?category=침대">
 									침대
 								</a>
 							</li>
 							<li>
-								<a>
+								<a href="${path }/product/products.do?category=소파/암체어">
 									소파/암체어
 								</a>
 							</li>
 							<li>
-								<a>
+								<a href="${path }/product/products.do?category=조명">
 									조명
 								</a>
 							</li>
 							<li>
-								<a>
+								<a href="${path }/product/products.do?category=식탁/책상">
 									식탁/책상
 								</a>
 							</li>
@@ -269,7 +284,7 @@
 		        			<li>
 		        				<a href="${path}/product/rooms.do?type=침실">
 		        					<span>
-		        						<img  alt="침실" src="https://www.ikea.com/images/bj-and-ouml-rksn-and-auml-s-bj-and-ouml-rksn-and-auml-s-772a90648be3b0ef7d6d47a7f7b7a5f2.jpg?f=xxxs" >
+		        						<img class="showroom-imgsize"  alt="침실" src="https://www.ikea.com/images/bj-and-ouml-rksn-and-auml-s-bj-and-ouml-rksn-and-auml-s-772a90648be3b0ef7d6d47a7f7b7a5f2.jpg?f=xxxs" >
 		        					</span>
 		        					<span>침실</span>
 		        				</a>
@@ -277,15 +292,15 @@
 		        			<li>
 		        				<a href="${path}/product/rooms.do?type=거실">
 		        					<span>
-		        						<img alt="거실" src="https://www.ikea.com/images/stocksund-besta-tv-55b0bb08ee1014c9fe23a98bc9381d2d.jpg?f=xxxs" >
+		        						<img class="showroom-imgsize" alt="거실" src="https://www.ikea.com/images/stocksund-besta-tv-55b0bb08ee1014c9fe23a98bc9381d2d.jpg?f=xxxs" >
 		        					</span>
 		        					<span>거실</span>
 		        				</a>
 		        			</li>
-		        			<li id="imgSize">
-		        				<a id="imgSize" href="${path}/product/rooms.do?type=주방">
-		        					<span id="imgSize">
-		        						<img id="imgSize" alt="주방" src="https://www.ikea.com/images/-cb470d9a37de90b10df90823f72c2b68.jpg?f=xxxs" >
+		        			<li>
+		        				<a href="${path}/product/rooms.do?type=주방">
+		        					<span>
+		        						<img class="showroom-imgsize" alt="주방" src="https://www.ikea.com/images/-cb470d9a37de90b10df90823f72c2b68.jpg?f=xxxs" >
 		        					</span>
 		        					<span>주방</span>
 		        				</a>
@@ -293,9 +308,9 @@
 		        			<li>
 		        				<a href="${path}/product/rooms.do?type=비지니스">
 		        					<span>
-		        						<img alt="현관" src="https://www.ikea.com/images/ikea-hemnes-pinnig-665c8a366698cec21d5a1aa930f071fe.jpg?f=xxxs" >
+		        						<img class="showroom-imgsize" alt="비지니스" src="https://www.ikea.com/images/-79df77736e888bb0f725d907b5f90331.jpg?f=xxxs" >
 		        					</span>
-		        					<span>현관</span>
+		        					<span>비지니스</span>
 		        				</a>
 		        			</li>
 		        		</ul>
@@ -400,8 +415,24 @@
             	
             });
            
-     
+     	
+            //검색창 눌렀을 때~~~
+            $('.search-input').click(e=>{
+            	$('.modal-layer').fadeIn();
+            	$('.search-input').addClass('modal-input');
+            	$('.header-search').addClass('search-close');
+            	$('.search-input-box').css('display','block');
+            	$('.search-dropbox').css('display','block');
+            })
             
+            $("#modal_close_btn, .modal-layer").click(function(){
+       			$(".modal-layer").fadeOut();
+				$('.search-input').removeClass('modal-input');
+				$('.header-search').removeClass('search-close');
+				$('.search-input-box').css('display','none');
+				$('.search-dropbox').css('display','none');
+    		});
+           
             
         </script>
   

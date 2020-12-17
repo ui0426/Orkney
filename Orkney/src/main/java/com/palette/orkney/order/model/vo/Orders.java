@@ -30,5 +30,8 @@ public class Orders {
 	private List<OrderDetail> odList;
 	
 	//member
+	private String member_id;
 	private String member_name;
+
+	private String phone;
 }

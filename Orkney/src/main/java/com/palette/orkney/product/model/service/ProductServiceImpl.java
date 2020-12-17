@@ -1,6 +1,7 @@
 package com.palette.orkney.product.model.service;
 
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -20,41 +21,43 @@ public class ProductServiceImpl implements ProductService{
 	private ProductDao dao;
 	@Autowired
 	private SqlSession session;
-
+	
 	@Override
-	public List<Map> productList() {
+	public List<Map> sCategory(Map<String, Object> sCategory) {
 		// TODO Auto-generated method stub
-		return dao.productList(session);
+		return dao.sCategory(session,sCategory);
 	}
-
 	@Override
-	public List<Map> lowPriceFilter() {
+	public List<Map> reviewImg(Map<String, Object> id) {
 		// TODO Auto-generated method stub
-		return dao.lowPriceFilter(session);
+		return dao.reviewImg(session,id);
 	}
-
+	
 	@Override
-	public List<Map> highPriceFilter() {
+	public List<Map> productList( Map<String,Object> category) {
 		// TODO Auto-generated method stub
-		return dao.highPriceFilter(session);
+		return dao.productList(session,category);
 	}
-
 	@Override
-	public List<Map> newProductFilter() {
+	public List<Map> checkProduct(ArrayList<String> checkboxname) {
 		// TODO Auto-generated method stub
-		return dao.newProductFilter(session);
-	}
-
-	@Override
-	public List<Map> nameFilter() {
-		// TODO Auto-generated method stub
-		return dao.nameFilter(session);
+		return dao.checkProduct(session, checkboxname);
 	}
 
 	@Override
 	public List<Map> filter(Map<String, Object> filter) {
 		// TODO Auto-generated method stub
 		return dao.filter(session,filter);
+	}
+	@Override
+	public List<Map> productDetail(String productno) {
+		// TODO Auto-generated method stub
+		return dao.productDetail(session,productno);
+	}
+	@Override
+	public List<Map> review(String productno) {
+		// TODO Auto-generated method stub
+		return dao.review(session,productno);
 	}
 
 
@@ -87,6 +90,7 @@ public class ProductServiceImpl implements ProductService{
 	  @Override public List<Map> selectRoomsTitle(String type) { 
 		  // TODO Auto-generated method stub 
 	  return dao.selectRoomsTitle(session,type); }
+
 
 	@Override
 	public List<Map> listProduct(String type) {
@@ -142,11 +146,6 @@ public class ProductServiceImpl implements ProductService{
 		  return dao.buttomProduct(session,ty); 
 		  }
 	  
-	 
-	
-	 
-	  
-	 
 	 
 
 	  

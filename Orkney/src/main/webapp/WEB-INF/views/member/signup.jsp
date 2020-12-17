@@ -10,12 +10,24 @@
 
 <link rel="stylesheet" href="${path }/resources/css/member/member.css">
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<style>
+	@media(max-width:750px){
+		.joinform{display:block;padding:0;}
+		.leftimg{display:none;}
+		.rightimg{display:none;}
+		#oneimg{display:block !important;}
+		.imgform{max-width:100%; display:block;}
+		.joindata{width:100%;}
+	}
+	#oneimg{height:246px;display:none;}
+</style>
     <div class="jointotal">
             <div class="joinform">
                 <div class="imgform">
                     <h1 class="hft"><span style="color:lightseagreen;">ORKNEY</span> 회원 가입</h1>
                     <span class="fspan">이미 가입하셨나요? : <a href="${path }/member/memberLogin.do" style="text-decoration: underline;color:black;">로그인</a></span>
                     <div class="totalimg">
+                    <div id="oneimg" class="img10 imgprop"></div>
                         <div class="leftimg wid1">
                             <div class="imgprop img1 height1 wid2"></div>
                             <div class="imgprop img2 wid2 height1"></div>
@@ -34,7 +46,7 @@
                 <div class="nonespace"></div>
                 <div class="joindata">
                     <div>
-                        <form action="${path }/member/insertSignup.do" method="post">
+                        <form action="${path }/member/emailAuth.do" method="post">
                             <div class="emailcheck">
                                 <fieldset>
                                     <legend class="marb lgfs">ORKNEY Family에 가입하시겠어요?</legend>
@@ -157,8 +169,7 @@
             </div>
     </div>
 
-
-    <script>
+	<script>
     //조건값으로 사용하기 위해 변수 설정
        var familyName=false;
        var givenName=false;
@@ -459,8 +470,8 @@
         
         
     </script>
-        /* 주소검색 api */
    <script>
+        /* 주소검색 api */
      $("#adrbtn").click(e=>{
     new daum.Postcode({
         oncomplete: function(data) {
@@ -520,5 +531,6 @@
     }).open();
      })
    </script>
+    
    
    <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

@@ -175,18 +175,6 @@
 		$("#message").val('');
 	}
 	
-	function sendMessage2() {//관리자가 보내는 메세지
-		var message=$("#message").val();
-		var sendId=$("#sendId").val();
-		var test={
-				type:"text",
-				user:id,
-				ms:message,
-				sendId:"m9",
-				room:'r2'
-		}
-		sock.send(JSON.stringify(test));
-	}
 	// 서버로부터 메시지를 받았을 때
 	function onMessage(msg) {
 		var data = msg.data;
@@ -199,14 +187,14 @@
 			div=$("#cloneDiv").clone();
 			$(div).removeClass("rec");
 			$(div).css("style","display:grid;");
-			$(div).find(".rtime").html('3:30PM');
+			$(div).find(".rtime").html(fDate2(new Date().getTime()));
 			$(div).find(".rcontent").html(ms["ms"]);
 			
 			$("#sendBtn").val(ms["room"]);
 			div2=$("#cloneDiv2").clone();
 			$(div2).removeClass("rec");
 			$(div2).css("style","display:grid;");
-			$(div2).find(".rtime").html('3:30PM');
+			$(div2).find(".rtime").html(fDate2(new Date().getTime()));
 			$(div2).find(".rcontent").html(ms["ms"]);
 		}else if(id!="m11"&&"m11"==ms["user"]){//나한테 보낸 사람이 관리자
 			div=$("#cloneDiv").clone();
@@ -214,6 +202,7 @@
 			$(div).removeClass("rec");
 			$(div).css("style","display:grid;");
 			$(div).css("justify-content","flex-start");
+			$(logo).find(".time").html(fDate2(new Date().getTime()));
 			$(div).prepend(logo);
 			$(div).find(".rtime").css('display','none');
 			$(div).find(".rcontent").html(ms["ms"]);

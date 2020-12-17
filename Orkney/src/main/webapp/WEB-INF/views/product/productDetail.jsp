@@ -18,6 +18,12 @@
 .fontbor {
 	font-weight: 900;
 }
+.embed-responsive-16by9::before {
+    padding-top: 0% !important;
+}
+.h32rem{
+height: 32rem;
+}
 </style>
 
 <section id="content">
@@ -191,11 +197,11 @@
 												서비스 페이지 참조</span>
 										</div>
 										<div class="">
-											<span class="">품질보증</span> <span class="">IKEA 품질 보증
-												기준을 따릅니다. 홈페이지에서 IKEA 품질 보증을 확인 하세요.</span>
+											<span class="">품질보증</span> <span class="">ORKNEY 품질 보증
+												기준을 따릅니다. 홈페이지에서 ORKNEY 품질 보증을 확인 하세요.</span>
 										</div>
 										<div class="">
-											<span class="">교환 환불 책임자와 전화 번호</span> <span class="">이케아코리아
+											<span class="">교환 환불 책임자와 전화 번호</span> <span class="">ORKNEY
 												유한회사/ 1670-4532</span>
 										</div>
 										<div class="">
@@ -262,35 +268,36 @@
 
 						<dl class="">
 							<div class="row">
-								<dt class="">폭:&nbsp;</dt>
-								<dd class="">70 cm</dd>
+								<dt class="" >폭:&nbsp;</dt>
+								<dd class="" id="width">70 cm</dd>
 							</div>
 							<div class="row">
 								<dt class="">깊이:&nbsp;</dt>
-								<dd class="">73 cm</dd>
+								<dd class="" id="depth">73 cm</dd>
 							</div>
 							<div class="row">
 								<dt class="">높이:&nbsp;</dt>
-								<dd class="">75 cm</dd>
+								<dd class="" id="height">75 cm</dd>
 							</div>
-							<div class="row">
-								<dt class="">시트 폭:&nbsp;</dt>
-								<dd class="">57 cm</dd>
-							</div>
-							<div class="row">
-								<dt class="">시트 깊이:&nbsp;</dt>
-								<dd class="">46 cm</dd>
-							</div>
-							<div class="row">
-								<dt class="">시트 높이:&nbsp;</dt>
-								<dd class="">43 cm</dd>
-							</div>
+<!-- 							<div class="row"> -->
+<!-- 								<dt class="">시트 폭:&nbsp;</dt> -->
+<!-- 								<dd class="">57 cm</dd> -->
+<!-- 							</div> -->
+<!-- 							<div class="row"> -->
+<!-- 								<dt class="">시트 깊이:&nbsp;</dt> -->
+<!-- 								<dd class="">46 cm</dd> -->
+<!-- 							</div> -->
+<!-- 							<div class="row"> -->
+<!-- 								<dt class="">시트 높이:&nbsp;</dt> -->
+<!-- 								<dd class="">43 cm</dd> -->
+<!-- 							</div> -->
 						</dl>
 						<div class="">
 							<div class="">
 								<div class="">
 									<img loading="lazy" class="" alt="EKERÖ 에케뢰 암체어, 시프테보 베이지"
 										srcset="
+<%-- 										${path}/resources/images/product/${p.PRODUCT_PIC}, --%>
   https://www.ikea.com/kr/ko/images/products/ekeroe-armchair-skiftebo-beige__0629853_PE694518_S5.JPG?f=g 1600w,
   https://www.ikea.com/kr/ko/images/products/ekeroe-armchair-skiftebo-beige__0629853_PE694518_S5.JPG?f=sg 1400w,
   https://www.ikea.com/kr/ko/images/products/ekeroe-armchair-skiftebo-beige__0629853_PE694518_S5.JPG?f=xxxl 1100w,
@@ -327,12 +334,10 @@
 			</div>
 		</div>
 	</div>
+<!-- 		▼▼▼▼▼▼▼상품평▼▼▼▼▼ -->
 
-	<div class="modal fade right" id="modalPoll-3" tabindex="-1"
-		role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div
-			class="modal-dialog modal-full-height modal-right modal-notify modal-info"
-			role="document">
+	<div class="modal fade right" id="modalPoll-3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-full-height modal-right modal-notify modal-info" role="document">
 			<div class="modal-content">
 				<!--Header-->
 				<div class="modal-header"
@@ -346,131 +351,30 @@
 						<span aria-hidden="true" class="white-text">×</span>
 					</button>
 				</div>
-
+				<div class="container my-5" style="overflow:auto !important;">
 				<!--Body-->
-				<div class="container my-5">
-
-
-					<!--Section: Block Content-->
-					<section class="dark-grey-text mb-5">
-
+  				<section class="dark-grey-text mb-5" id="reviewCon" >
 						<!-- Section heading -->
 						<h3 class="font-weight-bold text-center mb-5">Product Reviews</h3>
 
-						<div class="media mb-3">
-							<img
-								class="card-img-100 rounded-circle z-depth-1-half d-flex mr-3"
-								src="https://mdbootstrap.com/img/Photos/Avatars/img (8).jpg"
-								alt="Generic placeholder image">
-							<div class="media-body">
-								<a>
-									<h5 class="user-name font-weight-bold">John Doe</h5>
-								</a>
-								<!-- Rating -->
-
-								<ul class="rating mb-2 row" style="margin: 10px">
-									<li><i class="fas fa-star blue-text"></i></li>
-									<li><i class="fas fa-star blue-text"></i></li>
-									<li><i class="fas fa-star blue-text"></i></li>
-									<li><i class="fas fa-star blue-text"></i></li>
-									<li><i class="fas fa-star blue-text"></i></li>
-								</ul>
-
-								<div class="card-data">
-									<ul class="list-unstyled mb-1">
-										<li class="comment-date font-small grey-text"><i
-											class="far fa-clock"></i> 05/10/2015</li>
-									</ul>
-								</div>
-								<p class="dark-grey-text article">Ut enim ad minim veniam,
-									quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-									commodo consequat. Duis aute irure dolor in reprehenderit in
-									voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-									Excepteur sint occaecat cupidatat non proident.</p>
-							</div>
-						</div>
-
-						<div class="media mb-3">
-							<img
-								class=" card-img-100 rounded-circle z-depth-1-half d-flex mr-3"
-								src="https://mdbootstrap.com/img/Photos/Avatars/img (28).jpg"
-								alt="Generic placeholder image">
-							<div class="media-body">
-								<a>
-									<h5 class="user-name font-weight-bold">Martha Smith</h5>
-								</a>
-								<!-- Rating -->
-								<ul class="rating mb-2 row" style="margin: 10px">
-									<li><i class="fas fa-star blue-text"></i></li>
-									<li><i class="fas fa-star blue-text"></i></li>
-									<li><i class="fas fa-star blue-text"></i></li>
-									<li><i class="fas fa-star blue-text"></i></li>
-									<li><i class="fas fa-star grey-text"></i></li>
-								</ul>
-								<div class="card-data">
-									<ul class="list-unstyled mb-1">
-										<li class="comment-date font-small grey-text"><i
-											class="far fa-clock"></i> 05/10/2015</li>
-									</ul>
-								</div>
-								<p class="dark-grey-text article">Ut enim ad minim veniam,
-									quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-									commodo consequat. Duis aute irure dolor in reprehenderit in
-									voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-									Excepteur sint occaecat cupidatat non proident.</p>
-							</div>
-						</div>
-
-						<div class="media">
-							<img
-								class=" card-img-100 rounded-circle z-depth-1-half d-flex mr-3"
-								src="https://mdbootstrap.com/img/Photos/Avatars/img (30).jpg"
-								alt="Generic placeholder image">
-							<div class="media-body">
-								<a>
-									<h5 class="user-name font-weight-bold">Lily Brown</h5>
-								</a>
-								<!-- Rating -->
-								<ul class="rating mb-2 row" style="margin: 10px">
-									<li><i class="fas fa-star blue-text"></i></li>
-									<li><i class="fas fa-star blue-text"></i></li>
-									<li><i class="fas fa-star blue-text"></i></li>
-									<li><i class="fas fa-star blue-text"></i></li>
-									<li><i class="fas fa-star blue-text"></i></li>
-								</ul>
-								<div class="card-data">
-									<ul class="list-unstyled mb-1">
-										<li class="comment-date font-small grey-text"><i
-											class="far fa-clock"></i> 05/10/2015</li>
-									</ul>
-								</div>
-								<p class="dark-grey-text article">Ut enim ad minim veniam,
-									quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-									commodo consequat. Duis aute irure dolor in reprehenderit in
-									voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-									Excepteur sint occaecat cupidatat non proident.</p>
-							</div>
-						</div>
-
-					</section>
-					<!--Section: Block Content-->
-
-
-				</div>
+						
+				</section>
 				<!--Body-->
 
 
 				<!--Footer-->
-				<div class="modal-footer justify-content-center">
-
-					<a type="button"
-						class="btn btn-outline-primary waves-effect color-Gray1 fontSiz2"
-						style="border: 1px solid darkgray !important;"
-						data-dismiss="modal">All Cancel</a>
+					<div class="modal-footer justify-content-center">
+	
+						<a type="button"
+							class="btn btn-outline-primary waves-effect color-Gray1 fontSiz2"
+							style="border: 1px solid darkgray !important;"
+							data-dismiss="modal">All Cancel</a>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+	
 	<!-- Modal: modalPoll -->
 
 
@@ -489,58 +393,38 @@
 					<!--Carousel Wrapper-->
 					<div id="carousel-thumb"
 						class="carousel slide carousel-fade carousel-thumbnails"
-						data-ride="carousel">
+						data-ride="carousel" data-interval="false">
 
 						<!--Slides-->
-						<div class="carousel-inner text-center text-md-left"
+						<div class="carousel-inner text-center text-md-left" id="imgcon"
 							role="listbox">
+							
 							<div class="carousel-item active">
-								<img
-									src="https://www.ikea.com/kr/ko/images/products/nordkisa-open-wardrobe-with-sliding-door-bamboo__0756079_PE748762_S5.JPG?f=s"
+								<img id="img_main"
+									src=""
 									alt="First slide" class="img-fluid">
 							</div>
-							<div class="carousel-item">
-								<img
-									src="https://www.ikea.com/kr/ko/images/products/nordkisa-open-wardrobe-with-sliding-door-bamboo__0756078_PE748761_S5.JPG?f=s"
+
+						</div>
+							<div style="display: none;">
+							<div class="carousel-item" id="productclone">
+								<img id="thirdImg"
+									src=""
 									alt="Second slide" class="img-fluid">
 							</div>
-							<div class="carousel-item">
-								<img
-									src="https://www.ikea.com/kr/ko/images/products/nordkisa-open-wardrobe-with-sliding-door-bamboo__0756109_PE748737_S5.JPG?f=s"
-									alt="Third slide" class="img-fluid">
 							</div>
-							<div class="carousel-item">
-								<img
-									src="https://www.ikea.com/kr/ko/images/products/nordkisa-open-wardrobe-with-sliding-door-bamboo__0756087_PE748768_S5.JPG?f=s"
-									alt="Third slide" class="img-fluid">
-							</div>
-							<div class="carousel-item">
-								<img
-									src="https://www.ikea.com/kr/ko/images/products/nordkisa-open-wardrobe-with-sliding-door-bamboo__0813675_PH165835_S5.JPG?f=s"
-									alt="Third slide" class="img-fluid">
-							</div>
-							<div class="carousel-item">
-								<img
-									src="https://www.ikea.com/kr/ko/images/products/nordkisa-open-wardrobe-with-sliding-door-bamboo__0813674_PH165924_S5.JPG?f=s"
-									alt="Third slide" class="img-fluid">
-							</div>
-							<div class="carousel-item">
-								<img
-									src="https://www.ikea.com/kr/ko/images/products/nordkisa-open-wardrobe-with-sliding-door-bamboo__0813676_PH165931_S5.JPG?f=s"
-									alt="Third slide" class="img-fluid">
-							</div>
-						</div>
+						
 						<!--/.Slides-->
 
 						<!--Thumbnails-->
 						<a class="carousel-control-prev" href="#carousel-thumb"
 							role="button" data-slide="prev"> <span
-							class="carousel-control-prev-icon" aria-hidden="true"></span> <span
+							class="carousel-control-prev-icon " aria-hidden="true" style="background-color: dimgrey;"></span> <span
 							class="sr-only">Previous</span>
 						</a> <a class="carousel-control-next" href="#carousel-thumb"
 							role="button" data-slide="next"> <span
-							class="carousel-control-next-icon" aria-hidden="true"></span> <span
-							class="sr-only">Next</span>
+							class="carousel-control-next-icon" aria-hidden="true" style="background-color: dimgrey;"></span> <span
+							class="sr-only" >Next</span>
 						</a>
 						<!--/.Thumbnails-->
 
@@ -551,17 +435,27 @@
 
 				<div class="col-lg-5 text-center text-md-left">
 
-					<h2
+					<h1 id="productName"
 						class="h2-responsive text-center text-md-left product-name font-weight-bold dark-grey-text mb-1 ml-xl-0 ml-4">
-						<strong>NORDKISA 노르드키사</strong>
-					</h2>
-					<span class="badge badge-danger product mb-4 ml-xl-0 ml-4">bestseller</span>
+						<c:out value="${p.PRODUCT_NAME}"></c:out>
+					</h1>
+<!-- 					할인표시 -->
+<!-- 					<span class="badge badge-danger product mb-4 ml-xl-0 ml-4">bestseller</span> -->
 					<h3
 						class="h3-responsive text-center text-md-left mb-5 ml-xl-0 ml-4">
-						<span class="red-text font-weight-bold"> <strong>$49</strong>
-						</span> <span class="grey-text"> <small> <s>$89</s>
-						</small>
+						<span class=" font-weight-bold" id="productPrice"> 
 						</span>
+						<strong>원</strong>
+						
+<!-- 						<span class="red-text font-weight-bold"> -->
+<!-- 						<strong>원</strong> -->
+<!-- 						</span>  -->
+						
+<!-- 						@정상가 찍찍@ -->
+<!-- 						<span class="grey-text">  -->
+<!-- 						<small> <s>$89</s> </small> -->
+<!-- 						</span>  -->
+						
 					</h3>
 
 					<hr>
@@ -608,7 +502,7 @@
   https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-kimstad-black__0812256_PE771982_S5.JPG?f=xxu 39w
 "
 													sizes="40px"
-													src="https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-kimstad-black__0812256_PE771982_S5.JPG?f=xu">
+													src="">
 											</div></a><a
 											class="    "><div
 												class=" ">
@@ -632,7 +526,7 @@
   https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-hillared-anthracite__0812255_PE771981_S5.JPG?f=xxu 39w
 "
 													sizes="40px"
-													src="https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-hillared-anthracite__0812255_PE771981_S5.JPG?f=xu">
+													src="">
 											</div></a><a
 											href="https://www.ikea.com/kr/ko/p/hansola-chair-bamboo-brown-hillared-anthracite-00476470/"
 											class="    "><div
@@ -657,7 +551,7 @@
   https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-brown-hillared-anthracite__0812244_PE771978_S5.JPG?f=xxu 39w
 "
 													sizes="40px"
-													src="https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-brown-hillared-anthracite__0812244_PE771978_S5.JPG?f=xu">
+													src="">
 											</div></a><a
 											href="https://www.ikea.com/kr/ko/p/hansola-chair-bamboo-black-kimstad-black-50474459/"
 											class="    "><div
@@ -682,7 +576,7 @@
   https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-black-kimstad-black__0812254_PE771980_S5.JPG?f=xxu 39w
 "
 													sizes="40px"
-													src="https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-black-kimstad-black__0812254_PE771980_S5.JPG?f=xu">
+													src="">
 											</div></a>
 									</div>
 								</div>
@@ -809,14 +703,386 @@
 
 
 	</div>
+	
+<!--Modal: modalVM 리뷰 사진확대-->
 
+<div class="modal fade" id="modalVM" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+
+    <!--Content-->
+    <div class="modal-content">
+
+      <!--Body-->
+      <div class="modal-body mb-0 p-0">
+
+        <div class="embed-responsive embed-responsive-16by9 z-depth-1-half">
+        
+        <div class="container my-5">
+
+  <!--Section: Content-->
+  <section class="text-center dark-grey-text mb-5">
+    <div class="row">
+      <div class="col-md-12">
+
+        <!--Carousel Wrapper-->
+        <div id="carousel-example-1z" class="carousel slide" data-ride="carousel" data-interval="false">
+          <!--Indicators-->
+          <ol class="carousel-indicators">
+            <li data-target="#carousel-example-1z" data-slide-to="0" class="active" id="imgDat1"></li>
+            <li data-target="#carousel-example-1z" data-slide-to="1" id="imgDat2"></li>
+            <li data-target="#carousel-example-1z" data-slide-to="2" id="imgDat3"></li>
+          </ol>
+          <!--/.Indicators-->
+          <!--Slides-->
+          <div class="carousel-inner" role="listbox" id="reviewImgZoomCon">
+            <!--First slide-->
+            <div class="carousel-item active">
+              <img class="d-block w-100 h32rem" id="reviewImgZoom1" src="https://mdbootstrap.com/img/Photos/Horizontal/Architecture/12-col/img%20(10).jpg"
+                alt="First slide">
+            </div>
+            <!--/First slide-->
+            <!--Second slide-->
+
+            <!--/Second slide-->
+            <!--Third slide-->
+     
+            <!--/Third slide-->
+          </div>
+          <!--/.Slides-->
+          <!--Controls-->
+          <a class="carousel-control-prev" href="#carousel-example-1z" role="button" data-slide="prev" id="prevId">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next" href="#carousel-example-1z" role="button" data-slide="next" id="nextId">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
+          <!--/.Controls-->
+        </div>
+        <!--/.Carousel Wrapper-->
+
+      </div>
+    </div>
+
+  </section>
+              <div style="display: none;">
+            <div class="carousel-item" id="imgMiniNone1" >
+              <img class="d-block w-100 h32rem" id="reviewImgZoom2" src="https://mdbootstrap.com/img/Photos/Horizontal/Architecture/12-col/img%20(11).jpg"
+                alt="Second slide">
+            </div>
+            </div>
+            <div style="display: none;">
+            <div class="carousel-item h32rem" id="imgMiniNone2" >
+              <img class="d-block w-100" id="reviewImgZoom3" src="https://mdbootstrap.com/img/Photos/Horizontal/Architecture/12-col/img%20(12).jpg"
+                alt="Third slide">
+            </div>
+            </div>
+  <!--Section: Content-->
+
+
+</div>
+<!--           <iframe class="embed-responsive-item" src="https://player.vimeo.com/video/115098447" -->
+<!--             allowfullscreen></iframe> -->
+        </div>
+
+      </div>
+
+      <!--Footer-->
+      <div class="modal-footer justify-content-center flex-column flex-md-row">
+<!--         <span class="mr-4">Spread the word!</span> -->
+        <div>
+<!--           <a type="button" class="btn-floating btn-sm btn-fb"> -->
+<!--             <i class="fab fa-facebook-f"></i> -->
+<!--           </a> -->
+<!--           Twitter -->
+<!--           <a type="button" class="btn-floating btn-sm btn-tw"> -->
+<!--             <i class="fab fa-twitter"></i> -->
+<!--           </a> -->
+<!--           Google + -->
+<!--           <a type="button" class="btn-floating btn-sm btn-gplus"> -->
+<!--             <i class="fab fa-google-plus-g"></i> -->
+<!--           </a> -->
+<!--           Linkedin -->
+<!--           <a type="button" class="btn-floating btn-sm btn-ins"> -->
+<!--             <i class="fab fa-linkedin-in"></i> -->
+<!--           </a> -->
+        </div>
+        <button type="button" class="btn btn-outline-primary btn-rounded btn-md ml-4"
+          data-dismiss="modal">Close</button>
+
+      </div>
+
+    </div>
+    <!--/.Content-->
+
+  </div>
+</div>
+
+<!--Modal: modalVM-->
+
+<div style="display: none">
+<div class="media mb-3" id="reviewClone" >
+<!-- 						▼▼▼▼회원 이미지 OR 상품 이미지▼▼▼▼ -->
+							<div id="reviewImgCon">
+							<a  data-toggle="modal" data-target="#modalVM" id="imgZoom">
+							<img id="productImg"
+									class="card-img-100 rounded-circle z-depth-1-half d-flex mr-3"
+									src=""
+									alt="Generic placeholder image">
+							</a>
+							</div>
+							<div class="media-body">
+							
+								
+<!-- 								▼▼▼▼회원ID▼▼▼▼ -->
+									<h5 class="user-name font-weight-bold" id="memberId">John Doe</h5>
+								
+								<!-- Rating -->
+<!-- 							▼▼▼▼평점▼▼▼▼ -->
+								<ul class="rating mb-2 row" style="margin: 10px">
+<!-- 									<li><i class="fas fa-star blue-text"></i></li> -->
+<!-- 									<li><i class="fas fa-star blue-text"></i></li> -->
+<!-- 									<li><i class="fas fa-star blue-text"></i></li> -->
+<!-- 									<li><i class="fas fa-star blue-text"></i></li> -->
+<!-- 										★1점★ -->
+<!-- 									<li><i class="fas fa-star blue-text"></i></li> -->
+<!-- 										★0점★ -->
+									<li><i id="starGray1" class="fas fa-star grey-text"></i></li>
+									<li><i id="starGray2" class="fas fa-star grey-text"></i></li>
+									<li><i id="starGray3" class="fas fa-star grey-text"></i></li>
+									<li><i id="starGray4" class="fas fa-star grey-text"></i></li>
+									<li><i id="starGray5" class="fas fa-star grey-text"></i></li>
+								</ul>
+
+								<div class="card-data">
+									<ul class="list-unstyled mb-1">
+<!-- 							▼▼▼▼▼리뷰 작성날짜▼▼▼▼▼ -->
+										<i id="reviewDate" class="far fa-clock"></i>
+										<li class="comment-date font-small grey-text" id="reviewDate">
+										 05/10/2015
+										 </li>
+									</ul>
+								</div>
+<!-- 								▼▼▼▼▼리뷰▼▼▼▼▼ -->
+								<p class="dark-grey-text article" id="review">Ut enim ad minim veniam,
+									quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+									commodo consequat. Duis aute irure dolor in reprehenderit in
+									voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+									Excepteur sint occaecat cupidatat non proident.</p>
+								
+								</div>
+							</div>
+</div>
+			
 
 	<script>
 		$('.carousel').carousel({
-			interval : 2000
-		})
-	</script>
+			interval : false
+		});
 
+	</script>
+<script type="text/javascript">
+
+
+// ▼리뷰▼
+$(function() {
+	
+<c:forEach items="${review}" var="r" varStatus="s">
+if ("${r.REVIEW_NO}"!=null) {
+	let reviewClone = $("#reviewClone").clone();
+	
+	$(reviewClone).find("#memberId").text('${r.MEMBER_ID}');
+	
+
+		
+	if ("${r.PRODUCT_GRADE}"=='1') {
+		$(reviewClone).find("#starGray1").removeClass("grey-text").addClass("blue-text");
+		$(reviewClone).find("#starGray2").removeClass("blue-text").addClass("grey-text");
+		$(reviewClone).find("#starGray3").removeClass("blue-text").addClass("grey-text");
+		$(reviewClone).find("#starGray4").removeClass("blue-text").addClass("grey-text");
+		$(reviewClone).find("#starGray5").removeClass("blue-text").addClass("grey-text");
+	}else if ("${r.PRODUCT_GRADE}"=='2') {
+		$(reviewClone).find("#starGray1").removeClass("grey-text").addClass("blue-text");
+		$(reviewClone).find("#starGray2").removeClass("grey-text").addClass("blue-text");
+		$(reviewClone).find("#starGray3").removeClass("blue-text").addClass("grey-text");
+		$(reviewClone).find("#starGray4").removeClass("blue-text").addClass("grey-text");
+		$(reviewClone).find("#starGray5").removeClass("blue-text").addClass("grey-text");
+	}else if ("${r.PRODUCT_GRADE}"=='3') {
+		$(reviewClone).find("#starGray1").removeClass("grey-text").addClass("blue-text");
+		$(reviewClone).find("#starGray2").removeClass("grey-text").addClass("blue-text");
+		$(reviewClone).find("#starGray3").removeClass("grey-text").addClass("blue-text");
+		$(reviewClone).find("#starGray4").removeClass("blue-text").addClass("grey-text");
+		$(reviewClone).find("#starGray5").removeClass("blue-text").addClass("grey-text");
+	}else if ("${r.PRODUCT_GRADE}"=='4') {
+		$(reviewClone).find("#starGray1").removeClass("grey-text").addClass("blue-text");
+		$(reviewClone).find("#starGray2").removeClass("grey-text").addClass("blue-text");
+		$(reviewClone).find("#starGray3").removeClass("grey-text").addClass("blue-text");
+		$(reviewClone).find("#starGray4").removeClass("grey-text").addClass("blue-text");
+		$(reviewClone).find("#starGray5").removeClass("blue-text").addClass("grey-text");
+	}else if ("${r.PRODUCT_GRADE}"=='5') {
+		$(reviewClone).find("#starGray1").removeClass("grey-text").addClass("blue-text");
+		$(reviewClone).find("#starGray2").removeClass("grey-text").addClass("blue-text");
+		$(reviewClone).find("#starGray3").removeClass("grey-text").addClass("blue-text");
+		$(reviewClone).find("#starGray4").removeClass("grey-text").addClass("blue-text");
+		$(reviewClone).find("#starGray5").removeClass("grey-text").addClass("blue-text");
+	}
+	$(reviewClone).find("#reviewDate").text('${r.REVIEW_DATE}');
+	$(reviewClone).find("#review").text('${r.REVIEW_CONTENT}');
+// 	만드는중 	a태그 target 변경
+	$(reviewClone).find("#imgZoom").attr("data-target","#modalVM"+'${s.index}');	
+	$("#reviewCon").append(reviewClone);
+// 만드는중	클론생성
+	let imgZoomClone = $("#modalVM").clone().attr("id","modalVM"+'${s.index}');
+	$(imgZoomClone).find("#reviewImgZoomCon").attr("id","reviewImgZoomCon"+'${s.index}');
+	$(imgZoomClone).find("#carousel-example-1z").attr("id","carousel-example-1z"+'${s.index}');
+	$(imgZoomClone).find("#imgDat1").attr("data-target","#carousel-example-1z"+'${s.index}');
+	$(imgZoomClone).find("#imgDat2").attr("data-target","#carousel-example-1z"+'${s.index}');
+	$(imgZoomClone).find("#imgDat3").attr("data-target","#carousel-example-1z"+'${s.index}');
+	$(imgZoomClone).find("#prevId").attr("href","#carousel-example-1z"+'${s.index}');
+	$(imgZoomClone).find("#nextId").attr("href","#carousel-example-1z"+'${s.index}');
+// 	$(imgZoomClone).attr("id","modalVM"+'${s.index}');
+
+	
+	
+	var no='${r.REVIEW_NO}';
+	$.ajax({
+		url:"${path}/product/reviewImg.do",
+		async : false,
+		data: {
+			"no":no
+		},
+		success:data=>{
+			for (var i = 0; i < data.length; i++) {
+			console.log('${s.index}:'+i+":"+data[i]["REVIEW_NO"]+":"+'${r.REVIEW_NO}'+"데이타:"+data[i]["RENAMEDFILENAME"]);
+				if (data[i]["REVIEW_NO"]=='${r.REVIEW_NO}') {
+					$("#productImg").attr("src","${path}/resources/upload/review/"+data[0]["RENAMEDFILENAME"]);
+					
+					
+					
+ 					if (i=='0') {
+ 						console.log("첫번째"+data[0]["RENAMEDFILENAME"]);
+					$(imgZoomClone).find("#reviewImgZoom1").attr("src","${path}/resources/upload/review/"+data[i]["RENAMEDFILENAME"]);
+
+ 					$(imgZoomClone).find("#imgDat2"+'${s.index}').css("display","none");
+ 					$(imgZoomClone).find("#imgDat3"+'${s.index}').css("display","none");
+					}
+ 					if(i=='1'){
+
+//  					$(imgZoomClone).find("#reviewImgZoom2").attr("src","${path}/resources/upload/review/"+data[1]["RENAMEDFILENAME"]);
+
+ 					$(imgZoomClone).find("#imgDat2"+'${s.index}').css("display","block");
+ 					$(imgZoomClone).find("#imgDat3"+'${s.index}').css("display","none");
+//  					$(imgZoomClone).find("#imgMiniNone2").css("display","block");
+						
+					}if(i=='2'){
+
+//  					$(imgZoomClone).find("#reviewImgZoom3").attr("src","${path}/resources/upload/review/"+data[2]["RENAMEDFILENAME"]);
+
+ 					$(imgZoomClone).find("#imgDat2"+'${s.index}').css("display","block");
+ 					$(imgZoomClone).find("#imgDat3"+'${s.index}').css("display","block");
+//  					$(imgZoomClone).find("#imgMiniNone3").css("display","block");
+						
+					}
+					
+				}
+				
+			}
+			if (data=="") {
+					$("#reviewImgCon").html("");
+				
+			}
+		}
+	
+
+	});
+
+	
+	$("#content").append(imgZoomClone);
+	
+	let imgMiniNone1 = $("#modalVM"+'${s.index}').find("#imgMiniNone1").clone();
+	let imgMiniNone2 = $("#modalVM"+'${s.index}').find("#imgMiniNone2").clone();
+	$.ajax({
+		url:"${path}/product/reviewImg.do",
+		async : false,
+		data: {
+			"no":no
+		},
+		success:data=>{
+			for (var i = 0; i < data.length; i++) {	
+ 					if ('${r.REVIEW_NO}'==data[i]["REVIEW_NO"] && i=="1") {
+ 						console.log("두번쨰"+data[i]["RENAMEDFILENAME"]);
+ 					$(imgMiniNone1).find("#reviewImgZoom2").attr("src","${path}/resources/upload/review/"+data[1]["RENAMEDFILENAME"]);
+					$("#reviewImgZoomCon"+'${s.index}').append(imgMiniNone1);
+					
+					}
+ 					if ('${r.REVIEW_NO}'==data[i]["REVIEW_NO"] && i=="2") {
+ 						console.log("세번쨰"+data[i]["RENAMEDFILENAME"]);
+					$(imgMiniNone2).find("#reviewImgZoom3").attr("src","${path}/resources/upload/review/"+data[2]["RENAMEDFILENAME"]);
+					$("#reviewImgZoomCon"+'${s.index}').append(imgMiniNone2);
+					}
+ 					
+					
+				}
+				
+			
+				
+			}
+	});
+}else {
+// 	댓글이 없습니다.
+} 
+// console.log('${s.index}');
+</c:forEach>
+});
+//@리뷰이미지 컨트롤
+
+
+//	3자리 마다 , 표시
+function numberWithCommas(x) {
+	return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+
+// @제품정보 컨트롤
+$(function(){
+	<c:forEach items="${list}" var="i">
+	
+	$("#productName").text(("${i.PRODUCT_NAME}"));
+	$("#productPrice").text(numberWithCommas(("${i.PRODUCT_PRICE}")));
+	$("#width").text(("${i.PRODUCT_WIDTH}"));
+	$("#depth").text(("${i.PRODUCT_DEPTH}"));
+	$("#height").text(("${i.PRODUCT_HEIGHT}"));
+	
+	
+	</c:forEach>
+});
+
+
+// @사진 뽑아오기
+$(function(){
+						
+						
+// 	alert(imgarr);
+	<c:forEach items="${list}" var="i"  varStatus="s">
+// 		alert("${s.index}"+":"+"${i.PRODUCT_PIC}");
+		if ('${s.index}'=='0') {
+			$("#img_main").attr("src","${path}/resources/images/product/"+'${i.PRODUCT_PIC}');
+		}
+		if('${s.index}'!='0') {
+			let productclone=$("#productclone").clone();
+			$(productclone).find("#thirdImg").attr("src","${path}/resources/images/product/"+'${i.PRODUCT_PIC}');
+			$("#imgcon").append(productclone);
+	
+		}
+	</c:forEach>
+						
+						
+							
+						
+});
+</script>
 
 
 </section>

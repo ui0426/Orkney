@@ -60,7 +60,10 @@ h1, h3{margin : 0;}
 	display: none;
 }
 .reviewView{
-	display:block;
+	
+    padding: 0.5em;
+    margin: 1em;
+    background-color: #e6f9fd;
 }
 .reviewNone{
 	display:none;
@@ -68,6 +71,13 @@ h1, h3{margin : 0;}
 .img-size{
 	width: 80px;
 	height: 80px;
+}
+.p-info{
+    font-size: .85em;
+}
+.p-name{
+    padding-top: .3em;
+    font-size: 1.3em;
 }
 .reviewform-btn{
 	padding-top: .8em;
@@ -78,9 +88,26 @@ h1, h3{margin : 0;}
 .star-size{
 width: 1em;
 heignt: 1em;
+color: #ffc107;
+}
+.content{
+    margin: .4em;
+    font-size: .85em;
+}
+.ri-img-size{
+	width: 20em;
+    margin: .3em;
+    border-radius: 1em;
+}
+.reviewcontent{
+	display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 @media(min-width: 769px){
-
+	.ri-img-size{
+		width: 30em;
+	}
 }
 </style>
 
@@ -129,8 +156,9 @@ heignt: 1em;
 									  	</div> 
 									</div>
 									<div class="reviewNone">
-										<div>
+										<div class="reviewcontent">
 											<div>
+											<div class="score">
 											 <c:choose>
 											 	<c:when test="${r.product_grade eq 1 }">
 											 		<svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="star" class="svg-inline--fa fa-star fa-w-18 star-size" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z"></path></svg>
@@ -169,18 +197,21 @@ heignt: 1em;
 											 	</c:when>
 											 </c:choose>
 											</div>
-											<div><button>수정</button></div>
+											<div class="content">
+												<c:out value="${r.review_content }"/>
+											</div>
 										</div>
-										<div>
-											<c:out value="${r.review_content }"/>
+										<div class="update-btn">
+											<button class="btn btn-outline-info waves-effect btn-sm" onclick="updateReview(${r.review_no});">수정</button>
 										</div>
-										<div>
-											<%-- <c:forEach items="${r.riList }" var="ri">
-												<img src="${path }/resources/upload/review/${ri. } }
-											</c:forEach> --%>
+										</div>
+										<div class="picture">
+											<c:forEach items="${r.riList }" var="ri">
+												<img class="ri-img-size" src="${path }/resources/upload/review/${ri.renamedFileName }"/>
+											</c:forEach>
 										</div>
 									</div>
-								</div>
+									</div>
 								</c:forEach>
 							</div>
 						</div>
@@ -189,7 +220,20 @@ heignt: 1em;
 		</div>
 	</div>
 </section>
+<input type="hidden" id="s" value="${s }"/>
 <script>
+	function updateReview(rNo){
+		console.log("띄워라");
+		console.log(rNo);
+		window.open('${path}/review/reviewUpdate.do?rNo='+rNo,'review', 'width=650px,height=800px,toolbars=no'); return false;
+		
+	}
+	$(function(){
+		console.log($("#s").val());
+		if($("#s").val()=='wrote'){
+			$("#tab2").click();
+		}
+	});
 	$("#tab1").click(e=>{
 		$("#tab1").addClass("btn-clicked");
 		$("#tab2").removeClass("btn-clicked");
@@ -205,9 +249,9 @@ heignt: 1em;
 	
 	$(".reviewList").click(function(){
 		if($(this).next().hasClass("reviewView") == true){
-			$(this).next().removeClass("reviewView").addClass("reviewNone");
+			$(this).next().removeClass("reviewView").addClass("reviewNone").slideUp(500);
 		}else{
-			$(this).next().removeClass("reviewNone").addClass("reviewView");
+			$(this).next().removeClass("reviewNone").addClass("reviewView").slideDown(500);
 		}
 	})
 	
