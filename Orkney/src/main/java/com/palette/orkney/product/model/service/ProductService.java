@@ -23,7 +23,11 @@ public interface ProductService {
 	String allProductList();
 	List<Map> productCategory(Map texts);
 	List<Map> sale();
-
-
+	int insertRoom(Map<String, Object> room);
+	List<Map> roomChange();
+	int updateRoom(Map rooms);
+	int roomsTitle(Map titles);
+	 List<Map> buttomProduct(Map ty); 
+	
 
 }

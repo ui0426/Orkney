@@ -285,17 +285,18 @@
   		SELECT * FROM SHOWROOM WHERE ROOM_CATEGORY=#{type}
   	</select>
    	<select id="selectRoomsProduct" resultType="map" parameterType="string">
-  		SELECT * FROM ROOMS E
+  		  SELECT * FROM ROOMS E
 				JOIN PRODUCT R ON E.PRODUCT_NO= R.PRODUCT_NO
-				 JOIN PRODUCT_IMAGE J ON E.PRODUCT_NO= J.PRODUCT_NO
+             JOIN PRODUCT_IMAGE J ON E.PRODUCT_NO= J.PRODUCT_NO
                  JOIN SHOWROOM Q ON Q.ROOM_NO= E.ROOM_NO
-                WHERE ROOM_CATEGORY= #{type} 
+                WHERE ROOM_CATEGORY= #{type}  AND J.PRODUCT_COLOR='normal' 
+               
 	</select> 
 	<select id="roomsDetail" resultType="map" parameterType="string">
 		 SELECT * FROM ROOMS E
 				JOIN PRODUCT R ON E.PRODUCT_NO= R.PRODUCT_NO
-				JOIN PRODUCT_IMAGE J ON E.PRODUCT_NO= J.PRODUCT_NO
-				WHERE E.ROOM_NO=#{type} 
+				LEFT JOIN PRODUCT_IMAGE J ON E.PRODUCT_NO= J.PRODUCT_NO
+				WHERE E.ROOM_NO=#{type} AND J.PRODUCT_COLOR='normal'
 	</select>
 	<select id="selectRoomsTitle" resultType="map" parameterType="string">
 		SELECT * FROM ROOMS_TITLE WHERE ROOM_CATEGORY=#{type}
@@ -303,19 +304,19 @@
 	<select id="listProduct" resultType="map" parameterType="string">
 		
 		 SELECT * FROM PRODUCT E
-				JOIN PRODUCT_IMAGE J ON E.PRODUCT_NO= J.PRODUCT_NO
+				LEFT JOIN PRODUCT_IMAGE J ON E.PRODUCT_NO= J.PRODUCT_NO
 				WHERE J.PRODUCT_COLOR='normal' AND ROWNUM <![CDATA[<]]> #{type} 
 				
 	</select>
 	<select id="allProductList" resultType="string">
 		SELECT COUNT(*)FROM PRODUCT E
-				JOIN PRODUCT_IMAGE J ON E.PRODUCT_NO= J.PRODUCT_NO
+				 JOIN PRODUCT_IMAGE J ON E.PRODUCT_NO= J.PRODUCT_NO
 				WHERE J.PRODUCT_COLOR='normal'
 	</select>
 	<select id="productCategory" parameterType="map" resultType="map">
 		
 		 SELECT * FROM PRODUCT E
-				JOIN PRODUCT_IMAGE J ON E.PRODUCT_NO= J.PRODUCT_NO
+				 JOIN PRODUCT_IMAGE J ON E.PRODUCT_NO= J.PRODUCT_NO
 				  JOIN BIG_CATEGORY T ON T.BIG_CATEGORY_NO=E.BIG_CATEGORY_NO
 				WHERE J.PRODUCT_COLOR='normal' AND ROWNUM <![CDATA[<]]> #{type} 
 				 <if test=" text!='' ">
@@ -327,9 +328,60 @@
 		
 				
 		 SELECT * FROM PRODUCT E
-				JOIN PRODUCT_IMAGE J ON E.PRODUCT_NO= J.PRODUCT_NO
+				 JOIN PRODUCT_IMAGE J ON E.PRODUCT_NO= J.PRODUCT_NO
 				  JOIN BIG_CATEGORY T ON T.BIG_CATEGORY_NO=E.BIG_CATEGORY_NO
 				WHERE J.PRODUCT_COLOR='normal' AND E.SALE_PER IS NOT NULL			
-	</select>		
+	</select>
+	<update id="insertRoom" parameterType="map" >
+		UPDATE SHOWROOM SET ROOM_PIC = #{roomsImg}
+		WHERE ROOM_NO = #{categoryNo} AND ROOM_CATEGORY = #{category}
+	</update>
+	
+	<select id="roomChange" resultType="map">
+		    <!-- SELECT PRODUCT_NO FROM PRODUCT MINUS
+                    SELECT PRODUCT_NO FROM ROOMS -->
+                      SELECT * FROM PRODUCT A
+        WHERE A.PRODUCT_NO NOT IN (SELECT B.PRODUCT_NO FROM ROOMS B)
+	</select>
+	<insert id="updateRoom" parameterType="map">
+		 INSERT ALL INTO ROOMS VALUES 
+         <foreach collection="one" item="rooms" index="index" open="(" separator="," close=")">
+         #{rooms}
+         </foreach>
+         <if test="two!=null">
+ 		<foreach collection="two" item="rooms" index="index" open="INTO ROOMS VALUES (" separator="," close=")">
+         #{rooms}
+         </foreach>
+         </if>
+          <if test="three!=null">
+		<foreach collection="three" item="rooms" index="index" open="INTO ROOMS VALUES (" separator="," close=")">
+         #{rooms}
+         </foreach>
+          </if>
+          <if test="four!=null">
+         <foreach collection="four" item="rooms" index="index" open="INTO ROOMS VALUES (" separator="," close=")">
+         #{rooms}
+         </foreach>
+          </if>
+          <if test="five!=null">
+         <foreach collection="five" item="rooms" index="index" open="INTO ROOMS VALUES (" separator="," close=") ">
+         #{rooms}
+         </foreach>	
+         </if>
+         SELECT *FROM DUAL																																								
+	</insert>
+		<update id="roomsTitle" parameterType="map">
+			UPDATE ROOMS_TITLE SET ROOM_H2=#{title},
+			ROOM_CONTEXT=#{content}
+			WHERE ROOM_CATEGORY=#{roomsTitle} AND ROOMS_TOP_BOTTOM=#{roomsSubTitle}
+		</update>
+		 
+ 	<select id="buttomProduct" resultType="map" parameterType="map">
+		SELECT *FROM PRODUCT WHERE PRODUCT_NO in
+		<foreach collection="type" item="type" open="(" close=")" separator=",">
+		 #{type}
+		</foreach>
+	</select> 
 </mapper>
+		
 

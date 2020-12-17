@@ -52,7 +52,7 @@
 						<li><a> <span class="ev-pb-et-p">더 낮은 새로운 가격</span> <span
 								class="ev-bt-name">${p.PRODUCT_NAME} </span> <span class="rm-bt-sp"> ${p.BIG_CATEGORY_CONTENT} </span>
 								<span class="rm-bt-et-price"><fmt:setLocale value="ko_KR" />
-									<fmt:formatNumber type="currency" value="${p.PRODUCT_PRICE*(1-p.SALE_PER/100)}" /></span> <span
+									<fmt:formatNumber type="currency" value="${p.PRODUCT_PRICE*(p.SALE_PER/100)}" /></span> <span
 								class="ev-bt-price"><fmt:setLocale value="ko_KR" /> <fmt:formatNumber
 										type="currency" value="${p.PRODUCT_PRICE}" /></span>
 						</a></li>
@@ -115,7 +115,7 @@
 											 <p class="card-text marginZero event-price"><fmt:setLocale value="ko_KR" />
 												<fmt:formatNumber type="currency" value="${p.PRODUCT_PRICE}" /></p>
 											<p class="card-text marginZero product-price"><fmt:setLocale value="ko_KR" />
-												<fmt:formatNumber type="currency" value="${p.PRODUCT_PRICE*(1-p.SALE_PER/100)}" /></p>
+												<fmt:formatNumber type="currency" value="${p.PRODUCT_PRICE*(p.SALE_PER/100)}" /></p>
 												
 											
 											<div class="">

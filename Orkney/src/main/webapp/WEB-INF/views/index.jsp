@@ -89,9 +89,7 @@
 	<div class="popularProduct">
 
 		<div class="buttonLine">
-			<button type="button" class="btn btn-dark event-bu1 event-target">
-				<span class="event-sp">전체보기</span>
-			</button>
+			<button type="button" class="btn btn-dark event-bu1 event-target"><span class="event-sp">전체보기</span></button>
 			<button type="button" class="btn btn-dark event-bu1 event-target"><span class="event-sp">침대<!-- 책장/선반유닛 --></span></button>
 			<button type="button" class="btn btn-dark event-bu1 event-target"><span class="event-sp">서랍</span></button>
 			<button type="button" class="btn btn-dark event-bu1 event-target"><span class="event-sp">의자</span></button>

@@ -111,9 +111,45 @@ public class ProductServiceImpl implements ProductService{
 		// TODO Auto-generated method stub
 		return dao.sale(session);
 	}
+
+	@Override
+	public int insertRoom(Map<String, Object> room) {
+		// TODO Auto-generated method stub
+		return dao.insertRoom(session,room);
+	}
+
+	@Override
+	public List<Map> roomChange() {
+		// TODO Auto-generated method stub
+		return dao.roomChange(session);
+	}
+
+	@Override
+	public int updateRoom(Map rooms) {
+		// TODO Auto-generated method stub
+		return dao.updateRoom(session,rooms);
+	}
+
+	@Override
+	public int roomsTitle(Map titles) {
+		// TODO Auto-generated method stub
+		return dao.roomsTitle(session, titles);
+	}
+
+	
+	  @Override public List<Map> buttomProduct(Map ty) {
+		  // TODO Auto-generated method stub 
+		  return dao.buttomProduct(session,ty); 
+		  }
+	  
+	 
+	
+	 
+	  
+	 
 	 
 
 	  
-	
+
 
 }
