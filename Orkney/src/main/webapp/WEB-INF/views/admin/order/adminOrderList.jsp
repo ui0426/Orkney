@@ -55,13 +55,13 @@
 			</script>
 			
 		<div class="search-container">			
-				<select class="browser-default custom-select" style="width: 21%;">
-				  <option value="all" <c:if test="${map.search_option=='all'}">selected </c:if>>전체보기</option>
-				  <option value="ono" <c:if test="${map.search_option=='ono'}">selected </c:if>>주문번호</option>
-				  <option value="name" <c:if test="${map.search_option=='name'}">selected </c:if>>주문자</option>
-				  <option value="status" <c:if test="${map.search_option=='status'}">selected </c:if>>진행상태</option>
+				<select class="browser-default custom-select" style="width: 21%;" id="sel">
+				  <option value="all" >전체보기</option>
+				  <option value="ono" >주문번호</option>
+				  <option value="name"  >주문자</option>
+				  <option value="status" >진행상태</option>
 				</select>
-				<input type="text" name="keyword" class="form-control" value="${map.keyword}" placeholder="검색어 입력"/>				
+				<input type="text" class="form-control" value="${map.keyword}" placeholder="검색어 입력"/>				
 				<span style="padding: 5px;">
 					<input type="button" class="searchBtn">
 				</span> 			
@@ -72,7 +72,8 @@
 		<div>			
 			<div id="list"></div>			
 			<script>
-				$(function(){										
+				$(function(){
+					let keyword=$(".form-control").val();
 					$.ajax({
 						url:"${path}/admin/orderListData.do",						
 						success:data=>{
@@ -80,13 +81,13 @@
 						}
 					})					
 				})
-				$(".searchBtn").click(function(){
-					console.log("되구있나");
+				$(".searchBtn").click(function(){					
 					let keyword=$(".form-control").val();
-					console.log(keyword);
+					let search_option = $(sel).val();
+				   
 					$.ajax({
 						url:"${path}/admin/orderListData.do",	
-						data:{keyword:keyword},
+						data:{keyword:keyword,search_option:search_option},
 						success:data=>{
 							$("#list").html(data);
 						}

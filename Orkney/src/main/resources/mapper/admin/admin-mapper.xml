@@ -11,7 +11,7 @@
   		SELECT CHAT_ROOM FROM CHATTING WHERE MEMBER_NO=#{data} GROUP BY CHAT_ROOM ORDER BY CHAT_ROOM DESC
   	</select>
   	
-  	<select id="selectOrderList" resultType="order">
+  	<select id="selectOrderList" parameterType="map" resultType="order">
   		SELECT * FROM ORDERS JOIN MEMBER USING(MEMBER_NO)
   		 <choose>                     
             <when test="search_option == 'all' ">                
@@ -20,9 +20,15 @@
                       or order_name like '%'||#{keyword}||'%'
                       or order_state like '%'||#{keyword}||'%'   
             </when>
-            <otherwise>               
-                where ${search_option} like '%'||#{keyword}||'%'
-            </otherwise>
+         	 <when test="search_option == 'ono' ">                
+                where order_no like '%'||#{keyword}||'%'   
+            </when>
+             <when test="search_option == 'name' ">                
+                where order_name like '%'||#{keyword}||'%'   
+            </when>
+            <when test="search_option == 'status' ">                
+                where order_state like '%'||#{keyword}||'%'
+            </when>                            
         </choose>
   		 ORDER BY ORDER_DATE DESC  	
   	</select>

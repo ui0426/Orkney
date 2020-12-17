@@ -83,7 +83,7 @@ public class AdminController {
 		
 		List<Orders> list = service.selectOrderList(cPage, numPerPage,search_option,keyword);
 
-		System.out.println("list:" + list);
+		System.out.println("keyword:" + keyword);
 
 		int totalOrder = service.totalOrder();
 		String pageBar = PageFactory.getPageBar(totalOrder, cPage);
