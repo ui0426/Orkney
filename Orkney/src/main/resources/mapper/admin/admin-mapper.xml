@@ -23,12 +23,16 @@
          	 <when test="search_option == 'ono' ">                
                 where order_no like '%'||#{keyword}||'%'   
             </when>
-             <when test="search_option == 'name' ">                
+             <when test="search_option == 'member_name' ">                
+                where member_name like '%'||#{keyword}||'%'   
+            </when>
+            <when test="search_option == 'order_name' ">                
                 where order_name like '%'||#{keyword}||'%'   
             </when>
             <when test="search_option == 'status' ">                
                 where order_state like '%'||#{keyword}||'%'
-            </when>                            
+            </when> 
+                                                   
         </choose>
   		 ORDER BY ORDER_DATE DESC  	
   	</select>

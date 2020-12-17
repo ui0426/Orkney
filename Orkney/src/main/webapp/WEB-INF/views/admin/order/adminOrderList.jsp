@@ -17,70 +17,50 @@
 			</div>
 			
 			<div class="info-title">
-				<div id="order-confirm" onclick="changeList('주문확인')">
+				<div>
 					 <span>주문확인</span>  
 					 <input type="text" class="input-form" value="${count.get("주문확인")}" readonly>
 					 <span>건</span> 
 				</div>
-				<div id="cancel-confirm" onclick="changeList('취소신청')">
+				<div>
 					<span>취소신청</span>
 					<input type="text" class="input-form" value="${count.get("취소신청")}" readonly>
 					<span>건</span>
 				</div>
-				<div id="exchange-confirm" onclick="changeList('교환신청')">
+				<div>
 					 <span>교환신청</span>  
 					 <input type="text" class="input-form" value="${count.get("교환신청")}" readonly>
 					 <span>건</span>
 				</div>
-				<div id="refund-confirm" onclick="changeList('반품신청')">
+				<div>
 					 <span>반품신청</span> 
 					<input type="text"  class="input-form" value="${count.get("반품신청")}" readonly>
 					 <span>건</span>
 				</div>	 
 			</div>
 			
-			<div><h5 id="topList-title"></h5></div>
+			<div><h5>교환/반품현황</h5></div>
 			<div>
-				<div id="change" class="topList"></div>
+				<div id="change"></div>
 			</div>
 			<script>
-			
-				function changeList(state){
-					console.log(state);
-					if(state =='주문확인' || state =='취소신청'){
-						url = "${path}/admin/selectOrderChangeList.do";
-					}
-					if(state =='교환신청' || state == '반품신청'){
-						url = "${path}/admin/selectOrderDetailChangeList.do";
-					}
-					console.log(url);
-					$.ajax({
-						url:url,
-						data: {state:state},
-						success:data=>{
-							console.log("성공");
-							$("#topList-title").html(state);
-							$("#change").html(data);
-							$("#change").css("display","block");
-						}
-					})
-				}
-				/* $(function(){
+				$(function(){
 					$.ajax({
 						url:"${path}/admin/orderChangeList.do",
 						success:data=>{
 							$("#change").html(data);
 						}
 					})
-				}) */
+				})
 			</script>
 			
 		<div class="search-container">			
 				<select class="browser-default custom-select" style="width: 21%;" id="sel">
 				  <option value="all" >전체보기</option>
 				  <option value="ono" >주문번호</option>
-				  <option value="name"  >주문자</option>
-				  <option value="status" >진행상태</option>
+				  <option value="member_name">주문자</option>
+				  <option value="order_name">수령자</option>
+				  <option value="status">진행상태</option>
 				</select>
 				<input type="text" class="form-control" value="${map.keyword}" placeholder="검색어 입력"/>				
 				<span style="padding: 5px;">
