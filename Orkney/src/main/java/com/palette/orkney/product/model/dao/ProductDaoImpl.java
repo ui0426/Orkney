@@ -55,6 +55,11 @@ public class ProductDaoImpl implements ProductDao{
 		// TODO Auto-generated method stub
 		return session.selectList("product.review",productNo);
 	}
+	@Override
+	public List<Map> average(SqlSession session, Map<String, Object> productno) {
+		// TODO Auto-generated method stub
+		return session.selectList("product.average",productno);
+	}
 
 	
 //====================================================================
@@ -114,6 +119,7 @@ public class ProductDaoImpl implements ProductDao{
 	public int updateStock(SqlSession session, Map m) {
 		return session.update("product.updateStock", m);
 	}
+
 	
 
 

@@ -183,7 +183,8 @@ $("#frameModalBottomSuccess").modal('show');
 						for ( var i=0;i <= data.length;i++){
 						if (data[i]["PRODUCT_COLOR"]=="normal") {
 							
-						  let productClone = $("#products").clone();
+						  let productClone = $("#products").clone().attr("id","products");
+						  
 						
 						  $(productClone).find("#checkbox").val(data[i]["PRODUCT_PIC"]);
 						  $(productClone).find("#productMainImg").attr("src","${path}/resources/images/product/"+data[i]["PRODUCT_PIC"]);
@@ -192,7 +193,67 @@ $("#frameModalBottomSuccess").modal('show');
 						  $(productClone).find("#pr").html(numberWithCommas(data[i]["PRODUCT_PRICE"]));
 						  $(productClone).find("#productA").attr("href","${path}/product/productDetail.do?productno="+data[i]["PRODUCT_NO"]);
 						  $(productClone).find("#readMore").attr("onclick","location.href = \'${path}/product/productDetail.do?productno="+data[i]["PRODUCT_NO"]+"\'");
-						  $("#product_list").append(productClone);						  										
+						 						  										
+// 						하는중
+						  var productNo = data[i]["PRODUCT_NO"];
+						  $.ajax({
+								url: "${path}/product/average.do",
+								async: false,
+								data:{
+									"productNo":productNo
+								},
+								success:data2=>{
+
+									for (var i = 0; i < data.length; i++) {
+										
+									
+										console.log("데이터2"+data[i]["PRODUCT_NO"]);
+										if (data2[i]["COUNT(REVIEW_NO)"]) {
+											
+											 $(productClone).find("#average2").text(data2[i]["AVG(PRODUCT_GRADE)"].toFixed(1));
+											 $(productClone).find("#buynum2").text("("+data2[i]["COUNT(REVIEW_NO)"]+")");
+										}
+									if (parseFloat(data2[i]["AVG(PRODUCT_GRADE)"]) > 0 && data2[i]["AVG(PRODUCT_GRADE)"] < 1.5) {
+										
+										$(productClone).find("#starGray1").removeClass("grey-text").addClass("blue-text");
+										$(productClone).find("#starGray2").removeClass("blue-text").addClass("grey-text");
+										$(productClone).find("#starGray3").removeClass("blue-text").addClass("grey-text");
+										$(productClone).find("#starGray4").removeClass("blue-text").addClass("grey-text");
+										$(productClone).find("#starGray5").removeClass("blue-text").addClass("grey-text");
+									}else if (parseFloat(data2[i]["AVG(PRODUCT_GRADE)"]) >= 1.5 && data2[i]["AVG(PRODUCT_GRADE)"] < 2.5) {
+										$(productClone).find("#starGray1").removeClass("grey-text").addClass("blue-text");
+										$(productClone).find("#starGray2").removeClass("grey-text").addClass("blue-text");
+										$(productClone).find("#starGray3").removeClass("blue-text").addClass("grey-text");
+										$(productClone).find("#starGray4").removeClass("blue-text").addClass("grey-text");
+										$(productClone).find("#starGray5").removeClass("blue-text").addClass("grey-text");
+									
+									}else if (parseFloat(data2[i]["AVG(PRODUCT_GRADE)"]) >= 2.5 && data2[i]["AVG(PRODUCT_GRADE)"] < 3.5) {
+										$(productClone).find("#starGray1").removeClass("grey-text").addClass("blue-text");
+										$(productClone).find("#starGray2").removeClass("grey-text").addClass("blue-text");
+										$(productClone).find("#starGray3").removeClass("grey-text").addClass("blue-text");
+										$(productClone).find("#starGray4").removeClass("blue-text").addClass("grey-text");
+										$(productClone).find("#starGray5").removeClass("blue-text").addClass("grey-text");
+									
+									}else if (parseFloat(data2[i]["AVG(PRODUCT_GRADE)"]) >= 3.5 && data2[i]["AVG(PRODUCT_GRADE)"] < 4.5) {
+											
+										$(productClone).find("#starGray1").removeClass("grey-text").addClass("blue-text");
+										$(productClone).find("#starGray2").removeClass("grey-text").addClass("blue-text");
+										$(productClone).find("#starGray3").removeClass("grey-text").addClass("blue-text");
+										$(productClone).find("#starGray4").removeClass("grey-text").addClass("blue-text");
+										$(productClone).find("#starGray5").removeClass("blue-text").addClass("grey-text");
+									
+									}else if (parseFloat(data2[i]["AVG(PRODUCT_GRADE)"]) >= 4.5) {
+										$(productClone).find("#starGray1").removeClass("grey-text").addClass("blue-text");
+										$(productClone).find("#starGray2").removeClass("grey-text").addClass("blue-text");
+										$(productClone).find("#starGray3").removeClass("grey-text").addClass("blue-text");
+										$(productClone).find("#starGray4").removeClass("grey-text").addClass("blue-text");
+										$(productClone).find("#starGray5").removeClass("grey-text").addClass("blue-text");
+									}
+								}
+								}
+								
+							});
+						 $("#product_list").append(productClone);
 						}
 						}
 					}
@@ -542,14 +603,78 @@ $("#frameModalBottomSuccess").modal('show');
 			<hr>
 		</div>
 		<!-- 헤더 필터 버튼 end -->
+<script type="text/javascript">
+$(function() {
+<c:forEach items="${list }" var="p" varStatus="s">
+var productNo = "${p.PRODUCT_NO}";
+$.ajax({
+	url: "${path}/product/average.do",
+	async: false,
+	data:{
+		"productNo":productNo
+	},
+	success:data=>{
+
+		for (var i = 0; i < data.length; i++) {
+			
+		
+			console.log("데이터"+data[i]["PRODUCT_NO"]);
+			if (data[i]["COUNT(REVIEW_NO)"]) {
+				
+			$("#products"+'${s.index}').find("#average").text(data[i]["AVG(PRODUCT_GRADE)"].toFixed(1));
+			$("#products"+'${s.index}').find("#buynum").text("("+data[i]["COUNT(REVIEW_NO)"]+")");
+			}
+		if (parseFloat(data[i]["AVG(PRODUCT_GRADE)"]) > 0 && data[i]["AVG(PRODUCT_GRADE)"] < 1.5) {
+			$("#products"+'${s.index}').find("#starGray1").removeClass("grey-text").addClass("blue-text");
+			$("#products"+'${s.index}').find("#starGray2").removeClass("blue-text").addClass("grey-text");
+			$("#products"+'${s.index}').find("#starGray3").removeClass("blue-text").addClass("grey-text");
+			$("#products"+'${s.index}').find("#starGray4").removeClass("blue-text").addClass("grey-text");
+			$("#products"+'${s.index}').find("#starGray5").removeClass("blue-text").addClass("grey-text");
+		}else if (parseFloat(data[i]["AVG(PRODUCT_GRADE)"]) >= 1.5 && data[i]["AVG(PRODUCT_GRADE)"] < 2.5) {
+			$("#products"+'${s.index}').find("#starGray1").removeClass("grey-text").addClass("blue-text");
+			$("#products"+'${s.index}').find("#starGray2").removeClass("grey-text").addClass("blue-text");
+			$("#products"+'${s.index}').find("#starGray3").removeClass("blue-text").addClass("grey-text");
+			$("#products"+'${s.index}').find("#starGray4").removeClass("blue-text").addClass("grey-text");
+			$("#products"+'${s.index}').find("#starGray5").removeClass("blue-text").addClass("grey-text");
+		
+		}else if (parseFloat(data[i]["AVG(PRODUCT_GRADE)"]) >= 2.5 && data[i]["AVG(PRODUCT_GRADE)"] < 3.5) {
+			$("#products"+'${s.index}').find("#starGray1").removeClass("grey-text").addClass("blue-text");
+			$("#products"+'${s.index}').find("#starGray2").removeClass("grey-text").addClass("blue-text");
+			$("#products"+'${s.index}').find("#starGray3").removeClass("grey-text").addClass("blue-text");
+			$("#products"+'${s.index}').find("#starGray4").removeClass("blue-text").addClass("grey-text");
+			$("#products"+'${s.index}').find("#starGray5").removeClass("blue-text").addClass("grey-text");
+		
+		}else if (parseFloat(data[i]["AVG(PRODUCT_GRADE)"]) >= 3.5 && data[i]["AVG(PRODUCT_GRADE)"] < 4.5) {
+			$("#products"+'${s.index}').find("#starGray1").removeClass("grey-text").addClass("blue-text");
+			$("#products"+'${s.index}').find("#starGray2").removeClass("grey-text").addClass("blue-text");
+			$("#products"+'${s.index}').find("#starGray3").removeClass("grey-text").addClass("blue-text");
+			$("#products"+'${s.index}').find("#starGray4").removeClass("grey-text").addClass("blue-text");
+			$("#products"+'${s.index}').find("#starGray5").removeClass("blue-text").addClass("grey-text");
+		
+		}else if (parseFloat(data[i]["AVG(PRODUCT_GRADE)"]) >= 4.5) {
+			$("#products"+'${s.index}').find("#starGray1").removeClass("grey-text").addClass("blue-text");
+			$("#products"+'${s.index}').find("#starGray2").removeClass("grey-text").addClass("blue-text");
+			$("#products"+'${s.index}').find("#starGray3").removeClass("grey-text").addClass("blue-text");
+			$("#products"+'${s.index}').find("#starGray4").removeClass("grey-text").addClass("blue-text");
+			$("#products"+'${s.index}').find("#starGray5").removeClass("grey-text").addClass("blue-text");
+		}
+	}
+	}
+	
+});
+</c:forEach>
+});
+// 하는중
+</script>
+
 
 				<form action="${path}/product/productsCompare.do" method="get">
 				
 		<!-- 제품 목록 -->
 		<div class="row row-cols-1 row-cols-md-3 row-cols-sm-2 row-cols-lg-4 " id="product_list">
-		<c:forEach items="${list }" var="p">
+		<c:forEach items="${list }" var="p" varStatus="s">
 		<c:if test="${p.PRODUCT_COLOR == 'normal'}">
-<div class="col products" id="products" onmouseover="checkbox_Over()" onmouseout="checkbox_Out()" >
+<div class="col products" id="products${s.index}" onmouseover="checkbox_Over()" onmouseout="checkbox_Out()" >
 
 
 
@@ -589,27 +714,24 @@ $("#frameModalBottomSuccess").modal('show');
 
 
 							<div class="">
-								<svg focusable="false" viewBox="0 0 24 24" class="star"
-									aria-hidden="true">
-								<path
-										d="M12.003 4L14.8623 8.9091L20.4147 10.1115L16.6294 14.3478L17.2017 20L12.003 17.7091L6.80429 20L7.37657 14.3478L3.59131 10.1115L9.14371 8.9091L12.003 4Z"></path></svg>
-								<svg focusable="false" viewBox="0 0 24 24" class="star"
-									aria-hidden="true">
-								<path
-										d="M12.003 4L14.8623 8.9091L20.4147 10.1115L16.6294 14.3478L17.2017 20L12.003 17.7091L6.80429 20L7.37657 14.3478L3.59131 10.1115L9.14371 8.9091L12.003 4Z"></path></svg>
-								<svg focusable="false" viewBox="0 0 24 24" class="star"
-									aria-hidden="true">
-								<path
-										d="M12.003 4L14.8623 8.9091L20.4147 10.1115L16.6294 14.3478L17.2017 20L12.003 17.7091L6.80429 20L7.37657 14.3478L3.59131 10.1115L9.14371 8.9091L12.003 4Z"></path></svg>
-								<svg focusable="false" viewBox="0 0 24 24" class="star"
-									aria-hidden="true">
-								<path
-										d="M12.003 4L14.8623 8.9091L20.4147 10.1115L16.6294 14.3478L17.2017 20L12.003 17.7091L6.80429 20L7.37657 14.3478L3.59131 10.1115L9.14371 8.9091L12.003 4Z"></path></svg>
-								<svg focusable="false" viewBox="0 0 24 24" class="star"
-									aria-hidden="true">
-								<path
-										d="M12.003 4L14.8623 8.9091L20.4147 10.1115L16.6294 14.3478L17.2017 20L12.003 17.7091L6.80429 20L7.37657 14.3478L3.59131 10.1115L9.14371 8.9091L12.003 4Z"></path></svg>
-								<span class="">(# 댓글수)</span>
+<!-- 								별점 -->
+								<ul class="rating mb-2 row" style="margin: 2px" id="starnum">
+<!-- 									<li><i class="fas fa-star blue-text"></i></li> -->
+<!-- 									<li><i class="fas fa-star blue-text"></i></li> -->
+<!-- 									<li><i class="fas fa-star blue-text"></i></li> -->
+<!-- 									<li><i class="fas fa-star blue-text"></i></li> -->
+<!-- 										★1점★ -->
+<!-- 									<li><i class="fas fa-star blue-text"></i></li> -->
+<!-- 										★0점★ -->
+									<li><i id="starGray1" class="fas fa-star grey-text"></i></li>
+									<li><i id="starGray2" class="fas fa-star grey-text"></i></li>
+									<li><i id="starGray3" class="fas fa-star grey-text"></i></li>
+									<li><i id="starGray4" class="fas fa-star grey-text"></i></li>
+									<li><i id="starGray5" class="fas fa-star grey-text"></i></li>
+									
+									<p class="" id="average"></p>
+									<p class="" id="buynum"></p>
+								</ul>
 								<!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
 
 								<!-- Card footer -->
@@ -682,29 +804,27 @@ $("#frameModalBottomSuccess").modal('show');
 
 
 
-
+<!-- 하는중 -->
 							<div class="">
-								<svg focusable="false" viewBox="0 0 24 24" class="star"
-									aria-hidden="true">
-								<path
-										d="M12.003 4L14.8623 8.9091L20.4147 10.1115L16.6294 14.3478L17.2017 20L12.003 17.7091L6.80429 20L7.37657 14.3478L3.59131 10.1115L9.14371 8.9091L12.003 4Z"></path></svg>
-								<svg focusable="false" viewBox="0 0 24 24" class="star"
-									aria-hidden="true">
-								<path
-										d="M12.003 4L14.8623 8.9091L20.4147 10.1115L16.6294 14.3478L17.2017 20L12.003 17.7091L6.80429 20L7.37657 14.3478L3.59131 10.1115L9.14371 8.9091L12.003 4Z"></path></svg>
-								<svg focusable="false" viewBox="0 0 24 24" class="star"
-									aria-hidden="true">
-								<path
-										d="M12.003 4L14.8623 8.9091L20.4147 10.1115L16.6294 14.3478L17.2017 20L12.003 17.7091L6.80429 20L7.37657 14.3478L3.59131 10.1115L9.14371 8.9091L12.003 4Z"></path></svg>
-								<svg focusable="false" viewBox="0 0 24 24" class="star"
-									aria-hidden="true">
-								<path
-										d="M12.003 4L14.8623 8.9091L20.4147 10.1115L16.6294 14.3478L17.2017 20L12.003 17.7091L6.80429 20L7.37657 14.3478L3.59131 10.1115L9.14371 8.9091L12.003 4Z"></path></svg>
-								<svg focusable="false" viewBox="0 0 24 24" class="star"
-									aria-hidden="true">
-								<path
-										d="M12.003 4L14.8623 8.9091L20.4147 10.1115L16.6294 14.3478L17.2017 20L12.003 17.7091L6.80429 20L7.37657 14.3478L3.59131 10.1115L9.14371 8.9091L12.003 4Z"></path></svg>
-								<span class="">(# 댓글수)</span>
+<!-- 								별점  -->
+								<ul class="rating mb-2 row" style="margin: 2px" id="starnum">
+<!-- 									<li><i class="fas fa-star blue-text"></i></li> -->
+<!-- 									<li><i class="fas fa-star blue-text"></i></li> -->
+<!-- 									<li><i class="fas fa-star blue-text"></i></li> -->
+<!-- 									<li><i class="fas fa-star blue-text"></i></li> -->
+<!-- 										★1점★ -->
+<!-- 									<li><i class="fas fa-star blue-text"></i></li> -->
+<!-- 										★0점★ -->
+									<li><i id="starGray1" class="fas fa-star grey-text"></i></li>
+									<li><i id="starGray2" class="fas fa-star grey-text"></i></li>
+									<li><i id="starGray3" class="fas fa-star grey-text"></i></li>
+									<li><i id="starGray4" class="fas fa-star grey-text"></i></li>
+									<li><i id="starGray5" class="fas fa-star grey-text"></i></li>
+									
+									<p class="" id="average2"></p>
+									<p class="" id="buynum2"></p>
+								</ul>
+								
 								<!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
 
 								<!-- Card footer -->

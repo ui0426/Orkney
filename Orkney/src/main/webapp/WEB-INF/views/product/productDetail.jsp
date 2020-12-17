@@ -76,7 +76,7 @@ height: 32rem;
 						<!-- Card body -->
 						<div id="collapseOne1" class="collapse show" role="tabpanel"
 							aria-labelledby="headingOne1" data-parent="#accordionEx">
-							<div class="card-body">양면 등쿠션은 부드럽고 편안하며 양면의 디자인이 다릅니다.
+							<div class="card-body" id="productInfo">양면 등쿠션은 부드럽고 편안하며 양면의 디자인이 다릅니다.
 								등쿠션은 앉는 자세에 맞춰서 위치를 조정할 수 있습니다.</div>
 						</div>
 					</div>
@@ -464,120 +464,20 @@ height: 32rem;
 					<!-- Add to Cart -->
 					<section class="color">
 						<div class="mt-5">
-							<p class="grey-text fontbor">색상 선택</p>
+							<p class="grey-text fontbor" id="selectColor"></p>
+							<p id="colorName" class="fontbor"></p>
 							<div class="row text-center text-md-left">
-
-
-								<div class=" ">
-									<button
-										class=" "
-										type="button">
-
-								
-											<path fill-rule="evenodd" clip-rule="evenodd"
-												d="M15.5996 11.9999L9.81456 17.7857L8.40026 16.3716L12.7714 11.9999L8.40026 7.62823L9.81457 6.21411L15.5996 11.9999Z"></path></svg>
-									</button>
-									<div class="">
-										<a
-											href="https://www.ikea.com/kr/ko/p/hansola-chair-bamboo-kimstad-black-70474458/"
-											class="    ">
-											<div class=" ">
-												<img loading="lazy"
-													class=""
-													alt="HANSOLA 한솔라 의자, 대나무/킴스타드 블랙"
-													srcset="
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-kimstad-black__0812256_PE771982_S5.JPG?f=g 1600w,
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-kimstad-black__0812256_PE771982_S5.JPG?f=sg 1400w,
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-kimstad-black__0812256_PE771982_S5.JPG?f=xxxl 1100w,
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-kimstad-black__0812256_PE771982_S5.JPG?f=xxl 900w,
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-kimstad-black__0812256_PE771982_S5.JPG?f=xl 750w,
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-kimstad-black__0812256_PE771982_S5.JPG?f=l 700w,
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-kimstad-black__0812256_PE771982_S5.JPG?f=m 600w,
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-kimstad-black__0812256_PE771982_S5.JPG?f=s 500w,
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-kimstad-black__0812256_PE771982_S5.JPG?f=xs 400w,
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-kimstad-black__0812256_PE771982_S5.JPG?f=xxs 300w,
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-kimstad-black__0812256_PE771982_S5.JPG?f=xxxs 160w,
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-kimstad-black__0812256_PE771982_S5.JPG?f=u 80w,
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-kimstad-black__0812256_PE771982_S5.JPG?f=xu 40w,
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-kimstad-black__0812256_PE771982_S5.JPG?f=xxu 39w
-"
-													sizes="40px"
-													src="">
-											</div></a><a
-											class="    "><div
-												class=" ">
-												<img loading="lazy"
-													class=""
-													alt="HANSOLA 한솔라 의자, 대나무/힐라레드 앤트러싸이트"
-													srcset="
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-hillared-anthracite__0812255_PE771981_S5.JPG?f=g 1600w,
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-hillared-anthracite__0812255_PE771981_S5.JPG?f=sg 1400w,
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-hillared-anthracite__0812255_PE771981_S5.JPG?f=xxxl 1100w,
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-hillared-anthracite__0812255_PE771981_S5.JPG?f=xxl 900w,
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-hillared-anthracite__0812255_PE771981_S5.JPG?f=xl 750w,
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-hillared-anthracite__0812255_PE771981_S5.JPG?f=l 700w,
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-hillared-anthracite__0812255_PE771981_S5.JPG?f=m 600w,
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-hillared-anthracite__0812255_PE771981_S5.JPG?f=s 500w,
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-hillared-anthracite__0812255_PE771981_S5.JPG?f=xs 400w,
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-hillared-anthracite__0812255_PE771981_S5.JPG?f=xxs 300w,
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-hillared-anthracite__0812255_PE771981_S5.JPG?f=xxxs 160w,
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-hillared-anthracite__0812255_PE771981_S5.JPG?f=u 80w,
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-hillared-anthracite__0812255_PE771981_S5.JPG?f=xu 40w,
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-hillared-anthracite__0812255_PE771981_S5.JPG?f=xxu 39w
-"
-													sizes="40px"
-													src="">
-											</div></a><a
-											href="https://www.ikea.com/kr/ko/p/hansola-chair-bamboo-brown-hillared-anthracite-00476470/"
-											class="    "><div
-												class=>
-												<img loading="lazy"
-													class=""
-													alt="HANSOLA 한솔라 의자, 대나무 브라운/힐라레드 앤트러싸이트"
-													srcset="
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-brown-hillared-anthracite__0812244_PE771978_S5.JPG?f=g 1600w,
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-brown-hillared-anthracite__0812244_PE771978_S5.JPG?f=sg 1400w,
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-brown-hillared-anthracite__0812244_PE771978_S5.JPG?f=xxxl 1100w,
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-brown-hillared-anthracite__0812244_PE771978_S5.JPG?f=xxl 900w,
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-brown-hillared-anthracite__0812244_PE771978_S5.JPG?f=xl 750w,
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-brown-hillared-anthracite__0812244_PE771978_S5.JPG?f=l 700w,
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-brown-hillared-anthracite__0812244_PE771978_S5.JPG?f=m 600w,
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-brown-hillared-anthracite__0812244_PE771978_S5.JPG?f=s 500w,
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-brown-hillared-anthracite__0812244_PE771978_S5.JPG?f=xs 400w,
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-brown-hillared-anthracite__0812244_PE771978_S5.JPG?f=xxs 300w,
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-brown-hillared-anthracite__0812244_PE771978_S5.JPG?f=xxxs 160w,
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-brown-hillared-anthracite__0812244_PE771978_S5.JPG?f=u 80w,
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-brown-hillared-anthracite__0812244_PE771978_S5.JPG?f=xu 40w,
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-brown-hillared-anthracite__0812244_PE771978_S5.JPG?f=xxu 39w
-"
-													sizes="40px"
-													src="">
-											</div></a><a
-											href="https://www.ikea.com/kr/ko/p/hansola-chair-bamboo-black-kimstad-black-50474459/"
-											class="    "><div
-												class=>
-												<img loading="lazy"
-													class=""
-													alt="HANSOLA 한솔라 의자, 대나무 블랙/킴스타드 블랙"
-													srcset="
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-black-kimstad-black__0812254_PE771980_S5.JPG?f=g 1600w,
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-black-kimstad-black__0812254_PE771980_S5.JPG?f=sg 1400w,
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-black-kimstad-black__0812254_PE771980_S5.JPG?f=xxxl 1100w,
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-black-kimstad-black__0812254_PE771980_S5.JPG?f=xxl 900w,
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-black-kimstad-black__0812254_PE771980_S5.JPG?f=xl 750w,
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-black-kimstad-black__0812254_PE771980_S5.JPG?f=l 700w,
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-black-kimstad-black__0812254_PE771980_S5.JPG?f=m 600w,
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-black-kimstad-black__0812254_PE771980_S5.JPG?f=s 500w,
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-black-kimstad-black__0812254_PE771980_S5.JPG?f=xs 400w,
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-black-kimstad-black__0812254_PE771980_S5.JPG?f=xxs 300w,
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-black-kimstad-black__0812254_PE771980_S5.JPG?f=xxxs 160w,
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-black-kimstad-black__0812254_PE771980_S5.JPG?f=u 80w,
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-black-kimstad-black__0812254_PE771980_S5.JPG?f=xu 40w,
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-black-kimstad-black__0812254_PE771980_S5.JPG?f=xxu 39w
-"
-													sizes="40px"
-													src="">
-											</div></a>
+							
+								<div class="" id="colorProductCon">
+									
+									
+									
+								<div class="" style="display: none;">
+										<biv class="" href="" id="colorProductA" onclick="colorClick();">
+											<div class="">
+												<img loading="" class="" alt="" sizes="40px" src="" id="colorProduct" >
+											</div>
+										</div>	
 									</div>
 								</div>
 							</div>
@@ -737,10 +637,7 @@ height: 32rem;
           <!--Slides-->
           <div class="carousel-inner" role="listbox" id="reviewImgZoomCon">
             <!--First slide-->
-            <div class="carousel-item active">
-              <img class="d-block w-100 h32rem" id="reviewImgZoom1" src="https://mdbootstrap.com/img/Photos/Horizontal/Architecture/12-col/img%20(10).jpg"
-                alt="First slide">
-            </div>
+
             <!--/First slide-->
             <!--Second slide-->
 
@@ -767,6 +664,12 @@ height: 32rem;
     </div>
 
   </section>
+              <div style="display: none;">
+            <div class="carousel-item active" id="imgMiniNone0">
+              <img class="d-block w-100 h32rem" id="reviewImgZoom1" src="https://mdbootstrap.com/img/Photos/Horizontal/Architecture/12-col/img%20(10).jpg"
+                alt="First slide">
+            </div>
+            </div>
               <div style="display: none;">
             <div class="carousel-item" id="imgMiniNone1" >
               <img class="d-block w-100 h32rem" id="reviewImgZoom2" src="https://mdbootstrap.com/img/Photos/Horizontal/Architecture/12-col/img%20(11).jpg"
@@ -931,10 +834,10 @@ if ("${r.REVIEW_NO}"!=null) {
 	$(reviewClone).find("#reviewDate").text('${r.REVIEW_DATE}');
 	$(reviewClone).find("#review").text('${r.REVIEW_CONTENT}');
 // 	만드는중 	a태그 target 변경
-	$(reviewClone).find("#imgZoom").attr("data-target","#modalVM"+'${s.index}');	
-	$("#reviewCon").append(reviewClone);
-// 만드는중	클론생성
+	$(reviewClone).find("#imgZoom").attr("data-target","#modalVM"+'${s.index}');
+
 	let imgZoomClone = $("#modalVM").clone().attr("id","modalVM"+'${s.index}');
+	// 만드는중	클론생성
 	$(imgZoomClone).find("#reviewImgZoomCon").attr("id","reviewImgZoomCon"+'${s.index}');
 	$(imgZoomClone).find("#carousel-example-1z").attr("id","carousel-example-1z"+'${s.index}');
 	$(imgZoomClone).find("#imgDat1").attr("data-target","#carousel-example-1z"+'${s.index}');
@@ -942,7 +845,8 @@ if ("${r.REVIEW_NO}"!=null) {
 	$(imgZoomClone).find("#imgDat3").attr("data-target","#carousel-example-1z"+'${s.index}');
 	$(imgZoomClone).find("#prevId").attr("href","#carousel-example-1z"+'${s.index}');
 	$(imgZoomClone).find("#nextId").attr("href","#carousel-example-1z"+'${s.index}');
-// 	$(imgZoomClone).attr("id","modalVM"+'${s.index}');
+
+
 
 	
 	
@@ -957,40 +861,23 @@ if ("${r.REVIEW_NO}"!=null) {
 			for (var i = 0; i < data.length; i++) {
 			console.log('${s.index}:'+i+":"+data[i]["REVIEW_NO"]+":"+'${r.REVIEW_NO}'+"데이타:"+data[i]["RENAMEDFILENAME"]);
 				if (data[i]["REVIEW_NO"]=='${r.REVIEW_NO}') {
-					$("#productImg").attr("src","${path}/resources/upload/review/"+data[0]["RENAMEDFILENAME"]);
-					
-					
-					
- 					if (i=='0') {
- 						console.log("첫번째"+data[0]["RENAMEDFILENAME"]);
-					$(imgZoomClone).find("#reviewImgZoom1").attr("src","${path}/resources/upload/review/"+data[i]["RENAMEDFILENAME"]);
-
- 					$(imgZoomClone).find("#imgDat2"+'${s.index}').css("display","none");
- 					$(imgZoomClone).find("#imgDat3"+'${s.index}').css("display","none");
+					$(reviewClone).find("#productImg").attr("src","${path}/resources/upload/review/"+data[0]["RENAMEDFILENAME"]);
+ 					
+					if (i==0) {
+						$(imgZoomClone).find("#imgDat2").css("display","none");
+						$(imgZoomClone).find("#imgDat3").css("display","none");
+					}if (i==1) {
+						$(imgZoomClone).find("#imgDat2").css("display","block");
+						$(imgZoomClone).find("#imgDat3").css("display","none");
+					}if (i==2) {
+						$(imgZoomClone).find("#imgDat2").css("display","block");
+						$(imgZoomClone).find("#imgDat3").css("display","block");
 					}
- 					if(i=='1'){
-
-//  					$(imgZoomClone).find("#reviewImgZoom2").attr("src","${path}/resources/upload/review/"+data[1]["RENAMEDFILENAME"]);
-
- 					$(imgZoomClone).find("#imgDat2"+'${s.index}').css("display","block");
- 					$(imgZoomClone).find("#imgDat3"+'${s.index}').css("display","none");
-//  					$(imgZoomClone).find("#imgMiniNone2").css("display","block");
-						
-					}if(i=='2'){
-
-//  					$(imgZoomClone).find("#reviewImgZoom3").attr("src","${path}/resources/upload/review/"+data[2]["RENAMEDFILENAME"]);
-
- 					$(imgZoomClone).find("#imgDat2"+'${s.index}').css("display","block");
- 					$(imgZoomClone).find("#imgDat3"+'${s.index}').css("display","block");
-//  					$(imgZoomClone).find("#imgMiniNone3").css("display","block");
-						
-					}
-					
 				}
 				
 			}
 			if (data=="") {
-					$("#reviewImgCon").html("");
+				$(reviewClone).find("#reviewImgCon").html("");
 				
 			}
 		}
@@ -998,9 +885,12 @@ if ("${r.REVIEW_NO}"!=null) {
 
 	});
 
+	$("#reviewCon").append(reviewClone);
+
 	
 	$("#content").append(imgZoomClone);
 	
+	let imgMiniNone0 = $("#modalVM"+'${s.index}').find("#imgMiniNone0").clone();
 	let imgMiniNone1 = $("#modalVM"+'${s.index}').find("#imgMiniNone1").clone();
 	let imgMiniNone2 = $("#modalVM"+'${s.index}').find("#imgMiniNone2").clone();
 	$.ajax({
@@ -1011,14 +901,21 @@ if ("${r.REVIEW_NO}"!=null) {
 		},
 		success:data=>{
 			for (var i = 0; i < data.length; i++) {	
- 					if ('${r.REVIEW_NO}'==data[i]["REVIEW_NO"] && i=="1") {
- 						console.log("두번쨰"+data[i]["RENAMEDFILENAME"]);
+				
+
+ 					
+				if ('${r.REVIEW_NO}'==data[i]["REVIEW_NO"] && i=="0") {
+ 						console.log("몇번?"+data[0]["RENAMEDFILENAME"]);
+ 					$(imgMiniNone0).find("#reviewImgZoom1").attr("src","${path}/resources/upload/review/"+data[0]["RENAMEDFILENAME"]);
+					$("#reviewImgZoomCon"+'${s.index}').append(imgMiniNone0);
+					}
+				if ('${r.REVIEW_NO}'==data[i]["REVIEW_NO"] && i=="1") {
+ 					
  					$(imgMiniNone1).find("#reviewImgZoom2").attr("src","${path}/resources/upload/review/"+data[1]["RENAMEDFILENAME"]);
 					$("#reviewImgZoomCon"+'${s.index}').append(imgMiniNone1);
-					
 					}
- 					if ('${r.REVIEW_NO}'==data[i]["REVIEW_NO"] && i=="2") {
- 						console.log("세번쨰"+data[i]["RENAMEDFILENAME"]);
+ 				if ('${r.REVIEW_NO}'==data[i]["REVIEW_NO"] && i=="2") {
+ 					
 					$(imgMiniNone2).find("#reviewImgZoom3").attr("src","${path}/resources/upload/review/"+data[2]["RENAMEDFILENAME"]);
 					$("#reviewImgZoomCon"+'${s.index}').append(imgMiniNone2);
 					}
@@ -1043,17 +940,38 @@ if ("${r.REVIEW_NO}"!=null) {
 function numberWithCommas(x) {
 	return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
+//색상 클릭 이벤트
+function colorClick() {
+	<c:forEach items="${list}" var="i" varStatus="s" >
 
-
+	if ("${i.PRODUCT_COLOR}" != "normal") {
+		let color = $("#colorProductA"+"${s.index}").find("#colorProduct").attr("alt");
+		$("#colorName").html(color);
+	}
+	</c:forEach>
+}
 // @제품정보 컨트롤
 $(function(){
-	<c:forEach items="${list}" var="i">
+	<c:forEach items="${list}" var="i" varStatus="s" >
 	
 	$("#productName").text(("${i.PRODUCT_NAME}"));
 	$("#productPrice").text(numberWithCommas(("${i.PRODUCT_PRICE}")));
 	$("#width").text(("${i.PRODUCT_WIDTH}"));
 	$("#depth").text(("${i.PRODUCT_DEPTH}"));
 	$("#height").text(("${i.PRODUCT_HEIGHT}"));
+	$("#productInfo").text(("${i.PRODUCT_INFO}"));
+	
+	if ("${i.PRODUCT_COLOR}" != "normal") {
+		let colorProductA = $("#colorProductA").clone().attr("id","colorProductA"+"${s.index}");
+		$(colorProductA).find("#colorProduct").attr("src","${path}/resources/images/product/"+"${i.PRODUCT_PIC}");
+		$(colorProductA).find("#colorProduct").attr("alt","${i.PRODUCT_COLOR}");
+		$("#colorProductCon").append(colorProductA);
+			$("#selectColor").text("색상선택");
+			
+			
+		}
+
+	
 	
 	
 	</c:forEach>

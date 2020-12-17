@@ -61,7 +61,7 @@ public class ProductController {
 	@RequestMapping("/product/reviewImg.do")
 	@ResponseBody
 	public List<Map>reviewImg(@RequestParam Map<String,Object> id){
-		System.out.println("아이디:"+id+":"+service.reviewImg(id));
+		System.out.println("리뷰img:"+id+":"+service.reviewImg(id));
 		
 		return service.reviewImg(id);
 	}
@@ -91,7 +91,16 @@ public class ProductController {
 
 
 	}
-	
+	@RequestMapping("/product/average.do")
+	@ResponseBody
+	public List<Map> average(
+			@RequestParam Map<String,Object> productno
+			){
+		System.out.println("제품번호:"+productno);
+		System.out.println("댓글:"+service.average(productno));
+		return service.average(productno);
+	}
+
 //	===================================================================================
 	
 	
