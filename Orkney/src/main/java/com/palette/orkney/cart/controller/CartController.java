@@ -30,10 +30,49 @@ public class CartController {
 	@Autowired
 	private MemberService mservice;
 	
+	//0.장바구니 추가
+	@RequestMapping("/cart/cartInsert.do")
+	public ModelAndView cartInsert(HttpSession session,ModelAndView mv,String productNo,int productPrice) {
+		System.out.println("첫상품번호:"+productNo);
+		System.out.println("첫상품가격:"+productPrice);
+		
+		String memberNo = (String)((Map)session.getAttribute("login")).get("MEMBER_NO");										
+		List<Cart> c = service.selectCart(memberNo);
+		
+		System.out.println("c:"+c);
+		
+		//2. 경록이형 연결시 추가 ( 상품번호 가져옴)
+		Cart cart = new Cart();
+		cart.setMemberNo(memberNo);
+		cart.setProductNo(productNo);				
+		
+		System.out.println("cart"+cart);
+		
+		//3. 카트에 상품 존재 유무
+		int count = service.countCart(cart.getProductNo(), memberNo);
+		System.out.println("count:"+count);
+		
+		//4. 카트에 상품이 없을시 추가 있을시 없데이트
+		if (count==0)  count = service.insertCart(cart);
+		else count = service.updateCart(cart);
+	
+		System.out.println("count:"+count);
+		
+		if(count==1) {			
+			int sum=service.sumPrice(c.get(0).getCartNo());
+			mv.addObject("sumprice",sum);
+			mv.addObject("cN",c.get(0).getCartNo());	
+		}
+		
+		mv.addObject("cart",c);					
+		return mv;
+	}
+	
+	
 	//1.장바구니 화면 이동(장바구니 확인 /추가/수정)
 	@RequestMapping("/cart/cart.do")
 	public ModelAndView cart(HttpSession session, ModelAndView mv,String productNo) {					
-		
+				
 		String memberNo = (String)((Map)session.getAttribute("login")).get("MEMBER_NO");										
 		List<Cart> c = service.selectCart(memberNo);															
 		
@@ -205,7 +244,7 @@ public class CartController {
 	//6. 포인트사용시 값 변경
 	@RequestMapping("/cart/updatePayment.do")
 	@ResponseBody
-	public ModelAndView updatePayment(ModelAndView mv,HttpSession session, String willpoint)throws NumberFormatException {
+	public ModelAndView updatePayment(ModelAndView mv,HttpSession session, String willpoint) {
 		String memberNo = (String)((Map)session.getAttribute("login")).get("MEMBER_NO");																
 		List<Cart> c = service.selectCart(memberNo);				
 		
@@ -219,7 +258,11 @@ public class CartController {
 		int shipFee = sum>= 50000 ? 0 : 5000; //주문금액 50000원 넘을시 무료
 		int additionalTax = (int)(sum*0.1);		
 		int willpoint2=0;
-		if(willpoint!=null) willpoint2=Integer.parseInt(willpoint);		
+		try {			
+			if(willpoint!=null) willpoint2=Integer.parseInt(willpoint);		
+		}catch(NumberFormatException e) {
+			e.printStackTrace();
+		}
 
 		int	totalFee = ((sum+shipFee)-(willpoint2))+additionalTax;						
 		map.put("sumprice",sum);

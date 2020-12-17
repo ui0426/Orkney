@@ -19,7 +19,7 @@ public interface OrderService {
 	
 	String selectEmail(String oNo);
 	
-	int updateSort(OrderDetail od);
+	int orderConfirm(OrderDetail od, String mNo);
 	
 	//주문 추가 //cartNo=orderNo갱신
 	int insertOrders(Orders orders,List<Cart> c);
@@ -31,5 +31,7 @@ public interface OrderService {
 //	int insertPoint2(Map<String, Object> point2);
 	
 	String selectOno(Orders orders);
+	
+	int updateRefund(OrderDetail od);
 	
 }

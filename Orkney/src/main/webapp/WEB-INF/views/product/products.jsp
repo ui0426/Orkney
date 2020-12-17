@@ -685,7 +685,7 @@ $.ajax({
 </div>
 					
 						<!--Card image-->
-						<div class="view overlay zoom" >
+						<div class="view overlay zoom productSizing" >
 							<img class="card-img-top imgHeight " 
 								src="${path}/resources/images/product/${p.PRODUCT_PIC}"
 								alt="Card image cap" > <a
@@ -775,7 +775,7 @@ $.ajax({
 <div class="plp-checkbox" id="plp-checkbox"  onclick="check_PIC();">
 <input type="checkbox" name="checkboxname" id="checkbox" black="true" value="${p.PRODUCT_PIC}">
 </div>
-						<div class="view overlay zoom">
+						<div class="view overlay zoom productSizing">
 						
 
 							<img class="card-img-top imgHeight" id="productMainImg"

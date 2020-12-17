@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.collections.map.HashedMap;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
@@ -113,7 +114,47 @@ public class ProductDaoImpl implements ProductDao{
 		return session.selectList("product.sale");
 	}
 
-	 
+	@Override
+	public int insertRoom(SqlSession session, Map<String, Object> room) {
+		// TODO Auto-generated method stub
+		System.out.println(room);
+		return session.update("product.insertRoom",room);
+		
+	}
+
+	@Override
+	public List<Map> roomChange(SqlSession session) {
+		// TODO Auto-generated method stub
+		return session.selectList("product.roomChange");
+	}
+
+	@Override
+	public int updateRoom(SqlSession session, Map rooms) {
+		// TODO Auto-generated method stub
+		/*for(Object map : rooms) {
+			System.out.println("????????????????????????????????????????????????");*/
+		
+		return session.insert("product.updateRoom",rooms);
+			/*
+			 * } return 0;
+			 */
+		
+	}
+
+	@Override
+	public int roomsTitle(SqlSession session, Map titles) {
+		// TODO Auto-generated method stub
+		System.out.println(titles);
+		return session.update("product.roomsTitle",titles);
+		
+	}
+
+	
+	  @Override public List<Map> buttomProduct(SqlSession session, Map ty) {
+		  // TODO Auto-generated method stub 
+		  return session .selectList("product.buttomProduct",ty); 
+		  }
+
 //재고갱신
 	@Override
 	public int updateStock(SqlSession session, Map m) {

@@ -14,9 +14,9 @@ public interface AdminService {
 
 	List<String> roomNo(String data);
 		
-	List<Orders> selectOrderList(int cPage, int numPerPage);
+	List<Orders> selectOrderList(int cPage, int numPerPage,String search_option,String keyword);
 
-	List<OrderDetail> selectChangeList();
+	List<Orders> selectOrderChangeList(Map s);
 	
 	int modifyFAQ(Map data);
 
@@ -38,8 +38,14 @@ public interface AdminService {
 	
 	int updateOrderState(Map o);
 	
+	int updateOrderInfo(Map orderInfo);
+
 	Map countOrderState();
 	
 	int totalOrder();
+	
+	List<Orders> updateOrderListState(int cPage, int numPerPage, Map m, String search_option, String keyword);
+	
+	List<OrderDetail> selectOrderDetailChangeList(String state);
 
 }
