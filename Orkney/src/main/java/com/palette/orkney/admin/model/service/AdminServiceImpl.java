@@ -122,8 +122,8 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public List<OrderDetail> selectChangeList() {	
-		return dao.selectChangeList(session);
+	public List<Orders> selectOrderChangeList(Map s) {	
+			return dao.selectOrderChangeList(session, s);
 	}
 
 	@Override
@@ -135,6 +135,13 @@ public class AdminServiceImpl implements AdminService {
 		}
 		return list;
 	}
+
+	@Override
+	public List<OrderDetail> selectOrderDetailChangeList(String state) {
+		return dao.selectOrderDetailChangeList(session, state);
+	}
+	
+	
 	
 	
 	
