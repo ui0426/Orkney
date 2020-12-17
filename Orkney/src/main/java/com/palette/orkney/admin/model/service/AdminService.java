@@ -14,7 +14,7 @@ public interface AdminService {
 
 	List<String> roomNo(String data);
 		
-	List<Orders> selectOrderList(int cPage, int numPerPage);
+	List<Orders> selectOrderList(int cPage, int numPerPage,String search_option,String keyword);
 
 	List<OrderDetail> selectChangeList();
 	

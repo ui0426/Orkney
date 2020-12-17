@@ -17,7 +17,7 @@ public interface AdminDao {
 
 	List<String> roomNo(SqlSession session, String data);
 
-	List<Orders> selectOrderList(SqlSession session,int cPage, int numPerPage);
+	List<Orders> selectOrderList(SqlSession session,int cPage, int numPerPage,String search_option,String keyword);
 
 	int modifyFAQ(SqlSession session, Map data);
 

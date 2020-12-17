@@ -39,8 +39,8 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public List<Orders> selectOrderList(int cPage,int numPerPage) {
-		return dao.selectOrderList(session,cPage,numPerPage);
+	public List<Orders> selectOrderList(int cPage,int numPerPage,String search_option,String keyword) {
+		return dao.selectOrderList(session,cPage,numPerPage,search_option,keyword);
 	}
 
 	@Override
@@ -131,7 +131,7 @@ public class AdminServiceImpl implements AdminService {
 		int result = dao.updateOrderListState(session, m);
 		List<Orders> list = new ArrayList();
 		if(result > 0) {
-			list = dao.selectOrderList(session,cPage,numPerPage);
+//			list = dao.selectOrderList(session,cPage,numPerPage);
 		}
 		return list;
 	}

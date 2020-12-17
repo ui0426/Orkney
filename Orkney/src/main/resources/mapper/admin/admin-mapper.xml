@@ -12,8 +12,21 @@
   	</select>
   	
   	<select id="selectOrderList" resultType="order">
-  		SELECT * FROM ORDERS JOIN MEMBER USING(MEMBER_NO) ORDER BY ORDER_DATE DESC
+  		SELECT * FROM ORDERS JOIN MEMBER USING(MEMBER_NO)
+  		 <choose>                     
+            <when test="search_option == 'all' ">                
+                where  
+                      order_no like '%'||#{keyword}||'%'
+                      or order_name like '%'||#{keyword}||'%'
+                      or order_state like '%'||#{keyword}||'%'   
+            </when>
+            <otherwise>               
+                where ${search_option} like '%'||#{keyword}||'%'
+            </otherwise>
+        </choose>
+  		 ORDER BY ORDER_DATE DESC  	
   	</select>
+  	
   	
   	<update id="modifyFAQ" parameterType="map">
   		UPDATE FAQ SET FAQ_TITLE=#{title},FAQ_CONTENT=#{content},CATEGORY=#{category} WHERE FAQ_NO=#{no}
