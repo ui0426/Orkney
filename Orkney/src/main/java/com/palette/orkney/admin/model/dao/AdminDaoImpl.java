@@ -1,5 +1,6 @@
 package com.palette.orkney.admin.model.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -32,9 +33,13 @@ public class AdminDaoImpl implements AdminDao {
 	}
 
 	@Override
-	public List<Orders> selectOrderList(SqlSession session,int cPage,int numPerPage) {
+	public List<Orders> selectOrderList(SqlSession session,int cPage,int numPerPage,String search_option,String keyword) {
 		RowBounds rs=new RowBounds((cPage-1)*numPerPage,numPerPage);
-		return session.selectList("admin.selectOrderList",null,rs);
+		
+	    Map<String,Object> map = new HashMap<>();
+        map.put("search_option", search_option);
+        map.put("keyword", keyword);              
+		return session.selectList("admin.selectOrderList",map,rs);
 	}
 
 	@Override
@@ -56,8 +61,7 @@ public class AdminDaoImpl implements AdminDao {
 	}
 
 	@Override
-	public List<Map> memberList(SqlSession session,int cPage,int numPerPage) {
-		// TODO Auto-generated method stub
+	public List<Map> memberList(SqlSession session,int cPage,int numPerPage) {		
 		RowBounds r=new RowBounds((cPage-1)*numPerPage,numPerPage);
 		return session.selectList("admin.memberList",null,r);
 	}
@@ -118,13 +122,18 @@ public class AdminDaoImpl implements AdminDao {
 	}
 
 	@Override
-	public List<OrderDetail> selectChangeList(SqlSession session) {	
-		return session.selectList("admin.selectChangeList");
+	public List<Orders> selectOrderChangeList(SqlSession session, Map s) {	
+		return session.selectList("admin.selectOrderChangeList", s);
 	}
 
 	@Override
 	public int updateOrderListState(SqlSession session, Map m) {
 		return session.update("admin.updateOrderListState", m);
+	}
+
+	@Override
+	public List<OrderDetail> selectOrderDetailChangeList(SqlSession session, String state) {
+		return session.selectList("admin.selectOrderDetailChangeList", state);
 	}	
 	
 	

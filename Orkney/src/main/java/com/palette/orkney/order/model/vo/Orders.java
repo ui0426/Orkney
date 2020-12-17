@@ -34,4 +34,7 @@ public class Orders {
 	private String member_name;
 
 	private String phone;
+	
+	private String keyword;
+	private String search_option;
 }

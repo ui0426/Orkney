@@ -205,7 +205,7 @@ public class CartController {
 	//6. 포인트사용시 값 변경
 	@RequestMapping("/cart/updatePayment.do")
 	@ResponseBody
-	public ModelAndView updatePayment(ModelAndView mv,HttpSession session, String willpoint)throws NumberFormatException {
+	public ModelAndView updatePayment(ModelAndView mv,HttpSession session, String willpoint) {
 		String memberNo = (String)((Map)session.getAttribute("login")).get("MEMBER_NO");																
 		List<Cart> c = service.selectCart(memberNo);				
 		
@@ -219,7 +219,11 @@ public class CartController {
 		int shipFee = sum>= 50000 ? 0 : 5000; //주문금액 50000원 넘을시 무료
 		int additionalTax = (int)(sum*0.1);		
 		int willpoint2=0;
-		if(willpoint!=null) willpoint2=Integer.parseInt(willpoint);		
+		try {			
+			if(willpoint!=null) willpoint2=Integer.parseInt(willpoint);		
+		}catch(NumberFormatException e) {
+			e.printStackTrace();
+		}
 
 		int	totalFee = ((sum+shipFee)-(willpoint2))+additionalTax;						
 		map.put("sumprice",sum);

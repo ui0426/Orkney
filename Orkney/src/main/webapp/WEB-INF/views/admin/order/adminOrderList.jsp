@@ -17,53 +17,76 @@
 			</div>
 			
 			<div class="info-title">
-				<div>
+				<div id="order-confirm" onclick="changeList('주문확인')">
 					 <span>주문확인</span>  
 					 <input type="text" class="input-form" value="${count.get("주문확인")}" readonly>
 					 <span>건</span> 
 				</div>
-				<div>
+				<div id="cancel-confirm" onclick="changeList('취소신청')">
 					<span>취소신청</span>
 					<input type="text" class="input-form" value="${count.get("취소신청")}" readonly>
 					<span>건</span>
 				</div>
-				<div>
+				<div id="exchange-confirm" onclick="changeList('교환신청')">
 					 <span>교환신청</span>  
 					 <input type="text" class="input-form" value="${count.get("교환신청")}" readonly>
 					 <span>건</span>
 				</div>
-				<div>
+				<div id="refund-confirm" onclick="changeList('반품신청')">
 					 <span>반품신청</span> 
 					<input type="text"  class="input-form" value="${count.get("반품신청")}" readonly>
 					 <span>건</span>
 				</div>	 
 			</div>
 			
-			<div><h5>교환/반품현황</h5></div>
+			<div><h5 id="topList-title"></h5></div>
 			<div>
-				<div id="change"></div>
+				<div id="change" class="topList"></div>
 			</div>
 			<script>
-				$(function(){
+			
+				function changeList(state){
+					console.log(state);
+					if(state =='주문확인' || state =='취소신청'){
+						url = "${path}/admin/selectOrderChangeList.do";
+					}
+					if(state =='교환신청' || state == '반품신청'){
+						url = "${path}/admin/selectOrderDetailChangeList.do";
+					}
+					console.log(url);
+					$.ajax({
+						url:url,
+						data: {state:state},
+						success:data=>{
+							console.log("성공");
+							$("#topList-title").html(state);
+							$("#change").html(data);
+							$("#change").css("display","block");
+						}
+					})
+				}
+				/* $(function(){
 					$.ajax({
 						url:"${path}/admin/orderChangeList.do",
 						success:data=>{
 							$("#change").html(data);
 						}
 					})
-				})
+				}) */
 			</script>
 			
-			<div class="search-container">
-				<select class="browser-default custom-select" style="width: 21%;">
-				  <option selected>Open this select menu</option>
-				  <option value="1">주문번호</option>
-				  <option value="2">주문자</option>
-				  <option value="3">수령자</option>
+		<div class="search-container">			
+				<select class="browser-default custom-select" style="width: 21%;" id="sel">
+				  <option value="all" >전체보기</option>
+				  <option value="ono" >주문번호</option>
+				  <option value="name"  >주문자</option>
+				  <option value="status" >진행상태</option>
 				</select>
-				<input type="text" id="exampleForm2" class="form-control">
-				<span style="padding: 5px;"><button class="searchBtn"></button></span> 
-			</div>
+				<input type="text" class="form-control" value="${map.keyword}" placeholder="검색어 입력"/>				
+				<span style="padding: 5px;">
+					<input type="button" class="searchBtn">
+				</span> 			
+		</div>
 				
 		</div>
 		<div><h5>주문검색</h5></div>
@@ -71,12 +94,25 @@
 			<div id="list"></div>			
 			<script>
 				$(function(){
+					let keyword=$(".form-control").val();
 					$.ajax({
 						url:"${path}/admin/orderListData.do",						
 						success:data=>{
 							$("#list").html(data);
 						}
 					})					
+				})
+				$(".searchBtn").click(function(){					
+					let keyword=$(".form-control").val();
+					let search_option = $(sel).val();
+				   
+					$.ajax({
+						url:"${path}/admin/orderListData.do",	
+						data:{keyword:keyword,search_option:search_option},
+						success:data=>{
+							$("#list").html(data);
+						}
+					})
 				})
 				
 				function fn_paging(cPage){

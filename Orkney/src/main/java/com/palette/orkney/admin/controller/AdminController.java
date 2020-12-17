@@ -75,27 +75,43 @@ public class AdminController {
 	}
 
 	@RequestMapping("/admin/orderListData.do")
-	public ModelAndView orderListData(ModelAndView mv, @RequestParam(value = "cPage", defaultValue = "0") int cPage) {
+	public ModelAndView orderListData(ModelAndView mv, 
+			@RequestParam(value = "cPage", defaultValue = "0") int cPage,
+			@RequestParam(defaultValue="all") String search_option,
+			@RequestParam(defaultValue="") String keyword) {
 		int numPerPage = 10;
-		List<Orders> list = service.selectOrderList(cPage, numPerPage);
+		
+		List<Orders> list = service.selectOrderList(cPage, numPerPage,search_option,keyword);
 
-		System.out.println("list:" + list);
+		System.out.println("keyword:" + keyword);
 
 		int totalOrder = service.totalOrder();
 		String pageBar = PageFactory.getPageBar(totalOrder, cPage);
-
+				
 		mv.addObject("order", list);
 		mv.addObject("pageBar", pageBar);
 		mv.setViewName("ajax/orderList");
 		return mv;
 	}
 
-	@RequestMapping("/admin/orderChangeList.do")
-	public ModelAndView orderChangeList(ModelAndView mv) {
-
-		List<OrderDetail> list = service.selectChangeList();
+	@RequestMapping("/admin/selectOrderChangeList.do")
+	public ModelAndView orderChangeList(String state, ModelAndView mv) {
+		System.out.println("주문확인 또는 취소신청 나와야함 : "+state);
+		Map s = new HashMap();
+		s.put("state", state);
+		List<Orders> list = service.selectOrderChangeList(s);
 		System.out.println(list);
-		mv.addObject("change", list);
+		mv.addObject("order", list);
+		mv.setViewName("ajax/orderChangeList");
+		return mv;
+	}
+	
+	@RequestMapping("/admin/selectOrderDetailChangeList.do")
+	public ModelAndView orderDetailChangeList(String state, ModelAndView mv) {
+		System.out.println("교환신청 또는 반품신청 나와야함 : "+state);
+		List<OrderDetail> list = service.selectOrderDetailChangeList(state);
+		System.out.println(list);
+		mv.addObject("orderDetail", list);
 		mv.setViewName("ajax/orderChangeList");
 		return mv;
 	}

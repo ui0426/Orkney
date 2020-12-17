@@ -11,9 +11,28 @@
   		SELECT CHAT_ROOM FROM CHATTING WHERE MEMBER_NO=#{data} GROUP BY CHAT_ROOM ORDER BY CHAT_ROOM DESC
   	</select>
   	
-  	<select id="selectOrderList" resultType="order">
-  		SELECT * FROM ORDERS JOIN MEMBER USING(MEMBER_NO) ORDER BY ORDER_DATE DESC
+  	<select id="selectOrderList" parameterType="map" resultType="order">
+  		SELECT * FROM ORDERS JOIN MEMBER USING(MEMBER_NO)
+  		 <choose>                     
+            <when test="search_option == 'all' ">                
+                where  
+                      order_no like '%'||#{keyword}||'%'
+                      or order_name like '%'||#{keyword}||'%'
+                      or order_state like '%'||#{keyword}||'%'   
+            </when>
+         	 <when test="search_option == 'ono' ">                
+                where order_no like '%'||#{keyword}||'%'   
+            </when>
+             <when test="search_option == 'name' ">                
+                where order_name like '%'||#{keyword}||'%'   
+            </when>
+            <when test="search_option == 'status' ">                
+                where order_state like '%'||#{keyword}||'%'
+            </when>                            
+        </choose>
+  		 ORDER BY ORDER_DATE DESC  	
   	</select>
+  	
   	
   	<update id="modifyFAQ" parameterType="map">
   		UPDATE FAQ SET FAQ_TITLE=#{title},FAQ_CONTENT=#{content},CATEGORY=#{category} WHERE FAQ_NO=#{no}
@@ -62,7 +81,7 @@
   	</update>
   	
   	<select id="countOrderState" resultType="map">
-	select count(case when order_state='주문확인' then 1 end) as "주문확인",count(case when order_state='취소신청' then 1 end) as "취소신청",
+	select count(case when order_state='주문확인' then 1 end) as "주문확인",count(case when order_state='취소신청1' or order_state='취소신청2' then 1 end) as "취소신청",
 	count(case when sort='교환신청' then 1 end)as "교환신청",count(case when sort='반품신청' then 1 end)as "반품신청"
 	from order_detail join orders using(order_no)
   	</select>
@@ -71,8 +90,16 @@
   		SELECT COUNT(*) FROM orders
   	</select>
   	
-  	<select id="selectChangeList" resultType="orderDetail">
-  		SELECT * FROM ORDERS JOIN order_detail USING(order_NO) join member using(member_no) join product using(product_no) where sort='교환신청' or sort='반품신청' ORDER BY ORDER_DATE DESC
+  	<select id="selectOrderChangeList" parameterType="map" resultType="order">
+  		SELECT * FROM ORDERS join member using(member_no) where 
+  		<if test='state=="취소신청"'>
+  			order_state='취소신청1' OR ORDER_STATE='취소신청2'
+  		</if>
+  		<if test='state=="주문확인"'>  		
+  		order_state=#{state} 
+  		</if>
+  		
+  		ORDER BY ORDER_DATE DESC
   	</select>
   	
   	<update id="updateOrderListState" parameterType="map">
@@ -80,4 +107,8 @@
   			UPDATE ORDERS SET ORDER_STATE=#{state} WHERE ORDER_NO=#{oNo}
   		</foreach>
   	</update>
+  	
+  	<select id="selectOrderDetailChangeList" parameterType="string" resultType="orderDetail">
+  		SELECT * FROM ORDER_DETAIL JOIN ORDERS USING(ORDER_NO) JOIN MEMBER USING(MEMBER_NO) JOIN PRODUCT USING(PRODUCT_NO) WHERE SORT=#{state}
+  	</select>
 </mapper>
