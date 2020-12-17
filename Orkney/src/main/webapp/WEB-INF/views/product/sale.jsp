@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="${path}/resources/css/product/sale.css">
 <link rel="stylesheet" href="${path}/resources/css/product/rooms.css">
 <link rel="stylesheet" href="${path }/resources/css/product/products.css">
-
+<jsp:useBean id="now" class="java.util.Date" />
 <section class="ev-container ">
 	<div class="ev-container-inner">
 		<div class="ev-top">
@@ -49,13 +49,20 @@
 						
 					
 					<ul>
-						<li><a> <span class="ev-pb-et-p">더 낮은 새로운 가격</span> <span
-								class="ev-bt-name">${p.PRODUCT_NAME} </span> <span class="rm-bt-sp"> ${p.BIG_CATEGORY_CONTENT} </span>
+						<li>
+							<a> 
+								 <fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today" />  
+								<fmt:formatDate value="${p.PRODUCT_ENROLL_DATE }" pattern="yyyy-MM-dd" var="write_dt"/>
+								<span class="rm-pb-et-new" style="display: inline;">${today >= write_dt?'NEW':""}</span>
+								<span class="ev-pb-et-p">더 낮은 새로운 가격</span> 
+								<span class="ev-bt-name">${p.PRODUCT_NAME}</span> 
+								<span class="rm-bt-sp"> ${p.BIG_CATEGORY_CONTENT} </span>
 								<span class="rm-bt-et-price"><fmt:setLocale value="ko_KR" />
-									<fmt:formatNumber type="currency" value="${p.PRODUCT_PRICE*(p.SALE_PER/100)}" /></span> <span
-								class="ev-bt-price"><fmt:setLocale value="ko_KR" /> <fmt:formatNumber
-										type="currency" value="${p.PRODUCT_PRICE}" /></span>
-						</a></li>
+								<fmt:formatNumber type="currency" value="${p.PRODUCT_PRICE*(p.SALE_PER/100)}" /></span> 
+								<span class="ev-bt-price"><fmt:setLocale value="ko_KR" /> 
+								<fmt:formatNumber type="currency" value="${p.PRODUCT_PRICE}" /></span>
+							</a>
+						</li>
 					</ul>
 					</c:if>
 					</c:forEach>
@@ -100,7 +107,8 @@
 										</div>
 										<!--Card content-->
 										<div class="card-body">
-										
+										<fmt:formatDate value="${p.PRODUCT_ENROLL_DATE }" pattern="yyyy-MM-dd" var="write_dt"/>
+											<span class="rm-pb-et-new">${today >= write_dt?'NEW':""}</span>
 											<span class="ev-pb-et-p-rm">더 낮은 새로운 가격</span>
 											
 											<!--Title-->

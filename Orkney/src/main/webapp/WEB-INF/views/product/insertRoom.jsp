@@ -98,7 +98,7 @@
 									<div>
 										<div class="rm-bt-price">
 											<fmt:setLocale value="ko_KR" />
-											<fmt:formatNumber  type="currency" value="" />
+											<fmt:formatNumber type="currency" value="" />
 										</div>
 									</div>
 									<div>
@@ -379,27 +379,9 @@ function getInputName(){
 						alert("중복된 상품번호 입니다");
 						 $(this).val('상품번호');
 						 dl.splice(r-1);
-					}
-					 
-					 				 });
+					}				 
+			 });
 			};
-			
-			
-			 
-			
-			
-				
-			
-			/*  let kd=$(this).parent().siblings().children('.rooms_product '); */
-			
-			 
-					 
-				
-				
-				 
-			
-			  
-		
 		    }
 		 });
 		};
@@ -408,9 +390,9 @@ function getInputName(){
 	$("#roomsSelect").trigger("change"); 
 	   /* roomChange(e);    */
 	  
-}); 
+	}); 
 
-function roomChange(e) {
+	function roomChange(e) {
 	
 	var room_a = ["자리선택","침실1", "침실2", "침실3", "침실4","침실5"];
 	  var room_b = ["자리선택","거실1", "거실2", "거실3", "거실4","거실5"];
@@ -435,11 +417,9 @@ function roomChange(e) {
 	    opt.value = d[x];
 	    opt.innerHTML = d[x];
 	    target.appendChild(opt);
-	
-   } 
+   	 } 
 	 
-	 
-};
+	};
 
 	$("#roomsSelectOne").on('focus',function(){
 		$("#roomsSelectOne option:eq(0)").css("display","none");
@@ -630,12 +610,11 @@ function roomChange(e) {
 					 $(".wrapper").append(ce);
 			
 		  
-		}
-	} ;
-	
+			}
+		};
 	 };
 
-function isNumberKey(evt) {
+	function isNumberKey(evt) {
 
     var charCode = (evt.which) ? evt.which : event.keyCode;
 
@@ -684,10 +663,12 @@ function isNumberKey(evt) {
 
         return false;
     }  
-  return true;
-}
-function readURL(input) {
-    if (input.files && input.files[0]) {
+ 		 return true;
+	}
+	
+	function readURL(input) {
+    
+		if (input.files && input.files[0]) {
         var reader = new FileReader();
         reader.onload = function(e) {
         	 
@@ -695,20 +676,14 @@ function readURL(input) {
         	
         }
         reader.readAsDataURL(input.files[0]);
-       
-    }
-}
+         }
+		}
 
-$("#imgInp").change(function() {
+	$("#imgInp").change(function() {
     readURL(this);
-    
     $('h1').remove(); 
 	
-   /*  if(typeof tw != "undefined"){
-    	console.log('어째서?');
-    $("#div-top-left").find("#foo").css("display","block");
-    }; */
-});
+	});
 
 </script>
 <jsp:include page="/WEB-INF/views/common/footer.jsp" />
