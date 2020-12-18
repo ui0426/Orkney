@@ -1092,7 +1092,7 @@ $(function(){
 	$("#depth").text(("${i.PRODUCT_DEPTH}"));
 	$("#height").text(("${i.PRODUCT_HEIGHT}"));
 	
-	$(".productNo").attr("onclick","location.href='${path }/cart/cartInsert.do?productNo=${i.PRODUCT_NO}'");
+	$(".productNo").attr("onclick","location.href='${path }/cart/cartInsert.do?productNo=${i.PRODUCT_NO}&productPrice=${i.PRODUCT_PRICE}'");	
 	</c:forEach>
 });
 

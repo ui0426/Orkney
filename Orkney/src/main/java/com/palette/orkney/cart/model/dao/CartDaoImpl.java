@@ -45,9 +45,8 @@ public class CartDaoImpl implements CartDao{
 	}
 
 	@Override
-	public int countCart(SqlSession session, String productNo, String memberNo) {	
-		Map<String, Object>map = new HashMap<String,Object>();
-		map.put("productNo", productNo);
+	public int countCart(SqlSession session, String memberNo) {	
+		Map<String, Object>map = new HashMap<String,Object>();		
 		map.put("memberNo", memberNo);
 		return session.selectOne("cart.countCart",map);
 	}
@@ -70,6 +69,11 @@ public class CartDaoImpl implements CartDao{
 	@Override
 	public int cartDelete(SqlSession session, String cartNo) {
 		return session.delete("cart.cartDelete",cartNo);
+	}
+
+	@Override
+	public int insertDetail(SqlSession session, Cart cart) {	
+		return session.insert("cart.insertDetail",cart);
 	}
 
 	
