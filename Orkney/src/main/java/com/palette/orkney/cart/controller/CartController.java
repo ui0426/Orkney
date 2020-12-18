@@ -73,9 +73,10 @@ public class CartController {
 		System.out.println(memberNo);
 		List<Cart> c = service.selectCart(memberNo);		
 		System.out.println("c값"+c);
-//		System.out.println("cartNo"+c.get(0).getCartNo());
+
 		if(!c.isEmpty()) {			
-			int sum=service.sumPrice(c.get(0).getCartNo());									
+			int sum=service.sumPrice(c.get(0).getCartNo());			
+			System.out.println("썸"+sum);
 			mv.addObject("sumprice",sum);
 			mv.addObject("cN",c.get(0).getCartNo());				
 			}

@@ -511,7 +511,7 @@ $(function(){
 					console.log("나와라");					
 				}
 			})
-		})
+		})		
 	</c:forEach>	
 });
 </script>

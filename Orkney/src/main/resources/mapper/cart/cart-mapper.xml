@@ -30,9 +30,9 @@
  	
   	<select id="selectCart" parameterType="string" resultMap="cartMap">
   		select * from cart join cart_detail using (cart_no) 
-  		join product using(product_no) 
-  		join member using(member_no)
   		join product_image using(product_no)
+  		join product using(product_no) 
+  		join member using(member_no)  		
   		where member_no=#{memberNo}  
   	</select>
 	<!-- 제일 최신 cartNo -->
