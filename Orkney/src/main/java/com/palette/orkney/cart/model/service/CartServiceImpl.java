@@ -71,8 +71,8 @@ public class CartServiceImpl implements CartService{
 	}
 
 	@Override
-	public int cartDelete(String cartNo) {
-		return dao.cartDelete(session,cartNo);
+	public int cartDelete(String memberNo) {
+		return dao.cartDelete(session,memberNo);
 	}
 
 	@Override

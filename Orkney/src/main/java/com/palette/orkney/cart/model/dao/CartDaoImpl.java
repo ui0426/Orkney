@@ -67,8 +67,8 @@ public class CartDaoImpl implements CartDao{
 	}
 
 	@Override
-	public int cartDelete(SqlSession session, String cartNo) {
-		return session.delete("cart.cartDelete",cartNo);
+	public int cartDelete(SqlSession session, String memberNo) {
+		return session.delete("cart.cartDelete",memberNo);
 	}
 
 	@Override

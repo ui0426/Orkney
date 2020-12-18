@@ -38,7 +38,7 @@ public interface CartService {
 	int selectCount(String cartNo);
 	
 	//카트삭제
-	int cartDelete(String cartNo);
+	int cartDelete(String memberNo);
 	
 	//장바구니 detail insert
 	int insertDetail(Cart cart);

@@ -35,9 +35,16 @@
   		join product_image using(product_no)
   		where member_no=#{memberNo}  
   	</select>
-
+	<!-- 제일 최신 cartNo -->
   	<select id="selectCartNo" parameterType="string" resultType="string">
-  		select cart_no from member join cart using(member_no) where member_no=#{memberNo}
+  		SELECT cart_no
+FROM(
+    SELECT 
+        * 
+    FROM cart 
+    where member_no=#{memberNo}
+    ORDER BY ROWNUM DESC)
+WHERE ROWNUM = 1
   	</select>
   	  	
   	<delete id="deleteProduct" parameterType="map">
@@ -61,7 +68,7 @@
   	</select>
   	
   	<delete id="cartDelete" parameterType="string">
-  		delete from cart where cart_no=#{cartNo}
+  		delete from cart where member_no=#{memberNo}
   	</delete>
   	
 </mapper>

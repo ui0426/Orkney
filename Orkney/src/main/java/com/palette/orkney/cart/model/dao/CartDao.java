@@ -30,7 +30,7 @@ public interface CartDao {
 	
 	int selectCount(SqlSession session,String cartNo);
 	
-	int cartDelete(SqlSession session,String cartNo);
+	int cartDelete(SqlSession session,String memberNo);
 	
 	int insertDetail(SqlSession session,Cart cart);
 }

@@ -34,8 +34,11 @@ public class CartController {
 	@RequestMapping("/cart/cartInsert.do")
 	public ModelAndView cartInsert(HttpSession session,ModelAndView mv,String productNo, int productPrice) {				
 		String memberNo = (String)((Map)session.getAttribute("login")).get("MEMBER_NO");					
-		String cartNo=service.selectCartNo(memberNo);						
-				
+		
+	
+		String cartNo=service.selectCartNo(memberNo);											
+		System.out.println(cartNo);
+		
 		//2. 경록이형 연결
 		Cart cart = new Cart();
 		cart.setMemberNo(memberNo);
@@ -46,27 +49,36 @@ public class CartController {
 		//3. 카트 존재 유무
 		int count = service.countCart(memberNo);		
 		
+		System.out.println("count:"+count);
 		//4. 카트에 상품
-		if (count==0)  count = service.insertCart(cart); 				//카트가 없을시 카트 및 디테일 생성
-		else if (count>0) count= service.insertDetail(cart);			 //카트가 있다면 디테일에 상품만 추가
-				
+		if (count==0) {
+		  count = service.insertCart(cart);  				//카트가 없을시 카트 및 디테일 생성
+		  System.out.println("count있음에:"+count);
+		}	
+		else if (count>0) {
+			count= service.insertDetail(cart);			 	//카트가 있다면 디테일에 상품만 추가			
+		}	
+		
 		mv.setViewName("product/productDetail");						
 		return mv;
 	}
 		
 	//1.장바구니 화면 이동(장바구니 확인)
 	@RequestMapping("/cart/cart.do")
-	public ModelAndView cart(HttpSession session, ModelAndView mv, String productNo) {					
+	public ModelAndView cart(HttpSession session, ModelAndView mv) {					
 		
 		String memberNo = (String)((Map)session.getAttribute("login")).get("MEMBER_NO");	
 		System.out.println(memberNo);
-		List<Cart> c = service.selectCart(memberNo);
-		System.out.println("c정보:"+c);
-		int sum=service.sumPrice(c.get(0).getCartNo());	
+		List<Cart> c = service.selectCart(memberNo);		
+		System.out.println("c값"+c);
+		System.out.println("cartNo"+c.get(0).getCartNo());
+		if(!c.isEmpty()) {			
+			int sum=service.sumPrice(c.get(0).getCartNo());									
+			mv.addObject("sumprice",sum);
+			mv.addObject("cN",c.get(0).getCartNo());				
+			}
 		
-		mv.addObject("cart",c);
-		mv.addObject("cN",c.get(0).getCartNo());
-		mv.addObject("sumprice",sum);				
+		mv.addObject("cart",c);						
 		mv.setViewName("cart/cart");
 		return mv;
 	}
@@ -80,7 +92,7 @@ public class CartController {
 		System.out.println("cartNo"+cartNo);
 		
 		sumPrice=null;
-		int basket = service.cartDelete(cartNo);
+		int basket = service.cartDelete(memberNo);
 		System.out.println("sum:"+sumPrice);
 		cartNo=null;
 		System.out.println("cartNo"+cartNo);		
@@ -195,7 +207,7 @@ public class CartController {
 		//결제관련 logic
 		int sum=service.sumPrice(m.getCartNo());						//상품 총 가격
 		int shipFee = sum>= 30000 ? 0 : 5000; 							//배송비 : 기본 5000원, 주문금액 30000원 넘을시 무료
-		int additionalTax = (int)(((sum+shipFee)-m.getPoint())*0.1);    //부가세
+		int additionalTax = (int)((sum)*0.1);    //부가세
 		int totalFee = ((sum+shipFee)-m.getPoint())+additionalTax;		//총 계산된 값
 		int predicpoint = (int) (totalFee*0.05); 						//예상되는 포인트적립 (총가격의 0.05)
 		m.setPredicpoint(predicpoint);
