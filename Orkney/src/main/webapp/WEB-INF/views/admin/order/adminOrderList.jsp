@@ -17,24 +17,24 @@
 			</div>
 			
 			<div class="info-title">
-				<div id="order-confirm" onclick="changeList('주문확인')">
+				<div id="order-confirm" onclick="changeList('주문확인')" class="clickPointer">
 					 <span>주문확인</span>  
-					 <input type="text" class="input-form" value="${count.get("주문확인")}" readonly>
+					 <input type="text" class="input-form clickPointer" value="${count.get("주문확인")}" readonly>
 					 <span>건</span> 
 				</div>
-				<div id="cancel-confirm" onclick="changeList('취소신청')">
+				<div id="cancel-confirm" onclick="changeList('취소신청')" class="clickPointer">
 					<span>취소신청</span>
-					<input type="text" class="input-form" value="${count.get("취소신청")}" readonly>
+					<input type="text" class="input-form clickPointer" value="${count.get("취소신청")}" readonly>
 					<span>건</span>
 				</div>
-				<div id="exchange-confirm" onclick="changeList('교환신청')">
+				<div id="exchange-confirm" onclick="changeList('교환신청')" class="clickPointer">
 					 <span>교환신청</span>  
-					 <input type="text" class="input-form" value="${count.get("교환신청")}" readonly>
+					 <input type="text" class="input-form clickPointer" value="${count.get("교환신청")}" readonly>
 					 <span>건</span>
 				</div>
-				<div id="refund-confirm" onclick="changeList('반품신청')">
+				<div id="refund-confirm" onclick="changeList('반품신청')" class="clickPointer">
 					 <span>반품신청</span> 
-					<input type="text"  class="input-form" value="${count.get("반품신청")}" readonly>
+					<input type="text"  class="input-form clickPointer" value="${count.get("반품신청")}" readonly>
 					 <span>건</span>
 				</div>	 
 			</div>
@@ -90,7 +90,7 @@
 		</div>
 				
 		</div>
-		<div><h5>주문검색</h5></div>
+		<div><h5 class="mainList-title">주문검색</h5></div>
 		<div>			
 			<div id="list"></div>			
 			<script>
@@ -129,8 +129,9 @@
 			
 		</div>
 		
+		<div class="change-state-container">
 		<div class="change-status">
-			<div style="padding: 6px 28px;">주문 상태 일괄 처리</div>
+			<div class="change-state-title" style="padding: 6px 28px;">주문 상태 일괄 처리</div>
 			<span>
 				<select id="state" class="browser-default custom-select">
 				  <option selected>주문 상태 선택</option>
@@ -143,6 +144,7 @@
 			<span>
 				<button id="state-change" class="btn btn-primary btn-sm">적용</button>
 			</span>	
+		</div>
 		</div>
 <script>
 $("#state-change").click(e=>{

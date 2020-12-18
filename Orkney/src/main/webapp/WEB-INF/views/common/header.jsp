@@ -72,11 +72,11 @@
                 </div>
             </div>
             <div class="header-logo">
-                <a href="${path}"><img src="https://www.ikea.com/kr/ko/static/ikea-logo.f88b07ceb5a8c356b7a0fdcc9a563d63.svg" alt=""></a>
+                <a href="${path}"><img src="${path }/resources/img/logo.PNG" alt=""></a>
             </div>
             <div class="header-menu">
-                <span><a href="${path }/product/products.do?category=all">모든제품</a> </span>
-                <span><a href="${path}/product/rooms.do">디지털 쇼룸</a></span>
+                <span><a href="${path }/product/products.do?category=all" style="color: black;">모든제품</a> </span>
+                <span><a href="${path}/product/rooms.do" style="color: black;">디지털 쇼룸</a></span>
             </div>
             <div class="header-search">
            		<form class="search-form">
@@ -151,7 +151,7 @@
 		            </div>
 		            <div id="hnf-menu_logo" class="hnf-menu_logo">
 		                <a href="${path }/">
-		                    <img src="https://www.ikea.com/kr/ko/static/ikea-logo.f88b07ceb5a8c356b7a0fdcc9a563d63.svg"></svg>
+		                    <img src="${path }/resources/img/logo.PNG"></svg>
 		                </a>
 		            </div>
 		            <div id="hnf-menu_search" class="header-search hnf-menu_search hnf-menu-nav-hidden">

@@ -16,6 +16,7 @@
 	    FROM 
 	    REVIEW_IMAGE
 		WHERE REVIEW_NO = #{no} 
+		ORDER BY REVIEW_NO
 	</select>
 	
 <!-- 	<select id="reviewImg" resultType="map" parameterType="String"> -->
@@ -34,12 +35,13 @@
 	    LEFT OUTER JOIN MEMBER M
 	    ON R.MEMBER_NO = M.MEMBER_NO
 		WHERE R.PRODUCT_NO = #{productNo}
+		ORDER BY R.REVIEW_NO
 	</select>
 	
 	<select id="productDetail" resultType="map" parameterType="String">
 		SELECT * 
-	    FROM PRODUCT P
-	    LEFT OUTER JOIN PRODUCT_IMAGE I
+	    FROM PRODUCT_IMAGE I
+	    LEFT OUTER JOIN PRODUCT P
 	    ON P.PRODUCT_NO = I.PRODUCT_NO
 		WHERE P.PRODUCT_NO =#{productNo}
 	</select>
@@ -372,7 +374,12 @@
 	   ON P.PRODUCT_NO = I.PRODUCT_NO
 	   ORDER BY PRODUCT_NAME ASC
 	</select> -->
-
+ 	<select id="average" resultType="map" parameterType="map">
+	 	SELECT PRODUCT_NO, AVG(PRODUCT_GRADE),COUNT(REVIEW_NO)
+    	FROM REVIEW 
+    	WHERE PRODUCT_NO = #{productNo}
+    	GROUP BY PRODUCT_NO
+ 	</select>
 
 <!-- ==================================================================================== -->
 

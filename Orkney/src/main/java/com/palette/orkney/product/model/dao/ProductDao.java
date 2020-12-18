@@ -16,6 +16,7 @@ public interface ProductDao {
 		List<Map> filter(SqlSession session,Map<String, Object> filter);
 		List<Map> productDetail(SqlSession session, String productno);
 		List<Map> review(SqlSession session, String productno);
+		List<Map> average(SqlSession session, Map<String, Object> productno);
 
 //==================================================================================
 	List<Map> selectRooms(SqlSession session,String type);

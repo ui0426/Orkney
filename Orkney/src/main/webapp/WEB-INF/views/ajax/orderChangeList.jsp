@@ -22,7 +22,7 @@
         <tbody>
         <c:if test="${!empty order}">
         <c:forEach items="${order}" var="o">
-          <tr>            
+          <tr class="clickPointer">            
             <td onclick="location.href='${path}/admin/orderView.do?oNo=${o.order_no} '"><c:out value="${o.order_no}"/></td>
             <td onclick="location.href='${path}/admin/orderView.do?oNo=${o.order_no}'"><c:out value="${o.member_id}"/></td>
             <td onclick="location.href='${path}/admin/orderView.do?oNo=${o.order_no}'"><c:out value="${o.member_name}"/></td>
@@ -40,7 +40,7 @@
 	          <input type="hidden" class="refund_qty" value="${od.refund_qty }"/>
 	          <input type="hidden" class="refund_content" value="${od.refund_content }"/>
 	          <input type="hidden" class="refund_pic" value="${od.refund_pic }"/>
-	          <tr>            
+	          <tr class="clickPointer">            
                 <td class="odlistmodal"><c:out value="${od.order_no}"/></td>
 	            <td class="odlistmodal"><c:out value="${od.member_id}"/></td>
 	            <td class="odlistmodal"><c:out value="${od.member_name}"/></td>
