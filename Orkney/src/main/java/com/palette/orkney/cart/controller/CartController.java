@@ -37,7 +37,7 @@ public class CartController {
 		
 	
 		String cartNo=service.selectCartNo(memberNo);											
-		System.out.println(cartNo);
+		System.out.println("카트번호:"+cartNo);
 		
 		//2. 경록이형 연결
 		Cart cart = new Cart();
@@ -59,7 +59,9 @@ public class CartController {
 			count= service.insertDetail(cart);			 	//카트가 있다면 디테일에 상품만 추가			
 		}	
 		
-		mv.setViewName("product/productDetail");						
+		
+		
+		/* mv.setViewName("product/productDetail"); */						
 		return mv;
 	}
 		
@@ -71,7 +73,7 @@ public class CartController {
 		System.out.println(memberNo);
 		List<Cart> c = service.selectCart(memberNo);		
 		System.out.println("c값"+c);
-		System.out.println("cartNo"+c.get(0).getCartNo());
+//		System.out.println("cartNo"+c.get(0).getCartNo());
 		if(!c.isEmpty()) {			
 			int sum=service.sumPrice(c.get(0).getCartNo());									
 			mv.addObject("sumprice",sum);
