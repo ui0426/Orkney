@@ -52,7 +52,7 @@ public class ProductController {
 	@RequestMapping("/product/bestFilter.do")
 	@ResponseBody
 	public  List<Map>Filter (@RequestParam Map<String,Object> filter) {
-		System.out.println(filter);
+		System.out.println("필털:"+filter);
 		return service.filter(filter);
 	}
 	

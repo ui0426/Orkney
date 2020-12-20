@@ -112,6 +112,12 @@ $("#frameModalBottomSuccess").modal('show');
 }
 </script>
 <script type="text/javascript">
+$(function() {
+filter2();	
+})
+// 더보기
+
+
 // ★url 파라미터값을 가져올수 있게 하는 함수 
 				function getParameterByName(name) {
 				    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
@@ -144,9 +150,15 @@ $("#frameModalBottomSuccess").modal('show');
 					}
 				})	
 			});
+				
+					let start = 4;
+					
 
 
-				function filter() {
+				function filter2() {
+					start = start+1;
+				
+					alert(start);
 				// 정렬
 				let group1 =$('input[name="group1"]:checked').val();
 				//사이즈
@@ -157,12 +169,10 @@ $("#frameModalBottomSuccess").modal('show');
 				let group4 = $('input[name="group4"]:checked').val();
 				// 색상
 				let group5 = $('input[name="group5"]:checked').val();
-				
-			
 				let category = getParameterByName('category');
-
-
 				
+				  //마지막 리스트 번호를 알아내기 위해서 tr태그의 length를 구함.
+				  
 				$.ajax({
 					url:"${path}/product/bestFilter.do",
 					type:"get",
@@ -173,12 +183,16 @@ $("#frameModalBottomSuccess").modal('show');
 						"group3":group3,			
 						"group4":group4,			
 						"group5":group5,
-						"category":category
+						"category":category,
+						"start":start
+					
+						
 					
 					},
 					success:data=>{
-						alert(category);
-					  $("#product_list").html("");
+						$("#product_list").html("");
+//  						alert(category);
+
 					  
 						for ( var i=0;i <= data.length;i++){
 						if (data[i]["PRODUCT_COLOR"]=="normal") {
@@ -208,7 +222,7 @@ $("#frameModalBottomSuccess").modal('show');
 										
 									
 										console.log("데이터2"+data[i]["PRODUCT_NO"]);
-										if (data2[i]["COUNT(REVIEW_NO)"]) {
+										if (data2[i]["COUNT(REVIEW_NO)"] !=null) {
 											
 											 $(productClone).find("#average2").text(data2[i]["AVG(PRODUCT_GRADE)"].toFixed(1));
 											 $(productClone).find("#buynum2").text("("+data2[i]["COUNT(REVIEW_NO)"]+")");
@@ -259,7 +273,122 @@ $("#frameModalBottomSuccess").modal('show');
 					}
 				})		
  			}
+				function filter() {
+				// 정렬
+				let group1 =$('input[name="group1"]:checked').val();
+				//사이즈
+				let group2 = $('input[name="group2"]:checked').val();
+				//카테고리
+				let group3 =$('input[name="group3"]:checked').val();
+				//가격
+				let group4 = $('input[name="group4"]:checked').val();
+				// 색상
+				let group5 = $('input[name="group5"]:checked').val();
+				let category = getParameterByName('category');
+				  start=5;
+				
+				  //마지막 리스트 번호를 알아내기 위해서 tr태그의 length를 구함.
+				  
+				$.ajax({
+					url:"${path}/product/bestFilter.do",
+					type:"get",
+					async : false,
+					data:{
+						"group1":group1,			
+						"group2":group2,			
+						"group3":group3,			
+						"group4":group4,			
+						"group5":group5,
+						"category":category,
+						"start":start
+				
+						
+					
+					},
+					success:data=>{
+// 						alert(category);
+					$("#product_list").html("");
+					  
+						for ( var i=0;i <= data.length;i++){
+						if (data[i]["PRODUCT_COLOR"]=="normal") {
+							
+						  let productClone = $("#products").clone().attr("id","products");
+						  
+						
+						  $(productClone).find("#checkbox").val(data[i]["PRODUCT_PIC"]);
+						  $(productClone).find("#productMainImg").attr("src","${path}/resources/images/product/"+data[i]["PRODUCT_PIC"]);
+						  $(productClone).find("#product_name").html(data[i]["PRODUCT_NAME"]);
+						  $(productClone).find("#category").html(data[i]["BIG_CATEGORY_NO"]);
+						  $(productClone).find("#pr").html(numberWithCommas(data[i]["PRODUCT_PRICE"]));
+						  $(productClone).find("#productA").attr("href","${path}/product/productDetail.do?productno="+data[i]["PRODUCT_NO"]);
+						  $(productClone).find("#readMore").attr("onclick","location.href = \'${path}/product/productDetail.do?productno="+data[i]["PRODUCT_NO"]+"\'");
+						 						  										
+// 						하는중
+						  var productNo = data[i]["PRODUCT_NO"];
+						  $.ajax({
+								url: "${path}/product/average.do",
+								async: false,
+								data:{
+									"productNo":productNo
+								},
+								success:data2=>{
 
+									for (var i = 0; i < data.length; i++) {
+										
+									
+										console.log("데이터2"+data[i]["PRODUCT_NO"]);
+										if (data2[i]["COUNT(REVIEW_NO)"] !=null) {
+											
+											 $(productClone).find("#average2").text(data2[i]["AVG(PRODUCT_GRADE)"].toFixed(1));
+											 $(productClone).find("#buynum2").text("("+data2[i]["COUNT(REVIEW_NO)"]+")");
+										}
+									if (parseFloat(data2[i]["AVG(PRODUCT_GRADE)"]) > 0 && data2[i]["AVG(PRODUCT_GRADE)"] < 1.5) {
+										
+										$(productClone).find("#starGray1").removeClass("grey-text").addClass("blue-text");
+										$(productClone).find("#starGray2").removeClass("blue-text").addClass("grey-text");
+										$(productClone).find("#starGray3").removeClass("blue-text").addClass("grey-text");
+										$(productClone).find("#starGray4").removeClass("blue-text").addClass("grey-text");
+										$(productClone).find("#starGray5").removeClass("blue-text").addClass("grey-text");
+									}else if (parseFloat(data2[i]["AVG(PRODUCT_GRADE)"]) >= 1.5 && data2[i]["AVG(PRODUCT_GRADE)"] < 2.5) {
+										$(productClone).find("#starGray1").removeClass("grey-text").addClass("blue-text");
+										$(productClone).find("#starGray2").removeClass("grey-text").addClass("blue-text");
+										$(productClone).find("#starGray3").removeClass("blue-text").addClass("grey-text");
+										$(productClone).find("#starGray4").removeClass("blue-text").addClass("grey-text");
+										$(productClone).find("#starGray5").removeClass("blue-text").addClass("grey-text");
+									
+									}else if (parseFloat(data2[i]["AVG(PRODUCT_GRADE)"]) >= 2.5 && data2[i]["AVG(PRODUCT_GRADE)"] < 3.5) {
+										$(productClone).find("#starGray1").removeClass("grey-text").addClass("blue-text");
+										$(productClone).find("#starGray2").removeClass("grey-text").addClass("blue-text");
+										$(productClone).find("#starGray3").removeClass("grey-text").addClass("blue-text");
+										$(productClone).find("#starGray4").removeClass("blue-text").addClass("grey-text");
+										$(productClone).find("#starGray5").removeClass("blue-text").addClass("grey-text");
+									
+									}else if (parseFloat(data2[i]["AVG(PRODUCT_GRADE)"]) >= 3.5 && data2[i]["AVG(PRODUCT_GRADE)"] < 4.5) {
+											
+										$(productClone).find("#starGray1").removeClass("grey-text").addClass("blue-text");
+										$(productClone).find("#starGray2").removeClass("grey-text").addClass("blue-text");
+										$(productClone).find("#starGray3").removeClass("grey-text").addClass("blue-text");
+										$(productClone).find("#starGray4").removeClass("grey-text").addClass("blue-text");
+										$(productClone).find("#starGray5").removeClass("blue-text").addClass("grey-text");
+									
+									}else if (parseFloat(data2[i]["AVG(PRODUCT_GRADE)"]) >= 4.5) {
+										$(productClone).find("#starGray1").removeClass("grey-text").addClass("blue-text");
+										$(productClone).find("#starGray2").removeClass("grey-text").addClass("blue-text");
+										$(productClone).find("#starGray3").removeClass("grey-text").addClass("blue-text");
+										$(productClone).find("#starGray4").removeClass("grey-text").addClass("blue-text");
+										$(productClone).find("#starGray5").removeClass("grey-text").addClass("blue-text");
+									}
+								}
+								}
+								
+							});
+						 $("#product_list").append(productClone);
+						}
+						}
+					}
+				})		
+ 			}
+		 
 
 // 	3자리 마다 , 표시
 	function numberWithCommas(x) {
@@ -603,170 +732,23 @@ $("#frameModalBottomSuccess").modal('show');
 			<hr>
 		</div>
 		<!-- 헤더 필터 버튼 end -->
-<script type="text/javascript">
-$(function() {
-<c:forEach items="${list }" var="p" varStatus="s">
-var productNo = "${p.PRODUCT_NO}";
-$.ajax({
-	url: "${path}/product/average.do",
-	async: false,
-	data:{
-		"productNo":productNo
-	},
-	success:data=>{
 
-		for (var i = 0; i < data.length; i++) {
-			
-		
-			console.log("데이터"+data[i]["PRODUCT_NO"]);
-			if (data[i]["COUNT(REVIEW_NO)"]) {
-				
-			$("#products"+'${s.index}').find("#average").text(data[i]["AVG(PRODUCT_GRADE)"].toFixed(1));
-			$("#products"+'${s.index}').find("#buynum").text("("+data[i]["COUNT(REVIEW_NO)"]+")");
-			}
-		if (parseFloat(data[i]["AVG(PRODUCT_GRADE)"]) > 0 && data[i]["AVG(PRODUCT_GRADE)"] < 1.5) {
-			$("#products"+'${s.index}').find("#starGray1").removeClass("grey-text").addClass("blue-text");
-			$("#products"+'${s.index}').find("#starGray2").removeClass("blue-text").addClass("grey-text");
-			$("#products"+'${s.index}').find("#starGray3").removeClass("blue-text").addClass("grey-text");
-			$("#products"+'${s.index}').find("#starGray4").removeClass("blue-text").addClass("grey-text");
-			$("#products"+'${s.index}').find("#starGray5").removeClass("blue-text").addClass("grey-text");
-		}else if (parseFloat(data[i]["AVG(PRODUCT_GRADE)"]) >= 1.5 && data[i]["AVG(PRODUCT_GRADE)"] < 2.5) {
-			$("#products"+'${s.index}').find("#starGray1").removeClass("grey-text").addClass("blue-text");
-			$("#products"+'${s.index}').find("#starGray2").removeClass("grey-text").addClass("blue-text");
-			$("#products"+'${s.index}').find("#starGray3").removeClass("blue-text").addClass("grey-text");
-			$("#products"+'${s.index}').find("#starGray4").removeClass("blue-text").addClass("grey-text");
-			$("#products"+'${s.index}').find("#starGray5").removeClass("blue-text").addClass("grey-text");
-		
-		}else if (parseFloat(data[i]["AVG(PRODUCT_GRADE)"]) >= 2.5 && data[i]["AVG(PRODUCT_GRADE)"] < 3.5) {
-			$("#products"+'${s.index}').find("#starGray1").removeClass("grey-text").addClass("blue-text");
-			$("#products"+'${s.index}').find("#starGray2").removeClass("grey-text").addClass("blue-text");
-			$("#products"+'${s.index}').find("#starGray3").removeClass("grey-text").addClass("blue-text");
-			$("#products"+'${s.index}').find("#starGray4").removeClass("blue-text").addClass("grey-text");
-			$("#products"+'${s.index}').find("#starGray5").removeClass("blue-text").addClass("grey-text");
-		
-		}else if (parseFloat(data[i]["AVG(PRODUCT_GRADE)"]) >= 3.5 && data[i]["AVG(PRODUCT_GRADE)"] < 4.5) {
-			$("#products"+'${s.index}').find("#starGray1").removeClass("grey-text").addClass("blue-text");
-			$("#products"+'${s.index}').find("#starGray2").removeClass("grey-text").addClass("blue-text");
-			$("#products"+'${s.index}').find("#starGray3").removeClass("grey-text").addClass("blue-text");
-			$("#products"+'${s.index}').find("#starGray4").removeClass("grey-text").addClass("blue-text");
-			$("#products"+'${s.index}').find("#starGray5").removeClass("blue-text").addClass("grey-text");
-		
-		}else if (parseFloat(data[i]["AVG(PRODUCT_GRADE)"]) >= 4.5) {
-			$("#products"+'${s.index}').find("#starGray1").removeClass("grey-text").addClass("blue-text");
-			$("#products"+'${s.index}').find("#starGray2").removeClass("grey-text").addClass("blue-text");
-			$("#products"+'${s.index}').find("#starGray3").removeClass("grey-text").addClass("blue-text");
-			$("#products"+'${s.index}').find("#starGray4").removeClass("grey-text").addClass("blue-text");
-			$("#products"+'${s.index}').find("#starGray5").removeClass("grey-text").addClass("blue-text");
-		}
-	}
-	}
-	
-});
-</c:forEach>
-});
-// 하는중
-</script>
 
 
 				<form action="${path}/product/productsCompare.do" method="get">
 				
 		<!-- 제품 목록 -->
 		<div class="row row-cols-1 row-cols-md-3 row-cols-sm-2 row-cols-lg-4 " id="product_list">
-		<c:forEach items="${list }" var="p" varStatus="s">
-		<c:if test="${p.PRODUCT_COLOR == 'normal'}">
-<div class="col products" id="products${s.index}" onmouseover="checkbox_Over()" onmouseout="checkbox_Out()" >
-
-
-
-					<!-- Card -->
-					<div class="card" id="card">
-<div class="plp-checkbox" id="plp-checkbox" onclick="check_PIC();" >
-<input type="checkbox" name="checkboxname" id="checkbox" black="true" value="${p.PRODUCT_PIC}" >
-</div>
-					
-						<!--Card image-->
-						<div class="view overlay zoom productSizing" >
-							<img class="card-img-top imgHeight " 
-								src="${path}/resources/images/product/${p.PRODUCT_PIC}"
-								alt="Card image cap" > <a
-								href="${path}/product/productDetail.do?productno=${p.PRODUCT_NO}">
-								<div class="mask rgba-white-slight"></div>
-							</a>
-						</div>
-						<!--Card content-->
-						<div class="card-body">
-							<!--Title-->
-							<h4 class="card-title" id="product_name">
-								<c:out value="${p.PRODUCT_NAME}" />
-							</h4>
-							<!--Text-->
-							<p class="card-text marginZero" id="category">
-								<c:out value="${p.BIG_CATEGORY_NO }"></c:out>
-							</p>
-							<p class="card-text marginZero">
-							<div class="row marginZero">
-							<div id="pr"><fmt:formatNumber type="number" maxFractionDigits="3" value='${p.PRODUCT_PRICE}' /></div>
-							<div>원</div>
-							</div>
-							</p>
-
-
-
-
-							<div class="">
-<!-- 								별점 -->
-								<ul class="rating mb-2 row" style="margin: 2px" id="starnum">
-<!-- 									<li><i class="fas fa-star blue-text"></i></li> -->
-<!-- 									<li><i class="fas fa-star blue-text"></i></li> -->
-<!-- 									<li><i class="fas fa-star blue-text"></i></li> -->
-<!-- 									<li><i class="fas fa-star blue-text"></i></li> -->
-<!-- 										★1점★ -->
-<!-- 									<li><i class="fas fa-star blue-text"></i></li> -->
-<!-- 										★0점★ -->
-									<li><i id="starGray1" class="fas fa-star grey-text"></i></li>
-									<li><i id="starGray2" class="fas fa-star grey-text"></i></li>
-									<li><i id="starGray3" class="fas fa-star grey-text"></i></li>
-									<li><i id="starGray4" class="fas fa-star grey-text"></i></li>
-									<li><i id="starGray5" class="fas fa-star grey-text"></i></li>
-									
-									<p class="" id="average"></p>
-									<p class="" id="buynum"></p>
-								</ul>
-								<!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
-
-								<!-- Card footer -->
-							</div>
-							<div>
-								<hr>
-								<div class="row">
-									<button type="button" class="btn  btn-md color-Gray1 "
-										style="border: 1px solid darkgray !important;" onclick = "location.href = '${path}/product/productDetail.do?productno=${p.PRODUCT_NO}'" >
-										Read more</button>
-									<div class="row heartCart_icon" style="margin: auto;">
-										<a class="material-tooltip-main" data-toggle="tooltip"
-											data-placement="top" title="Add to Cart"> <i
-											class="fas fa-shopping-cart grey-text ml-3"></i>
-										</a> <a class="material-tooltip-main heart_icon" data-toggle="tooltip"
-											data-placement="top" title="Add to Wishlist"> <i
-											class="fas fa-heart grey-text ml-3"></i>
-										</a>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- Card -->
-					<hr>
-				</div>
-			</c:if>
-</c:forEach>
+		
 
 
 		</div>
-
+		<button type="button" class="btn filterSiz  btnH35 waves-effect waves-light" style="width: 100%; background-color: rgb(238, 237, 237);" onclick="filter2();">
+				<span class="fontborder fontColorGray">더보기</span>
+			</button>
 		<!-- 제품 목록 -->
 <div id="removeProducts" style="display: none;">
-				<div class="col products" id="products" onmouseover="checkbox_Over()" onmouseout="checkbox_Out()">
+				<div class="col products " id="products" onmouseover="checkbox_Over()" onmouseout="checkbox_Out()">
 
 
 					<!-- Card -->
