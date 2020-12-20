@@ -92,9 +92,7 @@ public class EmailController {
 				"          <div><p>ORKNEY.KO</p></div>\r\n" +
 				"      </div>\r\n" + 
 				"      </div>\r\n" + 
-				"    </div>\r\n" + 
-				"</body>\r\n" + 
-				"</html>";
+				"    </div>";
              
         try {
             MimeMessage msg = mailSender.createMimeMessage();
@@ -155,9 +153,7 @@ public class EmailController {
 				"          <div><p>ORKNEY.KO</p></div>\r\n" +
 				"      </div>\r\n" + 
 				"      </div>\r\n" + 
-				"    </div>\r\n" + 
-				"</body>\r\n" + 
-				"</html>";
+				"    </div>";
              
         try {
             MimeMessage msg = mailSender.createMimeMessage();

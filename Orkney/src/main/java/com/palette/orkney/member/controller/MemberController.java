@@ -152,7 +152,7 @@ public class MemberController {
 	@ResponseBody
 	public List<Map> chatRoom(@RequestParam Map m) {
 		List<Map> list=service.chatRoom(m);
-		System.out.println(list);
+		
 		return list;
 	}
 	
@@ -198,7 +198,7 @@ public class MemberController {
 	
 	@RequestMapping("/member/chatAllData.do")
 	@ResponseBody
-	public List<Map> chatAllData(String id){
+	public List<Map> chatAllData(String id){//한 사람의 모든 채팅방 내용
 		
 		return service.chatAllData(id);
 	}
