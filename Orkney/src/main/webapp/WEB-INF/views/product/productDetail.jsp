@@ -14,7 +14,6 @@
 .between {
 	justify-content: space-between;
 }
-
 .fontbor {
 	font-weight: 900;
 }

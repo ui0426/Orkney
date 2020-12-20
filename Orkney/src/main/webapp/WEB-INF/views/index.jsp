@@ -17,7 +17,7 @@
 
 		<div class="banner col-md-8 col-12">
 			<img
-				src="https://www.ikea.com/images/ingatorp-20b2e2ce57f48cf53e4c986ff3ebe595.jpg?f=xxxl 1400w,
+  src="https://www.ikea.com/images/ingatorp-20b2e2ce57f48cf53e4c986ff3ebe595.jpg?f=xxxl 1400w,
   https://www.ikea.com/images/ingatorp-20b2e2ce57f48cf53e4c986ff3ebe595.jpg?f=xxl 950w,
   https://www.ikea.com/images/ingatorp-20b2e2ce57f48cf53e4c986ff3ebe595.jpg?f=xl 800w,
   https://www.ikea.com/images/ingatorp-20b2e2ce57f48cf53e4c986ff3ebe595.jpg?f=l 750w,
