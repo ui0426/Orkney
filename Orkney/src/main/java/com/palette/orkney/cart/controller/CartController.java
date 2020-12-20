@@ -32,36 +32,57 @@ public class CartController {
 	
 	//0.장바구니 추가
 	@RequestMapping("/cart/cartInsert.do")
-	public ModelAndView cartInsert(HttpSession session,ModelAndView mv,String productNo, int productPrice) {				
+	public ModelAndView cartInsert(HttpSession session,ModelAndView mv,String productNo, int productPrice, @RequestParam(value="cartQTY", defaultValue ="1") int cartQTY) {				
 		String memberNo = (String)((Map)session.getAttribute("login")).get("MEMBER_NO");					
-		
-	
+			
 		String cartNo=service.selectCartNo(memberNo);											
 		System.out.println("카트번호:"+cartNo);
+		
+		List<Cart> c = service.selectCart(memberNo);
+		System.out.println("c"+c);
+		
+		for (int i=0;i<c.size();i++) {			
+			if(c.get(i).getProductNo()==productNo) {				
+				Cart cart = new Cart();	
+				cart.setCartNo(c.get(i).getCartNo());
+				cart.setProductNo(c.get(i).getProductNo());	
+				
+				System.out.println("pch:"+cart);
+				int rs = service.updateDetail(cart);
+				System.out.println("결과:"+rs);
+			}			
+		}
 		
 		//2. 경록이형 연결
 		Cart cart = new Cart();
 		cart.setMemberNo(memberNo);
 		cart.setProductNo(productNo);	
 		cart.setProductPrice(productPrice);	
-		cart.setCartNo(cartNo);				
+		cart.setCartNo(cartNo);
+		cart.setCartQTY(cartQTY);
 		
 		//3. 카트 존재 유무
 		int count = service.countCart(memberNo);		
 		
 		System.out.println("count:"+count);
-		//4. 카트에 상품
-		if (count==0) {
-		  count = service.insertCart(cart);  				//카트가 없을시 카트 및 디테일 생성
-		  System.out.println("count있음에:"+count);
-		}	
-		else if (count>0) {
-			count= service.insertDetail(cart);			 	//카트가 있다면 디테일에 상품만 추가			
-		}	
+		
+		
+			//4. 카트에 상품
+			if (count==0) {
+			  count = service.insertCart(cart);  				//카트가 없을시 카트 및 디테일 생성			  
+			}	
+			else if (count>0) {									//productNo 가 이미 cart_detail 에 있으면 수정			
+			   count= service.insertDetail(cart);			 	//카트가 있다면 디테일에 상품만 추가			
+			}	
 		
 		
 		
-		/* mv.setViewName("product/productDetail"); */						
+		return mv;
+	}
+	
+	@RequestMapping()
+	public ModelAndView cartInsertAll(HttpSession session, ModelAndView mv) {
+		
 		return mv;
 	}
 		

@@ -65,14 +65,7 @@
 						}
 					})
 				}
-				/* $(function(){
-					$.ajax({
-						url:"${path}/admin/orderChangeList.do",
-						success:data=>{
-							$("#change").html(data);
-						}
-					})
-				}) */
+
 			</script>
 			
 		<div class="search-container">			

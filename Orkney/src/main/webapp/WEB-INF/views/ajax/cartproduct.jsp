@@ -38,12 +38,16 @@
                     <div class="btn-container">                                                
                         <div>                        	   
                             <select class="mdb-select md-form amount" id="se">
+                            	
                             	<c:forEach begin="1" end="10" var="i">
                             		<c:if test="${p.cartQTY == i}">                            		                                  
                                   		<option value="${p.cartQTY}" selected>${i}</option>
-                                  	</c:if>                                            	                        	
-                                     <option value="${i}"/>${i}</option>                                                                 	                                  		                                                                                            
-								</c:forEach>							
+                                  	</c:if>
+                                  	<c:if test="${p.cartQTY != i}">                                            	                        	
+                                     	<option value="${i}"/>${i}</option>
+                                    </c:if>	                                     	                                                                 	                                  		                                                                                            
+								</c:forEach>
+															
                              </select>
                              <input type="hidden" value="${p.cartNo }" id="${p.productNo}" class="${p.totalPrice}">
                              <input type="hidden" value="${p.productPrice}">                       

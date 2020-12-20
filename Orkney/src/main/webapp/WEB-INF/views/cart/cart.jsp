@@ -43,7 +43,7 @@
 <script>
 	$("#cartBtn").click(e=>{
 		let cN = $(".basketNo").attr("id");
-		console.log(cN);
+		console.log("비어있는:"+cN);
 		if(!cN){
 			alert("장바구니가 비어있습니다.");
 			return false;

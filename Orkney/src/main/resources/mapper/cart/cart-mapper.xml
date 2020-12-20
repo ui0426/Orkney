@@ -25,15 +25,15 @@
 		into cart_detail values('c'||SEQ_CART.NEXTVAL,#{productNo},default,#{productPrice}) select * from dual
  	</insert>
  	<insert id="insertDetail">
- 		insert into cart_detail values(#{cartNo},#{productNo},default,#{productPrice})
+ 		insert into cart_detail values(#{cartNo},#{productNo},#{cartQTY},#{productPrice})
  	</insert>
  	
   	<select id="selectCart" parameterType="string" resultMap="cartMap">
   		select * from cart join cart_detail using (cart_no) 
-  		join product_image using(product_no)
+  		join product_image i using(product_no)
   		join product using(product_no) 
   		join member using(member_no)  		
-  		where member_no=#{memberNo}  
+  		where member_no=#{memberNo} and i.product_color='normal'
   	</select>
 	<!-- 제일 최신 cartNo -->
   	<select id="selectCartNo" parameterType="string" resultType="string">

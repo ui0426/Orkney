@@ -490,15 +490,17 @@ height: 32rem;
 <button id="btnck" class="btn btn-primary btn-rounded col-8 productNo" style="background-color: #004f93 !important; border-radius: 52px; width " data-toggle="modal" data-target="#modalAbandonedCart">
 			<i class="fas fa-cart-plus mr-2" aria-hidden="true"></i>																				
 </button>									
-									<button class="" style="border: 1px solid gray; border-radius: 52px; width: 40px; height: 40px;">
+<button class="" style="border: 1px solid gray; border-radius: 52px; width: 40px; height: 40px;">
 										<i class="far fa-heart"></i>
-									</button>
+</button>
 								</div>
 							</div>
 <script>
 //장바구니 insert ajax
 $(function(){
-	<c:forEach items="${list}" var="r" varStatus="s" >				
+	<c:forEach items="${list}" var="r" varStatus="s" >	
+	<c:if test="${r.PRODUCT_COLOR == 'normal'}">
+		console.log("노말:${r.PRODUCT_COLOR}");
 		$("#btnck").click(e=>{
 			$.ajax({
 				url:"${path }/cart/cartInsert.do",
@@ -511,6 +513,7 @@ $(function(){
 				}
 			})
 		})		
+	</c:if>	
 	</c:forEach>	
 });
 </script>
