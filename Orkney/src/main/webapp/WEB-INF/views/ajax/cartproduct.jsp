@@ -30,7 +30,11 @@
                         <div><c:out value="${p.productName}"/></div>
                         <div><c:out value="${p.product_color}"/></div>                                
                         <div><c:out value="${p.product_width}"/>*<c:out value="${p.product_height}"/>*<c:out value="${p.product_depth}"/></div>
-                        <div class="price"> <fmt:formatNumber value="${p.totalPrice}"/>&nbsp;원 </div>                                    
+                        <div class="price"> 
+                        	<div>${p.sale_per!=null?"event":""}</div>
+                        	<fmt:formatNumber value="${p.totalPrice}"/>&nbsp;원 
+                        </div>
+                                                            
                     <div class="btn-container">                                                
                         <div>                        	   
                             <select class="mdb-select md-form amount" id="se">

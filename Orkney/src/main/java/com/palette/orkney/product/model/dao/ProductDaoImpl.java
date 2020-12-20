@@ -16,7 +16,7 @@ public class ProductDaoImpl implements ProductDao{
 	@Override
 	public List<Map> sCategory(SqlSession session, Map<String, Object> sCategory) {
 		// TODO Auto-generated method stub
-		System.out.println("dao:"+session.selectList("product.filter",sCategory));
+		
 		return session.selectList("product.sCategory",sCategory);
 	}
 //리뷰이미지
@@ -55,6 +55,11 @@ public class ProductDaoImpl implements ProductDao{
 	public List<Map> review(SqlSession session, String productNo) {
 		// TODO Auto-generated method stub
 		return session.selectList("product.review",productNo);
+	}
+	@Override
+	public List<Map> average(SqlSession session, Map<String, Object> productno) {
+		// TODO Auto-generated method stub
+		return session.selectList("product.average",productno);
 	}
 
 	
@@ -155,6 +160,7 @@ public class ProductDaoImpl implements ProductDao{
 	public int updateStock(SqlSession session, Map m) {
 		return session.update("product.updateStock", m);
 	}
+
 	
 
 

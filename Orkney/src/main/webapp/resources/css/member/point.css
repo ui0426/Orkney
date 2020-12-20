@@ -170,9 +170,11 @@ width: 100%;
 }
 .point-minus{
 	color: red;
+    font-weight: 500;
 }
 .point-plus{
 	color: #0058ab;
+    font-weight: 500;
 }
 .point-content{
     margin: 0.5em 0;

@@ -13,7 +13,7 @@
  	</resultMap>
  	
  	<select id="countCart" resultType="_int">
- 		SELECT COUNT(*) FROM CART join cart_detail using(cart_no) WHERE MEMBER_NO=#{memberNo} AND PRODUCT_NO=#{productNo}  		
+ 		SELECT COUNT(*) FROM CART join cart_detail using(cart_no) WHERE MEMBER_NO=#{memberNo}  		
  	</select>
  	
  	<update id="updateCart">
@@ -22,27 +22,34 @@
  	
  	<insert id="insertCart">
  		insert all into cart values('c'||SEQ_CART.NEXTVAL,#{memberNo})
-		into cart_detail values('c'||SEQ_CART.NEXTVAL,#{productNo},default,#{productPrice}) select * from dual;
+		into cart_detail values('c'||SEQ_CART.NEXTVAL,#{productNo},default,#{productPrice}) select * from dual
  	</insert>
- 	
+ 	<insert id="insertDetail">
+ 		insert into cart_detail values(#{cartNo},#{productNo},default,#{productPrice})
+ 	</insert>
  	
   	<select id="selectCart" parameterType="string" resultMap="cartMap">
   		select * from cart join cart_detail using (cart_no) 
-  		join product using(product_no) 
-  		join member using(member_no)
   		join product_image using(product_no)
+  		join product using(product_no) 
+  		join member using(member_no)  		
   		where member_no=#{memberNo}  
   	</select>
-
+	<!-- 제일 최신 cartNo -->
   	<select id="selectCartNo" parameterType="string" resultType="string">
-  		select cart_no from member join cart using(member_no) where member_no=#{memberNo}
+  		SELECT cart_no
+FROM(
+    SELECT 
+        * 
+    FROM cart 
+    where member_no=#{memberNo}
+    ORDER BY ROWNUM DESC)
+WHERE ROWNUM = 1
   	</select>
   	  	
   	<delete id="deleteProduct" parameterType="map">
   		DELETE FROM cart_detail WHERE cart_no=#{cartNo} and product_no=#{productNo}
   	</delete>
-  
-  
   	  	
   	<update id="updateDetail" parameterType="cart">
   		UPDATE CART_DETAIL SET CART_QTY = #{cartQTY} WHERE PRODUCT_NO = #{productNo} and cart_no=#{cartNo}
@@ -61,7 +68,7 @@
   	</select>
   	
   	<delete id="cartDelete" parameterType="string">
-  		delete from cart where cart_no=#{cartNo}
+  		delete from cart where member_no=#{memberNo}
   	</delete>
   	
 </mapper>

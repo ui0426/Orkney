@@ -156,7 +156,7 @@ public class MemberController {
 	@ResponseBody
 	public List<Map> chatRoom(@RequestParam Map m) {
 		List<Map> list=service.chatRoom(m);
-		System.out.println(list);
+		
 		return list;
 	}
 	
@@ -202,7 +202,7 @@ public class MemberController {
 	
 	@RequestMapping("/member/chatAllData.do")
 	@ResponseBody
-	public List<Map> chatAllData(String id){
+	public List<Map> chatAllData(String id){//한 사람의 모든 채팅방 내용
 		
 		return service.chatAllData(id);
 	}
@@ -663,4 +663,23 @@ public class MemberController {
 //		
 //		return "";
 //	}
+	
+	//검색하기
+	@RequestMapping("/searchAuto.do")
+	@ResponseBody
+	public List searchAuto(String str) {
+		
+		List list = new ArrayList();
+		list.add("가");
+		list.add("가방");
+		list.add("가구");
+		list.add("조명");
+		list.add("조명스탠드");
+		list.add("찰또기");
+		list.add("찰찰또기또기");
+
+	      
+	      return list;
+		
+	}
 }
