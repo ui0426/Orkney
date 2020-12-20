@@ -6,7 +6,6 @@
 <c:set var="path" value="${pageContext.request.contextPath }"/>
 
 
-<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-x.y.z.js"></script>
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
 
@@ -82,9 +81,9 @@
             
             <div class="field">
             	<span class="first-div">주소</span>
-            	<div class="padding-input"><input type="text" class="input1 input1-extra" id="post" placeholder="<c:out value="${ post }"/>" readonly></div>    
-            	<div class="padding-input"><input type="text" class="input1 input1-extra" id="addrDetail" placeholder="<c:out value="${ addrDetail }"/>" readonly></div>    
-            	<div class="padding-input"><input type="text" class="input1 input1-extra" id="orizip" placeholder="<c:out value="${ orizip }"/>" readonly></div>    
+            	<div class="padding-input"><input type="text" class="input1-extra" id="post" placeholder="<c:out value="${ post }"/>" readonly></div>    
+            	<div class="padding-input"><input type="text" class="input1-extra" id="addrDetail" placeholder="<c:out value="${ addrDetail }"/>" readonly></div>    
+            	<div class="padding-input"><input type="text" class="input1-extra" id="orizip" placeholder="<c:out value="${ orizip }"/>" readonly></div>    
             </div>                                    
             
         </div>
@@ -425,13 +424,12 @@ $("#paybtn").click(e=>{
         </c:if>      
       	<c:if test="${ addrList.size() != 0 }">
       	    <c:forEach var="addr" items="${ addrList }" varStatus="status">	      		
-		      	<div class="addrDiv" style="border: 1px solid;">		      			 
+		      	<div class="addrDiv">		      			 
 		      			 <div>
-			      			 <input type="text" value="<c:out value="${ addr.address_name }"/>" readonly> 
+			      			 <input type="text" value="<c:out value="${ addr.address_name}"/>" readonly> 
 			      			 <input type="button" class="chbt" id="${ addr.address_phone }" value="선택">      		 
 			      			 <input type="hidden" value="${ addr.address_addr }" class="${ addr.address_detail }" id="${ addr.address_post }">
-		      			 </div>
-		      			 
+		      			 </div>		      			 
 		      			 <div>
 			      			 <div><c:out value="${ addr.address_addr }"/> </div>
 			      		     <div><c:out value="${ addr.address_detail }"/></div>
@@ -476,7 +474,7 @@ $("#paybtn").click(e=>{
       </div>
       
       <div class="modal-footer justify-content-center">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary1" data-dismiss="modal">Close</button>
         <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
       </div>
     </div>

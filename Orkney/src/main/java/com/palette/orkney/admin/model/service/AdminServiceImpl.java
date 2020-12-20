@@ -1,5 +1,6 @@
 package com.palette.orkney.admin.model.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.palette.orkney.admin.model.dao.AdminDao;
+import com.palette.orkney.order.model.vo.OrderDetail;
 import com.palette.orkney.order.model.vo.Orders;
 
 @Service
@@ -37,8 +39,8 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public List<Orders> selectOrderList() {
-		return dao.selectOrderList(session);
+	public List<Orders> selectOrderList(int cPage,int numPerPage,String search_option,String keyword) {
+		return dao.selectOrderList(session,cPage,numPerPage,search_option,keyword);
 	}
 
 	@Override
@@ -96,12 +98,54 @@ public class AdminServiceImpl implements AdminService {
 		int result2=0;
 		if(result>0) {
 			result2=dao.pointModify(session,data);
-		}
-		
+		}		
 		return result;
 	}
 	
 	public int updateOrderState(Map o) {
 		return dao.updateOrderState(session, o);
 	}
+
+	@Override
+	public int updateOrderInfo(Map orderInfo) {
+		return dao.updateOrderInfo(session, orderInfo);
+	}
+	
+	@Override
+	public Map countOrderState() {	
+		return dao.countOrderState(session);
+	}
+
+	@Override
+	public int totalOrder() {	
+		return dao.totalOrder(session);
+	}
+
+	@Override
+	public List<Orders> selectOrderChangeList(Map s) {	
+			return dao.selectOrderChangeList(session, s);
+	}
+
+	@Override
+	public List<Orders> updateOrderListState(int cPage, int numPerPage, Map m, String search_option, String keyword) {
+		int result = dao.updateOrderListState(session, m);
+		System.out.println("업데이트 결과 값"+result);
+		List<Orders> list = new ArrayList();
+		if(result != 0) {
+			list = dao.selectOrderList(session,cPage,numPerPage, search_option, keyword);
+			System.out.println("리스트 갱신 : "+list);
+		}
+		return list;
+	}
+
+	@Override
+	public List<OrderDetail> selectOrderDetailChangeList(String state) {
+		return dao.selectOrderDetailChangeList(session, state);
+	}
+	
+	
+	
+	
+	
+	
 }

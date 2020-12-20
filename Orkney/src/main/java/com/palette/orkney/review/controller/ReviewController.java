@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,7 +21,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.palette.orkney.order.model.vo.OrderDetail;
+import com.palette.orkney.admin.model.service.AdminService;
 import com.palette.orkney.review.model.service.ReviewService;
 import com.palette.orkney.review.model.vo.Review;
 import com.palette.orkney.review.model.vo.ReviewImage;
@@ -33,6 +35,8 @@ public class ReviewController {
 
 	@Autowired
 	private ReviewService service;
+	@Autowired
+	private AdminService aservice;
 	
 	@RequestMapping("/review/reviewLoginCheck.do")
 	@ResponseBody
@@ -52,7 +56,7 @@ public class ReviewController {
 		if(login != null) {			
 			System.out.println(odNo);
 			Review r = service.selectReview(odNo);
-			System.out.println(r);
+			System.out.println("혹시리뷰번호까지 담아오니??:"+r);
 			mv.addObject("review", r);
 			mv.setViewName("review/reviewForm");
 		}
@@ -60,7 +64,7 @@ public class ReviewController {
 	}
 	
 	@RequestMapping(value="/review/reviewInsert.do", method = RequestMethod.POST)
-	public ModelAndView insertReview(Review review, ModelAndView mv, @RequestParam(value="review_img", required=false) MultipartFile[] multi, HttpSession session ) {
+	public String insertReview(Review review, Model m, @RequestParam(value="review_img", required=false) MultipartFile[] multi, HttpSession session ) {
 		Map login = (Map)session.getAttribute("login");
 		review.setMember_no((String)login.get("MEMBER_NO"));
 		System.out.println("주문디테일 번호 : "+review.getOrder_detail_no());
@@ -68,7 +72,11 @@ public class ReviewController {
 		System.out.println("별점 : "+review.getProduct_grade());
 		System.out.println("리뷰내용 : "+review.getReview_content());
 		System.out.println("multi : "+multi);
+		Map data = new HashMap();//포인트 적립 정보 담을 것
+		data.put("point", 200);
+		data.put("reason", "리뷰작성(텍스트형)");
 
+		
 		//저장경로 지정
 		String path=session.getServletContext().getRealPath("/resources/upload/review");
 		
@@ -95,25 +103,39 @@ public class ReviewController {
 				}
 				ReviewImage ri=ReviewImage.builder().originalFileName(originalName).renamedFileName(reName).build();
 				files.add(ri);
+				data.put("point", 500);
+				data.put("reason", "리뷰작성(사진형)");
+
 			}
 
 		}
 		int result=service.insertReview(review, files);
-		mv.addObject("msg", result>0?"입력성공":"입력실패");
-		mv.addObject("loc", "/review/reviewList.do");
 		
-		mv.setViewName("/common/msg");
-		
-		return mv;
+		if(result>0) {
+			System.out.println("리뷰 성공???");
+			data.put("type", "적립");
+			data.put("no", review.getMember_no());
+			result = aservice.modifyPoint(data);
+		}
+		if(result>0) {
+			System.out.println("적립성공 "+data);
+			m.addAttribute("msg", "소중한 리뷰 감사합니다! "+data.get("point")+"포인트 적립 완료!");
+			m.addAttribute("loc", "/review/reviewList.do?s=wrote");
+		}else {
+			m.addAttribute("msg", "죄송합니다. 리뷰 등록에 실패하였습니다.");
+			m.addAttribute("loc", "/review/reviewList.do?s=reviewable");
+		}
+		return "/common/msg";
 	}
 	
 	@RequestMapping("/review/reviewList.do")
-	public ModelAndView reviewList(HttpSession session, ModelAndView mv) {
+	public ModelAndView reviewList(String s,HttpSession session, ModelAndView mv) {
 		Map login = (Map)session.getAttribute("login");
 		List<Review> beforeReview=service.selectBeforeReviewList((String)login.get("MEMBER_NO"));
 		List<Review> review = service.selectReviewList((String)login.get("MEMBER_NO"));
 		mv.addObject("beforeReview", beforeReview);
 		mv.addObject("review", review);
+		mv.addObject("s", s);
 		System.out.println("작성 가능한 리뷰 : "+beforeReview);
 		System.out.println("작성 한 리뷰 : "+review);
 		mv.setViewName("/review/reviewList");
@@ -133,7 +155,7 @@ public class ReviewController {
 	}
 	
 	@RequestMapping("/review/reviewUpdateEnd.do")
-	public ModelAndView reviewUpdateEnd(@RequestParam(value="review_img", required=false) MultipartFile[] multi, HttpSession session, ModelAndView mv) {
+	public ModelAndView reviewUpdateEnd(Review review, @RequestParam(value="review_img", required=false) MultipartFile[] multi, HttpSession session, ModelAndView mv) {
 		System.out.println("수정하고 데려온 것 : "+multi);
 		String path=session.getServletContext().getRealPath("/resources/upload/review");
 		
@@ -155,19 +177,22 @@ public class ReviewController {
 				}catch(IOException e) {
 					e.printStackTrace();
 				}
-				//ReviewImage ri=ReviewImage.builder().review_no(review.getReview_no()).originalFileName(originalName).renamedFileName(reName).build();
-				//files.add(ri);
+				ReviewImage ri=ReviewImage.builder().review_no(review.getReview_no()).originalFileName(originalName).renamedFileName(reName).build();
+				files.add(ri);
 			}
 
 		}
-		//int result=service.updateReview(review, files);
+		int result=service.updateReview(review, files);
 		
-		//mv.addObject("msg", result>0?"입력성공":"입력실패");
-		mv.addObject("loc", "/review/reviewList.do");
+		mv.addObject("msg", result>0?"입력성공":"입력실패");
+		mv.addObject("loc", "/review/reviewList.do?s=wrote");
 		
 		mv.setViewName("/common/msg");
 		
 		return mv;
 	}
+	
+	
+	
 
 }

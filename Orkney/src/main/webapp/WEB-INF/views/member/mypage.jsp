@@ -18,10 +18,10 @@
 	         <h1>안녕하세요, <span id="title-name"><c:out value="${ login.MEMBER_NAME }"/></span>님!</h1>
 	         <span>로그아웃을 하고 싶으신가요? <a href="${ path }/member/memberLogout.do" style="text-decoration: underline;">로그아웃</a></span>
 	      </div>
-	      <div class="point-box">
+	      <div class="point-box" onclick="location.href='${path}/point/pointForm.do'">
 	      	<div>Orkney POINT</div>
 	      	<div>사용가능 포인트</div>
-	      	<div>2,090p</div>
+	      	<div class="myPoint"><fmt:formatNumber value="${login.POINT }" pattern="###,###"/>p</div>
 	      </div>   
       </div>
       <div class="mypage-row">
@@ -43,7 +43,7 @@
                <svg focusable="false" viewBox="0 0 24 24" class="profile__svg-icon profile__link-box-arrow-right" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M19.2937 12.7074L20.0008 12.0003L19.2938 11.2932L12.0008 3.99927L10.5865 5.41339L16.1727 11.0003H4V13.0003H16.1723L10.5855 18.5868L11.9996 20.0011L19.2937 12.7074Z"></path></svg>
             </div>
          </div>
-		 <div class="mypage-row-box" onclick="location.href='${ path }/review/reviewList.do'">
+		 <div class="mypage-row-box" onclick="location.href='${ path }/review/reviewList.do?s=reviewable'">
             <div class="mypage-row-content">
                <a>나의 리뷰</a>
                <span>작성 가능한 리뷰 없음</span>
@@ -251,6 +251,12 @@
        
     </div>
 <script>
+$('.point-box').mouseenter(e=>{
+	$('.point-box').css('cursor','pointer');
+	$('.myPoint').css({'text-decoration':'underline', 'text-underline-position':'under'});
+}).mouseleave(e=>{
+	$('.myPoint').css('text-decoration','none');
+})
 let makeAjax = function(url, data, success){
 		   $.ajax({
 			   type: 'post',
@@ -262,16 +268,16 @@ let makeAjax = function(url, data, success){
    
 	/* 회원탈퇴 */
 $("#deleteBtn").click(function() {
-	
-  $("#delete-modal,.delete-modal-cover,html").addClass("open");
-  window.location.hash = "#open";
+	location.href="${path}/test";  
+//   $("#delete-modal,.delete-modal-cover,html").addClass("open");
+//   window.location.hash = "#open";
   
-  makeAjax('${path}/member/insertForm.do', {form: 'member/mypageDiv/deleteModal'}, data=>{
-		  console.log(data);
-		  $.parseHTML(data);
-		  $('#delete-modal').html(data);
+//   makeAjax('${path}/member/insertForm.do', {form: 'member/mypageDiv/deleteModal'}, data=>{
+// 		  console.log(data);
+// 		  $.parseHTML(data);
+// 		  $('#delete-modal').html(data);
 	  
-  })
+//   })
   
 });
 

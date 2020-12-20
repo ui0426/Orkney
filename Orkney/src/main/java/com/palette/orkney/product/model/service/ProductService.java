@@ -7,16 +7,16 @@ import java.util.Map;
 public interface ProductService {
 
 //	경록
-	List<Map> productList();
+	List<Map> sCategory(Map<String, Object> sCategory);
+	List<Map> reviewImg(Map<String, Object> id);
+	List<Map> productList(Map<String, Object> category);
 	List<Map> checkProduct(ArrayList<String> checkboxname);
 	List<Map> filter(Map<String, Object> filter);
-	List<Map> lowPriceFilter();
-	List<Map> highPriceFilter();
-	List<Map> newProductFilter();
-	List<Map> nameFilter();
 	List<Map> productDetail(String productno);
 	List<Map> review(String productno);
-	List<Map> reviewImg(String productno);
+	List<Map> average(Map<String, Object> productno);
+	
+
 
 
 //	진호
@@ -28,7 +28,11 @@ public interface ProductService {
 	String allProductList();
 	List<Map> productCategory(Map texts);
 	List<Map> sale();
-
-
+	int insertRoom(Map<String, Object> room);
+	List<Map> roomChange();
+	int updateRoom(Map rooms);
+	int roomsTitle(Map titles);
+	 List<Map> buttomProduct(Map ty); 
+	
 
 }

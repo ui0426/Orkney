@@ -18,6 +18,12 @@
 .fontbor {
 	font-weight: 900;
 }
+.embed-responsive-16by9::before {
+    padding-top: 0% !important;
+}
+.h32rem{
+height: 32rem;
+}
 </style>
 
 <section id="content">
@@ -70,7 +76,7 @@
 						<!-- Card body -->
 						<div id="collapseOne1" class="collapse show" role="tabpanel"
 							aria-labelledby="headingOne1" data-parent="#accordionEx">
-							<div class="card-body">양면 등쿠션은 부드럽고 편안하며 양면의 디자인이 다릅니다.
+							<div class="card-body" id="productInfo">양면 등쿠션은 부드럽고 편안하며 양면의 디자인이 다릅니다.
 								등쿠션은 앉는 자세에 맞춰서 위치를 조정할 수 있습니다.</div>
 						</div>
 					</div>
@@ -187,8 +193,8 @@
 											<span class="">수입자</span> <span class="">오크니 코리아 유한회사</span>
 										</div>
 										<div class="">
-											<span class="">배송&amp;설치비용</span> <span class="">오크니
-												서비스 페이지 참조</span>
+											<span class="">배송&amp;설치비용</span> 
+											<span class="">오크니 서비스 페이지 참조</span>
 										</div>
 										<div class="">
 											<span class="">품질보증</span> <span class="">ORKNEY 품질 보증
@@ -345,9 +351,9 @@
 						<span aria-hidden="true" class="white-text">×</span>
 					</button>
 				</div>
-				<div class="container my-5">
+				<div class="container my-5" style="overflow:auto !important;">
 				<!--Body-->
-  				<section class="dark-grey-text mb-5" id="reviewCon">
+  				<section class="dark-grey-text mb-5" id="reviewCon" >
 						<!-- Section heading -->
 						<h3 class="font-weight-bold text-center mb-5">Product Reviews</h3>
 
@@ -387,14 +393,14 @@
 					<!--Carousel Wrapper-->
 					<div id="carousel-thumb"
 						class="carousel slide carousel-fade carousel-thumbnails"
-						data-ride="carousel">
+						data-ride="carousel" data-interval="false">
 
 						<!--Slides-->
 						<div class="carousel-inner text-center text-md-left" id="imgcon"
 							role="listbox">
 							
 							<div class="carousel-item active">
-								<img id="img_main"
+								<img class="img_main"
 									src=""
 									alt="First slide" class="img-fluid">
 							</div>
@@ -413,12 +419,12 @@
 						<!--Thumbnails-->
 						<a class="carousel-control-prev" href="#carousel-thumb"
 							role="button" data-slide="prev"> <span
-							class="carousel-control-prev-icon" aria-hidden="true"></span> <span
+							class="carousel-control-prev-icon " aria-hidden="true" style="background-color: dimgrey;"></span> <span
 							class="sr-only">Previous</span>
 						</a> <a class="carousel-control-next" href="#carousel-thumb"
 							role="button" data-slide="next"> <span
-							class="carousel-control-next-icon" aria-hidden="true"></span> <span
-							class="sr-only">Next</span>
+							class="carousel-control-next-icon" aria-hidden="true" style="background-color: dimgrey;"></span> <span
+							class="sr-only" >Next</span>
 						</a>
 						<!--/.Thumbnails-->
 
@@ -429,9 +435,9 @@
 
 				<div class="col-lg-5 text-center text-md-left">
 
-					<h1
+					<h1 class="productName"
 						class="h2-responsive text-center text-md-left product-name font-weight-bold dark-grey-text mb-1 ml-xl-0 ml-4">
-						<c:out value="${p.PRODUCT_NAME}"></c:out>
+						<c:out value="${p.PRODUCT_NAME}"/>
 					</h1>
 <!-- 					할인표시 -->
 <!-- 					<span class="badge badge-danger product mb-4 ml-xl-0 ml-4">bestseller</span> -->
@@ -458,120 +464,20 @@
 					<!-- Add to Cart -->
 					<section class="color">
 						<div class="mt-5">
-							<p class="grey-text fontbor">색상 선택</p>
+							<p class="grey-text fontbor" id="selectColor"></p>
+							<p id="colorName" class="fontbor"></p>
 							<div class="row text-center text-md-left">
-
-
-								<div class=" ">
-									<button
-										class=" "
-										type="button">
-
-								
-											<path fill-rule="evenodd" clip-rule="evenodd"
-												d="M15.5996 11.9999L9.81456 17.7857L8.40026 16.3716L12.7714 11.9999L8.40026 7.62823L9.81457 6.21411L15.5996 11.9999Z"></path></svg>
-									</button>
-									<div class="">
-										<a
-											href="https://www.ikea.com/kr/ko/p/hansola-chair-bamboo-kimstad-black-70474458/"
-											class="    ">
-											<div class=" ">
-												<img loading="lazy"
-													class=""
-													alt="HANSOLA 한솔라 의자, 대나무/킴스타드 블랙"
-													srcset="
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-kimstad-black__0812256_PE771982_S5.JPG?f=g 1600w,
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-kimstad-black__0812256_PE771982_S5.JPG?f=sg 1400w,
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-kimstad-black__0812256_PE771982_S5.JPG?f=xxxl 1100w,
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-kimstad-black__0812256_PE771982_S5.JPG?f=xxl 900w,
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-kimstad-black__0812256_PE771982_S5.JPG?f=xl 750w,
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-kimstad-black__0812256_PE771982_S5.JPG?f=l 700w,
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-kimstad-black__0812256_PE771982_S5.JPG?f=m 600w,
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-kimstad-black__0812256_PE771982_S5.JPG?f=s 500w,
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-kimstad-black__0812256_PE771982_S5.JPG?f=xs 400w,
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-kimstad-black__0812256_PE771982_S5.JPG?f=xxs 300w,
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-kimstad-black__0812256_PE771982_S5.JPG?f=xxxs 160w,
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-kimstad-black__0812256_PE771982_S5.JPG?f=u 80w,
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-kimstad-black__0812256_PE771982_S5.JPG?f=xu 40w,
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-kimstad-black__0812256_PE771982_S5.JPG?f=xxu 39w
-"
-													sizes="40px"
-													src="">
-											</div></a><a
-											class="    "><div
-												class=" ">
-												<img loading="lazy"
-													class=""
-													alt="HANSOLA 한솔라 의자, 대나무/힐라레드 앤트러싸이트"
-													srcset="
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-hillared-anthracite__0812255_PE771981_S5.JPG?f=g 1600w,
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-hillared-anthracite__0812255_PE771981_S5.JPG?f=sg 1400w,
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-hillared-anthracite__0812255_PE771981_S5.JPG?f=xxxl 1100w,
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-hillared-anthracite__0812255_PE771981_S5.JPG?f=xxl 900w,
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-hillared-anthracite__0812255_PE771981_S5.JPG?f=xl 750w,
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-hillared-anthracite__0812255_PE771981_S5.JPG?f=l 700w,
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-hillared-anthracite__0812255_PE771981_S5.JPG?f=m 600w,
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-hillared-anthracite__0812255_PE771981_S5.JPG?f=s 500w,
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-hillared-anthracite__0812255_PE771981_S5.JPG?f=xs 400w,
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-hillared-anthracite__0812255_PE771981_S5.JPG?f=xxs 300w,
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-hillared-anthracite__0812255_PE771981_S5.JPG?f=xxxs 160w,
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-hillared-anthracite__0812255_PE771981_S5.JPG?f=u 80w,
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-hillared-anthracite__0812255_PE771981_S5.JPG?f=xu 40w,
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-hillared-anthracite__0812255_PE771981_S5.JPG?f=xxu 39w
-"
-													sizes="40px"
-													src="">
-											</div></a><a
-											href="https://www.ikea.com/kr/ko/p/hansola-chair-bamboo-brown-hillared-anthracite-00476470/"
-											class="    "><div
-												class=>
-												<img loading="lazy"
-													class=""
-													alt="HANSOLA 한솔라 의자, 대나무 브라운/힐라레드 앤트러싸이트"
-													srcset="
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-brown-hillared-anthracite__0812244_PE771978_S5.JPG?f=g 1600w,
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-brown-hillared-anthracite__0812244_PE771978_S5.JPG?f=sg 1400w,
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-brown-hillared-anthracite__0812244_PE771978_S5.JPG?f=xxxl 1100w,
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-brown-hillared-anthracite__0812244_PE771978_S5.JPG?f=xxl 900w,
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-brown-hillared-anthracite__0812244_PE771978_S5.JPG?f=xl 750w,
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-brown-hillared-anthracite__0812244_PE771978_S5.JPG?f=l 700w,
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-brown-hillared-anthracite__0812244_PE771978_S5.JPG?f=m 600w,
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-brown-hillared-anthracite__0812244_PE771978_S5.JPG?f=s 500w,
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-brown-hillared-anthracite__0812244_PE771978_S5.JPG?f=xs 400w,
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-brown-hillared-anthracite__0812244_PE771978_S5.JPG?f=xxs 300w,
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-brown-hillared-anthracite__0812244_PE771978_S5.JPG?f=xxxs 160w,
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-brown-hillared-anthracite__0812244_PE771978_S5.JPG?f=u 80w,
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-brown-hillared-anthracite__0812244_PE771978_S5.JPG?f=xu 40w,
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-brown-hillared-anthracite__0812244_PE771978_S5.JPG?f=xxu 39w
-"
-													sizes="40px"
-													src="">
-											</div></a><a
-											href="https://www.ikea.com/kr/ko/p/hansola-chair-bamboo-black-kimstad-black-50474459/"
-											class="    "><div
-												class=>
-												<img loading="lazy"
-													class=""
-													alt="HANSOLA 한솔라 의자, 대나무 블랙/킴스타드 블랙"
-													srcset="
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-black-kimstad-black__0812254_PE771980_S5.JPG?f=g 1600w,
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-black-kimstad-black__0812254_PE771980_S5.JPG?f=sg 1400w,
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-black-kimstad-black__0812254_PE771980_S5.JPG?f=xxxl 1100w,
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-black-kimstad-black__0812254_PE771980_S5.JPG?f=xxl 900w,
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-black-kimstad-black__0812254_PE771980_S5.JPG?f=xl 750w,
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-black-kimstad-black__0812254_PE771980_S5.JPG?f=l 700w,
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-black-kimstad-black__0812254_PE771980_S5.JPG?f=m 600w,
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-black-kimstad-black__0812254_PE771980_S5.JPG?f=s 500w,
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-black-kimstad-black__0812254_PE771980_S5.JPG?f=xs 400w,
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-black-kimstad-black__0812254_PE771980_S5.JPG?f=xxs 300w,
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-black-kimstad-black__0812254_PE771980_S5.JPG?f=xxxs 160w,
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-black-kimstad-black__0812254_PE771980_S5.JPG?f=u 80w,
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-black-kimstad-black__0812254_PE771980_S5.JPG?f=xu 40w,
-  https://www.ikea.com/kr/ko/images/products/hansola-chair-bamboo-black-kimstad-black__0812254_PE771980_S5.JPG?f=xxu 39w
-"
-													sizes="40px"
-													src="">
-											</div></a>
+							
+								<div class="" id="colorProductCon">
+									
+									
+									
+								<div class="" style="display: none;">
+										<biv class="" href="" id="colorProductA" onclick="colorClick();">
+											<div class="">
+												<img loading="" class="" alt="" sizes="40px" src="" id="colorProduct" >
+											</div>
+										</div>	
 									</div>
 								</div>
 							</div>
@@ -581,16 +487,76 @@
 							<div class="row mt-3">
 								<div class="col-md-12 text-center text-md-left">
 								<br>
-									<button class="btn btn-primary btn-rounded col-8" style="background-color: #004f93 !important; border-radius: 52px; width ">
-										<i class="fas fa-cart-plus mr-2" aria-hidden="true"></i> Add
-										to cart
-									</button>
+								
+<button id="btnck" class="btn btn-primary btn-rounded col-8 productNo" style="background-color: #004f93 !important; border-radius: 52px; width " data-toggle="modal" data-target="#modalAbandonedCart">
+			<i class="fas fa-cart-plus mr-2" aria-hidden="true"></i>																				
+</button>									
 									<button class="" style="border: 1px solid gray; border-radius: 52px; width: 40px; height: 40px;">
 										<i class="far fa-heart"></i>
 									</button>
 								</div>
 							</div>
-
+<script>
+//장바구니 insert ajax
+$(function(){
+	<c:forEach items="${list}" var="r" varStatus="s" >				
+		$("#btnck").click(e=>{
+			$.ajax({
+				url:"${path }/cart/cartInsert.do",
+				data:{
+					productNo:"${r.PRODUCT_NO}",
+					productPrice:${r.PRODUCT_PRICE}
+					},
+				success:data=>{
+					console.log("나와라");					
+				}
+			})
+		})		
+	</c:forEach>	
+});
+</script>
+				
+<!-- Modal: modalAbandonedCart-->
+<div class="modal fade right" id="modalAbandonedCart" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true" data-backdrop="false">
+  <div class="modal-dialog modal-side modal-top-right modal-notify modal-info" role="document">
+    <!--Content-->
+    <div class="modal-content">
+      <!--Header-->
+      <div class="modal-header">
+        <p class="heading">장바구니</p>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true" class="white-text">&times;</span>
+        </button>
+      </div>
+      <!--Body-->
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-3">                       
+            <img class="img_main" src="">
+          </div>
+          <div class="col-9">
+            <p>상품을 더 구매하시겠습니까??</p>
+            <div style="display:flex;">            
+            	<div class="productName"><c:out value="${p.PRODUCT_NAME}"/></div>
+            	<div>상품이</div>
+            </div>
+            <p>장바구니에 추가되었습니다.</p>
+          </div>
+        </div>
+      </div>
+      <!--Footer-->
+      <div class="modal-footer justify-content-center">
+        <a type="button" class="btn btn-info" onclick="location.href='${path}/cart/cart.do'" >장바구니로 가기</a>        
+      </div>
+    </div>
+    <!--/.Content-->
+  </div>
+</div>
+<!-- Modal: modalAbandonedCart-->
+								
+								
+								
 							<!--             좋아요 버튼 -->
 
 
@@ -623,7 +589,7 @@
 							aria-expanded="true" aria-controls="collapseOne1"
 							style="width: 100%; margin-bottom: 14px ;">
 							<div class="row justify-content-between">
-								<p class="mb-0 dark-grey-text col-3 fontbor" style="margin-left: -100px;">제품 설명</p>
+								<p class="mb-0 dark-grey-text col-3 fontbor" style="margin-left: 100px;">제품 설명</p>
 								<i class="fas fa-angle-right rotate-icon col-1 dark-grey-text"
 									style="margin-top: 4px"></i>
 							</div>
@@ -649,7 +615,7 @@
 							aria-controls="collapseTwo2"
 							style="width: 100%; margin-bottom: 14px;">
 							<div class="row justify-content-between">
-								<p class="mb-0 dark-grey-text col-3 fontbor" style="margin-left: -100px;">제품 크기</p>
+								<p class="mb-0 dark-grey-text col-3 fontbor" style="margin-left: 100px;">제품 크기</p>
 								<i class="fas fa-angle-right rotate-icon dark-grey-text col-1"
 									style="margin-top: 4px"></i>
 							</div>
@@ -676,7 +642,7 @@
 							aria-controls="collapseThree3"
 							style="width: 100%; margin-bottom: 14px;">
 							<div class="row justify-content-between">
-								<p class="mb-0 dark-grey-text col-3 fontbor" style="margin-left: -112px;">상품평</p>
+								<p class="mb-0 dark-grey-text col-3 fontbor" style="margin-left: 100px;">상품평</p>
 								<i class="fas fa-angle-right rotate-icon dark-grey-text col-1"
 									style="margin-top: 4px"></i>
 							</div>
@@ -698,7 +664,8 @@
 
 	</div>
 	
-<!--Modal: modalVM-->
+<!--Modal: modalVM 리뷰 사진확대-->
+
 <div class="modal fade" id="modalVM" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
   aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
@@ -710,31 +677,100 @@
       <div class="modal-body mb-0 p-0">
 
         <div class="embed-responsive embed-responsive-16by9 z-depth-1-half">
-          <iframe class="embed-responsive-item" src="https://player.vimeo.com/video/115098447"
-            allowfullscreen></iframe>
+        
+        <div class="container my-5">
+
+  <!--Section: Content-->
+  <section class="text-center dark-grey-text mb-5">
+    <div class="row">
+      <div class="col-md-12">
+
+        <!--Carousel Wrapper-->
+        <div id="carousel-example-1z" class="carousel slide" data-ride="carousel" data-interval="false">
+          <!--Indicators-->
+          <ol class="carousel-indicators">
+            <li data-target="#carousel-example-1z" data-slide-to="0" class="active" id="imgDat1"></li>
+            <li data-target="#carousel-example-1z" data-slide-to="1" id="imgDat2"></li>
+            <li data-target="#carousel-example-1z" data-slide-to="2" id="imgDat3"></li>
+          </ol>
+          <!--/.Indicators-->
+          <!--Slides-->
+          <div class="carousel-inner" role="listbox" id="reviewImgZoomCon">
+            <!--First slide-->
+
+            <!--/First slide-->
+            <!--Second slide-->
+
+            <!--/Second slide-->
+            <!--Third slide-->
+     
+            <!--/Third slide-->
+          </div>
+          <!--/.Slides-->
+          <!--Controls-->
+          <a class="carousel-control-prev" href="#carousel-example-1z" role="button" data-slide="prev" id="prevId">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next" href="#carousel-example-1z" role="button" data-slide="next" id="nextId">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
+          <!--/.Controls-->
+        </div>
+        <!--/.Carousel Wrapper-->
+
+      </div>
+    </div>
+
+  </section>
+              <div style="display: none;">
+            <div class="carousel-item active" id="imgMiniNone0">
+              <img class="d-block w-100 h32rem" id="reviewImgZoom1" src="https://mdbootstrap.com/img/Photos/Horizontal/Architecture/12-col/img%20(10).jpg"
+                alt="First slide">
+            </div>
+            </div>
+              <div style="display: none;">
+            <div class="carousel-item" id="imgMiniNone1" >
+              <img class="d-block w-100 h32rem" id="reviewImgZoom2" src="https://mdbootstrap.com/img/Photos/Horizontal/Architecture/12-col/img%20(11).jpg"
+                alt="Second slide">
+            </div>
+            </div>
+            <div style="display: none;">
+            <div class="carousel-item h32rem" id="imgMiniNone2" >
+              <img class="d-block w-100" id="reviewImgZoom3" src="https://mdbootstrap.com/img/Photos/Horizontal/Architecture/12-col/img%20(12).jpg"
+                alt="Third slide">
+            </div>
+            </div>
+  <!--Section: Content-->
+
+
+</div>
+<!--           <iframe class="embed-responsive-item" src="https://player.vimeo.com/video/115098447" -->
+<!--             allowfullscreen></iframe> -->
         </div>
 
       </div>
 
       <!--Footer-->
       <div class="modal-footer justify-content-center flex-column flex-md-row">
-        <span class="mr-4">Spread the word!</span>
+<!--         <span class="mr-4">Spread the word!</span> -->
         <div>
-          <a type="button" class="btn-floating btn-sm btn-fb">
-            <i class="fab fa-facebook-f"></i>
-          </a>
-          <!--Twitter-->
-          <a type="button" class="btn-floating btn-sm btn-tw">
-            <i class="fab fa-twitter"></i>
-          </a>
-          <!--Google +-->
-          <a type="button" class="btn-floating btn-sm btn-gplus">
-            <i class="fab fa-google-plus-g"></i>
-          </a>
-          <!--Linkedin-->
-          <a type="button" class="btn-floating btn-sm btn-ins">
-            <i class="fab fa-linkedin-in"></i>
-          </a>
+<!--           <a type="button" class="btn-floating btn-sm btn-fb"> -->
+<!--             <i class="fab fa-facebook-f"></i> -->
+<!--           </a> -->
+<!--           Twitter -->
+<!--           <a type="button" class="btn-floating btn-sm btn-tw"> -->
+<!--             <i class="fab fa-twitter"></i> -->
+<!--           </a> -->
+<!--           Google + -->
+<!--           <a type="button" class="btn-floating btn-sm btn-gplus"> -->
+<!--             <i class="fab fa-google-plus-g"></i> -->
+<!--           </a> -->
+<!--           Linkedin -->
+<!--           <a type="button" class="btn-floating btn-sm btn-ins"> -->
+<!--             <i class="fab fa-linkedin-in"></i> -->
+<!--           </a> -->
         </div>
         <button type="button" class="btn btn-outline-primary btn-rounded btn-md ml-4"
           data-dismiss="modal">Close</button>
@@ -746,17 +782,20 @@
 
   </div>
 </div>
+
 <!--Modal: modalVM-->
 
 <div style="display: none">
-<div class="media mb-3" id="reviewClone">
+<div class="media mb-3" id="reviewClone" >
 <!-- 						▼▼▼▼회원 이미지 OR 상품 이미지▼▼▼▼ -->
-							<a id="reviewImgCon" data-toggle="modal" data-target="#modalVM">
+							<div id="reviewImgCon">
+							<a  data-toggle="modal" data-target="#modalVM" id="imgZoom">
 							<img id="productImg"
 									class="card-img-100 rounded-circle z-depth-1-half d-flex mr-3"
-									src="https://mdbootstrap.com/img/Photos/Avatars/img (8).jpg"
+									src=""
 									alt="Generic placeholder image">
 							</a>
+							</div>
 							<div class="media-body">
 							
 								
@@ -799,12 +838,13 @@
 								</div>
 							</div>
 </div>
-				
+			
 
 	<script>
 		$('.carousel').carousel({
-			interval : 3000
-		})
+			interval : false
+		});
+
 	</script>
 <script type="text/javascript">
 
@@ -812,28 +852,39 @@
 // ▼리뷰▼
 $(function() {
 	
-<c:forEach items="${review}" var="r">
+<c:forEach items="${review}" var="r" varStatus="s">
 if ("${r.REVIEW_NO}"!=null) {
 	let reviewClone = $("#reviewClone").clone();
+	
 	$(reviewClone).find("#memberId").text('${r.MEMBER_ID}');
 	
 
 		
-	if ("${r.PRODUCT_GRADE}"==1) {
+	if ("${r.PRODUCT_GRADE}"=='1') {
 		$(reviewClone).find("#starGray1").removeClass("grey-text").addClass("blue-text");
-	}else if ("${r.PRODUCT_GRADE}"==2) {
+		$(reviewClone).find("#starGray2").removeClass("blue-text").addClass("grey-text");
+		$(reviewClone).find("#starGray3").removeClass("blue-text").addClass("grey-text");
+		$(reviewClone).find("#starGray4").removeClass("blue-text").addClass("grey-text");
+		$(reviewClone).find("#starGray5").removeClass("blue-text").addClass("grey-text");
+	}else if ("${r.PRODUCT_GRADE}"=='2') {
 		$(reviewClone).find("#starGray1").removeClass("grey-text").addClass("blue-text");
 		$(reviewClone).find("#starGray2").removeClass("grey-text").addClass("blue-text");
-	}else if ("${r.PRODUCT_GRADE}"==3) {
+		$(reviewClone).find("#starGray3").removeClass("blue-text").addClass("grey-text");
+		$(reviewClone).find("#starGray4").removeClass("blue-text").addClass("grey-text");
+		$(reviewClone).find("#starGray5").removeClass("blue-text").addClass("grey-text");
+	}else if ("${r.PRODUCT_GRADE}"=='3') {
 		$(reviewClone).find("#starGray1").removeClass("grey-text").addClass("blue-text");
 		$(reviewClone).find("#starGray2").removeClass("grey-text").addClass("blue-text");
 		$(reviewClone).find("#starGray3").removeClass("grey-text").addClass("blue-text");
-	}else if ("${r.PRODUCT_GRADE}"==4) {
+		$(reviewClone).find("#starGray4").removeClass("blue-text").addClass("grey-text");
+		$(reviewClone).find("#starGray5").removeClass("blue-text").addClass("grey-text");
+	}else if ("${r.PRODUCT_GRADE}"=='4') {
 		$(reviewClone).find("#starGray1").removeClass("grey-text").addClass("blue-text");
 		$(reviewClone).find("#starGray2").removeClass("grey-text").addClass("blue-text");
 		$(reviewClone).find("#starGray3").removeClass("grey-text").addClass("blue-text");
 		$(reviewClone).find("#starGray4").removeClass("grey-text").addClass("blue-text");
-	}else if ("${r.PRODUCT_GRADE}"==5) {
+		$(reviewClone).find("#starGray5").removeClass("blue-text").addClass("grey-text");
+	}else if ("${r.PRODUCT_GRADE}"=='5') {
 		$(reviewClone).find("#starGray1").removeClass("grey-text").addClass("blue-text");
 		$(reviewClone).find("#starGray2").removeClass("grey-text").addClass("blue-text");
 		$(reviewClone).find("#starGray3").removeClass("grey-text").addClass("blue-text");
@@ -842,19 +893,99 @@ if ("${r.REVIEW_NO}"!=null) {
 	}
 	$(reviewClone).find("#reviewDate").text('${r.REVIEW_DATE}');
 	$(reviewClone).find("#review").text('${r.REVIEW_CONTENT}');
-	$("#reviewCon").append(reviewClone);
-	<c:forEach items="${reviewImg}" var="ri">
-	if ("${ri.RENAMEDFILENAME}"!=null) {
-		
-		$("#productImg").attr("src","${path}/resources/upload/review/"+"${ri.RENAMEDFILENAME}");
-	}
-	</c:forEach>
-	
+// 	만드는중 	a태그 target 변경
+	$(reviewClone).find("#imgZoom").attr("data-target","#modalVM"+'${s.index}');
+
+	let imgZoomClone = $("#modalVM").clone().attr("id","modalVM"+'${s.index}');
+	// 만드는중	클론생성
+	$(imgZoomClone).find("#reviewImgZoomCon").attr("id","reviewImgZoomCon"+'${s.index}');
+	$(imgZoomClone).find("#carousel-example-1z").attr("id","carousel-example-1z"+'${s.index}');
+	$(imgZoomClone).find("#imgDat1").attr("data-target","#carousel-example-1z"+'${s.index}');
+	$(imgZoomClone).find("#imgDat2").attr("data-target","#carousel-example-1z"+'${s.index}');
+	$(imgZoomClone).find("#imgDat3").attr("data-target","#carousel-example-1z"+'${s.index}');
+	$(imgZoomClone).find("#prevId").attr("href","#carousel-example-1z"+'${s.index}');
+	$(imgZoomClone).find("#nextId").attr("href","#carousel-example-1z"+'${s.index}');
+
+
 
 	
+	
+	var no='${r.REVIEW_NO}';
+	$.ajax({
+		url:"${path}/product/reviewImg.do",
+		async : false,
+		data: {
+			"no":no
+		},
+		success:data=>{
+			for (var i = 0; i < data.length; i++) {
+			console.log('${s.index}:'+i+":"+data[i]["REVIEW_NO"]+":"+'${r.REVIEW_NO}'+"데이타:"+data[i]["RENAMEDFILENAME"]);
+				if (data[i]["REVIEW_NO"]=='${r.REVIEW_NO}') {
+					$(reviewClone).find("#productImg").attr("src","${path}/resources/upload/review/"+data[0]["RENAMEDFILENAME"]);
+ 					
+					if (i==0) {
+						$(imgZoomClone).find("#imgDat2").css("display","none");
+						$(imgZoomClone).find("#imgDat3").css("display","none");
+					}if (i==1) {
+						$(imgZoomClone).find("#imgDat2").css("display","block");
+						$(imgZoomClone).find("#imgDat3").css("display","none");
+					}if (i==2) {
+						$(imgZoomClone).find("#imgDat2").css("display","block");
+						$(imgZoomClone).find("#imgDat3").css("display","block");
+					}
+				}
+				
+			}
+			if (data=="") {
+				$(reviewClone).find("#reviewImgCon").html("");
+				
+			}
+		}
+	
+
+	});
+
+	$("#reviewCon").append(reviewClone);
+
+	
+	$("#content").append(imgZoomClone);
+	
+	let imgMiniNone0 = $("#modalVM"+'${s.index}').find("#imgMiniNone0").clone();
+	let imgMiniNone1 = $("#modalVM"+'${s.index}').find("#imgMiniNone1").clone();
+	let imgMiniNone2 = $("#modalVM"+'${s.index}').find("#imgMiniNone2").clone();
+	$.ajax({
+		url:"${path}/product/reviewImg.do",
+		async : false,
+		data: {
+			"no":no
+		},
+		success:data=>{
+			for (var i = 0; i < data.length; i++) {	
+				
+
+ 					
+				if ('${r.REVIEW_NO}'==data[i]["REVIEW_NO"] && i=="0") {
+ 						console.log("몇번?"+data[0]["RENAMEDFILENAME"]);
+ 					$(imgMiniNone0).find("#reviewImgZoom1").attr("src","${path}/resources/upload/review/"+data[0]["RENAMEDFILENAME"]);
+					$("#reviewImgZoomCon"+'${s.index}').append(imgMiniNone0);
+					}
+				if ('${r.REVIEW_NO}'==data[i]["REVIEW_NO"] && i=="1") {
+ 					
+ 					$(imgMiniNone1).find("#reviewImgZoom2").attr("src","${path}/resources/upload/review/"+data[1]["RENAMEDFILENAME"]);
+					$("#reviewImgZoomCon"+'${s.index}').append(imgMiniNone1);
+					}
+ 				if ('${r.REVIEW_NO}'==data[i]["REVIEW_NO"] && i=="2") {
+ 					
+					$(imgMiniNone2).find("#reviewImgZoom3").attr("src","${path}/resources/upload/review/"+data[2]["RENAMEDFILENAME"]);
+					$("#reviewImgZoomCon"+'${s.index}').append(imgMiniNone2);
+					} 										
+				}									
+			}
+	});
 }else {
 // 	댓글이 없습니다.
 } 
+// console.log('${s.index}');
 </c:forEach>
 });
 //@리뷰이미지 컨트롤
@@ -864,18 +995,47 @@ if ("${r.REVIEW_NO}"!=null) {
 function numberWithCommas(x) {
 	return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
+//색상 클릭 이벤트
+function colorClick() {
+	<c:forEach items="${list}" var="i" varStatus="s" >
 
-
+	if ("${i.PRODUCT_COLOR}" != "normal") {
+		let color = $("#colorProductA"+"${s.index}").find("#colorProduct").attr("alt");
+		$("#colorName").html(color);
+	}
+	</c:forEach>
+}
 // @제품정보 컨트롤
 $(function(){
-	<c:forEach items="${list}" var="i">
+
+	<c:forEach items="${list}" var="i" varStatus="s" >
 	
+	$("#productName").text(("${i.PRODUCT_NAME}"));
+
+		
+		
+	$("#productNo").text(("${i.PRODUCT_NO}"));	
+	$(".productName").text(("${i.PRODUCT_NAME}"));
+
 	$("#productPrice").text(numberWithCommas(("${i.PRODUCT_PRICE}")));
 	$("#width").text(("${i.PRODUCT_WIDTH}"));
 	$("#depth").text(("${i.PRODUCT_DEPTH}"));
 	$("#height").text(("${i.PRODUCT_HEIGHT}"));
+	$("#productInfo").text(("${i.PRODUCT_INFO}"));
+	
+	if ("${i.PRODUCT_COLOR}" != "normal") {
+		let colorProductA = $("#colorProductA").clone().attr("id","colorProductA"+"${s.index}");
+		$(colorProductA).find("#colorProduct").attr("src","${path}/resources/images/product/"+"${i.PRODUCT_PIC}");
+		$(colorProductA).find("#colorProduct").attr("alt","${i.PRODUCT_COLOR}");
+		$("#colorProductCon").append(colorProductA);
+			$("#selectColor").text("색상선택");
+			
+			
+		}
+
 	
 	
+	/* $(".productNo").attr("onclick","location.href='${path }/cart/cartInsert.do?productNo=${i.PRODUCT_NO}&productPrice=${i.PRODUCT_PRICE}'"); */	
 	</c:forEach>
 });
 
@@ -886,9 +1046,9 @@ $(function(){
 						
 // 	alert(imgarr);
 	<c:forEach items="${list}" var="i"  varStatus="s">
-// 		alert("${s.index}"+":"+"${i.PRODUCT_PIC}");
+// 		alert("${s.index}"+":"+"${i.PRODUCT_PIC}");		
 		if ('${s.index}'=='0') {
-			$("#img_main").attr("src","${path}/resources/images/product/"+'${i.PRODUCT_PIC}');
+			$(".img_main").attr("src","${path}/resources/images/product/"+'${i.PRODUCT_PIC}');
 		}
 		if('${s.index}'!='0') {
 			let productclone=$("#productclone").clone();

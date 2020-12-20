@@ -1,7 +1,9 @@
 package com.palette.orkney.member.controller;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -10,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,6 +29,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import com.palette.orkney.member.model.service.MemberService;
 import com.palette.orkney.member.model.vo.Addr;
+import com.palette.orkney.member.model.vo.Point;
 
 @SessionAttributes("login")
 @Controller
@@ -476,6 +480,11 @@ public class MemberController {
 		return form;
 	}
 	
+	@RequestMapping("/test")
+	public String test() {
+		return "admin/emailTest";
+	}
+	
 	//주소추가하기
 	@RequestMapping("/member/insertAddr.do")
 	public String insertAddr(@RequestParam Map<String, Object> updateInformation, HttpSession session, Model m) {
@@ -557,16 +566,120 @@ public class MemberController {
 		Map login = ((Map)session.getAttribute("login")); //로그인 된 유저
 		String mNo = (String)login.get("MEMBER_NO");
 		String pw = (String)login.get("MEMBER_PWD");
-		
+		System.out.println(mNo);
+		System.out.println(pw);
 		int result = 0;
 		if(pwEncoder.matches(pwck, pw)) {
+			System.out.println(1);
 			result = service.deleteMember(mNo);
+			System.out.println(2);
 		} else {
 			result = -2;
 		}
 		
-		
+		System.out.println(result);
 		
 		return result;
+	}
+	
+	///포인트 페이지로 이동
+	@RequestMapping("/point/pointForm.do")
+	public String pointForm() {
+		return "member/point";
+	}
+	
+	
+	//포인트 페이지로 이동 (month로 조회하기)
+	@RequestMapping("/point/point.do")
+	public String pointForm(HttpSession session, Model m, @RequestParam(value="startDate", required = false) String startDate,
+															@RequestParam(value="endDate", required = false) String endDate,
+															@RequestParam(value="type", required = false) String type) {
+		Map login = ((Map)session.getAttribute("login")); //로그인 된 유저
+		String mNo = (String)login.get("MEMBER_NO");
+		
+		System.out.println(startDate + endDate + type);
+		
+//		Calendar c = Calendar.getInstance();
+//		if(month != null) { //month가 null 아닐 때
+//			month = month.substring(0, month.length()-1);
+//			if(month.length() == 1) {
+//				
+//				month = "0" + month;
+//			}
+//			
+//			month = c.get(Calendar.YEAR) + month;
+//		}
+//		
+//		
+//		System.out.println(month);
+		Map data = new HashMap();
+		data.put("mNo", mNo);
+		data.put("sd", startDate);
+		data.put("ed", endDate);
+		data.put("type", type);
+		
+		List<Point> list = service.pointList(data);
+		
+		List<Point> list2 = new ArrayList<Point>();
+		
+		HashSet months = new HashSet();
+		for(Point p : list) {
+			String[] dateStr = p.getPoint_date().split(" ");
+			p.setPoint_date(dateStr[0]);
+			list2.add(p);
+			
+			months.add(p.getPoint_date().substring(0, 7));
+		}
+		
+		System.out.println(list2);
+		m.addAttribute("list", list2);
+		m.addAttribute("months", months);
+		
+		
+		return "member/pointList";
+	}
+	
+	//month로 조회하기
+//	@RequestMapping("/member/selectMonthPoint")
+//	@ResponseBody
+//	public String selectMonthPoint(String month, HttpSession session) {
+//		Map login = ((Map)session.getAttribute("login")); //로그인 된 유저
+//		String mNo = (String)login.get("MEMBER_NO");
+//		
+//		Calendar c = Calendar.getInstance();
+//		month = month.substring(0, month.length()-1);
+//		if(month.length() == 1) {
+//			month = "0" + month;
+//		}
+//		System.out.println(c.get(Calendar.YEAR) + month);
+//		
+//		Map data = new HashMap();
+//		data.put("mNo", mNo);
+//		data.put("month", month);
+//		
+//		List<Point> list = service.selectMonthPoint(data);
+//		System.out.println(list);
+//		
+//		
+//		return "";
+//	}
+	
+	//검색하기
+	@RequestMapping("/searchAuto.do")
+	@ResponseBody
+	public List searchAuto(String str) {
+		
+		List list = new ArrayList();
+		list.add("가");
+		list.add("가방");
+		list.add("가구");
+		list.add("조명");
+		list.add("조명스탠드");
+		list.add("찰또기");
+		list.add("찰찰또기또기");
+
+	      
+	      return list;
+		
 	}
 }

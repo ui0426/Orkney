@@ -18,6 +18,7 @@
     			</c:forEach>
     		</ul>
     	</div>
+    	
 
 <script>
 function fn_moveWishlist(e){

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.palette.orkney.member.model.vo.Addr;
 import com.palette.orkney.member.model.vo.Member;
+import com.palette.orkney.member.model.vo.Point;
 
 @Service
 public interface MemberService {
@@ -80,5 +81,9 @@ public interface MemberService {
 
 	//탈퇴하기
 	int deleteMember(String mNo);
+
+	//포인트 내역 가져오기
+	List<Point> pointList(Map data);
+
 
 }

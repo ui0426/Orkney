@@ -14,10 +14,7 @@ public interface CartDao {
 	
 	String selectCartNo(SqlSession session,String memberNo);
 	
-	int deleteProduct(SqlSession session,Map<String, String>param);
-	
-	int deleteBasket(SqlSession session,String cartNo);
-	
+	int deleteProduct(SqlSession session,Map<String, String>param);			
 	
 	int updateDetail(SqlSession session,Cart cart);
 	
@@ -25,7 +22,7 @@ public interface CartDao {
 	
 	int productSum(SqlSession session,Map<String, String> param1);
 
-	int countCart(SqlSession session,String productNo,String memberNo);
+	int countCart(SqlSession session,String memberNo);
 	
 	int updateCart(SqlSession session,Cart cart);
 	
@@ -33,7 +30,9 @@ public interface CartDao {
 	
 	int selectCount(SqlSession session,String cartNo);
 	
-	int cartDelete(SqlSession session,String cartNo);
+	int cartDelete(SqlSession session,String memberNo);
+	
+	int insertDetail(SqlSession session,Cart cart);
 }
 
 

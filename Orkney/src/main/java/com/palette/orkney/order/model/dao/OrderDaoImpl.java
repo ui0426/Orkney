@@ -7,7 +7,6 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.palette.orkney.cart.model.vo.Cart;
-import com.palette.orkney.member.model.vo.Point;
 import com.palette.orkney.order.model.vo.OrderDetail;
 import com.palette.orkney.order.model.vo.Orders;
 
@@ -40,6 +39,18 @@ public class OrderDaoImpl implements OrderDao {
 	}
 
 	@Override
+	public int orderConfirm(SqlSession session, OrderDetail od) {
+		return session.update("order.orderConfirm", od);
+	}
+	
+	
+	//입출고 테이블에 
+	@Override
+	public int insertShipped(SqlSession session, OrderDetail od) {
+		return session.insert("shipped.insertShipped", od);
+	}
+
+	@Override
 	public int insertOrders(SqlSession session, Orders orders) {
 		return session.insert("order.insertOrders",orders);
 	}
@@ -59,10 +70,15 @@ public class OrderDaoImpl implements OrderDao {
 		return session.selectOne("order.selectOno",orders);
 	}
 
+	@Override
+	public int updateRefund(SqlSession session, OrderDetail od) {
+		return session.update("order.updateRefund", od);
+	}
+
 	
 //	@Override
 //	public int insertPoint2(SqlSession session, Point point) {	
-//		return session.insert("order.inserPoint2",point);
+//		return session.insert("order.insertPoint2",point);
 //	}
 	
 	

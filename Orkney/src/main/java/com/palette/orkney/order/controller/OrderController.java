@@ -1,11 +1,13 @@
 package com.palette.orkney.order.controller;
 
+import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,15 +15,19 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.palette.orkney.cart.model.service.CartService;
 import com.palette.orkney.cart.model.vo.Cart;
 import com.palette.orkney.member.model.service.MemberService;
 import com.palette.orkney.order.model.service.OrderService;
+import com.palette.orkney.order.model.vo.OrderDetail;
 import com.palette.orkney.order.model.vo.Orders;
+import com.palette.orkney.review.model.vo.ReviewImage;
 
 @SessionAttributes("login")
 @Controller
@@ -109,6 +115,7 @@ public class OrderController {
 		mv.addObject("map",info);
 		mv.setViewName("cart/complete");
 		int cartDelete = cservice.cartDelete(c.get(0).getCartNo());
+		session.removeAttribute("info");
 		return mv;
 	}
 
@@ -152,20 +159,6 @@ public class OrderController {
 			return "false";
 		}
 	}
-//	public String orderLogin(String id, String password, Model m) {
-//		
-//		Map login=mservice.loginCheck(id);
-//		
-//		if(login!=null&&pwEncoder.matches(password,(String)login.get("MEMBER_PWD"))) {
-//			String mNo = (String)login.get("MEMBER_NO");
-//			m.addAttribute("login",login);
-//			m.addAttribute("list", service.selectOrderList(mNo));
-//			return "order/orderList";
-//		}else {
-//			m.addAttribute("msg", "사용하신 인증정보가 올바르지 않습니다. 확인 후 다시 시도해주세요.");
-//			return "order/orderLogin";
-//		}
-//	}
 	
 	//주문상세내역 보기
 	@RequestMapping("/order/orderView.do")
@@ -255,6 +248,48 @@ public class OrderController {
 	@RequestMapping("/order/passwordCheck.do")
 	public String passwordCheck() {
 		return "order/orderPasswordCheck";
+	}
+	
+	@RequestMapping(value="/order/updateRefund.do", produces="text/plain;charset=UTF-8", method = RequestMethod.POST)
+	@ResponseBody
+	public String updateRefund(OrderDetail od, MultipartFile file, HttpSession session) throws IOException {
+		System.out.println("교환 혹은 환불 신청 한 오더 디테일 : "+od);
+		String path=session.getServletContext().getRealPath("/resources/upload/order-refund");
+		
+		File dir = new File(path);
+		
+		if(!dir.exists()) dir.mkdirs();
+
+		if(file!=null) {
+			String originalName = file.getOriginalFilename();
+			String ext = originalName.substring(originalName.lastIndexOf(".")+1);
+			System.out.println(ext);
+			
+			SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd_HHmmssSSS");
+			int rndValue = (int)(Math.random()*10000);
+			String reName="refund"+sdf.format(System.currentTimeMillis())+"_"+rndValue+"."+ext;
+			try {
+				file.transferTo(new File(path+"/"+reName));
+			}catch(IOException e) {
+				e.printStackTrace();
+			}
+			od.setRefund_pic(reName);
+			System.out.println(od);
+		}
+		int result = service.updateRefund(od);
+		return result>0? od.getSort():"실패다.";
+//		return "";
+	}
+	
+	@RequestMapping("/order/orderConfirm.do")
+	public String orderConfirm(String mNo, OrderDetail od, HttpSession session) {
+		System.out.println("구매확정 한 회원번호 : "+mNo);
+		System.out.println("구매확정 한 오더 디테일 번호 : "+od);
+		Map login = (Map)session.getAttribute("login");
+		if(login.get("MEMBER_NO").equals(mNo)) {			
+			service.orderConfirm(od, mNo); 
+		}
+		return "redirect:/order/orderView.do?oNo="+od.getOrder_no();
 	}
 	
 

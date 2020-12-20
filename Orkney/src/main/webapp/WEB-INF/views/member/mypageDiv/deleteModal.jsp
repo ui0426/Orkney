@@ -33,15 +33,16 @@
         <button id="deleteMemberBtn">계정삭제</button>
         
         <script>
-        let passwordCkFlag = false;
+        
+        deletePasswordCkFlag = false;
         $('#update-originPw-input').blur(e=>{
         	   if($(e.target).val() == ''){
-        		   passwordCkFlag = false;
+        		   deletePasswordCkFlag = false;
         	        $(e.target).css({'color':'red','border-bottom':'2px solid'});
         	        $(e.target).next().css({'font-size': '1rem','font-weight': '600','transform':'none', 'color':'#969393'});
         	        $(e.target).next().next().css('display','block');
         	   } else {
-        		   passwordCkFlag = true;
+        		   deletePasswordCkFlag = true;
         	      $(e.target).css({'color':'#484848','border-bottom':'1px solid'});
         	      $(e.target).next().next().css('display','none');
         	      $(e.target).next().css({'transform': 'translateY(-110%)','font-size': '0.775rem','font-weight': '100'});
@@ -57,12 +58,12 @@
         	})
         	
         	$('#deleteMemberBtn').click(e=>{
-        		console.log(passwordCkFlag);
+        		console.log(deletePasswordCkFlag);
         		let ck = confirm('정말로 탈퇴하실건가요?');
         		if(ck == false){
         				
         		} else {
-        			if(passwordCkFlag == false){
+        			if(deletePasswordCkFlag == false){
         				$('#update-originPw-input').focus().trigger("click").blur().focus();
         				return;
         			} else {

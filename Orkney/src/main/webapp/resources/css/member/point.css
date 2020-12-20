@@ -1,0 +1,202 @@
+   input:focus { outline:none; }
+   button:focus { outline:none; }
+
+.point-container{
+	max-width: 70rem;
+    display: flex;
+    flex-direction: column;
+    padding: 3rem;
+    margin: auto;
+}
+.point-info-box{
+	display: flex;
+    flex-direction: column;
+    background: #eee;
+    border-radius: 0.5em;	
+	
+}
+.info-logo{
+	font-size: 1.2rem;
+    font-weight: 400;
+    background-color: #0058ab;
+    color: white;
+    text-align: center;
+    border-top-left-radius: 0.5em;
+    border-top-right-radius: 0.5em;
+    padding: 0.5em;
+}
+.info-info{
+	    padding: 1em;
+    display: flex;
+    flex-direction: column;
+    font-size: 0.875rem;
+}
+.info-title{
+	font-weight: 500;
+    text-align: center;
+    margin-top: 1em;
+}
+.info-point{
+	    align-self: center;
+    font-size: 1.5rem;
+    font-weight: 500;
+        padding: 0.8em 0 0 0;
+}
+/* .point-detail-choice{ */
+/* 	display: flex; */
+/* } */
+.small-display{
+	    display: flex;
+    justify-content: space-between;
+    font-size: 0.875rem;
+    margin: 1em;
+    /* padding: 1em; */
+    height: 40px;
+}
+.small-display button{
+    background: white;
+    width: 33%;
+    height: 100%;
+    border: 1px solid grey;
+    border-radius: 0.2em;
+}
+.big-display{
+    display: none;
+    
+}
+
+
+.point-list-box{
+	
+    margin: 2em 0;
+}
+.point-list{
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr;
+}
+.point{
+	justify-self: end;
+}
+
+.month-choice{
+ display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    background: white;
+    border: 1px solid grey;
+    width: 100%;
+    height: 40px;
+}
+.mon-select-btn:hover{
+    text-decoration: underline;
+}
+.month-choice button{
+	background: white;
+    border-right: 1px solid grey;
+}
+
+.day-choice{
+    display: flex;
+    line-height: 40px;
+    height: 40px;
+}
+.day-choice span{
+    margin: 0 0.5em;
+    font-weight: 600;
+}
+.detail-choice{
+	display: flex;
+	width: 100%;
+	height: 40px;
+}
+.select{
+	width: 100%;
+}
+.choice-btn{
+    background: grey;
+    border: 1px solid grey;
+    line-height: 40px;
+    text-align: center;
+    color: white;
+    font-weight: 800;
+    width: 100%;
+    height: 40px;
+}
+.choice-btn:hover{
+	cursor: pointer;
+	text-decoration: underline;
+}
+.lastbtn{
+    border-right: none !important;
+}
+.line{
+width: 100%;
+    background: grey;
+    height: 0.5px;
+    align-self: center;
+}
+.point-date-box{
+    display: grid;
+    grid-template-columns: 2fr 1.5fr 2fr;
+	
+}
+.point-date{
+	    text-align: center;
+    font-weight: 500;
+    border: 1px solid grey;
+    border-radius: 3em;
+    height: 40px;
+    line-height: 40px;
+}
+.point-list{
+    padding: 3em 1em;
+    border-bottom: 1px solid #eee;
+}
+.point-type{
+	width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 2px solid;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 1em;
+}
+.point-fulldate{
+	font-size: 0.875rem;
+    color: grey;
+}
+.point{
+	line-height: 80px;
+}
+.point-minus{
+	color: red;
+    font-weight: 500;
+}
+.point-plus{
+	color: #0058ab;
+    font-weight: 500;
+}
+.point-content{
+    margin: 0.5em 0;
+}
+@media (min-width: 800px){
+	.small-display{
+		display: none;
+	}
+	.big-display{
+	    display: grid;
+	    grid-template-columns: 3fr 1fr 1fr 1fr;
+	    justify-items: center;
+	    margin: 1em;
+	    font-size: 0.875rem;
+	    grid-gap: 0.5em;
+	    height: 40px;
+	}
+}
+
+@media (min-width: 1200px){
+	.point-container {
+	    padding: 2rem 5.5em;
+	}
+	
+}

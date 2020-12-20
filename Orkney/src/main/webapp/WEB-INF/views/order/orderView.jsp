@@ -489,7 +489,7 @@
 					
 					<!-- 택배 배송 내역 -->
 					<div class="">
-						<div >
+						<div>
 							<div>
 								<div id="destination" class="destination">
 									<div class="productList-tap">
@@ -524,7 +524,7 @@
 				
 					<!-- 제품 -->
 					<div class="">
-						<div >
+						<div>
 							<div>
 								<div id="productList" class="productList">
 								<c:if test="${order.order_state ne '취소완료' }">
@@ -570,23 +570,44 @@
 											<p class="product-text"><c:out value="${od.product_color }"/></p>
 										</div>
 										</div>
-										<c:if test="${order.order_state eq '배송완료' and od.review_no eq 0 }">
+										<c:if test="${order.order_state eq '배송완료' and od.sort eq null}">
+											<div class="od-review-btn result-buttons">
+												<input class="order_detail_no_input" type="hidden" value="${od.order_detail_no }"/>
+												<input class="product_qty_input" type="hidden" value="${od.product_qty }"/>
+												<input class="product_no_input" type="hidden" value="${od.product_no }"/>
+												<input class="product_price_input" type="hidden" value="${od.product_price }"/>
+												<button type="button" class="btn btn-outline-default waves-effect btnsize btn-sm exchange_do" value="${od.order_detail_no }">교환신청</button>
+												<button type="button" class="btn btn-outline-default waves-effect btnsize btn-sm refund_do" value="${od.order_detail_no }">반품신청</button>
+												<button type="button" class="btn btn-outline-default waves-effect btnsize confirm_do btn-sm">구매확정</button>
+											</div>
+											<div class="od-review-btn exchange-refund"></div>
+										</c:if>
+										<c:if test="${order.order_state eq '배송완료' and od.sort eq '구매확정' and od.review_no eq 0 }">
 											<div class="od-review-btn">
 												<input type="hidden" value="${od.order_detail_no }"/>
 												<button type="button" class="btn btn-outline-default waves-effect btnsize review_do btn-sm">리뷰쓰기</button>
 											</div>
 										</c:if>
+										<c:if test="${od.sort eq '교환신청' }">
+										<div class="od-review-btn">
+											교환 신청 처리중입니다.
+										</div>
+										</c:if>
+										<c:if test="${od.sort eq '반품신청' }">
+										<div class="od-review-btn">
+											반품 신청 처리중입니다.
+										</div>
+										</c:if>
 									</div>
-										
 								</c:forEach>
-									</div>
+							</div>
 							</div>
 						</div>
 					</div>
 					
 					<div class="part-line mobile-line"><hr class="line-c"></div>
 				</div>
-			
+				
 			<!-- 택배 현황 큰 화면  -->
 			<c:if test="${order.order_state ne '취소완료' }">
 				<div class="delivery-desktop">
@@ -989,11 +1010,33 @@
 												<p class="product-text"><c:out value="${od.product_color }"/></p>
 											</div>
 										</div>
-										<c:if test="${order.order_state eq '배송완료' and od.review_no eq 0 }">
+										<c:if test="${order.order_state eq '배송완료' and od.sort eq null}">
+											<div class="od-review-btn result-buttons">
+												<input class="order_detail_no_input" type="hidden" value="${od.order_detail_no }"/>
+												<input class="product_qty_input" type="hidden" value="${od.product_qty }"/>
+												<input class="product_no_input" type="hidden" value="${od.product_no }"/>
+												<input class="product_price_input" type="hidden" value="${od.product_price }"/>
+												<button type="button" class="btn btn-outline-default waves-effect btnsize btn-sm exchange_do" value="${od.order_detail_no }">교환신청</button>
+												<button type="button" class="btn btn-outline-default waves-effect btnsize btn-sm refund_do" value="${od.order_detail_no }">반품신청</button>
+												<button type="button" class="btn btn-outline-default waves-effect btnsize confirm_do btn-sm">구매확정</button>
+											</div>
+											<div class="od-review-btn exchange-refund"></div>
+										</c:if>
+										<c:if test="${order.order_state eq '배송완료' and od.sort eq '구매확정' and od.review_no eq 0 }">
 											<div class="od-review-btn">
 												<input type="hidden" value="${od.order_detail_no }"/>
 												<button type="button" class="btn btn-outline-default waves-effect btnsize review_do btn-sm">리뷰쓰기</button>
 											</div>
+										</c:if>
+										<c:if test="${od.sort eq '교환신청' }">
+										<div class="od-review-btn">
+											교환  신청 처리중입니다.
+										</div>
+										</c:if>
+										<c:if test="${od.sort eq '반품신청' }">
+										<div class="od-review-btn">
+											반품 신청 처리중입니다.
+										</div>
 										</c:if>
 									</div>
 								</c:forEach>
@@ -1145,9 +1188,203 @@
 	      </div>
 	    </div>
 	  </div>
+	  <input type="hidden" id="member_no" value="${order.member_no }"/>
+	  
+	  
+	  
+	  
+	  
+	  <script>
+				
+					//교환하기 버튼 눌렀을 때
+					$(".exchange_do").click(e => {
+						var odNo = $(e.target).val();
+						var pQty = $(e.target).prev().prev().prev().val();
+						console.log("교환할 오더디테일넘버 : "+odNo+"교환 할 제품 구매했던 수량:"+pQty);
+						
+						$("#exchange-refund-title").text("교환하기");
+						
+						$("#exchange-refund-odNo").val(odNo);
+						$("#sort").val("교환신청");
+						$("#total_pQty").val(pQty);
+						
+						$("#exchange-refund-Modal").modal();
+						
+					});
+					
+					//반품하기 버튼 눌렀을 때
+					$(".refund_do").click(e => {
+						var odNo = $(e.target).val();
+						var pQty = $(e.target).prev().prev().prev().prev().val();
+						console.log("반품 할 오더디테일넘버 : "+odNo+"반품 할 제품 구매했던 수량:"+pQty);
+						
+						$("#exchange-refund-title").text("반품하기");
+						
+						$("#exchange-refund-odNo").val(odNo);
+						$("#sort").val("반품신청");
+						$("#total_pQty").val(pQty);
+						
+						$("#exchange-refund-Modal").modal();
+						
+					});
+					
+					
+					
+					
+				</script>
+				<!-- 교환 / 반품 모달~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+				<div class="modal fade" id="exchange-refund-Modal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+				  <div class="modal-dialog">
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <h5 class="modal-title" id="exchange-refund-title"></h5>
+				        <button type="button" class="close r-request-1" data-dismiss="modal" aria-label="Close">
+				          <span aria-hidden="true">&times;</span>
+				        </button>
+				        <button type="button" class="close r-request-2" data-dismiss="modal" aria-label="Close" onclick="location.reload();">
+				          <span aria-hidden="true">&times;</span>
+				        </button>
+				      </div>
+				      <div class="modal-body r-request-1">
+				          <!-- <form id="fileForm" method="post" enctype="multipart/form-data"> -->
+				            <input type="hidden" id="exchange-refund-odNo"/>
+				            <input type="hidden" id="sort"/>
+				            <input type="hidden" id="total_pQty"/>
+				            수량&nbsp;<input type="number" id="exchange-refund-qty"/>
+				            <div class="form-group modal-select">
+					            <label for="inputExchangeReason">사유 선택</label>
+					            <select id="inputExchangeReason" class="form-control inputExchangeReason" >
+					              <option selected>사유 선택</option>
+					              <option>단순변심(초과구매, 사이즈변경, 타사 제품 구매 등)</option>
+					              <option>상품불량</option>
+					            </select>
+					          </div>
+					          <div>
+						          <label for="exchange-content">내용</label>
+						          <textarea id="exchange-content" class="exchange-content" placeholder="상세 이유를 기입해주세요."></textarea>
+					          </div>
+					          <div class="custom-file">
+				                  <input type="file" class="custom-file-input refund-pic" name="upFile" id="upFile1" accept="image/jpeg, image/jpg, image/png">
+				                  <label class="custom-file-label" for="upFile1">파일을 선택하세요</label>
+				              </div>
+				         <!--  </form> -->
+			       		</div>
+				          
+				          
+			          <div class="r-request-2 c-request-success">
+			            <h4 class="c-s-content c-s-title" id="result-msg"></h4>
+			            <br>
+			            <h5 class="c-s-content">확인 메일이 전송될 예정입니다.</h5>
+			            <h5 class="order-email"></h5>
+			          </div>
+			      <div class="modal-footer">
+			        <button id="cancel-back" type="button" class="btn btn-indigo r-request-1" data-dismiss="modal">주문내역으로 돌아가기</button>
+			        <button type="button" class="btn btn-light-blue r-request-1" id="e-r-btn">신청하기</button>
+			        <button id="cancel-back" type="button" class="btn btn-light-blue r-request-2" data-dismiss="modal" onclick="location.reload();">확인</button>
+			      </div>
+			    </div>
+			  </div>
+		  </div>
+			
 </section>
 
 <script type="text/javascript">
+$("#e-r-btn").click(e =>{
+	var odNo = $("#exchange-refund-odNo").val();
+	var sort = $("#sort").val();
+	console.log("클릭"+odNo+sort);
+	var rQty = $("#exchange-refund-qty").val();
+	var pQty = $("#total_pQty").val();
+	var rReason = $("#inputExchangeReason option:selected").text();
+	var rContent = $("#exchange-content").val().trim();
+	var rPic = $("#upFile1")[0].files;
+	console.log(rQty);
+	console.log(pQty);
+	console.log(rReason);
+	
+	if(rQty == ''){
+		alert("수량을 입력해주세요.");
+		return false;
+	}
+	if(parseInt(rQty) > parseInt(pQty)){
+		alert("수량은 구매 수량을 초과할 수 없습니다.");
+		return false;
+	}
+	if(rReason =='사유 선택'){
+		alert("사유를 선택해주세요.");
+		return false;
+	}
+	if(rReason == '상품불량'){
+		if(rContent == ''){
+			alert('상세 내용을 작성해주세요.');
+			return false;
+		}
+		if(rPic.length == 0){
+			alert('상품 불량 부분의 사진을 첨부해주세요.');
+			return false;
+		}
+	}else{
+		rReason = '단순변심';
+	}
+	console.log("다 충족함");
+	var data = new FormData();
+	data.append("order_detail_no",odNo);
+	data.append("sort",sort);
+	data.append("refund_qty", rQty);
+	data.append("refund_reason", rReason);
+	data.append("refund_content", rContent);
+	data.append("file",rPic[0] );
+	/* var data = {
+			"order_detail_no": odNo,
+			"refund_qty": rQty,
+			"refund_reason": rReason,
+			"refund_content": rContent,
+	} */
+	//console.log(data);
+	/* for (var pair of data.entries()) {
+        console.log(pair[0]+ ', ' + pair[1]); 
+    } */
+    for (var key of data.keys()) {
+
+   	  console.log(key);
+
+   	}
+
+   	for (var value of data.values()) {
+
+   	  console.log(value);
+
+   	}
+
+	$.ajax({
+		type: "POST",
+		enctype: 'multipart/form-data',
+		processData: false,
+        contentType: false,
+		url : "${path}/order/updateRefund.do",
+		data : data,
+		success: data => {
+			if(data == '교환신청'){
+				$("#result-msg").html("교환 신청이 접수되었습니다.");
+				//$(".exchange-refund").html("교환 신청 처리중입니다.");
+			}else{
+				$("#result-msg").html("반품 신청이 접수되었습니다.");
+				//$(".exchange-refund").html("반품 신청 처리중입니다.");
+			}
+			$(".r-request-1").css("display","none");
+			$(".r-request-2").css("display","block");
+			//$(".result-buttons").css("display","none");
+			
+			
+		}
+	})
+})
+
+
+
+
+
+
 	$("#destination").click(e=>{
 		if($("#destination-content").hasClass("apple") === true) {
 			$(".destination-content").css("display","none");
@@ -1177,6 +1414,51 @@
 		}
 	});
 	
+	//교환신청 버튼 눌렀을 때
+	/* $(".change_do").click(e=>{
+		var odNo = $(event.target).parent().children("input.order_detail_no_input").val();
+		console.log(odNo);
+		$.ajax({
+			url:"${path}/order/updateSort.do",
+			data:{odNo:odNo,sort:'교환신청'},
+			success:msg=>{
+				alert(msg);									
+				$(".result-buttons").css("display","none");
+				//$(e.target).siblings().css("display","none");
+				$(".exchange-refund").html("교환 신청 처리중입니다.");
+			}
+		});
+	}); */
+	
+	//반품신청 버튼 눌렀을 때
+	/* $(".refund_do").click(e=>{
+		var odNo = $(event.target).parent().children("input.order_detail_no_input").val();
+		console.log(odNo);
+		$.ajax({
+			url:"${path}/order/updateSort.do",
+			data:{odNo:odNo,sort:'반품신청'},
+			success:msg=>{
+				alert(msg);
+				$(".result-buttons").css("display","none");
+				//$(e.target).css("display","none");
+				//$(e.target).siblings().css("display","none");
+				$(".exchange-refund").html("반품 신청 처리중입니다.");
+			}
+		});
+	}); */
+	
+	//구매확정 버튼 눌렀을 때
+	 $(".confirm_do").click(e=>{
+		var oNo = $("#oNo").val();
+		var odNo = $(event.target).parent().children("input.order_detail_no_input").val();
+		var pQty = $(event.target).parent().children("input.product_qty_input").val();
+		var pNo = $(event.target).parent().children("input.product_no_input").val();
+		var pPrice = $(event.target).parent().children("input.product_price_input").val();
+		var mNo = $("#member_no").val();
+		console.log(oNo);
+		location.href ='${path}/order/orderConfirm.do?order_no='+oNo+'&order_detail_no='+odNo+'&sort=구매확정&product_qty='+pQty+'&product_no='+pNo+'&product_price='+pPrice+'&mNo='+mNo;
+	});
+	
 	$(".review_do").click(e=>{
 		console.log("클릭");
 		//구매한 각각의 상품에 있는 리뷰쓰기를 눌렀을 때 그에 해당하는 orderdetail_no를 받아온다.
@@ -1187,9 +1469,9 @@
 			success:data => {
 				console.log(data);
 				if(data == true){
+					//location.href="${path}/review/reviewForm.do?odNo="+odNo;
 					location.href="${path}/review/reviewForm.do?odNo="+odNo;
 				}else{
-					console.log("456");
 					$("#modalBtn").trigger("click");
 				}
 			}

@@ -22,6 +22,7 @@ public class Cart {
 	private String product_depth;
 	private String big_category;
 	private String small_category;
+	private String sale_per;
 	
 	private String product_pic;
 	

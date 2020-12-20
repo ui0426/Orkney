@@ -24,6 +24,15 @@
 		select member_id from member join orders using(member_no) where order_no=#{order_no}
 	</select>
 	
+	<!-- sort만 업데이트 : 구매확정, 교환처리중, 교환완료, 반품처리중, 반품완료 -->
+	<update id="orderConfirm" parameterType="orderDetail">
+		UPDATE ORDER_DETAIL SET SORT=#{sort} WHERE ORDER_DETAIL_NO=#{order_detail_no}
+	</update>
+	
+	<!-- 교환신청, 반품신청 -->
+	<update id="updateRefund" parameterType="orderDetail">
+		UPDATE ORDER_DETAIL SET SORT=#{sort}, REFUND_QTY=#{refund_qty}, REFUND_REASON=#{refund_reason}, REFUND_CONTENT=#{refund_content, jdbcType=VARCHAR}, REFUND_PIC=#{refund_pic, jdbcType=VARCHAR}  WHERE ORDER_DETAIL_NO=#{order_detail_no}
+	</update>
 	
 	<insert id="insertOrders" parameterType="order">
 		insert into orders values(TO_CHAR(O_SEQ.nextval,'FM000000000'),#{member_no},sysdate,#{order_name},#{order_phone},#{order_address},#{order_qty},#{total_price},default,#{order_memo},#{payment_method},default )
@@ -43,7 +52,7 @@
 	</insert>
 	
 	<!-- <insert id="insertPoint2" parameterType="point">
-		insert into point values(PO_SEQ.nextval,#{member_no},sysdate, #{predicPoint},'적립','추가' )
+		insert into point values(PO_SEQ.nextval,#{member_no},sysdate, #{point_point},'적립',#{point_content} )
 	</insert> -->
 		
 	<select id="selectOno" parameterType="order" resultType="string">
