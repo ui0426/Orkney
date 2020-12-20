@@ -663,4 +663,23 @@ public class MemberController {
 //		
 //		return "";
 //	}
+	
+	//검색하기
+	@RequestMapping("/searchAuto.do")
+	@ResponseBody
+	public List searchAuto(String str) {
+		
+		List list = new ArrayList();
+		list.add("가");
+		list.add("가방");
+		list.add("가구");
+		list.add("조명");
+		list.add("조명스탠드");
+		list.add("찰또기");
+		list.add("찰찰또기또기");
+
+	      
+	      return list;
+		
+	}
 }

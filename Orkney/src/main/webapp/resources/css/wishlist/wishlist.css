@@ -34,6 +34,32 @@ input:focus { outline:none; }
 	    -moz-transform: rotate(45deg);
 	    transform: rotate(45deg);
 	}
+	#no-box{
+	    display: flex;
+	    flex-direction: column;
+	    align-items: center;
+	}
+	#no-box img{
+	    width: 200px;
+	    height: 200px;
+	        margin: 5em 0 2em;
+}
+	}
+	.no-text{
+		display: flex;
+    flex-direction: column;
+    align-items: center;
+	}
+	.no-text p{
+        margin-bottom: 0;
+	}
+	.search-btn{
+		height: 40px;
+		background: #0058a3;
+    width: 300px;
+    margin: 2em 0 5em 0;
+    color: white;
+	}
 	.product-box{
 		display: grid;
 	    grid-template-columns: 160px auto;
@@ -183,7 +209,7 @@ input:focus { outline:none; }
 	    align-items: baseline;
 	    /* margin-top: 3em; */
 	    padding-top: 2em;
-	    z-index: 1;
+	    z-index: 2;
 	}
     .modal-content{
         overflow: auto;

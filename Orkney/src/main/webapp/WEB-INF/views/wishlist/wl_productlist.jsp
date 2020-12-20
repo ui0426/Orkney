@@ -7,9 +7,11 @@
 		   
 		<h1 class="wl-selector" id="wl-name" onclick="fn_wlSelector(this)">${ wish.wishlist_name }<span></span></h1> <!--눌렀을 때 모달창-->
            <c:if test="${ wish.wishlist_detail.isEmpty() }">
-           <div id="test_box">
-	       <div>위시리스트 없쩡</div>
-	       </div>
+	           <div id="no-box">
+		       	<img src="${path }/resources/img/svg/no_wishlist.svg">
+		       	<div class="no-text"><p>시간이 더 필요하신가요.?</p><p>저장한 후 나중에 구매해보세요.</p></div>
+		       <button type="button"  onclick="location.href='${path}'" class="search-btn">제품검색</button>
+		       </div>
 	       </c:if>
 	       
         <div class="product-list"> <!--제품 쫘롸락 나오는 박스-->
@@ -52,11 +54,11 @@
            </div>
            </c:forEach>
            </div>
-           </c:if>
 	       <div class="wl-price"> 
 				<span>총 주문금액</span>
 				<span>&#8361; <fmt:formatNumber value="${ allPrice }" pattern="###,###"/></span>
 	       </div>
         <div class="wl-addcart"><button class="wl-allAddcart-btn">모두 장바구니에 추가</button></div>
+           </c:if>
        </div>
            
