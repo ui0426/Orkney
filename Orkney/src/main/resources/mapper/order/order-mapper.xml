@@ -35,7 +35,14 @@
 	</update>
 	
 	<insert id="insertOrders" parameterType="order">
-		insert into orders values(TO_CHAR(O_SEQ.nextval,'FM000000000'),#{member_no},sysdate,#{order_name},#{order_phone},#{order_address},#{order_qty},#{total_price},default,#{order_memo},#{payment_method},default, #{point_no, jdbcType=INTEGER} )
+		insert into orders values(TO_CHAR(O_SEQ.nextval,'FM000000000'),#{member_no},sysdate,#{order_name},#{order_phone},#{order_address},#{order_qty},#{total_price},default,#{order_memo},#{payment_method},default, 
+		<if test="point_no != 0">
+			#{point_no}
+		</if>
+		<if test="point_no == 0">
+			null
+		</if>
+		 )
 		
 		<selectKey keyProperty="order_no" resultType="string" order="AFTER">
 		select TO_CHAR(O_SEQ.CURRVAL,'FM000000000') from dual 
@@ -44,7 +51,7 @@
 	</insert>
 	
 	<insert id="insertDetail" parameterType="cart">
-	  insert into order_detail values(OD_SEQ.nextval,#{productNo},#{cartQTY},#{cartNo},'')
+	  insert into order_detail values(OD_SEQ.nextval,#{productNo},#{cartQTY},#{cartNo},'','','','','')
 	</insert>
 	
 	<insert id="insertPoint" parameterType="map">

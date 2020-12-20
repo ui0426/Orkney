@@ -22,7 +22,9 @@
    	     <tbody>
         <c:if test="${!empty order}">
         <c:forEach items="${order}" var="o">
-          <tr class="clickPointer">            
+          <tr class="clickPointer">
+          	<input type="hidden" class="member_id" value="${o.member_id}"/>
+            <input type="hidden" class="member_name" value="${o.member_name}"/>            
             <td onclick="location.href='${path}/admin/orderView.do?oNo=${o.order_no} '"><c:out value="${o.order_no}"/></td>
             <td onclick="location.href='${path}/admin/orderView.do?oNo=${o.order_no}'"><c:out value="${o.member_id}"/></td>
             <td onclick="location.href='${path}/admin/orderView.do?oNo=${o.order_no}'"><c:out value="${o.member_name}"/></td>
@@ -90,11 +92,12 @@
 	      				resolve(data);
 	      			}
 	      		}).then(arg => {
-	      			if(data == true){
+	      			if(arg == true){
 	      				alert("확인 완료 되었습니다.");
-	      				if(state == '교환처리중') state = '교환';
-	      				if(state == '반품처리중') state = '반품';
+	      				if(state == '교환처리중') state = '교환 승인';
+	      				if(state == '반품처리중') state = '반품 승인';
 	      				if(state == '취소완료') state = '취소';
+	      				if(state == '') state ='승인 거부';
 	      				$.ajax({
 	      					url:"${path}/orderAllow.do",
 	      					data:{no:no, email:email, name:name, state:state},
