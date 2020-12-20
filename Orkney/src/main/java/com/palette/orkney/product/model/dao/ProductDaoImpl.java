@@ -5,79 +5,63 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.collections.map.HashedMap;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 @Repository
 
 public class ProductDaoImpl implements ProductDao{
-
+//소카테고리 뽑아오기
 	@Override
-	public List<Map> productList(SqlSession session) {
-		
-		System.out.println(session.selectList("product.productList"));
-		/* 받은 데이터 확인 ( 삭제 ) */
-		return session.selectList("product.productList");
+	public List<Map> sCategory(SqlSession session, Map<String, Object> sCategory) {
+		// TODO Auto-generated method stub
+		System.out.println("dao:"+session.selectList("product.filter",sCategory));
+		return session.selectList("product.sCategory",sCategory);
 	}
+//리뷰이미지
+	@Override
+	public List<Map> reviewImg(SqlSession session, Map<String, Object> id) {
+		// TODO Auto-generated method stub
+		return session.selectList("product.reviewImg2",id);
+	}
+//제품리스트
+	@Override
+	public List<Map> productList(SqlSession session,  Map<String,Object> category) {
+		System.out.println(session.selectList("product.productList",category));
+		return session.selectList("product.productList",category);
+	}
+//체크된 제품 비교 모달로 이미지 연결
 	@Override
 	public List<Map> checkProduct(SqlSession session, ArrayList<String> list) {
 		// TODO Auto-generated method stub
 		return session.selectList("product.checkProduct",list);
 	}
-	 
-
-	@Override
-	public List<Map> lowPriceFilter(SqlSession session) {
-		// TODO Auto-generated method stub
-		System.out.println(session.selectList("product.lowPriceFilter"));
-		/* 받은 데이터 확인 ( 삭제 ) */
-		return session.selectList("product.lowPriceFilter");
-	}
-
-	@Override
-	public List<Map> highPriceFilter(SqlSession session) {
-		// TODO Auto-generated method stub
-		return session.selectList("product.highPriceFilter");
-	}
-
-	@Override
-	public List<Map> newProductFilter(SqlSession session) {
-		// TODO Auto-generated method stub
-		System.out.println(session.selectList("product.newProductFilter"));
-		return session.selectList("product.newProductFilter");
-	}
-
-	@Override
-	public List<Map> nameFilter(SqlSession session) {
-		// TODO Auto-generated method stub
-		return session.selectList("product.nameFilter");
-	}
-
+//필터기능
 	@Override
 	public List<Map> filter(SqlSession session, Map<String, Object> filter) {
 		// TODO Auto-generated method stub
 		System.out.println("dao:"+session.selectList("product.filter",filter));
 		return session.selectList("product.filter",filter);
 	}
+//제품 상세 페이지
 	@Override
 	public List<Map> productDetail(SqlSession session, String productNo) {
 		// TODO Auto-generated method stub
-		System.out.println("제품정보:"+session.selectList("product.productDetail",productNo));
 		return session.selectList("product.productDetail",productNo);
 	}
+//리뷰 불러오기
 	@Override
 	public List<Map> review(SqlSession session, String productNo) {
 		// TODO Auto-generated method stub
-		System.out.println("리뷰정보:"+session.selectList("product.review",productNo));
 		return session.selectList("product.review",productNo);
 	}
 	@Override
-	public List<Map> reviewImg(SqlSession session, String productNo) {
+	public List<Map> average(SqlSession session, Map<String, Object> productno) {
 		// TODO Auto-generated method stub
-		System.out.println("리뷰이미지정보:"+session.selectList("product.reviewImg",productNo));
-		return session.selectList("product.reviewImg",productNo);
+		return session.selectList("product.average",productno);
 	}
-	
+
 	
 //====================================================================
 
@@ -129,12 +113,54 @@ public class ProductDaoImpl implements ProductDao{
 		// TODO Auto-generated method stub
 		return session.selectList("product.sale");
 	}
-	 
+
+	@Override
+	public int insertRoom(SqlSession session, Map<String, Object> room) {
+		// TODO Auto-generated method stub
+		System.out.println(room);
+		return session.update("product.insertRoom",room);
+		
+	}
+
+	@Override
+	public List<Map> roomChange(SqlSession session) {
+		// TODO Auto-generated method stub
+		return session.selectList("product.roomChange");
+	}
+
+	@Override
+	public int updateRoom(SqlSession session, Map rooms) {
+		// TODO Auto-generated method stub
+		/*for(Object map : rooms) {
+			System.out.println("????????????????????????????????????????????????");*/
+		
+		return session.insert("product.updateRoom",rooms);
+			/*
+			 * } return 0;
+			 */
+		
+	}
+
+	@Override
+	public int roomsTitle(SqlSession session, Map titles) {
+		// TODO Auto-generated method stub
+		System.out.println(titles);
+		return session.update("product.roomsTitle",titles);
+		
+	}
+
+	
+	  @Override public List<Map> buttomProduct(SqlSession session, Map ty) {
+		  // TODO Auto-generated method stub 
+		  return session .selectList("product.buttomProduct",ty); 
+		  }
+
 //재고갱신
 	@Override
 	public int updateStock(SqlSession session, Map m) {
 		return session.update("product.updateStock", m);
 	}
+
 	
 
 

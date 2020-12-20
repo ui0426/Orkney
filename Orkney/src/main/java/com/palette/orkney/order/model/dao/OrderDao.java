@@ -22,7 +22,7 @@ public interface OrderDao {
 	
 	String selectEmail(SqlSession session, String oNo);
 	
-	int updateSort(SqlSession session, OrderDetail od);
+	int orderConfirm(SqlSession session, OrderDetail od);
 	
 	int insertShipped(SqlSession session, OrderDetail od);
 
@@ -35,4 +35,6 @@ public interface OrderDao {
 //	int insertPoint2(SqlSession session, Point point);
 	
 	String selectOno(SqlSession session,Orders orders);
+	
+	int updateRefund(SqlSession session, OrderDetail od);
 }
