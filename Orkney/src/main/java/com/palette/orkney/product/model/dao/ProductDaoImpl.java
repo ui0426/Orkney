@@ -16,7 +16,7 @@ public class ProductDaoImpl implements ProductDao{
 	@Override
 	public List<Map> sCategory(SqlSession session, Map<String, Object> sCategory) {
 		// TODO Auto-generated method stub
-		System.out.println("dao:"+session.selectList("product.filter",sCategory));
+		
 		return session.selectList("product.sCategory",sCategory);
 	}
 //리뷰이미지

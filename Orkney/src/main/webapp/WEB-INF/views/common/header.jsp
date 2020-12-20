@@ -77,7 +77,7 @@
                 </div>
             </div>
             <div class="header-logo">
-                <a href="${path}"><img src="${path }/resources/img/logo.PNG" alt=""></a>
+                <a href="${path}"><img src="${path }/resources/img/logo1.png" alt=""></a>
             </div>
             <div class="header-menu">
                 <span><a href="${path }/product/products.do?category=all" style="color: black;">모든제품</a> </span>
