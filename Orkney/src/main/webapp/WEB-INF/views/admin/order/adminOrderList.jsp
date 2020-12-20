@@ -68,6 +68,11 @@
 
 			</script>
 			
+			<div>
+				<div><h5 class="mainList-title">교환/반품 진행 중 목록</h5></div>
+				<div id="ongoingList"></div>
+			</div>
+			
 		<div class="search-container">			
 				<select class="browser-default custom-select" style="width: 21%;" id="sel">
 				  <option value="all" >전체보기</option>
@@ -90,12 +95,22 @@
 				$(function(){
 					let keyword=$(".form-control").val();
 					$.ajax({
-						url:"${path}/admin/orderListData.do",						
+						url:"${path}/admin/orderListData.do",
+						async: false,
 						success:data=>{
 							$("#list").html(data);
 						}
-					})					
-				})
+					});
+					
+						$.ajax({
+							url:"${path}/admin/orderOngoingData.do",
+							async: false,
+							success:data=>{
+								$("#ongoingList").html(data);
+							}
+						});
+					
+				});
 				$(".searchBtn").click(function(){					
 					let keyword=$(".form-control").val();
 					let search_option = $(sel).val();

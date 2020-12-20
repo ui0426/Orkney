@@ -19,6 +19,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -92,9 +93,7 @@ public class EmailController {
 				"          <div><p>ORKNEY.KO</p></div>\r\n" +
 				"      </div>\r\n" + 
 				"      </div>\r\n" + 
-				"    </div>\r\n" + 
-				"</body>\r\n" + 
-				"</html>";
+				"    </div>";
              
         try {
             MimeMessage msg = mailSender.createMimeMessage();
@@ -209,9 +208,7 @@ public class EmailController {
 				"          <div><p>ORKNEY.KO</p></div>\r\n" +
 				"      </div>\r\n" + 
 				"      </div>\r\n" + 
-				"    </div>\r\n" + 
-				"</body>\r\n" + 
-				"</html>";
+				"    </div>";
              
         try {
             MimeMessage msg = mailSender.createMimeMessage();
@@ -231,6 +228,57 @@ public class EmailController {
 
         
         return "redirect:emailPage.do";
+    }
+
+	
+	@RequestMapping(value="/orderAllow.do")
+	@ResponseBody
+    public String sendOrderAllow (String no, String email, String name, String state) throws Exception {
+		
+		String EMAIL=email;
+		
+		System.out.println(EMAIL+no+name+state);
+		String noticeEmail=
+				"    <div style=\"width:100%;height:500px;min-height:500px;text-align: -webkit-center;\">\r\n" + 
+				"      <div style=\"width:65%;height:100%;display:flex; flex-direction: column; justify-content: center; background-color:rgb(242, 245, 247);max-width:709px ;\">\r\n" + 
+				"        <div style=\"width: 85%;height: 85%;align-self: center; background-color:white;padding:.5rem .8rem 0rem;text-align: -webkit-left;\">\r\n" + 
+				"          <div style=\"text-align: -webkit-center;\">\r\n" + 
+				"            <div style=\"background-image: url(https://kr.accounts.ikea.com/resources/static/logo.svg);\r\n" + 
+				"          background-repeat: no-repeat;\r\n" + 
+				"            background-size: 88px 44px;\r\n" + 
+				"            content: '';\r\n" + 
+				"            width:88px;\r\n" + 
+				"            height:44px;\r\n" + 
+				"            background-color:#0058a3;\"></div></div>\r\n" + 
+				"          <br>\r\n" + 
+				"        <div><h1 style=\"margin:0;\">Hej"+name+"</h1></div>\r\n" + 
+				"        <br>\r\n" + 
+				"        <div style=\"height: 47%;\">고객님의 주문 '"+no+"'이 변경되어 안내 메일을 발송해드립니다.<br><br>\r\n" + 
+				"          본 메일은 자동 발송 메일로, 주문이 "+state+" 되었음을 알려드립니다.<br><br>          \r\n" + 
+				"          궁금한하신 사항이 있거나 또는 배송 현황을 확인하시려면은 <a target='_blank' href='http://localhost:9090/orkney'>IKEA.com</a> 에서을</div>\r\n" +
+				"          방문 확인하시거나 IKEA 고객지원센터(1670-4532) 또는 <a target='_blank' href='#'>Contact Us</a> 으로 연락</div>\r\n" +
+				"          해 주시기 바랍니다.</div>\r\n" +
+				"          <div><p>ORKNEY.KO</p></div>\r\n" +
+				"      </div>\r\n" + 
+				"      </div>\r\n" + 
+				"    </div>\r\n" + 
+				"</body>\r\n" + 
+				"</html>";
+             
+        try {
+            MimeMessage msg = mailSender.createMimeMessage();
+            MimeMessageHelper messageHelper = new MimeMessageHelper(msg, true,"UTF-8");
+            messageHelper.setFrom("orkney@orkney.com");
+            messageHelper.setSubject("ORKNEY 주문변경 승인 안내");
+            messageHelper.setText(noticeEmail,true);
+            messageHelper.setTo(EMAIL);
+            msg.setRecipients(MimeMessage.RecipientType.TO , InternetAddress.parse(EMAIL));
+            mailSender.send(msg);
+             
+        }catch(MessagingException e) {
+            e.printStackTrace();
+        }
+        return "이메일 전송완료";
     }
 
 }
