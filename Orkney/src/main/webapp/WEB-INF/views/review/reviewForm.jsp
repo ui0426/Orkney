@@ -383,31 +383,15 @@ h1, h3{margin : 0;}
         		console.log(file.closest("div"));
         		file.closest("div").setAttribute("class","none");//input태그 있는 div는 숨기기
         		
-        		//const fileList = document.getElementsByTagName("ul");
-               	//const list = document.createElement("li");
-               	//document.getElementById("file-list").appendChild(list);
-               	
-               	
-               	//const div = document.createElement("div");//미리보기 이미지 담을 div생성
-               	//div.setAttribute("class","review-file");//input태그 있는 div랑 같은 사이즈 적용
-                //list.appendChild(div);
-               	//file.closest("li").appendChild(div);//각 li에 생성한 div넣기
-               	//const div = file.closest('div');
-                
                 const img = document.createElement("img");
-               	//div.appendChild(img);//생성한 div에 이미지 담기
-               	//console.log("이건:"+d);
                	file.parentNode.parentNode.nextSibling.nextSibling.setAttribute("class","review-file");
                	console.log("이미지 넣을 div에 클래스 설정");
-               	//d.setAttribute("class","review-file");
                	file.parentNode.parentNode.nextSibling.nextSibling.appendChild(img);
                 img.src = URL.createObjectURL(file.files[0]);
                 img.setAttribute("style","position:absolute; width:100%; height:100%;");
                 console.log("이미지까지 무사히 들어옴");
                 
-                //img.setAttribute("max-height","100%");
                 console.log(file.parentNode.parentNode.nextSibling.nextSibling.nextSibling);
-                //file.nextSibling.setAttribute("class","btn-flex");
                 console.log("버튼보임!!!!!!!!");
                 console.log("========================여기까지 이미지 미리보기 끝=========================")
                
@@ -427,25 +411,18 @@ h1, h3{margin : 0;}
     	  console.log(img);
     	  
     	  div.setAttribute("class","none");//미리보기 이미지 담았던 div숨기기
-    	  //var input = $("#img_input1").val();
-    	  //console.log(input);
     	  
-    	  //input.select();
-    	  //document.review_img.select();
-    	  //document.selection.clear();
-    	  
-    	  //document.getElementById('img_input1').value = '';
-    	  img.value='';
-    	  console.log("input비웠니");
-    	  console.log(img.value);
-    	  //document.getElementById("img-box1").innerHTML="<label id='upload-label1'><span id='file1'>사진 업로드</span><input type='file' id='img_input1' name='review_img' onchange='handleFiles(this, this.value)' accept='image/jpeg, image/jpg, image/png' /></label>"
-    	  
-    	  //btn.parentNode.parentNode.firstChild.setAttribute("class","filebox review-file");
+    	  console.log($(btn).parent().prev().find("input").val());
+    	  $(btn).parent().prev().find("input").val("");
+    	  console.log($(btn).parent().prev().find("input").val());
+    	  $(btn).parent().prev().find("input").prop("type","text");
+    	  $(btn).parent().prev().find("input").prop("type","file");
+    	 console.log($(btn).parent().prev().find("input"));
+    	 
     	  var box = "#img-box"+i;
     	  $(box).removeClass("none").addClass("filebox").addClass("review-file");
     	  console.log("다시 새로운 인풋");
     	  
-    	  //document.getElementById("img-box1").parentNode.parentNode.setAttribute("class","review-file");
       }
         	
         	
@@ -471,36 +448,7 @@ h1, h3{margin : 0;}
         			return false;
         		};
            		$("#reviewForm").submit();
-           		//fileUpload();
-           			/* var form = $("#reviewForm")[0];
-        		var formData = new FormData(form);
-        		var rNo = ${review.review_no };
-        		var pGrade = $("#grade").val();
-        		var rContent = $("#exampleFormControlTextarea6").val();
-        		
-        		formData.append("rNo",rNo);
-        		formData.append("pGrade",pGrade);
-        		formData.append("rContent",rContent);
-        		
-        		$.ajax({
-        			type : 'post',
-                    url : '${path }/review/reviewUpdateEnd.do',
-                    data : formData,
-                    processData : false,
-                    contentType : false,
-                    success : function(html) {
-                        alert("파일 업로드하였습니다.");
-                        opener.document.location.reload();
-
-                		self.close();
-
-                    },
-                    error : function(error) {
-                        alert("파일 업로드에 실패하였습니다.");
-                        console.log(error);
-                        console.log(error.status);
-                    }
-        		}) */
+           		
         });
     
 </script>

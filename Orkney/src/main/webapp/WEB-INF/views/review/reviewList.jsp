@@ -225,7 +225,8 @@ color: #ffc107;
 	function updateReview(rNo){
 		console.log("띄워라");
 		console.log(rNo);
-		window.open('${path}/review/reviewUpdate.do?rNo='+rNo,'review', 'width=650px,height=800px,toolbars=no'); return false;
+		window.open('${path}/review/reviewUpdate.do?rNo='+rNo,'review', 'width=650px,height=800px,toolbars=no'); 
+		return false;
 		
 	}
 	$(function(){
