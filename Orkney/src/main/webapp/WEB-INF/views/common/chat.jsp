@@ -197,6 +197,8 @@
 			$(div2).find(".rtime").html(fDate2(new Date().getTime()));
 			$(div2).find(".rcontent").html(ms["ms"]);
 		}else if(id!="m11"&&"m11"==ms["user"]){//나한테 보낸 사람이 관리자
+			$("#msAlarm").css("animation-name","a");
+			$("#msAlarm").css("animation-name","msAlarm");
 			div=$("#cloneDiv").clone();
 			let logo=$("#chatLogo").clone();
 			$(div).removeClass("rec");

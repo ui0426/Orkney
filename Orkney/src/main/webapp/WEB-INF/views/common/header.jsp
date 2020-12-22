@@ -156,7 +156,7 @@
 		            </div>
 		            <div id="hnf-menu_logo" class="hnf-menu_logo">
 		                <a href="${path }/">
-		                    <img src="${path }/resources/img/logo.PNG"></svg>
+		                    <img src="${path }/resources/img/logo1.png"></svg>
 		                </a>
 		            </div>
 		            <div id="hnf-menu_search" class="header-search hnf-menu_search hnf-menu-nav-hidden">

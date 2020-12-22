@@ -15,9 +15,39 @@
       padding:.625rem 1.25rem .625rem 1.25rem;
       font-weight:600;
    }
+   	#msAlarm{
+		width:max-content;height:auto;background: black;color:white;
+		min-width:200px;border-radius: 30px; font-weight: 600;
+    	padding: 0.3rem 1rem 01rem;
+      top:20%;
+      left:105%;
+     
+		text-align: center;
+    position: absolute;
+		/* animation-name:msAlarm; */
+		animation-duration:5s;
+	  animation-duration: leaner;
+	  animation-iteration-count:1;
+	  animation-direction:alternate;
+	  animation-fill-mode: forwards;
+		}
+		#msQuestion{text-align: center;}
+
+		@-webkit-keyframes msAlarm{
+  0% {
+    left:105%;
+  }
+  50%{
+    left:70%;
+  }
+  100% {
+    left:105%;
+  }
+}
+   body{overflow-x:hidden;}
 </style>
 
-
+<div id="msAlarm"><p id="msQuestion"></p> &nbsp 질문에 답변이 왔습니다.</div>
 <footer class="page-footer font-small pt-4" style="background-color:gray;color:white;">
 
   <!-- Footer Links -->
