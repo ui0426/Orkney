@@ -156,7 +156,7 @@ public class MemberController {
 	@ResponseBody
 	public List<Map> chatRoom(@RequestParam Map m) {
 		List<Map> list=service.chatRoom(m);
-		System.out.println(list);
+		
 		return list;
 	}
 	
@@ -202,7 +202,7 @@ public class MemberController {
 	
 	@RequestMapping("/member/chatAllData.do")
 	@ResponseBody
-	public List<Map> chatAllData(String id){
+	public List<Map> chatAllData(String id){//한 사람의 모든 채팅방 내용
 		
 		return service.chatAllData(id);
 	}
@@ -390,6 +390,12 @@ public class MemberController {
 	}
 	
 
+//	//personal 업데이트 정보
+//	@RequestMapping("/member/personalJspUpdate.do")
+//	public String personalJspUpdate() {
+//		return "member/mypageDiv/personal.jsp";
+//	}
+	
 	@RequestMapping("/member/emailPage.do")//이메일인증페이지 전환용
 	public String emailAuth() {
 		

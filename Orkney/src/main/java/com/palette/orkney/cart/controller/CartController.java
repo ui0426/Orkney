@@ -19,6 +19,9 @@ import com.palette.orkney.cart.model.vo.Cart;
 import com.palette.orkney.cart.model.vo.CartDetail;
 import com.palette.orkney.member.model.service.MemberService;
 import com.palette.orkney.member.model.vo.Addr;
+import com.palette.orkney.product.model.service.ProductService;
+import com.palette.orkney.wishlist.model.service.WishlistService;
+import com.palette.orkney.wishlist.model.vo.Wishlist;
 
 @Controller
 public class CartController {
@@ -30,40 +33,58 @@ public class CartController {
 	@Autowired
 	private MemberService mservice;
 	
+	@Autowired
+	private WishlistService wservice;
+	
+	@Autowired
+	private ProductService pservice;
+	
 	//0.장바구니 추가
 	@RequestMapping("/cart/cartInsert.do")
-	@ResponseBody
-	public String cartInsert(HttpSession session,ModelAndView mv,String productNo, int productPrice, @RequestParam(value="cartQTY", defaultValue ="1") int cartQTY) {				
+	public ModelAndView cartInsert(HttpSession session,ModelAndView mv,String productNo, int productPrice, @RequestParam(value="cartQTY", defaultValue ="1") int cartQTY) {				
 		String memberNo = (String)((Map)session.getAttribute("login")).get("MEMBER_NO");					
-		
-	
+			
 		String cartNo=service.selectCartNo(memberNo);											
 		System.out.println("카트번호:"+cartNo);
+		
+		List<Cart> c = service.selectCart(memberNo);
+		System.out.println("c"+c);
+		
 		
 		//2. 경록이형 연결
 		Cart cart = new Cart();
 		cart.setMemberNo(memberNo);
-		cart.setProductNo(productNo);	
-		cart.setProductPrice(productPrice);	
-		cart.setCartNo(cartNo);				
+		cart.setProductNo(productNo);
+		//이벤트가 적용						
+		cart.setProductPrice(Integer.parseInt(pservice.selectSale(productNo)));		
+		cart.setCartNo(cartNo);
+		cart.setCartQTY(cartQTY);
 		
 		//3. 카트 존재 유무
-		int count = service.countCart(memberNo);		
+		int count = service.countCart(memberNo);				
+		System.out.println("count:"+count);		
 		
-		System.out.println("count:"+count);
-		//4. 카트에 상품
-		if (count==0) {
-		  count = service.insertCart(cart);  				//카트가 없을시 카트 및 디테일 생성
-		  System.out.println("count있음에:"+count);
-		}	
-		else if (count>0) {
-			count= service.insertDetail(cart);			 	//카트가 있다면 디테일에 상품만 추가			
-		}	
+		//4. 카트에 같은 상품이 있는지 확인
+		if(c.size() != 0) {													//카트존재유무	
+			int pc = service.countProduct(productNo,c.get(0).getCartNo()); 	//카트에 같은 product 존재유무
+			System.out.println("pc"+pc);
+			if(pc!=0) { 													//카트에 상품 존재시 개수만 업데이트
+				cart.setCartQTY(cartQTY+1);							
+				int updateDetail = service.updateDetail(cart); 
+			}else if(pc==0) {												//카트에 상품이 존재하지 않다면 detail에만 추가					
+				count= service.insertDetail(cart);			 	
+			}			
+		}else {
+			count = service.insertCart(cart);  								//카트가 없을시 카트 및 디테일 생성			  
+		}											
+		return mv;
+	}
+	
+	//위시리스트에서 전체 추가
+	@RequestMapping()
+	public ModelAndView cartInsertAll(HttpSession session, ModelAndView mv) {
 		
-		
-		
-		/* mv.setViewName("product/productDetail"); */						
-		return "";
+		return mv;
 	}
 		
 	//1.장바구니 화면 이동(장바구니 확인)
@@ -71,9 +92,7 @@ public class CartController {
 	public ModelAndView cart(HttpSession session, ModelAndView mv) {					
 		
 		String memberNo = (String)((Map)session.getAttribute("login")).get("MEMBER_NO");	
-		System.out.println(memberNo);
-		List<Cart> c = service.selectCart(memberNo);		
-		System.out.println("c값"+c);
+		List<Cart> c = service.selectCart(memberNo);						
 
 		if(!c.isEmpty()) {			
 			int sum=service.sumPrice(c.get(0).getCartNo());			
@@ -92,14 +111,11 @@ public class CartController {
 	public ModelAndView deletebasket(ModelAndView mv, 
 			@RequestParam(value="cartNo",defaultValue="0") String cartNo,HttpSession session,
 			@RequestParam(value="sumPrice",defaultValue="0") String sumPrice) {		
-		String memberNo = (String)((Map)session.getAttribute("login")).get("MEMBER_NO");		
-		System.out.println("cartNo"+cartNo);
+		String memberNo = (String)((Map)session.getAttribute("login")).get("MEMBER_NO");				
 		
 		sumPrice=null;
-		int basket = service.cartDelete(memberNo);
-		System.out.println("sum:"+sumPrice);
-		cartNo=null;
-		System.out.println("cartNo"+cartNo);		
+		int basket = service.cartDelete(memberNo);		
+		cartNo=null;		
 		
 		List<Cart> c = service.selectCart(memberNo);
 		mv.addObject("cart",c);
@@ -117,6 +133,8 @@ public class CartController {
 			@RequestParam(value="sumPrice",defaultValue="0") int sumPrice, String cN ){											
 			String memberNo = (String)((Map)session.getAttribute("login")).get("MEMBER_NO");				
 			
+			List<Wishlist> wlList = wservice.wishlistList(memberNo);
+			
 			Map<String, String> param =new HashMap();
 		 	param.put("cartNo",cartNo);
 			param.put("productNo",productNo);											
@@ -128,6 +146,8 @@ public class CartController {
 			List<Cart> c = service.selectCart(memberNo);			
 			
 			System.out.println(cN);
+			
+			mv.addObject("wish",wlList);
 			mv.addObject("cN",cN);
 			mv.addObject("sumprice",sumPrice);
 			mv.addObject("cart",c);								 
@@ -245,20 +265,25 @@ public class CartController {
 		int shipFee = sum>= 50000 ? 0 : 5000; //주문금액 50000원 넘을시 무료
 		int additionalTax = (int)(sum*0.1);		
 		int willpoint2=0;
+		
 		try {			
-			if(willpoint!=null) willpoint2=Integer.parseInt(willpoint);		
+			if(willpoint!=null) willpoint2=Integer.parseInt(willpoint);			
 		}catch(NumberFormatException e) {
 			e.printStackTrace();
 		}
-
+		//포인트 사용후 값
+//		int point = totalpoint2-willpoint2;	
+//		System.out.println("현재 총 포인트:"+ totalpoint);
+		
 		int	totalFee = ((sum+shipFee)-(willpoint2))+additionalTax;						
 		map.put("sumprice",sum);
 		map.put("shipFee",shipFee);
 		map.put("point",m.getPoint());
 		map.put("addTax", additionalTax);
 		map.put("totalFee",totalFee);		
-		map.put("willpoint",willpoint);		
-								
+		map.put("willpoint",willpoint);				
+		
+		
 		mv.addObject("map",map);
 		mv.setViewName("ajax/paymentDetail");
 		return mv;

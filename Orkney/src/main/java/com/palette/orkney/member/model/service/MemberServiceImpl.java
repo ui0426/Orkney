@@ -62,7 +62,7 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public List chatRoomNo(String no) {
+	public List chatRoomNo(String no) {//한 명의 채팅방 개수
 		// TODO Auto-generated method stub
 		return dao.chatRoomNo(session,no);
 	}
@@ -78,13 +78,13 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public List<Map> chatRoom(Map m) {
+	public List<Map> chatRoom(Map m) {//한 회원의 하나의 채팅방 내용
 		// TODO Auto-generated method stub
 		return dao.chatRoom(session, m);
 	}
 
 	@Override
-	public List<Map> chatAllData(String id) {
+	public List<Map> chatAllData(String id) {//일반 사용자에게 처음 값을 뿌려주는 데이터 (한 사람의 전체 채팅방 내용)
 		List<String> no=dao.chatRoomNo(session, id);
 		List list=new ArrayList();
 		for(String s:no) {

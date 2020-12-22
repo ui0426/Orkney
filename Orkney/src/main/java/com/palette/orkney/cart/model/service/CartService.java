@@ -43,5 +43,7 @@ public interface CartService {
 	//장바구니 detail insert
 	int insertDetail(Cart cart);
 	
+	//장바구니에 상품있는지 확인
+	int countProduct(String productNo, String cartNo);
 	
 }

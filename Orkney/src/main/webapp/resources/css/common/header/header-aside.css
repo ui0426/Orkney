@@ -147,6 +147,7 @@
     .hnf-menu-container-product-main li a{
     	font-weight: 400;
     	font-size: 0.85rem;
+    	color: black;
     }
     
     
@@ -182,6 +183,7 @@
     	display: block;
     	margin-bottom: 1em;
     	font-weight: 500;
+    	color: black;
     }
     /* .hnf-menu-2-showroom img#imgSize{
     	object-fit: cover;

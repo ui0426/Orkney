@@ -16,7 +16,7 @@ public class ProductDaoImpl implements ProductDao{
 	@Override
 	public List<Map> sCategory(SqlSession session, Map<String, Object> sCategory) {
 		// TODO Auto-generated method stub
-		System.out.println("dao:"+session.selectList("product.filter",sCategory));
+		
 		return session.selectList("product.sCategory",sCategory);
 	}
 //리뷰이미지
@@ -159,6 +159,12 @@ public class ProductDaoImpl implements ProductDao{
 	@Override
 	public int updateStock(SqlSession session, Map m) {
 		return session.update("product.updateStock", m);
+	}
+	
+	//sale가격
+	@Override
+	public String selectSale(SqlSession session, String productNo) {
+		return session.selectOne("product.selectSale",productNo);
 	}
 
 	

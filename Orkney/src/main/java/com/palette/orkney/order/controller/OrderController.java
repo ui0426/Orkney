@@ -53,7 +53,7 @@ public class OrderController {
 			)throws NumberFormatException {
 		
 		String memberNo = (String)((Map)session.getAttribute("login")).get("MEMBER_NO");
-		String memberId = (String)((Map)session.getAttribute("login")).get("MEMBER_ID");				
+		String memberId = (String)((Map)session.getAttribute("login")).get("MEMBER_ID");		
 		
 		//order insert 필요한거  
 		//회원번호0, 받는사람 이름0, 받는사람 전화번호0, 받는사람 주소0, 주문수량(상품종류 몇개인지)0, 상품 총가격0, 결제방법0		
@@ -66,10 +66,6 @@ public class OrderController {
 		orders.setPayment_method(paymentMethod);
 		orders.setOrder_memo(message);	
 		orders.setMember_id(memberId);
-		
-		//orders/order_detail insert
-		List<Cart> c = cservice.selectCart(memberNo);	
-		int insertOrders = service.insertOrders(orders,c); 																		
 		
 		int afterPoint=totalPoint-willPoint;
 		Map<String, Object> uppo = new HashMap();
@@ -85,7 +81,14 @@ public class OrderController {
 		if(willPoint!=0) {
 			int insertPoint = service.insertPoint(point); //포인트 차감
 			int updatePoint = mservice.updatePoint(uppo);
-		}				
+			System.out.println(point.get("POINT_NO"));
+			orders.setPoint_no(Integer.parseInt(String.valueOf(point.get("POINT_NO"))));//방금 인서트한 포인트 넘버를 orders객체 포인트 넘버 변수에 담는다
+			System.out.println("사용한 포인트 적립 내역 번호 : "+orders.getPoint_no());
+		}	
+				
+		//orders/order_detail insert
+		List<Cart> c = cservice.selectCart(memberNo);	
+		int insertOrders = service.insertOrders(orders,c); 																		
 		
 		Map<String, Object>mapping = new HashMap<String, Object>();														
 		mapping.put("sumprice",sumProduct);
@@ -94,6 +97,8 @@ public class OrderController {
 		mapping.put("addTax", addTax);
 		mapping.put("totalFee",totalFee);		
 		mapping.put("willpoint",willPoint);
+//		mapping.put(); //제품정보
+//		mapping.put(); //제품사진
 									
 		session.setAttribute("info", mapping);
 		session.setAttribute("orders", orders);				
@@ -109,12 +114,13 @@ public class OrderController {
 		
 		Map info=((Map)session.getAttribute("info"));
 		Orders orders=((Orders)session.getAttribute("orders"));		
+		System.out.println("넘버표시:"+c.get(0).getCartNo());
 		
 		mv.addObject("cart",c);
 		mv.addObject("orders",orders);
 		mv.addObject("map",info);
 		mv.setViewName("cart/complete");
-		int cartDelete = cservice.cartDelete(c.get(0).getCartNo());
+		int cartDelete = cservice.cartDelete(memberNo);
 		session.removeAttribute("info");
 		return mv;
 	}

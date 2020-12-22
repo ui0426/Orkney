@@ -197,7 +197,7 @@ filter2();
 						for ( var i=0;i <= data.length;i++){
 						if (data[i]["PRODUCT_COLOR"]=="normal") {
 							
-						  let productClone = $("#products").clone().attr("id","products");
+						  let productClone = $("#products").clone().attr("id","products"+i);
 						  
 						
 						  $(productClone).find("#checkbox").val(data[i]["PRODUCT_PIC"]);
@@ -207,7 +207,12 @@ filter2();
 						  $(productClone).find("#pr").html(numberWithCommas(data[i]["PRODUCT_PRICE"]));
 						  $(productClone).find("#productA").attr("href","${path}/product/productDetail.do?productno="+data[i]["PRODUCT_NO"]);
 						  $(productClone).find("#readMore").attr("onclick","location.href = \'${path}/product/productDetail.do?productno="+data[i]["PRODUCT_NO"]+"\'");
-						 						  										
+						  $(productClone).find("#btnck").attr("name",data[i]["PRODUCT_NO"]);
+						  $(productClone).find("#btnck").attr("title",data[i]["PRODUCT_PRICE"]);
+						  
+						  $(productClone).find("#btnck").attr("onclick","fnbn"+"("+"'"+data[i]["PRODUCT_PRICE"]+"'"+","+"'"+data[i]["PRODUCT_NO"]+"'"+");");
+						  						
+							 						  										
 // 						하는중
 						  var productNo = data[i]["PRODUCT_NO"];
 						  $.ajax({
@@ -312,7 +317,7 @@ filter2();
 						for ( var i=0;i <= data.length;i++){
 						if (data[i]["PRODUCT_COLOR"]=="normal") {
 							
-						  let productClone = $("#products").clone().attr("id","products");
+						  let productClone = $("#products").clone().attr("id","products"+i);
 						  
 						
 						  $(productClone).find("#checkbox").val(data[i]["PRODUCT_PIC"]);
@@ -322,7 +327,11 @@ filter2();
 						  $(productClone).find("#pr").html(numberWithCommas(data[i]["PRODUCT_PRICE"]));
 						  $(productClone).find("#productA").attr("href","${path}/product/productDetail.do?productno="+data[i]["PRODUCT_NO"]);
 						  $(productClone).find("#readMore").attr("onclick","location.href = \'${path}/product/productDetail.do?productno="+data[i]["PRODUCT_NO"]+"\'");
-						 						  										
+						  $(productClone).find("#btnck").attr("name",data[i]["PRODUCT_NO"]);
+						  $(productClone).find("#btnck").attr("title",data[i]["PRODUCT_PRICE"]);
+						  
+						  $(productClone).find("#btnck").attr("onclick","fnbn"+"("+"'"+data[i]["PRODUCT_PRICE"]+"'"+","+"'"+data[i]["PRODUCT_NO"]+"'"+");");
+
 // 						하는중
 						  var productNo = data[i]["PRODUCT_NO"];
 						  $.ajax({
@@ -815,16 +824,11 @@ filter2();
 								<hr>
 								<div class="row">
 									<button type="button" class="btn  btn-md color-Gray1 " id="readMore"
-										style="border: 1px solid darkgray !important;">Read
+										style="border: 1px solid darkgray !important;" >Read
 										more</button>
 									<div class="row heartCart_icon" style="margin: auto;">
-										<a class="material-tooltip-main" data-toggle="tooltip"
-											data-placement="top" title="Add to Cart"> <i
-											class="fas fa-shopping-cart grey-text ml-3"></i>
-										</a> <a class="material-tooltip-main heart_icon" data-toggle="tooltip"
-											data-placement="top" title="Add to Wishlist"> <i
-											class="fas fa-heart grey-text ml-3"></i>
-										</a>
+<a class="material-tooltip-main " data-placement="top" title="Add to Cart" id="btnck"  data-toggle="modal" data-target="#modalAbandonedCart"> <i class="fas fa-shopping-cart grey-text ml-3"></i></a> 
+<a class="material-tooltip-main heart_icon" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"> <i class="fas fa-heart grey-text ml-3"></i></a>
 									</div>
 								</div>
 							</div>
@@ -834,6 +838,56 @@ filter2();
 					<hr>
 				</div>
 </div>
+<!-- Modal: modalAbandonedCart-->
+<div class="modal fade right" id="modalAbandonedCart" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true" data-backdrop="false">
+  <div class="modal-dialog modal-side modal-top-right modal-notify modal-info" role="document">
+    <!--Content-->
+    <div class="modal-content">
+      <!--Header-->
+      <div class="modal-header">
+        <p class="heading">장바구니</p>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true" class="white-text">&times;</span>
+        </button>
+      </div>
+      <!--Body-->
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-3">                                   
+          </div>
+          <div class="col-9">
+            <p>장바구니에 추가되었습니다.</p>
+            <p>상품을 더 구매하시겠습니까??</p>          
+        </div>
+      </div>
+      <!--Footer-->
+      <div class="modal-footer justify-content-center">
+        <a type="button" class="btn btn-info" onclick="location.href='${path}/cart/cart.do'" >장바구니로 가기</a>        
+      </div>
+    </div>
+    <!--/.Content-->
+  </div>
+</div>
+<!-- Modal: modalAbandonedCart-->
+<script>
+function fnbn(a,b){
+    $.ajax({
+		url:"${path }/cart/cartInsert.do",
+		data:{
+			productNo:b,
+			productPrice:a
+			},
+		success:data=>{
+			console.log("나와라");					
+		}
+	})
+ } 	 
+</script>
+
+
+
+
 <!-- 모달 필터  아래 모달 비교-->
 	<div class="modal fade bottom" id="frameModalBottomSuccess"
 		tabindex="-1" role="dialog" aria-labelledby="myModalLabel"

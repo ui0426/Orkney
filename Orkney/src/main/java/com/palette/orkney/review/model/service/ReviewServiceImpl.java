@@ -60,7 +60,11 @@ public class ReviewServiceImpl implements ReviewService {
 
 	@Override
 	public Review selectReviewToUpdate(int rNo) {
-		return dao.selectReviewToUpdate(session, rNo);
+		Review r = dao.selectReviewToUpdate(session, rNo);
+		if(r != null) {
+			r.setRiList(dao.selectReviewImage(session, rNo));
+		}
+		return r;
 	}
 
 	@Override

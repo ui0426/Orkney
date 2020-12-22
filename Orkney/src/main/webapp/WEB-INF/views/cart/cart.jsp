@@ -43,7 +43,7 @@
 <script>
 	$("#cartBtn").click(e=>{
 		let cN = $(".basketNo").attr("id");
-		console.log(cN);
+		console.log("비어있는:"+cN);
 		if(!cN){
 			alert("장바구니가 비어있습니다.");
 			return false;
@@ -53,29 +53,6 @@
 </script>
 
 
-<!-- Full Height Modal Right -->
-<div class="modal fade right" id="fullHeightModalRight" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-  aria-hidden="true">
-
-  <div class="modal-dialog modal-full-height modal-right" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title w-100" id="myModalLabel">Modal title</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer justify-content-center">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- Full Height Modal Right -->
 
 
 </section>

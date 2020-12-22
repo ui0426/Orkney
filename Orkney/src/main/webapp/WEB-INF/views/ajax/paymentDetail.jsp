@@ -19,6 +19,7 @@
 	            	<input type="text" id="pointuse" class="non-input" value="<c:out value="${map.point}"/>" readonly>
 	            </div>                                        	                 
 	            <div class="pre-point" style="padding: 7px 30px 0px 8px;">P</div>
+	            
 	            <div class="checkdiv"  id="allpoint">  
 	                    <div class="checkicon" stlye="width:172px;">
 	                        <span><i class="far fa-check-circle fa-2x ixy i1"></i></span>
@@ -38,17 +39,19 @@
         <script>
 
         	$("#allpoint").click(e=>{
-        		let up=$("#pointuse").val();        		
-        		console.log(up);
+        		let up=$("#pointuse").val();        		        		        		
         		$("#usablepoint").attr({
         			"value":up
         		});        		        		
         	});
         	
    	 	 $("#usablepoint").blur(e=>{
-        		let willpoint = $("#usablepoint").val();
-        		let pointuse = $("#pointuse").val();
-  
+        		let willpoint = parseInt($("#usablepoint").val());
+        		let pointuse = $("#pointuse").val();  
+        		
+        		let respoint = pointuse-willpoint;
+        		console.log("뺀포인트"+respoint);	    
+        		
         		if(parseInt(willpoint)> parseInt(pointuse)){
         			alert("사용가능한 포인트를 입력해주세요");
         		}else{

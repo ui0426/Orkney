@@ -252,23 +252,41 @@ h1, h3{margin : 0;}
 											<input type="file" id="img_input1" name="review_img" onchange="handleFiles(this, this.value)" accept="image/jpeg, image/jpg, image/png" /> 
 										</label>
 									</div>
+									<div id="preview1" class="none">
+										<div class="btn-flex" onclick="deletePreview(this, 1)">
+											<svg style="color:#615d5d;" aria-hidden="true" width="20px" height="20px" focusable="false" data-prefix="far" data-icon="times-circle" class="svg-inline--fa fa-times-circle fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm0 448c-110.5 0-200-89.5-200-200S145.5 56 256 56s200 89.5 200 200-89.5 200-200 200zm101.8-262.2L295.6 256l62.2 62.2c4.7 4.7 4.7 12.3 0 17l-22.6 22.6c-4.7 4.7-12.3 4.7-17 0L256 295.6l-62.2 62.2c-4.7 4.7-12.3 4.7-17 0l-22.6-22.6c-4.7-4.7-4.7-12.3 0-17l62.2-62.2-62.2-62.2c-4.7-4.7-4.7-12.3 0-17l22.6-22.6c4.7-4.7 12.3-4.7 17 0l62.2 62.2 62.2-62.2c4.7-4.7 12.3-4.7 17 0l22.6 22.6c4.7 4.7 4.7 12.3 0 17z"></path></svg>
+										</div>
+									</div>
+									
 								</li>
 								<li>
-									<div id="img-box1" class="filebox review-file">
-										<label id="upload-label1">
-											<span id="file1">사진 업로드</span>
-											<input type="file" id="img_input1" name="review_img" onchange="handleFiles(this, this.value)" accept="image/jpeg, image/jpg, image/png" /> 
+									<div></div>
+									<div id="img-box2" class="filebox review-file">
+										<label id="upload-label2">
+											<span id="file2">사진 업로드</span>
+											<input type="file" id="img_input2" name="review_img" onchange="handleFiles(this, this.value)" accept="image/jpeg, image/jpg, image/png" /> 
 										</label>
+									</div>
+									<div id="preview2" class="none">
+										<div class="btn-flex" onclick="deletePreview(this, 2)">
+											<svg style="color:#615d5d;" aria-hidden="true" width="20px" height="20px" focusable="false" data-prefix="far" data-icon="times-circle" class="svg-inline--fa fa-times-circle fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm0 448c-110.5 0-200-89.5-200-200S145.5 56 256 56s200 89.5 200 200-89.5 200-200 200zm101.8-262.2L295.6 256l62.2 62.2c4.7 4.7 4.7 12.3 0 17l-22.6 22.6c-4.7 4.7-12.3 4.7-17 0L256 295.6l-62.2 62.2c-4.7 4.7-12.3 4.7-17 0l-22.6-22.6c-4.7-4.7-4.7-12.3 0-17l62.2-62.2-62.2-62.2c-4.7-4.7-4.7-12.3 0-17l22.6-22.6c4.7-4.7 12.3-4.7 17 0l62.2 62.2 62.2-62.2c4.7-4.7 12.3-4.7 17 0l22.6 22.6c4.7 4.7 4.7 12.3 0 17z"></path></svg>
+										</div>
 									</div>
 								</li>
 								<li>
-									<div id="img-box1" class="filebox review-file">
-										<label id="upload-label1">
-											<span id="file1">사진 업로드</span>
-											<input type="file" id="img_input1" name="review_img" onchange="handleFiles(this, this.value)" accept="image/jpeg, image/jpg, image/png" /> 
+									<div></div>
+									<div id="img-box3" class="filebox review-file">
+										<label id="upload-label3">
+											<span id="file3">사진 업로드</span>
+											<input type="file" id="img_input3" name="review_img" onchange="handleFiles(this, this.value)" accept="image/jpeg, image/jpg, image/png" /> 
 										</label>
 									</div>
-								</li>
+									<div id="preview3" class="none">
+										<div class="btn-flex" onclick="deletePreview(this, 3)">
+											<svg style="color:#615d5d;" aria-hidden="true" width="20px" height="20px" focusable="false" data-prefix="far" data-icon="times-circle" class="svg-inline--fa fa-times-circle fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm0 448c-110.5 0-200-89.5-200-200S145.5 56 256 56s200 89.5 200 200-89.5 200-200 200zm101.8-262.2L295.6 256l62.2 62.2c4.7 4.7 4.7 12.3 0 17l-22.6 22.6c-4.7 4.7-12.3 4.7-17 0L256 295.6l-62.2 62.2c-4.7 4.7-12.3 4.7-17 0l-22.6-22.6c-4.7-4.7-4.7-12.3 0-17l62.2-62.2-62.2-62.2c-4.7-4.7-4.7-12.3 0-17l22.6-22.6c4.7-4.7 12.3-4.7 17 0l62.2 62.2 62.2-62.2c4.7-4.7 12.3-4.7 17 0l22.6 22.6c4.7 4.7 4.7 12.3 0 17z"></path></svg>
+										</div>
+									</div>
+								</li> 
 							</ul>
 						</div>
 					</div>
@@ -280,174 +298,214 @@ h1, h3{margin : 0;}
 		</div>
 	</div>
 </section>
-<script> 
 
-//별점
-var locked = 0;
-var text = "";
-
-//별 위에 마우스 댔을 때
-function show(star){
-	if(locked>0) return false;
-	var i;
-	var image;
-	var el;
-	var e = document.getElementById('startext');
-	var stateMsg;
-	for(i = 1; i <= star; i++){
-		image = 'image' + i;
-		el = document.getElementById(image);
-		el.src = "${path}/resources/svg/star-1.svg";
-	}
-	switch(star){
-		case 1:
-			stateMsg = "매우 별로";
-			break;
-		case 2:
-			stateMsg = "별로";
-			break;
-		case 3:
-			stateMsg = "보통";
-			break;
-		case 4 :
-			stateMsg = "만족";
-			break;
-		case 5 :
-			stateMsg = "매우 만족";
-			break;
-		default:
-			stateMsg = "";
- 	}
-	e.innerHTML = stateMsg;
-}
-
-//별에 올렸던 마우스를 치웠을 때
-function noshow(star){
-	var i;
-	var image;
-	var el;
-	var e = document.getElementById('startext');
-    	
-	if(locked > 0 ){
-		for(i=1; i<=locked; i++){
-    		image="image"+i;
-    		el=document.getElementById(image);
-    		el.src="${path}/resources/svg/star-1.svg";
-    	}
-		for(i=5; i>locked; i--){
-    		image="image"+i;
-    		el=document.getElementById(image);
-    		el.src="${path}/resources/svg/star-0.svg";
+<script>
+	$(function(){
+		var riList = ${review.riList.renamedFileName};
+		console.log(riList);
+		for(var i=1; i<=riList; i++ ){
+			
 		}
-		e.innerHTML = text;
-		return;
-	}else{
-    	for(i=1; i<=star; i++){
-    		image="image"+i;
-    		el=document.getElementById(image);
-    		el.src="${path}/resources/svg/star-0.svg";
-    	}
-    	e.innerHTML = text;
+	});
+	
+	//별점
+	var locked = 0;
+	var text = "";
+	
+	//별 위에 마우스 댔을 때
+	function show(star){
+		if(locked>0) return false;
+		var i;
+		var image;
+		var el;
+		var e = document.getElementById('startext');
+		var stateMsg;
+		for(i = 1; i <= star; i++){
+			image = 'image' + i;
+			el = document.getElementById(image);
+			el.src = "${path}/resources/svg/star-1.svg";
+		}
+		switch(star){
+			case 1:
+				stateMsg = "매우 별로";
+				break;
+			case 2:
+				stateMsg = "별로";
+				break;
+			case 3:
+				stateMsg = "보통";
+				break;
+			case 4 :
+				stateMsg = "만족";
+				break;
+			case 5 :
+				stateMsg = "매우 만족";
+				break;
+			default:
+				stateMsg = "";
+	 	}
+		e.innerHTML = stateMsg;
 	}
-}
-
-
-function lock(star){
-	show(star);
-	locked = star;
-}
-
-//클릭했을 때
-function mark(star){
-	console.log(${review.review_no});
-	lock(star);
-	for(i = 1; i <= star; i++){
-		image = 'image' + i;
-		el = document.getElementById(image);
-		el.src = "${path}/resources/svg/star-1.svg";
+	
+	//별에 올렸던 마우스를 치웠을 때
+	function noshow(star){
+		var i;
+		var image;
+		var el;
+		var e = document.getElementById('startext');
+	    	
+		if(locked > 0 ){
+			for(i=1; i<=locked; i++){
+	    		image="image"+i;
+	    		el=document.getElementById(image);
+	    		el.src="${path}/resources/svg/star-1.svg";
+	    	}
+			for(i=5; i>locked; i--){
+	    		image="image"+i;
+	    		el=document.getElementById(image);
+	    		el.src="${path}/resources/svg/star-0.svg";
+			}
+			e.innerHTML = text;
+			return;
+		}else{
+	    	for(i=1; i<=star; i++){
+	    		image="image"+i;
+	    		el=document.getElementById(image);
+	    		el.src="${path}/resources/svg/star-0.svg";
+	    	}
+	    	e.innerHTML = text;
+		}
 	}
-	for(i = 5; i>star; i--){
-		image = 'image' + i;
-		el = document.getElementById(image);
-		el.src = "${path}/resources/svg/star-0.svg";
+	
+	
+	function lock(star){
+		show(star);
+		locked = star;
 	}
-	var e = document.getElementById('startext');
-	var stateMsg;
-	switch(star){
-		case 1:
-			stateMsg = "매우 별로";
-			break;
-		case 2:
-			stateMsg = "별로";
-			break;
-		case 3:
-			stateMsg = "보통";
-			break;
-		case 4 :
-			stateMsg = "만족";
-			break;
-		case 5 :
-			stateMsg = "매우 만족";
-			break;
-		default:
-			stateMsg = "";
- 	}
-	e.innerHTML = stateMsg;
-	text = stateMsg;
-	console.log("선택"+star);
-	document.getElementById("grade").value=star;
-}
+	
+	//클릭했을 때
+	function mark(star){
+		console.log(${review.review_no});
+		lock(star);
+		for(i = 1; i <= star; i++){
+			image = 'image' + i;
+			el = document.getElementById(image);
+			el.src = "${path}/resources/svg/star-1.svg";
+		}
+		for(i = 5; i>star; i--){
+			image = 'image' + i;
+			el = document.getElementById(image);
+			el.src = "${path}/resources/svg/star-0.svg";
+		}
+		var e = document.getElementById('startext');
+		var stateMsg;
+		switch(star){
+			case 1:
+				stateMsg = "매우 별로";
+				break;
+			case 2:
+				stateMsg = "별로";
+				break;
+			case 3:
+				stateMsg = "보통";
+				break;
+			case 4 :
+				stateMsg = "만족";
+				break;
+			case 5 :
+				stateMsg = "매우 만족";
+				break;
+			default:
+				stateMsg = "";
+	 	}
+		e.innerHTML = stateMsg;
+		text = stateMsg;
+		console.log("선택"+star);
+		document.getElementById("grade").value=star;
+	}
+	
+	//이미지 미리보기
+	function handleFiles(file, name){
+		console.log(file);
+		console.log("파일경로 이름 확장명 : "+name);
+		console.log(name.length);
+		var _lastDot = name.lastIndexOf('.');//확장자 있는 자릿수
+		console.log(_lastDot);
+		var ext = name.substring(_lastDot, name.length);
+		console.log(ext);
+		ext = name.substring(_lastDot, name.length).toLowerCase();//소문자로 변경
+		console.log(ext);
+		console.log(ext.indexOf('.pdf'));
+		console.log(ext.indexOf('.jpg'));
+		console.log(ext.indexOf('.png'));
+		
+		if(ext.indexOf('.gif')>-1 || ext.indexOf('.png')>-1 || ext.indexOf('.jpg')>-1 || ext.indexOf('.jpeg')>-1){
+			console.log("이미지다");
+			console.log(file.closest("div"));
+			file.closest("div").setAttribute("class","none");//input태그 있는 div는 숨기기
+			
+	        const img = document.createElement("img");
+	       	file.parentNode.parentNode.nextSibling.nextSibling.setAttribute("class","review-file");
+	       	console.log("이미지 넣을 div에 클래스 설정");
+	       	file.parentNode.parentNode.nextSibling.nextSibling.appendChild(img);
+	        img.src = URL.createObjectURL(file.files[0]);
+	        img.setAttribute("style","position:absolute; width:100%; height:100%;");
+	        console.log("이미지까지 무사히 들어옴");
+	        
+	        console.log(file.parentNode.parentNode.nextSibling.nextSibling.nextSibling);
+	        console.log("버튼보임!!!!!!!!");
+	        console.log("========================여기까지 이미지 미리보기 끝=========================")
+	       
+		}else{
+			alert("이미지 아니다");
+		}
+	};
+	
+	//이미지 삭제하기
+	function deletePreview(btn, i){
+	  console.log(btn);
+	  console.log(i);
+	  var div = btn.parentNode;
+	  var img = btn.parentNode.lastChild; 
+	  console.log(div);
+	  img = img.parentNode.removeChild(img);//미리보기 이미지 태그는 완전히 제거
+	  console.log(img);
+	  
+	  div.setAttribute("class","none");//미리보기 이미지 담았던 div숨기기
+	  
+	  console.log($(btn).parent().prev().find("input").val());
+	  $(btn).parent().prev().find("input").val("");
+	  console.log($(btn).parent().prev().find("input").val());
+	  $(btn).parent().prev().find("input").prop("type","text");
+	  $(btn).parent().prev().find("input").prop("type","file");
+	 console.log($(btn).parent().prev().find("input"));
+	 
+	  var box = "#img-box"+i;
+	  $(box).removeClass("none").addClass("filebox").addClass("review-file");
+	  console.log("다시 새로운 인풋");
+	  
+	}
 
         
-   		
-        $("#review-update").click(e  =>{
-        	
-            	var star = $("#grade").val();
-        		var content = $("#exampleFormControlTextarea6").val().trim();
-        		console.log(content);
-        		if(star == ""){
-        			alert("별점입력해주세요");
-        			return false;
-        		};
-        		if(content == ""){
-        			alert("내용을 입력해주세요");
-        			return false;
-        		};
-        		
-        		$("#reviewForm").submit();
-               
-        		/* var form = $("#reviewForm")[0];
-        		var formData = new FormData(form);
-        		var rNo = ${review.review_no };
-        		var pGrade = $("#grade").val();
-        		var rContent = $("#exampleFormControlTextarea6").val();
-        		
-        		formData.append("rNo",rNo);
-        		formData.append("pGrade",pGrade);
-        		formData.append("rContent",rContent);
-        		
-        		$.ajax({
-        			type : 'post',
-                    url : '${path }/review/reviewUpdateEnd.do',
-                    data : formData,
-                    processData : false,
-                    contentType : false,
-                    success : function(html) {
-                        alert("파일 업로드하였습니다.");
-                        opener.document.location.reload();
-
-                		self.close();
-
-                    },
-                    error : function(error) {
-                        alert("파일 업로드에 실패하였습니다.");
-                        console.log(error);
-                        console.log(error.status);
-                    }
-        		}) */
-        		
-        })
-		 
+	//최종 수정 등록
+	$("#review-update").click(e  =>{
+		
+	    	var star = $("#grade").val();
+			var content = $("#exampleFormControlTextarea6").val().trim();
+			console.log(content);
+			if(star == ""){
+				alert("별점입력해주세요");
+				return false;
+			};
+			if(content == ""){
+				alert("내용을 입력해주세요");
+				return false;
+			};
+			
+			$("#reviewForm").submit();
+	       
+	})
+ 
 </script>
 </body>
 </html>
