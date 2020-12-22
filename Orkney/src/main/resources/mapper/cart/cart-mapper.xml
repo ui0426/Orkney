@@ -16,6 +16,10 @@
  		SELECT COUNT(*) FROM CART join cart_detail using(cart_no) WHERE MEMBER_NO=#{memberNo}  		
  	</select>
  	
+ 	<select id="countProduct" parameterType="map" resultType="_int">
+ 		SELECT COUNT(*) FROM CART_DETAIL WHERE PRODUCT_NO=#{productNo} AND CART_NO=#{cartNo}
+ 	</select>
+ 	
  	<update id="updateCart">
  		update cart_detail set cart_qty+#{cart_qty} where cart_no=#{cartNo} and product_no =#{productNo}
  	</update>

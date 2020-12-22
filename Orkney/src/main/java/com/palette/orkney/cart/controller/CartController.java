@@ -55,32 +55,28 @@ public class CartController {
 		Cart cart = new Cart();
 		cart.setMemberNo(memberNo);
 		cart.setProductNo(productNo);
-		//이벤트하는 가격일시 이벤트가를 적용
-		int salePrice = Integer.parseInt(pservice.selectSale(productNo)); 
-		
-		if(salePrice != 0) {
-			cart.setProductPrice(salePrice);
-			System.out.println(salePrice+"할인가 적용");
-		}else {
-			cart.setProductPrice(productPrice);		
-			System.out.println(productPrice+"할인가 아님");
-		}
+		//이벤트가 적용						
+		cart.setProductPrice(Integer.parseInt(pservice.selectSale(productNo)));		
 		cart.setCartNo(cartNo);
 		cart.setCartQTY(cartQTY);
 		
 		//3. 카트 존재 유무
-		int count = service.countCart(memberNo);		
+		int count = service.countCart(memberNo);				
+		System.out.println("count:"+count);		
 		
-		System.out.println("count:"+count);
-		
-		
-			//4. 카트에 상품
-			if (count==0) {
-			  count = service.insertCart(cart);  				//카트가 없을시 카트 및 디테일 생성			  
-			}	
-			else if (count>0) {									//productNo 가 이미 cart_detail 에 있으면 수정			
-			   count= service.insertDetail(cart);			 	//카트가 있다면 디테일에 상품만 추가			
-			}					
+		//4. 카트에 같은 상품이 있는지 확인
+		if(c.size() != 0) {													//카트존재유무	
+			int pc = service.countProduct(productNo,c.get(0).getCartNo()); 	//카트에 같은 product 존재유무
+			System.out.println("pc"+pc);
+			if(pc!=0) { 													//카트에 상품 존재시 개수만 업데이트
+				cart.setCartQTY(cartQTY+1);							
+				int updateDetail = service.updateDetail(cart); 
+			}else if(pc==0) {												//카트에 상품이 존재하지 않다면 detail에만 추가					
+				count= service.insertDetail(cart);			 	
+			}			
+		}else {
+			count = service.insertCart(cart);  								//카트가 없을시 카트 및 디테일 생성			  
+		}											
 		return mv;
 	}
 	
