@@ -59,11 +59,40 @@
                 	</div> 
                 	<div> 
 						<div class="line1"></div>
-					</div>	
-                	                         
+					</div>	                	                         
              </div>             
 	</c:forEach>	
-	</c:if>
+	</c:if>		
+	
+	<!-- Full Height Modal Right -->
+<div class="modal fade right" id="fullHeightModalRight" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+
+  <div class="modal-dialog modal-full-height modal-right" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title w-100" id="myModalLabel">위시리스트</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      	<c:forEach items="${wish}" var="w">
+      	<div style="display:flex; justify-content:space-between; padding: 10px;">
+      		<div>${w.wishlist_name}</div>
+      		<div> <button style="outline:none;">추가</button></div>
+      	</div>
+      	<div class="line1"></div>
+      	</c:forEach>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button type="button"  class="btn btn-secondary1" data-dismiss="modal">Close</button>        
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Full Height Modal Right -->
+	
 
         <div class="section2">                                                        
                 <div class="service-container">                              
