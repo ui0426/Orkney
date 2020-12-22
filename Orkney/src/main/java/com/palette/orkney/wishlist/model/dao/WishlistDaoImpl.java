@@ -110,6 +110,12 @@ public class WishlistDaoImpl implements WishlistDao {
 		return session.update("wishlist.countDown", data);
 	}
 
+	//위시리스트 제품 담기
+	@Override
+	public int insertWish(SqlSession session, Map data) {
+		return session.insert("wishlist.insertWish", data);
+	}
+
 
 	
 

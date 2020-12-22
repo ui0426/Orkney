@@ -152,7 +152,12 @@ public class ProductServiceImpl implements ProductService{
 		  }
 	  
 	 
+//sale가격
 
+		@Override
+		public String selectSale(String productNo) {	
+			return dao.selectSale(session,productNo);
+		}
 	  
 
 

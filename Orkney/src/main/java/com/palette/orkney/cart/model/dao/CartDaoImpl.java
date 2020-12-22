@@ -76,6 +76,14 @@ public class CartDaoImpl implements CartDao{
 		return session.insert("cart.insertDetail",cart);
 	}
 
+	@Override
+	public int countProduct(SqlSession session, String productNo,String cartNo) {
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("productNo", productNo);
+		map.put("cartNo", cartNo);
+		return session.selectOne("cart.countProduct",map);
+	}
+
 	
 	
 	

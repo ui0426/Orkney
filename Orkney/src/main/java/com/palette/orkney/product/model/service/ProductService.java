@@ -34,5 +34,7 @@ public interface ProductService {
 	int roomsTitle(Map titles);
 	 List<Map> buttomProduct(Map ty); 
 	
-
+//sale가격
+	 String selectSale(String productNo);
+	 
 }

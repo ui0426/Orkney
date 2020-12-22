@@ -177,6 +177,11 @@
 		order by point_date desc
   	</select>
   	
+  	<!-- 이메일 수신 체크 -->
+  	<update id="emailCk" parameterType="map">
+  		update member set EMAIL_CH=#{ck} where member_no=#{mNo}
+  	</update>
+  	
   	<!-- month로 포인트 조회하기 -->
 <!--   	<select id="selectMonthPoint" parameterType="map" resultType="point"> -->
 <!--   		select point_date from point where to_char(point_date,'YYYYMM')=#{month} and member_no=#{mNo} -->

@@ -3,6 +3,10 @@
             display: flex;
             flex-direction: column;                      
         }
+    .btn-secondary1{
+    background-color: #0058a3 !important;
+    color: white; 
+    }
         .section-container{
             padding: 5% 20%;
             width: 100%;                          

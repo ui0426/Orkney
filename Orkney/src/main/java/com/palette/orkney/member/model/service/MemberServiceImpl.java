@@ -230,6 +230,12 @@ public class MemberServiceImpl implements MemberService {
 		return dao.pointList(session, data);
 	}
 
+	//이메일 수신 체크
+	@Override
+	public int emailCk(Map data) {
+		return dao.emailCk(session, data);
+	}
+
 
 	
 	
