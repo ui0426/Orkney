@@ -144,6 +144,7 @@ public class OrderController {
 		if(login != null && !login.isEmpty()) {
 			String mNo = (String)login.get("MEMBER_NO");
 			mv.addObject("list", service.selectOrderList(mNo));
+			mv.addObject("list2",service.selectOrderEndList(mNo));
 			System.out.println("로그인 한 상태에서 주문내역 조회 : "+service.selectOrderList(mNo));
 			mv.setViewName("order/orderList");
 		}else {

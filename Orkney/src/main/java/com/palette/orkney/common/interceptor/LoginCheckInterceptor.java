@@ -18,7 +18,7 @@ public class LoginCheckInterceptor extends HandlerInterceptorAdapter {
 	      Map login=(Map)session.getAttribute("login");
 	      if(login == null) {
 	         //로그인이 안된상태
-	    	  response.sendRedirect(request.getContextPath()+"/views/error/transError.jsp");
+	    	  response.sendRedirect(request.getContextPath()+"/member/memberLogin.do");
 				
 				return false;
 	         

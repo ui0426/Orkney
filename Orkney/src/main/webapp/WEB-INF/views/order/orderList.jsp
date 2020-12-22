@@ -25,9 +25,12 @@
 						  <button id="tab2" type="button" class="btn-light orderList-btn">지난 주문 내역</button>
 						</div>
 						<div id="panel-container">
+						<div class="panel1">
+							<c:if test="${empty list }">
+								<h5>현재 진행중인 주문이 없습니다.</h5>
+							</c:if>
 							<c:forEach items="${list }" var="o">
-							<c:if test="${not fn:contains(o.ORDER_STATE,'완료')}">
-								<div class="panel1 panels">
+								<div class="panels">
 									<div class="ol-container">
 										<div>주문 번호(iSell 번호)</div>
 										<div><c:out value="${o.ORDER_NO }"/></div>
@@ -44,11 +47,14 @@
 										<a href="${path }/order/orderView.do?oNo=${o.ORDER_NO}">주문 내역 보기</a>
 									</div>
 								</div>
-							</c:if>
 							</c:forEach>
-							<c:forEach items="${list }" var="o">
-							<c:if test="${fn:contains(o.ORDER_STATE,'완료')}">
-								<div class="panel2 panels">
+							</div>
+							<div class="panel2">
+							<c:if test="${empty list }">
+								<h5>현재 완료된 주문이 없습니다.</h5>
+							</c:if>
+							<c:forEach items="${list2 }" var="o">
+								<div class="panels">
 									<div class="ol-container">
 										<div>주문 번호(iSell 번호)</div>
 										<div><c:out value="${o.ORDER_NO }"/></div>
@@ -65,11 +71,24 @@
 										<a href="${path }/order/orderView.do?oNo=${o.ORDER_NO}">주문 내역 보기</a>
 									</div>
 								</div>
-							</c:if>
 							</c:forEach>
+							</div>
+							<div>
+								<div>
+									<svg viewBox="0 0 24 24" width="24px" height="24px" class=""><path fill="currentColor" fill-rule="evenodd" clip-rule="evenodd" d="M10.5 15a4.5 4.5 0 1 1 0-9 4.5 4.5 0 0 1 0 9zm4.968-.307a6.5 6.5 0 1 0-1.514 1.315l3.996 3.996 1.414-1.414-3.896-3.897z"></path></svg>
+									<h4>찾는 주문 내역이 없으신가요?</h4>
+									<p>여기서 주문내역을 확인할 수 있습니다.<a>주문 내역 확인</a></p>
+								</div>
+							</div>
 						</div>
 					</div>
 					<div class="orderList_desktop">
+					<c:if test="${empty list and empty list2 }">
+						<div>
+							<p>현재 진행중이거나 완료된 주문사항이 없습니다. <a>상품 보러가기</a></p>
+						</div>
+					</c:if>
+					<c:if test="${!empty list or !empty list2 }">
 						<div class="desktop_content">
 							<table class="orderList_Table">
 								<caption class="orderList_Caption">처리중 주문</caption>
@@ -82,15 +101,18 @@
 									</tr>
 								</thead>
 								<tbody>
+									<c:if test="${empty list }">
+										<tr>
+											<td  colspan="4">현재 진행중인 주문이 없습니다.</td>
+										</tr>
+									</c:if>
 									<c:forEach items="${list }" var="o">
-										<c:if test="${not fn:contains(o.ORDER_STATE,'완료')}">
-											<tr>
-												<td class="list-item"><c:out value="${o.ORDER_NO }"/></td>
-												<td class="list-item"><c:out value="${o.ORDER_DATE }"/></td>
-												<td class="list-item">진행 중</td>
-												<td class="list-item"><a href="${path }/order/orderView.do?oNo=${o.ORDER_NO}">주문 내역 보기</a>
-											</tr>
-										</c:if>
+										<tr>
+											<td class="list-item"><c:out value="${o.ORDER_NO }"/></td>
+											<td class="list-item"><c:out value="${o.ORDER_DATE }"/></td>
+											<td class="list-item">진행 중</td>
+											<td class="list-item"><a href="${path }/order/orderView.do?oNo=${o.ORDER_NO}">주문 내역 보기</a>
+										</tr>
 									</c:forEach>
 								</tbody>
 							</table>
@@ -107,18 +129,29 @@
 									</tr>
 								</thead>
 								<tbody>
-									<c:forEach items="${list }" var="o">
-										<c:if test="${fn:contains(o.ORDER_STATE, '완료') }">
-											<tr>
-												<td class="list-item"><c:out value="${o.ORDER_NO }"/></td>
-												<td class="list-item"><c:out value="${o.ORDER_DATE }"/></td>
-												<td class="list-item"><c:out value="${o.ORDER_STATE }"/></td>
-												<td class="list-item"><a href="${path }/order/orderView.do?oNo=${o.ORDER_NO}">주문 내역 보기</a>
-											</tr>
-										</c:if>
+									<c:if test="${empty list2 }">
+										<tr>
+											<td  colspan="4">현재 진행중인 주문이 없습니다.</td>
+										</tr>
+									</c:if>
+									<c:forEach items="${list2 }" var="o">
+										<tr>
+											<td class="list-item"><c:out value="${o.ORDER_NO }"/></td>
+											<td class="list-item"><c:out value="${o.ORDER_DATE }"/></td>
+											<td class="list-item"><c:out value="${o.ORDER_STATE }"/></td>
+											<td class="list-item"><a href="${path }/order/orderView.do?oNo=${o.ORDER_NO}">주문 내역 보기</a>
+										</tr>
 									</c:forEach>
 								</tbody>
 							</table>
+						</div>
+						</c:if>
+						<div>
+							<div>
+								<svg viewBox="0 0 24 24" width="24px" height="24px" class=""><path fill="currentColor" fill-rule="evenodd" clip-rule="evenodd" d="M10.5 15a4.5 4.5 0 1 1 0-9 4.5 4.5 0 0 1 0 9zm4.968-.307a6.5 6.5 0 1 0-1.514 1.315l3.996 3.996 1.414-1.414-3.896-3.897z"></path></svg>
+								<h4>찾는 주문 내역이 없으신가요?</h4>
+								<p>여기서 주문내역을 확인할 수 있습니다.<a>주문 내역 확인</a></p>
+							</div>
 						</div>
 					</div>
 				</div>
