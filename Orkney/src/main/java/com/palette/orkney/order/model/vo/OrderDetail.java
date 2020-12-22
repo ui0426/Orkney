@@ -43,5 +43,8 @@ public class OrderDetail {
 	//review
 	private int review_no;
 	
+	//point : refund위해서
+	private int point_point;
+	
 		
 }

@@ -19,12 +19,15 @@ body,html{height:100%;overflow: hidden;}
     .mdmar{margin-bottom:0;}
     .fs{font-size: 0.9rem;}
     .logoimg{
-    background-image: url(../signup/logo2.png);
+    background-image: url(../signup/LOGO4.png);
     background-repeat: no-repeat;
     background-size: 88px 44px;
     content: "";
     width:88px;
     height:44px;
+    }
+    .logo-size{
+    	width: 75px;
     }
     #svgicon{
     height: 2.7rem;

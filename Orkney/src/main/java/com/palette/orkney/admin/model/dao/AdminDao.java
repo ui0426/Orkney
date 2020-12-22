@@ -45,6 +45,8 @@ public interface AdminDao {
 
 	Map countOrderState(SqlSession session);
 	
+	Map countOrderDetailState(SqlSession session);
+	
 	int totalOrder(SqlSession session);
 	
 	List<Orders> selectOrderChangeList(SqlSession session, Map s);
@@ -52,4 +54,12 @@ public interface AdminDao {
 	int updateOrderListState(SqlSession session, Map m);
 	
 	List<OrderDetail> selectOrderDetailChangeList(SqlSession session, String state);
+	
+	int selectRefundCount(SqlSession session, String oNo);
+	
+	int updateStateAndSort(SqlSession session, Map m);
+	
+	List<OrderDetail> selectOrderOngoingList(SqlSession session);
+	
+	int updateSortEnd(SqlSession session, Map m);
 }

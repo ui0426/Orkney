@@ -7,6 +7,8 @@
     padding: 0 3rem;
 }
 .header-logo{
+	display: flex;
+	align-items: center;
     margin-right: auto;
     width: 75px;
     height: 30px;   

@@ -77,7 +77,7 @@
                 </div>
             </div>
             <div class="header-logo">
-                <a href="${path}"><img src="${path }/resources/img/logo1.png" alt=""></a>
+                <a href="${path}"><img src="${path }/resources/img/LOGO3.PNG" alt=""></a>
             </div>
             <div class="header-menu">
                 <span><a href="${path }/product/products.do?category=all" style="color: black;">모든제품</a> </span>
@@ -155,8 +155,8 @@
 		                </span>
 		            </div>
 		            <div id="hnf-menu_logo" class="hnf-menu_logo">
-		                <a href="${path }/">
-		                    <img src="${path }/resources/img/logo1.png"></svg>
+		                <a href="${path }/">		        
+		                    <img src="${path }/resources/img/LOGO3.PNG"></svg>
 		                </a>
 		            </div>
 		            <div id="hnf-menu_search" class="header-search hnf-menu_search hnf-menu-nav-hidden">
@@ -179,7 +179,7 @@
 		                        <div class="hnf-link hnf-link-color aside-btn-showroom">디지털쇼룸</div>
 		                    </li>
 		                    <li>
-		                        <div class="hnf-small-link hnf-link-color aside-btn-event">이달의 혜택</div>
+		                        <div class="hnf-small-link hnf-link-color aside-btn-event">이달의 이벤트</div>
 		                    </li>
 		                    <li>
 		                        <a class="hnf-small-link hnf-link-color" href="${path }/product/products.do?category=new">신제품</a>
@@ -189,7 +189,7 @@
 		                	<c:if test="${login.AUTHORITY eq '관리자'}">
 		                	<li><a class="hnf-small-ex hnf-link-color" href="${path}/admin/adminPage.do">관리 페이지</a></li>
 		                	</c:if>
-		                    <li><a class="hnf-small-ex hnf-link-color" href="${path}/notice/question.do">고객지원</a></li>
+		                    <li><a class="hnf-small-ex hnf-link-color" href="${path}/notice/question.do">FAQ</a></li>
 		                    <li><a class="hnf-small-ex hnf-link-color" href="${path }/order/order.do">배송조회</a></li>
 		                 <c:if test="${not empty login }">
 		                    <li><a class="hnf-small-ex hnf-link-color" href="${path}/member/mypage.do">내 프로필</a></li>
@@ -325,18 +325,18 @@
 	        	<!-- 이달의 혜택 클릭했을 때 -->
 	        	<div id="hnf-menu_container-level2-3" class="hnf-menu_container hnf-menu-container-product hnf-menu-nav-hidden">
 	        		<nav class="hnf-menu_nav">
-		        		<span class="hnf-menu-container-product-head">이달의 혜택</span>
+		        		<span class="hnf-menu-container-product-head">이달의 이벤트</span>
 						<ul class="hnf-menu-container-product-main">
 							<li>
-								<a>
-									ORKNEY Family 특별가
+								<a href="${path }/product/sale.do">
+									ORKNEY 더 낮은 새로운 가격
 								</a>
 							</li>
-							<li>
+							<!-- <li>
 								<a>
 									마지막 찬스 최대 50% OFF
 								</a>
-							</li>
+							</li> -->
 						</ul>
 						</nav>
 					</div>

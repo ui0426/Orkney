@@ -70,10 +70,10 @@
       <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
         <h6 class="text-uppercase mb-4 font-weight-bold">고객문의</h6>
         <p>
-          <a href="#!">고객지원</a>
+          <a href="${path}/notice/question.do">FAQ</a>
         </p>
         <p>
-          <a href="#!">배송조회</a>
+          <a href="${path }/order/order.do">배송조회</a>
         </p>
         <p>
           <a href="#!">문의하기</a>

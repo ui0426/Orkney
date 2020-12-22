@@ -113,7 +113,11 @@ public class AdminServiceImpl implements AdminService {
 	
 	@Override
 	public Map countOrderState() {	
-		return dao.countOrderState(session);
+		Map m = dao.countOrderState(session);
+		Map m2 = dao.countOrderDetailState(session);
+		m2.put("주문확인", m.get("주문확인"));
+		m2.put("취소신청",m.get("취소신청"));
+		return m2;
 	}
 
 	@Override
@@ -141,6 +145,26 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public List<OrderDetail> selectOrderDetailChangeList(String state) {
 		return dao.selectOrderDetailChangeList(session, state);
+	}
+
+	@Override
+	public int selectRefundCount(String oNo) {
+		return dao.selectRefundCount(session, oNo);
+	}
+
+	@Override
+	public int updateStateAndSort(Map m) {
+		return dao.updateStateAndSort(session, m);
+	}
+
+	@Override
+	public List<OrderDetail> selectOrderOngoingList() {
+		return dao.selectOrderOngoingList(session);
+	}
+
+	@Override
+	public int updateSortEnd(Map m) {
+		return dao.updateSortEnd(session, m);
 	}
 	
 	
