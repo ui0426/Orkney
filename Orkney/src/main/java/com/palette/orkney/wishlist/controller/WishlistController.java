@@ -11,6 +11,7 @@ import org.apache.commons.collections.map.HashedMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,11 +30,16 @@ public class WishlistController {
    
    //위시리스트 화면으로 이동
    @RequestMapping("/wishlist/wishlist.do")
-   public ModelAndView wishlistView(HttpSession session, ModelAndView mv, @CookieValue(value = "wNo", required = false) String wNo, HttpServletResponse response) {
+   public ModelAndView wishlistView(HttpSession session, ModelAndView mv, @CookieValue(value = "wNo", required = false) String wNo, HttpServletResponse response, @RequestParam(value="addwNo", required = false) String addwNo) {
       Map login = ((Map)session.getAttribute("login")); //로그인 된 유저
       String mNo = (String)login.get("MEMBER_NO"); //로그인 유저 넘버
       Wishlist wish = null; //jsp에서 wish가 null 이면, null 아니면 해주기!
       System.out.println("쿠키wNo" + wNo);
+      
+      //이 부분 추가..201220
+      if(addwNo != null) {
+    	 Cookie c = new Cookie("wNo", addwNo);
+      }
       //위시리스트 가져오기...
       if(wNo == null || wNo == "") {
          wish = service.selectWishlist(mNo);
@@ -105,7 +111,11 @@ public class WishlistController {
       for(Wishlist_detail wd : wish.getWishlist_detail()) {
     	  int price = wd.getProduct().getProductPrice() * wd.getProduct_qty();
     	  allPrice += price;
+    	  System.out.println(wd.getProduct_qty());
+    	  System.out.println(allPrice);
       }
+      
+      System.out.println(allPrice);
       
       m.addAttribute("wish", wish);
       m.addAttribute("wlList", wlList);
@@ -288,4 +298,44 @@ public class WishlistController {
 	   
 	   return result;
    }
+   
+   //위시리스트에 제품 추가하는 모달 띄우기
+   @RequestMapping("/wishlist/insertWishModal.do")
+   public String insertWishModal(HttpSession session, Model m,
+           @RequestParam(value = "pNo", required=false) String pNo) {
+		Map login = ((Map)session.getAttribute("login")); //로그인 된 유저
+		String mNo = (String)login.get("MEMBER_NO"); //로그인 유저 넘버
+		
+		List<Wishlist> wlList = service.wishlistList(mNo);   
+		System.out.println("/moveModal" + wlList);
+		System.out.println("/moveModal" + pNo);
+		
+		m.addAttribute("wlList", wlList);
+		m.addAttribute("pNo", pNo);
+		return "product/wl_select";
+	}
+   
+   //위시리스트에 제품 담기
+   @RequestMapping("/wishlist/insertWish.do")
+   public String insertWish(String pNo, String IwNo, HttpSession session, Model m) {
+	   Map login = ((Map)session.getAttribute("login")); //로그인 된 유저
+	   String mNo = (String)login.get("MEMBER_NO"); //로그인 유저 넘버
+	   
+	   Map data = new HashedMap();
+	   data.put("mNo", mNo);
+       data.put("pNo", pNo);
+       data.put("IwNo", IwNo);
+	   data.put("pQty", 1);
+	   
+	   int result = service.insertWish(data);
+	   
+	   if(result > 0) {
+		   m.addAttribute("wNo", IwNo);
+		   return "product/wl_success";
+	   } else {
+		   return "";
+	   }
+   }
+   
+   
 }

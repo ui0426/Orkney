@@ -32,7 +32,8 @@ public class CartController {
 	
 	//0.장바구니 추가
 	@RequestMapping("/cart/cartInsert.do")
-	public ModelAndView cartInsert(HttpSession session,ModelAndView mv,String productNo, int productPrice) {				
+	@ResponseBody
+	public String cartInsert(HttpSession session,ModelAndView mv,String productNo, int productPrice, @RequestParam(value="cartQTY", defaultValue ="1") int cartQTY) {				
 		String memberNo = (String)((Map)session.getAttribute("login")).get("MEMBER_NO");					
 		
 	
@@ -62,7 +63,7 @@ public class CartController {
 		
 		
 		/* mv.setViewName("product/productDetail"); */						
-		return mv;
+		return "";
 	}
 		
 	//1.장바구니 화면 이동(장바구니 확인)

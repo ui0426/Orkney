@@ -201,5 +201,11 @@ public class MemberDaoImpl implements MemberDao {
 		return session.selectList("member.pointList", data);
 	}
 
+	//이메일 수신 체크
+	@Override
+	public int emailCk(SqlSession session, Map data) {
+		return session.update("member.emailCk", data);
+	}
+
 	
 }

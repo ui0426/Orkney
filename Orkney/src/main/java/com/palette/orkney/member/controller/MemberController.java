@@ -111,7 +111,7 @@ public class MemberController {
 		}else {
 			mv.setViewName("member/login");
 		}
-		
+		System.out.println("이거이거" +login);
 		mv.setViewName("redirect:/");
 		
 		
@@ -390,12 +390,6 @@ public class MemberController {
 	}
 	
 
-//	//personal 업데이트 정보
-//	@RequestMapping("/member/personalJspUpdate.do")
-//	public String personalJspUpdate() {
-//		return "member/mypageDiv/personal.jsp";
-//	}
-	
 	@RequestMapping("/member/emailPage.do")//이메일인증페이지 전환용
 	public String emailAuth() {
 		
@@ -681,5 +675,21 @@ public class MemberController {
 	      
 	      return list;
 		
+	}
+	
+	//이메일 수신 체크
+	@RequestMapping("/member/emailCk.do")
+	@ResponseBody
+	public String emailCk(String ck, HttpSession session) {
+		System.out.println(ck);
+		Map login = ((Map)session.getAttribute("login")); //로그인 된 유저
+		String mNo = (String)login.get("MEMBER_NO");
+		
+		Map data = new HashMap();
+		data.put("mNo", mNo);
+		data.put("ck", ck);
+		
+		int result = service.emailCk(data);
+		return "성공";
 	}
 }

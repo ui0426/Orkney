@@ -67,6 +67,9 @@
         				$('#update-originPw-input').focus().trigger("click").blur().focus();
         				return;
         			} else {
+        				
+//         				location.href="${path}/member/deleteMember.do";
+        				
         				let pw = $('#update-originPw-input').val();
         				$.ajax({
         					type: 'post',
@@ -74,14 +77,15 @@
         					data: {pwck : pw},
         					success: data=>{
         						if(data == -2){
-        							alert('비밀번호가 틀렸습니다.')
+        							alert('비밀번호가 틀렸습니다.');
         						} else {
         							alert('탈퇴되었습니다. 그동안 이용해주셔서 감사합니다.');
-        							location.href="/";
+        							location.replace('${path}/member/loginout.do');
         						}
         					},
         					error: (request,status,error)=>{
         						alert('탈퇴에 실패하였습니다. 고객지원에 문의바랍니다.');
+        						alert('code:' + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
         					}
         				})
         			}
