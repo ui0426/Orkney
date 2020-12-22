@@ -196,22 +196,20 @@ h1, h3{margin : 0;}
 											<input type="file" id="img_input1" name="review_img" onchange="handleFiles(this, this.value)" accept="image/jpeg, image/jpg, image/png" /> 
 										</label>
 									</div>
-									<div id="preview" class="none">
+									<div id="preview1" class="none">
 										<div class="btn-flex" onclick="deletePreview(this, 1)">
 											<svg style="color:#615d5d;" aria-hidden="true" width="20px" height="20px" focusable="false" data-prefix="far" data-icon="times-circle" class="svg-inline--fa fa-times-circle fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm0 448c-110.5 0-200-89.5-200-200S145.5 56 256 56s200 89.5 200 200-89.5 200-200 200zm101.8-262.2L295.6 256l62.2 62.2c4.7 4.7 4.7 12.3 0 17l-22.6 22.6c-4.7 4.7-12.3 4.7-17 0L256 295.6l-62.2 62.2c-4.7 4.7-12.3 4.7-17 0l-22.6-22.6c-4.7-4.7-4.7-12.3 0-17l62.2-62.2-62.2-62.2c-4.7-4.7-4.7-12.3 0-17l22.6-22.6c4.7-4.7 12.3-4.7 17 0l62.2 62.2 62.2-62.2c4.7-4.7 12.3-4.7 17 0l22.6 22.6c4.7 4.7 4.7 12.3 0 17z"></path></svg>
 										</div>
 									</div>
-									
 								</li>
 								<li>
-									<div></div>
 									<div id="img-box2" class="filebox review-file">
 										<label id="upload-label2">
 											<span id="file2">사진 업로드</span>
 											<input type="file" id="img_input2" name="review_img" onchange="handleFiles(this, this.value)" accept="image/jpeg, image/jpg, image/png" /> 
 										</label>
 									</div>
-									<div id="preview" class="none">
+									<div id="preview2" class="none">
 										<div class="btn-flex" onclick="deletePreview(this, 2)">
 											<svg style="color:#615d5d;" aria-hidden="true" width="20px" height="20px" focusable="false" data-prefix="far" data-icon="times-circle" class="svg-inline--fa fa-times-circle fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm0 448c-110.5 0-200-89.5-200-200S145.5 56 256 56s200 89.5 200 200-89.5 200-200 200zm101.8-262.2L295.6 256l62.2 62.2c4.7 4.7 4.7 12.3 0 17l-22.6 22.6c-4.7 4.7-12.3 4.7-17 0L256 295.6l-62.2 62.2c-4.7 4.7-12.3 4.7-17 0l-22.6-22.6c-4.7-4.7-4.7-12.3 0-17l62.2-62.2-62.2-62.2c-4.7-4.7-4.7-12.3 0-17l22.6-22.6c4.7-4.7 12.3-4.7 17 0l62.2 62.2 62.2-62.2c4.7-4.7 12.3-4.7 17 0l22.6 22.6c4.7 4.7 4.7 12.3 0 17z"></path></svg>
 										</div>
@@ -225,7 +223,7 @@ h1, h3{margin : 0;}
 											<input type="file" id="img_input3" name="review_img" onchange="handleFiles(this, this.value)" accept="image/jpeg, image/jpg, image/png" /> 
 										</label>
 									</div>
-									<div id="preview" class="none">
+									<div id="preview3" class="none">
 										<div class="btn-flex" onclick="deletePreview(this, 3)">
 											<svg style="color:#615d5d;" aria-hidden="true" width="20px" height="20px" focusable="false" data-prefix="far" data-icon="times-circle" class="svg-inline--fa fa-times-circle fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm0 448c-110.5 0-200-89.5-200-200S145.5 56 256 56s200 89.5 200 200-89.5 200-200 200zm101.8-262.2L295.6 256l62.2 62.2c4.7 4.7 4.7 12.3 0 17l-22.6 22.6c-4.7 4.7-12.3 4.7-17 0L256 295.6l-62.2 62.2c-4.7 4.7-12.3 4.7-17 0l-22.6-22.6c-4.7-4.7-4.7-12.3 0-17l62.2-62.2-62.2-62.2c-4.7-4.7-4.7-12.3 0-17l22.6-22.6c4.7-4.7 12.3-4.7 17 0l62.2 62.2 62.2-62.2c4.7-4.7 12.3-4.7 17 0l22.6 22.6c4.7 4.7 4.7 12.3 0 17z"></path></svg>
 										</div>

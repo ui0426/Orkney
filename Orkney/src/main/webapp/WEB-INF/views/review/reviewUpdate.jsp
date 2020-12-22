@@ -146,6 +146,7 @@ h1, h3{margin : 0;}
 .review-file{
     width: 93px;
     height: 93px;
+    position: relative;
 }
 
 /* 파일 필드 숨기기 */
@@ -207,9 +208,9 @@ h1, h3{margin : 0;}
 				<h1 class="reviewform-title">리뷰 작성</h1>				
 			</div>
 			<div class="part-line"><hr class="line-c"></div>
-			<form name="reviewForm" id="reviewForm" action="${path }/review/reviewUpdateEnd.do" method="post">
+			<form name="reviewForm" id="reviewForm">
 				<div class="review-small-container">
-					<%-- <input type="hidden" name="review_no" value="${review.review_no }"/> --%>
+					<input type="hidden" name="review_no" value="${review.review_no }"/>
 					<h3 class="review-sub-title">상품</h3>
 					<div class="media">
 					  	<img class="d-flex mr-3 img-size" src="${path }/resources/images/product/${review.product_pic}" alt="상품 이미지">
@@ -242,51 +243,16 @@ h1, h3{margin : 0;}
 						</div>
 					</div>
 					<div class="review-small-container review-contents">
-						<div><h3 class="review-sub-title">사진 첨부</h3></div>
+						<!-- <div><h3 class="review-sub-title">사진 첨부</h3></div> -->
 						<div class="file-container">
 							<ul id="file-list">
-								<li>
-									<div id="img-box1" class="filebox review-file">
-										<label id="upload-label1">
-											<span id="file1">사진 업로드</span>
-											<input type="file" id="img_input1" name="review_img" onchange="handleFiles(this, this.value)" accept="image/jpeg, image/jpg, image/png" /> 
-										</label>
-									</div>
-									<div id="preview1" class="none">
-										<div class="btn-flex" onclick="deletePreview(this, 1)">
-											<svg style="color:#615d5d;" aria-hidden="true" width="20px" height="20px" focusable="false" data-prefix="far" data-icon="times-circle" class="svg-inline--fa fa-times-circle fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm0 448c-110.5 0-200-89.5-200-200S145.5 56 256 56s200 89.5 200 200-89.5 200-200 200zm101.8-262.2L295.6 256l62.2 62.2c4.7 4.7 4.7 12.3 0 17l-22.6 22.6c-4.7 4.7-12.3 4.7-17 0L256 295.6l-62.2 62.2c-4.7 4.7-12.3 4.7-17 0l-22.6-22.6c-4.7-4.7-4.7-12.3 0-17l62.2-62.2-62.2-62.2c-4.7-4.7-4.7-12.3 0-17l22.6-22.6c4.7-4.7 12.3-4.7 17 0l62.2 62.2 62.2-62.2c4.7-4.7 12.3-4.7 17 0l22.6 22.6c4.7 4.7 4.7 12.3 0 17z"></path></svg>
+								<c:forEach items="${review.riList }" var="ri">
+									<li>
+										<div id="preview1" class="review-file">
+											<img src="${path }/resources/upload/review/${ri.renamedFileName}" style="opacity: 0.5; position:absolute; width:100%; height:100%;">
 										</div>
-									</div>
-									
-								</li>
-								<li>
-									<div></div>
-									<div id="img-box2" class="filebox review-file">
-										<label id="upload-label2">
-											<span id="file2">사진 업로드</span>
-											<input type="file" id="img_input2" name="review_img" onchange="handleFiles(this, this.value)" accept="image/jpeg, image/jpg, image/png" /> 
-										</label>
-									</div>
-									<div id="preview2" class="none">
-										<div class="btn-flex" onclick="deletePreview(this, 2)">
-											<svg style="color:#615d5d;" aria-hidden="true" width="20px" height="20px" focusable="false" data-prefix="far" data-icon="times-circle" class="svg-inline--fa fa-times-circle fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm0 448c-110.5 0-200-89.5-200-200S145.5 56 256 56s200 89.5 200 200-89.5 200-200 200zm101.8-262.2L295.6 256l62.2 62.2c4.7 4.7 4.7 12.3 0 17l-22.6 22.6c-4.7 4.7-12.3 4.7-17 0L256 295.6l-62.2 62.2c-4.7 4.7-12.3 4.7-17 0l-22.6-22.6c-4.7-4.7-4.7-12.3 0-17l62.2-62.2-62.2-62.2c-4.7-4.7-4.7-12.3 0-17l22.6-22.6c4.7-4.7 12.3-4.7 17 0l62.2 62.2 62.2-62.2c4.7-4.7 12.3-4.7 17 0l22.6 22.6c4.7 4.7 4.7 12.3 0 17z"></path></svg>
-										</div>
-									</div>
-								</li>
-								<li>
-									<div></div>
-									<div id="img-box3" class="filebox review-file">
-										<label id="upload-label3">
-											<span id="file3">사진 업로드</span>
-											<input type="file" id="img_input3" name="review_img" onchange="handleFiles(this, this.value)" accept="image/jpeg, image/jpg, image/png" /> 
-										</label>
-									</div>
-									<div id="preview3" class="none">
-										<div class="btn-flex" onclick="deletePreview(this, 3)">
-											<svg style="color:#615d5d;" aria-hidden="true" width="20px" height="20px" focusable="false" data-prefix="far" data-icon="times-circle" class="svg-inline--fa fa-times-circle fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm0 448c-110.5 0-200-89.5-200-200S145.5 56 256 56s200 89.5 200 200-89.5 200-200 200zm101.8-262.2L295.6 256l62.2 62.2c4.7 4.7 4.7 12.3 0 17l-22.6 22.6c-4.7 4.7-12.3 4.7-17 0L256 295.6l-62.2 62.2c-4.7 4.7-12.3 4.7-17 0l-22.6-22.6c-4.7-4.7-4.7-12.3 0-17l62.2-62.2-62.2-62.2c-4.7-4.7-4.7-12.3 0-17l22.6-22.6c4.7-4.7 12.3-4.7 17 0l62.2 62.2 62.2-62.2c4.7-4.7 12.3-4.7 17 0l22.6 22.6c4.7 4.7 4.7 12.3 0 17z"></path></svg>
-										</div>
-									</div>
-								</li> 
+									</li>
+								 </c:forEach>
 							</ul>
 						</div>
 					</div>
@@ -297,17 +263,29 @@ h1, h3{margin : 0;}
 			</form>
 		</div>
 	</div>
+	<!-- Modal -->
+	<div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLabel">리뷰 수정</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	      	<h5 id="modalcontent"></h5>
+	      </div>
+	      <div class="modal-footer">
+	        <button id="check-btn" type="button" class="btn btn-primary">확인</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
 </section>
 
 <script>
-	$(function(){
-		var riList = ${review.riList.renamedFileName};
-		console.log(riList);
-		for(var i=1; i<=riList; i++ ){
-			
-		}
-	});
-	
+
 	//별점
 	var locked = 0;
 	var text = "";
@@ -425,7 +403,7 @@ h1, h3{margin : 0;}
 	}
 	
 	//이미지 미리보기
-	function handleFiles(file, name){
+	/* function handleFiles(file, name){
 		console.log(file);
 		console.log("파일경로 이름 확장명 : "+name);
 		console.log(name.length);
@@ -459,10 +437,10 @@ h1, h3{margin : 0;}
 		}else{
 			alert("이미지 아니다");
 		}
-	};
+	}; */
 	
 	//이미지 삭제하기
-	function deletePreview(btn, i){
+	/* function deletePreview(btn, i){
 	  console.log(btn);
 	  console.log(i);
 	  var div = btn.parentNode;
@@ -484,7 +462,7 @@ h1, h3{margin : 0;}
 	  $(box).removeClass("none").addClass("filebox").addClass("review-file");
 	  console.log("다시 새로운 인풋");
 	  
-	}
+	} */
 
         
 	//최종 수정 등록
@@ -501,9 +479,23 @@ h1, h3{margin : 0;}
 				alert("내용을 입력해주세요");
 				return false;
 			};
-			
-			$("#reviewForm").submit();
-	       
+			$.ajax({
+				url:"${path}/review/reviewUpdateEnd.do",
+				data:$("#reviewForm").serialize(),
+				success:data=>{
+					if(data > 0){
+						$("#modalcontent").html("리뷰 수정이 완료되었습니다.");
+					}else{
+						$("#modalcontent").html("에러가 발생했습니다. 고객센터에 문의해주세요.");
+					}
+					$("#updateModal").modal();
+				}
+			})
+	})
+	
+	$("#check-btn").click(e=>{
+		window.opener.location.href="${path}/review/reviewList.do?s=wrote";
+		window.open("about:blank","_self").close();
 	})
  
 </script>

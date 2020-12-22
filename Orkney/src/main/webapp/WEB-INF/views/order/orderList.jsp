@@ -67,30 +67,6 @@
 								</div>
 							</c:if>
 							</c:forEach>
-							<%-- <table class="orderList_Table">
-								<caption class="orderList_Caption">처리중 주문</caption>
-								<thead>
-									<tr>
-										<th>주문 번호(iSell 번호)</th>
-										<th>주문 날짜</th>
-										<th>현황</th>
-										<th></th>
-									</tr>
-								</thead>
-								<tbody>
-									<c:forEach items="${list }" var="o">
-									<c:set var="state" value="${o.ORDER_STATE }"/>
-										
-											<tr>
-												<td class="list-item"><c:out value="${o.ORDER_NO }"/></td>
-												<td class="list-item"><c:out value="${o.ORDER_DATE }"/></td>
-												<td class="list-item"><c:out value="${o.ORDER_STATE }"/></td>
-												<td class="list-item"><a href="${path }/order/orderView.do?oNo=${o.ORDER_NO}">주문 내역 보기</a></td>
-											</tr>
-										
-									</c:forEach>
-								</tbody>
-							</table> --%>
 						</div>
 					</div>
 					<div class="orderList_desktop">
