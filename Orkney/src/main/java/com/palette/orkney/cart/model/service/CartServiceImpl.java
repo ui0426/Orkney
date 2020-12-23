@@ -80,6 +80,12 @@ public class CartServiceImpl implements CartService{
 		return dao.insertDetail(session,cart);
 	}
 
+	@Override
+	public int countProduct(String productNo,String cartNo) {	
+		return dao.countProduct(session,productNo,cartNo);
+	}
+	
+	
 	
 	
 

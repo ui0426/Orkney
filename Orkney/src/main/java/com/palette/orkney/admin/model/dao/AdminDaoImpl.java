@@ -119,6 +119,11 @@ public class AdminDaoImpl implements AdminDao {
 	}
 
 	@Override
+	public Map countOrderDetailState(SqlSession session) {
+		return session.selectOne("admin.countOrderDetailState");
+	}
+
+	@Override
 	public int totalOrder(SqlSession session) {	
 		return session.selectOne("admin.totalOrder");
 	}
@@ -157,6 +162,27 @@ public class AdminDaoImpl implements AdminDao {
 		// TODO Auto-generated method stub
 		return session.update("admin.productPer",list);
 	}
+
+	public int selectRefundCount(SqlSession session, String oNo) {
+		return session.selectOne("admin.selectRefundCount", oNo);
+	}
+
+	@Override
+	public int updateStateAndSort(SqlSession session, Map m) {
+		System.out.println(m);
+		return session.update("admin.updateStateAndSort", m);
+	}
+
+	@Override
+	public List<OrderDetail> selectOrderOngoingList(SqlSession session) {
+		return session.selectList("admin.selectOrderOngoingList");
+	}
+
+	@Override
+	public int updateSortEnd(SqlSession session, Map m) {
+		return session.update("admin.updateSortEnd", m);
+	}	
+
 	
 	@Override
 	public int deleteProduct(SqlSession session,String no) {
@@ -195,6 +221,7 @@ public class AdminDaoImpl implements AdminDao {
 		// TODO Auto-generated method stub
 		return session.insert("admin.insertProductImage", pi);
 	}	
+	
 	
 	
 }

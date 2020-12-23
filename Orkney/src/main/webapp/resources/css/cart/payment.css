@@ -95,6 +95,7 @@
     	border:none;
     	outline: none;
         font-size: 20px;
+            width: 100%;
     }
     .padding-input{padding-top: 6px;}
     
@@ -115,6 +116,10 @@
     }
     .btn-secondary1{
     background-color: #0058a3 !important;
+    color: white; 
+    }
+        .btn-secondary1:hover{
+    background-color: #002b50 !important;
     color: white; 
     }
     .btn-secondary1:hover{

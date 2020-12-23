@@ -34,6 +34,13 @@ public class OrderServiceImpl implements OrderService {
 	}
 	
 	@Override
+	public List<Map> selectOrderEndList(String mNo) {
+		return dao.selectOrderEndList(session, mNo);
+	}
+
+
+
+	@Override
 	public Orders selectOrder(String oNo) {
 		return dao.selectOrder(session, oNo);
 	}

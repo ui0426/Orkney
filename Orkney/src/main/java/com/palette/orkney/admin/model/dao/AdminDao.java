@@ -46,12 +46,15 @@ public interface AdminDao {
 
 	Map countOrderState(SqlSession session);
 	
+	Map countOrderDetailState(SqlSession session);
+	
 	int totalOrder(SqlSession session);
 	
 	List<Orders> selectOrderChangeList(SqlSession session, Map s);
 	
 	int updateOrderListState(SqlSession session, Map m);
 	
+
 	List<OrderDetail> selectOrderDetailChangeList(SqlSession session, String state);
 
 	List<Map> productList(SqlSession session, int cPage, int numPerPage, Map<String,Object> all);
@@ -63,4 +66,15 @@ public interface AdminDao {
 	List<Map> productOne(SqlSession session, Map<String,Object> list);
 	int productInsert(SqlSession session, Product product);
 	int insertProductImage(SqlSession session, Product_image pi);
+
+
+	
+	int selectRefundCount(SqlSession session, String oNo);
+	
+	int updateStateAndSort(SqlSession session, Map m);
+	
+	List<OrderDetail> selectOrderOngoingList(SqlSession session);
+	
+	int updateSortEnd(SqlSession session, Map m);
+
 }

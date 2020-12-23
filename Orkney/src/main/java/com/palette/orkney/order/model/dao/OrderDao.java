@@ -14,6 +14,8 @@ public interface OrderDao {
 	
 	List<Map> selectOrderList(SqlSession session, String mNo);
 	
+	List<Map> selectOrderEndList(SqlSession session, String mNo);
+	
 	Orders selectOrder(SqlSession session, String oNo);
 
 	List<OrderDetail> selectOrderDetail(SqlSession session, String oNo);

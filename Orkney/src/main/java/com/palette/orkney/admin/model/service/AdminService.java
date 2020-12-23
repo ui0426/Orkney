@@ -49,6 +49,14 @@ public interface AdminService {
 	List<Orders> updateOrderListState(int cPage, int numPerPage, Map m, String search_option, String keyword);
 	
 	List<OrderDetail> selectOrderDetailChangeList(String state);
+	
+	int selectRefundCount(String oNo);
+	
+	int updateStateAndSort(Map m);
+	
+	List<OrderDetail> selectOrderOngoingList();
+	
+	int updateSortEnd(Map m);
 
 	List<Map> productList(int cPage, int numPerPage, Map<String,Object> all);
 	int productTotalData();

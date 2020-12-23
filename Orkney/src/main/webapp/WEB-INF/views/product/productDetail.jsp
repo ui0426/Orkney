@@ -14,7 +14,6 @@
 .between {
 	justify-content: space-between;
 }
-
 .fontbor {
 	font-weight: 900;
 }
@@ -468,14 +467,14 @@ height: 32rem;
 							<p id="colorName" class="fontbor"></p>
 							<div class="row text-center text-md-left">
 							
-								<div class="" id="colorProductCon">
+								<div class="row" id="colorProductCon">
 									
 									
 									
 								<div class="" style="display: none;">
 										<biv class="" href="" id="colorProductA" onclick="colorClick();">
-											<div class="">
-												<img loading="" class="" alt="" sizes="40px" src="" id="colorProduct" >
+											<div class="" style="margin: 1rem;">
+												<img loading="" class="" alt="" sizes="40px" src="" id="colorProduct" style="width: 4rem;">
 											</div>
 										</div>	
 									</div>
@@ -488,17 +487,44 @@ height: 32rem;
 								<div class="col-md-12 text-center text-md-left">
 								<br>
 								
-<button id="btnck" class="btn btn-primary btn-rounded col-8 productNo" style="background-color: #004f93 !important; border-radius: 52px; width " data-toggle="modal" data-target="#modalAbandonedCart">
+<button id="btnck" class="btn btn-primary btn-rounded col-8 productNo" style="background-color: #004f93 !important; border-radius: 52px;" data-toggle="modal" data-target="#modalAbandonedCart">
 			<i class="fas fa-cart-plus mr-2" aria-hidden="true"></i>																				
 </button>									
-									<button class="" style="border: 1px solid gray; border-radius: 52px; width: 40px; height: 40px;">
+<button data-toggle="modal" data-target="#modalAddWish" onclick="fn_addWishModal();" class="" style="border: 1px solid gray; border-radius: 52px; width: 40px; height: 40px;">
 										<i class="far fa-heart"></i>
-									</button>
+</button>
 								</div>
 							</div>
+							
+<!-- Modal: modalAbandonedCart-->
+<div class="modal fade right" id="modalAddWish" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true" data-backdrop="false">
+  <div class="modal-dialog modal-side modal-top-right modal-notify modal-info" role="document">
+    <!--Content-->
+    <div class="modal-content" id="insertWish">
+    </div>
+    <!--/.Content-->
+  </div>
+</div>
+<!-- Modal: modalAbandonedCart-->							
 <script>
+function fn_addWishModal(){
+	<c:forEach items="${list}" var="r" varStatus="s" >
+	$.ajax({
+		type: 'post',
+		data: {pNo:"${r.PRODUCT_NO}"},
+		url: '${ path }/wishlist/insertWishModal.do',
+		success: function(data){
+			console.log(data);
+			$('#insertWish').html(data);
+		}
+		
+	})
+	</c:forEach>
+}
 //장바구니 insert ajax
 $(function(){
+	
 	<c:forEach items="${list}" var="r" varStatus="s" >				
 		$("#btnck").click(e=>{
 			$.ajax({
@@ -507,11 +533,10 @@ $(function(){
 					productNo:"${r.PRODUCT_NO}",
 					productPrice:${r.PRODUCT_PRICE}
 					},
-				success:data=>{
-					console.log("나와라");					
-				}
+				success:data=>{}
 			})
 		})		
+
 	</c:forEach>	
 });
 </script>

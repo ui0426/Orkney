@@ -7,9 +7,11 @@
 		   
 		<h1 class="wl-selector" id="wl-name" onclick="fn_wlSelector(this)">${ wish.wishlist_name }<span></span></h1> <!--눌렀을 때 모달창-->
            <c:if test="${ wish.wishlist_detail.isEmpty() }">
-           <div id="test_box">
-	       <div>위시리스트 없쩡</div>
-	       </div>
+	           <div id="no-box">
+		       	<img src="${path }/resources/img/svg/no_wishlist.svg">
+		       	<div class="no-text"><p>시간이 더 필요하신가요.?</p><p>저장한 후 나중에 구매해보세요.</p></div>
+		       <button type="button"  onclick="location.href='${path}'" class="search-btn">제품검색</button>
+		       </div>
 	       </c:if>
 	       
         <div class="product-list"> <!--제품 쫘롸락 나오는 박스-->
@@ -41,7 +43,7 @@
 		                	<button onclick="fn_countUpBtn(this)" type="button" class="countBtn btn_up" style="border-bottom: 1px solid #666; padding: 0px 4px;"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="caret-up" class="svg-inline--fa fa-caret-up fa-w-10" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M288.662 352H31.338c-17.818 0-26.741-21.543-14.142-34.142l128.662-128.662c7.81-7.81 20.474-7.81 28.284 0l128.662 128.662c12.6 12.599 3.676 34.142-14.142 34.142z"></path></svg></button>
 		                	<button onclick="fn_countDownBtn(this)" type="button" class="countBtn btn_down"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="caret-down" class="svg-inline--fa fa-caret-down fa-w-10" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"></path></svg></button>
 		                </div>
-		                <div class="addCart"><button class="wl-oneAddcart-btn">장바구니에 추가</button></div>
+		                <div class="addCart" onclick="fn_addCart(this)" data-toggle="modal" data-target="#modalAbandonedCart" ><button class="wl-oneAddcart-btn">장바구니에 추가</button></div>
 		                <div class="deleteBtn-box" style="display: none;">
 		                	<div class="deleteBtn-text"><p>이 제품을 삭제하시겠어요?</p></div>
 		                	<div class="deleteBtn-reset" onclick="fn_deleteBtnReset(this)"><button>취소</button></div>
@@ -52,11 +54,11 @@
            </div>
            </c:forEach>
            </div>
-           </c:if>
 	       <div class="wl-price"> 
 				<span>총 주문금액</span>
 				<span>&#8361; <fmt:formatNumber value="${ allPrice }" pattern="###,###"/></span>
 	       </div>
         <div class="wl-addcart"><button class="wl-allAddcart-btn">모두 장바구니에 추가</button></div>
+           </c:if>
        </div>
            

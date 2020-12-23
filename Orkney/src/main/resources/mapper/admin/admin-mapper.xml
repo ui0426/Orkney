@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="admin">
+
   	<select id="userCount" resultType="String">
   		SELECT * FROM MEMBER M WHERE EXISTS(SELECT * FROM CHATTING C WHERE M.MEMBER_NO=C.MEMBER_NO)
   	</select>
@@ -85,9 +86,14 @@
   	</update>
   	
   	<select id="countOrderState" resultType="map">
-	select count(case when order_state='주문확인' then 1 end) as "주문확인",count(case when order_state='취소신청1' or order_state='취소신청2' then 1 end) as "취소신청",
-	count(case when sort='교환신청' then 1 end)as "교환신청",count(case when sort='반품신청' then 1 end)as "반품신청"
-	from order_detail join orders using(order_no)
+		select count(case when order_state='주문확인' then 1 end) as "주문확인",
+			count(case when order_state='취소신청1' or order_state='취소신청2' then 1 end) as "취소신청"
+		from orders
+  	</select>
+  	<select id="countOrderDetailState" resultType="map">
+		select count(case when sort='교환신청' then 1 end)as "교환신청",
+			count(case when sort='반품신청' then 1 end)as "반품신청"
+		from order_detail
   	</select>
   	
   	<select id="totalOrder" resultType="_int">
@@ -170,4 +176,34 @@
 	<insert id="insertProductImage" parameterType="Product_image">
 		INSERT INTO PRODUCT_IMAGE VALUES(#{renamedFileName}, #{product_no}, #{product_color})
 	</insert>
+  	
+  	<select id="selectRefundCount" parameterType="string" resultType="_int">
+  		select COUNT(*) from order_detail where (SELECT COUNT(*) FROM ORDER_DETAIL where
+		order_no=#{oNo})=(SELECT COUNT(*) FROM ORDER_DETAIL WHERE SORT LIKE '%반품%'
+		and order_no=#{oNo}) and order_no=#{oNo} and sort like '%신청%'
+  	</select>
+  	
+  	<update id="updateStateAndSort" parameterType="map">
+  		UPDATE
+  		<choose>
+  		<when test="state=='제품준비중' or state=='취소완료'">
+  			 ORDERS SET ORDER_STATE=#{state} WHERE ORDER_NO=#{no}
+  		</when>
+  		<when test="state!='제품준비중' and state!='취소완료'">
+  			 ORDER_DETAIL SET SORT=#{state, jdbcType=VARCHAR} WHERE ORDER_DETAIL_NO=#{no}
+  		</when>
+  		</choose>
+  	</update>
+  	
+  	<select id="selectOrderOngoingList"  resultType="orderDetail">
+  		SELECT * FROM ORDER_DETAIL D JOIN ORDERS O ON D.ORDER_NO=O.ORDER_NO 
+                                            JOIN MEMBER M ON O.MEMBER_NO=M.MEMBER_NO 
+                                            LEFT OUTER JOIN POINT P ON O.POINT_NO=P.POINT_NO 
+                                            JOIN PRODUCT P ON D.PRODUCT_NO=P.PRODUCT_NO WHERE SORT LIKE '%처리중'
+  	</select>
+  	
+  	<update id="updateSortEnd" parameterType="map">
+  		UPDATE ORDER_DETAIL SET SORT=#{sort} WHERE ORDER_DETAIL_NO=#{no}
+  	</update>
+
 </mapper>

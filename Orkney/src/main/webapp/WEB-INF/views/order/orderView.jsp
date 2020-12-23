@@ -1334,16 +1334,7 @@ $("#e-r-btn").click(e =>{
 	data.append("refund_reason", rReason);
 	data.append("refund_content", rContent);
 	data.append("file",rPic[0] );
-	/* var data = {
-			"order_detail_no": odNo,
-			"refund_qty": rQty,
-			"refund_reason": rReason,
-			"refund_content": rContent,
-	} */
-	//console.log(data);
-	/* for (var pair of data.entries()) {
-        console.log(pair[0]+ ', ' + pair[1]); 
-    } */
+	
     for (var key of data.keys()) {
 
    	  console.log(key);
@@ -1366,14 +1357,11 @@ $("#e-r-btn").click(e =>{
 		success: data => {
 			if(data == '교환신청'){
 				$("#result-msg").html("교환 신청이 접수되었습니다.");
-				//$(".exchange-refund").html("교환 신청 처리중입니다.");
 			}else{
 				$("#result-msg").html("반품 신청이 접수되었습니다.");
-				//$(".exchange-refund").html("반품 신청 처리중입니다.");
 			}
 			$(".r-request-1").css("display","none");
 			$(".r-request-2").css("display","block");
-			//$(".result-buttons").css("display","none");
 			
 			
 		}
@@ -1414,39 +1402,6 @@ $("#e-r-btn").click(e =>{
 		}
 	});
 	
-	//교환신청 버튼 눌렀을 때
-	/* $(".change_do").click(e=>{
-		var odNo = $(event.target).parent().children("input.order_detail_no_input").val();
-		console.log(odNo);
-		$.ajax({
-			url:"${path}/order/updateSort.do",
-			data:{odNo:odNo,sort:'교환신청'},
-			success:msg=>{
-				alert(msg);									
-				$(".result-buttons").css("display","none");
-				//$(e.target).siblings().css("display","none");
-				$(".exchange-refund").html("교환 신청 처리중입니다.");
-			}
-		});
-	}); */
-	
-	//반품신청 버튼 눌렀을 때
-	/* $(".refund_do").click(e=>{
-		var odNo = $(event.target).parent().children("input.order_detail_no_input").val();
-		console.log(odNo);
-		$.ajax({
-			url:"${path}/order/updateSort.do",
-			data:{odNo:odNo,sort:'반품신청'},
-			success:msg=>{
-				alert(msg);
-				$(".result-buttons").css("display","none");
-				//$(e.target).css("display","none");
-				//$(e.target).siblings().css("display","none");
-				$(".exchange-refund").html("반품 신청 처리중입니다.");
-			}
-		});
-	}); */
-	
 	//구매확정 버튼 눌렀을 때
 	 $(".confirm_do").click(e=>{
 		var oNo = $("#oNo").val();
@@ -1469,7 +1424,6 @@ $("#e-r-btn").click(e =>{
 			success:data => {
 				console.log(data);
 				if(data == true){
-					//location.href="${path}/review/reviewForm.do?odNo="+odNo;
 					location.href="${path}/review/reviewForm.do?odNo="+odNo;
 				}else{
 					$("#modalBtn").trigger("click");

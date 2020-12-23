@@ -123,6 +123,19 @@ public class AdminController {
 		mv.setViewName("ajax/orderChangeList");
 		return mv;
 	}
+	
+	@RequestMapping("/admin/selectRefundList.do")
+	@ResponseBody
+	public int selectRefundPoint(String oNo, int rPoint) {
+		System.out.println(oNo + rPoint);
+		int refundCount = service.selectRefundCount(oNo);
+		System.out.println(refundCount);
+		if(refundCount != 1) {
+			rPoint = 0;
+		}
+		System.out.println(rPoint);
+		return rPoint;
+	}
 
 	@RequestMapping("admin/orderView.do")
 	public ModelAndView orderView(String oNo, ModelAndView mv) {
@@ -303,6 +316,7 @@ public class AdminController {
 		 
 		return mv;
 	}
+
 //	제품관리 페이지
 	@RequestMapping("/admin/adminProduct.do")
 	@ResponseBody
@@ -405,5 +419,42 @@ public class AdminController {
 		
 		mv.setViewName("admin/product/adminProduct");
 		return mv;
+	}
+
+	
+	@RequestMapping("/admin/allowStateAndSort.do")
+	@ResponseBody
+	public boolean allowStateAndSort(String state, String no) {
+		System.out.println("넘긴 값 : "+state+" 번호 "+no);
+		Map m = new HashMap();
+		m.put("state", state);
+		m.put("no", no);
+		int result = service.updateStateAndSort(m);
+		if(result > 0) return true;
+		else return false;
+	}
+	
+	@RequestMapping("/admin/orderOngoingData.do")
+	@ResponseBody
+	public ModelAndView orderOngoingData() {
+		ModelAndView mv = new ModelAndView();
+		List<OrderDetail> list = service.selectOrderOngoingList();
+		mv.addObject("list", list);
+		mv.setViewName("ajax/orderOngoingList");
+		return mv;
+	}
+	
+	@RequestMapping("/admin/orderRefundEnd.do")
+	@ResponseBody
+	public boolean orderRefundEnd(String sort, int no) {
+		if(sort.equals("교환처리중")) sort="교환완료";
+		else sort="반품완료";
+		Map m = new HashMap();
+		m.put("sort", sort);
+		m.put("no", no);
+		int result = service.updateSortEnd(m);
+		if(result >0) return true;
+		else return false;
+
 	}
 }
