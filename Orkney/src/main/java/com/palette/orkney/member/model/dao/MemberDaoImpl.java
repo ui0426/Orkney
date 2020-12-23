@@ -201,5 +201,11 @@ public class MemberDaoImpl implements MemberDao {
 		return session.selectList("member.pointList", data);
 	}
 
+	@Override
+	public int emailAuth(SqlSession session, String id) {
+		// TODO Auto-generated method stub
+		return session.update("member.emailAuth",id);
+	}
+
 	
 }

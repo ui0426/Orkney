@@ -62,15 +62,15 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public List<Map> memberList(int cPage,int numPerPage) {
+	public List<Map> memberList(int cPage,int numPerPage,Map data) {
 		// TODO Auto-generated method stub
-		return dao.memberList(session,cPage,numPerPage);
+		return dao.memberList(session,cPage,numPerPage,data);
 	}
 
 	@Override
-	public int totalData() {
+	public int totalData(Map data) {
 		// TODO Auto-generated method stub
-		return dao.totalData(session);
+		return dao.totalData(session,data);
 	}
 
 	@Override

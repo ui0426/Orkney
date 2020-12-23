@@ -85,5 +85,7 @@ public interface MemberService {
 	//포인트 내역 가져오기
 	List<Point> pointList(Map data);
 
+	int emailAuth(String id);
+
 
 }

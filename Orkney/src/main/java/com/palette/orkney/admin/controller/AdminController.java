@@ -208,10 +208,11 @@ public class AdminController {
 	}
 
 	@RequestMapping("admin/memberListData.do")
-	public String memberListData(@RequestParam(value = "cPage", defaultValue = "0") int cPage, Model m) {
+	public String memberListData(@RequestParam(value = "cPage", defaultValue = "0") int cPage
+			,@RequestParam Map data, Model m) {
 		int numPerPage = 10;
-		List<Map> list = service.memberList(cPage, numPerPage);
-		int totalData = service.totalData();
+		List<Map> list = service.memberList(cPage, numPerPage,data);
+		int totalData = service.totalData(data);
 		String pageBar = PageFactory.getPageBar(totalData, cPage);
 		m.addAttribute("list", list);
 		m.addAttribute("pageBar", pageBar);
