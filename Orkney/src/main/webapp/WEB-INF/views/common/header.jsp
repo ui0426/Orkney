@@ -16,18 +16,27 @@
     <link rel="stylesheet" href="${path}/resources/css/common/header/header-aside.css">
     <link rel="stylesheet" href="${path}/resources/css/common/header/test.css">
     <link rel="stylesheet" href="${path}/resources/css/common/header/search-modal.css">
-    
-    
-    
+  
 
+    
+    
+	
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.css">
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
-        
+     
+   
+	  
+  
+
+
     <script src="https://unpkg.com/swiper/swiper-bundle.js"></script>
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+	
+	
+	
 	
 	 <!-- 웹소켓 이용위해 -->
     <script type="text/javascript"
@@ -75,7 +84,7 @@
                 <a href="${path}"><img src="https://www.ikea.com/kr/ko/static/ikea-logo.f88b07ceb5a8c356b7a0fdcc9a563d63.svg" alt=""></a>
             </div>
             <div class="header-menu">
-                <span><a href="${path }/product/products.do?category=all&sale=""">모든제품</a> </span>
+                <span><a href="${path }/product/products.do?category=all&sale=">모든제품</a> </span>
                 <span><a href="${path}/product/rooms.do">디지털 쇼룸</a></span>
             </div>
             <div class="header-search">
@@ -203,72 +212,72 @@
 		        		<span class="hnf-menu-container-product-head">모든 상품</span>
 						<ul class="hnf-menu-container-product-main">
 							<li>
-								<a  href="${path }/product/products.do?category=책장/선반유닛">
+								<a  href="${path }/product/products.do?category=책장/선반유닛&sale=">
 									책장/선반유닛
 								</a>
 							</li>
 							<li>
-								<a href="${path }/product/products.do?category=서랍">
+								<a href="${path }/product/products.do?category=서랍&sale=">
 									서랍
 								</a>
 							</li>
 							<li>
-								<a href="${path }/product/products.do?category=의자">
+								<a href="${path }/product/products.do?category=의자&sale=">
 									의자
 								</a>
 							</li>
 							<li>
-								<a href="${path }/product/products.do?category=바테이블/의자">
+								<a href="${path }/product/products.do?category=바테이블/의자&sale=">
 									바테이블/의자
 								</a>
 							</li>
 							<li>
-								<a href="${path }/product/products.do?category=카페가구">
+								<a href="${path }/product/products.do?category=카페가구&sale=">
 									카페가구
 								</a>
 							</li>
 							<li>
-								<a href="${path }/product/products.do?category=아동식선반">
+								<a href="${path }/product/products.do?category=아동식선반&sale=">
 									이동식 선반
 								</a>
 							</li>
 							<li>
-								<a href="${path }/product/products.do?category=옷장">
+								<a href="${path }/product/products.do?category=옷장&sale=">
 									옷장
 								</a>
 							</li>
 							<li>
-								<a href="${path }/product/products.do?category=수납장/장식장">
+								<a href="${path }/product/products.do?category=수납장/장식장&sale=">
 									수납장/장식장
 								</a>
 							</li>
 							<li>
-								<a href="${path }/product/products.do?category=거실장/전장/콘솔테이블">
+								<a href="${path }/product/products.do?category=거실장/전장/콘솔테이블&sale=">
 									거실장/천장/콘솔테이블
 								</a>
 							</li>
 							<li>
-								<a href="${path }/product/products.do?category=TV/멀티미디어가구">
+								<a href="${path }/product/products.do?category=TV/멀티미디어가구&sale=">
 									TV/멀티미디어가구
 								</a>
 							</li>
 							<li>
-								<a href="${path }/product/products.do?category=침대">
+								<a href="${path }/product/products.do?category=침대&sale=">
 									침대
 								</a>
 							</li>
 							<li>
-								<a href="${path }/product/products.do?category=소파/암체어">
+								<a href="${path }/product/products.do?category=소파/암체어&sale=">
 									소파/암체어
 								</a>
 							</li>
 							<li>
-								<a href="${path }/product/products.do?category=조명">
+								<a href="${path }/product/products.do?category=조명&sale=">
 									조명
 								</a>
 							</li>
 							<li>
-								<a href="${path }/product/products.do?category=식탁/책상">
+								<a href="${path }/product/products.do?category=식탁/책상&sale=">
 									식탁/책상
 								</a>
 							</li>

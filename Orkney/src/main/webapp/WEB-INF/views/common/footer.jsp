@@ -158,9 +158,10 @@
 </footer>
 <!-- Footer -->
 <script>
+
 	$(".enBtn").click(e=>{
 		location.href='${path}/member/signup.do';
-	})
+	}) 
 </script>
  
  

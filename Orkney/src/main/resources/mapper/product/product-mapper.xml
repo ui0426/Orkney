@@ -42,6 +42,7 @@
 	    LEFT OUTER JOIN PRODUCT_IMAGE I
 	    ON P.PRODUCT_NO = I.PRODUCT_NO
 		WHERE P.PRODUCT_NO =#{productNo}
+		
 	</select>
 
 
@@ -70,7 +71,7 @@
 	   <if test="sale!=''">
 	   WHERE SALE_PER IS NOT NULL
 	   </if>
-	   <if test="category != 'all'">
+	   <if test="category != 'all'and sale==''">
 	   	WHERE B.BIG_CATEGORY_CONTENT = #{category} 
 	   </if>
 	   <if test="category != 'all' and sale!=''">
@@ -386,13 +387,19 @@
   	<select id="selectRooms" resultType="map" parameterType="string">
   		SELECT * FROM SHOWROOM WHERE ROOM_CATEGORY=#{type}
   	</select>
-   	<select id="selectRoomsProduct" resultType="map" parameterType="string">
+   	<select id="selectRoomsProduct" resultType="map" parameterType="map">
   		  SELECT * FROM ROOMS E
 				JOIN PRODUCT R ON E.PRODUCT_NO= R.PRODUCT_NO
              JOIN PRODUCT_IMAGE J ON E.PRODUCT_NO= J.PRODUCT_NO
                  JOIN SHOWROOM Q ON Q.ROOM_NO= E.ROOM_NO
+                 <if test="type!=null">
                 WHERE ROOM_CATEGORY= #{type}  AND J.PRODUCT_COLOR='normal' 
-               
+               </if>
+               <if test="  typeTo!=null">
+                WHERE Q.ROOM_NO= #{typeTo}  AND J.PRODUCT_COLOR='normal' 
+              	</if>
+              	 
+             	
 	</select> 
 	<select id="roomsDetail" resultType="map" parameterType="string">
 		 SELECT * FROM ROOMS E
@@ -429,10 +436,10 @@
 	<select id="sale" resultType="map">
 		
 				
-		 SELECT * FROM PRODUCT E
+		SELECT * FROM (SELECT * FROM PRODUCT E
 				 JOIN PRODUCT_IMAGE J ON E.PRODUCT_NO= J.PRODUCT_NO
 				  JOIN BIG_CATEGORY T ON T.BIG_CATEGORY_NO=E.BIG_CATEGORY_NO
-				WHERE J.PRODUCT_COLOR='normal' AND E.SALE_PER IS NOT NULL			
+				WHERE J.PRODUCT_COLOR='normal' AND E.SALE_PER IS NOT NULL)WHERE  ROWNUM <![CDATA[<]]>2		
 
 	</select>
 	<update id="insertRoom" parameterType="map" >
@@ -485,12 +492,23 @@
 		 #{type}
 		</foreach>
 	</select> 
-	
+	<delete id="deleteRoom" parameterType="map">
+		DELETE FROM ROOMS WHERE ROOM_NO = #{categoryNo}
+	</delete>
+	<select id="delectSelectRoom" resultType="map">
+	SELECT *FROM ROOMS
+	</select>
+	<delete id="delectShowroom" parameterType="string" >
+		DELETE FROM ROOMS WHERE PRODUCT_NO = #{deleteRoom}
+	</delete>
+		
+		
+		
 		<!--재고갱신 -->
 	<update id="updateStock" parameterType="map">
 		UPDATE PRODUCT SET PRODUCT_STOCK=#{stock} WHERE PRODUCT_NO=#{no}
 	</update>	
-
+	
 </mapper>
 		
 

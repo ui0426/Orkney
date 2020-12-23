@@ -51,14 +51,17 @@
 					<ul>
 						<li>
 							<a> 
+								
+										
+											
 								 <fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today" />  
 								<fmt:formatDate value="${p.PRODUCT_ENROLL_DATE }" pattern="yyyy-MM-dd" var="write_dt"/>
-								<span class="rm-pb-et-new bottom-mig" style="display: inline;">${today >= write_dt?'NEW':""}</span>
+								<span class="rm-pb-et-new bottom-mig" style="display: inline;">${today <= write_dt?"NEW":""}</span>
 								<span class="ev-pb-et-p bottom-mig">더 낮은 새로운 가격</span> 
 								<span class="ev-bt-name bottom-mig">${p.PRODUCT_NAME}</span> 
 								<span class="rm-bt-sp bottom-mig"> ${p.BIG_CATEGORY_CONTENT} </span>
 								<span class="rm-bt-et-price bottom-mig"><fmt:setLocale value="ko_KR" />
-								<fmt:formatNumber type="currency" value="${p.PRODUCT_PRICE*(p.SALE_PER/100)}" /></span> 
+								<fmt:formatNumber type="currency" value="${p.SALE_PER}" /></span> 
 								<span class="ev-bt-price" style="font-size:1rem;"><fmt:setLocale value="ko_KR" /> 
 								<fmt:formatNumber type="currency" value="${p.PRODUCT_PRICE}" /></span>
 							</a>
@@ -101,14 +104,16 @@
 											<img class="card-img-top"
 												src="${path}/resources/images/product/${p.PRODUCT_PIC}"
 												alt="Card image cap"> <a
-												href="${path}/product/productDetail.do">
+												href="${path}/product/productDetail.do?productno=${p.PRODUCT_NO}">
 												<div class="mask rgba-white-slight"></div>
 											</a>
 										</div>
 										<!--Card content-->
 										<div class="card-body">
+										
+										<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today" /> 
 										<fmt:formatDate value="${p.PRODUCT_ENROLL_DATE }" pattern="yyyy-MM-dd" var="write_dt"/>
-											<span class="rm-pb-et-new">${today >= write_dt?'NEW':""}</span>
+											<span class="rm-pb-et-new">${today <= write_dt?"NEW":""}</span>
 											<span class="ev-pb-et-p-rm">더 낮은 새로운 가격</span>
 											
 											<!--Title-->
@@ -123,7 +128,7 @@
 											 <p class="card-text marginZero event-price"><fmt:setLocale value="ko_KR" />
 												<fmt:formatNumber type="currency" value="${p.PRODUCT_PRICE}" /></p>
 											<p class="card-text marginZero product-price"><fmt:setLocale value="ko_KR" />
-												<fmt:formatNumber type="currency" value="${p.PRODUCT_PRICE*(p.SALE_PER/100)}" /></p>
+												<fmt:formatNumber type="currency" value="${p.SALE_PER}" /></p>
 												
 											
 											<div class="">
@@ -179,12 +184,13 @@
 						</c:forEach> 
 							<!-- Add Pagination -->
 							<div class="swiper-scrollbar"></div>
-							<!-- Add Arrows -->
+							
+						</div>
+						<!-- Add Arrows -->
 							<img src="${path}/resources/images/rooms/pngegg2222.png"
 								class="swiper-button-next"> <img
 								src="${path}/resources/images/rooms/pngegg.png"
 								class="swiper-button-prev">
-						</div>
 					</div>
 				</div>
 				<hr>

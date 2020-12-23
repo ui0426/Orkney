@@ -19,7 +19,7 @@ public interface ProductService {
 
 //	진호
 	List<Map> selectRooms(String type);
-	List<Map> selectRoomsProduct(String type);
+	List<Map> selectRoomsProduct(Map types);
 	List<Map> roomsDetail(String type);
 	List<Map> selectRoomsTitle(String type); 
 	List<Map> listProduct(String type);
@@ -31,6 +31,9 @@ public interface ProductService {
 	int updateRoom(Map rooms);
 	int roomsTitle(Map titles);
 	 List<Map> buttomProduct(Map ty); 
+	int deleteRoom(Map room); 
+	List <Map> delectSelectRoom();
+	int delectShowroom( String deleteRoom);
 	
 
 }

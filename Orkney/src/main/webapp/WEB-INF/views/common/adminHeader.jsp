@@ -73,6 +73,9 @@
             <li class="nav-item">
               <a class="nav-link" href="${path }/admin/question.do">문의 관리</a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" href="${path}/admin/adminShowrooms.do">쇼룸 관리</a>
+            </li>
           </ul>
         </div>
         	 <a class="navbar-text white-text" href="${path }">
