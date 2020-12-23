@@ -467,14 +467,14 @@ height: 32rem;
 							<p id="colorName" class="fontbor"></p>
 							<div class="row text-center text-md-left">
 							
-								<div class="" id="colorProductCon">
+								<div class="row" id="colorProductCon">
 									
 									
 									
 								<div class="" style="display: none;">
 										<biv class="" href="" id="colorProductA" onclick="colorClick();">
-											<div class="">
-												<img loading="" class="" alt="" sizes="40px" src="" id="colorProduct" >
+											<div class="" style="margin: 1rem;">
+												<img loading="" class="" alt="" sizes="40px" src="" id="colorProduct" style="width: 4rem;">
 											</div>
 										</div>	
 									</div>

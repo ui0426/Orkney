@@ -1,9 +1,14 @@
 package com.palette.orkney.admin.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.palette.orkney.admin.model.service.AdminService;
@@ -20,6 +26,8 @@ import com.palette.orkney.notice.model.service.NoticeService;
 import com.palette.orkney.order.model.service.OrderService;
 import com.palette.orkney.order.model.vo.OrderDetail;
 import com.palette.orkney.order.model.vo.Orders;
+import com.palette.orkney.product.model.vo.Product;
+import com.palette.orkney.product.model.vo.Product_image;
 
 @Controller
 public class AdminController {
@@ -308,6 +316,111 @@ public class AdminController {
 		 
 		return mv;
 	}
+
+//	제품관리 페이지
+	@RequestMapping("/admin/adminProduct.do")
+	@ResponseBody
+	public ModelAndView products(ModelAndView mv,
+			@RequestParam(value = "cPage", defaultValue = "0") int cPage, 
+			@RequestParam Map<String,Object> all
+			){
+		
+		int numPerPage = 10;
+		List<Map> list = service.productList(cPage, numPerPage,all);
+		int totalData = service.productTotalData();
+		String pageBar = PageFactory.getPageBar(totalData, cPage);
+		
+		mv.addObject("list",list);
+		mv.addObject("pageBar", pageBar);
+		mv.setViewName("ajax/adminProductList");
+		return mv;
+	}
+	//제품 관리 페이지 메인
+	@RequestMapping("/admin/product.do")
+	public ModelAndView product(ModelAndView mv) {
+		mv.setViewName("admin/product/adminProduct");
+		return mv;
+	}
+	//제품 관리 페이지 메인
+	@RequestMapping("/admin/adminProductInsert.do")
+	public ModelAndView adminProductInsert(ModelAndView mv) {
+		mv.setViewName("admin/product/adminProductInsert");
+		return mv;
+	}
+//	할인 적용
+	@RequestMapping("/admin/productPer.do")
+	@ResponseBody
+	public int productPer (@RequestParam Map<String,Object> list) {
+		return service.productPer(list);
+	}
+//	입고
+	@RequestMapping("/admin/productPutIn.do")
+	@ResponseBody
+	public int productPutIn (@RequestParam Map<String,Object> list) {
+		return service.productPutIn(list);
+	}
+//	제품 삭제
+	@RequestMapping("/admin/deleteProduct.do")
+	@ResponseBody
+	public int deleteProduct (@RequestParam Map<String,Object> list,
+			@RequestParam(value = "pNo") String pNo
+			) {
+		return service.deleteProduct(pNo);
+	}
+//	적용된 제품 리스트 업데이트
+	@RequestMapping("/admin/productOne.do")
+	@ResponseBody
+	public List<Map> productOne (@RequestParam Map<String,Object> list) {
+		return service.productOne(list);
+	}
+//	제품 추가
+	@RequestMapping(value="/damin/productInsert.do", method = RequestMethod.POST)
+	public ModelAndView productInsert(Product product, ModelAndView mv,
+			 @RequestParam(value="productImg", required=false) MultipartFile[] productImg, 
+			 @RequestParam(value="mainImg", required=false) String img0, 
+			 @RequestParam(value="img1", required=false) String img1, 			 
+			 @RequestParam(value="img2", required=false) String img2, 			 
+			 @RequestParam(value="img3", required=false) String img3, 			 
+			 HttpSession session
+			){
+		String[] img = {img0,img1,img2,img3};
+
+		System.out.println(product);
+		System.out.println("압로드:"+productImg);
+		String path=session.getServletContext().getRealPath("/resources/images/product");
+		File dir = new File(path);
+		if(!dir.exists()) dir.mkdirs();
+		List<Product_image> files=new ArrayList();
+		
+		for(MultipartFile f : productImg) {
+			if(!f.isEmpty()) {
+				String originalName = f.getOriginalFilename();
+				String ext = originalName.substring(originalName.lastIndexOf(".")+1);
+				
+				SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd_HHmmssSSS");
+				int rndValue = (int)(Math.random()*10000);
+				String reName=sdf.format(System.currentTimeMillis())+"_"+rndValue+"."+ext;
+				try {
+					f.transferTo(new File(path+"/"+reName));
+				}catch(IOException e) {
+					e.printStackTrace();
+				}
+				Product_image ri=Product_image.builder().originalFileName(originalName).renamedFileName(reName).build();
+				files.add(ri);
+
+
+			}
+
+		}
+		
+		int result=service.productInsert(product, files, img);
+		
+		
+		
+		mv.setViewName("admin/product/adminProduct");
+		return mv;
+	}
+
 	
 	@RequestMapping("/admin/allowStateAndSort.do")
 	@ResponseBody
@@ -342,5 +455,6 @@ public class AdminController {
 		int result = service.updateSortEnd(m);
 		if(result >0) return true;
 		else return false;
+
 	}
 }

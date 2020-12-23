@@ -56,6 +56,15 @@ public class WishlistController {
          nos.put("wNo", wNo);
          
          wish = service.selectWishlistCookie(nos);
+         if(wish == null) {
+        	 wish = service.selectWishlist(mNo);
+             Cookie c = new Cookie("wNo", wish.getWishlist_no());
+             c.setMaxAge(60 * 60 * 24);//하루
+             c.setPath("/");
+             response.addCookie(c);
+             System.out.println("쿠키값" + c.getValue());
+        	 
+         }
       }
       
       List<Wishlist> wlList = service.wishlistList(mNo);   

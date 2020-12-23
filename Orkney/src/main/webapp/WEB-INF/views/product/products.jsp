@@ -158,7 +158,7 @@ filter2();
 				function filter2() {
 					start = start+1;
 				
-					alert(start);
+					
 				// 정렬
 				let group1 =$('input[name="group1"]:checked').val();
 				//사이즈
@@ -913,7 +913,7 @@ function fn_addWishModal(price,pNo){
 		success: function(data){
 			console.log(data);
 			if(data == ''){
-				alert('dd');
+				
 			}
 			$('#insertWish').html(data);
 		}

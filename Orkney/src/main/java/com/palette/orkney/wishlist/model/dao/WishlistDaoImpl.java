@@ -29,10 +29,13 @@ public class WishlistDaoImpl implements WishlistDao {
 	@Override
 	public Wishlist selectWishlistCookie(SqlSession session, Map nos) {
 		Wishlist wish = session.selectOne("wishlist.selectWishlistCookie", nos);
-		String wNo = wish.getWishlist_no();
-		ArrayList<Wishlist_detail> wide = (ArrayList)session.selectList("wishlist.selectWishlistDetail", wNo);
-		System.out.println(wide);
-		wish.setWishlist_detail(wide);
+		if(wish != null) {
+			
+			String wNo = wish.getWishlist_no();
+			ArrayList<Wishlist_detail> wide = (ArrayList)session.selectList("wishlist.selectWishlistDetail", wNo);
+			System.out.println(wide);
+			wish.setWishlist_detail(wide);
+		}
 		return wish;
 	}
 
