@@ -211,7 +211,7 @@ $(function(){
 	            	<c:out value="${member.predicpoint }"/>	P</div>
 	            </span>
 	         </div>                    	
-            <div>총 주문 금액의 5%가 적립됩니다.<a href="">더알아보기</a></div>
+            <div>총 주문 금액의 5%가 적립됩니다.<a href="${path}/notice/question.do">더알아보기</a></div>
             
             <input type="hidden" id="point" value="${member.predicpoint }">
         </div>
@@ -377,7 +377,7 @@ if($(".ck").is(":checked")==false){
 		        	type:"post",
 		        	datatype:"json",
 		        	success:data=>{ 		        		
-		        		location.href="${path}/cart/completeMail.do";		        		
+		        		location.replace("${path}/cart/completeMail.do");		        		
 		        	}
 		        })
 		        		        

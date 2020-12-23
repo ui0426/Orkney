@@ -80,10 +80,8 @@ public class OrderController {
 		point.put("point_point",willPoint);							
 		if(willPoint!=0) {
 			int insertPoint = service.insertPoint(point); //포인트 차감
-			int updatePoint = mservice.updatePoint(uppo);
-			System.out.println(point.get("POINT_NO"));
-			orders.setPoint_no(Integer.parseInt(String.valueOf(point.get("POINT_NO"))));//방금 인서트한 포인트 넘버를 orders객체 포인트 넘버 변수에 담는다
-			System.out.println("사용한 포인트 적립 내역 번호 : "+orders.getPoint_no());
+			int updatePoint = mservice.updatePoint(uppo);			
+			orders.setPoint_no(Integer.parseInt(String.valueOf(point.get("POINT_NO"))));//방금 인서트한 포인트 넘버를 orders객체 포인트 넘버 변수에 담는다			
 		}	
 				
 		//orders/order_detail insert
@@ -97,8 +95,6 @@ public class OrderController {
 		mapping.put("addTax", addTax);
 		mapping.put("totalFee",totalFee);		
 		mapping.put("willpoint",willPoint);
-//		mapping.put(); //제품정보
-//		mapping.put(); //제품사진
 									
 		session.setAttribute("info", mapping);
 		session.setAttribute("orders", orders);				
