@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="admin">
+
   	<select id="userCount" resultType="String">
   		SELECT * FROM MEMBER M WHERE EXISTS(SELECT * FROM CHATTING C WHERE M.MEMBER_NO=C.MEMBER_NO)
   	</select>
   	<select id="chatData" parameterType="map" resultType="map">
-  		SELECT * FROM CHATTING WHERE MEMBER_NO=#{id} AND CHAT_ROOM=#{rNo}
+  		SELECT * FROM CHATTING WHERE MEMBER_NO=#{id} AND CHAT_ROOM=#{rNo} ORDER BY CHAT_DATE
   	</select>
   	<select id="roomNo" parameterType="string" resultType="string">
   		SELECT CHAT_ROOM FROM CHATTING WHERE MEMBER_NO=#{data} GROUP BY CHAT_ROOM ORDER BY CHAT_ROOM DESC
@@ -23,12 +24,16 @@
          	 <when test="search_option == 'ono' ">                
                 where order_no like '%'||#{keyword}||'%'   
             </when>
-             <when test="search_option == 'name' ">                
+             <when test="search_option == 'member_name' ">                
+                where member_name like '%'||#{keyword}||'%'   
+            </when>
+            <when test="search_option == 'order_name' ">                
                 where order_name like '%'||#{keyword}||'%'   
             </when>
             <when test="search_option == 'status' ">                
                 where order_state like '%'||#{keyword}||'%'
-            </when>                            
+            </when> 
+                                                   
         </choose>
   		 ORDER BY ORDER_DATE DESC  	
   	</select>
@@ -43,11 +48,17 @@
   	<delete id="deleteFAQ" parameterType="string">
   		DELETE FAQ WHERE FAQ_NO=#{no}
   	</delete>
-  	<select id="memberList" resultType="map">
+  	<select id="memberList" resultType="map" parameterType="map">
   		SELECT M.*,(SELECT SUM(TOTAL_PRICE) FROM ORDERS A WHERE M.MEMBER_NO=A.MEMBER_NO) AS PRICE FROM MEMBER M
+  		<if test="type != null and key != null and key != ''">
+  		WHERE ${type} like '%${key}%'
+  		</if>
   	</select>
-  	<select id="totalData" resultType="_int">
+  	<select id="totalData" resultType="_int" parameterType="map">
   		SELECT COUNT(*) FROM MEMBER
+  		<if test="type != null and key != null and key != ''">
+  		WHERE ${type} like '%${key}%'
+  		</if>
   	</select>
   	<select id="memberAddr" resultType="map" parameterType="string">
   		SELECT * FROM ADDR WHERE MEMBER_NO=#{no}
@@ -81,9 +92,14 @@
   	</update>
   	
   	<select id="countOrderState" resultType="map">
-	select count(case when order_state='주문확인' then 1 end) as "주문확인",count(case when order_state='취소신청1' or order_state='취소신청2' then 1 end) as "취소신청",
-	count(case when sort='교환신청' then 1 end)as "교환신청",count(case when sort='반품신청' then 1 end)as "반품신청"
-	from order_detail join orders using(order_no)
+		select count(case when order_state='주문확인' then 1 end) as "주문확인",
+			count(case when order_state='취소신청1' or order_state='취소신청2' then 1 end) as "취소신청"
+		from orders
+  	</select>
+  	<select id="countOrderDetailState" resultType="map">
+		select count(case when sort='교환신청' then 1 end)as "교환신청",
+			count(case when sort='반품신청' then 1 end)as "반품신청"
+		from order_detail
   	</select>
   	
   	<select id="totalOrder" resultType="_int">
@@ -111,4 +127,89 @@
   	<select id="selectOrderDetailChangeList" parameterType="string" resultType="orderDetail">
   		SELECT * FROM ORDER_DETAIL JOIN ORDERS USING(ORDER_NO) JOIN MEMBER USING(MEMBER_NO) JOIN PRODUCT USING(PRODUCT_NO) WHERE SORT=#{state}
   	</select>
+  	
+  	<select id="productList" resultType="map" parameterType="map">
+	   SELECT *
+	   FROM PRODUCT P
+	   LEFT OUTER JOIN BIG_CATEGORY B
+	   ON P.BIG_CATEGORY_NO = B.BIG_CATEGORY_NO
+	   <if test="keyword != null and keyword != ''">
+	   WHERE
+	   P.PRODUCT_NO LIKE '%'||#{keyword}||'%'
+	   OR P.PRODUCT_NAME LIKE '%'||#{keyword}||'%'
+	   OR B.BIG_CATEGORY_CONTENT LIKE '%'||#{keyword}||'%'
+	   </if>
+	   ORDER BY P.PRODUCT_ENROLL_DATE ASC
+	</select>
+	
+	<select id="productTotalData" resultType="_int">
+		SELECT COUNT(*) FROM PRODUCT
+	</select>
+	<update id="productPer" parameterType="map">
+		UPDATE PRODUCT 
+		SET SALE_PER = #{per} 
+		WHERE PRODUCT_NO = #{pNo}
+	</update>
+	<update id="productPutIn" parameterType="map">
+		UPDATE PRODUCT 
+		SET PRODUCT_STOCK = #{putIn} 
+		WHERE PRODUCT_NO = #{pNo}
+	</update>
+	<select id="productOne" resultType="map" parameterType="map">
+		SELECT SALE_PER, PRODUCT_STOCK
+		FROM PRODUCT
+		WHERE PRODUCT_NO = #{pNo}
+	</select>
+	<delete id="deleteProduct">
+		DELETE FROM PRODUCT
+		WHERE PRODUCT_NO = #{no}
+	</delete>
+	
+	<delete id="deleteProductImg">
+		DELETE FROM PRODUCT_IMAGE
+		WHERE PRODUCT_NO = #{no}
+	</delete>
+	
+	
+	<insert id="productInsert" parameterType="product">
+
+		INSERT INTO PRODUCT VALUES('p'||PRO_SEQ.NEXTVAL, #{productName}, #{productPrice}, #{productColor}, #{productWidth}, #{productHeight},#{productDepth},SYSDATE,#{productStock},#{productInfo},#{productBigCategoryNo},#{productSmallCategoryNo},#{productPrice})
+		<selectKey keyProperty="productNo" resultType="String" order="AFTER">
+			SELECT PRO_SEQ.CURRVAL FROM DUAL
+		</selectKey>
+	</insert>
+	
+	<insert id="insertProductImage" parameterType="Product_image">
+		INSERT INTO PRODUCT_IMAGE VALUES(#{renamedFileName}, #{product_no}, #{product_color})
+	</insert>
+  	
+  	<select id="selectRefundCount" parameterType="string" resultType="_int">
+  		select COUNT(*) from order_detail where (SELECT COUNT(*) FROM ORDER_DETAIL where
+		order_no=#{oNo})=(SELECT COUNT(*) FROM ORDER_DETAIL WHERE SORT LIKE '%반품%'
+		and order_no=#{oNo}) and order_no=#{oNo} and sort like '%신청%'
+  	</select>
+  	
+  	<update id="updateStateAndSort" parameterType="map">
+  		UPDATE
+  		<choose>
+  		<when test="state=='제품준비중' or state=='취소완료'">
+  			 ORDERS SET ORDER_STATE=#{state} WHERE ORDER_NO=#{no}
+  		</when>
+  		<when test="state!='제품준비중' and state!='취소완료'">
+  			 ORDER_DETAIL SET SORT=#{state, jdbcType=VARCHAR} WHERE ORDER_DETAIL_NO=#{no}
+  		</when>
+  		</choose>
+  	</update>
+  	
+  	<select id="selectOrderOngoingList"  resultType="orderDetail">
+  		SELECT * FROM ORDER_DETAIL D JOIN ORDERS O ON D.ORDER_NO=O.ORDER_NO 
+                                            JOIN MEMBER M ON O.MEMBER_NO=M.MEMBER_NO 
+                                            LEFT OUTER JOIN POINT P ON O.POINT_NO=P.POINT_NO 
+                                            JOIN PRODUCT P ON D.PRODUCT_NO=P.PRODUCT_NO WHERE SORT LIKE '%처리중'
+  	</select>
+  	
+  	<update id="updateSortEnd" parameterType="map">
+  		UPDATE ORDER_DETAIL SET SORT=#{sort} WHERE ORDER_DETAIL_NO=#{no}
+  	</update>
+  	
 </mapper>

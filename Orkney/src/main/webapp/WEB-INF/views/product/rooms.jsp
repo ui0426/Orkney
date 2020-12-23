@@ -67,7 +67,7 @@
 												<c:if test="${today <= write_dt}">
 												<span class="rm-pb-et-new">NEW</span>
 												</c:if>
-												<c:if test="${p.SALE_PER!=null}">
+												<c:if test="${p.SALE_PER!=p.PRODUCT_PRICE}">
 												<span class="rm-pb-et-p">더 낮은 새로운 가격</span>
 												</c:if>
 												<div class="rm-bt-pb">
@@ -83,13 +83,13 @@
 										<div>
 											<div class="rm-bt-price">
 												<fmt:setLocale value="ko_KR" />
-												<fmt:formatNumber type="currency" value="${p.SALE_PER!=null? p.PRODUCT_PRICE:''}" />
+												<fmt:formatNumber type="currency" value="${p.SALE_PER!=p.PRODUCT_PRICE? p.PRODUCT_PRICE:''}" />
 											</div>
 										</div>
 										<div>
 											<div class="rm-bt-et-price">
 												<fmt:setLocale value="ko_KR" />
-												<fmt:formatNumber type="currency" value="${p.SALE_PER!=null? p.SALE_PER:p.PRODUCT_PRICE}" />
+												<fmt:formatNumber type="currency" value="${p.SALE_PER!=p.PRODUCT_PRICE? p.SALE_PER:p.PRODUCT_PRICE}" />
 											
 											</div>
 										</div>
@@ -179,7 +179,7 @@
 										<!--Text-->
 										<p class="card-text marginZero each "style="margin-top:0px !important; margin-bottom:0px !important;">${p.SMALL_CATEGORY_NO}</p>
 										<p class="card-text marginZero event-price"><fmt:setLocale value="ko_KR" />
-												<fmt:formatNumber type="currency" value="${p.SALE_PER!=null? p.PRODUCT_PRICE:''}" /></p>
+												<fmt:formatNumber type="currency" value="${p.SALE_PER!=p.PRODUCT_PRICE? p.PRODUCT_PRICE:''}" /></p>
 										<p class="card-text marginZero product-price"><fmt:setLocale value="ko_KR" />
 												<fmt:formatNumber type="currency" value="${p.SALE_PER}" /></p>
 										
@@ -451,6 +451,7 @@ function numberWithCommas(x) {
 				     	
 			    	      for(let i=0;i<data.length;i++){
 			    	    	  var endDate = new Date(data[i]["PRODUCT_ENROLL_DATE"]);
+			    	    	  endDate.setDate(endDate.getDate() +30);
 			    	    	  let cl=$(".cltjf").clone();
 			    	    	  $(cl).removeClass("cltjf");
 			    	    	  $(cl).css("display","block");
@@ -461,11 +462,11 @@ function numberWithCommas(x) {
 					    	   if(today>endDate){
 					    	   $(cl).find(".rm-pb-et-new").text('');
 					    	 	}
-					    	   if(data[i]["SALE_PER"]==''||data[i]["SALE_PER"]==null){
+					    	   if(data[i]["SALE_PER"]==data[i]["PRODUCT_PRICE"]){
 					    	  $(cl).find(".rm-pb-et-p").text('');
 				    		   $(cl).find(".ht-four").html("&#8361;"+ numberWithCommas(data[i]["PRODUCT_PRICE"]));
 				    		  
-					    	   }else if(data[i]["SALE_PER"]!=''||data[i]["SALE_PER"]!=null){
+					    	   }else if(data[i]["SALE_PER"]!=data[i]["PRODUCT_PRICE"]){
 					    		 
 					    		   $(cl).find(".ht-three").html("&#8361;"+ numberWithCommas(data[i]["PRODUCT_PRICE"]));
 					    			$(cl).find(".ht-four").html("&#8361;"+ numberWithCommas(data[i]["SALE_PER"])); 
@@ -558,6 +559,7 @@ function numberWithCommas(x) {
 						     	$(".abc").html("");
 					    	      for(let i=0;i<data.length;i++){
 					    	    	  var endDate = new Date(data[i]["PRODUCT_ENROLL_DATE"]);
+					    	    	  endDate.setDate(endDate.getDate() +30);
 					    	    	  let cl=$(".cltjf").clone();
 					    	    	  $(cl).removeClass("cltjf");
 					    	    	  $(cl).css("display","block");
@@ -568,11 +570,11 @@ function numberWithCommas(x) {
 							    	   if(today>endDate){
 								    	   $(cl).find(".rm-pb-et-new").text('');
 								    	 	}
-								    	   if(data[i]["SALE_PER"]==''||data[i]["SALE_PER"]==null){
+								    	   if(data[i]["SALE_PER"]==data[i]["PRODUCT_PRICE"]){
 								    	  $(cl).find(".rm-pb-et-p").text('');
 							    		   $(cl).find(".ht-four").html("&#8361;"+ numberWithCommas(data[i]["PRODUCT_PRICE"]));
 							    		  
-								    	   }else if(data[i]["SALE_PER"]!=''||data[i]["SALE_PER"]!=null){
+								    	   }else if(data[i]["SALE_PER"]!=data[i]["PRODUCT_PRICE"]){
 								    		 
 								    		   $(cl).find(".ht-three").html("&#8361;"+ numberWithCommas(data[i]["PRODUCT_PRICE"]));
 								    			$(cl).find(".ht-four").html("&#8361;"+ numberWithCommas(data[i]["SALE_PER"])); 

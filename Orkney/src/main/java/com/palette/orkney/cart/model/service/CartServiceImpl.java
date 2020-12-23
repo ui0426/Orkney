@@ -51,8 +51,8 @@ public class CartServiceImpl implements CartService{
 	}
 
 	@Override
-	public int countCart(String productNo, String memberNo) {	
-		return dao.countCart(session,productNo,memberNo);
+	public int countCart(String memberNo) {	
+		return dao.countCart(session,memberNo);
 	}
 
 	@Override
@@ -71,10 +71,21 @@ public class CartServiceImpl implements CartService{
 	}
 
 	@Override
-	public int cartDelete(String cartNo) {
-		return dao.cartDelete(session,cartNo);
+	public int cartDelete(String memberNo) {
+		return dao.cartDelete(session,memberNo);
 	}
 
+	@Override
+	public int insertDetail(Cart cart) {
+		return dao.insertDetail(session,cart);
+	}
+
+	@Override
+	public int countProduct(String productNo,String cartNo) {	
+		return dao.countProduct(session,productNo,cartNo);
+	}
+	
+	
 	
 	
 

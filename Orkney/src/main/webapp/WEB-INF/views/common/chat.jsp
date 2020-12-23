@@ -197,6 +197,8 @@
 			$(div2).find(".rtime").html(fDate2(new Date().getTime()));
 			$(div2).find(".rcontent").html(ms["ms"]);
 		}else if(id!="m11"&&"m11"==ms["user"]){//나한테 보낸 사람이 관리자
+			$("#msAlarm").css("animation-name","a");
+			$("#msAlarm").css("animation-name","msAlarm");
 			div=$("#cloneDiv").clone();
 			let logo=$("#chatLogo").clone();
 			$(div).removeClass("rec");
@@ -403,14 +405,14 @@
 			 url:"${path}/member/chatAllData.do",
 			 data:{'id':id},
 			 success:data=>{
-				
 				 $("#chatlistAll").html('');
 				 for(let i=0;i<data.length;i++){
 				 let chatDiv=$(".chatClone").clone(true);
 				 let size=data[i].length-1;
+				 console.log(size);
 				 $(chatDiv).removeClass("chatClone");
-				 $(chatDiv).find("#chatContent").html(data[i][0]["CHAT_CONTENT"]);
-				 $(chatDiv).find("#dateData").html(fDate(data[i][size]["CHAT_DATE"]));
+				 $(chatDiv).find("#chatContent").html(data[i][size]["CHAT_CONTENT"]);
+				 $(chatDiv).find("#dateData").html(fDate(data[i][0]["CHAT_DATE"]));
 				 $(chatDiv).find("[type='hidden']").val(data[i][0]["CHAT_ROOM"]);
 				 b[i]=chatDiv;
 				 }
@@ -433,8 +435,8 @@
 				 let chatDiv=$(".chatClone").clone(true);
 				 $(chatDiv).removeClass("chatClone");
 				 let size=data[i].length-1;
-				 $(chatDiv).find("#chatContent").html(data[i][0]["CHAT_CONTENT"]);
-				 $(chatDiv).find("#dateData").html(fDate(data[i][size]["CHAT_DATE"]));
+				 $(chatDiv).find("#chatContent").html(data[i][size]["CHAT_CONTENT"]);
+				 $(chatDiv).find("#dateData").html(fDate(data[i][0]["CHAT_DATE"]));
 				 $(chatDiv).find("[type='hidden']").val(data[i][0]["CHAT_ROOM"]);
 				 b[i]=chatDiv;
 				 }

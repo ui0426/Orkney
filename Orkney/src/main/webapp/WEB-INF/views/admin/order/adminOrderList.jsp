@@ -17,24 +17,24 @@
 			</div>
 			
 			<div class="info-title">
-				<div id="order-confirm" onclick="changeList('주문확인')">
+				<div id="order-confirm" onclick="changeList('주문확인')" class="clickPointer">
 					 <span>주문확인</span>  
-					 <input type="text" class="input-form" value="${count.get("주문확인")}" readonly>
+					 <input type="text" class="input-form clickPointer" value="${count.get("주문확인")}" readonly>
 					 <span>건</span> 
 				</div>
-				<div id="cancel-confirm" onclick="changeList('취소신청')">
+				<div id="cancel-confirm" onclick="changeList('취소신청')" class="clickPointer">
 					<span>취소신청</span>
-					<input type="text" class="input-form" value="${count.get("취소신청")}" readonly>
+					<input type="text" class="input-form clickPointer" value="${count.get("취소신청")}" readonly>
 					<span>건</span>
 				</div>
-				<div id="exchange-confirm" onclick="changeList('교환신청')">
+				<div id="exchange-confirm" onclick="changeList('교환신청')" class="clickPointer">
 					 <span>교환신청</span>  
-					 <input type="text" class="input-form" value="${count.get("교환신청")}" readonly>
+					 <input type="text" class="input-form clickPointer" value="${count.get("교환신청")}" readonly>
 					 <span>건</span>
 				</div>
-				<div id="refund-confirm" onclick="changeList('반품신청')">
+				<div id="refund-confirm" onclick="changeList('반품신청')" class="clickPointer">
 					 <span>반품신청</span> 
-					<input type="text"  class="input-form" value="${count.get("반품신청")}" readonly>
+					<input type="text"  class="input-form clickPointer" value="${count.get("반품신청")}" readonly>
 					 <span>건</span>
 				</div>	 
 			</div>
@@ -65,22 +65,21 @@
 						}
 					})
 				}
-				/* $(function(){
-					$.ajax({
-						url:"${path}/admin/orderChangeList.do",
-						success:data=>{
-							$("#change").html(data);
-						}
-					})
-				}) */
+
 			</script>
+			
+			<div>
+				<div><h5 class="mainList-title">교환/반품 진행 중 목록</h5></div>
+				<div id="ongoingList"></div>
+			</div>
 			
 		<div class="search-container">			
 				<select class="browser-default custom-select" style="width: 21%;" id="sel">
 				  <option value="all" >전체보기</option>
 				  <option value="ono" >주문번호</option>
-				  <option value="name"  >주문자</option>
-				  <option value="status" >진행상태</option>
+				  <option value="member_name">주문자</option>
+				  <option value="order_name">수령자</option>
+				  <option value="status">진행상태</option>
 				</select>
 				<input type="text" class="form-control" value="${map.keyword}" placeholder="검색어 입력"/>				
 				<span style="padding: 5px;">
@@ -89,19 +88,29 @@
 		</div>
 				
 		</div>
-		<div><h5>주문검색</h5></div>
+		<div><h5 class="mainList-title">주문검색</h5></div>
 		<div>			
 			<div id="list"></div>			
 			<script>
 				$(function(){
 					let keyword=$(".form-control").val();
 					$.ajax({
-						url:"${path}/admin/orderListData.do",						
+						url:"${path}/admin/orderListData.do",
+						async: false,
 						success:data=>{
 							$("#list").html(data);
 						}
-					})					
-				})
+					});
+					
+						$.ajax({
+							url:"${path}/admin/orderOngoingData.do",
+							async: false,
+							success:data=>{
+								$("#ongoingList").html(data);
+							}
+						});
+					
+				});
 				$(".searchBtn").click(function(){					
 					let keyword=$(".form-control").val();
 					let search_option = $(sel).val();
@@ -128,8 +137,9 @@
 			
 		</div>
 		
+		<div class="change-state-container">
 		<div class="change-status">
-			<div style="padding: 6px 28px;">주문 상태 일괄 처리</div>
+			<div class="change-state-title" style="padding: 6px 28px;">주문 상태 일괄 처리</div>
 			<span>
 				<select id="state" class="browser-default custom-select">
 				  <option selected>주문 상태 선택</option>
@@ -142,6 +152,7 @@
 			<span>
 				<button id="state-change" class="btn btn-primary btn-sm">적용</button>
 			</span>	
+		</div>
 		</div>
 <script>
 $("#state-change").click(e=>{

@@ -20,7 +20,7 @@
     .mdmar{margin-bottom:0;}
     .fs{font-size: 0.9rem;}
     .logoimg{
-    background-image: url(https://kr.accounts.ikea.com/resources/static/logo.svg);
+    background-image: url(../signup/logo2.png);
     background-repeat: no-repeat;
     background-size: 88px 44px;
     content: "";
@@ -86,4 +86,7 @@
     	.transPw{width:100%;display:block;}
     	.authInput{width:3rem;}
     	
+    }
+     .logo-size{
+    	width: 75px;
     }

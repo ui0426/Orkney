@@ -27,6 +27,7 @@ public class Orders {
 	private String address_post;
 	private String address_addr;
 	private String address_detail;
+	private int point_no;
 	private List<OrderDetail> odList;
 	
 	//member

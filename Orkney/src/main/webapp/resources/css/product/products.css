@@ -134,4 +134,8 @@ background-color: white;
     display: flex;
     align-items: flex-start;
 }
+.productSizing{
+	margin-bottom: -18px !important;
+    margin-top: -12px !important;
+}
 

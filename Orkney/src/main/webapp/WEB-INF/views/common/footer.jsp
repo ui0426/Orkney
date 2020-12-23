@@ -15,9 +15,39 @@
       padding:.625rem 1.25rem .625rem 1.25rem;
       font-weight:600;
    }
+   	#msAlarm{
+		width:max-content;height:auto;background: black;color:white;
+		min-width:200px;border-radius: 30px; font-weight: 600;
+    	padding: 0.3rem 1rem 01rem;
+      top:18%;
+      left:105%;
+     
+		text-align: center;
+    position: fixed;
+		/* animation-name:msAlarm; */
+		animation-duration:10s;
+	  animation-duration: leaner;
+	  animation-iteration-count:1;
+	  animation-direction:alternate;
+	  animation-fill-mode: forwards;
+		}
+		#msQuestion{text-align: center;}
+
+		@-webkit-keyframes msAlarm{
+  0% {
+    left:105%;
+  }
+  50%{
+    left:70%;
+  }
+  100% {
+    left:105%;
+  }
+}
+   body{overflow-x:hidden;}
 </style>
 
-
+<div id="msAlarm"><p id="msQuestion"></p> &nbsp 질문에 답변이 왔습니다.</div>
 <footer class="page-footer font-small pt-4" style="background-color:gray;color:white;">
 
   <!-- Footer Links -->
@@ -40,10 +70,10 @@
       <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
         <h6 class="text-uppercase mb-4 font-weight-bold">고객문의</h6>
         <p>
-          <a href="#!">고객지원</a>
+          <a href="${path}/notice/question.do">FAQ</a>
         </p>
         <p>
-          <a href="#!">배송조회</a>
+          <a href="${path }/order/order.do">배송조회</a>
         </p>
         <p>
           <a href="#!">문의하기</a>
@@ -58,7 +88,7 @@
 
       <!-- Grid column -->
       <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mt-3">
-        <h6 class="text-uppercase mb-4 font-weight-bold">KKEA 이야기</h6>
+        <h6 class="text-uppercase mb-4 font-weight-bold">ORKNEY 이야기</h6>
         <p>
           <a href="#!">기업 소개</a>
         </p>
@@ -86,7 +116,7 @@
         <p>
           <i class="fas fa-phone mr-3"></i> + 80 234 567 8</p>
         <p>
-          <i class="fas fa-print mr-3"></i>KKEA@gmail.com</p>
+          <i class="fas fa-print mr-3"></i>ORKNEY@gmail.com</p>
       </div>
       <!-- Grid column -->
 

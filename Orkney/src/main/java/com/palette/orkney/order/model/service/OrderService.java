@@ -11,6 +11,8 @@ public interface OrderService {
 
 	List<Map> selectOrderList(String mNo);
 	
+	List<Map> selectOrderEndList(String mNo);
+	
 	Orders selectOrder(String oNo);
 	
 	List<OrderDetail> selectOrderDetail(String oNo);

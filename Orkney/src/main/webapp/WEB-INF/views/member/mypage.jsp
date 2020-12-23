@@ -96,7 +96,7 @@
                      </div>
                      <div class="flex-row-between">
                         <span id="updatePhone"><c:out value="${ login.PHONE }"/></span>
-                        <span>확인되지 않음???</span>
+                        <span></span>
                      </div>
                      <div class="flex-row-between">
                         <span><c:out value="${ login.MEMBER_ID }"/></span>
@@ -205,10 +205,15 @@
                      <span>마케팅 수신 설정</span>
                   </div>
                   <div>이메일로 혜택, 팁, 뉴스를 받아보시겠습니까?</div>
-                  <div class="form-check form-switch">
-				  <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" />
+                  <div class="form-check form-switch ckBtn">
+                  <c:if test="${ login.EMAIL_CH == 'Y'}">
+				  </c:if>
+				  <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" checked/>
+				   <c:if test="${ login.EMAIL_CH == 'N'}">
+				  <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault"/>
+				  </c:if>
 				  <label class="form-check-label" for="flexSwitchCheckDefault"
-				    >Default switch checkbox input</label>
+				    >이메일 수신을 받겠습니다.</label>
 				  </div>
                </div>
                
@@ -251,6 +256,28 @@
        
     </div>
 <script>
+
+$('.form-check-input').click(e=>{
+	console.log($('#flexSwitchCheckDefault').is(':checked') == true);
+	let ck = '';
+	if($('#flexSwitchCheckDefault').is(':checked') == true){
+		ck = 'Y';
+		$('.ckBtn').css({'color': '#0075ff'});
+	} else {
+		ck = 'N';
+		$('.ckBtn').css({'color': '#484848'});
+	}
+		$.ajax({
+			type: 'post',
+			data: {ck:ck},
+			url: '${path}/member/emailCk.do',
+			success: data =>{
+			}
+		})
+})
+
+
+
 $('.point-box').mouseenter(e=>{
 	$('.point-box').css('cursor','pointer');
 	$('.myPoint').css({'text-decoration':'underline', 'text-underline-position':'under'});
@@ -268,16 +295,16 @@ let makeAjax = function(url, data, success){
    
 	/* 회원탈퇴 */
 $("#deleteBtn").click(function() {
-	location.href="${path}/test";  
-//   $("#delete-modal,.delete-modal-cover,html").addClass("open");
-//   window.location.hash = "#open";
+	//location.href="${path}/test";  
+  $("#delete-modal,.delete-modal-cover,html").addClass("open");
+  window.location.hash = "#open";
   
-//   makeAjax('${path}/member/insertForm.do', {form: 'member/mypageDiv/deleteModal'}, data=>{
-// 		  console.log(data);
-// 		  $.parseHTML(data);
-// 		  $('#delete-modal').html(data);
+  makeAjax('${path}/member/insertForm.do', {form: 'member/mypageDiv/deleteModal'}, data=>{
+		  console.log(data);
+		  $.parseHTML(data);
+		  $('#delete-modal').html(data);
 	  
-//   })
+  })
   
 });
 

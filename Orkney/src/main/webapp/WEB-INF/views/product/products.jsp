@@ -112,6 +112,12 @@ $("#frameModalBottomSuccess").modal('show');
 }
 </script>
 <script type="text/javascript">
+$(function() {
+filter2();	
+})
+// 더보기
+
+
 // ★url 파라미터값을 가져올수 있게 하는 함수 
 				function getParameterByName(name) {
 				    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
@@ -144,8 +150,138 @@ $("#frameModalBottomSuccess").modal('show');
 					}
 				})	
 			});
+				
+					let start = 4;
+					
 
 
+				function filter2() {
+					start = start+1;
+				
+					
+				// 정렬
+				let group1 =$('input[name="group1"]:checked').val();
+				//사이즈
+				let group2 = $('input[name="group2"]:checked').val();
+				//카테고리
+				let group3 =$('input[name="group3"]:checked').val();
+				//가격
+				let group4 = $('input[name="group4"]:checked').val();
+				// 색상
+				let group5 = $('input[name="group5"]:checked').val();
+				let category = getParameterByName('category');
+				
+				  //마지막 리스트 번호를 알아내기 위해서 tr태그의 length를 구함.
+				  
+				$.ajax({
+					url:"${path}/product/bestFilter.do",
+					type:"get",
+					async : false,
+					data:{
+						"group1":group1,			
+						"group2":group2,			
+						"group3":group3,			
+						"group4":group4,			
+						"group5":group5,
+						"category":category,
+						"start":start
+					
+						
+					
+					},
+					success:data=>{
+						$("#product_list").html("");
+//  						alert(category);
+
+					  
+						for ( var i=0;i <= data.length;i++){
+						if (data[i]["PRODUCT_COLOR"]=="normal") {
+							
+						  let productClone = $("#products").clone().attr("id","products"+i);
+						  
+						
+						  $(productClone).find("#checkbox").val(data[i]["PRODUCT_PIC"]);
+						  $(productClone).find("#productMainImg").attr("src","${path}/resources/images/product/"+data[i]["PRODUCT_PIC"]);
+						  $(productClone).find("#product_name").html(data[i]["PRODUCT_NAME"]);
+						  $(productClone).find("#category").html(data[i]["BIG_CATEGORY_NO"]);
+						  $(productClone).find("#pr").html(numberWithCommas(data[i]["PRODUCT_PRICE"]));
+						  $(productClone).find("#productA").attr("href","${path}/product/productDetail.do?productno="+data[i]["PRODUCT_NO"]);
+						  $(productClone).find("#readMore").attr("onclick","location.href = \'${path}/product/productDetail.do?productno="+data[i]["PRODUCT_NO"]+"\'");
+						  $(productClone).find("#btnck").attr("name",data[i]["PRODUCT_NO"]);
+						  $(productClone).find("#btnck").attr("title",data[i]["PRODUCT_PRICE"]);
+						  
+						  $(productClone).find("#btnWish").attr("name",data[i]["PRODUCT_NO"]);
+						  $(productClone).find("#btnWish").attr("title",data[i]["PRODUCT_PRICE"]);
+						  $(productClone).find("#btnWish").attr("onclick","fn_addWishModal"+"("+"'"+data[i]["PRODUCT_PRICE"]+"'"+","+"'"+data[i]["PRODUCT_NO"]+"'"+");");
+						  
+						  $(productClone).find("#btnck").attr("onclick","fnbn"+"("+"'"+data[i]["PRODUCT_PRICE"]+"'"+","+"'"+data[i]["PRODUCT_NO"]+"'"+");");
+						  						
+							 						  										
+// 						하는중
+						  var productNo = data[i]["PRODUCT_NO"];
+						  $.ajax({
+								url: "${path}/product/average.do",
+								async: false,
+								data:{
+									"productNo":productNo
+								},
+								success:data2=>{
+
+									for (var i = 0; i < data.length; i++) {
+										
+									
+										console.log("데이터2"+data[i]["PRODUCT_NO"]);
+										if (data2[i]["COUNT(REVIEW_NO)"] !=null) {
+											
+											 $(productClone).find("#average2").text(data2[i]["AVG(PRODUCT_GRADE)"].toFixed(1));
+											 $(productClone).find("#buynum2").text("("+data2[i]["COUNT(REVIEW_NO)"]+")");
+										}
+									if (parseFloat(data2[i]["AVG(PRODUCT_GRADE)"]) > 0 && data2[i]["AVG(PRODUCT_GRADE)"] < 1.5) {
+										
+										$(productClone).find("#starGray1").removeClass("grey-text").addClass("blue-text");
+										$(productClone).find("#starGray2").removeClass("blue-text").addClass("grey-text");
+										$(productClone).find("#starGray3").removeClass("blue-text").addClass("grey-text");
+										$(productClone).find("#starGray4").removeClass("blue-text").addClass("grey-text");
+										$(productClone).find("#starGray5").removeClass("blue-text").addClass("grey-text");
+									}else if (parseFloat(data2[i]["AVG(PRODUCT_GRADE)"]) >= 1.5 && data2[i]["AVG(PRODUCT_GRADE)"] < 2.5) {
+										$(productClone).find("#starGray1").removeClass("grey-text").addClass("blue-text");
+										$(productClone).find("#starGray2").removeClass("grey-text").addClass("blue-text");
+										$(productClone).find("#starGray3").removeClass("blue-text").addClass("grey-text");
+										$(productClone).find("#starGray4").removeClass("blue-text").addClass("grey-text");
+										$(productClone).find("#starGray5").removeClass("blue-text").addClass("grey-text");
+									
+									}else if (parseFloat(data2[i]["AVG(PRODUCT_GRADE)"]) >= 2.5 && data2[i]["AVG(PRODUCT_GRADE)"] < 3.5) {
+										$(productClone).find("#starGray1").removeClass("grey-text").addClass("blue-text");
+										$(productClone).find("#starGray2").removeClass("grey-text").addClass("blue-text");
+										$(productClone).find("#starGray3").removeClass("grey-text").addClass("blue-text");
+										$(productClone).find("#starGray4").removeClass("blue-text").addClass("grey-text");
+										$(productClone).find("#starGray5").removeClass("blue-text").addClass("grey-text");
+									
+									}else if (parseFloat(data2[i]["AVG(PRODUCT_GRADE)"]) >= 3.5 && data2[i]["AVG(PRODUCT_GRADE)"] < 4.5) {
+											
+										$(productClone).find("#starGray1").removeClass("grey-text").addClass("blue-text");
+										$(productClone).find("#starGray2").removeClass("grey-text").addClass("blue-text");
+										$(productClone).find("#starGray3").removeClass("grey-text").addClass("blue-text");
+										$(productClone).find("#starGray4").removeClass("grey-text").addClass("blue-text");
+										$(productClone).find("#starGray5").removeClass("blue-text").addClass("grey-text");
+									
+									}else if (parseFloat(data2[i]["AVG(PRODUCT_GRADE)"]) >= 4.5) {
+										$(productClone).find("#starGray1").removeClass("grey-text").addClass("blue-text");
+										$(productClone).find("#starGray2").removeClass("grey-text").addClass("blue-text");
+										$(productClone).find("#starGray3").removeClass("grey-text").addClass("blue-text");
+										$(productClone).find("#starGray4").removeClass("grey-text").addClass("blue-text");
+										$(productClone).find("#starGray5").removeClass("grey-text").addClass("blue-text");
+									}
+								}
+								}
+								
+							});
+						 $("#product_list").append(productClone);
+						}
+						}
+					}
+				})		
+ 			}
 				function filter() {
 				// 정렬
 				let group1 =$('input[name="group1"]:checked').val();
@@ -157,12 +293,11 @@ $("#frameModalBottomSuccess").modal('show');
 				let group4 = $('input[name="group4"]:checked').val();
 				// 색상
 				let group5 = $('input[name="group5"]:checked').val();
-				
-			
 				let category = getParameterByName('category');
-
-
+				  start=5;
 				
+				  //마지막 리스트 번호를 알아내기 위해서 tr태그의 length를 구함.
+				  
 				$.ajax({
 					url:"${path}/product/bestFilter.do",
 					type:"get",
@@ -173,17 +308,21 @@ $("#frameModalBottomSuccess").modal('show');
 						"group3":group3,			
 						"group4":group4,			
 						"group5":group5,
-						"category":category
+						"category":category,
+						"start":start
+				
+						
 					
 					},
 					success:data=>{
-						alert(category);
-					  $("#product_list").html("");
+// 						alert(category);
+					$("#product_list").html("");
 					  
 						for ( var i=0;i <= data.length;i++){
 						if (data[i]["PRODUCT_COLOR"]=="normal") {
 							
-						  let productClone = $("#products").clone();
+						  let productClone = $("#products").clone().attr("id","products"+i);
+						  
 						
 						  $(productClone).find("#checkbox").val(data[i]["PRODUCT_PIC"]);
 						  $(productClone).find("#productMainImg").attr("src","${path}/resources/images/product/"+data[i]["PRODUCT_PIC"]);
@@ -192,13 +331,81 @@ $("#frameModalBottomSuccess").modal('show');
 						  $(productClone).find("#pr").html(numberWithCommas(data[i]["PRODUCT_PRICE"]));
 						  $(productClone).find("#productA").attr("href","${path}/product/productDetail.do?productno="+data[i]["PRODUCT_NO"]);
 						  $(productClone).find("#readMore").attr("onclick","location.href = \'${path}/product/productDetail.do?productno="+data[i]["PRODUCT_NO"]+"\'");
-						  $("#product_list").append(productClone);						  										
+						  $(productClone).find("#btnck").attr("name",data[i]["PRODUCT_NO"]);
+						  $(productClone).find("#btnck").attr("title",data[i]["PRODUCT_PRICE"]);
+						  
+						  $(productClone).find("#btnWish").attr("name",data[i]["PRODUCT_NO"]);
+						  $(productClone).find("#btnWish").attr("title",data[i]["PRODUCT_PRICE"]);
+						  $(productClone).find("#btnWish").attr("onclick","fn_addWishModal"+"("+"'"+data[i]["PRODUCT_PRICE"]+"'"+","+"'"+data[i]["PRODUCT_NO"]+"'"+");");
+						  
+						  $(productClone).find("#btnck").attr("onclick","fnbn"+"("+"'"+data[i]["PRODUCT_PRICE"]+"'"+","+"'"+data[i]["PRODUCT_NO"]+"'"+");");
+
+// 						하는중
+						  var productNo = data[i]["PRODUCT_NO"];
+						  $.ajax({
+								url: "${path}/product/average.do",
+								async: false,
+								data:{
+									"productNo":productNo
+								},
+								success:data2=>{
+
+									for (var i = 0; i < data.length; i++) {
+										
+									
+										console.log("데이터2"+data[i]["PRODUCT_NO"]);
+										if (data2[i]["COUNT(REVIEW_NO)"] !=null) {
+											
+											 $(productClone).find("#average2").text(data2[i]["AVG(PRODUCT_GRADE)"].toFixed(1));
+											 $(productClone).find("#buynum2").text("("+data2[i]["COUNT(REVIEW_NO)"]+")");
+										}
+									if (parseFloat(data2[i]["AVG(PRODUCT_GRADE)"]) > 0 && data2[i]["AVG(PRODUCT_GRADE)"] < 1.5) {
+										
+										$(productClone).find("#starGray1").removeClass("grey-text").addClass("blue-text");
+										$(productClone).find("#starGray2").removeClass("blue-text").addClass("grey-text");
+										$(productClone).find("#starGray3").removeClass("blue-text").addClass("grey-text");
+										$(productClone).find("#starGray4").removeClass("blue-text").addClass("grey-text");
+										$(productClone).find("#starGray5").removeClass("blue-text").addClass("grey-text");
+									}else if (parseFloat(data2[i]["AVG(PRODUCT_GRADE)"]) >= 1.5 && data2[i]["AVG(PRODUCT_GRADE)"] < 2.5) {
+										$(productClone).find("#starGray1").removeClass("grey-text").addClass("blue-text");
+										$(productClone).find("#starGray2").removeClass("grey-text").addClass("blue-text");
+										$(productClone).find("#starGray3").removeClass("blue-text").addClass("grey-text");
+										$(productClone).find("#starGray4").removeClass("blue-text").addClass("grey-text");
+										$(productClone).find("#starGray5").removeClass("blue-text").addClass("grey-text");
+									
+									}else if (parseFloat(data2[i]["AVG(PRODUCT_GRADE)"]) >= 2.5 && data2[i]["AVG(PRODUCT_GRADE)"] < 3.5) {
+										$(productClone).find("#starGray1").removeClass("grey-text").addClass("blue-text");
+										$(productClone).find("#starGray2").removeClass("grey-text").addClass("blue-text");
+										$(productClone).find("#starGray3").removeClass("grey-text").addClass("blue-text");
+										$(productClone).find("#starGray4").removeClass("blue-text").addClass("grey-text");
+										$(productClone).find("#starGray5").removeClass("blue-text").addClass("grey-text");
+									
+									}else if (parseFloat(data2[i]["AVG(PRODUCT_GRADE)"]) >= 3.5 && data2[i]["AVG(PRODUCT_GRADE)"] < 4.5) {
+											
+										$(productClone).find("#starGray1").removeClass("grey-text").addClass("blue-text");
+										$(productClone).find("#starGray2").removeClass("grey-text").addClass("blue-text");
+										$(productClone).find("#starGray3").removeClass("grey-text").addClass("blue-text");
+										$(productClone).find("#starGray4").removeClass("grey-text").addClass("blue-text");
+										$(productClone).find("#starGray5").removeClass("blue-text").addClass("grey-text");
+									
+									}else if (parseFloat(data2[i]["AVG(PRODUCT_GRADE)"]) >= 4.5) {
+										$(productClone).find("#starGray1").removeClass("grey-text").addClass("blue-text");
+										$(productClone).find("#starGray2").removeClass("grey-text").addClass("blue-text");
+										$(productClone).find("#starGray3").removeClass("grey-text").addClass("blue-text");
+										$(productClone).find("#starGray4").removeClass("grey-text").addClass("blue-text");
+										$(productClone).find("#starGray5").removeClass("grey-text").addClass("blue-text");
+									}
+								}
+								}
+								
+							});
+						 $("#product_list").append(productClone);
 						}
 						}
 					}
 				})		
  			}
-
+		 
 
 // 	3자리 마다 , 표시
 	function numberWithCommas(x) {
@@ -543,108 +750,22 @@ $("#frameModalBottomSuccess").modal('show');
 		</div>
 		<!-- 헤더 필터 버튼 end -->
 
+
+
 				<form action="${path}/product/productsCompare.do" method="get">
 				
 		<!-- 제품 목록 -->
 		<div class="row row-cols-1 row-cols-md-3 row-cols-sm-2 row-cols-lg-4 " id="product_list">
-		<c:forEach items="${list }" var="p">
-		<c:if test="${p.PRODUCT_COLOR == 'normal'}">
-<div class="col products" id="products" onmouseover="checkbox_Over()" onmouseout="checkbox_Out()" >
-
-
-
-					<!-- Card -->
-					<div class="card" id="card">
-<div class="plp-checkbox" id="plp-checkbox" onclick="check_PIC();" >
-<input type="checkbox" name="checkboxname" id="checkbox" black="true" value="${p.PRODUCT_PIC}" >
-</div>
-					
-						<!--Card image-->
-						<div class="view overlay zoom" >
-							<img class="card-img-top imgHeight " 
-								src="${path}/resources/images/product/${p.PRODUCT_PIC}"
-								alt="Card image cap" > <a
-								href="${path}/product/productDetail.do?productno=${p.PRODUCT_NO}">
-								<div class="mask rgba-white-slight"></div>
-							</a>
-						</div>
-						<!--Card content-->
-						<div class="card-body">
-							<!--Title-->
-							<h4 class="card-title" id="product_name">
-								<c:out value="${p.PRODUCT_NAME}" />
-							</h4>
-							<!--Text-->
-							<p class="card-text marginZero" id="category">
-								<c:out value="${p.BIG_CATEGORY_NO }"></c:out>
-							</p>
-							<p class="card-text marginZero">
-							<div class="row marginZero">
-							<div id="pr"><fmt:formatNumber type="number" maxFractionDigits="3" value='${p.PRODUCT_PRICE}' /></div>
-							<div>원</div>
-							</div>
-							</p>
-
-
-
-
-							<div class="">
-								<svg focusable="false" viewBox="0 0 24 24" class="star"
-									aria-hidden="true">
-								<path
-										d="M12.003 4L14.8623 8.9091L20.4147 10.1115L16.6294 14.3478L17.2017 20L12.003 17.7091L6.80429 20L7.37657 14.3478L3.59131 10.1115L9.14371 8.9091L12.003 4Z"></path></svg>
-								<svg focusable="false" viewBox="0 0 24 24" class="star"
-									aria-hidden="true">
-								<path
-										d="M12.003 4L14.8623 8.9091L20.4147 10.1115L16.6294 14.3478L17.2017 20L12.003 17.7091L6.80429 20L7.37657 14.3478L3.59131 10.1115L9.14371 8.9091L12.003 4Z"></path></svg>
-								<svg focusable="false" viewBox="0 0 24 24" class="star"
-									aria-hidden="true">
-								<path
-										d="M12.003 4L14.8623 8.9091L20.4147 10.1115L16.6294 14.3478L17.2017 20L12.003 17.7091L6.80429 20L7.37657 14.3478L3.59131 10.1115L9.14371 8.9091L12.003 4Z"></path></svg>
-								<svg focusable="false" viewBox="0 0 24 24" class="star"
-									aria-hidden="true">
-								<path
-										d="M12.003 4L14.8623 8.9091L20.4147 10.1115L16.6294 14.3478L17.2017 20L12.003 17.7091L6.80429 20L7.37657 14.3478L3.59131 10.1115L9.14371 8.9091L12.003 4Z"></path></svg>
-								<svg focusable="false" viewBox="0 0 24 24" class="star"
-									aria-hidden="true">
-								<path
-										d="M12.003 4L14.8623 8.9091L20.4147 10.1115L16.6294 14.3478L17.2017 20L12.003 17.7091L6.80429 20L7.37657 14.3478L3.59131 10.1115L9.14371 8.9091L12.003 4Z"></path></svg>
-								<span class="">(# 댓글수)</span>
-								<!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
-
-								<!-- Card footer -->
-							</div>
-							<div>
-								<hr>
-								<div class="row">
-									<button type="button" class="btn  btn-md color-Gray1 "
-										style="border: 1px solid darkgray !important;" onclick = "location.href = '${path}/product/productDetail.do?productno=${p.PRODUCT_NO}'" >
-										Read more</button>
-									<div class="row heartCart_icon" style="margin: auto;">
-										<a class="material-tooltip-main" data-toggle="tooltip"
-											data-placement="top" title="Add to Cart"> <i
-											class="fas fa-shopping-cart grey-text ml-3"></i>
-										</a> <a class="material-tooltip-main heart_icon" data-toggle="tooltip"
-											data-placement="top" title="Add to Wishlist"> <i
-											class="fas fa-heart grey-text ml-3"></i>
-										</a>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- Card -->
-					<hr>
-				</div>
-			</c:if>
-</c:forEach>
+		
 
 
 		</div>
-
+		<button type="button" class="btn filterSiz  btnH35 waves-effect waves-light" style="width: 100%; background-color: rgb(238, 237, 237);" onclick="filter2();">
+				<span class="fontborder fontColorGray">더보기</span>
+			</button>
 		<!-- 제품 목록 -->
 <div id="removeProducts" style="display: none;">
-				<div class="col products" id="products" onmouseover="checkbox_Over()" onmouseout="checkbox_Out()">
+				<div class="col products " id="products" onmouseover="checkbox_Over()" onmouseout="checkbox_Out()">
 
 
 					<!-- Card -->
@@ -653,7 +774,7 @@ $("#frameModalBottomSuccess").modal('show');
 <div class="plp-checkbox" id="plp-checkbox"  onclick="check_PIC();">
 <input type="checkbox" name="checkboxname" id="checkbox" black="true" value="${p.PRODUCT_PIC}">
 </div>
-						<div class="view overlay zoom">
+						<div class="view overlay zoom productSizing">
 						
 
 							<img class="card-img-top imgHeight" id="productMainImg"
@@ -682,29 +803,27 @@ $("#frameModalBottomSuccess").modal('show');
 
 
 
-
+<!-- 하는중 -->
 							<div class="">
-								<svg focusable="false" viewBox="0 0 24 24" class="star"
-									aria-hidden="true">
-								<path
-										d="M12.003 4L14.8623 8.9091L20.4147 10.1115L16.6294 14.3478L17.2017 20L12.003 17.7091L6.80429 20L7.37657 14.3478L3.59131 10.1115L9.14371 8.9091L12.003 4Z"></path></svg>
-								<svg focusable="false" viewBox="0 0 24 24" class="star"
-									aria-hidden="true">
-								<path
-										d="M12.003 4L14.8623 8.9091L20.4147 10.1115L16.6294 14.3478L17.2017 20L12.003 17.7091L6.80429 20L7.37657 14.3478L3.59131 10.1115L9.14371 8.9091L12.003 4Z"></path></svg>
-								<svg focusable="false" viewBox="0 0 24 24" class="star"
-									aria-hidden="true">
-								<path
-										d="M12.003 4L14.8623 8.9091L20.4147 10.1115L16.6294 14.3478L17.2017 20L12.003 17.7091L6.80429 20L7.37657 14.3478L3.59131 10.1115L9.14371 8.9091L12.003 4Z"></path></svg>
-								<svg focusable="false" viewBox="0 0 24 24" class="star"
-									aria-hidden="true">
-								<path
-										d="M12.003 4L14.8623 8.9091L20.4147 10.1115L16.6294 14.3478L17.2017 20L12.003 17.7091L6.80429 20L7.37657 14.3478L3.59131 10.1115L9.14371 8.9091L12.003 4Z"></path></svg>
-								<svg focusable="false" viewBox="0 0 24 24" class="star"
-									aria-hidden="true">
-								<path
-										d="M12.003 4L14.8623 8.9091L20.4147 10.1115L16.6294 14.3478L17.2017 20L12.003 17.7091L6.80429 20L7.37657 14.3478L3.59131 10.1115L9.14371 8.9091L12.003 4Z"></path></svg>
-								<span class="">(# 댓글수)</span>
+<!-- 								별점  -->
+								<ul class="rating mb-2 row" style="margin: 2px" id="starnum">
+<!-- 									<li><i class="fas fa-star blue-text"></i></li> -->
+<!-- 									<li><i class="fas fa-star blue-text"></i></li> -->
+<!-- 									<li><i class="fas fa-star blue-text"></i></li> -->
+<!-- 									<li><i class="fas fa-star blue-text"></i></li> -->
+<!-- 										★1점★ -->
+<!-- 									<li><i class="fas fa-star blue-text"></i></li> -->
+<!-- 										★0점★ -->
+									<li><i id="starGray1" class="fas fa-star grey-text"></i></li>
+									<li><i id="starGray2" class="fas fa-star grey-text"></i></li>
+									<li><i id="starGray3" class="fas fa-star grey-text"></i></li>
+									<li><i id="starGray4" class="fas fa-star grey-text"></i></li>
+									<li><i id="starGray5" class="fas fa-star grey-text"></i></li>
+									
+									<p class="" id="average2"></p>
+									<p class="" id="buynum2"></p>
+								</ul>
+								
 								<!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
 
 								<!-- Card footer -->
@@ -713,16 +832,11 @@ $("#frameModalBottomSuccess").modal('show');
 								<hr>
 								<div class="row">
 									<button type="button" class="btn  btn-md color-Gray1 " id="readMore"
-										style="border: 1px solid darkgray !important;">Read
+										style="border: 1px solid darkgray !important;" >Read
 										more</button>
 									<div class="row heartCart_icon" style="margin: auto;">
-										<a class="material-tooltip-main" data-toggle="tooltip"
-											data-placement="top" title="Add to Cart"> <i
-											class="fas fa-shopping-cart grey-text ml-3"></i>
-										</a> <a class="material-tooltip-main heart_icon" data-toggle="tooltip"
-											data-placement="top" title="Add to Wishlist"> <i
-											class="fas fa-heart grey-text ml-3"></i>
-										</a>
+<a class="material-tooltip-main " data-placement="top" title="Add to Cart" id="btnck"  data-toggle="modal" data-target="#modalAbandonedCart"> <i class="fas fa-shopping-cart grey-text ml-3"></i></a> 
+<a class="material-tooltip-main heart_icon" data-placement="top" title="Add to Wishlist" id="btnWish" data-toggle="modal" data-target="#modalAddWish"> <i class="fas fa-heart grey-text ml-3"></i></a>
 									</div>
 								</div>
 							</div>
@@ -732,6 +846,98 @@ $("#frameModalBottomSuccess").modal('show');
 					<hr>
 				</div>
 </div>
+<!-- Modal: modalAbandonedCart-->
+<div class="modal fade right" id="modalAbandonedCart" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true" data-backdrop="false">
+  <div class="modal-dialog modal-side modal-top-right modal-notify modal-info" role="document">
+    <!--Content-->
+    <div class="modal-content">
+      <!--Header-->
+      <div class="modal-header">
+        <p class="heading">장바구니</p>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true" class="white-text">&times;</span>
+        </button>
+      </div>
+      <!--Body-->
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-3">                                   
+          </div>
+          <div class="col-9">
+            <p>장바구니에 추가되었습니다.</p>
+            <p>상품을 더 구매하시겠습니까??</p>          
+        </div>
+      </div>
+      <!--Footer-->
+      <div class="modal-footer justify-content-center">
+        <a type="button" class="btn btn-info" onclick="location.href='${path}/cart/cart.do'" >장바구니로 가기</a>        
+      </div>
+    </div>
+    <!--/.Content-->
+  </div>
+</div>
+</div>
+<!-- Modal: modalAbandonedCart-->
+
+<!-- Modal: modalAbandonedCart-->
+<div class="modal fade right" id="modalAddWish" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true" data-backdrop="false">
+  <div class="modal-dialog modal-side modal-top-right modal-notify modal-info" role="document">
+    <!--Content-->
+    <div class="modal-content" id="insertWish">
+    </div>
+    <!--/.Content-->
+  </div>
+</div>
+<!-- Modal: modalAbandonedCart-->			
+				
+<script>
+function fn_addWishModal(price,pNo){
+	let login = '${sessionScope.login}';
+	console.log(login);
+	
+	if(login == ''){
+		let ck = confirm('로그인이 필요한 서비스 입니다. 로그인 화면으로 이동하시겠습니까?');
+		console.log(ck);
+		if(ck == true){
+			location.href='${path}/member/memberLogin.do';
+		}
+		return;
+	}
+	
+	$.ajax({
+		type: 'post',
+		url: '${ path }/wishlist/insertWishModal.do',
+		data: {pNo:pNo},
+		success: function(data){
+			console.log(data);
+			if(data == ''){
+				
+			}
+			$('#insertWish').html(data);
+		}
+		
+	})
+}
+
+function fnbn(a,b){
+    $.ajax({
+		url:"${path }/cart/cartInsert.do",
+		data:{
+			productNo:b,
+			productPrice:a
+			},
+		success:data=>{
+			console.log("나와라");					
+		}
+	})
+ } 	 
+</script>
+
+
+
+
 <!-- 모달 필터  아래 모달 비교-->
 	<div class="modal fade bottom" id="frameModalBottomSuccess"
 		tabindex="-1" role="dialog" aria-labelledby="myModalLabel"

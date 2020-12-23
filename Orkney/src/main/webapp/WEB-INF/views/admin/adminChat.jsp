@@ -12,10 +12,19 @@
     body,html{height:100%}
     .wid{width:100%;}
     .wid3{width:46%;}
-    .userInfo{height:500px;margin-left: 1.6rem;margin-top:1rem;margin-bottom: 1rem; border:1px black solid;}
+    .userInfo{height:500px;margin-left: 1.6rem;margin-top:1rem;margin-bottom: 1rem;min-width: 371px;}
     .userWrap{display:flex;flex-wrap: wrap;width:100%;padding: 0rem 4rem 0rem;}
-    .topContent{height:60px;padding: 1rem 1.5rem 0rem;text-align-last: justify; border-bottom:1px black solid;}
-    .bottomContent{display:flex;}
+    .topContent{height:60px;padding: 1rem 1.5rem 0rem;text-align-last: justify; border-bottom:1px black solid;
+    background: #778899;
+    color: white;
+    font-weight: 600;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;background: #778899;
+    color: white;
+    font-weight: 600;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;}
+    .bottomContent{display:flex;border: 1px solid;}
     .roomList{width:30%;height:440px;}
     .chatRoom{width:100%;height:440px;position: relative;padding: 1rem 0rem 3rem;padding-left: .5rem;}
     .cr1{width:100%;height:440px;position: relative;padding: 1rem 0rem 3rem;padding-left: .5rem;}
@@ -51,6 +60,10 @@
    	@media(max-width:800px){
    	.wid3{width:100%;}
    	}
+   	#msAlarm{width:max-content;height:auto;background: black;color:white;
+		min-width:200px;border-radius: 30px; font-weight: 600;
+    	padding: 1rem 1rem 01rem;min-height:50px;
+    	display:inline-block;}
 </style>
     <div class="reciver marb disno" id="cloneDiv">
         <div class="time">qweqw</div>
@@ -93,6 +106,7 @@
     <div id="titleDiv">
     	<h1>채팅창 관리</h1>
     	<hr>
+    	<div id="msAlarm">메세지</div>
     </div>
     <div class="wid top"> <!-- 제일 상위 div -->
 		
@@ -218,6 +232,7 @@ function onMessage(msg) {
 		//$(div).find(".rtime").css('display','none');
 		$(div).find(".time").html(dateFormat(new Date().getTime()));
 		$(div).find(".rcontent").html(ms["ms"]);
+		$("#msAlarm").html(ms['user']+' : '+ms['room']+'으로 메세지가 왔습니다.');
 	}
 	let mNo;
 	console.log(ms["user"]);

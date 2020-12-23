@@ -252,10 +252,13 @@
 	color: #0058a3;
 	border-bottom: 2px solid;
 }
-#deleteBtn{
+#deleteBtn, .ckBtn{
     font-weight: bold;
    	margin-top: .625rem;
    	color: #484848;
+}
+.ckBtn:hover{
+	color: #0075ff;
 }
 #deleteBtn:hover{
     text-decoration: underline !important;

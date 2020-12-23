@@ -44,7 +44,9 @@
                        </svg>
                     </a>
                     <div class="divcenter">
-                    <div class="logoimg"></div>
+                    <div class="logo-size">
+                    	<a href="${path }"><img class="logo-size" src="${path }/resources/img/logo5.PNG"/></a>
+                    </div>
                     </div>
                 </div>
                 <div>

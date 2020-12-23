@@ -14,6 +14,8 @@ public interface ProductService {
 	List<Map> filter(Map<String, Object> filter);
 	List<Map> productDetail(String productno);
 	List<Map> review(String productno);
+	List<Map> average(Map<String, Object> productno);
+	
 
 
 
@@ -35,5 +37,7 @@ public interface ProductService {
 	List <Map> delectSelectRoom();
 	int delectShowroom( String deleteRoom);
 	
-
+//sale가격
+	 String selectSale(String productNo);
+	 
 }

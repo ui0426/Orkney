@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import com.palette.orkney.admin.model.dao.AdminDao;
 import com.palette.orkney.order.model.vo.OrderDetail;
 import com.palette.orkney.order.model.vo.Orders;
+import com.palette.orkney.product.model.vo.Product;
+import com.palette.orkney.product.model.vo.Product_image;
 
 @Service
 public class AdminServiceImpl implements AdminService {
@@ -62,15 +64,15 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public List<Map> memberList(int cPage,int numPerPage) {
+	public List<Map> memberList(int cPage,int numPerPage,Map data) {
 		// TODO Auto-generated method stub
-		return dao.memberList(session,cPage,numPerPage);
+		return dao.memberList(session,cPage,numPerPage,data);
 	}
 
 	@Override
-	public int totalData() {
+	public int totalData(Map data) {
 		// TODO Auto-generated method stub
-		return dao.totalData(session);
+		return dao.totalData(session,data);
 	}
 
 	@Override
@@ -113,7 +115,11 @@ public class AdminServiceImpl implements AdminService {
 	
 	@Override
 	public Map countOrderState() {	
-		return dao.countOrderState(session);
+		Map m = dao.countOrderState(session);
+		Map m2 = dao.countOrderDetailState(session);
+		m2.put("주문확인", m.get("주문확인"));
+		m2.put("취소신청",m.get("취소신청"));
+		return m2;
 	}
 
 	@Override
@@ -127,11 +133,13 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public List<Orders> updateOrderListState(int cPage, int numPerPage, Map m) {
+	public List<Orders> updateOrderListState(int cPage, int numPerPage, Map m, String search_option, String keyword) {
 		int result = dao.updateOrderListState(session, m);
+		System.out.println("업데이트 결과 값"+result);
 		List<Orders> list = new ArrayList();
-		if(result > 0) {
-//			list = dao.selectOrderList(session,cPage,numPerPage);
+		if(result != 0) {
+			list = dao.selectOrderList(session,cPage,numPerPage, search_option, keyword);
+			System.out.println("리스트 갱신 : "+list);
 		}
 		return list;
 	}
@@ -139,6 +147,93 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public List<OrderDetail> selectOrderDetailChangeList(String state) {
 		return dao.selectOrderDetailChangeList(session, state);
+	}
+
+	@Override
+	public List<Map> productList(int cPage, int numPerPage, Map<String,Object> all) {
+		List<Map> list = new ArrayList<Map>();
+		list = dao.productList(session,cPage, numPerPage, all);
+		
+		return list;
+	}
+	
+	@Override
+	public int productTotalData() {
+
+		return dao.productTotalData(session);
+	}
+
+	@Override
+	public int productPer(Map<String, Object> list) {
+		// TODO Auto-generated method stub
+		return dao.productPer(session,list);
+	}
+	
+	@Override
+	public int deleteProduct(String pNo) {
+		// TODO Auto-generated method stub
+		int result = dao.deleteProductImg(session,pNo);
+		return dao.deleteProduct(session,pNo);
+	}
+
+	@Override
+	public List<Map> productOne(Map<String, Object> list) {
+		// TODO Auto-generated method stub
+		return dao.productOne(session,list);
+	}
+
+	@Override
+	public int productPutIn(Map<String, Object> list) {
+		// TODO Auto-generated method stub
+		return dao.productPutIn(session,list);
+	}
+
+	@Override
+	public int productInsert(Product product, List<Product_image> files, String[] img) {
+		// TODO Auto-generated method stub
+		int result = dao.productInsert(session, product); 
+		System.out.println("반환값:"+result);
+		System.out.println("반환값:2"+product);
+//		Product_image pi = new Product_image();
+		int index=0;
+		if(result>0) {
+			if(files!=null) {
+//				for (int i = 0; i < files.size(); i++) {
+//					pi.setRenamedFileName();
+//					pi.setProduct_no("p"+product.getProductNo());
+//					pi.setProduct_color(img[i]);
+//					System.out.println("가자:"+pi);
+//				}
+				for(Product_image pi : files) {
+					pi.setProduct_color(img[index]);
+					index++;
+					pi.setProduct_no("p"+product.getProductNo());
+					System.out.println("가자:"+pi);
+					result = dao.insertProductImage(session, pi);
+				}
+			}
+		}
+		
+		return result;
+	}
+	public int selectRefundCount(String oNo) {
+		return dao.selectRefundCount(session, oNo);
+	}
+
+	@Override
+	public int updateStateAndSort(Map m) {
+		return dao.updateStateAndSort(session, m);
+	}
+
+	@Override
+	public List<OrderDetail> selectOrderOngoingList() {
+		return dao.selectOrderOngoingList(session);
+	}
+
+	@Override
+	public int updateSortEnd(Map m) {
+		return dao.updateSortEnd(session, m);
+
 	}
 	
 	

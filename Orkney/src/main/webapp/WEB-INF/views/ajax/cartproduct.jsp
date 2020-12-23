@@ -30,16 +30,24 @@
                         <div><c:out value="${p.productName}"/></div>
                         <div><c:out value="${p.product_color}"/></div>                                
                         <div><c:out value="${p.product_width}"/>*<c:out value="${p.product_height}"/>*<c:out value="${p.product_depth}"/></div>
-                        <div class="price"> <fmt:formatNumber value="${p.totalPrice}"/>&nbsp;원 </div>                                    
+                        <div class="price"> 
+                        	<div>${p.sale_per!=null?"event":""}</div>
+                        	<fmt:formatNumber value="${p.totalPrice}"/>&nbsp;원 
+                        </div>
+                                                            
                     <div class="btn-container">                                                
                         <div>                        	   
                             <select class="mdb-select md-form amount" id="se">
+                            	
                             	<c:forEach begin="1" end="10" var="i">
                             		<c:if test="${p.cartQTY == i}">                            		                                  
                                   		<option value="${p.cartQTY}" selected>${i}</option>
-                                  	</c:if>                                            	                        	
-                                     <option value="${i}"/>${i}</option>                                                                 	                                  		                                                                                            
-								</c:forEach>							
+                                  	</c:if>
+                                  	<c:if test="${p.cartQTY != i}">                                            	                        	
+                                     	<option value="${i}"/>${i}</option>
+                                    </c:if>	                                     	                                                                 	                                  		                                                                                            
+								</c:forEach>
+															
                              </select>
                              <input type="hidden" value="${p.cartNo }" id="${p.productNo}" class="${p.totalPrice}">
                              <input type="hidden" value="${p.productPrice}">                       
@@ -51,11 +59,40 @@
                 	</div> 
                 	<div> 
 						<div class="line1"></div>
-					</div>	
-                	                         
+					</div>	                	                         
              </div>             
 	</c:forEach>	
-	</c:if>
+	</c:if>		
+	
+	<!-- Full Height Modal Right -->
+<div class="modal fade right" id="fullHeightModalRight" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+
+  <div class="modal-dialog modal-full-height modal-right" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title w-100" id="myModalLabel">위시리스트</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      	<c:forEach items="${wish}" var="w">
+      	<div style="display:flex; justify-content:space-between; padding: 10px;">
+      		<div>${w.wishlist_name}</div>
+      		<div> <button style="outline:none;">추가</button></div>
+      	</div>
+      	<div class="line1"></div>
+      	</c:forEach>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button type="button"  class="btn btn-secondary1" data-dismiss="modal">Close</button>        
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Full Height Modal Right -->
+	
 
         <div class="section2">                                                        
                 <div class="service-container">                              

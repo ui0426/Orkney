@@ -37,5 +37,8 @@ public interface WishlistService {
 	//제품 수량 다운하기
 	int countDown(Map data);
 
+	//위시리스트에 제품 담기
+	int insertWish(Map data);
+
 
 }

@@ -59,7 +59,11 @@ public class ProductServiceImpl implements ProductService{
 		// TODO Auto-generated method stub
 		return dao.review(session,productno);
 	}
-
+	@Override
+	public List<Map> average(Map<String, Object> productno) {
+		// TODO Auto-generated method stub
+		return dao.average(session,productno);
+	}
 
 
 
@@ -116,6 +120,7 @@ public class ProductServiceImpl implements ProductService{
 		return dao.sale(session);
 	}
 
+
 	@Override
 	public int insertRoom(Map<String, Object> room) {
 		// TODO Auto-generated method stub
@@ -162,7 +167,12 @@ public class ProductServiceImpl implements ProductService{
 	}
 	  
 	 
+//sale가격
 
+		@Override
+		public String selectSale(String productNo) {	
+			return dao.selectSale(session,productNo);
+		}
 	  
 
 

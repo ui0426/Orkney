@@ -86,8 +86,8 @@
 							<option value="">자리선택</option>
 						</select> <input type="file" name="room_img"
 							class="btn btn-primary btn-sm " accept="image/*" id="imgInp"
-							onchange="fileChange()" /> <select id="select-lie"name="select-a"
-							class="browser-default custom-select"
+							onchange="fileChange()" /> <select id="select-lie"
+							name="select-a" class="browser-default custom-select"
 							onclick="getInputValue(this.value);">
 							<option id="nene">개수</option>
 							<option value="1">1</option>
@@ -97,23 +97,22 @@
 							<option value="5">5</option>
 						</select>
 						<div id="img-div">
-							<input type="checkbox" id="cbx" class="toggle" style="display:none;" name="toggleInsert"value="추가">
-								<label for="cbx" class="check">
-								  <svg width="18px" height="18px" viewBox="0 0 18 18">
-								    <path d="M1,9 L1,3.5 C1,2 2,1 3.5,1 L14.5,1 C16,1 17,2 17,3.5 L17,14.5 C17,16 16,17 14.5,17 L3.5,17 C2,17 1,16 1,14.5 L1,9 Z"></path>
+							<input type="checkbox" id="cbx" class="toggle"
+								style="display: none;" name="toggleInsert" value="추가"> <label
+								for="cbx" class="check"> <svg width="18px" height="18px"
+									viewBox="0 0 18 18">
+								    <path
+										d="M1,9 L1,3.5 C1,2 2,1 3.5,1 L14.5,1 C16,1 17,2 17,3.5 L17,14.5 C17,16 16,17 14.5,17 L3.5,17 C2,17 1,16 1,14.5 L1,9 Z"></path>
 								    <polyline points="1 9 7 14 15 4"></polyline>
 								  </svg>
-								</label>
+							</label>
 							<!-- <input type="checkbox" class="toggle" name="toggleInsert"value="추가"> -->
 							<div class="top_lift_a " style="display: none">
 								<input type="number" class="rooms_top form-control"
 									name="rooms_top" placeholder="top"
-									onkeypress="return isNumberKey(event)"
-								 />
-								<input type="number" class="rooms_left form-control"
-									name="rooms_left" placeholder="left"
-									onkeypress="return isNumberKey(event)"
-									 />
+									onkeypress="return isNumberKey(event)" /> <input
+									type="number" class="rooms_left form-control" name="rooms_left"
+									placeholder="left" onkeypress="return isNumberKey(event)" />
 								<select class="rooms_product  custom-select"
 									name="rooms_product" />
 								<option id="option-product" value="상품번호" style="display: none;">상품번호</option>
@@ -330,6 +329,7 @@ function ajaxAdmin() {
 		    	 var today = new Date();
 				 for(let t=0;t<data.length;t++){
 					  var endDate = new Date(data[t]["PRODUCT_ENROLL_DATE"]);
+					  endDate.setDate(endDate.getDate() +30);
 					 let cl=$(".rm-bt").clone();
 					$(cl).removeClass("rm-bt");
 					$(cl).addClass("rm-bts"+(t+1)+"");
@@ -340,18 +340,16 @@ function ajaxAdmin() {
 					if(today>endDate){
 				    	   $(cl).find(".rm-pb-et-new").remove();
 				    	 	}
-					if(data[t]["SALE_PER"]==''||data[t]["SALE_PER"]==null){
-						console.log('위');
-					$(cl).find(".rm-pb-et-p").remove();
-					}
 					$(cl).find(".rm-bt-name").html(data[t]["PRODUCT_NAME"]);
 					$(cl).find(".rm-bt-sp").html(data[t]["PRODUCT_INFO"]);
-					if(data[t]["SALE_PER"]==''||data[t]["SALE_PER"]==null){
+					if(data[t]["SALE_PER"]==data[t]["PRODUCT_PRICE"]){
 						console.log('한놈만');
+						$(cl).find(".rm-pb-et-p").remove();
 					$(cl).find(".rm-remo").remove();
 					$(cl).find(".rm-bt-et-price").html("&#8361;"+ numberWithCommas(data[t]["PRODUCT_PRICE"]));
-					}else if(data[t]["SALE_PER"]!=''||data[t]["SALE_PER"]!=null){
+					}else if(data[t]["SALE_PER"]!=data[t]["PRODUCT_PRICE"]){
 						console.log('아래');
+						
 					$(cl).find(".rm-re-pr").remove();
 					$(cl).find(".rm-bt-price").html("&#8361;"+ numberWithCommas(data[t]["PRODUCT_PRICE"]));
 					$(cl).find(".rm-bt-et-price").html("&#8361;"+ numberWithCommas(data[t]["SALE_PER"])); 
@@ -424,14 +422,14 @@ function inputClick(){
   	$("#imgInp").trigger("click");
 		return false;
 	}
-
-	/*  if($(".rm-bts"+i+"").css("top")==$(".rm-bte").css("top")){
+	/*  for(let i=1;i<=a;i++){ 
+	  if($(".rm-bts"+i+"").css("top")==$(".rm-bte").css("top")){
 		 console.log($(".rm-bts1").css("top"),'뭐야!!!!!!!!!!!!!!!!!!!!!');
 		 console.log($(".rm-bte").css("top"),'뭐야!!!!!!!!!!!!!!!!!!!!!!!');
 		 alert("등록된 상품과 같은 좌표입니다.");
 		 return false;
+	 } 
 	 } */
-	 
 	/* else if (!$(".top_lift_a").hasClass("rudfhr")) {
 	    console.log('submit','1');
 	    alert('(top,left,produst)를  입력하셔야 합니다');
@@ -510,6 +508,7 @@ function getInputName(){
 		 for(let t=0;t<data.length;t++){
 			 console.log(t);
 			  var endDate = new Date(data[t]["PRODUCT_ENROLL_DATE"]);
+			  endDate.setDate(endDate.getDate() +30);
 			 let cl=$(".rm-bt").clone();
 			$(cl).removeClass("rm-bt");
 			$(cl).addClass("rm-bte");
@@ -519,15 +518,13 @@ function getInputName(){
 			if(today>endDate){
 		    	   $(cl).find(".rm-pb-et-new").remove();
 		    	 	}
-			if(data[t]["SALE_PER"]==''||data[t]["SALE_PER"]==null){
-			$(cl).find(".rm-pb-et-p").remove();
-			}
 			$(cl).find(".rm-bt-name").html(data[t]["PRODUCT_NAME"]);
 			$(cl).find(".rm-bt-sp").html(data[t]["PRODUCT_INFO"]);
-			if(data[t]["SALE_PER"]==''||data[t]["SALE_PER"]==null){
+			if(data[t]["SALE_PER"]==data[t]["PRODUCT_PRICE"]){
+				$(cl).find(".rm-pb-et-p").remove();
 			$(cl).find(".rm-remo").remove();
 			$(cl).find(".rm-bt-et-price").html("&#8361;"+ numberWithCommas(data[t]["PRODUCT_PRICE"]));
-			}else if(data[t]["SALE_PER"]!=''||data[t]["SALE_PER"]!=null){
+			}else if(data[t]["SALE_PER"]!=data[t]["PRODUCT_PRICE"]){
 			$(cl).find(".rm-re-pr").remove();
 			$(cl).find(".rm-bt-price").html("&#8361;"+ numberWithCommas(data[t]["PRODUCT_PRICE"]));
 			$(cl).find(".rm-bt-et-price").html("&#8361;"+ numberWithCommas(data[t]["SALE_PER"])); 

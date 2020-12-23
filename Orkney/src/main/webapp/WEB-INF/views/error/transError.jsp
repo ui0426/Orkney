@@ -49,7 +49,7 @@
     .mdmar{margin-bottom:0;}
     .fs{font-size: 0.9rem;}
     .logoimg{
-    background-image: url(https://kr.accounts.ikea.com/resources/static/logo.svg);
+    background-image: url(../resources/img/logo2.png);
     background-repeat: no-repeat;
     background-size: 88px 44px;
     content: "";
@@ -107,6 +107,9 @@
     	.transPw{width:100%;height:57%;}
     	#rightForm{width:100%;}
     }
+    .logo-size{
+    	width: 75px;
+    }
 </style>
 <body>
     <div id="totalForm">
@@ -120,7 +123,9 @@
                        </svg>
                     </a> -->
                     <div class="divcenter">
-                    <div class="logoimg"></div>
+                    <div class="logo-size">
+                    	<a href="${path }"><img class="logo-size" src="${path }/resources/img/logo5.PNG"/></a>
+                    </div>
                     </div>
                 </div>
                 <div>

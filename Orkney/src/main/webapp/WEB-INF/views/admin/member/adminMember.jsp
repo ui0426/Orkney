@@ -17,6 +17,14 @@
 	<div class="title">
 			<h2>회원 관리<hr></h2>
 	</div>
+	<div class="point" style="width:60%;margin-bottom:3rem;">
+    <select class="browser-default custom-select pointIn" id="searchType" style="width:30%;">
+	  <option value="MEMBER_ID">아이디</option>
+	  <option selected value="MEMBER_NAME">이름</option>
+</select>
+		<input type="text" class="form-control pointIn" id="search" placeholder="검색">
+		<i class="fas fa-search fa-2x" style="margin-left:1rem;cursor:pointer;" id="icon"></i>
+	</div>
 	
 	<div id="memberList">
 	
@@ -85,12 +93,16 @@
 		function fn_paging(cPage){
 		$.ajax({
 			url:"${path}/admin/memberListData.do",
-			data:{cPage:cPage},
+			data:{cPage:cPage,type:$("#searchType").val(),key:$("#search").val()},
 			success:data => {
 				$("#memberList").html(data);
 			}
 		})
 		}
+		$("#icon").click(e=>{
+			fn_paging(0);
+		})
+
 		
 	</script>
 

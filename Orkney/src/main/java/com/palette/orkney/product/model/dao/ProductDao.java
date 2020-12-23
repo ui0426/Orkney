@@ -16,11 +16,15 @@ public interface ProductDao {
 		List<Map> filter(SqlSession session,Map<String, Object> filter);
 		List<Map> productDetail(SqlSession session, String productno);
 		List<Map> review(SqlSession session, String productno);
+		List<Map> average(SqlSession session, Map<String, Object> productno);
 
 //==================================================================================
 	List<Map> selectRooms(SqlSession session,String type);
+
 	List<Map>selectRoomsProduct(SqlSession session ,Map types);
 	List<Map>roomsDetail(SqlSession session, String type);
+
+	
 	List<Map>listProduct(SqlSession session,String type);
 	String allProductList(SqlSession session);
 	List<Map>productCategory(SqlSession session,Map texts);
@@ -34,7 +38,10 @@ public interface ProductDao {
 	int deleteRoom(SqlSession session, Map room);
 	List<Map>delectSelectRoom(SqlSession session);
 	int delectShowroom(SqlSession session ,String deleteRoom);
+
 //==================================================================================
 	//재고 갱신
 	int updateStock(SqlSession session, Map m);
+	
+	String selectSale(SqlSession session,String productNo);
 }

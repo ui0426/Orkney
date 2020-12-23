@@ -22,7 +22,7 @@
         </thead>
         <tbody>
         <c:forEach items="${order}" var="o">
-          <tr>
+          <tr class="clickPointer">
             <td scope="row"><input type="checkbox" name="oNo" value="${o.order_no}"></td>
             <td onclick="location.href='${path}/admin/orderView.do?oNo=${o.order_no} '"><c:out value="${o.order_date}"/></td>
             <td onclick="location.href='${path}/admin/orderView.do?oNo=${o.order_no}'"><c:out value="${o.order_no}"/></td>
