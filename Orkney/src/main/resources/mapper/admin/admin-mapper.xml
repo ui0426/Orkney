@@ -115,4 +115,59 @@
   	<select id="selectOrderDetailChangeList" parameterType="string" resultType="orderDetail">
   		SELECT * FROM ORDER_DETAIL JOIN ORDERS USING(ORDER_NO) JOIN MEMBER USING(MEMBER_NO) JOIN PRODUCT USING(PRODUCT_NO) WHERE SORT=#{state}
   	</select>
+  	
+  	<select id="productList" resultType="map" parameterType="map">
+	   SELECT *
+	   FROM PRODUCT P
+	   LEFT OUTER JOIN BIG_CATEGORY B
+	   ON P.BIG_CATEGORY_NO = B.BIG_CATEGORY_NO
+	   <if test="keyword != null and keyword != ''">
+	   WHERE
+	   P.PRODUCT_NO LIKE '%'||#{keyword}||'%'
+	   OR P.PRODUCT_NAME LIKE '%'||#{keyword}||'%'
+	   OR B.BIG_CATEGORY_CONTENT LIKE '%'||#{keyword}||'%'
+	   </if>
+	   ORDER BY P.PRODUCT_ENROLL_DATE ASC
+	</select>
+	
+	<select id="productTotalData" resultType="_int">
+		SELECT COUNT(*) FROM PRODUCT
+	</select>
+	<update id="productPer" parameterType="map">
+		UPDATE PRODUCT 
+		SET SALE_PER = #{per} 
+		WHERE PRODUCT_NO = #{pNo}
+	</update>
+	<update id="productPutIn" parameterType="map">
+		UPDATE PRODUCT 
+		SET PRODUCT_STOCK = #{putIn} 
+		WHERE PRODUCT_NO = #{pNo}
+	</update>
+	<select id="productOne" resultType="map" parameterType="map">
+		SELECT SALE_PER, PRODUCT_STOCK
+		FROM PRODUCT
+		WHERE PRODUCT_NO = #{pNo}
+	</select>
+	<delete id="deleteProduct">
+		DELETE FROM PRODUCT
+		WHERE PRODUCT_NO = #{no}
+	</delete>
+	
+	<delete id="deleteProductImg">
+		DELETE FROM PRODUCT_IMAGE
+		WHERE PRODUCT_NO = #{no}
+	</delete>
+	
+	
+	<insert id="productInsert" parameterType="product">
+
+		INSERT INTO PRODUCT VALUES('p'||PRO_SEQ.NEXTVAL, #{productName}, #{productPrice}, #{productColor}, #{productWidth}, #{productHeight},#{productDepth},SYSDATE,#{productStock},#{productInfo},#{productBigCategoryNo},#{productSmallCategoryNo},#{productPrice})
+		<selectKey keyProperty="productNo" resultType="String" order="AFTER">
+			SELECT PRO_SEQ.CURRVAL FROM DUAL
+		</selectKey>
+	</insert>
+	
+	<insert id="insertProductImage" parameterType="Product_image">
+		INSERT INTO PRODUCT_IMAGE VALUES(#{renamedFileName}, #{product_no}, #{product_color})
+	</insert>
 </mapper>

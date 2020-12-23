@@ -501,7 +501,7 @@ h1, h3{margin : 0;}
                         console.log(error.status);
                     }
         		}) */
-        });
+        })
     
 </script>
 
