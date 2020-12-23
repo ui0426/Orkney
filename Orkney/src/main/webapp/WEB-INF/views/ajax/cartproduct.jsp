@@ -31,7 +31,7 @@
                         <div><c:out value="${p.product_color}"/></div>                                
                         <div><c:out value="${p.product_width}"/>*<c:out value="${p.product_height}"/>*<c:out value="${p.product_depth}"/></div>
                         <div class="price"> 
-                        	<div>${p.sale_per!=null?"event":""}</div>
+                        	<div>${p.sale_per!=p.productPrice?"event":""}</div>
                         	<fmt:formatNumber value="${p.totalPrice}"/>&nbsp;원 
                         </div>
                                                             
@@ -77,13 +77,19 @@
         </button>
       </div>
       <div class="modal-body">
-      	<c:forEach items="${wish}" var="w">
+       
+      <c:if test="${wish.size()==0 }">
+      	<p>위시리스트가 없습니다. </p>
+      </c:if>
+      <c:if test="${wish.size()!=0 }">
+      	<c:forEach items="${wish}" var="w">      	
       	<div style="display:flex; justify-content:space-between; padding: 10px;">
       		<div>${w.wishlist_name}</div>
       		<div> <button style="outline:none;">추가</button></div>
       	</div>
       	<div class="line1"></div>
       	</c:forEach>
+      	</c:if>
       </div>
       <div class="modal-footer justify-content-center">
         <button type="button"  class="btn btn-secondary1" data-dismiss="modal">Close</button>        

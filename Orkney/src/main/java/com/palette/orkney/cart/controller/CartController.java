@@ -42,6 +42,7 @@ public class CartController {
 	//0.장바구니 추가
 	@RequestMapping("/cart/cartInsert.do")
 	public ModelAndView cartInsert(HttpSession session,ModelAndView mv,String productNo, @RequestParam(value="cartQTY", defaultValue ="1") int cartQTY) {				
+
 		String memberNo = (String)((Map)session.getAttribute("login")).get("MEMBER_NO");					
 			
 		String cartNo=service.selectCartNo(memberNo);											

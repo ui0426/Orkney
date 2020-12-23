@@ -104,6 +104,7 @@
 	<result column="BIG_CATEGORY_NO" property="productBigCategoryNo"/>
 	<result column="SMALL_CATEGORY_NO" property="productSmallCategoryNo"/>
 	<result column="EVENT_CODE" property="eventCode"/>
+	<result column="SALE_PER" property="sale_per"/>
 	<association property="product_image" resultMap="product_imageResultMap"></association>
 </resultMap>
 

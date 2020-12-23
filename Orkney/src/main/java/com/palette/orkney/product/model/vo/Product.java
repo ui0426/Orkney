@@ -29,6 +29,7 @@ public class Product {
    private String productSmallCategoryNo;
    private String eventCode;
    private Product_image product_image;
+   private String sale_per;
    
 }
 

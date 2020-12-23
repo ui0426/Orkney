@@ -34,12 +34,13 @@ public class WishlistController {
       Map login = ((Map)session.getAttribute("login")); //로그인 된 유저
       String mNo = (String)login.get("MEMBER_NO"); //로그인 유저 넘버
       Wishlist wish = null; //jsp에서 wish가 null 이면, null 아니면 해주기!
-      System.out.println("쿠키wNo" + wNo);
+      System.out.println("쿠키wNo11" + wNo);
       
       //이 부분 추가..201220
       if(addwNo != null) {
-    	 Cookie c = new Cookie("wNo", addwNo);
+    	 wNo = addwNo;
       }
+      System.out.println("쿠키wNo22" + wNo);
       //위시리스트 가져오기...
       if(wNo == null || wNo == "") {
          wish = service.selectWishlist(mNo);
@@ -63,7 +64,7 @@ public class WishlistController {
       
       int allPrice = 0;
       for(Wishlist_detail wd : wish.getWishlist_detail()) {
-    	  int price = wd.getProduct().getProductPrice() * wd.getProduct_qty();
+    	  int price = Integer.parseInt(wd.getProduct().getSale_per()) * wd.getProduct_qty();
     	  allPrice += price;
       }
       
@@ -109,7 +110,7 @@ public class WishlistController {
       //총가격~~
       int allPrice = 0;
       for(Wishlist_detail wd : wish.getWishlist_detail()) {
-    	  int price = wd.getProduct().getProductPrice() * wd.getProduct_qty();
+    	  int price = Integer.parseInt(wd.getProduct().getSale_per()) * wd.getProduct_qty();
     	  allPrice += price;
     	  System.out.println(wd.getProduct_qty());
     	  System.out.println(allPrice);
@@ -304,6 +305,8 @@ public class WishlistController {
    public String insertWishModal(HttpSession session, Model m,
            @RequestParam(value = "pNo", required=false) String pNo) {
 		Map login = ((Map)session.getAttribute("login")); //로그인 된 유저
+		
+			
 		String mNo = (String)login.get("MEMBER_NO"); //로그인 유저 넘버
 		
 		List<Wishlist> wlList = service.wishlistList(mNo);   
@@ -313,6 +316,7 @@ public class WishlistController {
 		m.addAttribute("wlList", wlList);
 		m.addAttribute("pNo", pNo);
 		return "product/wl_select";
+		
 	}
    
    //위시리스트에 제품 담기
