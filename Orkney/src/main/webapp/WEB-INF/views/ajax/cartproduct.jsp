@@ -23,7 +23,7 @@
                         <input type="hidden" value="${p.totalPrice }" name="totalPrice">                                                                                                                                                                                                                 
                     <div class="product-detail">
                     	<div class="product-pic">
-                    		<img src="${path}/resources/images/rooms/<c:out value="${p.product_pic}"/>">
+                    		<img src="${path}/resources/images/product/<c:out value="${p.product_pic}"/>">
                     	</div> 
                         <div><c:out value="${p.productName}"/></div>
                         <div><c:out value="${p.product_color}"/></div>

@@ -46,7 +46,7 @@ public class OrderController {
 	//결제후
 	@RequestMapping("/cart/complete.do")
 	@ResponseBody
-	public ModelAndView complete(ModelAndView mv,
+	public void complete(ModelAndView mv,
 			String reName,String rePhone,HttpSession session,
 			String reAddress, String message,int kopQty, String paymentMethod,	
 			Orders orders,int totalFee, int willPoint,int addTax,int totalPoint,int sumProduct,int shipFee
@@ -98,7 +98,6 @@ public class OrderController {
 									
 		session.setAttribute("info", mapping);
 		session.setAttribute("orders", orders);				
-		return mv;
 	}
 	
 	
@@ -109,8 +108,7 @@ public class OrderController {
 		List<Cart> c = cservice.selectCart(memberNo);													
 		
 		Map info=((Map)session.getAttribute("info"));
-		Orders orders=((Orders)session.getAttribute("orders"));		
-		System.out.println("넘버표시:"+c.get(0).getCartNo());
+		Orders orders=((Orders)session.getAttribute("orders"));				
 		
 		mv.addObject("cart",c);
 		mv.addObject("orders",orders);

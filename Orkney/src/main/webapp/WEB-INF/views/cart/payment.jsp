@@ -34,7 +34,7 @@
             <c:forEach items="${cart }" var="p">
             <div class="product-container">
 	            <div class="order-container">
-	                <div class="product-pic"><img src="${path}/resources/images/rooms/<c:out value="${p.product_pic}"/>"></div>               
+	                <div class="product-pic"><img src="${path}/resources/images/product/<c:out value="${p.product_pic}"/>"></div>               
 	                <div class="product-detail">
 	                    <div><c:out value="${p.productName}"/></div>
 	                    <div><c:out value="${p.product_width}"/>*<c:out value="${p.product_height}"/>*<c:out value="${p.product_depth}"/></div>	                  		                    
@@ -379,15 +379,12 @@ if($(".ck").is(":checked")==false){
 		        	success:data=>{ 		        		
 		        		location.replace("${path}/cart/completeMail.do");		        		
 		        	}
-		        })
-		        		        
-		        
-		        
+		        })		        
 		    } else {
 		        var msg = '결제에 실패하였습니다.';
 		        msg += '에러내용 : ' + rsp.error_msg;
 		    }
-		    alert(msg);
+		    alert("결제완료");
 		});		
 	}else if(payment=="bankTransfer"){}
 
