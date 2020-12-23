@@ -210,6 +210,10 @@ filter2();
 						  $(productClone).find("#btnck").attr("name",data[i]["PRODUCT_NO"]);
 						  $(productClone).find("#btnck").attr("title",data[i]["PRODUCT_PRICE"]);
 						  
+						  $(productClone).find("#btnWish").attr("name",data[i]["PRODUCT_NO"]);
+						  $(productClone).find("#btnWish").attr("title",data[i]["PRODUCT_PRICE"]);
+						  $(productClone).find("#btnWish").attr("onclick","fn_addWishModal"+"("+"'"+data[i]["PRODUCT_PRICE"]+"'"+","+"'"+data[i]["PRODUCT_NO"]+"'"+");");
+						  
 						  $(productClone).find("#btnck").attr("onclick","fnbn"+"("+"'"+data[i]["PRODUCT_PRICE"]+"'"+","+"'"+data[i]["PRODUCT_NO"]+"'"+");");
 						  						
 							 						  										
@@ -329,6 +333,10 @@ filter2();
 						  $(productClone).find("#readMore").attr("onclick","location.href = \'${path}/product/productDetail.do?productno="+data[i]["PRODUCT_NO"]+"\'");
 						  $(productClone).find("#btnck").attr("name",data[i]["PRODUCT_NO"]);
 						  $(productClone).find("#btnck").attr("title",data[i]["PRODUCT_PRICE"]);
+						  
+						  $(productClone).find("#btnWish").attr("name",data[i]["PRODUCT_NO"]);
+						  $(productClone).find("#btnWish").attr("title",data[i]["PRODUCT_PRICE"]);
+						  $(productClone).find("#btnWish").attr("onclick","fn_addWishModal"+"("+"'"+data[i]["PRODUCT_PRICE"]+"'"+","+"'"+data[i]["PRODUCT_NO"]+"'"+");");
 						  
 						  $(productClone).find("#btnck").attr("onclick","fnbn"+"("+"'"+data[i]["PRODUCT_PRICE"]+"'"+","+"'"+data[i]["PRODUCT_NO"]+"'"+");");
 
@@ -828,7 +836,7 @@ filter2();
 										more</button>
 									<div class="row heartCart_icon" style="margin: auto;">
 <a class="material-tooltip-main " data-placement="top" title="Add to Cart" id="btnck"  data-toggle="modal" data-target="#modalAbandonedCart"> <i class="fas fa-shopping-cart grey-text ml-3"></i></a> 
-<a class="material-tooltip-main heart_icon" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"> <i class="fas fa-heart grey-text ml-3"></i></a>
+<a class="material-tooltip-main heart_icon" data-placement="top" title="Add to Wishlist" id="btnWish" data-toggle="modal" data-target="#modalAddWish"> <i class="fas fa-heart grey-text ml-3"></i></a>
 									</div>
 								</div>
 							</div>
@@ -869,8 +877,50 @@ filter2();
     <!--/.Content-->
   </div>
 </div>
+</div>
 <!-- Modal: modalAbandonedCart-->
+
+<!-- Modal: modalAbandonedCart-->
+<div class="modal fade right" id="modalAddWish" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true" data-backdrop="false">
+  <div class="modal-dialog modal-side modal-top-right modal-notify modal-info" role="document">
+    <!--Content-->
+    <div class="modal-content" id="insertWish">
+    </div>
+    <!--/.Content-->
+  </div>
+</div>
+<!-- Modal: modalAbandonedCart-->			
+				
 <script>
+function fn_addWishModal(price,pNo){
+	let login = '${sessionScope.login}';
+	console.log(login);
+	
+	if(login == ''){
+		let ck = confirm('로그인이 필요한 서비스 입니다. 로그인 화면으로 이동하시겠습니까?');
+		console.log(ck);
+		if(ck == true){
+			location.href='${path}/member/memberLogin.do';
+		}
+		return;
+	}
+	
+	$.ajax({
+		type: 'post',
+		url: '${ path }/wishlist/insertWishModal.do',
+		data: {pNo:pNo},
+		success: function(data){
+			console.log(data);
+			if(data == ''){
+				alert('dd');
+			}
+			$('#insertWish').html(data);
+		}
+		
+	})
+}
+
 function fnbn(a,b){
     $.ajax({
 		url:"${path }/cart/cartInsert.do",

@@ -37,7 +37,7 @@
 	       <input class="only_wNo" type="hidden" value="${ wish.wishlist_no }"/>
 	       <input class="only_pNo" type="hidden" value="${ wide.product.productNo }"/>
 	       <input class="only_pQty" type="hidden" value="${ wide.product_qty }"/>
-	       <input class="only_pPrice" type="hidden" value="${ wide.product.productPrice }"/>
+	       <input class="only_pPrice" type="hidden" value="${ wide.product.sale_per }"/>
            <div class="product-box"> <!-- 제품설명 박스 -->
                <div class="product-img"><figure style="background: url(${ path }/resources/images/product/${ wide.product.product_image.product_pic });"></figure></div>
                <div class="product-description">
@@ -47,7 +47,7 @@
                			<li><c:out value="${ wide.product.productColor }"/></li>
                		</ul>
                </div>
-               <div class="product-price"><span>&#8361;</span><span><fmt:formatNumber value="${ wide.product.productPrice * wide.product_qty}" pattern="###,###"/></span><c:if test="${ wide.product_qty > 1 }" ><div class="pricePerQty">&#8361; <fmt:formatNumber value="${ wide.product.productPrice}" pattern="###,###"/> / 개</div></c:if></div>
+               <div class="product-price"><span>&#8361;</span><span><fmt:formatNumber value="${ wide.product.sale_per * wide.product_qty}" pattern="###,###"/></span><c:if test="${ wide.product_qty > 1 }" ><div class="pricePerQty">&#8361; <fmt:formatNumber value="${ wide.product.sale_per}" pattern="###,###"/> / 개</div></c:if></div>
 	           <div class="product-control"> <!-- 리스트컨트롤 박스 -->
 	           	   <c:if test="${wlList.size() > 1 }">
 	               <div class="product-movelist" onclick="fn_moveList(this)">다른 리스트로 이동</div> <!-- 눌렀을 때 모달창 -->
@@ -128,11 +128,11 @@
 		let t = $(e);
 		let i = $('.addCart').index(t);
 		let pNo = $('.only_pNo').eq(i).val();
-		let pPrice = $('.only_pPrice').eq(i).val();
+// 		let pPrice = $('.only_pPrice').eq(i).val();
 		let pQty = $('.count-box').eq(i).children('input').val();
 		
 		$.ajax({
-			data: {productNo : pNo, productPrice: pPrice, cartQTY: pQty },
+			data: {productNo : pNo, cartQTY: pQty },
 			url: '${path}/cart/cartInsert.do',
 			success: data=>{
 				console.log(data);
