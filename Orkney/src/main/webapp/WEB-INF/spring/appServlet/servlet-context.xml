@@ -51,8 +51,8 @@
 			<mapping path="/member/memberLogin.do"/>
 			<mapping path="/member/signup.do"/>
 			<mapping path="/order/orderLogin.do"/>
-			<mapping path="/order/passwordCheck.do"/>
-				<beans:bean id="login" class="com.palette.orkney.common.interceptor.LoginInterceptor">
+			<mapping path="/order/passwordCheck.do"/>			
+			<beans:bean id="login" class="com.palette.orkney.common.interceptor.LoginInterceptor">
 			</beans:bean>
 		</interceptor>
 	</interceptors>
@@ -68,6 +68,7 @@
 	<interceptors>
 		<interceptor>
 			<mapping path="/order/orderView.do"/>
+			<mapping path="/cart/cart.do"/>
 			<mapping path="/review/*"/>
 				<beans:bean id="logout" class="com.palette.orkney.common.interceptor.LoginCheckInterceptor">
 			</beans:bean>
@@ -81,6 +82,8 @@
 			</beans:bean>
 		</interceptor>
 	</interceptors>
+	
+	
 	
 	<!-- 파일데이터처리하는 bean등록하기 -->
    <beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">

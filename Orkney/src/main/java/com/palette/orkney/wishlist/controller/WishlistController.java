@@ -324,7 +324,7 @@ public class WishlistController {
 	   Map data = new HashedMap();
 	   data.put("mNo", mNo);
        data.put("pNo", pNo);
-       data.put("IwNo", IwNo);
+       data.put("IwNo", IwNo); //
 	   data.put("pQty", 1);
 	   
 	   int result = service.insertWish(data);
