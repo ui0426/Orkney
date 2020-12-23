@@ -40,7 +40,7 @@
   	SELECT CHAT_ROOM FROM CHATTING WHERE MEMBER_NO=#{no} GROUP BY CHAT_ROOM ORDER BY CHAT_ROOM
   </select>
   <select id="chatData" parameterType="string" resultType="map">
-  	SELECT * FROM CHATTING WHERE CHAT_ROOM=#{chatRoomNo}
+  	SELECT * FROM CHATTING WHERE CHAT_ROOM=#{chatRoomNo} ORDER BY CHAT_DATE
   </select>
   <select id="chatRoom" parameterType="map" resultType="map">
   	SELECT * FROM CHATTING WHERE MEMBER_NO=#{memberNo} AND CHAT_ROOM=#{roomNo} ORDER BY CHAT_DATE

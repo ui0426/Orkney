@@ -19,13 +19,13 @@
 		width:max-content;height:auto;background: black;color:white;
 		min-width:200px;border-radius: 30px; font-weight: 600;
     	padding: 0.3rem 1rem 01rem;
-      top:20%;
+      top:18%;
       left:105%;
      
 		text-align: center;
-    position: absolute;
+    position: fixed;
 		/* animation-name:msAlarm; */
-		animation-duration:5s;
+		animation-duration:10s;
 	  animation-duration: leaner;
 	  animation-iteration-count:1;
 	  animation-direction:alternate;

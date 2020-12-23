@@ -6,8 +6,9 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 
 import com.palette.orkney.order.model.vo.OrderDetail;
-import com.palette.orkney.order.model.vo.OrderDetail;
 import com.palette.orkney.order.model.vo.Orders;
+import com.palette.orkney.product.model.vo.Product;
+import com.palette.orkney.product.model.vo.Product_image;
 
 public interface AdminDao {
 
@@ -53,7 +54,20 @@ public interface AdminDao {
 	
 	int updateOrderListState(SqlSession session, Map m);
 	
+
 	List<OrderDetail> selectOrderDetailChangeList(SqlSession session, String state);
+
+	List<Map> productList(SqlSession session, int cPage, int numPerPage, Map<String,Object> all);
+	int productTotalData(SqlSession session);
+	int productPer(SqlSession session, Map<String,Object> list);
+	int productPutIn(SqlSession session, Map<String,Object> list);
+	int deleteProduct(SqlSession session, String pNo);
+	int deleteProductImg(SqlSession session, String pNo);
+	List<Map> productOne(SqlSession session, Map<String,Object> list);
+	int productInsert(SqlSession session, Product product);
+	int insertProductImage(SqlSession session, Product_image pi);
+
+
 	
 	int selectRefundCount(SqlSession session, String oNo);
 	
@@ -62,6 +76,5 @@ public interface AdminDao {
 	List<OrderDetail> selectOrderOngoingList(SqlSession session);
 	
 	int updateSortEnd(SqlSession session, Map m);
-
 
 }
