@@ -97,6 +97,8 @@ public class OrderController {
 		mapping.put("addTax", addTax);
 		mapping.put("totalFee",totalFee);		
 		mapping.put("willpoint",willPoint);
+//		mapping.put(); //제품정보
+//		mapping.put(); //제품사진
 									
 		session.setAttribute("info", mapping);
 		session.setAttribute("orders", orders);				
@@ -112,12 +114,13 @@ public class OrderController {
 		
 		Map info=((Map)session.getAttribute("info"));
 		Orders orders=((Orders)session.getAttribute("orders"));		
+		System.out.println("넘버표시:"+c.get(0).getCartNo());
 		
 		mv.addObject("cart",c);
 		mv.addObject("orders",orders);
 		mv.addObject("map",info);
 		mv.setViewName("cart/complete");
-		int cartDelete = cservice.cartDelete(c.get(0).getCartNo());
+		int cartDelete = cservice.cartDelete(memberNo);
 		session.removeAttribute("info");
 		return mv;
 	}
@@ -141,6 +144,7 @@ public class OrderController {
 		if(login != null && !login.isEmpty()) {
 			String mNo = (String)login.get("MEMBER_NO");
 			mv.addObject("list", service.selectOrderList(mNo));
+			mv.addObject("list2",service.selectOrderEndList(mNo));
 			System.out.println("로그인 한 상태에서 주문내역 조회 : "+service.selectOrderList(mNo));
 			mv.setViewName("order/orderList");
 		}else {

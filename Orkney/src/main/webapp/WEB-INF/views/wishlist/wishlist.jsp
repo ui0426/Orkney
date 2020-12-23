@@ -37,7 +37,7 @@
 	       <input class="only_wNo" type="hidden" value="${ wish.wishlist_no }"/>
 	       <input class="only_pNo" type="hidden" value="${ wide.product.productNo }"/>
 	       <input class="only_pQty" type="hidden" value="${ wide.product_qty }"/>
-	       <input class="only_pPrice" type="hidden" value="${ wide.product.productPrice }"/>
+	       <input class="only_pPrice" type="hidden" value="${ wide.product.sale_per }"/>
            <div class="product-box"> <!-- 제품설명 박스 -->
                <div class="product-img"><figure style="background: url(${ path }/resources/images/product/${ wide.product.product_image.product_pic });"></figure></div>
                <div class="product-description">
@@ -47,7 +47,7 @@
                			<li><c:out value="${ wide.product.productColor }"/></li>
                		</ul>
                </div>
-               <div class="product-price"><span>&#8361;</span><span><fmt:formatNumber value="${ wide.product.productPrice * wide.product_qty}" pattern="###,###"/></span><c:if test="${ wide.product_qty > 1 }" ><div class="pricePerQty">&#8361; <fmt:formatNumber value="${ wide.product.productPrice}" pattern="###,###"/> / 개</div></c:if></div>
+               <div class="product-price"><span>&#8361;</span><span><fmt:formatNumber value="${ wide.product.sale_per * wide.product_qty}" pattern="###,###"/></span><c:if test="${ wide.product_qty > 1 }" ><div class="pricePerQty">&#8361; <fmt:formatNumber value="${ wide.product.sale_per}" pattern="###,###"/> / 개</div></c:if></div>
 	           <div class="product-control"> <!-- 리스트컨트롤 박스 -->
 	           	   <c:if test="${wlList.size() > 1 }">
 	               <div class="product-movelist" onclick="fn_moveList(this)">다른 리스트로 이동</div> <!-- 눌렀을 때 모달창 -->
@@ -59,7 +59,7 @@
 		                	<button onclick="fn_countUpBtn(this)" type="button" class="countBtn btn_up" style="border-bottom: 1px solid #666; padding: 0px 4px;"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="caret-up" class="svg-inline--fa fa-caret-up fa-w-10" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M288.662 352H31.338c-17.818 0-26.741-21.543-14.142-34.142l128.662-128.662c7.81-7.81 20.474-7.81 28.284 0l128.662 128.662c12.6 12.599 3.676 34.142-14.142 34.142z"></path></svg></button>
 		                	<button onclick="fn_countDownBtn(this)" type="button" class="countBtn btn_down"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="caret-down" class="svg-inline--fa fa-caret-down fa-w-10" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"></path></svg></button>
 		                </div>
-		                <div class="addCart"><button class="wl-oneAddcart-btn">장바구니에 추가</button></div>
+		                <div class="addCart" onclick="fn_addCart(this)" data-toggle="modal" data-target="#modalAbandonedCart" ><button class="wl-oneAddcart-btn">장바구니에 추가</button></div>
 		                <div class="deleteBtn-box" style="display: none;">
 		                	<div class="deleteBtn-text"><p>이 제품을 삭제하시겠어요?</p></div>
 		                	<div class="deleteBtn-reset" onclick="fn_deleteBtnReset(this)"><button>취소</button></div>
@@ -83,7 +83,64 @@
 	
 </section>
 
+<!-- Modal: modalAbandonedCart-->
+<div class="modal fade right" id="modalAbandonedCart" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true" data-backdrop="false">
+  <div class="modal-dialog modal-side modal-top-right modal-notify modal-info" role="document">
+    <!--Content-->
+    <div class="modal-content">
+      <!--Header-->
+      <div class="modal-header">
+        <p class="heading">장바구니</p>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true" class="white-text">&times;</span>
+        </button>
+      </div>
+      <!--Body-->
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-3">                       
+            <img class="img_main" src="">
+          </div>
+          <div class="col-9">
+            <p>상품을 더 구매하시겠습니까??</p>
+            <div style="display:flex;">
+            	<div class="productName"><c:out value="${p.PRODUCT_NAME}"/></div>
+            	<div>상품이</div>
+            </div>
+            <p>장바구니에 추가되었습니다.</p>
+          </div>
+        </div>
+      </div>
+      <!--Footer-->
+      <div class="modal-footer justify-content-center">
+        <a type="button" class="btn btn-info" onclick="location.href='${path}/cart/cart.do'" >장바구니로 가기</a>        
+      </div>
+    </div>
+    <!--/.Content-->
+  </div>
+</div>
+<!-- Modal: modalAbandonedCart-->
+
 <script>
+	//장바구니 추가
+	function fn_addCart(e){
+		let t = $(e);
+		let i = $('.addCart').index(t);
+		let pNo = $('.only_pNo').eq(i).val();
+// 		let pPrice = $('.only_pPrice').eq(i).val();
+		let pQty = $('.count-box').eq(i).children('input').val();
+		
+		$.ajax({
+			data: {productNo : pNo, cartQTY: pQty },
+			url: '${path}/cart/cartInsert.do',
+			success: data=>{
+				console.log(data);
+				
+			}
+		})
+		
+	}
 
 	//수량 업 버튼 클릭 시
 	function fn_countUpBtn(e){

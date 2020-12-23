@@ -18,5 +18,6 @@ public interface ReviewService {
 	
 	Review selectReviewToUpdate(int rNo);
 	
-	int updateReview(Review review, List<ReviewImage> list);
+	//int updateReview(Review review, List<ReviewImage> list);
+	int updateReview(Review review);
 }

@@ -36,4 +36,6 @@ public interface ProductDao {
 //==================================================================================
 	//재고 갱신
 	int updateStock(SqlSession session, Map m);
+	
+	String selectSale(SqlSession session,String productNo);
 }

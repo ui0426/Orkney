@@ -93,5 +93,20 @@ public class WishlistServiceImpl implements WishlistService {
 		return dao.countDown(session, data);
 	}
 
+	//위시리스트에 제품 담기
+	@Override
+	public int insertWish(Map nos) {
+		
+		Wishlist_detail wd = dao.isProductNo(session, nos);
+		int result = 0;
+		if(wd != null) {
+			result = dao.countUp(session, nos);
+		} else {
+			result = dao.insertWishProduct(session, nos);
+		}
+		
+		return result;
+	}
+
 	
 }

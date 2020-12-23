@@ -81,9 +81,11 @@
             
             <div class="field">
             	<span class="first-div">주소</span>
-            	<div class="padding-input"><input type="text" class="input1-extra" id="post" placeholder="<c:out value="${ post }"/>" readonly></div>    
-            	<div class="padding-input"><input type="text" class="input1-extra" id="addrDetail" placeholder="<c:out value="${ addrDetail }"/>" readonly></div>    
-            	<div class="padding-input"><input type="text" class="input1-extra" id="orizip" placeholder="<c:out value="${ orizip }"/>" readonly></div>    
+            	<div>
+	            	<input type="text" class="input1-extra" id="orizip" placeholder="<c:out value="${ orizip }"/>" readonly>
+	            	<input type="text" class="input1-extra" id="post" placeholder="<c:out value="${ post }"/>" readonly>    
+	            	<input type="text" class="input1-extra" id="addrDetail" placeholder="<c:out value="${ addrDetail }"/>" readonly>    
+            	</div>   
             </div>                                    
             
         </div>
@@ -226,7 +228,7 @@ $(function(){
                 	</label>                	                           	
                 	<input type="radio" name="options" id="option2" autocomplete="off" checked autocompleted style="display: none"  value="bankTransfer">
                 	<label class="pay-label" for="option2">
-                		<img alt="" src="${path}/resources/img/money.png" alt="">
+                		<img alt="" src="${path}/resources/img/money.png">
                 		<div class="payment-title">무통장</div>
                 	</label>                	
                 </div>                                 
@@ -307,39 +309,34 @@ $(function(){
 <script>
 $("#paybtn").click(e=>{
 
-/* if($(".ck").is(":checked")==false){
+if($(".ck").is(":checked")==false){
 	alert("약관에 동의해 주세요");
 	return false;
-} 
-	
-	
-	let regEmail = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+} 	
+
 	let regName = /^[가-힣]{2,4}|[a-zA-Z]{2,10}\s[a-zA-Z]{2,10}$/;
 	let regPhone =/^\d{2,3}-\d{3,4}-\d{4}$/;
+		
+	let phone = $("#copyphone").val(); //받는사람  핸드폰
+	let name = $("#copyname").val();   //받는사람 이름	
 	
-	let email = document.getElementById("copyemail");
-	let phone = document.getElementById("copyphone");
-	let name = document.getElementById("copyname");
-	
-	if (!regEmail.test(email.value)) {
-        alert("이메일을 입력해주세요");
-        return false;
-    }
-	if (!regPhone.test(phone.value)) {
+	console.log(phone+name)
+
+	if (!regPhone.test(phone)) {
         alert("핸드폰번호를 입력해주세요");
         return false;
     }
-	if (!regName.test(name.value)) {
+	if (!regName.test(name)) {
         alert("이름을 입력해주세요");
         return false;
-    } */
-	
-    
-	//let email = $("#copyemail").val(); //받는사람 이메일
-    
-	let payment=$("input[name=options]:checked").val(); //결제방법    			
-	let phone = $("#copyphone").val(); //받는사람  핸드폰
-	let name = $("#copyname").val();   //받는사람 이름							
+    }
+    if($("#zip").val().length==0||$("#adrinput").val().length==0){
+        alert("주소를 입력해주세요");
+        return false;
+     }
+    	
+    let email=$("#memberemail").attr("placeholder");
+	let payment=$("input[name=options]:checked").val(); //결제방법    										
 	let address = $("#zip").val()+"/" + $("#adrinput").val()+"/"+$("#adrdetail").val();  
 	let message = $("#message-input").val();		
 	let totalFee = parseInt( $("#total").val()); //총금액	
@@ -376,11 +373,11 @@ $("#paybtn").click(e=>{
 		        $.ajax({
 		        	url:"${path}/cart/complete.do",
 		        	data:{rePhone:phone,reName:name,totalFee:totalFee,reAddress:address,message:message,kopQty:${kopQty},paymentMethod:paymentMethod,willPoint:willPoint,predicPoint:predicPoint
-		        		,addTax:addTax,totalPoint:totalPoint,sumProduct:sumProduct,shipFee:shipFee},		        	 
+		        		,addTax:addTax,totalPoint:totalPoint,sumProduct:sumProduct,shipFee:shipFee,email:email},		        	 
 		        	type:"post",
 		        	datatype:"json",
 		        	success:data=>{ 		        		
-		        		location.replace("${path}/cart/completeEnd.do");		        		
+		        		location.href="${path}/cart/completeMail.do";		        		
 		        	}
 		        })
 		        		        

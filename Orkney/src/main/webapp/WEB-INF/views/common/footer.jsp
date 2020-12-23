@@ -88,7 +88,7 @@
 
       <!-- Grid column -->
       <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mt-3">
-        <h6 class="text-uppercase mb-4 font-weight-bold">KKEA 이야기</h6>
+        <h6 class="text-uppercase mb-4 font-weight-bold">ORKNEY 이야기</h6>
         <p>
           <a href="#!">기업 소개</a>
         </p>
@@ -116,7 +116,7 @@
         <p>
           <i class="fas fa-phone mr-3"></i> + 80 234 567 8</p>
         <p>
-          <i class="fas fa-print mr-3"></i>KKEA@gmail.com</p>
+          <i class="fas fa-print mr-3"></i>ORKNEY@gmail.com</p>
       </div>
       <!-- Grid column -->
 

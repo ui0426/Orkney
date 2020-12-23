@@ -111,7 +111,7 @@ public class MemberController {
 		}else {
 			mv.setViewName("member/login");
 		}
-		
+		System.out.println("이거이거" +login);
 		mv.setViewName("redirect:/");
 		
 		
@@ -684,9 +684,25 @@ public class MemberController {
 		
 	}
 	
+
 	@RequestMapping("/home")
 	public String home(HttpSession session) {
 		session.removeAttribute("key");
 		return "redirect:/";
+	}
+	//이메일 수신 체크
+	@RequestMapping("/member/emailCk.do")
+	@ResponseBody
+	public String emailCk(String ck, HttpSession session) {
+		System.out.println(ck);
+		Map login = ((Map)session.getAttribute("login")); //로그인 된 유저
+		String mNo = (String)login.get("MEMBER_NO");
+		
+		Map data = new HashMap();
+		data.put("mNo", mNo);
+		data.put("ck", ck);
+		
+		int result = service.emailCk(data);
+		return "성공";
 	}
 }

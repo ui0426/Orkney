@@ -235,6 +235,11 @@ public class MemberServiceImpl implements MemberService {
 		// TODO Auto-generated method stub
 		return dao.emailAuth(session,id);
 	}
-	
+
+	//이메일 수신 체크
+	@Override
+	public int emailCk(Map data) {
+		return dao.emailCk(session, data);
+	}
 	
 }

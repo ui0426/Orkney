@@ -87,5 +87,8 @@ public interface MemberService {
 
 	int emailAuth(String id);
 
+	//이메일 수신 체크
+	int emailCk(Map data);
+
 
 }

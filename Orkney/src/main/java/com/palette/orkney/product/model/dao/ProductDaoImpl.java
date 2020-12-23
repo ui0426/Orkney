@@ -160,6 +160,12 @@ public class ProductDaoImpl implements ProductDao{
 	public int updateStock(SqlSession session, Map m) {
 		return session.update("product.updateStock", m);
 	}
+	
+	//sale가격
+	@Override
+	public String selectSale(SqlSession session, String productNo) {
+		return session.selectOne("product.selectSale",productNo);
+	}
 
 	
 
