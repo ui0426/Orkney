@@ -19,6 +19,12 @@ public class OrderDaoImpl implements OrderDao {
 	}
 
 	@Override
+	public List<Map> selectOrderEndList(SqlSession session, String mNo) {
+		return session.selectList("order.selectOrderEndList", mNo);
+	}
+
+
+	@Override
 	public Orders selectOrder(SqlSession session, String oNo) {
 		return session.selectOne("order.selectOrder", oNo);
 	}
