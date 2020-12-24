@@ -163,5 +163,6 @@
         }
         @media(max-width:700px){
         	#chatAll{display:none;}
+        	#chaticon{display:none;}
         }
         

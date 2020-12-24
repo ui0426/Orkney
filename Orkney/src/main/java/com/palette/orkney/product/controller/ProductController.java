@@ -25,93 +25,94 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ProductController {
 
-	
+   
 
-	@Autowired
-	private ProductService service;
-
-
-	
-
-	@RequestMapping("/product/products.do")
-	@ResponseBody
-	public ModelAndView products(ModelAndView mv
-			,@RequestParam(name="category") String bicCategory
-			) {
-		
-		Map<String, Object> category = new HashMap();
-		category.put("category", bicCategory);
-		System.out.println(category);
-		
-		mv.addObject("list",service.productList(category));
-		mv.setViewName("product/products");
-		return mv;
-	}
-
-//	▼인기순 정렬▼  전체 정렬로 변경함
-	@RequestMapping("/product/bestFilter.do")
-	@ResponseBody
-	public  List<Map>Filter (@RequestParam Map<String,Object> filter) {
-		System.out.println("필털:"+filter);
-		return service.filter(filter);
-	}
-	
-	@RequestMapping("/product/sCategory/.do")
-	@ResponseBody
-	public  List<Map>sCategory (@RequestParam Map<String,Object> sCategory) {
-		System.out.println("카테고리 나와?"+sCategory);
-		return service.sCategory(sCategory);
-	}
-	@RequestMapping("/product/reviewImg.do")
-	@ResponseBody
-	public List<Map>reviewImg(@RequestParam Map<String,Object> id){
-		System.out.println("리뷰img:"+id+":"+service.reviewImg(id));
-		
-		return service.reviewImg(id);
-	}
-
-	@RequestMapping("/product/productDetail.do")
-	public ModelAndView productDetail(ModelAndView mv,
-									@RequestParam(name="productno") String productno
-			) {
-		mv.addObject("review",service.review(productno));
-		mv.addObject("list", service.productDetail(productno));
-		mv.setViewName("/product/productDetail");
-		return mv;
-	}
-
-	@RequestMapping("/product/productsCompare.do")
-	public ModelAndView productsCompare(ModelAndView mv,
-			@RequestParam(name = "checkboxname")ArrayList<String> checkboxname) {
-
-		mv.addObject("list",service.checkProduct(checkboxname));
-		mv.setViewName("/product/productsCompare");
-		return mv;
-
-	}
-
-	public String productsCompare() {
-		return "/product/productsCompare";
+   @Autowired
+   private ProductService service;
 
 
-	}
-	@RequestMapping("/product/average.do")
-	@ResponseBody
-	public List<Map> average(
-			@RequestParam Map<String,Object> productno
-			){
-		System.out.println("제품번호:"+productno);
-		System.out.println("댓글:"+service.average(productno));
-		return service.average(productno);
-	}
+   
 
+   @RequestMapping("/product/products.do")
+   @ResponseBody
+   public ModelAndView products(ModelAndView mv
+         ,@RequestParam(name="category") String bicCategory
+         ) {
+      
+      Map<String, Object> category = new HashMap();
+      category.put("category", bicCategory);
+      System.out.println(category);
+      
+      mv.addObject("list",service.productList(category));
+      mv.setViewName("product/products");
+      return mv;
+   }
+
+//   ▼인기순 정렬▼  전체 정렬로 변경함
+   @RequestMapping("/product/bestFilter.do")
+   @ResponseBody
+   public  List<Map>Filter (@RequestParam Map<String,Object> filter) {
+      System.out.println("필털:"+filter);
+      return service.filter(filter);
+   }
+   
+   @RequestMapping("/product/sCategory/.do")
+   @ResponseBody
+   public  List<Map>sCategory (@RequestParam Map<String,Object> sCategory) {
+      System.out.println("카테고리 나와?"+sCategory);
+      return service.sCategory(sCategory);
+   }
+   @RequestMapping("/product/reviewImg.do")
+   @ResponseBody
+   public List<Map>reviewImg(@RequestParam Map<String,Object> id){
+      System.out.println("리뷰img:"+id+":"+service.reviewImg(id));
+      
+      return service.reviewImg(id);
+   }
+
+   @RequestMapping("/product/productDetail.do")
+   public ModelAndView productDetail(ModelAndView mv,
+                           @RequestParam(name="productno") String productno
+         ) {
+      mv.addObject("review",service.review(productno));
+      mv.addObject("list", service.productDetail(productno));
+      mv.setViewName("/product/productDetail");
+      return mv;
+   }
+
+   @RequestMapping("/product/productsCompare.do")
+   public ModelAndView productsCompare(ModelAndView mv,
+         @RequestParam(name = "checkboxname")ArrayList<String> checkboxname) {
+
+      mv.addObject("list",service.checkProduct(checkboxname));
+      mv.setViewName("/product/productsCompare");
+      return mv;
+
+   }
+
+   public String productsCompare() {
+      return "/product/productsCompare";
+
+
+   }
+   @RequestMapping("/product/average.do")
+   @ResponseBody
+   public List<Map> average(
+         @RequestParam Map<String,Object> productno
+         ){
+      System.out.println("제품번호:"+productno);
+      System.out.println("댓글:"+service.average(productno));
+      return service.average(productno);
+   }
 	//	===================================================================================
 
 
 	@RequestMapping("/product/rooms.do")
 	public ModelAndView rooms(ModelAndView mv, @RequestParam String type) {
+		Map types= new HashMap();
+		types.put("type", type);
 		mv.addObject("rooms", service.selectRooms(type));
-		mv.addObject("roomsProduct", service.selectRoomsProduct(type));
+		mv.addObject("roomsProduct", service.selectRoomsProduct(types));
 		System.out.println(type);
 		mv.addObject("roomsTitle", service.selectRoomsTitle(type));
 		mv.setViewName("product/rooms");
@@ -128,8 +129,9 @@ public class ProductController {
 	@RequestMapping("/product/backRoomsDetail.do")
 	@ResponseBody
 	public List<Map> backRoomsDetail(String type) {
-
-		return service.selectRoomsProduct(type);
+		Map types= new HashMap();
+		types.put("type", type);
+		return service.selectRoomsProduct(types);
 	}
 
 	@RequestMapping("/product/listProduct.do")
@@ -149,7 +151,7 @@ public class ProductController {
 	@RequestMapping("/product/productCategory.do")
 	@ResponseBody
 	public List<Map> productCategory(String text, String type) {
-		
+
 		Map texts = new HashMap();
 		texts.put("text", text);
 		texts.put("type", type);
@@ -160,10 +162,11 @@ public class ProductController {
 	@RequestMapping("/product/sale.do")
 	public ModelAndView sale(ModelAndView mv) {
 		mv.addObject("sale", service.sale());
-		
+
 		mv.setViewName("product/sale");
 		return mv;
 	}
+
 
 	@RequestMapping("/product/insertRoom.do2")
 	public String insertRoom2() {
@@ -305,3 +308,4 @@ public class ProductController {
 	
 
 }
+

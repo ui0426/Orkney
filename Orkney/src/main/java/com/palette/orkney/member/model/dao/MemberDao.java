@@ -90,10 +90,11 @@ public interface MemberDao {
 	//포인트 내역 가져오기
 	List<Point> pointList(SqlSession session, Map data);
 
+
+	int emailAuth(SqlSession session, String id);
+
 	//이메일 수신 체크
 	int emailCk(SqlSession session, Map data);
-
-
 
 
 }

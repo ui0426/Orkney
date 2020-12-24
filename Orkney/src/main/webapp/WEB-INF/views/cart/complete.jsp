@@ -37,7 +37,7 @@
 <c:forEach items="${cart }" var="p">
             <div class="product-container">
 	            <div class="order-container">
-	                <div class="product-pic"><img src="${path}/resources/images/rooms/<c:out value="${p.product_pic}"/>"></div>               
+	                <div class="product-pic"><img src="${path}/resources/images/product/<c:out value="${p.product_pic}"/>"></div>               
 	                <div class="product-detail">
 	                    <div><c:out value="${p.productName}"/></div>
 	                    <div><c:out value="${p.product_width}"/>*<c:out value="${p.product_height}"/>*<c:out value="${p.product_depth}"/></div>	                  		                    
@@ -53,6 +53,7 @@
 
 
             <div class="section1">
+           	  <div style="margin:5% 0;">
                 <div class="etc-title">나의 세부 정보</div>
                 <div class="line1"></div>
            		
@@ -78,10 +79,11 @@
 		                    <div><img src="${path}/resources/img/address.png" alt=""></div> 
 		                    <span>${orders.order_address}</span>
 		                </div>
-		             </div>	         
+		             </div>	    
+		         </div>     
             </div>
 
- <div class="section1">
+ <div class="section1" style="margin: 30% 0 0 0;">
                 <div class="etc-title">결제 세부 정보</div>
                 <div class="line1"></div>
                 <div class="total-title">
@@ -112,7 +114,7 @@
                     </div>
              </div>  
 
-            <div class="section1" style="margin: 10% 0;">
+            <div class="section1" style="margin: 13% 0;">
                 <div class="etc-title">배송 정보/배송질문</div>
                 <div class="line1"></div>
                 <div class="etc-contant">택배 배송 (택배는 아래 선택한 배송 날짜로부터 3-5일 소요되며, 제품 특성에 따라 2박스 이상으로 분리배송 될 수 있습니다.)</div>               
@@ -123,18 +125,19 @@
                         <span>배송지 : 14950 대한민국</span>                    
                     </div>
                  </div>   
+                 <c:set var="now" value="<%=new java.util.Date() %>"/>
                  <div class="field-inline">
                     <div class="field">
                         <div><img src="${path}/resources/img/calendar.png" alt=""></div>                                                
-                        <span> 2020.11.23 09:00 -21:00</span>
+                        <span><fmt:formatDate value="${now }" pattern="yyyy-MM-dd hh시mm분"/></span>
                     </div>                    
                   </div>
                                     
-                 <div class="etc-contant">배송기사님이 배송전 알아야 하는 정보가 있나요? (주차제한, 출입가능 시간제한 등)</div>
-                 <div>${orders.order_memo} </div>                
+                 <div class="etc-contant">배송기사님이 배송전 알아야 하는 정보 : <span style="font-style: italic;">${orders.order_memo}</span> </div>
+                                
             </div>
 
-            <div class="section1 section-op1">            
+            <div class="section1">            
                     <div class="etc-title">고객센터 운영시간</div>
                 
                     <div class="line1"></div>

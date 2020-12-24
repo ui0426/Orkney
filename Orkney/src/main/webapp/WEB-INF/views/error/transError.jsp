@@ -49,7 +49,7 @@
     .mdmar{margin-bottom:0;}
     .fs{font-size: 0.9rem;}
     .logoimg{
-    background-image: url(https://kr.accounts.ikea.com/resources/static/logo.svg);
+    background-image: url(../resources/img/logo2.png);
     background-repeat: no-repeat;
     background-size: 88px 44px;
     content: "";

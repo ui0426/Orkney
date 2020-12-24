@@ -66,8 +66,9 @@
 	
 	<interceptors>
 		<interceptor>
+			<mapping path="/cart/cart.do"/>
 			<mapping path="/review/*"/>
-				<beans:bean id="logout" class="com.palette.orkney.common.interceptor.LoginCheckInterceptor">
+			<beans:bean id="logout" class="com.palette.orkney.common.interceptor.LoginCheckInterceptor">
 			</beans:bean>
 		</interceptor>
 	</interceptors>
@@ -79,6 +80,8 @@
 			</beans:bean>
 		</interceptor>
 	</interceptors>
+	
+	
 	
 	<!-- 파일데이터처리하는 bean등록하기 -->
    <beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">

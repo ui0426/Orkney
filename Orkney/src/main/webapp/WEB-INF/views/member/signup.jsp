@@ -46,7 +46,7 @@
                 <div class="nonespace"></div>
                 <div class="joindata">
                     <div>
-                        <form action="${path }/member/emailAuth.do" method="post">
+                        <form action="${path }/member/insertSignup.do" method="post">
                             <div class="emailcheck">
                                 <fieldset>
                                     <legend class="marb lgfs">ORKNEY Family에 가입하시겠어요?</legend>
@@ -199,190 +199,30 @@
                 $(ch).prop("checked",false);
             }
         });
+        
         $("#fname").on("blur",e=>{//성이 아무것도 안적혔을 때 처리
-            var v=$(e.target).val().length;
-           if(v==0){
-                $(e.target).addClass("errorred");
-                $("#fnspan").css("display","block");
-                familyName=false;
-           }else{
-            $(e.target).removeClass("errorred");
-            $("#fnspan").css("display","none");
-            familyName=true;
-           }
+          firstNameCheck();
         })
-        $("#name").on("blur",e=>{//이름이 안적혔을 때
-            var v=$(e.target).val().length;
-           if(v==0){
-                $(e.target).addClass("errorred");
-                $("#nspan").css("display","block");
-                givenName=false;
-           }else{
-            $(e.target).removeClass("errorred");
-            $("#nspan").css("display","none");
-            givenName=true;
-           }
+        
+        $("#name").on("blur",e=>{//성이 아무것도 안적혔을 때 처리
+          nameCheck();
         })
 
         $("#bir").on("blur",e=>{//생일이 안적혔을 때
-           $(e.target).attr("placeholder",'');
-            var v=$(e.target).val().length;//값 길이
-            var val=$(e.target).val();//값
-            var toyear=new Date().getFullYear();
-            var inyear=val.substr(0,4);
-            console.log(toyear-inyear);
-            var reg2= /^[0-9]*$/;
-            if(v==8&&reg2.test(val)){
-                val=val.substr(0,4)+"-"+val.substr(4,2)+"-"+val.substr(6,2);
-                $(e.target).val(val);
-            }
-            if((toyear-inyear)<=14){
-                $(e.target).addClass("errorred");
-                $("#birspan").css("display","block");
-                $("#birspan").html("만 15세 이상 이여야 합니다.");
-                birth=false;
-                return false;
-            }else{
-                $("#birspan").css("display","none");
-                birth=true;
-            }
-            var reg=/^(19|20)\d{2}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[0-1])$/g;  
-           if(v==0){
-                $(e.target).addClass("errorred");
-                $("#birspan").css("display","block");
-                $("#birspan").html("생일은 필수 필드입니다.");
-                birth=false;
-           }else{
-            $(e.target).removeClass("errorred");
-            $("#birspan").css("display","none");
-            birth=true;
-           }
-           if(v>=1){
-            if(reg.test(val)){
-                $(e.target).removeClass("errorred");
-                $("#birspan").css("display","none");
-                birth=true;
-            }else{
-                $(e.target).addClass("errorred");
-                $("#birspan").css("display","block");
-                $("#birspan").html("YYYY-MM-DD 형식으로 작성해야합니다.");
-                birth=false;
-            }
-           }
+         birthCheck();
         })
 
 
         $("#ph").on("blur",e=>{//휴대폰이 안적혔을 때
-            var v=$(e.target).val().length;
-            var val=$(e.target).val();
-            var reg2= /^[0-9]*$/g;
-            if(v==11&&reg2.test(val)){
-                val=val.substr(0,3)+"-"+val.substr(3,4)+"-"+val.substr(7,4);
-                $(e.target).val(val);
-                phone=true;
-            }
-           if(v==0){
-                $(e.target).addClass("errorred");
-                $(e.target).removeClass("pass");
-                $("#phspan").css("display","block");
-                $("#phspan").html("휴대폰 번호는 필수 필드입니다.");
-                phone=false;
-           }else{
-            $(e.target).removeClass("errorred");
-            $("#phspan").css("display","none");
-            phone=true;
-           }
-           if(v>0){
-                var reg=/^[01]{1}[1]{1}[0]{1}-[0-9]{4}-[0-9]{4}/g;
-                if(reg.test(val)){
-                    $(e.target).removeClass("errorred");
-                    $("#phspan").css("display","none");
-                    phone=true;
-                }else{
-                    $(e.target).addClass("errorred");
-                    $("#phspan").css("display","block");
-                    $("#phspan").html("휴대폰 번호가 올바르지 않습니다.");
-                    phone=false;
-                }       
-           }
+            phoneCheck();
         })
 
         $("#email").on("blur",e=>{//이메일이 안적혔을 때
-            var v=$(e.target).val().length;
-            var val=$(e.target).val();
-           if(v==0){
-                $(e.target).addClass("errorred");
-                $("#emailspan").css("display","block");
-                $("#emailspan").html("이메일은 필수 필드입니다.");
-                email=false;
-           }else{
-            $(e.target).removeClass("errorred");
-            $("#emailspan").css("display","none");
-            email=true;
-           }
-           if(v>=1){
-            let reg=/^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/g;
-            if(reg.test(val)){
-                $(e.target).removeClass("errorred");
-                $("#emailspan").css("display","none");
-                email=true;
-            }else{
-                $(e.target).addClass("errorred");
-                $("#emailspan").css("display","block");
-                $("#emailspan").html("이메일 형식이 올바르지 않습니다.");
-                email=false;
-            }
-           }
-           $.ajax({
-			   url:"${path}/member/emailCh.do",
-			   data:{"id":$("#email").val()},
-			   success: data => {
-				   if(data==false){
-					console.log(data);
-				   }else{
-					   let a=$(e.target).val();
-					   let reg=/^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/g;
-					   if(reg.test(a)){
-					   $(e.target).addClass("errorred");
-				   $("#emailspan").html('이메일이 존재합니다.');
-				   $("#emailspan").css('display','block');
-					   }
-				   }
-				}
-		   }) 
+         emailCheck();
         })
 
         $("#pw").on("blur",e=>{//비밀번호가 안적혔을 때
-            var v=$(e.target).val().length;
-           if(v==0){
-                $(e.target).addClass("errorred");
-                $("#pwspan").css("display","block");
-                $("#pwspan").html("비밀번호는 필수 필드입니다.");
-                $(".pwfs").css("display","none");
-                $(".pwfsb").css("display","none");
-                pw=false;
-           }else{
-            $(e.target).removeClass("errorred");
-            $("#pwspan").css("display","none");
-            pw=true;
-           }
-           if(v>0){
-               var val=$(e.target).val();
-               let reg=/^(?=.*?[A-Z])(?=.*?[a-z])((?=.*?[0-9])|(?=.*?[#?!@$%^&*-])).{8,20}$/;
-               if(reg.test(val)){
-                $(e.target).removeClass("errorred");
-                $("#pwspan").css("display","none");
-                $(".pwfs").css("display","none");
-                $(".pwfsb").css("display","none");
-                pw=true;
-               }else{
-                $(e.target).addClass("errorred");
-                $(e.target).removeClass("pass");
-                $("#pwspan").css("display","block");
-                $("#pwspan").html("비밀번호 형식이 올바르지 않습니다.");
-                pw=false;
-               }
-           }
+           pwCheck();
         })
 
         $("#pw").keyup(e=>{//비밀번호의 조건마다 밑에 글씨색을 바꿈.
@@ -438,16 +278,7 @@
         })
 
         $("#detailadr").on("blur",e=>{//상세주소가 안적혔을 때
-            var v=$(e.target).val().length;
-           if(v==0){
-                $(e.target).addClass("errorred");
-                $("#adrspan").css("display","block");
-                adr3=false;
-           }else{
-            $(e.target).removeClass("errorred");
-            $("#adrspan").css("display","none");
-            adr3=true;
-           }
+         detailadr();
         })
         
         $("#bir").focus(e=>{
@@ -459,6 +290,7 @@
               adr1=true;
               adr2=true;
            }
+        	emailCheck();
            if($("#ch2").prop("checked")&&$("#ch4").prop("checked")&&$("#ch5").prop("checked")){
            if(familyName&&givenName&&birth&&phone&&email&&pw&&adr1&&adr2&&adr3){
               return true;
@@ -466,6 +298,209 @@
            }
            return false;
         }
+        
+        function firstNameCheck(){
+        	 var v=$("#fname").val().length;
+        	           if(v==0){
+        	                $("fname").addClass("errorred");
+        	                $("#fnspan").css("display","block");
+        	                familyName=false;
+        	           }else{
+        	            $("fname").removeClass("errorred");
+        	            $("#fnspan").css("display","none");
+        	            familyName=true;
+        	           }
+        	}
+
+        	function nameCheck(){
+        	  var v=$("#name").val().length;
+        	           if(v==0){
+        	                $("#name").addClass("errorred");
+        	                $("#nspan").css("display","block");
+        	                givenName=false;
+        	           }else{
+        	            $("#name").removeClass("errorred");
+        	            $("#nspan").css("display","none");
+        	            givenName=true;
+        	           }
+        	}
+
+
+        	function birthCheck(){
+        	  $("#bir").attr("placeholder",'');
+        	            var v=$("#bir").val().length;//값 길이
+        	            var val=$("#bir").val();//값
+        	            var toyear=new Date().getFullYear();
+        	            var inyear=val.substr(0,4);
+        	            console.log(toyear-inyear);
+        	            var reg2= /^[0-9]*$/;
+        	            if(v==8&&reg2.test(val)){
+        	                val=val.substr(0,4)+"-"+val.substr(4,2)+"-"+val.substr(6,2);
+        	                $("#bir").val(val);
+        	            }
+        	            if((toyear-inyear)<=14){
+        	                $("#bir").addClass("errorred");
+        	                $("#birspan").css("display","block");
+        	                $("#birspan").html("만 15세 이상 이여야 합니다.");
+        	                birth=false;
+        	                return false;
+        	            }else{
+        	                $("#birspan").css("display","none");
+        	                birth=true;
+        	            }
+        	            var reg=/^(19|20)\d{2}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[0-1])$/g;  
+        	           if(v==0){
+        	                $("#bir").addClass("errorred");
+        	                $("#birspan").css("display","block");
+        	                $("#birspan").html("생일은 필수 필드입니다.");
+        	                birth=false;
+        	           }else{
+        	            $("#bir").removeClass("errorred");
+        	            $("#birspan").css("display","none");
+        	            birth=true;
+        	           }
+        	           if(v>=1){
+        	            if(reg.test(val)){
+        	                $("#bir").removeClass("errorred");
+        	                $("#birspan").css("display","none");
+        	                birth=true;
+        	            }else{
+        	                $("#bir").addClass("errorred");
+        	                $("#birspan").css("display","block");
+        	                $("#birspan").html("YYYY-MM-DD 형식으로 작성해야합니다.");
+        	                birth=false;
+        	            }
+        	           }
+        	        }
+
+        	function phoneCheck(){
+        		var v=$("#ph").val().length;
+        	            var val=$("#ph").val();
+        	            var reg2= /^[0-9]*$/g;
+        	            if(v==11&&reg2.test(val)){
+        	                val=val.substr(0,3)+"-"+val.substr(3,4)+"-"+val.substr(7,4);
+        	                $("#ph").val(val);
+        	                phone=true;
+        	            }
+        	           if(v==0){
+        	                $("#ph").addClass("errorred");
+        	                $("#ph").removeClass("pass");
+        	                $("#phspan").css("display","block");
+        	                $("#phspan").html("휴대폰 번호는 필수 필드입니다.");
+        	                phone=false;
+        	           }else{
+        	            $("#ph").removeClass("errorred");
+        	            $("#phspan").css("display","none");
+        	            phone=true;
+        	           }
+        	           if(v>0){
+        	                var reg=/^[01]{1}[1]{1}[0]{1}-[0-9]{4}-[0-9]{4}/g;
+        	                if(reg.test(val)){
+        	                    $("#ph").removeClass("errorred");
+        	                    $("#phspan").css("display","none");
+        	                    phone=true;
+        	                }else{
+        	                    $("#ph").addClass("errorred");
+        	                    $("#phspan").css("display","block");
+        	                    $("#phspan").html("휴대폰 번호가 올바르지 않습니다.");
+        	                    phone=false;
+        	                }       
+        	           }
+        	}
+
+        	function emailCheck(){
+
+        	 var v=$("#email").val().length;
+        	            var val=$("#email").val();
+        	           if(v==0){
+        	                $("#email").addClass("errorred");
+        	                $("#emailspan").css("display","block");
+        	                $("#emailspan").html("이메일은 필수 필드입니다.");
+        	                email=false;
+        	           }else{
+        	            $("#email").removeClass("errorred");
+        	            $("#emailspan").css("display","none");
+        	            email=true;
+        	           }
+        	           if(v>=1){
+        	            let reg=/^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/g;
+        	            if(reg.test(val)){
+        	                $("#email").removeClass("errorred");
+        	                $("#emailspan").css("display","none");
+        	                email=true;
+        	            }else{
+        	                $("#email").addClass("errorred");
+        	                $("#emailspan").css("display","block");
+        	                $("#emailspan").html("이메일 형식이 올바르지 않습니다.");
+        	                email=false;
+        	            }
+        	           }
+        	           $.ajax({
+        				   url:"${path}/member/emailCh.do",
+        				   data:{"id":$("#email").val()},
+        				   success: data => {
+        					   if(data==false){
+        						console.log(data);
+        					   }else{
+        						   let a=$("#email").val();
+        						   let reg=/^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/g;
+        						   if(reg.test(a)){
+        						   $("#email").addClass("errorred");
+        					   $("#emailspan").html('이메일이 존재합니다.');
+        					   $("#emailspan").css('display','block');
+        					   $("#email").focus();
+        						   }
+        					   }
+        					}
+        			   }) 
+
+        	}
+
+        	function pwCheck(){
+        	  var v=$("#pw").val().length;
+        	           if(v==0){
+        	                $("#pw").addClass("errorred");
+        	                $("#pwspan").css("display","block");
+        	                $("#pwspan").html("비밀번호는 필수 필드입니다.");
+        	                $(".pwfs").css("display","none");
+        	                $(".pwfsb").css("display","none");
+        	                pw=false;
+        	           }else{
+        	            $("#pw").removeClass("errorred");
+        	            $("#pwspan").css("display","none");
+        	            pw=true;
+        	           }
+        	           if(v>0){
+        	               var val=$("#pw").val();
+        	               let reg=/^(?=.*?[A-Z])(?=.*?[a-z])((?=.*?[0-9])|(?=.*?[#?!@$%^&*-])).{8,20}$/;
+        	               if(reg.test(val)){
+        	                $("#pw").removeClass("errorred");
+        	                $("#pwspan").css("display","none");
+        	                $(".pwfs").css("display","none");
+        	                $(".pwfsb").css("display","none");
+        	                pw=true;
+        	               }else{
+        	                $("#pw").addClass("errorred");
+        	                $("#pw").removeClass("pass");
+        	                $("#pwspan").css("display","block");
+        	                $("#pwspan").html("비밀번호 형식이 올바르지 않습니다.");
+        	                pw=false;
+        	               }
+        	           }
+        	}
+
+        	function detailadr(){
+        	  var v=$("#detailadr").val().length;
+        	           if(v==0){
+        	                $("#detailadr").addClass("errorred");
+        	                $("#adrspan").css("display","block");
+        	                adr3=false;
+        	           }else{
+        	            $("#detailadr").removeClass("errorred");
+        	            $("#adrspan").css("display","none");
+        	            adr3=true;
+        	           }
+        	}
         
         
         

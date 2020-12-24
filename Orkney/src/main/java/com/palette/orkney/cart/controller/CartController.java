@@ -41,15 +41,11 @@ public class CartController {
 	
 	//0.장바구니 추가
 	@RequestMapping("/cart/cartInsert.do")
-	public ModelAndView cartInsert(HttpSession session,ModelAndView mv,String productNo, int productPrice, @RequestParam(value="cartQTY", defaultValue ="1") int cartQTY) {				
-		String memberNo = (String)((Map)session.getAttribute("login")).get("MEMBER_NO");					
-			
-		String cartNo=service.selectCartNo(memberNo);											
-		System.out.println("카트번호:"+cartNo);
-		
-		List<Cart> c = service.selectCart(memberNo);
-		System.out.println("c"+c);
-		
+	public ModelAndView cartInsert(HttpSession session,ModelAndView mv,String productNo, @RequestParam(value="cartQTY", defaultValue ="1") int cartQTY) {				
+
+		String memberNo = (String)((Map)session.getAttribute("login")).get("MEMBER_NO");							
+		String cartNo=service.selectCartNo(memberNo);													
+		List<Cart> c = service.selectCart(memberNo);				
 		
 		//2. 경록이형 연결
 		Cart cart = new Cart();
@@ -61,8 +57,7 @@ public class CartController {
 		cart.setCartQTY(cartQTY);
 		
 		//3. 카트 존재 유무
-		int count = service.countCart(memberNo);				
-		System.out.println("count:"+count);		
+		int count = service.countCart(memberNo);						
 		
 		//4. 카트에 같은 상품이 있는지 확인
 		if(c.size() != 0) {													//카트존재유무	
@@ -80,10 +75,11 @@ public class CartController {
 		return mv;
 	}
 	
-	//위시리스트에서 전체 추가
-	@RequestMapping()
-	public ModelAndView cartInsertAll(HttpSession session, ModelAndView mv) {
+	//모두 장바구니에 추가
+	@RequestMapping("/cart/cartInsertAll.do")
+	public ModelAndView cartInsertAll(HttpSession session, ModelAndView mv, Wishlist wish) {
 		
+		System.out.println("위쉬"+wish);
 		return mv;
 	}
 		
@@ -95,8 +91,7 @@ public class CartController {
 		List<Cart> c = service.selectCart(memberNo);						
 
 		if(!c.isEmpty()) {			
-			int sum=service.sumPrice(c.get(0).getCartNo());			
-			System.out.println("썸"+sum);
+			int sum=service.sumPrice(c.get(0).getCartNo());						
 			mv.addObject("sumprice",sum);
 			mv.addObject("cN",c.get(0).getCartNo());				
 			}
@@ -111,12 +106,10 @@ public class CartController {
 	public ModelAndView deletebasket(ModelAndView mv, 
 			@RequestParam(value="cartNo",defaultValue="0") String cartNo,HttpSession session,
 			@RequestParam(value="sumPrice",defaultValue="0") String sumPrice) {		
-		String memberNo = (String)((Map)session.getAttribute("login")).get("MEMBER_NO");				
-		
+		String memberNo = (String)((Map)session.getAttribute("login")).get("MEMBER_NO");						
 		sumPrice=null;
 		int basket = service.cartDelete(memberNo);		
-		cartNo=null;		
-		
+		cartNo=null;				
 		List<Cart> c = service.selectCart(memberNo);
 		mv.addObject("cart",c);
 		mv.addObject("cN",cartNo);
@@ -191,11 +184,9 @@ public class CartController {
 	
 	//5. 결제전 화면이동
 	@RequestMapping("/cart/payment.do")	
-	public ModelAndView payment(ModelAndView mv, HttpSession session) {
-		
+	public ModelAndView payment(ModelAndView mv, HttpSession session) {		
 		String memberNo = (String)((Map)session.getAttribute("login")).get("MEMBER_NO");																
-		List<Cart> c = service.selectCart(memberNo);																											
-		System.out.println(c);
+		List<Cart> c = service.selectCart(memberNo);																													
 				
 		//추가주소
 		List<Addr> list = mservice.addAddrList(memberNo);		
@@ -203,20 +194,13 @@ public class CartController {
 				
 		//주소 떼내기
 		for(Addr addr : list) {
-			String fullAddr = addr.getAddress();
-
-			System.out.println("추가주소리스트:"+addr);
-			System.out.println("원래주소:"+fullAddr);
-			
+			String fullAddr = addr.getAddress();			
 			String[] a=fullAddr.split("/");
 			addr.setAddress_post(a[0]);
 			addr.setAddress_addr(a[1]);
 			addr.setAddress_detail(a[2]);
 			list2.add(addr);
 		}
-		
-		
-		System.out.println("해당회원주소:"+list2);
 		
 		//회원정보만 가져와서 저장
 		CartDetail m = new CartDetail();		
@@ -225,8 +209,6 @@ public class CartController {
 		m.setPoint(c.get(0).getPoint());		
 		m.setMember_id(c.get(0).getMember_id());
 		m.setCartNo(c.get(0).getCartNo());
-
-		
 		
 		//결제관련 logic
 		int sum=service.sumPrice(m.getCartNo());						//상품 총 가격
@@ -237,8 +219,7 @@ public class CartController {
 		m.setPredicpoint(predicpoint);
 		
 		//상품종류의 수량(ordertable)
-		int kopQty = service.selectCount(c.get(0).getCartNo()); 
-		
+		int kopQty = service.selectCount(c.get(0).getCartNo()); 		
 		
 		mv.addObject("addrList", list2);
 		mv.addObject("kopQty",kopQty);
@@ -271,9 +252,6 @@ public class CartController {
 		}catch(NumberFormatException e) {
 			e.printStackTrace();
 		}
-		//포인트 사용후 값
-//		int point = totalpoint2-willpoint2;	
-//		System.out.println("현재 총 포인트:"+ totalpoint);
 		
 		int	totalFee = ((sum+shipFee)-(willpoint2))+additionalTax;						
 		map.put("sumprice",sum);

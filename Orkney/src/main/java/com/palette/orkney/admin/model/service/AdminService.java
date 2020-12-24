@@ -5,6 +5,8 @@ import java.util.Map;
 
 import com.palette.orkney.order.model.vo.OrderDetail;
 import com.palette.orkney.order.model.vo.Orders;
+import com.palette.orkney.product.model.vo.Product;
+import com.palette.orkney.product.model.vo.Product_image;
 
 public interface AdminService {
 
@@ -24,9 +26,9 @@ public interface AdminService {
 
 	int deleteFAQ(String no);
 
-	List<Map> memberList(int cPage, int numPerPage);
+	List<Map> memberList(int cPage, int numPerPage, Map data);
 
-	int totalData();
+	int totalData(Map data);
 
 	List<Map> memberAddr(String no);
 
@@ -56,4 +58,11 @@ public interface AdminService {
 	
 	int updateSortEnd(Map m);
 
+	List<Map> productList(int cPage, int numPerPage, Map<String,Object> all);
+	int productTotalData();
+	int productPer(Map<String,Object> list);
+	int productPutIn(Map<String,Object> list);
+	int deleteProduct(String pNo);
+	List<Map> productOne(Map<String,Object> list);
+	int productInsert(Product product,List<Product_image> files, String[] img);
 }

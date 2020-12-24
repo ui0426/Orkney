@@ -65,13 +65,16 @@
               <a class="nav-link" href="${path }/admin/memberList.do">회원관리</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">상품관리</a>
+              <a class="nav-link" href="${path }/admin/product.do">상품관리</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="${path }/admin/orderList.do">주문관리</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="${path }/admin/question.do">문의 관리</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="${path}/admin/adminShowrooms.do">쇼룸 관리</a>
             </li>
           </ul>
         </div>
