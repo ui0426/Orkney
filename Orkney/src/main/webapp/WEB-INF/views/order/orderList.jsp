@@ -27,7 +27,7 @@
 						<div id="panel-container">
 						<div class="panel1">
 							<c:if test="${empty list }">
-								<h5>현재 진행중인 주문이 없습니다.</h5>
+								<p class="AllNullNotice">현재 진행중인 주문이 없습니다.</p>
 							</c:if>
 							<c:forEach items="${list }" var="o">
 								<div class="panels">
@@ -51,7 +51,7 @@
 							</div>
 							<div class="panel2">
 							<c:if test="${empty list }">
-								<h5>현재 완료된 주문이 없습니다.</h5>
+								<p class="AllNullNotice">현재 완료된 주문이 없습니다.</p>
 							</c:if>
 							<c:forEach items="${list2 }" var="o">
 								<div class="panels">
@@ -73,11 +73,11 @@
 								</div>
 							</c:forEach>
 							</div>
-							<div>
-								<div>
+							<div class="notice-container">
+								<div class="always-notice">
 									<svg viewBox="0 0 24 24" width="24px" height="24px" class=""><path fill="currentColor" fill-rule="evenodd" clip-rule="evenodd" d="M10.5 15a4.5 4.5 0 1 1 0-9 4.5 4.5 0 0 1 0 9zm4.968-.307a6.5 6.5 0 1 0-1.514 1.315l3.996 3.996 1.414-1.414-3.896-3.897z"></path></svg>
-									<h4>찾는 주문 내역이 없으신가요?</h4>
-									<p>여기서 주문내역을 확인할 수 있습니다.<a>주문 내역 확인</a></p>
+									<h4 class="question">찾는 주문 내역이 없으신가요?</h4>
+									<p class="answer">여기서 주문내역을 확인할 수 있습니다.<a href="${path}/order/orderForm.do">주문 내역 확인</a></p>
 								</div>
 							</div>
 						</div>
@@ -85,7 +85,7 @@
 					<div class="orderList_desktop">
 					<c:if test="${empty list and empty list2 }">
 						<div>
-							<p>현재 진행중이거나 완료된 주문사항이 없습니다. <a>상품 보러가기</a></p>
+							<p class="AllNullNotice">현재 진행중이거나 완료된 주문사항이 없습니다. <a>상품 보러가기</a></p>
 						</div>
 					</c:if>
 					<c:if test="${!empty list or !empty list2 }">
@@ -103,7 +103,7 @@
 								<tbody>
 									<c:if test="${empty list }">
 										<tr>
-											<td  colspan="4">현재 진행중인 주문이 없습니다.</td>
+											<td  colspan="4"><p class="AllNullNotice">현재 진행중인 주문이 없습니다.</p></td>
 										</tr>
 									</c:if>
 									<c:forEach items="${list }" var="o">
@@ -131,7 +131,7 @@
 								<tbody>
 									<c:if test="${empty list2 }">
 										<tr>
-											<td  colspan="4">현재 진행중인 주문이 없습니다.</td>
+											<td  colspan="4"><p class="AllNullNotice">현재 진행중인 주문이 없습니다.</p></td>
 										</tr>
 									</c:if>
 									<c:forEach items="${list2 }" var="o">
@@ -146,11 +146,11 @@
 							</table>
 						</div>
 						</c:if>
-						<div>
-							<div>
+						<div class="notice-container">
+							<div class="always-notice">
 								<svg viewBox="0 0 24 24" width="24px" height="24px" class=""><path fill="currentColor" fill-rule="evenodd" clip-rule="evenodd" d="M10.5 15a4.5 4.5 0 1 1 0-9 4.5 4.5 0 0 1 0 9zm4.968-.307a6.5 6.5 0 1 0-1.514 1.315l3.996 3.996 1.414-1.414-3.896-3.897z"></path></svg>
-								<h4>찾는 주문 내역이 없으신가요?</h4>
-								<p>여기서 주문내역을 확인할 수 있습니다.<a>주문 내역 확인</a></p>
+								<h4 class="question">찾는 주문 내역이 없으신가요?</h4>
+								<p class="answer">여기서 주문내역을 확인할 수 있습니다.<a href="${path}/order/orderForm.do">주문 내역 확인</a></p>
 							</div>
 						</div>
 					</div>

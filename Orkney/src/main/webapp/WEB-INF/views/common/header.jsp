@@ -84,8 +84,8 @@
                 <a href="${path}"><img src="${path }/resources/img/LOGO3.PNG" alt=""></a>
             </div>
             <div class="header-menu">
-                <span><a href="${path }/product/products.do?category=all&sale=">모든제품</a> </span>
-                <span><a href="${path}/product/rooms.do">디지털 쇼룸</a></span>
+                <span><a href="${path }/product/products.do?category=all&sale=" style="color:black;">모든제품</a> </span>
+                <span><a href="${path}/product/rooms.do" style="color:black;">디지털 쇼룸</a></span>
 
             </div>
             <div class="header-search">
