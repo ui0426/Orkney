@@ -166,7 +166,6 @@
 	
 	
 	<insert id="productInsert" parameterType="product">
-
 		INSERT INTO PRODUCT VALUES('p'||PRO_SEQ.NEXTVAL, #{productName}, #{productPrice}, #{productColor}, #{productWidth}, #{productHeight},#{productDepth},SYSDATE,#{productStock},#{productInfo},#{productBigCategoryNo},#{productSmallCategoryNo},#{productPrice})
 		<selectKey keyProperty="productNo" resultType="String" order="AFTER">
 			SELECT PRO_SEQ.CURRVAL FROM DUAL
@@ -205,5 +204,31 @@
   	<update id="updateSortEnd" parameterType="map">
   		UPDATE ORDER_DETAIL SET SORT=#{sort} WHERE ORDER_DETAIL_NO=#{no}
   	</update>
-
+	
+	<select id="productUpdateList" parameterType="String" resultType="Map">
+		SELECT * FROM PRODUCT
+		WHERE PRODUCT_NO = #{pNo}
+	</select>
+	
+	<update id="producUpdateIn" parameterType="product">
+		UPDATE PRODUCT SET PRODUCT_NAME=#{productName}, PRODUCT_PRICE=#{productPrice}, PRODUCT_COLOR=#{productColor}, PRODUCT_WIDTH=#{productWidth}, PRODUCT_HEIGHT=#{productHeight},PRODUCT_DEPTH=#{productDepth},PRODUCT_STOCK=#{productStock},PRODUCT_INFO=#{productInfo},BIG_CATEGORY_NO=#{productBigCategoryNo},SMALL_CATEGORY_NO=#{productSmallCategoryNo}
+		WHERE PRODUCT_NO= #{productNo}
+	</update>
+	
+	<update id="producUpdateInImg" parameterType="Product_image">
+		UPDATE PRODUCT_IMAGE SET PRODUCT_PIC=#{renamedFileName} ,PRODUCT_COLOR=#{product_color}
+		WHERE PRODUCT_PIC=#{productImageName}
+	</update>
+	
+	<select id="productImg" parameterType="product" resultType="map">
+		SELECT * 
+		FROM PRODUCT_IMAGE
+		WHERE PRODUCT_NO = #{productNo}
+	</select>
+	
+	<select id="sCategoryList" resultType="map" parameterType="map">
+		SELECT *
+		FROM SMALL_CATEGORY
+		WHERE BIG_CATEGORY_NO = #{category}
+	</select>
 </mapper>

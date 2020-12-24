@@ -4,6 +4,7 @@
     <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
     <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 	<c:set var="path" value="${pageContext.request.contextPath}"/>
+	
 <style>
 .filebox label { 
 	display: inline-block; 
@@ -73,20 +74,29 @@
               <div class="tab-pane fade in show active" id="tabCheckoutBilling123" role="tabpanel">
 
                 <!--Card content-->
-                <form name="productForm" id="productForm" action="${path }/damin/productInsert.do" method="post" enctype="multipart/form-data">
-
+                <form name="productForm" id="productForm" action="${path }/damin/producUpdateIn.do" method="post" enctype="multipart/form-data">
+				<div class="input-group mb-4">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="basic-addon1">제품번호 :</span>
+                    </div>
+                    <input type="text" class="form-control py-0" name="productNo" id="productNo"  aria-describedby="basic-addon1"  value="${list.PRODUCT_NO }" required>
+                  </div>
+				
                 
                   <div class="row">
                     <div class="col-md-6 mb-4">
 	                    <!--제품명-->
+	                    
+	      
+	                    
 	                    <label for="productName" class="">제품명</label>
-	                  	<input type="text" name="productName" id="productName" class="form-control mb-4" placeholder="PRODUCT NAME" required>
+	                  	<input type="text" name="productName" id="productName" class="form-control mb-4" placeholder="PRODUCT NAME" value="${list.PRODUCT_NAME }" required>
                     </div>
 
                     <div class="col-md-6 mb-2">
                       <!--가격-->
 	                    <label for="productPrice" class="">가격</label>
-	                  	<input type="text" name="productPrice" id="productPrice" class="form-control mb-4" placeholder="PRODUCT PRICE" required>
+	                  	<input type="text" name="productPrice" id="productPrice" class="form-control mb-4" placeholder="PRODUCT PRICE"value="${list.PRODUCT_PRICE }" required>
                     </div>
                   </div>
                
@@ -94,17 +104,17 @@
 					<div class="col-lg-4 col-md-12 mb-4">
 	                    <!--폭-->
 	                    <label for="productWidth" class="">폭</label>
-	                  	<input type="number" name="productWidth" id="productWidth" class="form-control mb-4" placeholder="cm" required>
+	                  	<input type="number" name="productWidth" id="productWidth" class="form-control mb-4" placeholder="cm" value="${list.PRODUCT_WIDTH }" required>
                     </div>
 					<div class="col-lg-4 col-md-12 mb-4">
 	                    <!--높이-->
 	                    <label for="productHeight" class="">높이</label>
-	                  	<input type="number" name="productHeight" id="productHeight" class="form-control mb-4" placeholder="cm" required>
+	                  	<input type="number" name="productHeight" id="productHeight" class="form-control mb-4" placeholder="cm" value="${list.PRODUCT_HEIGHT}" required>
                     </div>
 					<div class="col-lg-4 col-md-12 mb-4">
 	                    <!--깊이-->
 	                    <label for="productDepth" class="">깊이</label>
-	                  	<input type="number" name="productDepth" id="productDepth" class="form-control mb-4" placeholder="cm" required>
+	                  	<input type="number" name="productDepth" id="productDepth" class="form-control mb-4" placeholder="cm" value="${list.PRODUCT_DEPTH }" required>
                     </div>
                   </div>
 				
@@ -113,12 +123,12 @@
 					<div class="col-lg-4 col-md-12 mb-4">
 	                    <!--색상-->
 	                    <label for="productColor" class="">색상</label>
-	                  	<input type="text" name="productColor" id="productColor" class="form-control mb-4" placeholder="COLOR" required>
+	                  	<input type="text" name="productColor" id="productColor" class="form-control mb-4" placeholder="COLOR" value="${list.PRODUCT_COLOR }" required>
                     </div>
                     
                     <div class="col-lg-4 col-md-12 mb-4">
                       <label for="productBigCategoryNo">카테고리</label>
-                      <select class="custom-select d-block w-100" name="productBigCategoryNo" id="productBigCategoryNo" onchange="categoryBic();" required>
+                      <select class="custom-select d-block w-100" onchange="categoryBic();" name="productBigCategoryNo" id="productBigCategoryNo" value="${list.BIG_CATEGORY_NO }" required>
                         <option value="bc1">침대</option>
                         <option value="bc2">책상/선반유닛</option>
                         <option value="bc3">서랍</option>
@@ -138,14 +148,10 @@
                         Please select a valid country.
                       </div>
                     </div>
-                    
-
-                    
                     <div style="display: none"><option value="" id="sC"></option></div>
-
                     <div class="col-lg-4 col-md-12 mb-4">
                       <label for="productSmallCategoryNo">S카테고리</label>
-                      <select class="custom-select d-block w-100" name="productSmallCategoryNo" id="productSmallCategoryNo" required>
+                      <select class="custom-select d-block w-100" name="productSmallCategoryNo" id="productSmallCategoryNo" value="${list.SMALL_CATEGORY_NO }" required>
                         <option value="sc31">더블</option>
                         <option value="sc32">싱글</option>
                         <option value="sc33">수납장</option>
@@ -165,17 +171,18 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text" id="basic-addon1">재고</span>
                     </div>
-                    <input type="number" class="form-control py-0" name="productStock" id="productStock" placeholder="재고 수량 " aria-describedby="basic-addon1" required>
+                    <input type="number" class="form-control py-0" name="productStock" id="productStock" placeholder="재고 수량 " aria-describedby="basic-addon1" value="${list.PRODUCT_STOCK }" required>
                   </div>
                   
                   <label for="productInfo" class="">제품설명</label>
-                  <textarea id="productInfo" placeholder="PRODUCT INFO" name="productInfo" class="form-control mb-4" rows="" cols="" required></textarea>
-                  
+                  <textarea id="productInfo" placeholder="PRODUCT INFO" name="productInfo" class="form-control mb-4" rows="" cols="" required>${list.PRODUCT_INFO }</textarea>
+              
 
                
 				  <hr>
 	              <!--Panel 2-->
 	              <div class="tab-pane" id="tabCheckoutAddons123" >
+				  
 	
 	                  <div class="col-md-7 mb-4">
 	                    <h5 class="mb-3 h5">메인 이미지</h5>
@@ -185,8 +192,10 @@
 	                  </div>
 	                <div class="row">
 	                  <div class="col-md-5 mb-4">
-	                    <img src="" class="img-fluid z-depth-1-half"
+
+	                    <img src="${path}/resources/images/product/${i.PRODUCT_PIC}" class="img-fluid z-depth-1-half"
 	                      alt="" id="mainImg">
+	       
 	                  </div>
 	                  
 	                  <div class="filebox"> 
@@ -408,7 +417,6 @@
 $(document).ready(function() {
 	$('.mdb-select').material_select();
 });
-
 </script>
 <script type="text/javascript">
 function categoryBic() {
@@ -435,4 +443,4 @@ function categoryBic() {
 }	
                   
 </script>
-<jsp:include page="/WEB-INF/views/common/adminFooter.jsp"/>
+	<jsp:include page="/WEB-INF/views/common/adminFooter.jsp"/>

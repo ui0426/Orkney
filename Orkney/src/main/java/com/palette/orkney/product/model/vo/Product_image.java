@@ -17,6 +17,7 @@ public class Product_image {
 	private String product_no;
 	private String product_color;
 	
+	private String productImageName;
 	private String originalFileName;
 	private String renamedFileName;
 

@@ -233,7 +233,7 @@
 								</a>
 							</li>
 							<li>
-								<a href="${path }/product/products.do?category=아동식선반">
+								<a href="${path }/product/products.do?category=이동식선반">
 									이동식 선반
 								</a>
 							</li>
@@ -248,8 +248,8 @@
 								</a>
 							</li>
 							<li>
-								<a href="${path }/product/products.do?category=거실장/전장/콘솔테이블">
-									거실장/천장/콘솔테이블
+								<a href="${path }/product/products.do?category=거실장/찬장/콘솔테이블">
+									거실장/찬장/콘솔테이블
 								</a>
 							</li>
 							<li>
