@@ -50,7 +50,6 @@
 		<interceptor>
 			<mapping path="/member/memberLogin.do"/>
 			<mapping path="/member/signup.do"/>
-			<mapping path="/order/orderLogin.do"/>
 			<mapping path="/order/passwordCheck.do"/>
 				<beans:bean id="login" class="com.palette.orkney.common.interceptor.LoginInterceptor">
 			</beans:bean>
@@ -67,7 +66,6 @@
 	
 	<interceptors>
 		<interceptor>
-			<mapping path="/order/orderView.do"/>
 			<mapping path="/review/*"/>
 				<beans:bean id="logout" class="com.palette.orkney.common.interceptor.LoginCheckInterceptor">
 			</beans:bean>
