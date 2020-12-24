@@ -179,10 +179,11 @@ public class EmailController {
 	
 	
 
-	@RequestMapping(value="/member/emailAuth.do", method=RequestMethod.POST)//가입시 이메일 인증
-    public String emailAuth(@RequestParam Map userInfo,Model m,HttpServletResponse response,HttpSession session) throws Exception {
+	@RequestMapping(value="/member/emailAuth.do", method=RequestMethod.GET)//가입시 이메일 인증
+    public String emailAuth(Model m,HttpServletResponse response,HttpSession session) throws Exception {
 		
-		String email=(String)userInfo.get("email");
+		Map userInfo=(Map)session.getAttribute("login");
+		String email=(String)userInfo.get("MEMBER_ID");
 		
 		StringBuffer temp = new StringBuffer();
 		Random rnd = new Random();
@@ -191,9 +192,8 @@ public class EmailController {
 		    }
 		String key=temp.toString();
 		System.out.println(key);
-		userInfo.put("key",key);
-		userInfo.put("auth","N");
-		session.setAttribute("userInfo",userInfo);
+
+		session.setAttribute("key",key);
 //		m.addAttribute("userInfo",userInfo);
 //		m.addAttribute("key",key);
 		

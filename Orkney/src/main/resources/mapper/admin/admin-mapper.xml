@@ -6,7 +6,7 @@
   		SELECT * FROM MEMBER M WHERE EXISTS(SELECT * FROM CHATTING C WHERE M.MEMBER_NO=C.MEMBER_NO)
   	</select>
   	<select id="chatData" parameterType="map" resultType="map">
-  		SELECT * FROM CHATTING WHERE MEMBER_NO=#{id} AND CHAT_ROOM=#{rNo}
+  		SELECT * FROM CHATTING WHERE MEMBER_NO=#{id} AND CHAT_ROOM=#{rNo} ORDER BY CHAT_DATE
   	</select>
   	<select id="roomNo" parameterType="string" resultType="string">
   		SELECT CHAT_ROOM FROM CHATTING WHERE MEMBER_NO=#{data} GROUP BY CHAT_ROOM ORDER BY CHAT_ROOM DESC
@@ -48,11 +48,17 @@
   	<delete id="deleteFAQ" parameterType="string">
   		DELETE FAQ WHERE FAQ_NO=#{no}
   	</delete>
-  	<select id="memberList" resultType="map">
+  	<select id="memberList" resultType="map" parameterType="map">
   		SELECT M.*,(SELECT SUM(TOTAL_PRICE) FROM ORDERS A WHERE M.MEMBER_NO=A.MEMBER_NO) AS PRICE FROM MEMBER M
+  		<if test="type != null and key != null and key != ''">
+  		WHERE ${type} like '%${key}%'
+  		</if>
   	</select>
-  	<select id="totalData" resultType="_int">
+  	<select id="totalData" resultType="_int" parameterType="map">
   		SELECT COUNT(*) FROM MEMBER
+  		<if test="type != null and key != null and key != ''">
+  		WHERE ${type} like '%${key}%'
+  		</if>
   	</select>
   	<select id="memberAddr" resultType="map" parameterType="string">
   		SELECT * FROM ADDR WHERE MEMBER_NO=#{no}
@@ -205,5 +211,5 @@
   	<update id="updateSortEnd" parameterType="map">
   		UPDATE ORDER_DETAIL SET SORT=#{sort} WHERE ORDER_DETAIL_NO=#{no}
   	</update>
-
+  	
 </mapper>

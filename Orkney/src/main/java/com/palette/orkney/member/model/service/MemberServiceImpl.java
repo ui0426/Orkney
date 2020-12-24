@@ -230,13 +230,16 @@ public class MemberServiceImpl implements MemberService {
 		return dao.pointList(session, data);
 	}
 
+	@Override
+	public int emailAuth(String id) {
+		// TODO Auto-generated method stub
+		return dao.emailAuth(session,id);
+	}
+
 	//이메일 수신 체크
 	@Override
 	public int emailCk(Map data) {
 		return dao.emailCk(session, data);
 	}
-
-
-	
 	
 }

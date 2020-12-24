@@ -73,9 +73,10 @@ public class ProductDaoImpl implements ProductDao{
 	}
 
 	@Override
-	public List<Map> selectRoomsProduct(SqlSession session, String type) {
-		// TODO Auto-generated method stub
-		return session.selectList("product.selectRoomsProduct",type);
+	public List<Map> selectRoomsProduct(SqlSession session, Map types) {
+		// TODO Auto-generated method stub 
+		System.out.println(types);
+		return session.selectList("product.selectRoomsProduct",types);
 	}
 
 	@Override
@@ -154,6 +155,22 @@ public class ProductDaoImpl implements ProductDao{
 		  // TODO Auto-generated method stub 
 		  return session .selectList("product.buttomProduct",ty); 
 		  }
+	  @Override
+		public int deleteRoom(SqlSession session, Map room) {
+			// TODO Auto-generated method stub
+			return session.delete("product.deleteRoom",room);
+		}
+		@Override
+		public List<Map> delectSelectRoom(SqlSession session) {
+			// TODO Auto-generated method stub
+			return session.selectList("product.delectSelectRoom");
+		}
+		@Override
+		public int delectShowroom(SqlSession session,String deleteRoom) {
+			// TODO Auto-generated method stub
+			return session.delete("product.delectShowroom",deleteRoom);
+		}
+		
 
 //재고갱신
 	@Override

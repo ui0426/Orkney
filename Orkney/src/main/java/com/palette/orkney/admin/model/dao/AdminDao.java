@@ -26,9 +26,9 @@ public interface AdminDao {
 
 	int deleteFAQ(SqlSession session, String no);
 
-	List<Map> memberList(SqlSession session, int cPage, int numPerPage);
+	List<Map> memberList(SqlSession session, int cPage, int numPerPage,Map data);
 
-	int totalData(SqlSession session);
+	int totalData(SqlSession session,Map data);
 
 	List<Map> memberAddr(SqlSession session, String no);
 

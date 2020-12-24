@@ -2,7 +2,9 @@ package com.palette.orkney.admin.controller;
 
 import java.io.File;
 import java.io.IOException;
+
 import java.text.SimpleDateFormat;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -26,8 +28,10 @@ import com.palette.orkney.notice.model.service.NoticeService;
 import com.palette.orkney.order.model.service.OrderService;
 import com.palette.orkney.order.model.vo.OrderDetail;
 import com.palette.orkney.order.model.vo.Orders;
+import com.palette.orkney.product.model.service.ProductService;
 import com.palette.orkney.product.model.vo.Product;
 import com.palette.orkney.product.model.vo.Product_image;
+
 
 @Controller
 public class AdminController {
@@ -38,7 +42,8 @@ public class AdminController {
 	private NoticeService nService;
 	@Autowired
 	private OrderService oservice;
-
+	@Autowired
+	private ProductService pService;
 	@RequestMapping("/admin/adminChat.do")
 	public String adminChat() {
 		return "admin/adminChat";
@@ -91,7 +96,7 @@ public class AdminController {
 		
 		List<Orders> list = service.selectOrderList(cPage, numPerPage,search_option,keyword);
 
-		System.out.println("keyword:" + keyword);
+		
 
 		int totalOrder = service.totalOrder();
 		String pageBar = PageFactory.getPageBar(totalOrder, cPage);
@@ -104,11 +109,11 @@ public class AdminController {
 
 	@RequestMapping("/admin/selectOrderChangeList.do")
 	public ModelAndView orderChangeList(String state, ModelAndView mv) {
-		System.out.println("주문확인 또는 취소신청 나와야함 : "+state);
+		
 		Map s = new HashMap();
 		s.put("state", state);
 		List<Orders> list = service.selectOrderChangeList(s);
-		System.out.println(list);
+		
 		mv.addObject("order", list);
 		mv.setViewName("ajax/orderChangeList");
 		return mv;
@@ -116,9 +121,9 @@ public class AdminController {
 	
 	@RequestMapping("/admin/selectOrderDetailChangeList.do")
 	public ModelAndView orderDetailChangeList(String state, ModelAndView mv) {
-		System.out.println("교환신청 또는 반품신청 나와야함 : "+state);
+		
 		List<OrderDetail> list = service.selectOrderDetailChangeList(state);
-		System.out.println(list);
+		
 		mv.addObject("orderDetail", list);
 		mv.setViewName("ajax/orderChangeList");
 		return mv;
@@ -139,9 +144,9 @@ public class AdminController {
 
 	@RequestMapping("admin/orderView.do")
 	public ModelAndView orderView(String oNo, ModelAndView mv) {
-		System.out.println(oNo);
+		
 		Orders order = oservice.selectOrder(oNo);
-		System.out.println(order);
+	
 		String[] addr = order.getOrder_address().split("/");
 		order.setAddress_post(addr[0]);
 		order.setAddress_addr(addr[1]);
@@ -216,10 +221,11 @@ public class AdminController {
 	}
 
 	@RequestMapping("admin/memberListData.do")
-	public String memberListData(@RequestParam(value = "cPage", defaultValue = "0") int cPage, Model m) {
+	public String memberListData(@RequestParam(value = "cPage", defaultValue = "0") int cPage
+			,@RequestParam Map data, Model m) {
 		int numPerPage = 10;
-		List<Map> list = service.memberList(cPage, numPerPage);
-		int totalData = service.totalData();
+		List<Map> list = service.memberList(cPage, numPerPage,data);
+		int totalData = service.totalData(data);
 		String pageBar = PageFactory.getPageBar(totalData, cPage);
 		m.addAttribute("list", list);
 		m.addAttribute("pageBar", pageBar);
@@ -228,11 +234,10 @@ public class AdminController {
 
 	@RequestMapping("admin/orderAddr.do")
 	public String orderList(@RequestParam(value = "no") String no, Model m) {
-		System.out.println(no);
+		
 		List<Map> addr = service.memberAddr(no);
 		List<Map> order = service.orderList(no);
-		System.out.println(addr);
-		System.out.println(order);
+		
 		m.addAttribute("addr", addr);
 		m.addAttribute("order", order);
 		return "ajax/orderAddr";
@@ -266,7 +271,7 @@ public class AdminController {
 	@RequestMapping(value = "/admin/updateOrderState.do", produces = "text/plain;charset=UTF-8")
 	@ResponseBody
 	public String updateOrderState(String oNo, String state) {
-		System.out.println(oNo);
+	
 		Map o = new HashMap();
 		o.put("oNo", oNo);
 		o.put("state", state);
@@ -278,7 +283,7 @@ public class AdminController {
 	@RequestMapping(value = "/admin/updateOrderInfo.do", produces = "text/plain;charset=UTF-8")
 	@ResponseBody
 	public String updateOrderInfo(@RequestParam Map<String, Object> orderInfo) {
-		System.out.println(orderInfo);
+		
 		String address = (String) orderInfo.get("post") + "/" + (String) orderInfo.get("addr") + "/" + (String) orderInfo.get("detail");
 		orderInfo.put("address", address);
 		int result = service.updateOrderInfo(orderInfo);
@@ -298,13 +303,13 @@ public class AdminController {
 		Map m = new HashMap();
 		m.put("oNos", oNos);
 		m.put("state", state);
-		System.out.println(m);
+		
 		
 		 List<Orders> list = service.updateOrderListState(cPage, numPerPage, m, search_option, keyword);
 		  
 		//List<Orders> list=service.selectOrderList(cPage,numPerPage);
 		 
-		 System.out.println("list:"+list);
+		
 		  
 		 int totalOrder = service.totalOrder(); 
 		 
@@ -316,6 +321,171 @@ public class AdminController {
 		 
 		return mv;
 	}
+
+	@RequestMapping("/admin/adminShowrooms.do")
+	public String adminShowrooms() {
+		return "admin/rooms/adminRoom";
+	}
+	@RequestMapping("/admin/delectRoom.do")
+	@ResponseBody
+	public  List<Map> delectRoom() {
+		
+		return pService.delectSelectRoom();
+		
+	}
+	@RequestMapping("/admin/insertRoom.do")
+	public ModelAndView insertRoom(ModelAndView mv, @RequestParam(value = "productInput_product[]", required = true) String[] rooms_product, @RequestParam(value = "productInput_top[]", required = true) String[] rooms_top, @RequestParam(value = "productInput_left[]", required = true) String[] rooms_left, @RequestParam String category, @RequestParam(value="toggleInsert", defaultValue = "0") String toggleInsert, @RequestParam String category_no, @RequestParam(value = "room_img", required = false) MultipartFile multi, HttpSession session) {
+		Map<String, Object> room = new HashMap<String, Object>();
+		Map<String, Object> rooms = new HashMap<String, Object>(); 
+		System.out.println(toggleInsert);
+		System.out.println(multi);
+		List one = new ArrayList();
+		List two = new ArrayList();
+		List three = new ArrayList();
+		List four = new ArrayList();
+		List five = new ArrayList();
+		/*List rooms = new ArrayList();*/
+		String[] categoryNo = new String[rooms_top.length];
+
+		for (int i = 0; i < rooms_top.length; i++) {
+			categoryNo[i] = category_no;
+
+			if (i == 0) {
+				one.add(rooms_product[i]);
+				one.add(rooms_top[i]);
+				one.add(rooms_left[i]);
+				one.add(categoryNo[i]);
+				
+			} else if (i == 1) {
+				
+				two.add(rooms_product[i]);
+				two.add(rooms_top[i]);
+				two.add(rooms_left[i]);
+				two.add(categoryNo[i]);
+				
+			} else if (i == 2) {
+				
+				three.add(rooms_product[i]);
+				three.add(rooms_top[i]);
+				three.add(rooms_left[i]);
+				three.add(categoryNo[i]);
+				
+			} else if (i == 3) {
+				
+				four.add(rooms_product[i]);
+				four.add(rooms_top[i]);
+				four.add(rooms_left[i]);
+				four.add(categoryNo[i]);
+				
+			} else if (i == 4) {
+				
+				five.add(rooms_product[i]);
+				five.add(rooms_top[i]);
+				five.add(rooms_left[i]);
+				five.add(categoryNo[i]);
+			}
+		}
+			
+		
+		if (rooms_top.length>=1) {
+		
+			rooms.put("one",one);
+		}
+		if (rooms_top.length>=2) {
+		
+			rooms.put("two",two);
+		}
+		if (rooms_top.length>=3) {
+		
+			rooms.put("three",three);
+		}
+		if (rooms_top.length>=4) {
+			
+			rooms.put("four",four);
+		}
+		if (rooms_top.length==5) {
+			
+			rooms.put("five",five);
+		} ;
+
+		room.put("categoryNo", category_no);
+		room.put("category", category);
+		if(!multi.isEmpty()) {
+		String path = session.getServletContext().getRealPath("/resources/images/rooms");
+
+		File dir = new File(path);
+
+		if (!dir.exists())
+			dir.mkdirs();
+
+		if (!multi.isEmpty()) {
+			String originalName = multi.getOriginalFilename();
+			try {
+				multi.transferTo(new File(path + "/" + originalName));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			room.put("roomsImg", originalName);
+			/* rooms.put("rooms_img", img); */
+			
+		}
+		
+		int result=0;
+	
+		result = pService.insertRoom(room);
+		}
+		int results=0;
+		if(toggleInsert.equals("0")) {
+		
+			 results= pService.deleteRoom(room);
+			}
+	
+		 int resultTwo = pService.updateRoom(rooms);
+		
+		mv.setViewName("redirect:/admin/adminShowrooms.do");
+
+		return mv;
+	}
+	@RequestMapping("/admin/roomsTitle.do")
+	public ModelAndView roomsTitle(ModelAndView mv, @RequestParam String title, @RequestParam String content, @RequestParam String roomsTitle, @RequestParam String roomsSubTitle) {
+		
+		Map titles = new HashMap();
+		titles.put("title", title);
+		titles.put("content", content);
+		titles.put("roomsTitle", roomsTitle);
+		titles.put("roomsSubTitle", roomsSubTitle);
+		int result = pService.roomsTitle(titles);
+		mv.setViewName("redirect:/admin/adminShowrooms.do");
+		return mv;
+	}
+
+	@RequestMapping("/admin/buttomProduct.do")
+	@ResponseBody
+	public List<Map> buttomProduct(@RequestParam(value = "type[]") String[] type) {
+		Map ty = new HashMap();
+		ty.put("type", type);
+		System.out.println(ty);
+		return pService.buttomProduct(ty);
+	};
+	
+	@RequestMapping("/admin/roomChange.do")
+	@ResponseBody
+	public List<Map> roomChange() {
+		return pService.roomChange();
+	}
+	@RequestMapping("/admin/selectAll.do")
+	@ResponseBody
+	public List<Map> selectAll(@RequestParam String typeTo) {
+		Map types= new HashMap();
+		types.put("typeTo", typeTo);
+		return pService.selectRoomsProduct(types);
+	}
+	@RequestMapping("/admin/delectShowroom.do")
+	public String delectShowroom(@RequestParam String deleteRoom) {
+		int resule = pService.delectShowroom(deleteRoom);
+		return "redirect:/admin/adminShowrooms.do"; 
+	}	
+
 
 //	제품관리 페이지
 	@RequestMapping("/admin/adminProduct.do")
@@ -455,6 +625,7 @@ public class AdminController {
 		int result = service.updateSortEnd(m);
 		if(result >0) return true;
 		else return false;
+
 
 	}
 }
