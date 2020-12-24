@@ -63,15 +63,15 @@ public class AdminDaoImpl implements AdminDao {
 	}
 
 	@Override
-	public List<Map> memberList(SqlSession session,int cPage,int numPerPage) {		
+	public List<Map> memberList(SqlSession session,int cPage,int numPerPage,Map data) {		
 		RowBounds r=new RowBounds((cPage-1)*numPerPage,numPerPage);
-		return session.selectList("admin.memberList",null,r);
+		return session.selectList("admin.memberList",data,r);
 	}
 
 	@Override
-	public int totalData(SqlSession session) {
+	public int totalData(SqlSession session,Map data) {
 		// TODO Auto-generated method stub
-		return session.selectOne("admin.totalData");
+		return session.selectOne("admin.totalData",data);
 	}
 
 	@Override

@@ -23,8 +23,8 @@
 			<nav aria-label="breadcrumb">
 				<ol class="breadcrumb">
 					<li class="breadcrumb-item"><a href="#">홈</a></li>
-					<li class="breadcrumb-item"><a href="#">디지털쇼룸</a></li>
-					<li class="breadcrumb-item active" aria-current="page">침실</li>
+					<li class="breadcrumb-item"><a href="#open" onclick="roomsNav();">디지털쇼룸</a></li>
+					<li class="breadcrumb-item active" aria-current="page">${param.type}</li>
 				</ol>
 			</nav>
 		</div>
@@ -54,16 +54,22 @@
 						<c:if test="${r.ROOM_NO == p.ROOM_NO}">
 							<div class="rm-bt"
 								style="top:${p.ROOMS_TOP>'0.4'?p.ROOMS_TOP:'0.4'}%; left:${p.ROOMS_LEFT<'94'?p.ROOMS_LEFT:'94'}%;">
-								<a class="rm-a" href="${path}"></a>
+								<a class="rm-a" ></a>
 								<div class="rm-pd-a"
 									style="transform: translateX(-42%) translateY(-87%) translateY(-1.5rem);">
-									<a class="rm-a-a" href="${path}">
+									<a class="rm-a-a" href="${path}/product/productDetail.do?productno=${p.PRODUCT_NO}">
 										<div class="rm-pd-box">
 											<div class="rm-pd-box-box">
+											
+
 											 <fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today" />  
 											<fmt:formatDate value="${p.PRODUCT_ENROLL_DATE }" pattern="yyyy-MM-dd" var="write_dt"/>
-												<span class="rm-pb-et-new">${today >= write_dt?'NEW':""}</span>
-												<span class="rm-pb-et-p">${p.SALE_PER!=null?"더 낮은 새로운 가격":""}</span>
+												<c:if test="${today <= write_dt}">
+												<span class="rm-pb-et-new">NEW</span>
+												</c:if>
+												<c:if test="${p.SALE_PER!=p.PRODUCT_PRICE}">
+												<span class="rm-pb-et-p">더 낮은 새로운 가격</span>
+												</c:if>
 												<div class="rm-bt-pb">
 													<div class="rm-bt-name">${p.PRODUCT_NAME}</div>
 													<div class="rm-bt-context">
@@ -77,13 +83,13 @@
 										<div>
 											<div class="rm-bt-price">
 												<fmt:setLocale value="ko_KR" />
-												<fmt:formatNumber type="currency" value="${p.SALE_PER!=null? p.PRODUCT_PRICE:''}" />
+												<fmt:formatNumber type="currency" value="${p.SALE_PER!=p.PRODUCT_PRICE? p.PRODUCT_PRICE:''}" />
 											</div>
 										</div>
 										<div>
 											<div class="rm-bt-et-price">
 												<fmt:setLocale value="ko_KR" />
-												<fmt:formatNumber type="currency" value="${p.SALE_PER!=null? p.PRODUCT_PRICE*(p.SALE_PER/100):p.PRODUCT_PRICE}" />
+												<fmt:formatNumber type="currency" value="${p.SALE_PER!=p.PRODUCT_PRICE? p.SALE_PER:p.PRODUCT_PRICE}" />
 											
 											</div>
 										</div>
@@ -108,23 +114,39 @@
 					</div>
 				
 				</div>
-				<a class="rm-md-secondary" href="${path}"> 
-					<span class="rm-md-small">
+				
 						<c:choose>
 						    <c:when test="${param.type=='침실'}">
-						       <span class="rm-md-label">모든침대/매트리스 보러가기 </span>
+						    <a class="rm-md-secondary" href="${path}/product/products.do?category=all&sale="> 
+								<span class="rm-md-small">
+						      		<span class="rm-md-label">모든침대/매트리스 보러가기 </span>
+						      		  <c:set var="loop_flag" value="true" />
+						    	</span>
+							</a>	
 						    </c:when>
 						    <c:when test="${param.type=='거실'}">
-						       <span class="rm-md-label">모든 거실 상품 보러가기 </span>
+						    <a class="rm-md-secondary" href="${path}/product/products.do?category=all&sale="> 
+								<span class="rm-md-small">
+						       		<span class="rm-md-label">모든 거실 상품 보러가기 </span>
 						         <c:set var="loop_flag" value="true" />
+						    	</span>
+							</a>	
 						    </c:when>
 						    <c:when test="${param.type=='주방'}">
-						       <span class="rm-md-label">모든 주방 상품 보러가기</span>
+						    <a class="rm-md-secondary" href="${path}/product/products.do?category=all&sale="> 
+								<span class="rm-md-small">
+						       		<span class="rm-md-label">모든 주방 상품 보러가기</span>
 						         <c:set var="loop_flag" value="true" />
+						     	</span>
+							</a>	
 						    </c:when>
 						    <c:when test="${param.type=='비지니스'}">
-						       <span class="rm-md-label">모든 비지니스 상품 보러가기 </span>
+						     <a class="rm-md-secondary" href="${path}/product/products.do?category=all&sale="> 
+								<span class="rm-md-small">
+						       		<span class="rm-md-label">모든 비지니스 상품 보러가기 </span>
 						         <c:set var="loop_flag" value="true" />
+						       	</span>
+							</a>	
 						    </c:when>
 						</c:choose>
 					</span>
@@ -140,17 +162,15 @@
 								<div class="card">
 									<!--Card image-->
 									<div class="view overlay zoom">
-										<img class="card-img-top"
-											src="${path}/resources/images/product/${p.PRODUCT_PIC}"
-											alt="Card image cap"> <a
-											href="${path}/product/productDetail.do">
+										<img class="card-img-top" src="${path}/resources/images/product/${p.PRODUCT_PIC}" alt="Card image cap">
+											 <a class="a-link" href="${path}/product/productDetail.do?productno=${p.PRODUCT_NO}">
 											<div class="mask rgba-white-slight"></div>
 										</a>
 									</div>
 									<!--Card content-->
 									<div class="card-body">
 									<fmt:formatDate value="${p.PRODUCT_ENROLL_DATE }" pattern="yyyy-MM-dd" var="write_dt"/>
-												<span class="rm-pb-et-new">${today >= write_dt?'NEW':""}</span>
+												<span class="rm-pb-et-new">${today <= write_dt?'NEW':""}</span>
 												<span class="rm-pb-et-p">${p.SALE_PER!=null?"더 낮은 새로운 가격":""}</span>												
 																		
 										<!--Title-->
@@ -159,9 +179,9 @@
 										<!--Text-->
 										<p class="card-text marginZero each "style="margin-top:0px !important; margin-bottom:0px !important;">${p.SMALL_CATEGORY_NO}</p>
 										<p class="card-text marginZero event-price"><fmt:setLocale value="ko_KR" />
-												<fmt:formatNumber type="currency" value="${p.SALE_PER!=null? p.PRODUCT_PRICE:''}" /></p>
+												<fmt:formatNumber type="currency" value="${p.SALE_PER!=p.PRODUCT_PRICE? p.PRODUCT_PRICE:''}" /></p>
 										<p class="card-text marginZero product-price"><fmt:setLocale value="ko_KR" />
-												<fmt:formatNumber type="currency" value="${p.SALE_PER!=null? p.PRODUCT_PRICE*(p.SALE_PER/100):p.PRODUCT_PRICE}" /></p>
+												<fmt:formatNumber type="currency" value="${p.SALE_PER}" /></p>
 										
 										
 										
@@ -226,7 +246,7 @@
 									<div class="view overlay zoom">
 									 <img class="card-img-top"
 											src=""  alt="Card image cap" > 
-											<a href="${path}/product/productDetail.do"> 
+											<a class="a-link" href=""> 
 											<div class="mask rgba-white-slight"></div>
 										</a>
 									</div>
@@ -297,12 +317,13 @@
 						</div>
 					<!-- Add Pagination -->
 					<div class="swiper-scrollbar"></div>
-					<!-- Add Arrows -->
+					
+				</div>
+				<!-- Add Arrows -->
 					<img src="${path}/resources/images/rooms/pngegg2222.png"
 						class="swiper-button-next"> <img
 						src="${path}/resources/images/rooms/pngegg.png"
 						class="swiper-button-prev">
-				</div>
 			</div>
 		</div>
 	</div>
@@ -322,8 +343,12 @@
 <jsp:include page="/WEB-INF/views/common/footer.jsp" />
 
 <script>
-
-
+  function roomsNav(){
+	  $(".btn-aside").trigger("click");
+	  $(".aside-btn-showroom").trigger("click");
+	
+ 
+ } 
 function numberWithCommas(x) {
 	   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 	}
@@ -426,23 +451,25 @@ function numberWithCommas(x) {
 				     	
 			    	      for(let i=0;i<data.length;i++){
 			    	    	  var endDate = new Date(data[i]["PRODUCT_ENROLL_DATE"]);
+			    	    	  endDate.setDate(endDate.getDate() +30);
 			    	    	  let cl=$(".cltjf").clone();
 			    	    	  $(cl).removeClass("cltjf");
 			    	    	  $(cl).css("display","block");
 					    	  $(cl).find(".card-img-top").attr("src","${path}/resources/images/product/" +data[i]["PRODUCT_PIC"]  );   
 					    	   $(cl).find(".card-title").html(data[i]["PRODUCT_NAME"]);
 					    	   $(cl).find(".ht-one").html(data[i]["SMALL_CATEGORY_NO"]);
-					    	   if(today<endDate){
+					    	   $(cl).find(".a-link").attr("href","${path}/product/productDetail.do?productno="+data[i]["SMALL_CATEGORY_NO"]);
+					    	   if(today>endDate){
 					    	   $(cl).find(".rm-pb-et-new").text('');
 					    	 	}
-					    	   if(data[i]["SALE_PER"]==''||data[i]["SALE_PER"]==null){
+					    	   if(data[i]["SALE_PER"]==data[i]["PRODUCT_PRICE"]){
 					    	  $(cl).find(".rm-pb-et-p").text('');
 				    		   $(cl).find(".ht-four").html("&#8361;"+ numberWithCommas(data[i]["PRODUCT_PRICE"]));
 				    		  
-					    	   }else if(data[i]["SALE_PER"]!=''||data[i]["SALE_PER"]!=null){
+					    	   }else if(data[i]["SALE_PER"]!=data[i]["PRODUCT_PRICE"]){
 					    		 
 					    		   $(cl).find(".ht-three").html("&#8361;"+ numberWithCommas(data[i]["PRODUCT_PRICE"]));
-					    			$(cl).find(".ht-four").html("&#8361;"+ numberWithCommas(data[i]["PRODUCT_PRICE"]*(data[i]["SALE_PER"]/100))); 
+					    			$(cl).find(".ht-four").html("&#8361;"+ numberWithCommas(data[i]["SALE_PER"])); 
 					    		
 					    		 
 					    		}
@@ -450,19 +477,19 @@ function numberWithCommas(x) {
 			    	    	} 
 			    	      
 			    	      console.log(data.length,'1');
-			    	      if(data.length<4){ 
+			    	     /*  if(data.length<4){ 
 			    	    	  console.log(data.length,'2');
-			    	  		$(".swiper-wrapper").css({"displye":"flex","justify-content":"center"});
+			    	  		  $(".swiper-wrapper").css({"displye":"flex","justify-content":"center"});  
 			    	  		
 			    	      }
 			    	      if(data.length<=4){ 
-			    	    	  $(".swiper-button-next , .swiper-button-prev").attr("style","display:none ;");
+			    	     	  $(".swiper-button-next , .swiper-button-prev").attr("style","display:none ;"); 
 			    	      }
 			    	      if(data.length>=5){
 			    	    	  console.log(data.length,'3');
 			    	    	  $(".swiper-button-next , .swiper-button-prev").attr("style","display:block;");
 			    	    	 
-			    	      }  
+			    	      }   */
 			    			
 			    	    
 				      swiperClass(); 
@@ -532,23 +559,25 @@ function numberWithCommas(x) {
 						     	$(".abc").html("");
 					    	      for(let i=0;i<data.length;i++){
 					    	    	  var endDate = new Date(data[i]["PRODUCT_ENROLL_DATE"]);
+					    	    	  endDate.setDate(endDate.getDate() +30);
 					    	    	  let cl=$(".cltjf").clone();
 					    	    	  $(cl).removeClass("cltjf");
 					    	    	  $(cl).css("display","block");
 							    	  $(cl).find(".card-img-top").attr("src","${path}/resources/images/product/" +data[i]["PRODUCT_PIC"]  );   
 							    	   $(cl).find(".card-title").html(data[i]["PRODUCT_NAME"]);
 							    	   $(cl).find(".ht-one").html(data[i]["SMALL_CATEGORY_NO"]);
-							    	   if(today<endDate){
+							    	   $(cl).find(".a-link").attr("href","${path}/product/productDetail.do?productno="+data[i]["SMALL_CATEGORY_NO"]);
+							    	   if(today>endDate){
 								    	   $(cl).find(".rm-pb-et-new").text('');
 								    	 	}
-								    	   if(data[i]["SALE_PER"]==''||data[i]["SALE_PER"]==null){
+								    	   if(data[i]["SALE_PER"]==data[i]["PRODUCT_PRICE"]){
 								    	  $(cl).find(".rm-pb-et-p").text('');
 							    		   $(cl).find(".ht-four").html("&#8361;"+ numberWithCommas(data[i]["PRODUCT_PRICE"]));
 							    		  
-								    	   }else if(data[i]["SALE_PER"]!=''||data[i]["SALE_PER"]!=null){
+								    	   }else if(data[i]["SALE_PER"]!=data[i]["PRODUCT_PRICE"]){
 								    		 
 								    		   $(cl).find(".ht-three").html("&#8361;"+ numberWithCommas(data[i]["PRODUCT_PRICE"]));
-								    			$(cl).find(".ht-four").html("&#8361;"+ numberWithCommas(data[i]["PRODUCT_PRICE"]*(data[i]["SALE_PER"]/100))); 
+								    			$(cl).find(".ht-four").html("&#8361;"+ numberWithCommas(data[i]["SALE_PER"])); 
 								    		
 								    		 
 								    		}

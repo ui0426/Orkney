@@ -79,9 +79,9 @@ public class ProductServiceImpl implements ProductService{
 	}
 
 	@Override
-	public List<Map> selectRoomsProduct(String type) {
+	public List<Map> selectRoomsProduct(Map types) {
 		// TODO Auto-generated method stub
-		return dao.selectRoomsProduct(session,type);
+		return dao.selectRoomsProduct(session,types);
 	}
 
 	@Override
@@ -150,6 +150,21 @@ public class ProductServiceImpl implements ProductService{
 		  // TODO Auto-generated method stub 
 		  return dao.buttomProduct(session,ty); 
 		  }
+	@Override
+	public int deleteRoom(Map room) {
+		// TODO Auto-generated method stub
+		return dao.deleteRoom(session,room); 
+	}
+	@Override
+	public List<Map> delectSelectRoom() {
+		// TODO Auto-generated method stub
+		return dao.delectSelectRoom(session);
+	}
+	@Override
+	public int delectShowroom(String deleteRoom) {
+		// TODO Auto-generated method stub
+		return dao.delectShowroom(session,deleteRoom);
+	}
 	  
 	 
 //sale가격

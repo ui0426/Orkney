@@ -26,9 +26,9 @@ public interface AdminService {
 
 	int deleteFAQ(String no);
 
-	List<Map> memberList(int cPage, int numPerPage);
+	List<Map> memberList(int cPage, int numPerPage, Map data);
 
-	int totalData();
+	int totalData(Map data);
 
 	List<Map> memberAddr(String no);
 

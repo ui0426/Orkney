@@ -409,6 +409,7 @@ $(document).ready(function() {
 	$('.mdb-select').material_select();
 });
 
+
 </script>
 <script type="text/javascript">
 function categoryBic() {
@@ -434,5 +435,6 @@ function categoryBic() {
 	});
 }	
                   
+
 </script>
 <jsp:include page="/WEB-INF/views/common/adminFooter.jsp"/>
