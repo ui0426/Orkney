@@ -140,7 +140,6 @@
 			                      <option value="orange">orange</option>
 			                      <option value="mint">mint</option>
 			                      <option value="lilac">lilac</option>
-			                      <option value="brown">brown</option>
 			             </select>
                     </div>
                     
@@ -247,7 +246,6 @@
 			                      <option value="orange">orange</option>
 			                      <option value="mint">mint</option>
 			                      <option value="lilac">lilac</option>
-			                      <option value="brown">brown</option>
 			                    </select>
 			                  </div>
 			                <div class="row review-file">
@@ -281,7 +279,6 @@
 			                      <option value="orange">orange</option>
 			                      <option value="mint">mint</option>
 			                      <option value="lilac">lilac</option>
-			                      <option value="brown">brown</option>
 			                    </select>
 			                  </div>
 			                <div class="row review-file">
@@ -314,7 +311,6 @@
 			                      <option value="orange">orange</option>
 			                      <option value="mint">mint</option>
 			                      <option value="lilac">lilac</option>
-			                      <option value="brown">brown</option>
 			                    </select>
 			                  </div>
 			                <div class="row review-file">

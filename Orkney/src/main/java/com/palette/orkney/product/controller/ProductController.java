@@ -53,6 +53,7 @@ public class ProductController {
    @ResponseBody
    public  List<Map>Filter (@RequestParam Map<String,Object> filter) {
       System.out.println("필털:"+filter);
+      System.out.println(service.filter(filter));
       return service.filter(filter);
    }
    

@@ -82,21 +82,24 @@
    <select id="filter" resultType="map" parameterType="map">
             
 
-            SELECT *
-            FROM PRODUCT_IMAGE I 
-            
-            JOIN PRODUCT P
-            ON P.PRODUCT_NO = I.PRODUCT_NO
-            
-            LEFT OUTER JOIN BIG_CATEGORY B
-            ON P.BIG_CATEGORY_NO = B.BIG_CATEGORY_NO
-            
-            LEFT OUTER JOIN SMALL_CATEGORY S
-            ON B.BIG_CATEGORY_NO = S.BIG_CATEGORY_NO
-            
-            WHERE I.PRODUCT_COLOR='normal'
-            AND S.SMALL_CATEGORY_PIC='+'
-      <choose>
+
+			   SELECT *
+			   FROM PRODUCT_IMAGE I 
+			   
+			   JOIN PRODUCT P
+			   ON P.PRODUCT_NO = I.PRODUCT_NO
+			   
+			   LEFT OUTER JOIN BIG_CATEGORY B
+			   ON P.BIG_CATEGORY_NO = B.BIG_CATEGORY_NO
+			   
+			   LEFT OUTER JOIN SMALL_CATEGORY S
+			   ON P.SMALL_CATEGORY_NO = S.SMALL_CATEGORY_NO
+			   
+			   WHERE I.PRODUCT_COLOR='normal'
+<!-- 			   AND S.SMALL_CATEGORY_PIC='+' -->
+		<choose>
+
+
 
          <when test="group1=='best'">
             <if test="category != 'all'">
