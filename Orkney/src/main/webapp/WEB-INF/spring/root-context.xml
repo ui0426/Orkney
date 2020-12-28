@@ -4,10 +4,12 @@
 	xmlns:tx="http://www.springframework.org/schema/tx"
 	xmlns:aop="http://www.springframework.org/schema/aop"
 	xmlns:sec="http://www.springframework.org/schema/security"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-5.1.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
-		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
-		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-5.1.xsd">
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 	
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
@@ -58,5 +60,10 @@
 		<aop:config proxy-target-class="true">
 			<aop:pointcut expression="execution(* com.palette.orkney..*ServiceImpl.insert*(..))" id="insertService"/>
 			<aop:advisor advice-ref="txAdivce" pointcut-ref="insertService"/>
-		</aop:config>	
+		</aop:config>
+		
+		
+		<context:property-placeholder
+		location="classpath:google.properties" />
+		
 </beans>
