@@ -85,8 +85,7 @@
             </div>
             <div class="header-menu">
                 <span><a href="${path }/product/products.do?category=all&sale=" style="color:black;">모든제품</a> </span>
-                <span><a id="digital-showroom" style="color:black;">디지털 쇼룸</a></span>
-
+				<span><a href="#open"  onclick="roomsNav();" style="color:black;">디지털 쇼룸</a></span>
             </div>
             <div class="header-search">
            		<form class="search-form">
@@ -181,7 +180,7 @@
 		                        <div class="hnf-link hnf-link-color aside-btn-product">모든 상품</div>
 		                    </li>
 		                    <li>
-		                        <div class="hnf-link hnf-link-color aside-btn-showroom">디지털쇼룸</div>
+		                        <div class="hnf-link hnf-link-color aside-btn-showroom" >디지털쇼룸</div>
 		                    </li>
 		                    <li>
 		                        <div class="hnf-small-link hnf-link-color aside-btn-event">이달의 이벤트</div>
@@ -361,6 +360,11 @@
  <jsp:include page="/WEB-INF/views/common/chat.jsp"/>
 	</c:if>
         <script>
+        
+        function roomsNav(){
+      	  $(".btn-aside").trigger("click");
+      	  $(".aside-btn-showroom").trigger("click");
+        }
         $(function(){
 //         	$('.search-input').autocomplete({
 //         		source: function(request, response) {
@@ -401,18 +405,7 @@
      		console.log('section' + section);
         })
 
-        	$("#digital-showroom").click(e=>{
-        		$("#menu,.page_cover,html").addClass("open");
-        		$("#menu").removeClass("aside-close");
-	            window.location.hash = "#open";
-	            
-	            $("#hnf-menu").addClass("hnf-menu-level2");
-            	$("#hnf-menu_back").removeClass("hnf-menu-nav-hidden");
-            	$("#hnf-menu_search").removeClass("hnf-menu-nav-hidden");
-            	
-            	$("#hnf-menu_container").addClass("hnf-menu-nav-hidden1");
-            	$("#hnf-menu_container-level2-2").removeClass("hnf-menu-nav-hidden");
-        	});
+        	
 
             $(".btn-aside").click(function() {
 	            $("#menu,.page_cover,html").addClass("open");

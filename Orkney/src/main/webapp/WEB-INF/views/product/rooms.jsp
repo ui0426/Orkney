@@ -60,13 +60,13 @@
 									<a class="rm-a-a" href="${path}/product/productDetail.do?productno=${p.PRODUCT_NO}">
 										<div class="rm-pd-box">
 											<div class="rm-pd-box-box">
-											
-
 											 <fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today" />  
-											<fmt:formatDate value="${p.PRODUCT_ENROLL_DATE }" pattern="yyyy-MM-dd" var="write_dt"/>
-												<c:if test="${today <= write_dt}">
-												<span class="rm-pb-et-new">NEW</span>
-												</c:if>
+											 <fmt:parseNumber var="start_d" value="${p.PRODUCT_ENROLL_DATE.time /(1000*60*60*24)}" integerOnly="true"/>
+											 <fmt:parseNumber var="end_d" value="${now.time /(1000*60*60*24)}" integerOnly="true" />
+											 	<c:if test="${(end_d-start_d)<30}">
+													<span class="rm-pb-et-new">NEW</span>
+												</c:if> 
+												
 												<c:if test="${p.SALE_PER!=p.PRODUCT_PRICE}">
 												<span class="rm-pb-et-p">더 낮은 새로운 가격</span>
 												</c:if>
@@ -77,8 +77,7 @@
 													</div>
 												</div>
 											</div>
-											<img class="rm-bt-ig"
-												src="${path}/resources/images/rooms/KakaoTalk_20201120_194609.png">
+										<img class="rm-bt-ig" src="${path}/resources/images/rooms/KakaoTalk_20201120_194609.png">
 										</div>
 										<div>
 											<div class="rm-bt-price">
@@ -169,9 +168,10 @@
 									</div>
 									<!--Card content-->
 									<div class="card-body">
-									<fmt:formatDate value="${p.PRODUCT_ENROLL_DATE }" pattern="yyyy-MM-dd" var="write_dt"/>
-												<span class="rm-pb-et-new">${today <= write_dt?'NEW':""}</span>
-												<span class="rm-pb-et-p">${p.SALE_PER!=null?"더 낮은 새로운 가격":""}</span>												
+									 <fmt:parseNumber var="start_d" value="${p.PRODUCT_ENROLL_DATE.time /(1000*60*60*24)}" integerOnly="true"/>
+											 <fmt:parseNumber var="end_d" value="${now.time /(1000*60*60*24)}" integerOnly="true" />
+												<span class="rm-pb-et-new">${(end_d-start_d)<30?"NEW":""}</span>
+												<span class="rm-pb-et-p">${p.SALE_PER!=p.PRODUCT_PRICE?"더 낮은 새로운 가격":""}</span>												
 																		
 										<!--Title-->
 										
@@ -458,7 +458,7 @@ function numberWithCommas(x) {
 					    	  $(cl).find(".card-img-top").attr("src","${path}/resources/images/product/" +data[i]["PRODUCT_PIC"]  );   
 					    	   $(cl).find(".card-title").html(data[i]["PRODUCT_NAME"]);
 					    	   $(cl).find(".ht-one").html(data[i]["SMALL_CATEGORY_NO"]);
-					    	   $(cl).find(".a-link").attr("href","${path}/product/productDetail.do?productno="+data[i]["SMALL_CATEGORY_NO"]);
+					    	   $(cl).find(".a-link").attr("href","${path}/product/productDetail.do?productno="+data[i]["PRODUCT_NO"]);
 					    	   if(today>endDate){
 					    	   $(cl).find(".rm-pb-et-new").text('');
 					    	 	}
@@ -566,7 +566,7 @@ function numberWithCommas(x) {
 							    	  $(cl).find(".card-img-top").attr("src","${path}/resources/images/product/" +data[i]["PRODUCT_PIC"]  );   
 							    	   $(cl).find(".card-title").html(data[i]["PRODUCT_NAME"]);
 							    	   $(cl).find(".ht-one").html(data[i]["SMALL_CATEGORY_NO"]);
-							    	   $(cl).find(".a-link").attr("href","${path}/product/productDetail.do?productno="+data[i]["SMALL_CATEGORY_NO"]);
+							    	   $(cl).find(".a-link").attr("href","${path}/product/productDetail.do?productno="+data[i]["PRODUCT_NO"]);
 							    	   if(today>endDate){
 								    	   $(cl).find(".rm-pb-et-new").text('');
 								    	 	}

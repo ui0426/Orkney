@@ -17,10 +17,9 @@
                     <div class="title">
                    		<div>장바구니</div>                                  		
 	                   	 	<div><button class="remove_basket" id="${cN}">장바구니 비우기</button></div>	
-	                   	 	   <input type="hidden" value="${sumprice }" id="sumprice">	                   	 	   	                     	 	                   			                   					   	                                                     
+	                   	 	<input type="hidden" value="${sumprice }" id="sumprice">	                   	 	   	                     	 	                   			                   					   	                                                     
 					</div>
-            <div class="line1"></div>                            		 	
-		 	
+            <div class="line1"></div>                            		 			 	
 		 	<div id="re"></div>														 		               
 		</div>		
  
@@ -39,26 +38,10 @@
         </div>
         <div class="line1"></div>            
 </div>
-
-<script>
-	$("#cartBtn").click(e=>{
-		let cN = $(".basketNo").attr("id");
-		console.log("비어있는:"+cN);
-		if(!cN){
-			alert("장바구니가 비어있습니다.");
-			return false;
-		}
-		location.href=("${path }/cart/payment.do");
-	})
-</script>
-
-
-
-
 </section>
 
 
-<script>	
+<script>
 		//1. ajax처리 onload
 		  $(function(){
 					let sumPrice = $("#sumprice").val();	
@@ -86,7 +69,15 @@
 					 }
 				 });
 			 }); 
-		
+			//3.장바구니 비어있는 경우 
+			$("#cartBtn").click(e=>{
+			let cN = $(".basketNo").attr("id");			
+			if(!cN){
+				alert("장바구니가 비어있습니다.");
+				return false;
+			}
+			location.href=("${path }/cart/payment.do");
+		})
 </script>
 	
 
