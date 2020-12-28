@@ -114,7 +114,7 @@ public class CartController {
 		mv.addObject("cart",c);
 		mv.addObject("cN",cartNo);
 		mv.addObject("sumprice",sumPrice);
-		mv.setViewName("ajax/cartproduct");
+		mv.setViewName("ajax/cart/cartproduct");
 		return mv;
 	}		
 	
@@ -136,15 +136,13 @@ public class CartController {
 				int product = service.deleteProduct(param);													
 			}else if(productNo.equals("0") && cartNo.equals("0")){}	
 			
-			List<Cart> c = service.selectCart(memberNo);			
-			
-			System.out.println(cN);
+			List<Cart> c = service.selectCart(memberNo);									
 			
 			mv.addObject("wish",wlList);
 			mv.addObject("cN",cN);
 			mv.addObject("sumprice",sumPrice);
 			mv.addObject("cart",c);								 
-			mv.setViewName("ajax/cartproduct");
+			mv.setViewName("ajax/cart/cartproduct");
 			return mv;
 	}			
 	
@@ -179,7 +177,7 @@ public class CartController {
 		mv.addObject("cart",c1);
 		mv.addObject("sumprice",sum);	
 		mv.addObject("cN",cartNo);
-		mv.setViewName("ajax/cartproduct");
+		mv.setViewName("ajax/cart/cartproduct");
 		return mv;
 	}	
 	
@@ -213,7 +211,7 @@ public class CartController {
 		
 		//결제관련 logic
 		int sum=service.sumPrice(m.getCartNo());						//상품 총 가격
-		int shipFee = sum>= 30000 ? 0 : 5000; 							//배송비 : 기본 5000원, 주문금액 30000원 넘을시 무료
+		int shipFee = 30000 ; 							
 		int additionalTax = (int)((sum)*0.1);    //부가세
 		int totalFee = ((sum+shipFee)-m.getPoint())+additionalTax;		//총 계산된 값
 		int predicpoint = (int) (totalFee*0.05); 						//예상되는 포인트적립 (총가격의 0.05)
@@ -261,10 +259,9 @@ public class CartController {
 		map.put("addTax", additionalTax);
 		map.put("totalFee",totalFee);		
 		map.put("willpoint",willpoint);				
-		
-		
+				
 		mv.addObject("map",map);
-		mv.setViewName("ajax/paymentDetail");
+		mv.setViewName("ajax/cart/paymentDetail");
 		return mv;
 	}
 		

@@ -12,7 +12,7 @@
 
 <link rel="stylesheet" href="${path}/resources/css/cart/complete.css"/>
 
- <section>
+<section>
         <div class="section-container">
             <div class="section2">
                 <div class="order-detail">
@@ -34,23 +34,21 @@
             <div class="section1">                
                     <div class="etc-title">주문 정보</div>
                     <div class="line1"></div>
-<c:forEach items="${cart }" var="p">
-            <div class="product-container">
-	            <div class="order-container">
-	                <div class="product-pic"><img src="${path}/resources/images/product/<c:out value="${p.product_pic}"/>"></div>               
-	                <div class="product-detail">
-	                    <div><c:out value="${p.productName}"/></div>
-	                    <div><c:out value="${p.product_width}"/>*<c:out value="${p.product_height}"/>*<c:out value="${p.product_depth}"/></div>	                  		                    
-	                    <div><c:out value="${p.cartQTY}"/>개</div>
-	                    <div><fmt:formatNumber value="${p.cartQTY * p.productPrice}"/>&nbsp;원</div>	                     	                    
-	                </div>
-	            </div>	            
-            </div>  
-            <div class="line3"></div>
-</c:forEach>  
-                                                        
+					<c:forEach items="${cart }" var="p">
+					            <div class="product-container">
+						            <div class="order-container">
+						                <div class="product-pic"><img src="${path}/resources/images/product/<c:out value="${p.product_pic}"/>"></div>               
+						                <div class="product-detail">
+						                    <div><c:out value="${p.productName}"/></div>
+						                    <div><c:out value="${p.product_width}"/>*<c:out value="${p.product_height}"/>*<c:out value="${p.product_depth}"/></div>	                  		                    
+						                    <div><c:out value="${p.cartQTY}"/>개</div>
+						                    <div><fmt:formatNumber value="${p.cartQTY * p.productPrice}"/>&nbsp;원</div>	                     	                    
+						                </div>
+						            </div>	            
+					            </div>  
+					            <div class="line3"></div>
+					</c:forEach>                                                          
             </div>
-
 
             <div class="section1">
            	  <div style="margin:5% 0;">
@@ -83,7 +81,7 @@
 		         </div>     
             </div>
 
- <div class="section1" style="margin: 30% 0 0 0;">
+ 			<div class="section1" style="margin: 30% 0 0 0;">
                 <div class="etc-title">결제 세부 정보</div>
                 <div class="line1"></div>
                 <div class="total-title">
@@ -175,14 +173,11 @@
             </div>   
                 <div class="del-container">
                     <img src="${path}/resources/img/deliverypic.jpg" class="del-img">
-                </div>
-                
+                </div>                
             </div>
-            
+           
         </div>
     </section>
-
-
 
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

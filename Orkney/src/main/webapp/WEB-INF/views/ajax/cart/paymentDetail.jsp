@@ -8,8 +8,6 @@
 
 <link rel="stylesheet" href="${path}/resources/css/cart/payment.css">
 
-
-
         <div class="section1">
             <div class="etc-title">포인트</div>
             <div class="line1" ></div>           
@@ -18,55 +16,16 @@
 	            <div class="usable-point">
 	            	<input type="text" id="pointuse" class="non-input" value="<c:out value="${map.point}"/>" readonly>
 	            </div>                                        	                 
-	            <div class="pre-point" style="padding: 7px 30px 0px 8px;">P</div>
-	            
-	            <div class="checkdiv"  id="allpoint">  
-	                    <div class="checkicon" stlye="width:172px;">
-	                        <span><i class="far fa-check-circle fa-2x ixy i1"></i></span>
-	                        <span><i class="fas fa-check-circle fa-2x ixy i2"></i></span>
-	                        <input type="checkbox" class="ck" id="ch">
-	                    </div>
-	                    <span class="spanwid">전액사용</span>
-	             </div>
+	            <div class="pre-point" style="padding: 7px 30px 0px 8px;">P</div>	            
+	            <div class="for-span"><input type="button" id="allpoint" class="btn2" value="전액 사용"></div>	         
 			</div>                            
             <div class="able-point">
             	<div class="first-div first-div-add">사용할 포인트</div>                     
                 <div><input type="text" class="input4 none-line" id="usablepoint" value=""></div>
-                <div class="pre-point" style="padding: 7px 0 0px 8px;">P</div>            	                         
+                <div class="pre-point" style="padding: 7px 0 0px 8px;">P</div>   
+                <div class="for-span"><input type="button" id="use-btn" class="btn2" value="포인트 사용"></div>         	                         
             </div>                    
-        </div>   
-        
-        <script>
-
-        	$("#allpoint").click(e=>{
-        		let up=$("#pointuse").val();        		        		        		
-        		$("#usablepoint").attr({
-        			"value":up
-        		});        		        		
-        	});
-        	
-   	 	 $("#usablepoint").blur(e=>{
-        		let willpoint = parseInt($("#usablepoint").val());
-        		let pointuse = $("#pointuse").val();  
-        		
-        		let respoint = pointuse-willpoint;
-        		console.log("뺀포인트"+respoint);	    
-        		
-        		if(parseInt(willpoint)> parseInt(pointuse)){
-        			alert("사용가능한 포인트를 입력해주세요");
-        		}else{
-        			$.ajax({
-            			url:"${path}/cart/updatePayment.do",        			
-            			data:{willpoint:willpoint},        			
-            			success:data=>{
-            				$("#detail").html(data);
-            			}        			
-            		})            			        			
-        		}	
-   	 	})
-        	
-        </script>
-        
+        </div>                  
         
             <div class="section1">
                 <div class="etc-title">결제 세부 정보</div>
@@ -104,6 +63,36 @@
                         </div>
                     </div>
              </div>   
+             
+             
+		<script>
+		//1. 포인트 전액 사용시
+        	$("#allpoint").click(e=>{
+        		let up=$("#pointuse").val();        		        		        		
+        		$("#usablepoint").attr({
+        			"value":up
+        		});        		        		
+        	});
+		
+         //2. 포인트 적용시	
+   	 	 $("#use-btn").click(e=>{
+        		let willpoint = parseInt($("#usablepoint").val());
+        		let pointuse = $("#pointuse").val();          		        		  
+        		
+        		if(parseInt(willpoint)> parseInt(pointuse)){
+        			alert("사용가능한 포인트를 입력해주세요");
+        		}else{
+        			$.ajax({
+            			url:"${path}/cart/updatePayment.do",        			
+            			data:{willpoint:willpoint},        			
+            			success:data=>{
+            				$("#detail").html(data);
+            			}        			
+            		})            			        			
+        		}	
+   	 	})
+        	
+        </script>
             
             
             

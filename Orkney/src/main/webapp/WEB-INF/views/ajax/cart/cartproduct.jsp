@@ -95,32 +95,10 @@
       </div>
     </div>
   </div>
-  <script>
-$("#fullHeightModalRight").on("show.bs.modal",function(e){
-	let productNo= $(e.relatedTarget).data("name");	
-	$("#prod").val(productNo);
-})
-  
-$("#wishadd").click(e=>{
-	let wishNo= $(e.target).attr("class");
-	let productNo= $("#prod").val();	
-	$.ajax({
-		url:"${path}/wishlist/insertWish.do",
-		data:{IwNo:wishNo,pNo:productNo},
-		success:data=>{
-			alert("위시리스트에 추가되었습니다.");
-			location.href="${path}/wishlist/wishlist.do";
-		}
-	})
-})
-</script>
+
 </div>
 <!-- Full Height Modal Right -->
 
-
-
-
-	
         <div class="section2">                                                        
                 <div class="service-container">                              
                     <div>전체 서비스 비용</div>
@@ -138,7 +116,27 @@ $("#wishadd").click(e=>{
 		<input type="hidden" class="basketNo" id="${cN}" value="${cN}">       
 		
 	<script>
-	/* 상품내용제거 */
+	//1. 위시리스트 모달에 값 전달
+	$("#fullHeightModalRight").on("show.bs.modal",function(e){
+		let productNo= $(e.relatedTarget).data("name");	
+		$("#prod").val(productNo);
+	})
+	
+	//2. 위시리스트에 추가  
+	$("#wishadd").click(e=>{
+		let wishNo= $(e.target).attr("class");
+		let productNo= $("#prod").val();	
+		$.ajax({
+			url:"${path}/wishlist/insertWish.do",
+			data:{IwNo:wishNo,pNo:productNo},
+			success:data=>{
+				alert("위시리스트에 추가되었습니다.");
+				location.href="${path}/wishlist/wishlist.do";
+			}
+		})
+	})
+	
+	//3. 상품내용제거 
 	 $(".remove").click(e =>{
 			let pNo=$(e.target).attr("id");			
 			let cNo=$(e.target).val();
@@ -152,8 +150,8 @@ $("#wishadd").click(e=>{
 			});
 		});  	
 	
-	$(".amount").change(e=>{
-		console.log("수량변경");
+	//4. 수량변경시
+	$(".amount").change(e=>{		
 		let qty=$(e.target).val();
 		let cNo=$(e.target).next().val();
 		let pNo=$(e.target).next().attr("id");
