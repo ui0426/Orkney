@@ -48,65 +48,110 @@
 		<div class="swiper-container swiper-container-vertical">
 			<div class="swiper-wrapper"
 				style="transform: translate3d(0px, -1800px, 0px); transition-duration: 0ms;">
-
+				
+					<div class="swiper-slide swiper-slide-one swiper-slide-prev"
+						data-swiper-slide-index="0" >
+						
+						<div class="swiper-image" data-swiper-parallax-y="-20%"
+							style="transform: translate3d(0px, -20%, 0px); transition-duration: 0ms;">
+							<div class="main">
+								<h1 class="class-h1">더 나은 천연 소재</h1>
+								<p class="class-p">여러 이유 때문에 면은 침실과 욕실에 인기 있는 소재예요. 2015년부터 ORKNEY는 제품에 사용하는 모든 면을 보다 지속가능한 공급처에서 제공받고 있어요. 즉, 농약과 비료를 덜 써서 생산되는 면을 사용하고 있다는 뜻이죠. 훨씬 더 효율적인 농법과 더 나은 수자원 관리법을 개발하기 위해 여러 가지 연구가 계속되고 있어요.</p>
+								
+								<a class="class-a" href="${path}">모든 더블 침대 보러 가기</a>
+							
+							</div>
+							<a href="${path}/product/products.do?category=침대&sale=">
+							<video autoplay="" loop="" class="video-background" muted="">
+								<source
+									src="${path}/resources/video/03_IKEA_sustainability_KinderCotton_5s_3x4_offline_v03_EL_Grade-1-.webm"
+									type="video/webm">
+							</a>
+							</video>
+						</div>
+					</div>
+				
 				<div class="swiper-slide swiper-slide-one swiper-slide-prev"
-					data-swiper-slide-index="0" style="height: 900px;">
+					data-swiper-slide-index="1" >
 					<div class="swiper-image" data-swiper-parallax-y="-20%"
 						style="transform: translate3d(0px, -20%, 0px); transition-duration: 0ms;">
 						<div class="main">
-							<h1 class="class-h1">보다 지속가능한 소재를 선택하는 방법</h1>
-							<p class="class-p">IKEA는 2030년까지 제품에 사용하는 모든 소재를 재활용 또는 재생
-								가능한 소재로 바꾸는 목표를 세웠어요. 물론, 지금도 보다 지속가능하면서도 경제적이고 품질이 우수한 홈퍼니싱 제품을
-								찾기는 그 어느 때보다 더 쉽지만요. 실제로, 이미 IKEA 제품군의 60%는 재생 가능한 소재로 만들어지고
-								있습니다.</p>
-							<a class="class-a" href="#">View All</a>
+							<h1 class="class-h1">현명한 목재 활용</h1>
+							<p class="class-p underlined">목재는 튼튼하고 오래가면서도 개성 넘치는 가구를 만들 수 있는 훌륭한 소재예요. 사포질로 다듬고, 스테인으로 마감하거나, 페인트 칠을 하면 가구의 수명을 늘릴 수 있죠. 결국, 나무는 완전히 새로운 질감으로 재탄생하게 됩니다.</p>
+							<a class="class-a" href="${path}">IVER 이바르 시스템 보러가기</a>
 						</div>
+						<a href="${path}/product/productDetail.do?productno=">
 						<video autoplay="" loop="" class="video-background" muted="">
 							<source
-								src="${path}/resources/video/01_IKEA_sustainability_AMaterialWorld_10s_16x9_offline_v02_EL-1-.webm"
+								src="${path}/resources/video/04_IKEA_sustainability_ForTheSakeOfWood_5s_3x4_offline_v02_EL_Grade-1-.webm"
 								type="video/webm">
 
 						</video>
+						</a>
 					</div>
 				</div>
+			
+				
 				<div class="swiper-slide swiper-slide-one swiper-slide-prev"
-					data-swiper-slide-index="1" style="height: 900px;">
+					data-swiper-slide-index="2" >
 					<div class="swiper-image" data-swiper-parallax-y="-20%"
 						style="transform: translate3d(0px, -20%, 0px); transition-duration: 0ms;">
 						<div class="main">
-							<h1 class="class-h1">더 건강한 집을 가꾸는 방법</h1>
-							<p class="class-p underlined">보다 지속가능한 생활은 환경 보호뿐 아니라 개인적인
-								건강과 행복에도 관련이 있어요. 깨끗한 공기, 적당한 신체적 활동과 충분한 수면은 자신의 건강을 돌보려는 사람이
-								고려해야 할 중요한 요소이죠.</p>
-							<a class="class-a" href="#">View All</a>
+							<h1 class="class-h1">건강을 유지하기 위한 새로운 변화</h1>
+							<p class="class-p">이 제품을 사용하면 특수한 메커니즘 덕분에 일하면서도 끊임없이 몸을 움직일 수 있어요. 이 조절식 스툴을 꾸준히 사용할 경우 근육과 척추가 강화되며 자연스럽게 건강한 자세를 취하게 됩니다. 따라서 꼼짝 못하고 일할 때에도 계속해서 몸을 움직일 수가 있죠.</p>
+							<a class="class-a" href="${path}">LIDKULLEN 리드쿨렌  보러 가기</a>
 						</div>
+						<a href="${path}/product/productDetail.do?productno=">
 						<video autoplay="" loop="" class="video-background" muted="">
 							<source
-								src="${path}/resources/video/13_IKEA_sustainability_OutsideAndIn_9s_16x9_offline_v05_EL-1-.webm"
+								src="${path}/resources/video/15_IKEA_sustainability_HealthierEveryDay_8s_3x4_offline_v02_EL_Grade (1).webm"
 								type="video/webm">
 
 						</video>
+						</a>
 					</div>
 				</div>
+				
+				
 				<div class="swiper-slide swiper-slide-one swiper-slide-prev"
-					data-swiper-slide-index="2" style="height: 900px;">
+					data-swiper-slide-index="3" >
 					<div class="swiper-image" data-swiper-parallax-y="-20%"
 						style="transform: translate3d(0px, -20%, 0px); transition-duration: 0ms;">
 						<div class="main">
-							<h1 class="class-h1">더 오래가는 가구를 선택하는 방법</h1>
-							<p class="class-p">2030년까지 IKEA의 모든 제품에는 용도를 바꾸고, 수리하고,
-								재사용하고, 재판매하거나 재활용하는 기능이 기본으로 포함될 거예요. 물론 지금도 가구를 얼마간 쓰고 버리는 대신,
-								쉽고 기분 좋게 가구의 수명을 연장하는 방법이 있죠.</p>
-							<a class="class-a" href="#">View All</a>
+							<h1 class="class-h1">편안한 내일을 위한 기분 좋게 수면</h1>
+							<p class="class-p">라이프스타일이나 환경적 요인 때문에 수면의 시간이나 질이 떨어지는 경우가 많아요. 그래서 스트레스를 관리하고 일과 생활의 균형을 향상시키는 방법을 찾는 것은 매우 중요할 수 있어요. 침실에서 충분한 숙면을 취하려면 빛과 소리, 편안함, 공기의 질, 그리고 온도를 모두 알맞은 수준으로 유지해야 합니다.</p>
+							<a class="class-a" href="${path}">모든 싱글 침대 보러 가기</a>
 						</div>
+						<a href="${path}/product/products.do?category=침대&sale=">
 						<video autoplay="" loop="" class="video-background" muted="">
 							<source
-								src="${path}/resources/video/09_IKEA_sustainability_LifelongFavorites_9s_16x9_offline_v02_EL-1-.webm"
+								src="${path}/resources/video/16_IKEA_sustainability_AchievingBetterSleep_5s_3x4_offline_v03_EL_Grade-1-.webm"
 								type="video/webm">
 
 						</video>
+						</a>
 					</div>
 				</div>
+				<div class="swiper-slide swiper-slide-one swiper-slide-prev"
+					data-swiper-slide-index="3" >
+					<div class="swiper-image" data-swiper-parallax-y="-20%"
+						style="transform: translate3d(0px, -20%, 0px); transition-duration: 0ms;">
+						<div class="main">
+							<h1 class="class-h1">미래에 맞춰 조절 가능한 가구</h1>
+							<p class="class-p">식구가 늘어나고 라이프스타일도 변하거나 취향이 성숙해질 때, 모듈식 가구는 아주 고마운 제품이에요. 나중에 바꿔야 할 수도 있는 가구에 많은 돈을 미리 쓸 필요 없이 필요에 따라 원하는 모듈만 간단히 더할 수 있으니까요. 모듈식 가구를 사용하면 홈퍼니싱을 새로운 생활 환경에 맞게 합리적인 비용으로 간편하게 조정할 수 있어요.</p>
+							<a class="class-a" href="${path}">BUSUNGE 부숭에 매트리스 보러 가기</a>
+						</div>
+						<a href="${path}/product/productDetail.do?productno=">
+						<video autoplay="" loop="" class="video-background" muted="">
+							<source
+								src="${path}/resources/video/10_IKEA_sustainability_MoreSustainableOneStepAtTheTime_5s_3x4_offline_v02_EL_Grade (1).webm"
+								type="video/webm">
+
+						</video>
+						</a>
+					</div>
+				</div>
+				
 			</div>
 		</div>
 	</div>
@@ -120,7 +165,7 @@
 				<span class="event-sp">전체보기</span>
 			</button>
 			<button type="button" class="btn btn-dark event-bu1 event-target">
-				<span class="event-sp">침대<!-- 책장/선반유닛 --></span>
+				<span class="event-sp"> 책장/선반유닛 </span>
 			</button>
 			<button type="button" class="btn btn-dark event-bu1 event-target">
 				<span class="event-sp">서랍</span>
@@ -165,17 +210,23 @@
 		<div class="pp-img">
 			<div class="pp-img-mg-id oneClass">
 				<div class="pp-img-ib tjf ">
-					<img class="pp-img-wdhe" src="">
+					<a class="pp-img-a">
+						<img class="pp-img-wdhe" src="">
+					</a>
 				</div>
 			</div>
 			<div class="pp-img-mg-id twoClass">
 				<div class="pp-img-ib wls ">
-					<img class="pp-img-wdhe" src="">
+					<a class="pp-img-a">
+						<img class="pp-img-wdhe" src="">
+					</a>
 				</div>
 			</div>
 			<div class="pp-img-mg-id threeClass">
 				<div class="pp-img-ib gh ">
-					<img class="pp-img-wdhe" src="">
+					<a class="pp-img-a">
+						<img class="pp-img-wdhe" src="">
+					</a>
 				</div>
 			</div>
 		</div>
@@ -195,10 +246,11 @@
 
 
 
+
  var mySwiper = new Swiper(".swiper-container", {
 	    direction: "vertical",  
 	  slidesPerView : 1,
-		spaceBetween : 0,
+		spaceBetween : 480,
 		slidesPerGroup : 1,
    pagination: ".swiper-pagination",   
   grabCursor: true, 
@@ -208,7 +260,7 @@
 	  parallax: false,
 	  autoplay: {delay : 14000}, 
 	    effect: "slide",     
-	   mousewheelControl: true 
+	   mousewheelControl: true  
 	});  
  	/* var mySwiper = document.querySelector('.swiper-container').swiper;
  	$(".swiper-container").mouseenter(function(){
@@ -303,7 +355,8 @@
     			    				$(tt).removeClass("tjf");
     			    				$(tt).addClass("event-remove");
     			    				$(tt).css("display","flex");
-    			    			$(tt).children().attr("src","${path}/resources/images/product/"+data[i]["PRODUCT_PIC"]);
+    			    				$(tt).find(".pp-img-a").attr("href","${path}/product/productDetail.do?productno="+data[i]["PRODUCT_NO"]);
+    			    			$(tt).find(".pp-img-wdhe").attr("src","${path}/resources/images/product/"+data[i]["PRODUCT_PIC"]);
     			    			console.log(tt,'tt');
     			    			$(".oneClass").append(tt);
     			    			}
@@ -318,15 +371,15 @@
     			    				 $(ww).addClass("event-remove"); 
     			    				$(ww).css("display","flex");
     			    				if(i==w&&w==1){
-    			    					
-    			    					$(ww).children().addClass("pp-img-wdhe-2").removeClass("pp-img-wdhe").attr("src","${path}/resources/images/product/"+data[i]["PRODUCT_PIC"]);	
+    			    					$(ww).find(".pp-img-a").attr("href","${path}/product/productDetail.do?productno="+data[i]["PRODUCT_NO"]);
+    			    					$(ww).find(".pp-img-wdhe").addClass("pp-img-wdhe-2").removeClass("pp-img-wdhe").attr("src","${path}/resources/images/product/"+data[i]["PRODUCT_PIC"]);	
     			    					$(".pp-img-wdhe-2").css({"width": "100%" , "height": "395.47px","display":"block"});
     			    					console.log(ww,'ww2');
     			    					$(".twoClass").append(ww);
     			    				}
     			    			if(i==w&&w>1){	
-    			    				
-    			    			$(ww).children().addClass("pp-img-wdhe").removeClass("pp-img-wdhe-2").attr("src","${path}/resources/images/product/"+data[i]["PRODUCT_PIC"]);
+    			    			$(ww).find(".pp-img-a").attr("href","${path}/product/productDetail.do?productno="+data[i]["PRODUCT_NO"]);
+    			    			$(ww).find("pp-img-wdhe-2").addClass("pp-img-wdhe").removeClass("pp-img-wdhe-2").attr("src","${path}/resources/images/product/"+data[i]["PRODUCT_PIC"]);
     			    			console.log(ww,'ww1');
     			    			$(".twoClass").append(ww);
     			    			}
@@ -338,7 +391,8 @@
     			    			$(gg).removeClass("gh");
     			    			 $(gg).addClass("event-remove"); 
     			    			$(gg).css("display","flex");
-    			    			$(gg).children().attr("src","${path}/resources/images/product/"+data[i]["PRODUCT_PIC"]);
+    			    			$(gg).find(".pp-img-a").attr("href","${path}/product/productDetail.do?productno="+data[i]["PRODUCT_NO"]);
+    			    			$(gg).find(".pp-img-wdhe").attr("src","${path}/resources/images/product/"+data[i]["PRODUCT_PIC"]);
     			    			console.log(gg,'gg');
     			    			$(".threeClass").append(gg);
     			    			}
@@ -361,7 +415,9 @@
     			    				$(tt).removeClass("tjf");
     			    				$(tt).addClass("event-remove");
     			    				$(tt).css("display","flex");
-    			    			$(tt).children().attr("src","${path}/resources/images/product/"+data[i]["PRODUCT_PIC"]);
+    			    				
+    			    				$(tt).find(".pp-img-a").attr("href","${path}/product/productDetail.do?productno="+data[i]["PRODUCT_NO"]);
+        			    			$(tt).find(".pp-img-wdhe").attr("src","${path}/resources/images/product/"+data[i]["PRODUCT_PIC"]);
     			    			console.log(tt,'tt');
     			    			$(".oneClass").append(tt);
     			    			}
@@ -372,7 +428,8 @@
     			    			$(gg).removeClass("gh");
     			    			 $(gg).addClass("event-remove"); 
     			    			$(gg).css("display","flex");
-    			    			$(gg).children().attr("src","${path}/resources/images/product/"+data[i]["PRODUCT_PIC"]);
+    			    			$(gg).find(".pp-img-a").attr("href","${path}/product/productDetail.do?productno="+data[i]["PRODUCT_NO"]);
+    			    			$(gg).find(".pp-img-wdhe").attr("src","${path}/resources/images/product/"+data[i]["PRODUCT_PIC"]);
     			    			console.log(gg,'gg');
     			    			$(".threeClass").append(gg);
     			    			}
@@ -388,7 +445,8 @@
     			    				$(tt).removeClass("tjf");
     			    				$(tt).addClass("event-remove");
     			    				$(tt).css("display","flex");
-    			    			$(tt).children().attr("src","${path}/resources/images/product/"+data[i]["PRODUCT_PIC"]);
+    			    				$(tt).find(".pp-img-a").attr("href","${path}/product/productDetail.do?productno="+data[i]["PRODUCT_NO"]);
+        			    			$(tt).find(".pp-img-wdhe").attr("src","${path}/resources/images/product/"+data[i]["PRODUCT_PIC"]);
     			    			console.log(tt,'tt');
     			    			$(".oneClass").append(tt);
     			    			}

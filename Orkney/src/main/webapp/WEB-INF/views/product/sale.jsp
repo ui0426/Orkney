@@ -55,7 +55,7 @@
 										
 											
 								 <fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today" />  
-								<fmt:formatDate value="${p.PRODUCT_ENROLL_DATE }" pattern="yyyy-MM-dd" var="write_dt"/>
+								<fmt:formatDate value="${p.PRODUCT_ENROLL_DATE + 60*60*24*1000*30}" pattern="yyyy-MM-dd" var="write_dt"/>
 								<span class="rm-pb-et-new bottom-mig" style="display: inline;">${today <= write_dt?"NEW":""}</span>
 								<span class="ev-pb-et-p bottom-mig">더 낮은 새로운 가격</span> 
 								<span class="ev-bt-name bottom-mig">${p.PRODUCT_NAME}</span> 

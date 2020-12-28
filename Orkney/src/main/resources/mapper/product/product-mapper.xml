@@ -70,7 +70,7 @@
 	   ON P.PRODUCT_NO = I.PRODUCT_NO
 	   LEFT OUTER JOIN BIG_CATEGORY B
 	   ON P.BIG_CATEGORY_NO = B.BIG_CATEGORY_NO
-	   <if test="sale!=''">
+	   <if test="sale!='' and category == ''">
 	   WHERE SALE_PER IS NOT NULL
 	   </if>
 	   <if test="category != 'all'and sale==''">
