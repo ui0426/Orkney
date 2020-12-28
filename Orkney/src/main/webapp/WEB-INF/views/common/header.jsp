@@ -70,15 +70,16 @@
 
 
 <body>
+<div class="modal-layer" style="display:none;"></div>
 	
+	        <div class="header-hambuger" >
+	            <div class="btn-aside">
+	                <svg class="fix-ham" aria-hidden="true" focusable="false" class="svg-icon  hnf-svg-icon" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+	                <path fill-rule="evenodd" clip-rule="evenodd" d="M20 8H4V6H20V8ZM20 13H4V11H20V13ZM20 18H4V16H20V18Z"></path>
+	                </svg>
+	            </div>
+	        </div>
     <header>
-        <div class="header-hambuger" >
-            <div class="btn-aside">
-                <svg aria-hidden="true" focusable="false" class="svg-icon  hnf-svg-icon" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M20 8H4V6H20V8ZM20 13H4V11H20V13ZM20 18H4V16H20V18Z"></path>
-                </svg>
-            </div>
-        </div>
         <div class="header-container">
             <div class="header-logo">
                 <a href="${path}"><img src="${path }/resources/img/LOGO3.PNG" alt=""></a>
@@ -104,7 +105,7 @@
 	                	</div>
 	                </div>
 				</form>
-				<div class="modal-layer" style="display:none;"></div>
+<!-- 				<div class="modal-layer" style="display:none;"></div> -->
             </div>
             <ul class="header-icons">
                 <li class="header-icon delivery">
@@ -389,7 +390,7 @@
 				console.log(scrollAfter);
 				if(scrollbefore > scrollAfter){
 					$('header').addClass('header-fixed');
-					$('.header-fixed').css('transform', 'translateY(0px)');
+					$('.header-fixed').css('transform', 'translateY(-1px)');
 				} else {
 					$('header').removeClass('header-fixed');
 					$('header').css('transform', 'translateY(-20%)');
@@ -405,6 +406,7 @@
             $(".btn-aside").click(function() {
 	            $("#menu,.page_cover,html").addClass("open");
 	            $("#menu").removeClass("aside-close");
+	            
 	            window.location.hash = "#open";
 	            $("#hnf-menu").removeClass("hnf-menu-level2");
             	$("#hnf-menu_back").addClass("hnf-menu-nav-hidden");
@@ -414,6 +416,8 @@
             	$("#hnf-menu_container-level2").addClass("hnf-menu-nav-hidden");
             	$("#hnf-menu_container-level2-2").addClass("hnf-menu-nav-hidden");
             	$("#hnf-menu_container-level2-3").addClass("hnf-menu-nav-hidden");
+            	
+//             	$('header').removeClass('header-fixed').css('transform','none');
             });
     
             window.onhashchange = function() {
@@ -478,6 +482,9 @@
             	$('.header-search').addClass('search-close');
             	$('.search-input-box').css('display','block');
             	$('.search-dropbox').css('display','block');
+//             	$('header').css('background', 'rgba(0, 0, 0, 0.0)');
+//             	$('header').removeClass('header-fixed').css('transform','none');
+//             	$('html').addClass('scroll-x');
             }).keyup(e=>{
             	let str = $(e.target).val();
             	console.log(parseInt(str));
@@ -496,6 +503,7 @@
 				$('.header-search').removeClass('search-close');
 				$('.search-input-box').css('display','none');
 				$('.search-dropbox').css('display','none');
+// 				$('html').removeClass('scroll-x');
     		});
            
             

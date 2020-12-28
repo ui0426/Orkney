@@ -3,7 +3,7 @@
     align-items: center;
     height: 130px;
     flex-wrap: wrap;
-    margin-top: 30px;
+/*     margin-top: 30px; */
     padding: 0 3rem;
 }
 .header-logo{
@@ -52,17 +52,21 @@
     width: 40px;
     border-radius: 50%;
     text-align: center;
-    z-index: 1;
+/*     z-index: 1; */
     line-height: 40px;
     
 	
 	/* 바꾼거 */
 /*     height: 24px; */
 /*     width: 24px; */
-/*     z-index: 6; */
-/*     margin-left: 40px; */
-/*    	 margin-top: 46px; */
+    z-index: 6;
+    margin-left: 40px;
+   	 margin-top: 46px;
 
+}
+.fix-ham{
+	width: 24px;
+    height: 24px;
 }
 .header-menu{
     display: none;
