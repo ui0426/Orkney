@@ -151,12 +151,12 @@ filter2();
 				})	
 			});
 				
-					let start = 4;
+					let start = 9;
 					
 
 
 				function filter2() {
-					start = start+1;
+					
 				
 					
 				// 정렬
@@ -195,7 +195,7 @@ filter2();
 
 					  
 						for ( var i=0;i <= data.length;i++){
-						if (data[i]["PRODUCT_COLOR"]=="normal"  ) {
+						
 							
 						  let productClone = $("#products").clone().attr("id","products"+i);
 						  
@@ -277,10 +277,11 @@ filter2();
 								
 							});
 						 $("#product_list").append(productClone);
-						}
+					
 						}
 					}
-				})		
+				})	
+				start = start+8;
  			}
 				function filter() {
 				// 정렬
@@ -294,7 +295,7 @@ filter2();
 				// 색상
 				let group5 = $('input[name="group5"]:checked').val();
 				let category = getParameterByName('category');
-				  start=5;
+				  start=9;
 				
 				  //마지막 리스트 번호를 알아내기 위해서 tr태그의 length를 구함.
 				  
@@ -319,7 +320,7 @@ filter2();
 					$("#product_list").html("");
 					  
 						for ( var i=0;i <= data.length;i++){
-						if (data[i]["PRODUCT_COLOR"]=="normal" ) {
+						
 							
 						  let productClone = $("#products").clone().attr("id","products"+i);
 						  
@@ -400,7 +401,7 @@ filter2();
 								
 							});
 						 $("#product_list").append(productClone);
-						}
+						
 						}
 					}
 				})		
