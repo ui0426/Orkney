@@ -46,7 +46,7 @@ public class OrderController {
 	//결제후
 	@RequestMapping("/cart/complete.do")
 	@ResponseBody
-	public ModelAndView complete(ModelAndView mv,
+	public void complete(ModelAndView mv,
 			String reName,String rePhone,HttpSession session,
 			String reAddress, String message,int kopQty, String paymentMethod,	
 			Orders orders,int totalFee, int willPoint,int addTax,int totalPoint,int sumProduct,int shipFee
@@ -80,10 +80,8 @@ public class OrderController {
 		point.put("point_point",willPoint);							
 		if(willPoint!=0) {
 			int insertPoint = service.insertPoint(point); //포인트 차감
-			int updatePoint = mservice.updatePoint(uppo);
-			System.out.println(point.get("POINT_NO"));
-			orders.setPoint_no(Integer.parseInt(String.valueOf(point.get("POINT_NO"))));//방금 인서트한 포인트 넘버를 orders객체 포인트 넘버 변수에 담는다
-			System.out.println("사용한 포인트 적립 내역 번호 : "+orders.getPoint_no());
+			int updatePoint = mservice.updatePoint(uppo);			
+			orders.setPoint_no(Integer.parseInt(String.valueOf(point.get("POINT_NO"))));//방금 인서트한 포인트 넘버를 orders객체 포인트 넘버 변수에 담는다			
 		}	
 				
 		//orders/order_detail insert
@@ -97,12 +95,9 @@ public class OrderController {
 		mapping.put("addTax", addTax);
 		mapping.put("totalFee",totalFee);		
 		mapping.put("willpoint",willPoint);
-//		mapping.put(); //제품정보
-//		mapping.put(); //제품사진
 									
 		session.setAttribute("info", mapping);
 		session.setAttribute("orders", orders);				
-		return mv;
 	}
 	
 	
@@ -113,8 +108,7 @@ public class OrderController {
 		List<Cart> c = cservice.selectCart(memberNo);													
 		
 		Map info=((Map)session.getAttribute("info"));
-		Orders orders=((Orders)session.getAttribute("orders"));		
-		System.out.println("넘버표시:"+c.get(0).getCartNo());
+		Orders orders=((Orders)session.getAttribute("orders"));				
 		
 		mv.addObject("cart",c);
 		mv.addObject("orders",orders);
@@ -304,5 +298,17 @@ public class OrderController {
 	@RequestMapping("/order/orderEndView.do")
 	public String oev() {
 		return "order/orderEndView";
+	}
+	
+	//주문한 총 개수
+	@RequestMapping("/order/orderQty")
+	@ResponseBody
+	public int orderQty(HttpSession session) {
+		Map login = (Map)session.getAttribute("login");
+		String mNo = (String)login.get("MEMBER_NO");
+		
+		List list = service.selectOrderList(mNo);
+		
+		return list.size();
 	}
 }

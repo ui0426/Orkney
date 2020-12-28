@@ -29,19 +29,19 @@
        
           <tr class="clickPointer" id="product${s.index}" style="text-align: center;background-color: #49505a;border: 2px solid #585d64;">
       
-            <td ><c:out value="${o.PRODUCT_NO}"/></td>
-            <td ><c:out value="${o.PRODUCT_NAME}"/></td>
-            <td ><c:out value="${o.PRODUCT_COLOR}"/></td>
-            <td ><c:out value="${o.PRODUCT_PRICE}"/></td>
-            <td >
+            <td onclick="location.href='${path}/admin/productUpdate.do?pNo=${o.PRODUCT_NO}'"><c:out value="${o.PRODUCT_NO}"/></td>
+            <td onclick="location.href='${path}/admin/productUpdate.do?pNo=${o.PRODUCT_NO}'"><c:out value="${o.PRODUCT_NAME}"/></td>
+            <td onclick="location.href='${path}/admin/productUpdate.do?pNo=${o.PRODUCT_NO}'"><c:out value="${o.PRODUCT_COLOR}"/></td>
+            <td onclick="location.href='${path}/admin/productUpdate.do?pNo=${o.PRODUCT_NO}'"><c:out value="${o.PRODUCT_PRICE}"/></td>
+            <td>
             	<input type="number" name=""  min="0" id="per" placeholder="%" style="border-radius: 10px;width: 4rem;">
             	<button type="button" class="btn" style="line-height: 0px; border-radius: 52px;width: 0px;" onclick="per('${o.PRODUCT_NO}','${s.index}','${o.PRODUCT_PRICE}');">%</button>
 
             </td>
-            <td id="salePrice"><c:out value="${o.SALE_PER}"></c:out></td>
-            <td ><c:out value="${o.BIG_CATEGORY_CONTENT}"/></td>
-            <td id="stock"><c:out value="${o.PRODUCT_STOCK}"/></td>
-            <td ><input type="number" name="" id="putIn" placeholder="입고 수량 ( 숫자 )" style="border-radius: 10px;width: 9rem;">
+            <td onclick="location.href='${path}/admin/productUpdate.do?pNo=${o.PRODUCT_NO}'" id="salePrice"><c:out value="${o.SALE_PER}"></c:out></td>
+            <td onclick="location.href='${path}/admin/productUpdate.do?pNo=${o.PRODUCT_NO}'"><c:out value="${o.BIG_CATEGORY_CONTENT}"/></td>
+            <td onclick="location.href='${path}/admin/productUpdate.do?pNo=${o.PRODUCT_NO}'" id="stock"><c:out value="${o.PRODUCT_STOCK}"/></td>
+            <td><input type="number" name="" id="putIn" placeholder="입고 수량 ( 숫자 )" style="border-radius: 10px;width: 9rem;">
             <button type="button" class="btn" style="line-height: 0px; border-radius: 52px;width: 0px;"onclick="putIn('${o.PRODUCT_NO}','${s.index}');">+</button></td>
             <td id=""> <button type="button" class="btn" style="line-height: 0px; border-radius: 52px;"data-toggle="modal" data-target="#modalConfirmDelete${s.index}" >삭제</button></td>
 

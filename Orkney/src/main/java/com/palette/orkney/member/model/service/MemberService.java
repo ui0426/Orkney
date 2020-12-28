@@ -90,5 +90,12 @@ public interface MemberService {
 	//이메일 수신 체크
 	int emailCk(Map data);
 
+	//이메일 인증하기
+	int updateMemberAuth(Map updateInformation);
+
+	//수신 동의한 이메일 리스트 가져오기
+	List<String> emailAgree();
+
+
 
 }

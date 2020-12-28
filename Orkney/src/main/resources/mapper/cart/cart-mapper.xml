@@ -38,9 +38,11 @@
  	</insert>
  	
   	<select id="selectCart" parameterType="string" resultMap="cartMap">
-  		select * from cart join cart_detail using (cart_no) 
+  		select * from cart 
+  		join cart_detail using (cart_no) 
   		join product_image i using(product_no)
   		join product using(product_no) 
+  		join small_category using(small_category_no)
   		join member using(member_no)  		
   		where member_no=#{memberNo} and i.product_color='normal'
   	</select>

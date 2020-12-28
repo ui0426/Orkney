@@ -5,7 +5,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <c:set var="path" value="${ pageContext.request.contextPath }"/>
 
-					<button type="button" class="addAddressBtn">우편번호 찾기</button>
+					<button type="button" class="addAddressBtn btn btn-blue btn-rounded">우편번호 찾기</button>
                      <div class="personal-information-row">
                         <span class="title">도로명 주소</span>
                         <input id="address_addr" class="disabled addr" type="text" name="address_addr" value="${ addr.address_addr }" readonly>
@@ -20,8 +20,8 @@
                         <input id="address_post" class="disabled post" type="text" name="address_post" value="${ addr.address_post }" readonly>
                      </div>
                      <div class="personal-information-btn">
-                        <button type="button" id="address-reset">취소</button>
-                        <button type="button" class="submitBtn" id="address-submit">저장</button>
+                        <button type="button" id="address-reset" class="btn btn-light btn-rounded">취소</button>
+                        <button type="button" class="submitBtn btn btn-dark btn-rounded" id="address-submit" >저장</button>
                      </div>
 
 <script>

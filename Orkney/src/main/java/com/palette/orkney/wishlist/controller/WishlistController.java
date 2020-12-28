@@ -234,8 +234,11 @@ public class WishlistController {
    //위시리스트 삭제하기
    @RequestMapping("/wishlist/deleteWishlist.do")
    @ResponseBody
-   public int deleteWishlist(String wNo) {
-      int result = service.deleteWishlist(wNo);
+   public int deleteWishlist(String wNo, HttpSession session) {
+	  Map login = ((Map)session.getAttribute("login")); //로그인 된 유저
+      String mNo = (String)login.get("MEMBER_NO"); //로그인 유저 넘버
+      
+      int result = service.deleteWishlist(wNo, mNo);
       
       return result;
    }
@@ -337,7 +340,7 @@ public class WishlistController {
 	   Map data = new HashedMap();
 	   data.put("mNo", mNo);
        data.put("pNo", pNo);
-       data.put("IwNo", IwNo);
+       data.put("IwNo", IwNo); //
 	   data.put("pQty", 1);
 	   
 	   int result = service.insertWish(data);
@@ -350,5 +353,22 @@ public class WishlistController {
 	   }
    }
    
+   //제품이 담겨있는 위시리스트의  총 개수 가져오기
+   @RequestMapping("/wishlist/wlCount.do")
+   @ResponseBody
+   public int wlCount(HttpSession session) {
+	   Map login = ((Map)session.getAttribute("login")); //로그인 된 유저
+	   String mNo = (String)login.get("MEMBER_NO"); //로그인 유저 넘버
+	   
+	   int result = 0;
+	   List<Wishlist> list = service.wishlistList(mNo);
+	   for(Wishlist w : list) {
+		   if(w.getWishlist_detail().size() > 0) {
+			   result += 1;
+		   }
+	   }
+	   
+	   return result;
+   }
    
 }

@@ -66,7 +66,12 @@
                 <div class="transPw" id="sPw">
                     <div>
                     <div class="md-form mdmar">
+                    	<c:if test="${userInfo != null }">
+                        <input type="text" id="idinput" class="form-control borderb" name="userId" value="${userInfo.email }" readonly>
+                        </c:if>
+                    	<c:if test="${userInfo == null }">
                         <input type="text" id="idinput" class="form-control borderb" name="userId" value="${login.MEMBER_ID }" readonly>
+                        </c:if>
                         <label for="inputLGEx" class="lfs"></label>
                         <div class="errorspan disno marb disno" id="iddiv">이메일을 입력해주세요.</div>
                       </div>
@@ -100,7 +105,12 @@
                     <div class="errorspan disno marb" id="authDiv">인증 번호가 일치하지 않습니다.</div>
                     <div>
                         <div>
+                        	<c:if test="${userInfo != null }">
                         	<button type="button" class="btn btn-primary btnattr" onclick="return authLogin();">로그인</button>
+                        	</c:if>
+                        	<c:if test="${userInfo == null }">
+                        	<button type="button" class="btn btn-primary btnattr" onclick="authDo();">인증하기</button>
+                        	</c:if>
                         </div>
                         <div>
                         	<button type="submit" class="btn btn-primary btnattr" style="background:#f5f5f5 !important;color:black;">다음에 하기</button>
@@ -131,6 +141,25 @@
 			
 		})
 		return false;
+	}
+	
+	function authDo(){
+		$.ajax({
+			
+			url: "${path}/member/keyCheckAfter.do",
+			data: {key1:$("#idinput1").val(),key2:$("#idinput2").val(),key3:$("#idinput3").val()
+				,key4:$("#idinput4").val(),key5:$("#idinput5").val(),key6:$("#idinput6").val()},
+			type : 'post',
+			success: data =>{
+				console.log(data);
+				if(data == true){
+					location.replace('${path}/member/mypage.do');
+				}else{
+					$("#authDiv").css('display','block');
+				}
+			}
+		});
+		
 	}
 </script>
 </html>

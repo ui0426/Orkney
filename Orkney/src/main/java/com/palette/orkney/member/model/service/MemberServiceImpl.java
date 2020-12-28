@@ -241,5 +241,20 @@ public class MemberServiceImpl implements MemberService {
 	public int emailCk(Map data) {
 		return dao.emailCk(session, data);
 	}
+
+	//이메일 인증
+	@Override
+	public int updateMemberAuth(Map updateInformation) {
+		return dao.updateMemberAuth(session, updateInformation);
+	}
+
+	//수신 동의한 이메일 리스트 가져오기
+	@Override
+	public List<String> emailAgree() {
+		return dao.emailAgree(session);
+	}
+
+
+	
 	
 }

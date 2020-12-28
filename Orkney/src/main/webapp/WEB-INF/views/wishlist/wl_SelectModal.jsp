@@ -13,18 +13,18 @@
             <ul class="modal-list">
                <c:forEach items="${ wlList }" var="wl">
                <div class="row-box">
-                <li class="wishName"><input type="hidden" value="${ wl.wishlist_no }"><span onclick="fn_test(this);"><c:out value="${ wl.wishlist_name }"/></span><sup class="list-count"><c:out value="${ wl.wishlist_detail.size() }"/></sup><button onclick="fn_wishPencil(this)" class="wish-pencil"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="pencil-alt" class="svg-inline--fa fa-pencil-alt fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M497.9 142.1l-46.1 46.1c-4.7 4.7-12.3 4.7-17 0l-111-111c-4.7-4.7-4.7-12.3 0-17l46.1-46.1c18.7-18.7 49.1-18.7 67.9 0l60.1 60.1c18.8 18.7 18.8 49.1 0 67.9zM284.2 99.8L21.6 362.4.4 483.9c-2.9 16.4 11.4 30.6 27.8 27.8l121.5-21.3 262.6-262.6c4.7-4.7 4.7-12.3 0-17l-111-111c-4.8-4.7-12.4-4.7-17.1 0zM124.1 339.9c-5.5-5.5-5.5-14.3 0-19.8l154-154c5.5-5.5 14.3-5.5 19.8 0s5.5 14.3 0 19.8l-154 154c-5.5 5.5-14.3 5.5-19.8 0zM88 424h48v36.3l-64.5 11.3-31.1-31.1L51.7 376H88v48z"></path></svg></button><button class="wish-trash" onclick="fn_wishTrash(this)"><svg aria-hidden="true" focusable="false" data-prefix="far" data-icon="trash-alt" class="svg-inline--fa fa-trash-alt fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M268 416h24a12 12 0 0 0 12-12V188a12 12 0 0 0-12-12h-24a12 12 0 0 0-12 12v216a12 12 0 0 0 12 12zM432 80h-82.41l-34-56.7A48 48 0 0 0 274.41 0H173.59a48 48 0 0 0-41.16 23.3L98.41 80H16A16 16 0 0 0 0 96v16a16 16 0 0 0 16 16h16v336a48 48 0 0 0 48 48h288a48 48 0 0 0 48-48V128h16a16 16 0 0 0 16-16V96a16 16 0 0 0-16-16zM171.84 50.91A6 6 0 0 1 177 48h94a6 6 0 0 1 5.15 2.91L293.61 80H154.39zM368 464H80V128h288zm-212-48h24a12 12 0 0 0 12-12V188a12 12 0 0 0-12-12h-24a12 12 0 0 0-12 12v216a12 12 0 0 0 12 12z"></path></svg></button></li>
+                <li class="wishName"><input type="hidden" value="${ wl.wishlist_no }"><span onclick="fn_test(this);"><c:out value="${ wl.wishlist_name }"/></span><c:if test="${ wl.wishlist_detail.size() != 0 }"><sup class="list-count"><c:out value="${ wl.wishlist_detail.size() }"/></sup></c:if><button onclick="fn_wishPencil(this)" class="wish-pencil"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="pencil-alt" class="svg-inline--fa fa-pencil-alt fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M497.9 142.1l-46.1 46.1c-4.7 4.7-12.3 4.7-17 0l-111-111c-4.7-4.7-4.7-12.3 0-17l46.1-46.1c18.7-18.7 49.1-18.7 67.9 0l60.1 60.1c18.8 18.7 18.8 49.1 0 67.9zM284.2 99.8L21.6 362.4.4 483.9c-2.9 16.4 11.4 30.6 27.8 27.8l121.5-21.3 262.6-262.6c4.7-4.7 4.7-12.3 0-17l-111-111c-4.8-4.7-12.4-4.7-17.1 0zM124.1 339.9c-5.5-5.5-5.5-14.3 0-19.8l154-154c5.5-5.5 14.3-5.5 19.8 0s5.5 14.3 0 19.8l-154 154c-5.5 5.5-14.3 5.5-19.8 0zM88 424h48v36.3l-64.5 11.3-31.1-31.1L51.7 376H88v48z"></path></svg></button><button class="wish-trash" onclick="fn_wishTrash(this)"><svg aria-hidden="true" focusable="false" data-prefix="far" data-icon="trash-alt" class="svg-inline--fa fa-trash-alt fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M268 416h24a12 12 0 0 0 12-12V188a12 12 0 0 0-12-12h-24a12 12 0 0 0-12 12v216a12 12 0 0 0 12 12zM432 80h-82.41l-34-56.7A48 48 0 0 0 274.41 0H173.59a48 48 0 0 0-41.16 23.3L98.41 80H16A16 16 0 0 0 0 96v16a16 16 0 0 0 16 16h16v336a48 48 0 0 0 48 48h288a48 48 0 0 0 48-48V128h16a16 16 0 0 0 16-16V96a16 16 0 0 0-16-16zM171.84 50.91A6 6 0 0 1 177 48h94a6 6 0 0 1 5.15 2.91L293.61 80H154.39zM368 464H80V128h288zm-212-48h24a12 12 0 0 0 12-12V188a12 12 0 0 0-12-12h-24a12 12 0 0 0-12 12v216a12 12 0 0 0 12 12z"></path></svg></button></li>
                 <form style="display: none;" class="wishName-update-form">
                    <div class="wishName-update-box">
                       <div class="wishName-update-input"><input name="NewWishName" value=""/></div>
-                      <button type="button" class="wishName-reset" onclick="fn_wishNameReset(this)">취소</button>
-                      <button type="button" class="wishName-save" onclick="fn_wishNameSave(this)">저장</button>
+                      <button type="button" class="wishName-reset reset" onclick="fn_wishNameReset(this)">취소</button>
+                      <button type="button" class="wishName-save save" onclick="fn_wishNameSave(this)">저장</button>
                    </div>
                 </form>
                 <div class="wishName-delete-box" style="display: none;">
                      <div class="wishName-delete-text">리스트를 삭제하겠습니까?</div>
-                     <button type="button" class="wishNameDelete-reset" onclick="fn_wishNameDeleteReset(this)">취소</button>
-                     <button type="button" class="wishNameDelete-save" onclick="fn_wishNameDeleteSave(this)"><input type="hidden" value="${ wl.wishlist_no }">저장</button>
+                     <button type="button" class="wishNameDelete-reset reset" onclick="fn_wishNameDeleteReset(this)">취소</button>
+                     <button type="button" class="wishNameDelete-save save" onclick="fn_wishNameDeleteSave(this)"><input type="hidden" value="${ wl.wishlist_no }">저장</button>
                   </div>
                 </div>
                 </c:forEach>
@@ -35,8 +35,8 @@
                 <form class="wishName-add-form" style="display: none;">
                    <div class="wishName-add-box">
                       <div class="wishName-add-input"><label>이름 : </label><input name="addWishName" value=""/></div>
-                      <button type="button" class="wishNameAdd-reset" onclick="fn_wishNameAddReset(this)">취소</button>
-                      <button type="button" class="wishNameAdd-save" onclick="fn_wishNameAddSave(this)">저장</button>
+                      <button type="button" class="wishNameAdd-reset reset" onclick="fn_wishNameAddReset(this)">취소</button>
+                      <button type="button" class="wishNameAdd-save save" onclick="fn_wishNameAddSave(this)">저장</button>
                    </div>
                 </form>
             </div>
@@ -134,8 +134,16 @@ function fn_wishNameDeleteSave(e){
          success: data=>{
             console.log(data);
             if(data > 0){
+				let clone = $('.row-box').clone();
                $('.row-box').eq(i).remove();
-               s(data);
+				let row = $('.row-box').length;
+					console.log(row);
+				if(row == 0){
+					console.log(row);
+					console.log(clone);
+					clone.appendTo('.modal-list');
+				}
+				s(data);
             } else {
                return;
             }
