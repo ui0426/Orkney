@@ -158,7 +158,7 @@ filter2();
 				function filter2() {
 					start = start+1;
 				
-					alert(start);
+					
 				// 정렬
 				let group1 =$('input[name="group1"]:checked').val();
 				//사이즈
@@ -195,7 +195,7 @@ filter2();
 
 					  
 						for ( var i=0;i <= data.length;i++){
-						if (data[i]["PRODUCT_COLOR"]=="normal") {
+						if (data[i]["PRODUCT_COLOR"]=="normal"  ) {
 							
 						  let productClone = $("#products").clone().attr("id","products"+i);
 						  
@@ -319,7 +319,7 @@ filter2();
 					$("#product_list").html("");
 					  
 						for ( var i=0;i <= data.length;i++){
-						if (data[i]["PRODUCT_COLOR"]=="normal") {
+						if (data[i]["PRODUCT_COLOR"]=="normal" ) {
 							
 						  let productClone = $("#products").clone().attr("id","products"+i);
 						  
@@ -913,7 +913,7 @@ function fn_addWishModal(price,pNo){
 		success: function(data){
 			console.log(data);
 			if(data == ''){
-				alert('dd');
+				
 			}
 			$('#insertWish').html(data);
 		}

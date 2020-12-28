@@ -5,7 +5,19 @@
 	<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 	<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 	<c:set var="path" value="${pageContext.request.contextPath }"/>
-	
+<style>
+.modal-content-yn{
+	padding: 1em 2em;
+}
+.modal-text-yn{
+    font-size: .9em;
+    font-weight: 500;
+}
+.modal-text-ynyn{
+    font-size: 1.1em;
+    font-weight: 900;
+}
+</style>	
 	
 	
 	
@@ -80,6 +92,7 @@
       		console.log(me);
       		var email = $(me).parent().siblings(".member_id").val();
       		var name = $(me).parent().siblings(".member_name").val();
+      		var oNo = $(me).parent().siblings(".order_no").val();
       		console.log(state+email+name);
       		
       		return new Promise((resolve, reject)=>{
@@ -100,7 +113,7 @@
 	      				if(state == '') state ='승인 거부';
 	      				$.ajax({
 	      					url:"${path}/orderAllow.do",
-	      					data:{no:no, email:email, name:name, state:state},
+	      					data:{no:oNo, email:email, name:name, state:state},
 	      					success: succ =>{
 	      						console.log(succ);
 	      						location.href='${path}/admin/orderList.do';
@@ -179,21 +192,21 @@
 		          <span aria-hidden="true">&times;</span>
 		        </button>
 		      </div>
-		      <div class="modal-body">
+		      <div class="modal-body modal-content-yn">
 		        <div>
-		        	<h3 id="modalpName"></h3>
-		        	<h3 id="modalpColor"></h3>
+		        	<h3 id="modalpName" class="modal-text-yn"></h3>
+		        	<h3 id="modalpColor" class="modal-text-yn"></h3>
 		        </div>
 		        <div>
-		        	<h3 id="modalrQty"></h3>
-		        	<h3 id="modalrContent"></h3>
+		        	<h3 id="modalrQty" class="modal-text-ynyn"></h3>
+		        	<h3 id="modalrContent" class="modal-text-ynyn"></h3>
 		        	<img id="modalrPic" src=""/>
-		        	<h3 id="modalrAmountInfo"></h3>
-		        	<h3 id="modalrAmount"></h3>
+		        	<h3 id="modalrAmountInfo" class="modal-text-ynyn"></h3>
+		        	<h3 id="modalrAmount"class="modal-text-ynyn"></h3>
 		        </div>
 		      </div>
 		      <div class="modal-footer">
-		        <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+		        <button type="button" class="btn btn-primary" data-dismiss="modal">닫기</button>
 		      </div>
 		    </div>
 		  </div>

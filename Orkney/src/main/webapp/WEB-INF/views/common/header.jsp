@@ -16,22 +16,26 @@
     <link rel="stylesheet" href="${path}/resources/css/common/header/header-aside.css">
     <link rel="stylesheet" href="${path}/resources/css/common/header/test.css">
     <link rel="stylesheet" href="${path}/resources/css/common/header/search-modal.css">
-    
-    
-    
 
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.css">
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
-        
+     
+   
+	  
+  
+
+
     <script src="https://unpkg.com/swiper/swiper-bundle.js"></script>
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 	
+	
+	
+	
 	 <!-- 웹소켓 이용위해 -->
-    <script type="text/javascript"
-	src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.5/sockjs.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.5/sockjs.min.js"></script>
 
       <!-- MDB icon -->
   <link rel="icon" href="img/mdb-favicon.ico" type="image/x-icon">
@@ -80,8 +84,9 @@
                 <a href="${path}"><img src="${path }/resources/img/LOGO3.PNG" alt=""></a>
             </div>
             <div class="header-menu">
-                <span><a href="${path }/product/products.do?category=all" style="color: black;">모든제품</a> </span>
-                <span><a href="${path}/product/rooms.do" style="color: black;">디지털 쇼룸</a></span>
+                <span><a href="${path }/product/products.do?category=all&sale=" style="color:black;">모든제품</a> </span>
+                <span><a href="${path}/product/rooms.do" style="color:black;">디지털 쇼룸</a></span>
+
             </div>
             <div class="header-search">
            		<form class="search-form">
@@ -124,14 +129,14 @@
                     <path fill-rule="evenodd" clip-rule="evenodd" d="M12.336 5.52055C14.2336 3.62376 17.3096 3.62401 19.2069 5.52129C20.2067 6.52115 20.6796 7.85005 20.6259 9.15761C20.6151 12.2138 18.4184 14.8654 16.4892 16.6366C15.4926 17.5517 14.5004 18.2923 13.7593 18.8036C13.3879 19.0598 13.0771 19.2601 12.8574 19.3973C12.7475 19.466 12.6601 19.519 12.5992 19.5555C12.5687 19.5737 12.5448 19.5879 12.5279 19.5978L12.5079 19.6094L12.502 19.6129L12.5001 19.614C12.5001 19.614 12.4989 19.6147 11.9999 18.748C11.501 19.6147 11.5005 19.6144 11.5005 19.6144L11.4979 19.6129L11.4919 19.6094L11.472 19.5978C11.4551 19.5879 11.4312 19.5737 11.4007 19.5555C11.3397 19.519 11.2524 19.466 11.1425 19.3973C10.9227 19.2601 10.612 19.0598 10.2405 18.8036C9.49947 18.2923 8.50726 17.5517 7.51063 16.6366C5.58146 14.8654 3.38477 12.2139 3.37399 9.15765C3.32024 7.85008 3.79314 6.52117 4.79301 5.52129C6.69054 3.62376 9.76704 3.62376 11.6646 5.52129L11.9993 5.856L12.3353 5.52129L12.336 5.52055ZM11.9999 18.748L11.5005 19.6144L11.9999 19.9019L12.4989 19.6147L11.9999 18.748ZM11.9999 17.573C12.1727 17.462 12.384 17.3226 12.6236 17.1573C13.3125 16.6821 14.2267 15.9988 15.1366 15.1634C17.0157 13.4381 18.6259 11.2919 18.6259 9.13506V9.11213L18.627 9.08922C18.6626 8.31221 18.3844 7.52727 17.7926 6.9355C16.6762 5.81903 14.866 5.81902 13.7495 6.9355L13.7481 6.93689L11.9965 8.68166L10.2504 6.9355C9.13387 5.81903 7.3237 5.81903 6.20722 6.9355C5.61546 7.52727 5.33724 8.31221 5.3729 9.08922L5.37395 9.11213V9.13507C5.37395 11.2919 6.98418 13.4381 8.86325 15.1634C9.77312 15.9988 10.6874 16.6821 11.3762 17.1573C11.6159 17.3226 11.8271 17.462 11.9999 17.573Z"></path>
                     </svg></a></li>
                 
-                <c:if test="${not empty login}">
+               
                 <li class="header-icon">                	
                     <a href="${path}/cart/cart.do">                    
                     <span><svg aria-hidden="true" focusable="false" class="svg-icon  hnf-svg-icon hnf-svg-bag-default" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" >
                         <path fill-rule="evenodd" clip-rule="evenodd" d="M10.9994 4H10.4373L10.1451 4.48017L6.78803 9.99716H3.00001H1.71924L2.02987 11.2397L3.65114 17.7248C3.98501 19.0603 5.18497 19.9972 6.56157 19.9972L17.4385 19.9972C18.8151 19.9972 20.015 19.0603 20.3489 17.7248L21.9702 11.2397L22.2808 9.99716H21H17.2113L13.8539 4.48014L13.5618 4H12.9997H12.0004H10.9994ZM14.8701 9.99716L12.4376 6H12.0004H11.5615L9.12921 9.99716H14.8701ZM5.59142 17.2397L4.28079 11.9972H19.7192L18.4086 17.2397C18.2973 17.6849 17.8973 17.9972 17.4385 17.9972L6.56157 17.9972C6.1027 17.9972 5.70272 17.6849 5.59142 17.2397Z"></path>
                     </svg></span></a>
                 </li>
-                </c:if>
+               
                     
                 <li class="header-icon hambuger2 btn-aside">            
                     <span><svg aria-hidden="true" focusable="false" class="svg-icon  hnf-svg-icon" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -155,7 +160,7 @@
 		                </span>
 		            </div>
 		            <div id="hnf-menu_logo" class="hnf-menu_logo">
-		                <a href="${path }/">
+		                <a href="${path }/">		        
 		                    <img src="${path }/resources/img/LOGO3.PNG"></svg>
 		                </a>
 		            </div>
@@ -208,72 +213,76 @@
 		        		<span class="hnf-menu-container-product-head">모든 상품</span>
 						<ul class="hnf-menu-container-product-main">
 							<li>
-								<a  href="${path }/product/products.do?category=책장/선반유닛">
+								<a  href="${path }/product/products.do?category=책장/선반유닛&sale=">
 									책장/선반유닛
 								</a>
 							</li>
 							<li>
-								<a href="${path }/product/products.do?category=서랍">
+								<a href="${path }/product/products.do?category=서랍&sale=">
 									서랍
 								</a>
 							</li>
 							<li>
-								<a href="${path }/product/products.do?category=의자">
+								<a href="${path }/product/products.do?category=의자&sale=">
 									의자
 								</a>
 							</li>
 							<li>
-								<a href="${path }/product/products.do?category=바테이블/의자">
+								<a href="${path }/product/products.do?category=바테이블/의자&sale=">
 									바테이블/의자
 								</a>
 							</li>
 							<li>
-								<a href="${path }/product/products.do?category=카페가구">
+								<a href="${path }/product/products.do?category=카페가구&sale=">
 									카페가구
 								</a>
 							</li>
 							<li>
-								<a href="${path }/product/products.do?category=아동식선반">
+
+								<a href="${path }/product/products.do?category=아동식선반&sale=">
 									이동식 선반
 								</a>
 							</li>
 							<li>
-								<a href="${path }/product/products.do?category=옷장">
+								<a href="${path }/product/products.do?category=옷장&sale=">
 									옷장
 								</a>
 							</li>
 							<li>
-								<a href="${path }/product/products.do?category=수납장/장식장">
+								<a href="${path }/product/products.do?category=수납장/장식장&sale=">
 									수납장/장식장
 								</a>
 							</li>
 							<li>
-								<a href="${path }/product/products.do?category=거실장/전장/콘솔테이블">
+
+
+								<a href="${path }/product/products.do?category=거실장/전장/콘솔테이블&sale=">
 									거실장/천장/콘솔테이블
+
 								</a>
 							</li>
 							<li>
-								<a href="${path }/product/products.do?category=TV/멀티미디어가구">
+								<a href="${path }/product/products.do?category=TV/멀티미디어가구&sale=">
 									TV/멀티미디어가구
 								</a>
 							</li>
 							<li>
-								<a href="${path }/product/products.do?category=침대">
+								<a href="${path }/product/products.do?category=침대&sale=">
 									침대
 								</a>
 							</li>
 							<li>
-								<a href="${path }/product/products.do?category=소파/암체어">
+								<a href="${path }/product/products.do?category=소파/암체어&sale=">
 									소파/암체어
 								</a>
 							</li>
 							<li>
-								<a href="${path }/product/products.do?category=조명">
+								<a href="${path }/product/products.do?category=조명&sale=">
 									조명
 								</a>
 							</li>
 							<li>
-								<a href="${path }/product/products.do?category=식탁/책상">
+								<a href="${path }/product/products.do?category=식탁/책상&sale=">
 									식탁/책상
 								</a>
 							</li>
@@ -462,7 +471,7 @@
             });
            
      	
-            //검색창 눌렀을 때~~~
+//             검색창 눌렀을 때~~~
             $('.search-input').click(e=>{
             	$('.modal-layer').fadeIn();
             	$('.search-input').addClass('modal-input');

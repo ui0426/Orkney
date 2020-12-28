@@ -25,7 +25,7 @@
   	<if test="type != null">
   	 #{type}
   	</if>
-  	,#{auth})
+  	,default)
   <selectKey keyProperty="mNo" resultType="string" order="AFTER">
   	SELECT M_NUM.CURRVAL FROM DUAL
   </selectKey>
@@ -40,10 +40,10 @@
   	SELECT CHAT_ROOM FROM CHATTING WHERE MEMBER_NO=#{no} GROUP BY CHAT_ROOM ORDER BY CHAT_ROOM
   </select>
   <select id="chatData" parameterType="string" resultType="map">
-  	SELECT * FROM CHATTING WHERE CHAT_ROOM=#{chatRoomNo}
+  	SELECT * FROM CHATTING WHERE CHAT_ROOM=#{chatRoomNo} ORDER BY CHAT_DATE
   </select>
   <select id="chatRoom" parameterType="map" resultType="map">
-  	SELECT * FROM CHATTING WHERE MEMBER_NO=#{memberNo} AND CHAT_ROOM=#{roomNo} 
+  	SELECT * FROM CHATTING WHERE MEMBER_NO=#{memberNo} AND CHAT_ROOM=#{roomNo} ORDER BY CHAT_DATE
   </select>
   <select id="chatAllData" parameterType="string" resultType="map">
   	SELECT * FROM CHATTING WHERE MEMBER_NO=#{id} order by chat_date desc
@@ -227,5 +227,8 @@
 		UPDATE member SET point=#{point}  WHERE member_no=#{member_no}
 	</update>
 	
+	<update id="emailAuth" parameterType="String">
+		UPDATE MEMBER SET EMAIL_AUTH='Y' WHERE MEMBER_ID=#{id}
+	</update>
 	
 </mapper>

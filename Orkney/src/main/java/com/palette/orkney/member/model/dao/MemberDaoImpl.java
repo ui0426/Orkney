@@ -201,6 +201,11 @@ public class MemberDaoImpl implements MemberDao {
 		return session.selectList("member.pointList", data);
 	}
 
+	@Override
+	public int emailAuth(SqlSession session, String id) {
+		// TODO Auto-generated method stub
+		return session.update("member.emailAuth",id);
+	}
 	//이메일 수신 체크
 	@Override
 	public int emailCk(SqlSession session, Map data) {
@@ -218,6 +223,5 @@ public class MemberDaoImpl implements MemberDao {
 	public List<String> emailAgree(SqlSession session) {
 		return session.selectList("member.emailAgree");
 	}
-
 	
 }

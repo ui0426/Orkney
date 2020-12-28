@@ -75,7 +75,7 @@
                         <label for="inputLGEx" class="lfs"></label>
                         <div class="errorspan disno marb disno" id="iddiv">이메일을 입력해주세요.</div>
                       </div>
-                      <form name="authForm" method="post" action="${path}/member/insertSignup.do">
+                      <form name="authForm" method="post" action="${path}/home">
                       <div class="auth">
                       <div class="md-form mdmar">
                         <input type="text" id="idinput1" class="form-control borderb authInput" name="key1" maxlength="1">
@@ -128,7 +128,7 @@
 		$.ajax({
 			url:"${path}/member/keyCheck.do",
 			data:{key1:$("#idinput1").val(),key2:$("#idinput2").val(),key3:$("#idinput3").val()
-				,key4:$("#idinput4").val(),key5:$("#idinput5").val(),key6:$("#idinput6").val()},
+				,key4:$("#idinput4").val(),key5:$("#idinput5").val(),key6:$("#idinput6").val(),id:$("#idinput").val()},
 			type:'POST',
 			success:data => {
 				console.log(data);

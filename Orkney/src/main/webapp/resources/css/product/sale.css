@@ -223,7 +223,9 @@ p{
     
 }
 
-
+.bottom-mig{
+	margin-right: 5px;
+}
 
 
 @media ( min-width : 56.25em) {

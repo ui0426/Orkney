@@ -75,7 +75,7 @@
 				<span>총 주문금액</span>
 				<span>&#8361; <fmt:formatNumber value="${ allPrice }" pattern="###,###"/></span>
 	       </div>
-        <div class="wl-addcart"><button class="wl-allAddcart-btn">모두 장바구니에 추가</button></div>
+        <div class="wl-addcart"><button class="wl-allAddcart-btn" onclick="location.href='${path}/cart/cartInsertAll.do?wish=${wish}'">모두 장바구니에 추가</button></div>
            </c:if>
        </div>
     </div>

@@ -88,3 +88,39 @@
 	.panel2{
 		display: none;
 	}
+	.AllNullNotice{
+	    padding: 2em 0;
+	    font-size: .8em;
+	}
+	.always-notice{
+	    display: flex;
+	    flex-direction: column;
+	    box-sizing: border-box;
+	    padding-left: 1rem;
+	    padding-right: 1rem;
+	    align-items: center;
+	}
+	.question{
+		font-size: 0.875rem;
+	    font-weight: 700;
+	    letter-spacing: normal;
+	    line-height: 1.57143;
+	    color: rgb(17, 17, 17);
+	    margin: 0px;
+	}
+	.answer{
+		font-size: 0.875rem;
+	    font-weight: 400;
+	    letter-spacing: normal;
+	    line-height: 1.71429;
+	    color: rgb(72, 72, 72);
+	    white-space: pre-wrap;
+	    margin: 0px;
+	}
+	.notice-container{
+		margin: 5em 0;
+	}
+	a{
+		color:black;
+		
+	}

@@ -28,6 +28,8 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.palette.orkney.member.model.service.MemberService;
+import com.palette.orkney.cart.model.service.CartService;
+import com.palette.orkney.cart.model.vo.Cart;
 import com.palette.orkney.order.model.vo.Orders;
 
 @Controller
@@ -39,6 +41,7 @@ public class EmailController {
 	
 	@Autowired
 	private MemberService service;
+	private CartService cservice;
 
 	@RequestMapping(value="/transPw.do", method=RequestMethod.POST)
     public ModelAndView sendEmailAction (@RequestParam(value="email") String email, ModelMap model, ModelAndView mv,HttpServletResponse response) throws Exception {
@@ -186,10 +189,11 @@ public class EmailController {
 	
 	
 
-	@RequestMapping(value="/member/emailAuth.do", method=RequestMethod.POST)//가입시 이메일 인증
-    public String emailAuth(@RequestParam Map userInfo,Model m,HttpServletResponse response,HttpSession session) throws Exception {
+	@RequestMapping(value="/member/emailAuth.do", method=RequestMethod.GET)//가입시 이메일 인증
+    public String emailAuth(Model m,HttpServletResponse response,HttpSession session) throws Exception {
 		
-		String email=(String)userInfo.get("email");
+		Map userInfo=(Map)session.getAttribute("login");
+		String email=(String)userInfo.get("MEMBER_ID");
 		
 		StringBuffer temp = new StringBuffer();
 		Random rnd = new Random();
@@ -198,9 +202,8 @@ public class EmailController {
 		    }
 		String key=temp.toString();
 		System.out.println(key);
-		userInfo.put("key",key);
-		userInfo.put("auth","N");
-		session.setAttribute("userInfo",userInfo);
+
+		session.setAttribute("key",key);
 //		m.addAttribute("userInfo",userInfo);
 //		m.addAttribute("key",key);
 		
@@ -240,10 +243,7 @@ public class EmailController {
         }catch(MessagingException e) {
             e.printStackTrace();
         }
-        
-        
-
-        
+    
         return "redirect:emailPage.do";
     }
 
@@ -305,8 +305,8 @@ public class EmailController {
 		String address = (String)((Orders)session.getAttribute("orders")).getOrder_address();
 		String phone = (String)((Orders)session.getAttribute("orders")).getOrder_phone();
 		String oNo = (String)((Orders)session.getAttribute("orders")).getOrder_no();
+		String memberNo = (String)((Map)session.getAttribute("login")).get("MEMBER_NO");
 		
-//		String picture = (String)((Map)session.getAttribute("info")).get("MEMBER_ID");
 		int sumprice = (int)((Map)session.getAttribute("info")).get("sumprice");//제품순수금액
 		int shipFee = (int)((Map)session.getAttribute("info")).get("shipFee");//배송비
 		int willPoint = (int)((Map)session.getAttribute("info")).get("willpoint");//사용포인트
@@ -315,7 +315,11 @@ public class EmailController {
 				
 		SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd_HHmmssSSS");
 		System.out.println(sdf);
-
+		
+		String path=session.getServletContext().getRealPath("/resources/images/product");				
+		
+		List<Cart> c = cservice.selectCart(memberNo);
+		System.out.println("카트:"+c);
 		
 		System.out.println(EMAIL +"주문자"+name+""+address+""+phone+""+sumprice+""+shipFee+""+willPoint+""+""+addTax+""+totalFee+""+oNo);
 		String noticeEmail=
@@ -368,22 +372,23 @@ public class EmailController {
 				"   \r\n" + 
 				"    <div style=\"text-align:center;\">\r\n" + 
 				"        <div style=\"background-color:rgb(242, 245, 247); width: 100%;\">상품 정보</div>\r\n" + 
-				"    \r\n" + 
-				"    <c:forEach items=\"${cart }\" var=\"p\">\r\n" + 
-				"        <div>\r\n" + 
+				"    \r\n" ; 
+				for(int i=0;i<c.size();i++) {
+				
+				noticeEmail+="        <div>\r\n" + 
 				"           <div style=\"float: left;\">구매제품</div> \r\n" + 
 				"           <span>수량</span>\r\n" + 
 				"           <div style=\"float: right;\">소계</div>\r\n" + 
 				"        </div>    \r\n" + 
 				"        <div style=\"background-color:rgb(242, 245, 247); width:100%; height: 3px;\"></div>    \r\n" + 
 				"        <div>\r\n" + 
-				"            <div style=\"float: left;\"><img src=\"${path}/resources/images/rooms/<c:out value=\"${p.product_pic}\"/>\"></div>\r\n" + 
-				"            <span><c:out value=\"${p.productName}\"/><c:out value=\"${p.product_width}\"/>*<c:out value=\"${p.product_height}\"/>*<c:out value=\"${p.product_depth}\"/></span>\r\n" + 
-				"            <span><c:out value=\"${p.cartQTY}\"/>개</span>\r\n" + 
-				"            <div style=\"float: right;\"><fmt:formatNumber value=\"${p.cartQTY * p.productPrice}\"/>&nbsp;원</div>\r\n" + 
-				"        </div>\r\n" + 
-				"    </c:forEach>  \r\n" + 
-				"\r\n" + 
+				"            <div style=\"float: left;\"><img src=\""+path+"/"+c.get(i).getProduct_pic()+"\"></div>\r\n" + 
+				"            <span>"+c.get(i).getProduct_width()+"*"+c.get(i).getProduct_height()+"*"+c.get(i).getProduct_depth()+"</span>\r\n" + 
+				"            <span>"+c.get(i).getCartQTY()+"개</span>\r\n" + 
+				"            <div style=\"float: right;\">"+c.get(i).getProductPrice()+"&nbsp;원</div>\r\n" + 
+				"        </div>\r\n";
+				}
+				noticeEmail+="\r\n" + 
 				"        <div style=\"background-color:rgb(242, 245, 247); width:100%; height: 3px;\"></div> \r\n" + 
 				"        <div style=\"display: flex; justify-content: space-between; padding: 5px 50px;\">\r\n" + 
 				"            <div>배송비/부가세 미포함 소계</div>\r\n" + 
