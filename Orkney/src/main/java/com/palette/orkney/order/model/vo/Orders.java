@@ -38,4 +38,7 @@ public class Orders {
 	
 	private String keyword;
 	private String search_option;
+	
+	//point
+	private int point_point;
 }

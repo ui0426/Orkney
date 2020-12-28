@@ -769,7 +769,7 @@ filter2();
 
 
 					<!-- Card -->
-					<div class="card" >
+					<div class="card shadow-hidden" >
 						<!--Card image-->
 <div class="plp-checkbox" id="plp-checkbox"  onclick="check_PIC();">
 <input type="checkbox" name="checkboxname" id="checkbox" black="true" value="${p.PRODUCT_PIC}">

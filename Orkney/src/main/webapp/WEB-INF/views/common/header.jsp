@@ -85,7 +85,7 @@
             </div>
             <div class="header-menu">
                 <span><a href="${path }/product/products.do?category=all&sale=" style="color:black;">모든제품</a> </span>
-                <span><a href="${path}/product/rooms.do" style="color:black;">디지털 쇼룸</a></span>
+                <span><a id="digital-showroom" style="color:black;">디지털 쇼룸</a></span>
 
             </div>
             <div class="header-search">
@@ -382,6 +382,18 @@
 //         		minLength: 1
 //         	})
         })
+        	$("#digital-showroom").click(e=>{
+        		$("#menu,.page_cover,html").addClass("open");
+        		$("#menu").removeClass("aside-close");
+	            window.location.hash = "#open";
+	            
+	            $("#hnf-menu").addClass("hnf-menu-level2");
+            	$("#hnf-menu_back").removeClass("hnf-menu-nav-hidden");
+            	$("#hnf-menu_search").removeClass("hnf-menu-nav-hidden");
+            	
+            	$("#hnf-menu_container").addClass("hnf-menu-nav-hidden1");
+            	$("#hnf-menu_container-level2-2").removeClass("hnf-menu-nav-hidden");
+        	});
             $(".btn-aside").click(function() {
 	            $("#menu,.page_cover,html").addClass("open");
 	            $("#menu").removeClass("aside-close");
