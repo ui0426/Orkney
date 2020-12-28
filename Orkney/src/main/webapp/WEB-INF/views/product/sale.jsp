@@ -55,8 +55,9 @@
 										
 											
 								 <fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today" />  
-								<fmt:formatDate value="${p.PRODUCT_ENROLL_DATE + 60*60*24*1000*30}" pattern="yyyy-MM-dd" var="write_dt"/>
-								<span class="rm-pb-et-new bottom-mig" style="display: inline;">${today <= write_dt?"NEW":""}</span>
+								<fmt:parseNumber var="start_d" value="${p.PRODUCT_ENROLL_DATE.time /(1000*60*60*24)}" integerOnly="true"/>
+								<fmt:parseNumber var="end_d" value="${now.time /(1000*60*60*24)}" integerOnly="true" />
+								<span class="rm-pb-et-new bottom-mig" style="display: inline;">${(end_d-start_d)<30?"NEW":""}</span>
 								<span class="ev-pb-et-p bottom-mig">더 낮은 새로운 가격</span> 
 								<span class="ev-bt-name bottom-mig">${p.PRODUCT_NAME}</span> 
 								<span class="rm-bt-sp bottom-mig"> ${p.BIG_CATEGORY_CONTENT} </span>

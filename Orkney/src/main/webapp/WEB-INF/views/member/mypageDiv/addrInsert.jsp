@@ -17,7 +17,7 @@
                            <span style="display: none;" class="msg-style">휴대폰 번호를 입력해 주세요.</span>
                            <span style="display: none;" class ="msg-style" id="phone-type-ck">휴대폰 번호가 올바르지 않습니다.</span>
                         </div>
-                        <button type="button" class="addAddressBtn addrInsertBtn">우편번호 찾기</button>
+                        <button type="button" class="addAddressBtn addrInsertBtn btn btn-blue btn-rounded">우편번호 찾기</button>
                         <div class="personal-information-row input-label-wrap">
                            <input type="text" class="origin-input-css disabled addaddr" name="addr">
                            <label for="name-input" class="input-label disabled"><span id="addrSpan">도로명 주소</span></label>
@@ -32,8 +32,8 @@
                            <label for="name-input" class="input-label disabled"><span id="postSpan">우편번호</span></label>
                         </div>
                         <div class="personal-information-btn">
-                           <button type="button" id="addrInsertReset">취소</button>
-                           <button type="button" id="addrInsertSave">저장</button>
+                           <button type="button" id="addrInsertReset" class="btn btn-light btn-rounded">취소</button>
+                           <button type="button" id="addrInsertSave" class="btn btn-dark btn-rounded">저장</button>
                         </div>
                         
 <script>

@@ -195,7 +195,7 @@ filter2();
 
 					  
 						for ( var i=0;i <= data.length;i++){
-						if (data[i]["PRODUCT_COLOR"]=="normal") {
+						if (data[i]["PRODUCT_COLOR"]=="normal"  ) {
 							
 						  let productClone = $("#products").clone().attr("id","products"+i);
 						  
@@ -319,7 +319,7 @@ filter2();
 					$("#product_list").html("");
 					  
 						for ( var i=0;i <= data.length;i++){
-						if (data[i]["PRODUCT_COLOR"]=="normal") {
+						if (data[i]["PRODUCT_COLOR"]=="normal" ) {
 							
 						  let productClone = $("#products").clone().attr("id","products"+i);
 						  

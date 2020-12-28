@@ -29,8 +29,8 @@
                            <span style="display: none;" class ="msg-style" id="newPwCk-eq-ck">새 비밀번호가 일치하지 않습니다.</span>
                         </div>
                         <div class="personal-information-btn">
-                           <button type="button" id="password-reset">취소</button>
-                           <button type="button" id="password-submit">저장</button>
+                           <button type="button" id="password-reset" class="btn btn-light btn-rounded">취소</button>
+                           <button type="button" id="password-submit" class="btn btn-dark btn-rounded">저장</button>
                         </div>
 
 <script>

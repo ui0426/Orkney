@@ -2,6 +2,8 @@ package com.palette.orkney.email.controller;
 
 
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -25,6 +27,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.palette.orkney.member.model.service.MemberService;
+import com.palette.orkney.cart.model.service.CartService;
+import com.palette.orkney.cart.model.vo.Cart;
 import com.palette.orkney.order.model.vo.Orders;
 
 @Controller
@@ -33,6 +38,10 @@ public class EmailController {
 
 	@Autowired
 	private JavaMailSender mailSender;
+	
+	@Autowired
+	private MemberService service;
+	private CartService cservice;
 
 	@RequestMapping(value="/transPw.do", method=RequestMethod.POST)
     public ModelAndView sendEmailAction (@RequestParam(value="email") String email, ModelMap model, ModelAndView mv,HttpServletResponse response) throws Exception {
@@ -79,18 +88,13 @@ public class EmailController {
 				"      <div style=\"width:65%;height:100%;display:flex; flex-direction: column; justify-content: center; background-color:rgb(242, 245, 247);max-width:709px ;\">\r\n" + 
 				"        <div style=\"width: 85%;height: 85%;align-self: center; background-color:white;padding:.5rem .8rem 0rem;text-align: -webkit-left;\">\r\n" + 
 				"          <div style=\"text-align: -webkit-center;\">\r\n" + 
-				"            <div style=\"background-image: url(https://kr.accounts.ikea.com/resources/static/logo.svg);\r\n" + 
-				"          background-repeat: no-repeat;\r\n" + 
-				"            background-size: 88px 44px;\r\n" + 
-				"            content: '';\r\n" + 
-				"            width:88px;\r\n" + 
-				"            height:44px;\r\n" + 
-				"            background-color:#0058a3;\"></div></div>\r\n" + 
+				"            <div style=\"font-weight: 900;\r\n" + 
+				"               font-size: 40px;\">ORKNEY</div></div>\r\n" + 
 				"          <br>\r\n" + 
 				"        <div><h1 style=\"margin:0;\">안녕하세요.</h1></div>\r\n" + 
 				"        <br>\r\n" + 
 				"        <div style=\"height: 47%;\">비밀번호 변경을 요청하셨습니다.<br><br>\r\n" + 
-				"          고객님께서 요청하시지 않았다면, 보안을 위해 IKEA 계정에 로그인하실 수 있는지 확인해 주세요.<br><br>          \r\n" + 
+				"          고객님께서 요청하시지 않았다면, 보안을 위해 ORKNEY 계정에 로그인하실 수 있는지 확인해 주세요.<br><br>          \r\n" + 
 				"          비밀번호 변경을 요청하셨다면 아래 버튼을 눌러 비밀번호를 변경해주세요.</div>\r\n" + 
 				"          <div style=\"text-align-last: center;\"><a target='_blank'"
 				+ "href='http://localhost:9090/orkney/member/transPassword.do?id="+email+"&key="+key+"' style=\"padding: 18px 37px 24px; border:none;background-color:#0058a3;border-radius: 30px;color: white; font-weight: 700;\">비밀번호 변경</a></div>\r\n" + 
@@ -155,9 +159,16 @@ public class EmailController {
             messageHelper.setFrom("ckfEhrlEHrl@gmail.com");
             messageHelper.setSubject("ORKNEY 비밀번호 재설정");
             messageHelper.setText(noticeEmail,true);
-            InternetAddress[] toAddr = new InternetAddress[2];
-            toAddr[0] = new InternetAddress("dlgkdud7845@naver.com");
-            toAddr[1] = new InternetAddress("tkdgur1239@naver.com");
+        
+            List<String> list = service.emailAgree();
+            
+            InternetAddress[] toAddr = new InternetAddress[list.size()];
+            int i = 0;
+            for(String e : list) {
+            	toAddr[i] = new InternetAddress(e);
+            	i++;
+            }
+//            toAddr[1] = new InternetAddress("tkdgur1239@naver.com");
             messageHelper.setTo(toAddr);
             msg.setRecipients(MimeMessage.RecipientType.TO , toAddr);
             mailSender.send(msg);
@@ -227,10 +238,7 @@ public class EmailController {
         }catch(MessagingException e) {
             e.printStackTrace();
         }
-        
-        
-
-        
+    
         return "redirect:emailPage.do";
     }
 
@@ -292,8 +300,8 @@ public class EmailController {
 		String address = (String)((Orders)session.getAttribute("orders")).getOrder_address();
 		String phone = (String)((Orders)session.getAttribute("orders")).getOrder_phone();
 		String oNo = (String)((Orders)session.getAttribute("orders")).getOrder_no();
+		String memberNo = (String)((Map)session.getAttribute("login")).get("MEMBER_NO");
 		
-//		String picture = (String)((Map)session.getAttribute("info")).get("MEMBER_ID");
 		int sumprice = (int)((Map)session.getAttribute("info")).get("sumprice");//제품순수금액
 		int shipFee = (int)((Map)session.getAttribute("info")).get("shipFee");//배송비
 		int willPoint = (int)((Map)session.getAttribute("info")).get("willpoint");//사용포인트
@@ -302,7 +310,11 @@ public class EmailController {
 				
 		SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd_HHmmssSSS");
 		System.out.println(sdf);
-
+		
+		String path=session.getServletContext().getRealPath("/resources/images/product");				
+		
+		List<Cart> c = cservice.selectCart(memberNo);
+		System.out.println("카트:"+c);
 		
 		System.out.println(EMAIL +"주문자"+name+""+address+""+phone+""+sumprice+""+shipFee+""+willPoint+""+""+addTax+""+totalFee+""+oNo);
 		String noticeEmail=
@@ -355,22 +367,23 @@ public class EmailController {
 				"   \r\n" + 
 				"    <div style=\"text-align:center;\">\r\n" + 
 				"        <div style=\"background-color:rgb(242, 245, 247); width: 100%;\">상품 정보</div>\r\n" + 
-				"    \r\n" + 
-				"    <c:forEach items=\"${cart }\" var=\"p\">\r\n" + 
-				"        <div>\r\n" + 
+				"    \r\n" ; 
+				for(int i=0;i<c.size();i++) {
+				
+				noticeEmail+="        <div>\r\n" + 
 				"           <div style=\"float: left;\">구매제품</div> \r\n" + 
 				"           <span>수량</span>\r\n" + 
 				"           <div style=\"float: right;\">소계</div>\r\n" + 
 				"        </div>    \r\n" + 
 				"        <div style=\"background-color:rgb(242, 245, 247); width:100%; height: 3px;\"></div>    \r\n" + 
 				"        <div>\r\n" + 
-				"            <div style=\"float: left;\"><img src=\"${path}/resources/images/rooms/<c:out value=\"${p.product_pic}\"/>\"></div>\r\n" + 
-				"            <span><c:out value=\"${p.productName}\"/><c:out value=\"${p.product_width}\"/>*<c:out value=\"${p.product_height}\"/>*<c:out value=\"${p.product_depth}\"/></span>\r\n" + 
-				"            <span><c:out value=\"${p.cartQTY}\"/>개</span>\r\n" + 
-				"            <div style=\"float: right;\"><fmt:formatNumber value=\"${p.cartQTY * p.productPrice}\"/>&nbsp;원</div>\r\n" + 
-				"        </div>\r\n" + 
-				"    </c:forEach>  \r\n" + 
-				"\r\n" + 
+				"            <div style=\"float: left;\"><img src=\""+path+"/"+c.get(i).getProduct_pic()+"\"></div>\r\n" + 
+				"            <span>"+c.get(i).getProduct_width()+"*"+c.get(i).getProduct_height()+"*"+c.get(i).getProduct_depth()+"</span>\r\n" + 
+				"            <span>"+c.get(i).getCartQTY()+"개</span>\r\n" + 
+				"            <div style=\"float: right;\">"+c.get(i).getProductPrice()+"&nbsp;원</div>\r\n" + 
+				"        </div>\r\n";
+				}
+				noticeEmail+="\r\n" + 
 				"        <div style=\"background-color:rgb(242, 245, 247); width:100%; height: 3px;\"></div> \r\n" + 
 				"        <div style=\"display: flex; justify-content: space-between; padding: 5px 50px;\">\r\n" + 
 				"            <div>배송비/부가세 미포함 소계</div>\r\n" + 
@@ -425,4 +438,68 @@ public class EmailController {
 	        return "redirect:/cart/completeEnd.do";
 	}
 
+	//나중에 이메일 인증하는 경우
+	@RequestMapping(value="/member/emailAuthAfter.do")//가입시 이메일 인증
+    public String emailAuthAfter(Model m, HttpServletResponse response, HttpSession session) throws Exception {
+		Map login = (Map)session.getAttribute("login");
+
+		String email=(String)login.get("MEMBER_ID");
+		
+		StringBuffer temp = new StringBuffer();
+		Random rnd = new Random();
+		for (int i = 0; i < 6; i++) {//인증번호
+		        temp.append((rnd.nextInt(10)));
+		    }
+		String key=temp.toString();
+		System.out.println(key);
+		
+		Map authInfo = new HashMap();
+		authInfo.put("key", key);	
+		authInfo.put("auth", "N");	
+		
+		session.setAttribute("authInfo", authInfo);
+		
+		String noticeEmail=
+				"    <div style=\"width:100%;height:500px;min-height:500px;text-align: -webkit-center;\">\r\n" + 
+				"      <div style=\"width:65%;height:100%;display:flex; flex-direction: column; justify-content: center; background-color:rgb(242, 245, 247);max-width:709px ;\">\r\n" + 
+				"        <div style=\"width: 85%;height: 85%;align-self: center; background-color:white;padding:.5rem .8rem 0rem;text-align: -webkit-left;\">\r\n" + 
+				"          <div style=\"text-align: -webkit-center;\">\r\n" + 
+				"            <div style=\"background-image: url(https://kr.accounts.ikea.com/resources/static/logo.svg);\r\n" + 
+				"          background-repeat: no-repeat;\r\n" + 
+				"            background-size: 88px 44px;\r\n" + 
+				"            content: '';\r\n" + 
+				"            width:88px;\r\n" + 
+				"            height:44px;\r\n" + 
+				"            background-color:#0058a3;\"></div></div>\r\n" + 
+				"          <br>\r\n" + 
+				"        <div><h1 style=\"margin:0;\">안녕하세요.</h1></div>\r\n" + 
+				"        <br>\r\n" + 
+				"        <div style=\"height: 47%;\">인증 번호를 요청하셨습니다.<br><br>\r\n" + 
+				"          고객님께서 요청하시지 않았다면, 보안을 위해 IKEA 계정에 로그인하실 수 있는지 확인해 주세요.<br><br>          \r\n" + 
+				"          페이지에서 인증 번호를 입력해주세요.<p>"+key+"</p></div>\r\n" + 
+				"          <div><p>ORKNEY.KO</p></div>\r\n" +
+				"      </div>\r\n" + 
+				"      </div>\r\n" + 
+				"    </div>";
+             
+        try {
+            MimeMessage msg = mailSender.createMimeMessage();
+            MimeMessageHelper messageHelper = new MimeMessageHelper(msg, true,"UTF-8");
+            messageHelper.setFrom("orkney@orkney.com");
+            messageHelper.setSubject("ORKNEY 인증번호 확인");
+            messageHelper.setText(noticeEmail,true);
+            messageHelper.setTo(email);
+            msg.setRecipients(MimeMessage.RecipientType.TO , InternetAddress.parse(email));
+            mailSender.send(msg);
+             
+        }catch(MessagingException e) {
+            e.printStackTrace();
+        }
+        
+        
+
+        
+        return "redirect:emailPage.do";
+    }
+	
 }

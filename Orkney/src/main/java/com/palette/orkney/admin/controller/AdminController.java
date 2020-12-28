@@ -543,6 +543,7 @@ public class AdminController {
 	public List<Map> productOne (@RequestParam Map<String,Object> list) {
 		return service.productOne(list);
 	}
+
 //	제품 추가
 	@RequestMapping(value="/damin/productInsert.do", method = RequestMethod.POST)
 	public ModelAndView productInsert(Product product, ModelAndView mv,
@@ -555,7 +556,7 @@ public class AdminController {
 			){
 		String[] img = {img0,img1,img2,img3};
 
-		System.out.println(product);
+		
 		System.out.println("압로드:"+productImg);
 		String path=session.getServletContext().getRealPath("/resources/images/product");
 		File dir = new File(path);
@@ -590,6 +591,53 @@ public class AdminController {
 		mv.setViewName("admin/product/adminProduct");
 		return mv;
 	}
+
+//	제품 업데이트
+	@RequestMapping(value="/damin/producUpdateIn.do", method = RequestMethod.POST)
+	public ModelAndView producUpdateIn(Product product, ModelAndView mv,
+			@RequestParam(value="productImg", required=false) MultipartFile[] productImg, 
+			@RequestParam(value="mainImg", required=false) String img0, 
+			@RequestParam(value="img1", required=false) String img1, 			 
+			@RequestParam(value="img2", required=false) String img2, 			 
+			@RequestParam(value="img3", required=false) String img3, 			 
+			HttpSession session
+			){
+		String[] img = {img0,img1,img2,img3};
+		System.out.println("쨔까만:"+product);
+		String path=session.getServletContext().getRealPath("/resources/images/product");
+		File dir = new File(path);
+		if(!dir.exists()) dir.mkdirs();
+		List<Product_image> files=new ArrayList();
+		
+		for(MultipartFile f : productImg) {
+			if(!f.isEmpty()) {
+				String originalName = f.getOriginalFilename();
+				String ext = originalName.substring(originalName.lastIndexOf(".")+1);
+				
+				SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd_HHmmssSSS");
+				int rndValue = (int)(Math.random()*10000);
+				String reName=sdf.format(System.currentTimeMillis())+"_"+rndValue+"."+ext;
+				try {
+					f.transferTo(new File(path+"/"+reName));
+				}catch(IOException e) {
+					e.printStackTrace();
+				}
+				Product_image ri=Product_image.builder().originalFileName(originalName).renamedFileName(reName).build();
+				files.add(ri);
+				
+				
+			}
+			
+		}
+		
+		int result=service.producUpdateIn(product, files, img);
+		
+		
+		
+		mv.setViewName("admin/product/adminProduct");
+		return mv;
+	}
+
 
 	
 	@RequestMapping("/admin/allowStateAndSort.do")
@@ -627,5 +675,29 @@ public class AdminController {
 		else return false;
 
 
+	}
+	
+	@RequestMapping("/test")
+	public String test() {
+		return "admin/emailTest";
+	}
+	
+	//제품 업데이트
+	@RequestMapping("/admin/productUpdate.do")
+	public ModelAndView productUpdate(ModelAndView mv,
+			@RequestParam(name="pNo") String pNo
+		
+			){
+
+		mv.addObject("list",service.productUpdate(pNo));
+		mv.setViewName("admin/product/adminProductUpdate");
+		return mv;
+	}
+	
+	@RequestMapping("/admin/sCategoryList.do")
+	@ResponseBody
+	public List<Map> sCategoryList (@RequestParam Map<String,Object> list) {
+		System.out.println("왜 안됨?");
+		return service.sCategoryList(list);
 	}
 }

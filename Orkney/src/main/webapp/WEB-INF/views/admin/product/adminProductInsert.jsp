@@ -113,39 +113,63 @@
 					<div class="col-lg-4 col-md-12 mb-4">
 	                    <!--색상-->
 	                    <label for="productColor" class="">색상</label>
-	                  	<input type="text" name="productColor" id="productColor" class="form-control mb-4" placeholder="COLOR" required>
+<!-- 	                  	<input type="text" name="productColor" id="productColor" class="form-control mb-4" placeholder="COLOR(영문 소문자 입력)" required> -->
+                    	<select name="productColor" class="mdb-select colorful-select dropdown-info mb-4 form-control" id="productColor" required >
+			                      <option value="no">색상선택</option>
+			                      <option value="white">white</option>
+			                      <option value="black">black</option>
+			                      <option value="beige">beige</option>
+			                      <option value="brown">brown</option>
+			                      <option value="gray">gray</option>
+			                      <option value="blue">blue</option>
+			                      <option value="green">green</option>
+			                      <option value="red">red</option>
+			                      <option value="pink">pink</option>
+			                      <option value="yellow">yellow</option>
+			                      <option value="multicolor">multicolor</option>
+			                      <option value="orange">orange</option>
+			                      <option value="mint">mint</option>
+			                      <option value="lilac">lilac</option>
+			                      <option value="brown">brown</option>
+			             </select>
                     </div>
                     
                     <div class="col-lg-4 col-md-12 mb-4">
                       <label for="productBigCategoryNo">카테고리</label>
-                      <select class="custom-select d-block w-100" name="productBigCategoryNo" id="productBigCategoryNo" required>
-                        <option value="bc1">bc1</option>
-                        <option value="bc2">bc2</option>
-                        <option value="bc3">bc3</option>
-                        <option value="bc4">bc4</option>
-                        <option value="bc5">bc5</option>
-                        <option value="bc6">bc6</option>
-                        <option value="bc7">bc7</option>
-                        <option value="bc8">bc8</option>
-                        <option value="bc9">bc9</option>
+                      <select class="custom-select d-block w-100" name="productBigCategoryNo" id="productBigCategoryNo" onchange="categoryBic();" required>
+                        <option value="bc1">침대</option>
+                        <option value="bc2">책장/선반유닛</option>
+                        <option value="bc3">서랍</option>
+                        <option value="bc4">의자</option>
+                        <option value="bc5">바테이블/의자</option>
+                        <option value="bc6">카페가구</option>
+                        <option value="bc7">이동식선반</option>
+                        <option value="bc8">옷장</option>
+                        <option value="bc9">수납장/장식장</option>
+                        <option value="bc10">거실장/찬장/콘솔테이블</option>
+                        <option value="bc11">TV/멀티미디어가구</option>
+                        <option value="bc12">소파/암체어</option>
+                        <option value="bc13">조명</option>
+                        <option value="bc14">식탁책상</option>
                       </select>
                       <div class="invalid-feedback">
                         Please select a valid country.
                       </div>
                     </div>
                     
+
+                    
+                    <div style="display: none"><option value="" id="sC"></option></div>
+
                     <div class="col-lg-4 col-md-12 mb-4">
                       <label for="productSmallCategoryNo">S카테고리</label>
                       <select class="custom-select d-block w-100" name="productSmallCategoryNo" id="productSmallCategoryNo" required>
-                        <option value="sc1">sc1</option>
-                        <option value="sc2">sc2</option>
-                        <option value="sc3">sc3</option>
-                        <option value="sc4">sc4</option>
-                        <option value="sc5">sc5</option>
-                        <option value="sc6">sc6</option>
-                        <option value="sc7">sc7</option>
-                        <option value="sc8">sc8</option>
-                        <option value="sc9">sc9</option>
+                        <option value="sc31">더블</option>
+                        <option value="sc32">싱글</option>
+                        <option value="sc33">수납장</option>
+                        <option value="sc34">2층침대</option>
+                        <option value="sc35">어린이</option>
+                        <option value="sc36">유아</option>
                       </select>
                       <div class="invalid-feedback">
                         Please select a valid country.
@@ -317,7 +341,7 @@
 
 
 </div>
-<<script type="text/javascript">
+<script type="text/javascript">
 
 	 
 	// 이벤트를 바인딩해서 input에 파일이 올라올때 위의 함수를 this context로 실행합니다.
@@ -402,5 +426,43 @@
 $(document).ready(function() {
 	$('.mdb-select').material_select();
 });
+
+
+</script>
+<script type="text/javascript">
+function categoryBic() {
+               	
+	let category=$("#productBigCategoryNo").val();
+	$("#productSmallCategoryNo").html("");
+
+	
+	$.ajax({
+		url:"${path}/admin/sCategoryList.do",
+		data:{
+			"category":category
+		},
+		success:data=>{
+			
+			for (var i = 0; i < data.length; i++) {
+				let sCClone=$("#sC").clone();
+				$(sCClone).attr("value",data[i]["SMALL_CATEGORY_NO"]);
+				$(sCClone).text(data[i]["SMALL_CATEGORY_CONTENT"]);
+				$("#productSmallCategoryNo").append(sCClone);
+			}
+		}
+	});
+}	
+
+// 문자열 개행 제거 
+$("#productInfo").bind("keyup",function(){
+// 	 var re = /[~!@\#$%^&*\()\-\.\,\'"'\;=+_']/gi; 
+	 var re = /[\n]/gi; 
+// 	 ("\n", "<br>");
+	 var temp=$("#productInfo").val();
+
+	 if(re.test(temp)){ //특수문자가 포함되면 삭제하여 값으로 다시셋팅
+
+	 $("#productInfo").val(temp.replace(re,"")); } });           
+
 </script>
 <jsp:include page="/WEB-INF/views/common/adminFooter.jsp"/>

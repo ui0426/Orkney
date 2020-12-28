@@ -35,6 +35,6 @@ public class Cart {
 	private String member_name;
 	private String member_id;
 	
-	
+	private String small_category_content;
 	
 }

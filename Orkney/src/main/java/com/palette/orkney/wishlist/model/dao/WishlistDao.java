@@ -49,6 +49,9 @@ public interface WishlistDao {
 	//위쉬리스트 제품 담기
 	int insertWish(SqlSession session, Map data);
 
+	//위시리스트 총 개수
+//	int wlCount(SqlSession session, String mNo);
+
 
 
 }

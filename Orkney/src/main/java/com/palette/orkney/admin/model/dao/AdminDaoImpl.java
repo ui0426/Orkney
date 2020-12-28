@@ -220,8 +220,39 @@ public class AdminDaoImpl implements AdminDao {
 	public int insertProductImage(SqlSession session, Product_image pi) {
 		// TODO Auto-generated method stub
 		return session.insert("admin.insertProductImage", pi);
+	}
+
+	@Override
+	public Map<String,Object> productUpdate(SqlSession session, String pNo) {
+		// TODO Auto-generated method stub
+		return session.selectOne("admin.productUpdateList",pNo);
+	}
+
+	@Override
+	public int producUpdateIn(SqlSession session, Product product) {
+		// TODO Auto-generated method stub
+		return session.update("admin.producUpdateIn", product);
+	}
+
+	@Override
+	public int producUpdateInImg(SqlSession session, Product_image pi) {
+		// TODO Auto-generated method stub
+		return session.update("admin.producUpdateInImg", pi);
+	}
+
+	@Override
+	public List<Map> productImg(SqlSession session, Product product) {
+		// TODO Auto-generated method stub
+		return session.selectList("admin.productImg", product);
+	}
+
+	@Override
+	public List<Map> sCategoryList(SqlSession session, Map<String, Object> list) {
+		// TODO Auto-generated method stub
+		return session.selectList("admin.sCategoryList",list);
 	}	
 	
+
 	
 	
 }

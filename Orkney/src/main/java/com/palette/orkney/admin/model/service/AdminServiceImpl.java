@@ -235,7 +235,88 @@ public class AdminServiceImpl implements AdminService {
 		return dao.updateSortEnd(session, m);
 
 	}
+
+	@Override
+	public Map<String,Object> productUpdate(String pNo) {
+		// TODO Auto-generated method stub
+		return dao.productUpdate(session,pNo);
+	}
+
+	@Override
+	public int producUpdateIn(Product product, List<Product_image> files, String[] img) {
+		int result = dao.producUpdateIn(session, product); 
+		List<Map> p = dao.productImg(session, product);
+		System.out.println("이거 뭐라 나와 ?"+p.get(0).get("PRODUCT_PIC"));
+		System.out.println("이거 뭐라 나와 ?"+p.get(0));
 	
+		int ps=p.size();
+		
+
+		int index=0;
+		try {
+			
+			if(result>0) {
+				if(files!=null) {
+					
+					for(Product_image pi : files) {
+						pi.setProduct_color(img[index]);
+						
+						pi.setProduct_no(product.getProductNo());
+						
+						
+						if (ps == 1 && index>0) {
+							System.out.println("인써트!!!");
+							result = dao.insertProductImage(session, pi);
+						}else if(ps == 2 && index>1) {
+							System.out.println("인써트!!!");
+							result = dao.insertProductImage(session, pi);
+						}else if(ps == 3 && index>2) {
+							System.out.println("인써트!!!");
+							result = dao.insertProductImage(session, pi);
+						}
+						
+						if (ps==1&&index==0) {
+							pi.setProductImageName(p.get(index).get("PRODUCT_PIC").toString());
+							System.out.println("hh"+pi);
+							result = dao.producUpdateInImg(session, pi);
+							
+						}else if (ps==2&&index >= 0 && index<2) {
+							pi.setProductImageName(p.get(index).get("PRODUCT_PIC").toString());
+							System.out.println("hh"+pi);
+							result = dao.producUpdateInImg(session, pi);
+						}else if (ps==3&&index >= 0 && index<3) {
+							pi.setProductImageName(p.get(index).get("PRODUCT_PIC").toString());
+							System.out.println("hh"+pi);
+							result = dao.producUpdateInImg(session, pi);
+						}else if (ps==4&&index >= 0 && index<4) {
+							pi.setProductImageName(p.get(index).get("PRODUCT_PIC").toString());
+							System.out.println("hh"+pi);
+							result = dao.producUpdateInImg(session, pi);
+						}
+					
+						
+						index++;
+					}
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+
+	@Override
+	public List<Map> sCategoryList(Map<String, Object> list) {
+		// TODO Auto-generated method stub
+		return dao.sCategoryList(session,list);
+	}
+
+
+
+
+	
+
 	
 	
 	
