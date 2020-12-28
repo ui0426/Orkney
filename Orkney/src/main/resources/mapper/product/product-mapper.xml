@@ -92,10 +92,10 @@
 			   ON P.BIG_CATEGORY_NO = B.BIG_CATEGORY_NO
 			   
 			   LEFT OUTER JOIN SMALL_CATEGORY S
-			   ON B.BIG_CATEGORY_NO = S.BIG_CATEGORY_NO
+			   ON P.SMALL_CATEGORY_NO = S.SMALL_CATEGORY_NO
 			   
 			   WHERE I.PRODUCT_COLOR='normal'
-			   AND S.SMALL_CATEGORY_PIC='+'
+<!-- 			   AND S.SMALL_CATEGORY_PIC='+' -->
 		<choose>
 
 			<when test="group1=='best'">
