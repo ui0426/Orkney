@@ -41,6 +41,8 @@ public class EmailController {
 	
 	@Autowired
 	private MemberService service;
+	
+	@Autowired
 	private CartService cservice;
 
 	@RequestMapping(value="/transPw.do", method=RequestMethod.POST)
@@ -302,6 +304,8 @@ public class EmailController {
 		String oNo = (String)((Orders)session.getAttribute("orders")).getOrder_no();
 		String memberNo = (String)((Map)session.getAttribute("login")).get("MEMBER_NO");
 		
+		System.out.println(EMAIL+memberNo);
+		
 		int sumprice = (int)((Map)session.getAttribute("info")).get("sumprice");//제품순수금액
 		int shipFee = (int)((Map)session.getAttribute("info")).get("shipFee");//배송비
 		int willPoint = (int)((Map)session.getAttribute("info")).get("willpoint");//사용포인트
@@ -310,8 +314,7 @@ public class EmailController {
 				
 		SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd_HHmmssSSS");
 		System.out.println(sdf);
-		
-		String path=session.getServletContext().getRealPath("/resources/images/product");				
+						
 		
 		List<Cart> c = cservice.selectCart(memberNo);
 		System.out.println("카트:"+c);
@@ -377,7 +380,7 @@ public class EmailController {
 				"        </div>    \r\n" + 
 				"        <div style=\"background-color:rgb(242, 245, 247); width:100%; height: 3px;\"></div>    \r\n" + 
 				"        <div>\r\n" + 
-				"            <div style=\"float: left;\"><img src=\""+path+"/"+c.get(i).getProduct_pic()+"\"></div>\r\n" + 
+				"            <div style=\"float: left;\"></div>\r\n" + 
 				"            <span>"+c.get(i).getProduct_width()+"*"+c.get(i).getProduct_height()+"*"+c.get(i).getProduct_depth()+"</span>\r\n" + 
 				"            <span>"+c.get(i).getCartQTY()+"개</span>\r\n" + 
 				"            <div style=\"float: right;\">"+c.get(i).getProductPrice()+"&nbsp;원</div>\r\n" + 

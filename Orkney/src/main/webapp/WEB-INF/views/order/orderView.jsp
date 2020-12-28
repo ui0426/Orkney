@@ -1149,8 +1149,16 @@
 								<h5 class="payment-price"><fmt:setLocale value="ko_KR"/><fmt:formatNumber type="currency" value="${sum}" /></h5>
 							</div>
 							<div class="price-container">
+								<p class="payment-deilvery">부가세(10%)</p>
+								<p class="payment-deilvery"><fmt:setLocale value="ko_KR"/><fmt:formatNumber type="currency" value="${sum*0.1}" /></p>
+							</div>
+							<div class="price-container">
 								<p class="payment-deilvery">배송비</p>
-								<p class="payment-deilvery">₩5,000</p>
+								<p class="payment-deilvery"><fmt:setLocale value="ko_KR"/><fmt:formatNumber type="currency" value="5000" /></p>
+							</div>
+							<div class="price-container">
+								<p class="payment-deilvery">사용포인트</p>
+								<p class="payment-deilvery">-<c:out value="${order.point_point }"/>p</p>
 							</div>
 							<hr class="payment-partline">
 							<div class="price-container">
@@ -1289,18 +1297,15 @@
 </section>
 
 <script type="text/javascript">
+
 $("#e-r-btn").click(e =>{
 	var odNo = $("#exchange-refund-odNo").val();
 	var sort = $("#sort").val();
-	console.log("클릭"+odNo+sort);
 	var rQty = $("#exchange-refund-qty").val();
 	var pQty = $("#total_pQty").val();
 	var rReason = $("#inputExchangeReason option:selected").text();
 	var rContent = $("#exchange-content").val().trim();
 	var rPic = $("#upFile1")[0].files;
-	console.log(rQty);
-	console.log(pQty);
-	console.log(rReason);
 	
 	if(rQty == ''){
 		alert("수량을 입력해주세요.");
@@ -1326,7 +1331,6 @@ $("#e-r-btn").click(e =>{
 	}else{
 		rReason = '단순변심';
 	}
-	console.log("다 충족함");
 	var data = new FormData();
 	data.append("order_detail_no",odNo);
 	data.append("sort",sort);
@@ -1336,15 +1340,10 @@ $("#e-r-btn").click(e =>{
 	data.append("file",rPic[0] );
 	
     for (var key of data.keys()) {
-
    	  console.log(key);
-
    	}
-
    	for (var value of data.values()) {
-
    	  console.log(value);
-
    	}
 
 	$.ajax({
@@ -1357,13 +1356,17 @@ $("#e-r-btn").click(e =>{
 		success: data => {
 			if(data == '교환신청'){
 				$("#result-msg").html("교환 신청이 접수되었습니다.");
-			}else{
-				$("#result-msg").html("반품 신청이 접수되었습니다.");
+				$(".r-request-1").css("display","none");
+				$(".r-request-2").css("display","block");
 			}
-			$(".r-request-1").css("display","none");
-			$(".r-request-2").css("display","block");
-			
-			
+			if(data == '반품신청'){
+				$("#result-msg").html("반품 신청이 접수되었습니다.");
+				$(".r-request-1").css("display","none");
+				$(".r-request-2").css("display","block");
+			}
+			else{
+				$("result-msg").html("에러가 발생하였습니다. 고객센터에 문의바랍니다.");
+			}
 		}
 	})
 })

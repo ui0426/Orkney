@@ -308,11 +308,11 @@
 				<table class="o-table">
 						<tr>
 							<td>총 주문금액</td>
-							<td><c:out value="${order.total_price }"/>원 (상품금액 <c:out value="${order.total_price-5000 }"/>원 + 배송비 5,000원)</td>
+							<td><c:out value="${order.total_price }"/>원 (상품금액 <c:out value="${order.total_price-order.point_point-5000 }"/>원(부가세 포함)+ 배송비 5,000원)</td>
 						</tr>
 						<tr>
 							<td>사용 포인트</td>
-							<td>0</td>
+							<td><c:out value="${order.point_point }"/>p</td>
 						</tr>
 						<tr>
 							<td>최종 결제 금액</td>

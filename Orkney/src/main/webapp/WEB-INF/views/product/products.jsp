@@ -570,7 +570,7 @@ filter2();
 										</div>
 									</button>
 
-									<div id="categoryMenu" style="display: none;"col-12"">
+									<div id="categoryMenu" style="display: none;"col-12">
 										<div class="form-check mb-4">
 											<input class="form-check-input " name="group3" type="radio" value="null" id="allCategory"  onclick="filter();"> 
 											<label	class="form-check-label fontborder " for="allCategory">전체 선택</label>
@@ -769,7 +769,7 @@ filter2();
 
 
 					<!-- Card -->
-					<div class="card" >
+					<div class="card shadow-hidden" >
 						<!--Card image-->
 <div class="plp-checkbox" id="plp-checkbox"  onclick="check_PIC();">
 <input type="checkbox" name="checkboxname" id="checkbox" black="true" value="${p.PRODUCT_PIC}">

@@ -29,8 +29,7 @@
 		       </div>
 	       </c:if>
 	       
-        <div class="product-list"> <!--제품 쫘롸락 나오는 박스-->
-           
+        <div class="product-list"> <!--제품 쫘롸락 나오는 박스-->           
 	       <c:if test="${ !wish.wishlist_detail.isEmpty() }">
 	       <div id="test_box">
 	       <c:forEach items="${ wish.wishlist_detail }" var="wide">
