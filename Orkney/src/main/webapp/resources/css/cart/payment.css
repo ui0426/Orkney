@@ -281,9 +281,19 @@
     		height: 200px;
 	    	flex-direction: row;
 		}  
-/*         .card-title, .coin-title{
-            z-index: 100;
-        }   */
+		.add-container{
+		    padding: 0px 4px;
+		}
+		.addName{
+		border:none;
+		
+		}
+		.chbt{		     
+    		background-color: white;
+    		font-size: 14px;
+    		 border: 1px solid rgb(216, 216, 216);
+    		border-radius: 5px;
+		}
         .payment_panel > input[type=radio]:checked + label {background: #eaebef;width: auto;height: auto;}        
         
         .pre-point{  

@@ -221,12 +221,12 @@ $(function(){
             <div class="line1"></div> 
             <div class="field">                                
                 <div class="payment_panel">
-                	<input type="radio" name="options" id="option1" autocomplete="off" checked autocompleted style="display: none" value="card" >
+                	<input type="radio" name="options" id="option1" autocomplete="off"  autocompleted style="display: none" value="card" >
                 	<label class="pay-label" for="option1">
                 		<img alt="" src="${path}/resources/img/credit-card.png">
                 		<div class="payment-title">신용카드</div>
                 	</label>                	                           	
-                	<input type="radio" name="options" id="option2" autocomplete="off" checked autocompleted style="display: none"  value="bankTransfer">
+                	<input type="radio" name="options" id="option2" autocomplete="off" autocompleted style="display: none"  value="bankTransfer">
                 	<label class="pay-label" for="option2">
                 		<img alt="" src="${path}/resources/img/money.png">
                 		<div class="payment-title">무통장</div>
@@ -289,7 +289,7 @@ $(function(){
                     <div><button id="extendBtn4">열기</button></div>                
                 </div>                
                             <div class="content3">
-                                개인정보 수집 및 이용 동의
+                              	  개인정보 수집 및 이용 동의
                 
                                 1. 수집항목 : [필수] 이름, 연락처, 이메일주소, 인원정보
                                 2. 수집 및 이용목적 : 사업자회원과 예약이용자의 원활한 거래 진행, 고객상담, 불만처리 등 민원 처리, 분쟁조정 해결을 위한 기록보존, 스테이폴리오 멤버십 및 프로모션, 이벤트 안내
@@ -420,17 +420,17 @@ if($(".ck").is(":checked")==false){
       	    <c:forEach var="addr" items="${ addrList }" varStatus="status">	      		
 		      	<div class="addrDiv">		      			 
 		      			 <div>
-			      			 <input type="text" value="<c:out value="${ addr.address_name}"/>" readonly> 
+			      			 <input type="text" class="addName" value="<c:out value="${ addr.address_name}"/>" readonly> 
 			      			 <input type="button" class="chbt" id="${ addr.address_phone }" value="선택">      		 
 			      			 <input type="hidden" value="${ addr.address_addr }" class="${ addr.address_detail }" id="${ addr.address_post }">
 		      			 </div>		      			 
-		      			 <div>
+		      			 <div class="add-container">
 			      			 <div><c:out value="${ addr.address_addr }"/> </div>
 			      		     <div><c:out value="${ addr.address_detail }"/></div>
 			      		     <div><c:out value="${ addr.address_post }"/></div> 			      		      
+		      					<div><c:out value="${ addr.address_phone }"/></div>
 		      			</div>
 		      			
-		      			<div><c:out value="${ addr.address_phone }"/></div>
 		      	</div>		      				      			 		      		      			      				      				
       			 <div class="line1"></div>
       			 	      			      				
@@ -444,11 +444,7 @@ if($(".ck").is(":checked")==false){
         		let addt = $(e.target).next().attr("class");//주소 detail
         		let adpo = $(e.target).next().attr("id"); //주소
         		let adtl = $(e.target).attr("id"); //전화번호
-        		console.log(adnm);
-        		console.log(adad);
-        		console.log(addt);
-        		console.log(adpo);
-        		console.log(adtl);
+
         		
             	$("#copyname").attr({"value":adnm});        	            	
             	$("#copyphone").attr({"value":adtl}); 
