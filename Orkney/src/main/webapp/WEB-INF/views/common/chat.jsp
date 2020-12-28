@@ -75,7 +75,7 @@
 			</div>
             <div id="messageBody" class="mb new">
                 <div class="day">오늘</div>
-                <div class="marb" id="managerChat">
+                <div class="marbb" id="managerChat">
                 <div class="sender" id="chatLogo">
                     <div class="mark"></div><div class="bName">Orkeny_furniture</div><div class="time">3:01&nbsp;PM</div>
                 </div>
@@ -106,14 +106,14 @@
             </div>
             <div id="inputData">
             </div>
-                <div class="reciver marb rec" id="cloneDiv">
+                <div class="reciver marbb rec" id="cloneDiv">
                     <div class="time rtime"></div>
                     <div class="mbody rbody">
                         <div class="rcontent">
                     	</div>
                     </div>
                 </div>
-                <div class="reciver marb rec" id="cloneDiv2">
+                <div class="reciver marbb rec" id="cloneDiv2">
                     <div class="time rtime"></div>
                     <div class="mbody rbody">
                         <div class="rcontent">
