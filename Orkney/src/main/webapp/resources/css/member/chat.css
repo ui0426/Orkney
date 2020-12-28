@@ -109,7 +109,7 @@
         }
         .rtime{text-align: end;}
         .rbody{/* margin-left: 12%; */}
-        .marb{margin-bottom: 6%;}
+        .marbb{margin-bottom: 6%;}
         .rec{display:none !important;}
          #div1{background: linear-gradient(-173deg, #778899, transparent);max-height: 410px;min-height: 410px;display: flex;flex-direction: column; justify-content: center;}
         #div2{min-height:300px;border-radius: 10px;position: relative; background-color: white;margin-left: 1%;margin-right: 1%;}
