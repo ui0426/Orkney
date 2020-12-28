@@ -146,10 +146,22 @@ input:focus { outline:none; }
         line-height: 10px;
 	}
 	.countBtn:hover{
-		background: grey;
+		background: #eee;
 	}
 	.countBtn svg{
 		width: 0.5rem;
+	}
+	.wl-btn{
+		color: #fff;
+	    background-color: #0058a3;
+	    border-color: #0058a3;
+	    height: 100%;
+	    width: 100%;
+        border-radius: 3px;
+        font-size : 0.775rem;
+	}
+	.wl-btn:hover{
+		background-color: #386f9e;
 	}
 	.pricePerQty {
 			font-weight: normal;
@@ -170,7 +182,7 @@ input:focus { outline:none; }
     	text-align: center;
 	}
 	.deleteBtn-text p{
-		margin-bottom: 0;
+		margin-bottom: 1em;
 	    font-size: .81rem;
 	}
 	.deleteBtn-reset, .deleteBtn-delete{
@@ -178,6 +190,13 @@ input:focus { outline:none; }
 	    line-height: 40px;
 	    width: 49%;
 	    text-align: center;
+        border: 1px solid #437baf;
+   		border-radius: 3px;
+   		font-size: 0.775rem;
+	}
+	.deleteBtn-reset:hover, .deleteBtn-delete:hover {
+		background: #eee;
+		cursor: pointer;
 	}
 	.wl-price{
 	    border-top: 1px #666 dashed;
@@ -191,11 +210,24 @@ input:focus { outline:none; }
    		font-size: 1rem;
 	}
 	.wl-addcart{
-		text-align: center;
-	    bottom-top: 2rem;
-	    margin-top: 2rem;
+	    display: flex;
+	    height: 42px;
+	    margin-top: 2em;
+	    justify-content: center;	
 	}
-	
+	.wl-allAddcart-btn{
+	    text-align: center;
+	    background-color: #111;
+	    border-color: #111;
+	    color: #fff;
+	    border-radius: 3px;
+	    font-size: 0.855rem;
+	    line-height: 40px;
+	    flex-basis: 352px;
+	}
+	.wl-allAddcart-btn:hover{
+		background-color: #353535 !important;
+	}
 	/* 모달창 */
 	.modal-box {
 	    position: fixed;
@@ -231,6 +263,9 @@ input:focus { outline:none; }
     .wish-pencil{
     	margin-left: auto;
     }
+    .wish-pencil svg, .wish-trash svg {
+    	width: 16px;
+    }
     .modal-title-box{
         display: flex;
     	justify-content: space-between;
@@ -243,10 +278,18 @@ input:focus { outline:none; }
 	    line-height: 26px;
     }
     .modal-closeBtn{
-        width: 1.5em;
-	    paddin-bottom: 2px;
-	    height: 1.5em;
-	    line-height: 1.5em;
+	    display: flex;
+	    justify-content: center;
+	    align-items: center;
+	    height: 30px;
+	    border-radius: 50%;
+	    width: 30px;
+    }
+    .modal-closeBtn svg{
+    	width: 0.6em;
+    }
+    .modal-closeBtn:hover{
+	    background: #eee;
     }
     .row-box{
     
@@ -282,6 +325,9 @@ input:focus { outline:none; }
 	    margin-top: 1em;
 	    flex-wrap: wrap;
 	}
+	.wishName-add-btn:hover {
+		text-decoration: underline;
+	}
 	.modal-list-add button{
 	    width: 1.5em;
 	    height: 1.5em;
@@ -301,7 +347,30 @@ input:focus { outline:none; }
 		cursor: pointer;
 		text-decoration: underline;
 	}
-	
+	.reset{
+	    border: 1px solid #437baf;
+    	border-radius: 3px;
+    	font-size: 0.855rem;
+    	flex-grow: 1;
+	}
+	.save{
+	    color: #fff;
+	    background-color: #0058a3;
+	    border-color: #0058a3;
+	    border-radius: 3px;
+	    margin-left: 0.5em;
+    	font-size: 0.855rem;
+    	flex-grow: 1;
+	}
+	.reset:hover{
+		background: #eee;
+	}
+	.save:hover{
+		background: #386f9e;
+	}
+	.wishNameDelete-reset, .wishNameDelete-save{
+		margin-bottom: 1em;
+	}
 	/* 위시리스트 이름 수정 */
 	.wishName-update-form{
 	
@@ -375,5 +444,11 @@ input:focus { outline:none; }
 		.wl-price span {
 		    font-weight: 700 !important;
 		    font-size: 1rem !important;
+		}
+		.wl-btn,.deleteBtn-reset, .deleteBtn-delete {
+			font-size: 0.855rem;
+		}
+		.reset, .save {
+			flex-grow: 0;
 		}
 	

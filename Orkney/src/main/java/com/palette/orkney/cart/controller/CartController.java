@@ -177,7 +177,8 @@ public class CartController {
 					
 		List<Cart> c1 = service.selectCart(memberNo);
 		mv.addObject("cart",c1);
-		mv.addObject("sumprice",sum);		
+		mv.addObject("sumprice",sum);	
+		mv.addObject("cN",cartNo);
 		mv.setViewName("ajax/cartproduct");
 		return mv;
 	}	

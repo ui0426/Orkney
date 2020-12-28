@@ -1,10 +1,12 @@
 package com.palette.orkney.wishlist.model.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.Cookie;
 
+import org.apache.commons.collections.map.HashedMap;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -71,8 +73,22 @@ public class WishlistServiceImpl implements WishlistService {
 
 	//위시리스트 삭제하기
 	@Override
-	public int deleteWishlist(String wNo) {
-		return dao.deleteWishlist(session, wNo);
+	public int deleteWishlist(String wNo, String mNo) {
+		int result = dao.deleteWishlist(session, wNo);
+		System.out.println("위시리스트 삭제" + result);
+		if(result > 0) {
+			ArrayList<Wishlist> wls = (ArrayList)session.selectList("wishlist.wishlistList", mNo);
+			System.out.println("위시리스트 삭제" + wls);
+			if(wls.size() == 0) {
+				System.out.println("위시리스트 삭제" + wls);
+				Map data = new HashedMap();
+		        data.put("mNo", mNo);
+		        data.put("addWName", "위시리스트");
+		        
+				result = dao.addWishlist(session, data);
+			}
+		}
+		return result;
 	}
 
 	//위시리스트 추가하기
@@ -107,6 +123,12 @@ public class WishlistServiceImpl implements WishlistService {
 		
 		return result;
 	}
+
+	//위시리스트 총 개수
+//	@Override
+//	public int wlCount(String mNo) {
+//		return dao.wlCount(session, mNo);
+//	}
 
 	
 }

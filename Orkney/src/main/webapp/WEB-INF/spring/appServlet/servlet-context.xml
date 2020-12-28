@@ -76,6 +76,7 @@
 	<interceptors>
 		<interceptor>
 			<mapping path="/member/mypage.do"/>
+			<mapping path="/wishlist/wishlist.do"/>
 			<beans:bean id="mypage" class="com.palette.orkney.common.interceptor.mypageInterceptor">
 			</beans:bean>
 		</interceptor>
