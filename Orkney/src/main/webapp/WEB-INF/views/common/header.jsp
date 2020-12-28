@@ -85,8 +85,7 @@
             </div>
             <div class="header-menu">
                 <span><a href="${path }/product/products.do?category=all&sale=" style="color:black;">모든제품</a> </span>
-                <span><a href="${path}/product/rooms.do" style="color:black;">디지털 쇼룸</a></span>
-
+                <span><a href="#open"  onclick="roomsNav();" style="color:black;">디지털 쇼룸</a></span>
             </div>
             <div class="header-search">
            		<form class="search-form">
@@ -181,7 +180,7 @@
 		                        <div class="hnf-link hnf-link-color aside-btn-product">모든 상품</div>
 		                    </li>
 		                    <li>
-		                        <div class="hnf-link hnf-link-color aside-btn-showroom">디지털쇼룸</div>
+		                        <div class="hnf-link hnf-link-color aside-btn-showroom" >디지털쇼룸</div>
 		                    </li>
 		                    <li>
 		                        <div class="hnf-small-link hnf-link-color aside-btn-event">이달의 이벤트</div>
@@ -361,6 +360,11 @@
  <jsp:include page="/WEB-INF/views/common/chat.jsp"/>
 	</c:if>
         <script>
+        
+        function roomsNav(){
+      	  $(".btn-aside").trigger("click");
+      	  $(".aside-btn-showroom").trigger("click");
+        }
         $(function(){
 //         	$('.search-input').autocomplete({
 //         		source: function(request, response) {

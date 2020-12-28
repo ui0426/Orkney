@@ -570,7 +570,7 @@ filter2();
 										</div>
 									</button>
 
-									<div id="categoryMenu" style="display: none;"col-12"">
+									<div id="categoryMenu" style="display: none;"col-12">
 										<div class="form-check mb-4">
 											<input class="form-check-input " name="group3" type="radio" value="null" id="allCategory"  onclick="filter();"> 
 											<label	class="form-check-label fontborder " for="allCategory">전체 선택</label>

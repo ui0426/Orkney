@@ -113,6 +113,7 @@ public class ProductController {
 		Map types= new HashMap();
 		types.put("type", type);
 		mv.addObject("rooms", service.selectRooms(type));
+		
 		mv.addObject("roomsProduct", service.selectRoomsProduct(types));
 		System.out.println(type);
 		mv.addObject("roomsTitle", service.selectRoomsTitle(type));
