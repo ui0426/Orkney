@@ -271,8 +271,8 @@
             display:none;            
             margin-top : 10px;  
         }
-        table,tr,td,th{
-            font-size: 4px;
+        table, th, tr, td{
+           border: gray 1px solid;
         }
         #extendBtn1, #extendBtn2, #extendBtn3, #extendBtn4{
             cursor: pointer;

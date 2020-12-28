@@ -77,9 +77,10 @@ public class CartController {
 	
 	//모두 장바구니에 추가
 	@RequestMapping("/cart/cartInsertAll.do")
-	public ModelAndView cartInsertAll(HttpSession session, ModelAndView mv, Wishlist wish) {
+	public ModelAndView cartInsertAll(HttpSession session, ModelAndView mv, @RequestParam(value="cartQTY", defaultValue ="1") int cartQTY) {
 		
-		System.out.println("위쉬"+wish);
+		
+		
 		return mv;
 	}
 		
