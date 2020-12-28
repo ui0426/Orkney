@@ -677,22 +677,27 @@ public class AdminController {
 
 	}
 	
+	@RequestMapping("/test")
+	public String test() {
+		return "admin/emailTest";
+	}
+	
 	//제품 업데이트
-		@RequestMapping("/admin/productUpdate.do")
-		public ModelAndView productUpdate(ModelAndView mv,
-				@RequestParam(name="pNo") String pNo
-			
-				){
-
-			mv.addObject("list",service.productUpdate(pNo));
-			mv.setViewName("admin/product/adminProductUpdate");
-			return mv;
-		}
+	@RequestMapping("/admin/productUpdate.do")
+	public ModelAndView productUpdate(ModelAndView mv,
+			@RequestParam(name="pNo") String pNo
 		
-		@RequestMapping("/admin/sCategoryList.do")
-		@ResponseBody
-		public List<Map> sCategoryList (@RequestParam Map<String,Object> list) {
-			System.out.println("왜 안됨?");
-			return service.sCategoryList(list);
-		}
+			){
+
+		mv.addObject("list",service.productUpdate(pNo));
+		mv.setViewName("admin/product/adminProductUpdate");
+		return mv;
+	}
+	
+	@RequestMapping("/admin/sCategoryList.do")
+	@ResponseBody
+	public List<Map> sCategoryList (@RequestParam Map<String,Object> list) {
+		System.out.println("왜 안됨?");
+		return service.sCategoryList(list);
+	}
 }

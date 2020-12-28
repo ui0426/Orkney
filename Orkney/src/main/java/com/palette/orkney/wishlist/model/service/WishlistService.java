@@ -26,7 +26,7 @@ public interface WishlistService {
 	int wishNameUpdate(Map data);
 
 	//위시리스트 삭제하기
-	int deleteWishlist(String wNo);
+	int deleteWishlist(String wNo, String mNo);
 
 	//위시리스트 추가하기
 	int addWishlist(Map data);
@@ -39,6 +39,9 @@ public interface WishlistService {
 
 	//위시리스트에 제품 담기
 	int insertWish(Map data);
+
+	//위시리스트 총 개수
+//	int wlCount(String mNo);
 
 
 }

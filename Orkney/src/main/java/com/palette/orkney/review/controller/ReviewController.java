@@ -181,7 +181,16 @@ public class ReviewController {
 		return result;
 	}
 	
-	
+	//작성가능한 리뷰개수 가져오기
+	@RequestMapping("/review/reviewQty")
+	@ResponseBody
+	public int reviewQty(HttpSession session) {
+		Map login = (Map)session.getAttribute("login");
+		String mNo = (String)login.get("MEMBER_NO");
+		
+		return service.selectBeforeReviewList((String)login.get("MEMBER_NO")).size();
+		
+	}
 	
 
 }
