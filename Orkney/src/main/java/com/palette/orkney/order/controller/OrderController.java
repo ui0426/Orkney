@@ -299,4 +299,16 @@ public class OrderController {
 	public String oev() {
 		return "order/orderEndView";
 	}
+	
+	//주문한 총 개수
+	@RequestMapping("/order/orderQty")
+	@ResponseBody
+	public int orderQty(HttpSession session) {
+		Map login = (Map)session.getAttribute("login");
+		String mNo = (String)login.get("MEMBER_NO");
+		
+		List list = service.selectOrderList(mNo);
+		
+		return list.size();
+	}
 }

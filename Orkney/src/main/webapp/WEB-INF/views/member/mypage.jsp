@@ -28,7 +28,7 @@
          <div class="mypage-row-box" onclick="location.href='${ path }/order/orderList.do'">
             <div class="mypage-row-content">
                <a>주문 내역</a>
-               <span>진행 중인 주문 없음</span>
+               <span id="order-count">진행 중인 주문 없음</span>
             </div>
             <div class="mypage-row-svg">
                <svg focusable="false" viewBox="0 0 24 24" class="profile__svg-icon profile__link-box-arrow-right" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M19.2937 12.7074L20.0008 12.0003L19.2938 11.2932L12.0008 3.99927L10.5865 5.41339L16.1727 11.0003H4V13.0003H16.1723L10.5855 18.5868L11.9996 20.0011L19.2937 12.7074Z"></path></svg>
@@ -37,7 +37,7 @@
          <div class="mypage-row-box" onclick="location.href='${ path }/wishlist/wishlist.do'">
             <div class="mypage-row-content">
                <a>위시 리스트</a>
-               <span>저장된 리스트 없음</span>
+               <span id="wl-count">저장된 리스트 1개</span>
             </div>
             <div class="mypage-row-svg">
                <svg focusable="false" viewBox="0 0 24 24" class="profile__svg-icon profile__link-box-arrow-right" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M19.2937 12.7074L20.0008 12.0003L19.2938 11.2932L12.0008 3.99927L10.5865 5.41339L16.1727 11.0003H4V13.0003H16.1723L10.5855 18.5868L11.9996 20.0011L19.2937 12.7074Z"></path></svg>
@@ -46,7 +46,7 @@
 		 <div class="mypage-row-box" onclick="location.href='${ path }/review/reviewList.do?s=reviewable'">
             <div class="mypage-row-content">
                <a>나의 리뷰</a>
-               <span>작성 가능한 리뷰 없음</span>
+               <span id="review-count">작성 가능한 리뷰 없음</span>
             </div>
             <div class="mypage-row-svg">
                <svg focusable="false" viewBox="0 0 24 24" class="profile__svg-icon profile__link-box-arrow-right" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M19.2937 12.7074L20.0008 12.0003L19.2938 11.2932L12.0008 3.99927L10.5865 5.41339L16.1727 11.0003H4V13.0003H16.1723L10.5855 18.5868L11.9996 20.0011L19.2937 12.7074Z"></path></svg>
@@ -100,7 +100,12 @@
                      </div>
                      <div class="flex-row-between">
                         <span><c:out value="${ login.MEMBER_ID }"/></span>
-                        <span>확인됨???</span>
+                        <c:if test="${login.EMAIL_AUTH == 'Y'}">
+                        <span class="email-auth auth-y">확인됨</span>
+                        </c:if>
+                        <c:if test="${login.EMAIL_AUTH == 'N'}">
+                        <span class="email-auth auth-n">확인되지 않음</span>
+                        </c:if>
                      </div>
                      <div id="contact-box" class="update-box" style="display: block;">
                      </div>
@@ -207,8 +212,8 @@
                   <div>이메일로 혜택, 팁, 뉴스를 받아보시겠습니까?</div>
                   <div class="form-check form-switch ckBtn">
                   <c:if test="${ login.EMAIL_CH == 'Y'}">
-				  </c:if>
 				  <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" checked/>
+				  </c:if>
 				   <c:if test="${ login.EMAIL_CH == 'N'}">
 				  <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault"/>
 				  </c:if>
@@ -251,11 +256,79 @@
    
 </section>
 
+	<!-- 탈퇴하기 모달 -->
     <div onclick="history.back();" class="delete-modal-cover"></div>
     <div id="delete-modal">
        
     </div>
+    
+    
+    <!-- 이메일 인증안했을떄 알람 -->
+    <div class="auth">
+    	<div class="auth-title">계정을 안전하게 유지하세요.</div>
+    	<div class="auth-content">
+    		<div class="auth-msg">이메일 인증을 위해 고객님의 이메일로 인증 링크를 보내드립니다.</div>
+    		<div class="auth-close">닫기</div>
+    	</div>
+    	<div class="email-send">이메일 보내기</div>
+    </div>
+    
 <script>
+//주문, 위시, 리뷰 개수 가져오기~
+$(function(){
+	$.ajax({
+		url: '${path}/wishlist/wlCount.do',
+		success: data=>{
+			console.log(data);
+			if(data > 1){
+				$('#wl-count').text('저장된 리스트 ' + data + '개');
+			}
+		}
+	})
+	
+	$.ajax({
+		url: '${path}/order/orderQty',
+		success: data=>{
+			console.log(data);
+			if(data > 1){
+				$('#order-count').text('진행 중인 주문 ' + data + '개');
+			}
+		}
+	})
+	
+	$.ajax({
+		url: '${path}/review/reviewQty',
+		success: data=>{
+			console.log(data);
+			if(data > 0){
+				$('#review-count').text('작성 가능한 리뷰 ' + data + '개');
+			}
+		}
+	})
+	
+})
+
+$('.auth-close').click(e=>{
+	$('.auth').removeClass('auth-show');
+});
+$('.email-send').click(e=>{
+	location.href='${path}/member/emailAuthAfter.do';
+});
+
+$(function(){
+	if('${ login.EMAIL_CH }' == 'Y'){
+		$('.ckBtn').css({'color': '#0075ff'});
+	} 
+	
+		console.log('이메일' + '${ login.EMAIL_AUTH }');
+	if('${ login.EMAIL_AUTH }' == 'N'){ 
+		
+		$('.auth').addClass('auth-show');
+		
+	} else {
+		$('.auth').removeClass('auth-show');
+	}
+});
 
 $('.form-check-input').click(e=>{
 	console.log($('#flexSwitchCheckDefault').is(':checked') == true);
@@ -295,16 +368,16 @@ let makeAjax = function(url, data, success){
    
 	/* 회원탈퇴 */
 $("#deleteBtn").click(function() {
-	//location.href="${path}/test";  
-  $("#delete-modal,.delete-modal-cover,html").addClass("open");
-  window.location.hash = "#open";
+	location.href="${path}/test";  
+//   $("#delete-modal,.delete-modal-cover,html").addClass("open");
+//   window.location.hash = "#open";
   
-  makeAjax('${path}/member/insertForm.do', {form: 'member/mypageDiv/deleteModal'}, data=>{
-		  console.log(data);
-		  $.parseHTML(data);
-		  $('#delete-modal').html(data);
+//   makeAjax('${path}/member/insertForm.do', {form: 'member/mypageDiv/deleteModal'}, data=>{
+// 		  console.log(data);
+// 		  $.parseHTML(data);
+// 		  $('#delete-modal').html(data);
 	  
-  })
+//   })
   
 });
 

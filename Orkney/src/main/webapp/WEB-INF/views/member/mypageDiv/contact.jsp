@@ -16,8 +16,8 @@
                            <input class="disabled" type="email" value="${ login.MEMBER_ID }" disabled>
                         </div>
                         <div class="personal-information-btn">
-                           <button type="button" id="contact-reset">취소</button>
-                           <button type="button" id="contact-submit">저장</button>
+                           <button type="button" id="contact-reset" class="btn btn-light btn-rounded">취소</button>
+                           <button type="button" id="contact-submit" class="btn btn-dark btn-rounded">저장</button>
                         </div>
                         
 <script>
