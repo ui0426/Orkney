@@ -788,9 +788,9 @@ filter2();
 						<!--Card content-->
 						<div class="card-body">
 							<!--Title-->
-							<h4 class="card-title" id="product_name" >
+							<h6 class="card-title" id="product_name" >
 								<c:out value="${p.PRODUCT_NAME}" />
-							</h4>
+							</h6>
 							<!--Text-->
 							<p class="card-text marginZero" id="category">
 								<c:out value="${p.BIG_CATEGORY_NO }"></c:out>
