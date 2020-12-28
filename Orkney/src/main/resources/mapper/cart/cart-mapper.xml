@@ -46,7 +46,7 @@
   		join member using(member_no)  		
   		where member_no=#{memberNo} and i.product_color='normal'
   	</select>
-	<!-- 제일 최신 cartNo -->
+
   	<select id="selectCartNo" parameterType="string" resultType="string">
   		SELECT cart_no
 FROM(

@@ -10,113 +10,8 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp">
    <jsp:param name="title" value="리뷰작성"/>
 </jsp:include>
+<link rel="stylesheet" href="${path }/resources/css/review/reviewForm.css"/>
 <style>
-h1, h3{margin : 0;}
-.review-container-content{
-   margin: 1.5rem 1rem 3rem 1rem;
-}
-.review-container-inner{
-   max-width: 656px;
-   margin:0 auto;
-}
-.reviewform-title{
-   text-align: center;
-   font-weight: 700;
-   font-size: 1.5rem;
-   margin: 1rem 0px;
-}
-.review-sub-title{
-   font-size: 1.125rem;
-   font-weight: 700;
-   margin-bottom: 1em;
-}
-@media(min-width: 769px){
-   .review-small-container{
-       grid-template-columns: 25% 1fr;
-       display: grid;
-   }
-   .review-sub-title{
-      margin-buttom: 0;
-   }
-}
-/* @media(min-width: 1024px){
-   
-   .reviewform-title{
-      font-size: 2.25rem;
-   }
-   
-   .review-sub-title{
-      font-size: 1.375rem;
-      margin-left: 1em;
-   }
-   
-} */
-.review-small-container{
-   margin: 0 .7em 0 1em;
-}
-
-.review-contents{
-   margin-bottom: 1.5em;
-}
-.p-info{
-   font-size: .8em;
-}
-.p-name{
-   font-size: 1.3em;
-}
-.img-size{
-    width: 10em;
-    height: auto;
-}
-
-/* 별점 */
-.star-input img{
-   width:20px;
-}
-#startext{
-   font-size: .75em;
-    font-weight: 900;
-}
-
-/* 사진업로드 */
-.review-file{
-   position: relative;
-    width: 93px;
-    height: 93px;
-}
-
-/* 파일 필드 숨기기 */
-.filebox input[type="file"] {  
-   position: absolute; 
-   width: 1px; 
-   height: 1px; 
-   padding: 0; 
-   margin: -1px; 
-   overflow: hidden; 
-   clip:rect(0,0,0,0); 
-   border: 0;
-}
-.file-container ul{
-   margin: -5px;
-    overflow: hidden;
-}
-.file-container ul li{
-    float: left;
-    margin: 5px;
-}
-.review-file label{
-   display: block;
-    box-sizing: border-box;
-    height: 100%;
-    padding-top: 24px;
-    border: 1px solid #ddd;
-    background: #fff;
-    font-size: 13px;
-    line-height: 17px;
-    text-align: center;
-    cursor: pointer;
-    position: relative;
-}
 .review-file label:before{
    display: block;
     content: url("../resources/svg/camera-retro-solid.svg");
@@ -125,23 +20,6 @@ h1, h3{margin : 0;}
     height: 21px;
     margin: 0 auto 6px;
 }
-.none{
-   display: none;
-}
-
-.btn-flex{
-    display: flex;
-    justify-content: center;
-    position:absolute;
-    z-index: 10;
-    right: 0;
-}
-.reviewForm-btn{
-   display: flex;
-   justify-content: center;
-}
-
-
 </style>
 <section class="review-container">
    <div class="review-container-content">
@@ -362,65 +240,46 @@ h1, h3{margin : 0;}
        
 
         //이미지 미리보기
-        function handleFiles(file, name){
-           console.log(file);
+        function handleFiles(file, name){//매개변수로 input태그에 담기는 첨부파일과 파일경로~이름~확장명을 데리고 온다.
            console.log("파일경로 이름 확장명 : "+name);
-           console.log(name.length);
-           var _lastDot = name.lastIndexOf('.');//확장자 있는 자릿수
-           console.log(_lastDot);
-           var ext = name.substring(_lastDot, name.length);
-           console.log(ext);
-           ext = name.substring(_lastDot, name.length).toLowerCase();//소문자로 변경
-           console.log(ext);
-           console.log(ext.indexOf('.pdf'));
-           console.log(ext.indexOf('.jpg'));
-           console.log(ext.indexOf('.png'));
+           var _lastDot = name.lastIndexOf('.');//뒤에서부터 확장자까지의 자릿수
+           var ext = name.substring(_lastDot, name.length);//여기까진 확장자 분리하기
+           ext = name.substring(_lastDot, name.length).toLowerCase();//확장자 무조건 소문자로 변경
            
+           //이미지 파일인지 확실하게 확인
            if(ext.indexOf('.gif')>-1 || ext.indexOf('.png')>-1 || ext.indexOf('.jpg')>-1 || ext.indexOf('.jpeg')>-1){
-              console.log("이미지다");
-              console.log(file.closest("div"));
-              file.closest("div").setAttribute("class","none");//input태그 있는 div는 숨기기
+              file.closest("div").setAttribute("class","none");//input태그가 있는 div는 숨기기
               
                 const img = document.createElement("img");
-                  file.parentNode.parentNode.nextSibling.nextSibling.setAttribute("class","review-file");
-                  console.log("이미지 넣을 div에 클래스 설정");
-                  file.parentNode.parentNode.nextSibling.nextSibling.appendChild(img);
+                file.parentNode.parentNode.nextSibling.nextSibling.setAttribute("class","review-file");
+                //이미지 넣을 div에 클래스 설정
+                file.parentNode.parentNode.nextSibling.nextSibling.appendChild(img);
                 img.src = URL.createObjectURL(file.files[0]);
                 img.setAttribute("style","position:absolute; width:100%; height:100%;");
-                console.log("이미지까지 무사히 들어옴");
+                //input태그에 담은 이미지 img태그에 담기 성공
                 
-                console.log(file.parentNode.parentNode.nextSibling.nextSibling.nextSibling);
-                console.log("버튼보임!!!!!!!!");
-                console.log("========================여기까지 이미지 미리보기 끝=========================")
+                //첨부파일 삭제 버튼보임
+               	//========================여기까지 이미지 미리보기 끝=========================
                
            }else{
-              alert("이미지 아니다");
+              alert("이미지 파일이 아니다");
            }
         };
         
-      //이미지 삭제하기
-       function deletePreview(btn, i){
-         console.log(btn);
-         console.log(i);
-         var div = btn.parentNode;
-         var img = btn.parentNode.lastChild; 
-         console.log(div);
+      //미리보기 이미지 삭제하기
+       function deletePreview(btn, i){//매개변수로 삭제버튼 자신과 id값에 해당하는 번호(총 3개의 첨부파일을 등록할 수 있도록 해둠)
+         var div = btn.parentNode;//삭제버튼과 미리보기 이미지를 담고있는 div
+         var img = btn.parentNode.lastChild; //이미지 태그
          img = img.parentNode.removeChild(img);//미리보기 이미지 태그는 완전히 제거
-         console.log(img);
-         
          div.setAttribute("class","none");//미리보기 이미지 담았던 div숨기기
          
-         console.log($(btn).parent().prev().find("input").val());
-         $(btn).parent().prev().find("input").val("");
-         console.log($(btn).parent().prev().find("input").val());
-         $(btn).parent().prev().find("input").prop("type","text");
-         $(btn).parent().prev().find("input").prop("type","file");
-        console.log($(btn).parent().prev().find("input"));
+         $(btn).parent().prev().find("input").val("");//근접요소 탐색으로 해당 input태그에 접근해 value값을 지운다
+         $(btn).parent().prev().find("input").prop("type","text");//input태그의 타입을 한번 바꾸어 value값을 확실히 지운다
+         $(btn).parent().prev().find("input").prop("type","file");//그리고 다시 파일을 첨부할 수 있도록 다시 타입을file로 바꾼다
         
          var box = "#img-box"+i;
-         $(box).removeClass("none").addClass("filebox").addClass("review-file");
-         console.log("다시 새로운 인풋");
-         
+         $(box).removeClass("none").addClass("filebox").addClass("review-file");//input태그의 부모태그 div를 다시 보이게 한다
+         //다시 새로운 input 태그 생성
       }
            
            

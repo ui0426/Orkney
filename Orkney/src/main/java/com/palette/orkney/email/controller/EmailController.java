@@ -41,6 +41,8 @@ public class EmailController {
 	
 	@Autowired
 	private MemberService service;
+	
+	@Autowired
 	private CartService cservice;
 
 	@RequestMapping(value="/transPw.do", method=RequestMethod.POST)
@@ -88,18 +90,13 @@ public class EmailController {
 				"      <div style=\"width:65%;height:100%;display:flex; flex-direction: column; justify-content: center; background-color:rgb(242, 245, 247);max-width:709px ;\">\r\n" + 
 				"        <div style=\"width: 85%;height: 85%;align-self: center; background-color:white;padding:.5rem .8rem 0rem;text-align: -webkit-left;\">\r\n" + 
 				"          <div style=\"text-align: -webkit-center;\">\r\n" + 
-				"            <div style=\"background-image: url(https://kr.accounts.ikea.com/resources/static/logo.svg);\r\n" + 
-				"          background-repeat: no-repeat;\r\n" + 
-				"            background-size: 88px 44px;\r\n" + 
-				"            content: '';\r\n" + 
-				"            width:88px;\r\n" + 
-				"            height:44px;\r\n" + 
-				"            background-color:#0058a3;\"></div></div>\r\n" + 
+				"            <div style=\"font-weight: 900;\r\n" + 
+				"               font-size: 40px;\">ORKNEY</div></div>\r\n" + 
 				"          <br>\r\n" + 
 				"        <div><h1 style=\"margin:0;\">안녕하세요.</h1></div>\r\n" + 
 				"        <br>\r\n" + 
 				"        <div style=\"height: 47%;\">비밀번호 변경을 요청하셨습니다.<br><br>\r\n" + 
-				"          고객님께서 요청하시지 않았다면, 보안을 위해 IKEA 계정에 로그인하실 수 있는지 확인해 주세요.<br><br>          \r\n" + 
+				"          고객님께서 요청하시지 않았다면, 보안을 위해 ORKNEY 계정에 로그인하실 수 있는지 확인해 주세요.<br><br>          \r\n" + 
 				"          비밀번호 변경을 요청하셨다면 아래 버튼을 눌러 비밀번호를 변경해주세요.</div>\r\n" + 
 				"          <div style=\"text-align-last: center;\"><a target='_blank'"
 				+ "href='http://localhost:9090/orkney/member/transPassword.do?id="+email+"&key="+key+"' style=\"padding: 18px 37px 24px; border:none;background-color:#0058a3;border-radius: 30px;color: white; font-weight: 700;\">비밀번호 변경</a></div>\r\n" + 
@@ -307,6 +304,8 @@ public class EmailController {
 		String oNo = (String)((Orders)session.getAttribute("orders")).getOrder_no();
 		String memberNo = (String)((Map)session.getAttribute("login")).get("MEMBER_NO");
 		
+		System.out.println(EMAIL+memberNo);
+		
 		int sumprice = (int)((Map)session.getAttribute("info")).get("sumprice");//제품순수금액
 		int shipFee = (int)((Map)session.getAttribute("info")).get("shipFee");//배송비
 		int willPoint = (int)((Map)session.getAttribute("info")).get("willpoint");//사용포인트
@@ -315,8 +314,7 @@ public class EmailController {
 				
 		SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd_HHmmssSSS");
 		System.out.println(sdf);
-		
-		String path=session.getServletContext().getRealPath("/resources/images/product");				
+						
 		
 		List<Cart> c = cservice.selectCart(memberNo);
 		System.out.println("카트:"+c);
@@ -382,7 +380,7 @@ public class EmailController {
 				"        </div>    \r\n" + 
 				"        <div style=\"background-color:rgb(242, 245, 247); width:100%; height: 3px;\"></div>    \r\n" + 
 				"        <div>\r\n" + 
-				"            <div style=\"float: left;\"><img src=\""+path+"/"+c.get(i).getProduct_pic()+"\"></div>\r\n" + 
+				"            <div style=\"float: left;\"></div>\r\n" + 
 				"            <span>"+c.get(i).getProduct_width()+"*"+c.get(i).getProduct_height()+"*"+c.get(i).getProduct_depth()+"</span>\r\n" + 
 				"            <span>"+c.get(i).getCartQTY()+"개</span>\r\n" + 
 				"            <div style=\"float: right;\">"+c.get(i).getProductPrice()+"&nbsp;원</div>\r\n" + 

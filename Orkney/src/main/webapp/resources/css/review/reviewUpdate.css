@@ -1,0 +1,131 @@
+@charset "UTF-8";
+
+h1, h3{margin : 0;}
+.review-container-content{
+	margin: 1.5rem 1rem 3rem 1rem;
+}
+.review-container-inner{
+	max-width: 656px;
+	margin:0 auto;
+}
+.reviewform-title{
+	text-align: center;
+	font-weight: 700;
+	font-size: 1.5rem;
+	margin: 1rem 0px;
+}
+.review-sub-title{
+	font-size: 1.125rem;
+	font-weight: 700;
+	margin-bottom: 1em;
+}
+@media(min-width: 769px){
+	.review-small-container{
+	    grid-template-columns: 25% 1fr;
+	    display: grid;
+	}
+	.review-sub-title{
+		margin-buttom: 0;
+	}
+}
+/* @media(min-width: 1024px){
+	
+	.reviewform-title{
+		font-size: 2.25rem;
+	}
+	
+	.review-sub-title{
+		font-size: 1.375rem;
+		margin-left: 1em;
+	}
+	
+} */
+.review-small-container{
+	margin: 0 .7em 0 1em;
+}
+
+.review-contents{
+	margin-bottom: 1.5em;
+}
+.p-info{
+	font-size: .8em;
+}
+.p-name{
+	font-size: 1.3em;
+}
+.img-size{
+    width: 10em;
+    height: auto;
+}
+
+/* 별점 */
+.star-input img{
+	width:20px;
+}
+#startext{
+	font-size: .75em;
+    font-weight: 900;
+}
+
+
+/* 사진업로드 */
+.review-file{
+    width: 93px;
+    height: 93px;
+    position: relative;
+}
+
+/* 파일 필드 숨기기 */
+.filebox input[type="file"] {  
+	position: absolute; 
+	width: 1px; 
+	height: 1px; 
+	padding: 0; 
+	margin: -1px; 
+	overflow: hidden; 
+	clip:rect(0,0,0,0); 
+	border: 0;
+}
+.file-container ul{
+	margin: -5px;
+    overflow: hidden;
+}
+.file-container ul li{
+    float: left;
+    margin: 5px;
+}
+.review-file label{
+	display: block;
+    box-sizing: border-box;
+    height: 100%;
+    padding-top: 24px;
+    border: 1px solid #ddd;
+    background: #fff;
+    font-size: 13px;
+    line-height: 17px;
+    text-align: center;
+    cursor: pointer;
+    position: relative;
+}
+.review-file label:before{
+	display: block;
+    content: url("../resources/svg/camera-retro-solid.svg");
+    background-position: -1046px -464px;
+    width: 26px;
+    height: 21px;
+    margin: 0 auto 6px;
+}
+.none{
+	display: none;
+}
+
+.reviewForm-btn{
+	display: flex;
+	justify-content: center;
+}
+#modalcontent{
+    font-size: 1em;
+    text-align: center;
+    margin: 1em;
+    font-weight: 600;
+}

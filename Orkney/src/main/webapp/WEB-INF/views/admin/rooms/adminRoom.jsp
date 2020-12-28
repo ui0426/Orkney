@@ -98,12 +98,12 @@
 						</select>
 						<div id="img-div">
 							<input type="checkbox" id="cbx" class="toggle"
-								style="display: none;" name="toggleInsert" value="추가"> <label
-								for="cbx" class="check"> <svg width="18px" height="18px"
-									viewBox="0 0 18 18">
-								    <path
-										d="M1,9 L1,3.5 C1,2 2,1 3.5,1 L14.5,1 C16,1 17,2 17,3.5 L17,14.5 C17,16 16,17 14.5,17 L3.5,17 C2,17 1,16 1,14.5 L1,9 Z"></path>
-								    <polyline points="1 9 7 14 15 4"></polyline>
+								style="display: none;" name="toggleInsert" value="추가"> 
+								<label for="cbx" class="check"> 
+									<svg id="rm-svg" width="18px" height="18px"viewBox="0 0 18 18">
+								    	<path
+											d="M1,9 L1,3.5 C1,2 2,1 3.5,1 L14.5,1 C16,1 17,2 17,3.5 L17,14.5 C17,16 16,17 14.5,17 L3.5,17 C2,17 1,16 1,14.5 L1,9 Z"></path>
+								    	<polyline points="1 9 7 14 15 4"></polyline>
 								  </svg>
 							</label>
 							<!-- <input type="checkbox" class="toggle" name="toggleInsert"value="추가"> -->
@@ -337,6 +337,7 @@ function ajaxAdmin() {
 					$(cl).attr("style", 'display:block; position: absolute;  top:'+((data[t]["ROOMS_TOP"]<94)?data[t]["ROOMS_TOP"]:94)+'%; left:'+((data[t]["ROOMS_LEFT"]<94)?data[t]["ROOMS_LEFT"]:94)+"%; ");
 					$(cl).find(".rm-a").css({"opacity":"1","visibility": "visible"});
 					$(cl).find(".rm-a").css({"border":" 2px solid red"});
+					$(cl).find(".rm-a-a").attr("href","${path}/product/productDetail.do?productno="+data[t]["PRODUCT_NO"]);
 					if(today>endDate){
 				    	   $(cl).find(".rm-pb-et-new").remove();
 				    	 	}
@@ -520,6 +521,7 @@ function getInputName(){
 		    	 	}
 			$(cl).find(".rm-bt-name").html(data[t]["PRODUCT_NAME"]);
 			$(cl).find(".rm-bt-sp").html(data[t]["PRODUCT_INFO"]);
+			$(cl).find(".rm-a-a").attr("href","${path}/product/productDetail.do?productno="+data[t]["PRODUCT_NO"]);
 			if(data[t]["SALE_PER"]==data[t]["PRODUCT_PRICE"]){
 				$(cl).find(".rm-pb-et-p").remove();
 			$(cl).find(".rm-remo").remove();
@@ -881,7 +883,7 @@ function getInputName(){
 
     // Textbox value    
     }
-    var _value = event.srcElement.value;    
+    /*  var _value = event.srcElement.value;    
 	// 소수점(.)이 두번 이상 나오지 못하게
 
     var _pattern0 = /^\d*[.]\d*$/; // 현재 value값에 소수점(.) 이 있으면 . 입력불가
@@ -894,7 +896,7 @@ function getInputName(){
 
         }
 
-    }
+    }  */
 	// 1000 이하의 숫자만 입력가능
 
     var _pattern1 = /^\d{2}$/; // 현재 value값이 3자리 숫자이면 . 만 입력가능
@@ -912,16 +914,16 @@ function getInputName(){
     }
     // 소수점 둘째자리까지만 입력가능
 
-    var _pattern2 = /^\d*[.]\d{2}$/; // 현재 value값이 소수점 둘째짜리 숫자이면 더이상 입력 불가
+    /*  var _pattern2 = /^\d*[.]\d{2}$/; // 현재 value값이 소수점 둘째짜리 숫자이면 더이상 입력 불가
 
     if (_pattern2.test(_value)) {
 
         alert("소수점 둘째자리까지만 입력가능합니다.");
 
         return false;
-    }  
+    }   */
  		 return true;
-	}
+	} 
 	
 	function readURL(input) {
     
