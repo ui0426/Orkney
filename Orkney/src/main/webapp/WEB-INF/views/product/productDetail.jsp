@@ -434,7 +434,7 @@ height: 32rem;
 
 				<div class="col-lg-5 text-center text-md-left">
 
-					<h1 class="productName"
+					<h1 class="productName" id="productName"
 						class="h2-responsive text-center text-md-left product-name font-weight-bold dark-grey-text mb-1 ml-xl-0 ml-4">
 						<c:out value="${p.PRODUCT_NAME}"/>
 					</h1>
@@ -531,7 +531,7 @@ $(function(){
 				url:"${path }/cart/cartInsert.do",
 				data:{
 					productNo:"${r.PRODUCT_NO}",
-					productPrice:${r.PRODUCT_PRICE}
+					productPrice:"${r.PRODUCT_PRICE}"
 					},
 				success:data=>{}
 			})
@@ -563,7 +563,7 @@ $(function(){
           <div class="col-9">
             <p>상품을 더 구매하시겠습니까??</p>
             <div style="display:flex;">            
-            	<div class="productName"><c:out value="${p.PRODUCT_NAME}"/></div>
+            	<div class="productName" id="productName"><c:out value="${p.PRODUCT_NAME}"/></div>
             	<div>상품이</div>
             </div>
             <p>장바구니에 추가되었습니다.</p>
@@ -1034,19 +1034,22 @@ function colorClick() {
 $(function(){
 
 	<c:forEach items="${list}" var="i" varStatus="s" >
+
 	
 	$("#productName").text(("${i.PRODUCT_NAME}"));
 
 		
 		
 	$("#productNo").text(("${i.PRODUCT_NO}"));	
-	$(".productName").text(("${i.PRODUCT_NAME}"));
+// 	$(".productName").text(("${i.PRODUCT_NAME}"));
 
 	$("#productPrice").text(numberWithCommas(("${i.PRODUCT_PRICE}")));
 	$("#width").text(("${i.PRODUCT_WIDTH}"));
 	$("#depth").text(("${i.PRODUCT_DEPTH}"));
 	$("#height").text(("${i.PRODUCT_HEIGHT}"));
-	$("#productInfo").text(("${i.PRODUCT_INFO}"));
+
+	
+	$("#productInfo").text("${i.PRODUCT_INFO}");
 	
 	if ("${i.PRODUCT_COLOR}" != "normal") {
 		let colorProductA = $("#colorProductA").clone().attr("id","colorProductA"+"${s.index}");

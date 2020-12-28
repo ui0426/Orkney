@@ -113,14 +113,32 @@
 					<div class="col-lg-4 col-md-12 mb-4">
 	                    <!--색상-->
 	                    <label for="productColor" class="">색상</label>
-	                  	<input type="text" name="productColor" id="productColor" class="form-control mb-4" placeholder="COLOR" required>
+<!-- 	                  	<input type="text" name="productColor" id="productColor" class="form-control mb-4" placeholder="COLOR(영문 소문자 입력)" required> -->
+                    	<select name="productColor" class="mdb-select colorful-select dropdown-info mb-4 form-control" id="productColor" required >
+			                      <option value="no">색상선택</option>
+			                      <option value="white">white</option>
+			                      <option value="black">black</option>
+			                      <option value="beige">beige</option>
+			                      <option value="brown">brown</option>
+			                      <option value="gray">gray</option>
+			                      <option value="blue">blue</option>
+			                      <option value="green">green</option>
+			                      <option value="red">red</option>
+			                      <option value="pink">pink</option>
+			                      <option value="yellow">yellow</option>
+			                      <option value="multicolor">multicolor</option>
+			                      <option value="orange">orange</option>
+			                      <option value="mint">mint</option>
+			                      <option value="lilac">lilac</option>
+			                      <option value="brown">brown</option>
+			             </select>
                     </div>
                     
                     <div class="col-lg-4 col-md-12 mb-4">
                       <label for="productBigCategoryNo">카테고리</label>
                       <select class="custom-select d-block w-100" name="productBigCategoryNo" id="productBigCategoryNo" onchange="categoryBic();" required>
                         <option value="bc1">침대</option>
-                        <option value="bc2">책상/선반유닛</option>
+                        <option value="bc2">책장/선반유닛</option>
                         <option value="bc3">서랍</option>
                         <option value="bc4">의자</option>
                         <option value="bc5">바테이블/의자</option>
@@ -434,7 +452,17 @@ function categoryBic() {
 		}
 	});
 }	
-                  
+
+// 문자열 개행 제거 
+$("#productInfo").bind("keyup",function(){
+// 	 var re = /[~!@\#$%^&*\()\-\.\,\'"'\;=+_']/gi; 
+	 var re = /[\n]/gi; 
+// 	 ("\n", "<br>");
+	 var temp=$("#productInfo").val();
+
+	 if(re.test(temp)){ //특수문자가 포함되면 삭제하여 값으로 다시셋팅
+
+	 $("#productInfo").val(temp.replace(re,"")); } });           
 
 </script>
 <jsp:include page="/WEB-INF/views/common/adminFooter.jsp"/>

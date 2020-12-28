@@ -104,6 +104,7 @@
     .heart{display:none;}
     .fc{color:black !important;}
     .ic{color:lightcoral;}
+    .logo-size{width: 75px;}
 </style>
 <body>
     <div id="totalForm">
@@ -117,7 +118,9 @@
                        </svg>
                     </a> -->
                     <div class="divcenter">
-                    <div class="logoimg"></div>
+                    <div class="logo-size">
+                    	<a href="${path }"><img class="logo-size" src="${path }/resources/img/logo5.PNG"/></a>
+                    </div>
                     </div>
                 </div>
                 <div>
