@@ -343,4 +343,9 @@ public class AdminController {
 		if(result >0) return true;
 		else return false;
 	}
+	
+	@RequestMapping("/test")
+	public String test() {
+		return "admin/emailTest";
+	}
 }

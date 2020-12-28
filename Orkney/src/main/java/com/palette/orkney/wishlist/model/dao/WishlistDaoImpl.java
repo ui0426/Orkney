@@ -119,6 +119,14 @@ public class WishlistDaoImpl implements WishlistDao {
 		return session.insert("wishlist.insertWish", data);
 	}
 
+	//위시리스트 총 개수
+//	@Override
+//	public int wlCount(SqlSession session, String mNo) {
+//		 int result = session.selectList("wishlist.wishlistList", mNo).size();
+//		 return result;
+//		 
+//	}
+
 
 	
 

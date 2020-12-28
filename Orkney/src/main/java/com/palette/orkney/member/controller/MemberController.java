@@ -480,11 +480,6 @@ public class MemberController {
 		return form;
 	}
 	
-	@RequestMapping("/test")
-	public String test() {
-		return "admin/emailTest";
-	}
-	
 	//주소추가하기
 	@RequestMapping("/member/insertAddr.do")
 	public String insertAddr(@RequestParam Map<String, Object> updateInformation, HttpSession session, Model m) {
@@ -696,6 +691,43 @@ public class MemberController {
 		data.put("ck", ck);
 		
 		int result = service.emailCk(data);
+		
+		login.replace("EMAIL_CH", ck);
 		return "성공";
+	}
+	
+	//나중에 이메일 인증하는 경우 키 체크 
+	@RequestMapping(value="member/keyCheckAfter.do",method=RequestMethod.POST)//인증키 확인 ajax
+	@ResponseBody
+	public boolean keyCheckAfter(@RequestParam(required=false) String key1,@RequestParam(required=false) String key2,
+			@RequestParam(required=false) String key3,@RequestParam(required=false) String key4,
+			@RequestParam(required=false) String key5,@RequestParam(required=false) String key6,HttpSession session) {
+		Map login = ((Map)session.getAttribute("login")); //로그인 된 유저
+		
+		Map authInfo=(Map)session.getAttribute("authInfo");
+		boolean flag=false;
+	
+		if(key1!=null&&key2!=null&&key3!=null&&key4!=null&&key5!=null&&key6!=null) {
+			String key=key1+key2+key3+key4+key5+key6;
+			System.out.println(key);
+			if(key.equals(authInfo.get("key"))) {
+				
+				String mNo = (String)login.get("MEMBER_NO");
+				String auth = "Y";
+				
+				Map updateInformation = new HashMap();
+				updateInformation.put("mNo", mNo);
+				updateInformation.put("auth", auth);
+				
+				int result = service.updateMemberAuth(updateInformation);
+				if(result > 0) {
+					login.replace("EMAIL_AUTH", "Y");
+					flag = true;
+				}
+				
+				
+			}else flag = false;
+		}
+		return flag;
 	}
 }

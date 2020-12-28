@@ -207,5 +207,17 @@ public class MemberDaoImpl implements MemberDao {
 		return session.update("member.emailCk", data);
 	}
 
+	//이메일 인증하기
+	@Override
+	public int updateMemberAuth(SqlSession session, Map updateInformation) {
+		return session.update("member.updateMemberAuth", updateInformation);
+	}
+
+	//수신 동의한 이메일 리스트 가져오기
+	@Override
+	public List<String> emailAgree(SqlSession session) {
+		return session.selectList("member.emailAgree");
+	}
+
 	
 }
