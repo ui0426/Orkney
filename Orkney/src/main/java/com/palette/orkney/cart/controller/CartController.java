@@ -243,7 +243,7 @@ public class CartController {
 		int sum=service.sumPrice(m.getCartNo());		
 			
 		Map<String, Object>map = new HashMap<String, Object>();
-		int shipFee = sum>= 50000 ? 0 : 5000; //주문금액 50000원 넘을시 무료
+		int shipFee =  5000; 
 		int additionalTax = (int)(sum*0.1);		
 		int willpoint2=0;
 		
