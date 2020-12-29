@@ -320,15 +320,15 @@
 }
 
 /* 회원탈퇴 누르면 모달 */
-html.open {
+html.open2 {
 	overflow: hidden;
 }
 
-#delete-modal.open {
+#delete-modal.open2 {
 	right: 0px;
 }
 
-.delete-modal-cover.open {
+.delete-modal-cover.open2 {
 	display: block;
 }
 

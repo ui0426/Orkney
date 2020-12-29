@@ -937,29 +937,29 @@ filter2();
 function fn_addWishModal(price,pNo){
 	let login = '${sessionScope.login}';
 	console.log(login);
-	
+// 	alert('dd');
 	if(login == ''){
-		let ck = confirm('로그인이 필요한 서비스 입니다. 로그인 화면으로 이동하시겠습니까?');
-		console.log(ck);
-		if(ck == true){
+// 		let ck = confirm('로그인이 필요한 서비스 입니다. 로그인 화면으로 이동하시겠습니까?');
+// 		console.log(ck);
+// 		if(ck == true){
 			location.href='${path}/member/memberLogin.do';
-		}
+// 		}
 		return;
 	}
 	
-	$.ajax({
-		type: 'post',
-		url: '${ path }/wishlist/insertWishModal.do',
-		data: {pNo:pNo},
-		success: function(data){
-			console.log(data);
-			if(data == ''){
+// 	$.ajax({
+// 		type: 'post',
+// 		url: '${ path }/wishlist/insertWishModal.do',
+// 		data: {pNo:pNo},
+// 		success: function(data){
+// 			console.log(data);
+// 			if(data == ''){
 				
-			}
-			$('#insertWish').html(data);
-		}
+// 			}
+// 			$('#insertWish').html(data);
+// 		}
 		
-	})
+// 	})
 }
 
 function fnbn(a,b){
