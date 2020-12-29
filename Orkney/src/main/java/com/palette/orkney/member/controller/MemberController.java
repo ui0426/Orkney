@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -446,7 +447,7 @@ public class MemberController {
 	}
 	
 	@RequestMapping("/")
-	public String index() {
+	public String index(HttpServletRequest request) {
 		return "index";
 	}
 

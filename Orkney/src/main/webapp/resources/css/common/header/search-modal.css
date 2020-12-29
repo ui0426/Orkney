@@ -67,3 +67,8 @@ width: 100%;
 .header-search:after{
 	z-index: 2;
 }
+.scroll-x{
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}

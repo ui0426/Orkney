@@ -5,7 +5,7 @@
   	SELECT * FROM MEMBER WHERE MEMBER_ID=#{userId}
   </select>
   <insert id="insertSnsLogin" parameterType="map">
-  	INSERT INTO SNS_LOGIN VALUES(#{id},#{name},#{profile},#{aToken},#{rToken},'m'||#{mNo})
+  	INSERT INTO SNS_LOGIN VALUES(#{id},#{name},#{profile},#{aToken},<if test="rToken != null">#{rToken}</if><if test="rToken == null">0</if>,'m'||#{mNo})
   </insert>
   <select id="searchGoogleId" parameterType="map" resultType="map">
   	SELECT * FROM SNS_LOGIN WHERE EMAIL=#{id}
