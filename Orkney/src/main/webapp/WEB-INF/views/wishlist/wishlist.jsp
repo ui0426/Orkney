@@ -79,6 +79,21 @@
        </div>
     </div>
 	
+<!-- 	<script>
+	
+		$(".wl-allAddcart-btn").click(e=>{
+			   <c:forEach items="${ wish.wishlist_detail }" var="wide">
+			   let pNo = wide.product.productNo ;
+			   console.log(pNo);
+			$.ajax({
+				data:
+				url:,
+				success:data				
+			})
+			 </c:forEach>
+		})
+	
+	</script> -->
 	
 </section>
 
