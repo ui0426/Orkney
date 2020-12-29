@@ -145,7 +145,9 @@
 	
 	 var id='${login.MEMBER_NO}';
 
-	
+	console.log(document.domain);
+	console.log(123123123);
+	console.log(window.location.origin);
 	$("#sendBtn").click(function() {
 		if(id!='m11'){
 		sendMessage();
@@ -156,7 +158,9 @@
 		}
 	});
 
-	let sock = new SockJS("http://localhost:9090/orkney/echo");
+	  /* let sock = new SockJS("http://localhost:9090/orkney/echo"); */
+	 let url=window.location.origin;
+	 let sock = new SockJS(url+"${path}/echo");
 	sock.onmessage = onMessage;
 	sock.onclose = onClose;
 	// 메시지 전송
