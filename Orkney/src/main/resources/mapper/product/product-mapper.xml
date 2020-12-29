@@ -77,9 +77,7 @@
       <if test="category != 'all' and sale!=''">
          WHERE B.BIG_CATEGORY_CONTENT = #{category} AND SALE_PER IS NOT NULL
       </if>
-      <if test="category != 'all' and sale!=''">
-         WHERE B.BIG_CATEGORY_CONTENT = #{category} AND SALE_PER IS NOT NULL
-      </if>
+
       
    </select>
    

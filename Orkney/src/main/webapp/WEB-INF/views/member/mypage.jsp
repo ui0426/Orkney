@@ -368,23 +368,24 @@ let makeAjax = function(url, data, success){
    
 	/* 회원탈퇴 */
 $("#deleteBtn").click(function() {
-	location.href="${path}/test";  
-//   $("#delete-modal,.delete-modal-cover,html").addClass("open");
-//   window.location.hash = "#open";
+// 	location.href="${path}/test";  
+  $("#delete-modal,.delete-modal-cover,html").addClass("open2");
+  window.location.hash = "#open";
   
-//   makeAjax('${path}/member/insertForm.do', {form: 'member/mypageDiv/deleteModal'}, data=>{
-// 		  console.log(data);
-// 		  $.parseHTML(data);
-// 		  $('#delete-modal').html(data);
+  makeAjax('${path}/member/insertForm.do', {form: 'member/mypageDiv/deleteModal'}, data=>{
+		  console.log(data);
+		  $.parseHTML(data);
+		  $('#delete-modal').html(data);
 	  
-//   })
+  })
   
-});
+});	
 
 window.onhashchange = function() {
 	
   if (location.hash != "#open") {
-    $("#delete-modal,.delete-modal-cover,html").removeClass("open");
+	  $("#menu,.page_cover,html").removeClass("open");
+      $("#delete-modal,.delete-modal-cover,html").removeClass("open2");
   }
   
 };
