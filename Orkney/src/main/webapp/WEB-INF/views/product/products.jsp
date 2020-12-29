@@ -151,12 +151,12 @@ filter2();
 				})	
 			});
 				
-					let start = 4;
+					let start = 9;
 					
 
 
 				function filter2() {
-					start = start+1;
+					
 				
 					
 				// 정렬
@@ -195,7 +195,7 @@ filter2();
 
 					  
 						for ( var i=0;i <= data.length;i++){
-						if (data[i]["PRODUCT_COLOR"]=="normal"  ) {
+						
 							
 						  let productClone = $("#products").clone().attr("id","products"+i);
 						  
@@ -277,10 +277,11 @@ filter2();
 								
 							});
 						 $("#product_list").append(productClone);
-						}
+					
 						}
 					}
-				})		
+				})	
+				start = start+8;
  			}
 				function filter() {
 				// 정렬
@@ -294,7 +295,7 @@ filter2();
 				// 색상
 				let group5 = $('input[name="group5"]:checked').val();
 				let category = getParameterByName('category');
-				  start=5;
+				  start=9;
 				
 				  //마지막 리스트 번호를 알아내기 위해서 tr태그의 length를 구함.
 				  
@@ -319,7 +320,7 @@ filter2();
 					$("#product_list").html("");
 					  
 						for ( var i=0;i <= data.length;i++){
-						if (data[i]["PRODUCT_COLOR"]=="normal" ) {
+						
 							
 						  let productClone = $("#products").clone().attr("id","products"+i);
 						  
@@ -400,7 +401,7 @@ filter2();
 								
 							});
 						 $("#product_list").append(productClone);
-						}
+						
 						}
 					}
 				})		
@@ -570,7 +571,7 @@ filter2();
 										</div>
 									</button>
 
-									<div id="categoryMenu" style="display: none;"col-12"">
+									<div id="categoryMenu" style="display: none;"col-12">
 										<div class="form-check mb-4">
 											<input class="form-check-input " name="group3" type="radio" value="null" id="allCategory"  onclick="filter();"> 
 											<label	class="form-check-label fontborder " for="allCategory">전체 선택</label>
@@ -769,7 +770,7 @@ filter2();
 
 
 					<!-- Card -->
-					<div class="card" >
+					<div class="card shadow-hidden" >
 						<!--Card image-->
 <div class="plp-checkbox" id="plp-checkbox"  onclick="check_PIC();">
 <input type="checkbox" name="checkboxname" id="checkbox" black="true" value="${p.PRODUCT_PIC}">
@@ -787,9 +788,9 @@ filter2();
 						<!--Card content-->
 						<div class="card-body">
 							<!--Title-->
-							<h4 class="card-title" id="product_name" >
+							<h6 class="card-title" id="product_name" >
 								<c:out value="${p.PRODUCT_NAME}" />
-							</h4>
+							</h6>
 							<!--Text-->
 							<p class="card-text marginZero" id="category">
 								<c:out value="${p.BIG_CATEGORY_NO }"></c:out>

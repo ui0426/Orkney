@@ -86,8 +86,7 @@
             </div>
             <div class="header-menu">
                 <span><a href="${path }/product/products.do?category=all&sale=" style="color:black;">모든제품</a> </span>
-                <span><a href="${path}/product/rooms.do" style="color:black;">디지털 쇼룸</a></span>
-
+				<span><a href="#open"  onclick="roomsNav();" style="color:black;">디지털 쇼룸</a></span>
             </div>
             <div class="header-search">
            		<form class="search-form">
@@ -182,13 +181,13 @@
 		                        <div class="hnf-link hnf-link-color aside-btn-product">모든 상품</div>
 		                    </li>
 		                    <li>
-		                        <div class="hnf-link hnf-link-color aside-btn-showroom">디지털쇼룸</div>
+		                        <div class="hnf-link hnf-link-color aside-btn-showroom" >디지털쇼룸</div>
 		                    </li>
 		                    <li>
 		                        <div class="hnf-small-link hnf-link-color aside-btn-event">이달의 이벤트</div>
 		                    </li>
 		                    <li>
-		                        <a class="hnf-small-link hnf-link-color" href="${path }/product/products.do?category=new">신제품</a>
+		                        <a class="hnf-small-link hnf-link-color" href="${path }/product/products.do?category=all">인기제품</a>
 		                    </li>
 		                </ul>
 		                <ul class="hnf-small-link hnf-menu_nav_aux">
@@ -257,8 +256,8 @@
 							<li>
 
 
-								<a href="${path }/product/products.do?category=거실장/전장/콘솔테이블&sale=">
-									거실장/천장/콘솔테이블
+								<a href="${path }/product/products.do?category=거실장/찬장/콘솔테이블&sale=">
+									거실장/찬장/콘솔테이블
 
 								</a>
 							</li>
@@ -362,6 +361,11 @@
  <jsp:include page="/WEB-INF/views/common/chat.jsp"/>
 	</c:if>
         <script>
+        
+        function roomsNav(){
+      	  $(".btn-aside").trigger("click");
+      	  $(".aside-btn-showroom").trigger("click");
+        }
         $(function(){
 //         	$('.search-input').autocomplete({
 //         		source: function(request, response) {
@@ -400,8 +404,9 @@
      		let section = $('section').offset().top;
      		console.log('section' + section);
         })
-        
+
         	
+
             $(".btn-aside").click(function() {
 	            $("#menu,.page_cover,html").addClass("open");
 	            $("#menu").removeClass("aside-close");

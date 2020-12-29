@@ -401,7 +401,7 @@ height: 32rem;
 							<div class="carousel-item active">
 								<img class="img_main"
 									src=""
-									alt="First slide" class="img-fluid">
+									alt="First slide" class="img-fluid" style="width: 100%;">
 							</div>
 
 						</div>
@@ -409,7 +409,7 @@ height: 32rem;
 							<div class="carousel-item" id="productclone">
 								<img id="thirdImg"
 									src=""
-									alt="Second slide" class="img-fluid">
+									alt="Second slide" class="img-fluid" style="width: 100%;">
 							</div>
 							</div>
 						

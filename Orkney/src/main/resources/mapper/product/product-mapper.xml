@@ -61,7 +61,7 @@
         </if>
    </select>
 
-	<select id="productList" resultType="map" parameterType="map">
+   <select id="productList" resultType="map" parameterType="map">
       SELECT *
       FROM PRODUCT_IMAGE I 
       JOIN PRODUCT P
@@ -77,10 +77,15 @@
       <if test="category != 'all' and sale!=''">
          WHERE B.BIG_CATEGORY_CONTENT = #{category} AND SALE_PER IS NOT NULL
       </if>
+      <if test="category != 'all' and sale!=''">
+         WHERE B.BIG_CATEGORY_CONTENT = #{category} AND SALE_PER IS NOT NULL
+      </if>
+      
    </select>
    
    <select id="filter" resultType="map" parameterType="map">
             
+
 
 			   SELECT *
 			   FROM PRODUCT_IMAGE I 
@@ -92,178 +97,191 @@
 			   ON P.BIG_CATEGORY_NO = B.BIG_CATEGORY_NO
 			   
 			   LEFT OUTER JOIN SMALL_CATEGORY S
-			   ON B.BIG_CATEGORY_NO = S.BIG_CATEGORY_NO
+			   ON P.SMALL_CATEGORY_NO = S.SMALL_CATEGORY_NO
+			   
+			   LEFT OUTER  JOIN(SELECT PRODUCT_NO, AVG(PRODUCT_GRADE) GRAD,COUNT(REVIEW_NO)
+		       FROM REVIEW 
+		       GROUP BY PRODUCT_NO) G 
+		       ON G.PRODUCT_NO=P.PRODUCT_NO
+<!-- 			   리뷰 조인 하면 제품이 늘어남 -->
+<!-- 			   LEFT OUTER JOIN REVIEW R -->
+<!-- 			   ON P.PRODUCT_NO = R.PRODUCT_NO -->
+			   
 			   
 			   WHERE I.PRODUCT_COLOR='normal'
-			   AND S.SMALL_CATEGORY_PIC='+'
+<!-- 			   AND S.SMALL_CATEGORY_PIC='+' -->
 		<choose>
 
-			<when test="group1=='best'">
-			   <if test="category != 'all'">
-			   	AND B.BIG_CATEGORY_CONTENT = #{category}
-			   </if>
-			   <if test="group2 != null and group2 != 'null'">
-			    	AND P.PRODUCT_WIDTH = #{group2,jdbcType=VARCHAR}
-<!-- 			    	DB 에 CHECK 사이즈 지정 -->
-			   </if>
-			   <if test="group3 != null and group3 != 'null'">
-			    	AND S.SMALL_CATEGORY_CONTENT = #{group3}
-<!-- 			    	DB 카테고리 정하기 -->
-			   </if> 
-			   <if test="group4 != null and group4 != 'null'">
-<!-- 			   		FILTER 가격 범위 -->
-				   <choose>
-					   <when test="group4 gt 0 and group4 lt 40000">
-					  <![CDATA[AND P.PRODUCT_PRICE < 40000]]>   
-					   </when>
-					   <when test="group4 gt 39999 and group4 lt 50000">
-					   <![CDATA[ 	AND P.PRODUCT_PRICE BETWEEN 39999 AND 50000]]>
-					   </when>
-					   <when test="group4 gt 49999 and group4 lt 60000">
-					   <![CDATA[ 	AND P.PRODUCT_PRICE BETWEEN 49999 AND 60000]]>
-					   </when>
-					   <when test="group4 gt 59999 and group4 lt 70000">
-					   <![CDATA[ 	AND P.PRODUCT_PRICE BETWEEN 49999 AND 60000]]>
-					   </when>
-					   <when test="group4 gt 70000">
-					   <![CDATA[	AND P.PRODUCT_PRICE > 70000]]>
-					   </when>
-				   </choose>	
-			   </if>
-			   <if test="group5 != null and group5 != 'null'">
-<!-- 			   FILTER 색상 -->
-			    	AND P.PRODUCT_COLOR = #{group5}
-			   </if>
-			    
-			 		AND ROWNUM <![CDATA[<]]> #{start}
-			</when>
-			
-			<when test="group1=='lowPrice'">
-			   <if test="category != 'all'">
-			   	AND B.BIG_CATEGORY_CONTENT = #{category}
-			   </if>
-			   <if test="group2 != null and group2 != 'null'">
-			    	AND P.PRODUCT_WIDTH = #{group2}
-<!-- 			    	DB 에 CHECK 사이즈 지정 -->
-			   </if>
-			   <if test="group3 != null and group3 != 'null'">
-			    	AND S.SMALL_CATEGORY_CONTENT = #{group3}
-<!-- 			    	DB 카테고리 정하기 -->
-			   </if>
-			   <if test="group4 != null and group4 != 'null'">
-<!-- 			   		FILTER 가격 범위 -->
-				  <choose>
-					   <when test="group4 gt 0 and group4 lt 40000">
-					  <![CDATA[AND P.PRODUCT_PRICE < 40000]]>   
-					   </when>
-					   <when test="group4 gt 39999 and group4 lt 50000">
-					   <![CDATA[ 	AND P.PRODUCT_PRICE BETWEEN 39999 AND 50000]]>
-					   </when>
-					   <when test="group4 gt 49999 and group4 lt 60000">
-					   <![CDATA[ 	AND P.PRODUCT_PRICE BETWEEN 49999 AND 60000]]>
-					   </when>
-					   <when test="group4 gt 59999 and group4 lt 70000">
-					   <![CDATA[ 	AND P.PRODUCT_PRICE BETWEEN 49999 AND 60000]]>
-					   </when>
-					   <when test="group4 gt 70000">
-					   <![CDATA[	AND P.PRODUCT_PRICE > 70000]]>
-					   </when>
-				   </choose>	
-			   </if>
-			   <if test="group5 !=null and group5 != 'null'">
-<!-- 			   FILTER 색상 -->
-			    	AND P.PRODUCT_COLOR = #{group5}
-			    	
-			   </if>
-			   AND ROWNUM <![CDATA[<]]> #{start}
-			   ORDER BY P.PRODUCT_PRICE ASC
-			  
-			</when>
-			
-			<when test="group1=='highPrice'">
-			   <if test="category != 'all'">
-			   	AND B.BIG_CATEGORY_CONTENT = #{category}
-			   </if>
-			   <if test="group2!=null and group2 != 'null'">
-			    	AND P.PRODUCT_WIDTH = #{group2}
-<!-- 			    	DB 에 CHECK 사이즈 지정 -->
-			   </if>
-			   <if test="group3!=null and group3 != 'null'">
-			    	AND S.SMALL_CATEGORY_CONTENT = #{group3}
-<!-- 			    	DB 카테고리 정하기 -->
-			   </if>
-			   <if test="group4!=null and group4 != 'null'">
-<!-- 			   		FILTER 가격 범위 -->
-				  <choose>
-					   <when test="group4 gt 0 and group4 lt 40000">
-					  <![CDATA[AND P.PRODUCT_PRICE < 40000]]>   
-					   </when>
-					   <when test="group4 gt 39999 and group4 lt 50000">
-					   <![CDATA[ 	AND P.PRODUCT_PRICE BETWEEN 39999 AND 50000]]>
-					   </when>
-					   <when test="group4 gt 49999 and group4 lt 60000">
-					   <![CDATA[ 	AND P.PRODUCT_PRICE BETWEEN 49999 AND 60000]]>
-					   </when>
-					   <when test="group4 gt 59999 and group4 lt 70000">
-					   <![CDATA[ 	AND P.PRODUCT_PRICE BETWEEN 49999 AND 60000]]>
-					   </when>
-					   <when test="group4 gt 70000">
-					   <![CDATA[	AND P.PRODUCT_PRICE > 70000]]>
-					   </when>
-				   </choose>	
-			   </if>
-			   <if test="group5!=null and group5 != 'null'">
-<!-- 			   FILTER 색상 -->
-			    	AND P.PRODUCT_COLOR = #{group5}
-			    	
-			   </if>
-			   AND ROWNUM <![CDATA[<]]> #{start}
-			   ORDER BY P.PRODUCT_PRICE DESC
-			
-			</when>
-			
-			<when test="group1=='newProduct'">
-			   <if test="category != 'all'">
-			   	AND B.BIG_CATEGORY_CONTENT = #{category}
-			   </if>
-			   <if test="group2!=null and group2 != 'null'">
-			    	AND P.PRODUCT_WIDTH = #{group2}
-<!-- 			    	DB 에 CHECK 사이즈 지정 -->
-			   </if>
-			   <if test="group3!=null and group3 != 'null'">
-			    	AND S.SMALL_CATEGORY_CONTENT = #{group3}
-<!-- 			    	DB 카테고리 정하기 -->
-			   </if>
-			   <if test="group4!=null and group4 != 'null'">
-<!-- 			   		FILTER 가격 범위 -->
-				  <choose>
-					   <when test="group4 gt 0 and group4 lt 40000">
-					  <![CDATA[AND P.PRODUCT_PRICE < 40000]]>   
-					   </when>
-					   <when test="group4 gt 39999 and group4 lt 50000">
-					   <![CDATA[ 	AND P.PRODUCT_PRICE BETWEEN 39999 AND 50000]]>
-					   </when>
-					   <when test="group4 gt 49999 and group4 lt 60000">
-					   <![CDATA[ 	AND P.PRODUCT_PRICE BETWEEN 49999 AND 60000]]>
-					   </when>
-					   <when test="group4 gt 59999 and group4 lt 70000">
-					   <![CDATA[ 	AND P.PRODUCT_PRICE BETWEEN 49999 AND 60000]]>
-					   </when>
-					   <when test="group4 gt 70000">
-					   <![CDATA[	AND P.PRODUCT_PRICE > 70000]]>
-					   </when>
-				   </choose>	
-			   </if>
-			   <if test="group5!=null and group5 != 'null'">
-<!-- 			   FILTER 색상 -->
-			    	AND P.PRODUCT_COLOR = #{group5}
-			    	
-			   </if>
-			   
-			   AND ROWNUM <![CDATA[<]]> #{start}
-			   ORDER BY P.PRODUCT_NO ASC
-		
-			</when>
+
+
+         <when test="group1=='best'">
+            <if test="category != 'all'">
+               AND B.BIG_CATEGORY_CONTENT = #{category}
+            </if>
+            <if test="group2 != null and group2 != 'null'">
+                AND P.PRODUCT_WIDTH = #{group2,jdbcType=VARCHAR}
+<!--                 DB 에 CHECK 사이즈 지정 -->
+            </if>
+            <if test="group3 != null and group3 != 'null'">
+                AND S.SMALL_CATEGORY_CONTENT = #{group3}
+<!--                 DB 카테고리 정하기 -->
+            </if> 
+            <if test="group4 != null and group4 != 'null'">
+<!--                   FILTER 가격 범위 -->
+               <choose>
+                  <when test="group4 gt 0 and group4 lt 40000">
+                 <![CDATA[AND P.PRODUCT_PRICE < 40000]]>   
+                  </when>
+                  <when test="group4 gt 39999 and group4 lt 50000">
+                  <![CDATA[    AND P.PRODUCT_PRICE BETWEEN 39999 AND 50000]]>
+                  </when>
+                  <when test="group4 gt 49999 and group4 lt 60000">
+                  <![CDATA[    AND P.PRODUCT_PRICE BETWEEN 49999 AND 60000]]>
+                  </when>
+                  <when test="group4 gt 59999 and group4 lt 70000">
+                  <![CDATA[    AND P.PRODUCT_PRICE BETWEEN 49999 AND 60000]]>
+                  </when>
+                  <when test="group4 gt 70000">
+                  <![CDATA[   AND P.PRODUCT_PRICE > 70000]]>
+                  </when>
+               </choose>   
+            </if>
+            <if test="group5 != null and group5 != 'null'">
+<!--             FILTER 색상 -->
+                AND P.PRODUCT_COLOR = #{group5}
+            </if>
+             
+                AND ROWNUM <![CDATA[<]]> #{start}
+<!--                 ORDER BY R.PRODUCT_GRADE ASC -->
+				ORDER BY G.GRAD DESC NULLS LAST
+         </when>
+         
+         <when test="group1=='lowPrice'">
+            <if test="category != 'all'">
+               AND B.BIG_CATEGORY_CONTENT = #{category}
+            </if>
+            <if test="group2 != null and group2 != 'null'">
+                AND P.PRODUCT_WIDTH = #{group2}
+<!--                 DB 에 CHECK 사이즈 지정 -->
+            </if>
+            <if test="group3 != null and group3 != 'null'">
+                AND S.SMALL_CATEGORY_CONTENT = #{group3}
+<!--                 DB 카테고리 정하기 -->
+            </if>
+            <if test="group4 != null and group4 != 'null'">
+<!--                   FILTER 가격 범위 -->
+              <choose>
+                  <when test="group4 gt 0 and group4 lt 40000">
+                 <![CDATA[AND P.PRODUCT_PRICE < 40000]]>   
+                  </when>
+                  <when test="group4 gt 39999 and group4 lt 50000">
+                  <![CDATA[    AND P.PRODUCT_PRICE BETWEEN 39999 AND 50000]]>
+                  </when>
+                  <when test="group4 gt 49999 and group4 lt 60000">
+                  <![CDATA[    AND P.PRODUCT_PRICE BETWEEN 49999 AND 60000]]>
+                  </when>
+                  <when test="group4 gt 59999 and group4 lt 70000">
+                  <![CDATA[    AND P.PRODUCT_PRICE BETWEEN 49999 AND 60000]]>
+                  </when>
+                  <when test="group4 gt 70000">
+                  <![CDATA[   AND P.PRODUCT_PRICE > 70000]]>
+                  </when>
+               </choose>   
+            </if>
+            <if test="group5 !=null and group5 != 'null'">
+<!--             FILTER 색상 -->
+                AND P.PRODUCT_COLOR = #{group5}
+                
+            </if>
+            AND ROWNUM <![CDATA[<]]> #{start}
+            ORDER BY P.PRODUCT_PRICE ASC
+           
+         </when>
+         
+         <when test="group1=='highPrice'">
+            <if test="category != 'all'">
+               AND B.BIG_CATEGORY_CONTENT = #{category}
+            </if>
+            <if test="group2!=null and group2 != 'null'">
+                AND P.PRODUCT_WIDTH = #{group2}
+<!--                 DB 에 CHECK 사이즈 지정 -->
+            </if>
+            <if test="group3!=null and group3 != 'null'">
+                AND S.SMALL_CATEGORY_CONTENT = #{group3}
+<!--                 DB 카테고리 정하기 -->
+            </if>
+            <if test="group4!=null and group4 != 'null'">
+<!--                   FILTER 가격 범위 -->
+              <choose>
+                  <when test="group4 gt 0 and group4 lt 40000">
+                 <![CDATA[AND P.PRODUCT_PRICE < 40000]]>   
+                  </when>
+                  <when test="group4 gt 39999 and group4 lt 50000">
+                  <![CDATA[    AND P.PRODUCT_PRICE BETWEEN 39999 AND 50000]]>
+                  </when>
+                  <when test="group4 gt 49999 and group4 lt 60000">
+                  <![CDATA[    AND P.PRODUCT_PRICE BETWEEN 49999 AND 60000]]>
+                  </when>
+                  <when test="group4 gt 59999 and group4 lt 70000">
+                  <![CDATA[    AND P.PRODUCT_PRICE BETWEEN 49999 AND 60000]]>
+                  </when>
+                  <when test="group4 gt 70000">
+                  <![CDATA[   AND P.PRODUCT_PRICE > 70000]]>
+                  </when>
+               </choose>   
+            </if>
+            <if test="group5!=null and group5 != 'null'">
+<!--             FILTER 색상 -->
+                AND P.PRODUCT_COLOR = #{group5}
+                
+            </if>
+            AND ROWNUM <![CDATA[<]]> #{start}
+            ORDER BY P.PRODUCT_PRICE DESC
+         
+         </when>
+         
+         <when test="group1=='newProduct'">
+            <if test="category != 'all'">
+               AND B.BIG_CATEGORY_CONTENT = #{category}
+            </if>
+            <if test="group2!=null and group2 != 'null'">
+                AND P.PRODUCT_WIDTH = #{group2}
+<!--                 DB 에 CHECK 사이즈 지정 -->
+            </if>
+            <if test="group3!=null and group3 != 'null'">
+                AND S.SMALL_CATEGORY_CONTENT = #{group3}
+<!--                 DB 카테고리 정하기 -->
+            </if>
+            <if test="group4!=null and group4 != 'null'">
+<!--                   FILTER 가격 범위 -->
+              <choose>
+                  <when test="group4 gt 0 and group4 lt 40000">
+                 <![CDATA[AND P.PRODUCT_PRICE < 40000]]>   
+                  </when>
+                  <when test="group4 gt 39999 and group4 lt 50000">
+                  <![CDATA[    AND P.PRODUCT_PRICE BETWEEN 39999 AND 50000]]>
+                  </when>
+                  <when test="group4 gt 49999 and group4 lt 60000">
+                  <![CDATA[    AND P.PRODUCT_PRICE BETWEEN 49999 AND 60000]]>
+                  </when>
+                  <when test="group4 gt 59999 and group4 lt 70000">
+                  <![CDATA[    AND P.PRODUCT_PRICE BETWEEN 49999 AND 60000]]>
+                  </when>
+                  <when test="group4 gt 70000">
+                  <![CDATA[   AND P.PRODUCT_PRICE > 70000]]>
+                  </when>
+               </choose>   
+            </if>
+            <if test="group5!=null and group5 != 'null'">
+<!--             FILTER 색상 -->
+                AND P.PRODUCT_COLOR = #{group5}
+                
+            </if>
+            
+            AND ROWNUM <![CDATA[<]]> #{start}
+            ORDER BY P.PRODUCT_ENROLL_DATE DESC
+      
+         </when>
 
          <when test="group1=='name'">
             <if test="category != 'all'">
@@ -305,47 +323,46 @@
                
                 ORDER BY P.PRODUCT_NAME ASC
            
-			</when>
-				<when test="!group1">
-			   <if test="category != 'all'">
-			   	AND B.BIG_CATEGORY_CONTENT = #{category}
-			   </if>
-			   <if test="group2 != null and group2 != 'null'">
-			    	AND P.PRODUCT_WIDTH = #{group2,jdbcType=VARCHAR}
-<!-- 			    	DB 에 CHECK 사이즈 지정 -->
-			   </if>
-			   <if test="group3 != null and group3 != 'null'">
-			    	AND S.SMALL_CATEGORY_CONTENT = #{group3}
-<!-- 			    	DB 카테고리 정하기 -->
-			   </if> 
-			   <if test="group4 != null and group4 != 'null'">
-<!-- 			   		FILTER 가격 범위 -->
-				   <choose>
-					   <when test="group4 gt 0 and group4 lt 40000">
-					  <![CDATA[AND P.PRODUCT_PRICE < 40000]]>   
-					   </when>
-					   <when test="group4 gt 39999 and group4 lt 50000">
-					   <![CDATA[ 	AND P.PRODUCT_PRICE BETWEEN 39999 AND 50000]]>
-					   </when>
-					   <when test="group4 gt 49999 and group4 lt 60000">
-					   <![CDATA[ 	AND P.PRODUCT_PRICE BETWEEN 49999 AND 60000]]>
-					   </when>
-					   <when test="group4 gt 59999 and group4 lt 70000">
-					   <![CDATA[ 	AND P.PRODUCT_PRICE BETWEEN 49999 AND 60000]]>
-					   </when>
-					   <when test="group4 gt 70000">
-					   <![CDATA[	AND P.PRODUCT_PRICE > 70000]]>
-					   </when>
-				   </choose>	
-			   </if>
-			   <if test="group5 != null and group5 != 'null'">
-<!-- 			   FILTER 색상 -->
-			    	AND P.PRODUCT_COLOR = #{group5}
-			   </if>
-			    
-			 		AND ROWNUM <![CDATA[<]]> #{start}
-			</when>
-		</choose>
+         </when>
+            <when test="!group1">
+            <if test="category != 'all'">
+               AND B.BIG_CATEGORY_CONTENT = #{category}
+            </if>
+            <if test="group2 != null and group2 != 'null'">
+                AND P.PRODUCT_WIDTH = #{group2,jdbcType=VARCHAR}
+<!--                 DB 에 CHECK 사이즈 지정 -->
+            </if>
+            <if test="group3 != null and group3 != 'null'">
+                AND S.SMALL_CATEGORY_CONTENT = #{group3}
+<!--                 DB 카테고리 정하기 -->
+            </if> 
+            <if test="group4 != null and group4 != 'null'">
+<!--                   FILTER 가격 범위 -->
+               <choose>
+                  <when test="group4 gt 0 and group4 lt 40000">
+                 <![CDATA[AND P.PRODUCT_PRICE < 40000]]>   
+                  </when>
+                  <when test="group4 gt 39999 and group4 lt 50000">
+                  <![CDATA[    AND P.PRODUCT_PRICE BETWEEN 39999 AND 50000]]>
+                  </when>
+                  <when test="group4 gt 49999 and group4 lt 60000">
+                  <![CDATA[    AND P.PRODUCT_PRICE BETWEEN 49999 AND 60000]]>
+                  </when>
+                  <when test="group4 gt 59999 and group4 lt 70000">
+                  <![CDATA[    AND P.PRODUCT_PRICE BETWEEN 49999 AND 60000]]>
+                  </when>
+                  <when test="group4 gt 70000">
+                  <![CDATA[   AND P.PRODUCT_PRICE > 70000]]>
+                  </when>
+               </choose>   
+            </if>
+            <if test="group5 != null and group5 != 'null'">
+<!--             FILTER 색상 -->
+                AND P.PRODUCT_COLOR = #{group5}
+            </if>
+                AND ROWNUM <![CDATA[<]]> #{start}
+         </when>
+      </choose>
 
  
 
@@ -404,6 +421,7 @@
        WHERE PRODUCT_NO = #{productNo}
        GROUP BY PRODUCT_NO
     </select>
+
 
 <!-- ==================================================================================== -->
 

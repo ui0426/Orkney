@@ -139,3 +139,6 @@ background-color: white;
     margin-top: -12px !important;
 }
 
+.shadow-hidden{
+	box-shadow: revert;
+}

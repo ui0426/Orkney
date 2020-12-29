@@ -50,6 +50,12 @@
 	    font-weight: 600;
 	    font-size: 0.7rem;
 	}
+	.orderList_Table td{
+		padding: .4em 0;
+	}
+	.orderList_Table td a{
+		text-decoration: underline;
+	}
 	.list-item{
 		font-size: 0.8rem;
 		font-weight: 400;
