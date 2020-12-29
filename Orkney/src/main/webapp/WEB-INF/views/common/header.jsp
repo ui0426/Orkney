@@ -146,7 +146,7 @@
             </ul>
             
         </div>
-        
+        </header>
         
         <!-- aside -->
         <div onclick="history.back();" class="page_cover"></div>
@@ -357,7 +357,7 @@
         </div>
 
        
-    </header>
+    
     <c:if test="${not empty login and login.MEMBER_NO ne 'm11'}">
  <jsp:include page="/WEB-INF/views/common/chat.jsp"/>
 	</c:if>
@@ -394,7 +394,6 @@
 				} else {
 					$('header').removeClass('header-fixed');
 					$('header').css('transform', 'translateY(-20%)');
-					
 				}
 				scrollbefore = scrollAfter;
 			})
@@ -416,13 +415,13 @@
             	$("#hnf-menu_container-level2").addClass("hnf-menu-nav-hidden");
             	$("#hnf-menu_container-level2-2").addClass("hnf-menu-nav-hidden");
             	$("#hnf-menu_container-level2-3").addClass("hnf-menu-nav-hidden");
-            	
-//             	$('header').removeClass('header-fixed').css('transform','none');
+            	$('header').css('transform','none');
             });
     
             window.onhashchange = function() {
 	            if (location.hash != "#open") {
 	                $("#menu,.page_cover,html").removeClass("open");
+	                $("#delete-modal,.delete-modal-cover,html").removeClass("open2");
 	            }
             };
             
