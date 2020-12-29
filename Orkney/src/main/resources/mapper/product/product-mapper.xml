@@ -77,6 +77,10 @@
       <if test="category != 'all' and sale!=''">
          WHERE B.BIG_CATEGORY_CONTENT = #{category} AND SALE_PER IS NOT NULL
       </if>
+      <if test="category != 'all' and sale!=''">
+         WHERE B.BIG_CATEGORY_CONTENT = #{category} AND SALE_PER IS NOT NULL
+      </if>
+      
    </select>
    
    <select id="filter" resultType="map" parameterType="map">
@@ -94,6 +98,15 @@
 			   
 			   LEFT OUTER JOIN SMALL_CATEGORY S
 			   ON P.SMALL_CATEGORY_NO = S.SMALL_CATEGORY_NO
+			   
+			   LEFT OUTER  JOIN(SELECT PRODUCT_NO, AVG(PRODUCT_GRADE) GRAD,COUNT(REVIEW_NO)
+		       FROM REVIEW 
+		       GROUP BY PRODUCT_NO) G 
+		       ON G.PRODUCT_NO=P.PRODUCT_NO
+<!-- 			   리뷰 조인 하면 제품이 늘어남 -->
+<!-- 			   LEFT OUTER JOIN REVIEW R -->
+<!-- 			   ON P.PRODUCT_NO = R.PRODUCT_NO -->
+			   
 			   
 			   WHERE I.PRODUCT_COLOR='normal'
 <!-- 			   AND S.SMALL_CATEGORY_PIC='+' -->
@@ -139,6 +152,8 @@
             </if>
              
                 AND ROWNUM <![CDATA[<]]> #{start}
+<!--                 ORDER BY R.PRODUCT_GRADE ASC -->
+				ORDER BY G.GRAD DESC NULLS LAST
          </when>
          
          <when test="group1=='lowPrice'">
@@ -264,7 +279,7 @@
             </if>
             
             AND ROWNUM <![CDATA[<]]> #{start}
-            ORDER BY P.PRODUCT_NO ASC
+            ORDER BY P.PRODUCT_ENROLL_DATE DESC
       
          </when>
 
@@ -345,7 +360,6 @@
 <!--             FILTER 색상 -->
                 AND P.PRODUCT_COLOR = #{group5}
             </if>
-             
                 AND ROWNUM <![CDATA[<]]> #{start}
          </when>
       </choose>
