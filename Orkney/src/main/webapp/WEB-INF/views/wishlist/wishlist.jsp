@@ -74,24 +74,24 @@
 				<span>총 주문금액</span>
 				<span>&#8361; <fmt:formatNumber value="${ allPrice }" pattern="###,###"/></span>
 	       </div>
-        <div class="wl-addcart"><button class="wl-allAddcart-btn" onclick="location.href='${path}/cart/cartInsertAll.do?wish=${wish}'">모두 장바구니에 추가</button></div>
+        <div class="wl-addcart"><button class="wl-allAddcart-btn">모두 장바구니에 추가</button></div>
            </c:if>
        </div>
     </div>
 	
-<!-- <script>	
+<script>	
 		$(".wl-allAddcart-btn").click(e=>{
-			   <c:forEach items="${ wish.wishlist_detail }" var="wide"  varStatus="s">			  
+			 <c:forEach items="${ wish.wishlist_detail }" var="wide"  varStatus="s"> 			  
 				$.ajax({
-					data:{productNo:"${wide.product.productNo}"},
+					data:{productNo:"${wide.product.productNo}",  cartQTY:"${wide.product_qty}" },
 					url:"${path}/cart/cartInsert.do",
-					success:function(data){
-						console.log(data);						
+					success:data=>{	
+						alert("성공");
 					}
 				})
-			 </c:forEach>
+			 </c:forEach> 
 		})	
-</script> -->
+</script>
 	
 </section>
 

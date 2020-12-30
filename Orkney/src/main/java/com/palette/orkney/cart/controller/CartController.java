@@ -40,38 +40,41 @@ public class CartController {
 	private ProductService pservice;
 	
 	//0.장바구니 추가
-	@RequestMapping("/cart/cartInsert.do")
+	@RequestMapping("/cart/cartInsert.do")	
 	public ModelAndView cartInsert(HttpSession session,ModelAndView mv,String productNo, @RequestParam(value="cartQTY", defaultValue ="1") int cartQTY) {				
 
 		String memberNo = (String)((Map)session.getAttribute("login")).get("MEMBER_NO");							
 		String cartNo=service.selectCartNo(memberNo);													
 		List<Cart> c = service.selectCart(memberNo);				
 		
+		System.out.println("번호"+productNo);
+		
 		//2. 경록이형 연결
 		Cart cart = new Cart();
 		cart.setMemberNo(memberNo);
 		cart.setProductNo(productNo);
 		//이벤트가 적용						
-		cart.setProductPrice(Integer.parseInt(pservice.selectSale(productNo)));		
+		cart.setProductPrice(Integer.parseInt(pservice.selectSale(productNo)));	
 		cart.setCartNo(cartNo);
 		cart.setCartQTY(cartQTY);
 		
 		//3. 카트 존재 유무
 		int count = service.countCart(memberNo);						
 		
-		//4. 카트에 같은 상품이 있는지 확인
-		if(c.size() != 0) {													//카트존재유무	
-			int pc = service.countProduct(productNo,c.get(0).getCartNo()); 	//카트에 같은 product 존재유무
-			System.out.println("pc"+pc);
-			if(pc!=0) { 													//카트에 상품 존재시 개수만 업데이트
-				cart.setCartQTY(cartQTY+1);							
-				int updateDetail = service.updateDetail(cart); 
-			}else if(pc==0) {												//카트에 상품이 존재하지 않다면 detail에만 추가					
-				count= service.insertDetail(cart);			 	
+		//4. 카트에 같은 상품이 있는지 확인				
+			if(c.size() != 0) {													//카트존재유무	
+				int pc = service.countProduct(productNo,c.get(0).getCartNo()); 	//카트에 같은 product 존재유무
+				System.out.println("pc"+pc);
+				if(pc!=0) { 													//카트에 상품 존재시 개수만 업데이트
+					cart.setCartQTY(cartQTY+1);							
+					int updateDetail = service.updateDetail(cart); 
+				}else if(pc==0) {												//카트에 상품이 존재하지 않다면 detail에만 추가					
+					count= service.insertDetail(cart);			 	
+				}			
+			}else {
+				count = service.insertCart(cart);  								//카트가 없을시 카트 및 디테일 생성			  
 			}			
-		}else {
-			count = service.insertCart(cart);  								//카트가 없을시 카트 및 디테일 생성			  
-		}											
+											
 		return mv;
 	}
 	
