@@ -41,9 +41,13 @@ height: 32rem;
 	margin-bottom: .3125rem;
 	height: 19.5px;
 }
+.fontSS{
+    font-size: 16px;
+    font-weight: 400;
+}
 </style>
 
-<section id="content">
+<section id="content" style="overflow: hidden;">
 
 
 
@@ -475,6 +479,7 @@ height: 32rem;
 									<div id="won2">원</div>
 								</div>
 							</div>
+
 							</p>
 <!-- 						<span class="red-text font-weight-bold"> -->
 <!-- 						<strong>원</strong> -->
@@ -488,8 +493,13 @@ height: 32rem;
 					</h3>
 
 					<hr>
-
-
+						<div class="marginZero">
+						<p class="grey-text fontbor"> SIZE</p>
+							<div id="WIDTH" class="fontSS"></div>
+							<div id="HEIGHT" class="fontSS"></div>
+							<div id="DEPTH" class="fontSS"></div>
+						</div>
+					<hr>
 					<!-- Add to Cart -->
 					<section class="color">
 						<div class="mt-5">
@@ -844,7 +854,7 @@ $(function(){
 <div class="media mb-3" id="reviewClone" >
 <!-- 						▼▼▼▼회원 이미지 OR 상품 이미지▼▼▼▼ -->
 							<div id="reviewImgCon">
-							<a  data-toggle="modal" data-target="#modalVM" id="imgZoom">
+							<a  data-toggle="modal" data-target="#modalVM" id="imgZoom" onclick="">
 							<img id="productImg"
 									class="card-img-100 rounded-circle z-depth-1-half d-flex mr-3"
 									src=""
@@ -1060,14 +1070,25 @@ function colorClick() {
 	}
 	</c:forEach>
 }
+function getFormatDate(date){
+    var year = date.getFullYear();              //yyyy
+    var month = (1 + date.getMonth());          //M
+    month = month >= 10 ? month : '0' + month;  //month 두자리로 저장
+    var day = date.getDate();                   //d
+    day = day >= 10 ? day : '0' + day;          //day 두자리로 저장
+    return  year + '' + month + '' + day;       //'-' 추가하여 yyyy-mm-dd 형태 생성 가능
+}
 // @제품정보 컨트롤
 $(function(){
 
 	<c:forEach items="${list}" var="i" varStatus="s" >
 
-	var today = new Date();
+	var endDate = new Date("${i.PRODUCT_ENROLL_DATE}");
+	endDate=getFormatDate(endDate);
+	 var today = new Date();
+	 today=getFormatDate(today)
  
- if(today>"${i.PRODUCT_ENROLL_DATE}"){
+ if(today>endDate){
 	  $(".rm-pb-et-new").text('');
  }
  if("${i.SALE_PER}"=="${i.PRODUCT_PRICE}"){ //할인이 아닐때
@@ -1092,6 +1113,10 @@ $(function(){
  }
 	
 	$("#productName").text(("${i.PRODUCT_NAME}"));
+	$("#WIDTH").text(("폭  "+":"+"${i.PRODUCT_WIDTH}"+"cm"));
+	$("#HEIGHT").text(("높이 : "+"${i.PRODUCT_HEIGHT}"+"cm"));
+	$("#DEPTH").text(("깊이 : "+"${i.PRODUCT_DEPTH}"+"cm"));
+	
 
 		
 		
