@@ -193,11 +193,27 @@ filter2();
 						$("#product_list").html("");
 //  						alert(category);
 
-					  
+					 
 						for ( var i=0;i <= data.length;i++){
-						
-							
+							var endDate = new Date(data[i]["PRODUCT_ENROLL_DATE"]);
+							 var today = new Date();
 						  let productClone = $("#products").clone().attr("id","products"+i);
+						  
+						  if(today>endDate){
+							  $(productClone).find(".rm-pb-et-new").text('');
+					      }
+				    	  if(data[i]["SALE_PER"]==data[i]["PRODUCT_PRICE"]){
+					    	   $(productClone).find(".rm-pb-et-p").html('');
+					    	   $(productClone).find("#pr").html(numberWithCommas(data[i]["PRODUCT_PRICE"]));
+				    		   $(productClone).find(".ht-four").text(""); 
+			    		  
+				    	  }else if(data[i]["SALE_PER"]!=data[i]["PRODUCT_PRICE"]){
+				    		 
+				    		   $(productClone).find("#pr").html(numberWithCommas(data[i]["PRODUCT_PRICE"]));
+				    		   $(productClone).find("#pr").css("text-decoration","line-through");
+				    		   $(productClone).find("#won").css("display","block");
+				    		   $(productClone).find(".ht-four").html(numberWithCommas(data[i]["SALE_PER"])); 
+				    	  }
 						  
 						
 						  $(productClone).find("#checkbox").val(data[i]["PRODUCT_PIC"]);
@@ -322,8 +338,26 @@ filter2();
 						for ( var i=0;i <= data.length;i++){
 						
 							
+						  var endDate = new Date(data[i]["PRODUCT_ENROLL_DATE"]);
+							 var today = new Date();
 						  let productClone = $("#products").clone().attr("id","products"+i);
+
 						  
+						  if(today>endDate){
+							  $(productClone).find(".rm-pb-et-new").text('');
+					      }
+				    	  if(data[i]["SALE_PER"]==data[i]["PRODUCT_PRICE"]){
+					    	   $(productClone).find(".rm-pb-et-p").html('');
+					    	   $(productClone).find("#pr").html(numberWithCommas(data[i]["PRODUCT_PRICE"]));
+				    		   $(productClone).find(".ht-four").text(""); 
+			    		  
+				    	  }else if(data[i]["SALE_PER"]!=data[i]["PRODUCT_PRICE"]){
+				    		 
+				    		   $(productClone).find("#pr").html(numberWithCommas(data[i]["PRODUCT_PRICE"]));
+				    		   $(productClone).find("#pr").css("text-decoration","line-through");
+				    		   $(productClone).find("#won").css("display","block");
+				    		   $(productClone).find(".ht-four").html(numberWithCommas(data[i]["SALE_PER"])); 
+				    	  }
 						
 						  $(productClone).find("#checkbox").val(data[i]["PRODUCT_PIC"]);
 						  $(productClone).find("#productMainImg").attr("src","${path}/resources/images/product/"+data[i]["PRODUCT_PIC"]);
@@ -788,16 +822,18 @@ filter2();
 						<!--Card content-->
 						<div class="card-body">
 							<!--Title-->
-							<h6 class="card-title" id="product_name" >
+							<h6 class="card-title event-product-name" id="product_name" >
 								<c:out value="${p.PRODUCT_NAME}" />
 							</h6>
 							<!--Text-->
-							<p class="card-text marginZero" id="category">
+							<p class="card-text marginZero event-price ht-three" id="category">
 								<c:out value="${p.BIG_CATEGORY_NO }"></c:out>
 							</p>
 							<p class="card-text marginZero">
 							<div class="row marginZero">
 							<div id="pr"></div>
+							<div id="won" style="display: none; text-decoration: line-through;">원</div>
+							<div id="" class="ht-four"></div>
 							<div>원</div>
 							</div>
 							</p>
@@ -828,6 +864,10 @@ filter2();
 								<!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
 
 								<!-- Card footer -->
+							<div style="display: flex; justify-content: space-between;">
+								<span class="rm-pb-et-new ">NEW</span>			
+								<span class="rm-pb-et-p"><p class="rm-pb-et-p">SALE</p></span>	
+							</div>
 							</div>
 							<div>
 								<hr>

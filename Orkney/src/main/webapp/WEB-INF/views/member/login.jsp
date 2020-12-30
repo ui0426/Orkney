@@ -217,7 +217,8 @@
         
  	const onClickGoogleLogin = (e) => {
     	//구글 인증 서버로 인증코드 발급 요청
- 		window.location.replace("https://accounts.google.com/o/oauth2/v2/auth?client_id=63421017718-97poh5dtj10hbv1ul6q80h9g51tpov1d.apps.googleusercontent.com&redirect_uri=http://localhost:9090/orkney/login/google/auth&response_type=code&scope=email%20profile%20openid&access_type=offline");
+    	let url=window.location.origin;
+ 		window.location.replace("https://accounts.google.com/o/oauth2/v2/auth?client_id=63421017718-97poh5dtj10hbv1ul6q80h9g51tpov1d.apps.googleusercontent.com&redirect_uri="+url+"${path}/login/google/auth&response_type=code&scope=email%20profile%20openid&access_type=offline");
 		//window.open("https://accounts.google.com/o/oauth2/v2/auth?client_id=63421017718-97poh5dtj10hbv1ul6q80h9g51tpov1d.apps.googleusercontent.com&redirect_uri=http:localhost:9090/orkney/login/google/auth&response_type=code&scope=email%20profile%20openid&access_type=offline",
 				// 	"","width=400,height=400,left=600");
  	}
