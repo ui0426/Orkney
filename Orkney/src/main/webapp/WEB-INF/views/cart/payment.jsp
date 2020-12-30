@@ -443,17 +443,19 @@ if($(".ck").is(":checked")==false){
 } 	
 
 	let regName = /^[가-힣]{2,4}|[a-zA-Z]{2,10}\s[a-zA-Z]{2,10}$/;
-	let regPhone =/^\d{2,3}-\d{3,4}-\d{4}$/;
+	let regPhone=/^[01]{1}[1]{1}[0]{1}-[0-9]{4}-[0-9]{4}/g;
 		
 	let phone = $("#copyphone").val(); //받는사람  핸드폰
 	let name = $("#copyname").val();   //받는사람 이름	
 	
-	console.log(phone+name)
-
-	if (!regPhone.test(phone)) {
-        alert("핸드폰번호를 입력해주세요");
-        return false;
-    }
+	if(phone.length==0){
+		alert("휴대전화 번호를 입력해주세요");
+		return false;
+	}else if(phone.length>0 && !regPhone.test(phone)){
+		alert("휴대전화 번호가 올바르지 않습니다.");
+		return false;
+	}	
+	
 	if (!regName.test(name)) {
         alert("이름을 입력해주세요");
         return false;
@@ -475,7 +477,12 @@ if($(".ck").is(":checked")==false){
 	let predicPoint = parseInt($("#point").val());		//적립 point	
 	let addTax = parseInt( $("#total").attr("class"));				//부가세		
 	let totalPoint = parseInt($("#pointuse").val());			
-
+	
+	
+	if(payment==null){
+		alert("결제수단을 선택하세요");
+		return false;
+	}
 	if(payment=="card"){		
 		IMP.init('imp27633438');
 		IMP.request_pay({
@@ -508,12 +515,12 @@ if($(".ck").is(":checked")==false){
 		        	success:data=>{ 		        		
 		        		location.replace("${path}/cart/completeMail.do");		        		
 		        	}
-		        })		        
+		        })		       		        
 		    } else {
 		        var msg = '결제에 실패하였습니다.';
 		        msg += '에러내용 : ' + rsp.error_msg;
 		    }
-		    alert("결제완료");
+		    alert(msg);
 		});		
 	}else if(payment=="bankTransfer"){}
 
