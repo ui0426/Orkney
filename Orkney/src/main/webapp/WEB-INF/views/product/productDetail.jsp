@@ -23,6 +23,24 @@
 .h32rem{
 height: 32rem;
 }
+.rm-pb-et-new {
+	font-size: 1.2rem;
+	line-height: 1.42857;
+    color: darkslateblue;
+	display: block;
+	font-weight: 700;
+	margin-bottom: .3125rem;
+	 height: 19.5px;
+}
+.rm-pb-et-p {
+	font-size: 1.2rem;
+	line-height: 1.42857;
+	color: #ed022a;
+	display: block;
+	font-weight: 700;
+	margin-bottom: .3125rem;
+	height: 19.5px;
+}
 </style>
 
 <section id="content">
@@ -433,7 +451,11 @@ height: 32rem;
 				</div>
 
 				<div class="col-lg-5 text-center text-md-left">
-
+					<div style="display: flex; justify-content: space-between;">
+						<span class="rm-pb-et-p"><p class="rm-pb-et-p">SALE</p></span>	
+						<span class="rm-pb-et-new ">NEW</span>			
+					</div>
+					<hr>
 					<h1 class="productName" id="productName"
 						class="h2-responsive text-center text-md-left product-name font-weight-bold dark-grey-text mb-1 ml-xl-0 ml-4">
 						<c:out value="${p.PRODUCT_NAME}"/>
@@ -444,8 +466,16 @@ height: 32rem;
 						class="h3-responsive text-center text-md-left mb-5 ml-xl-0 ml-4">
 						<span class=" font-weight-bold" id="productPrice"> 
 						</span>
-						<strong>원</strong>
-						
+						<strong id="won">원</strong>
+													<p class="card-text marginZero">
+							<div class="marginZero">
+
+								<div class="col row fontR" style="font-size: 21px; font-weight: bold;">								
+									<div id="" class="ht-four"></div>
+									<div id="won2">원</div>
+								</div>
+							</div>
+							</p>
 <!-- 						<span class="red-text font-weight-bold"> -->
 <!-- 						<strong>원</strong> -->
 <!-- 						</span>  -->
@@ -1035,6 +1065,31 @@ $(function(){
 
 	<c:forEach items="${list}" var="i" varStatus="s" >
 
+	var today = new Date();
+ 
+ if(today>"${i.PRODUCT_ENROLL_DATE}"){
+	  $(".rm-pb-et-new").text('');
+ }
+ if("${i.SALE_PER}"=="${i.PRODUCT_PRICE}"){ //할인이 아닐때
+	   $(".rm-pb-et-p").html('');
+	   $("#productPrice").html(numberWithCommas("${i.PRODUCT_PRICE}"));
+	   $(".ht-four").text(""); 
+	   $(".ht-four").css("height","14px"); 
+	   $("#won2").css("display","none"); 
+	  
+ 		
+ }else if("${i.SALE_PER}"!="${i.PRODUCT_PRICE}"){
+	 
+	   $("#productPrice").html(numberWithCommas("${i.PRODUCT_PRICE}"));
+	   $("#productPrice").css("text-decoration","line-through");
+	   $("#productPrice").css("font-size","18px");
+	   $("#won").css("text-decoration","line-through");
+	   $("#won").css("font-size","18px");
+	   $(".ht-four").html(numberWithCommas("${i.SALE_PER}")); 
+	   $("#won2").css("display","block"); 
+	   $(".fontR").css("color","red"); 
+	   
+ }
 	
 	$("#productName").text(("${i.PRODUCT_NAME}"));
 
@@ -1056,7 +1111,8 @@ $(function(){
 		$(colorProductA).find("#colorProduct").attr("src","${path}/resources/images/product/"+"${i.PRODUCT_PIC}");
 		$(colorProductA).find("#colorProduct").attr("alt","${i.PRODUCT_COLOR}");
 		$("#colorProductCon").append(colorProductA);
-			$("#selectColor").text("색상선택");
+			$("#selectColor").text("COLOR");
+			$("#colorName").html("${i.PRODUCT_COLOR}");
 			
 			
 		}

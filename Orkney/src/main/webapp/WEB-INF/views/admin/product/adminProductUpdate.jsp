@@ -79,7 +79,7 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text" id="basic-addon1">제품번호 :</span>
                     </div>
-                    <input type="text" class="form-control py-0" name="productNo" id="productNo"  aria-describedby="basic-addon1"  value="${list.PRODUCT_NO }" required>
+                    <input type="text" class="form-control py-0" name="productNo" id="productNo"  aria-describedby="basic-addon1"  value="${list[0].PRODUCT_NO }" required>
                   </div>
 				
                 
@@ -90,13 +90,13 @@
 	      
 	                    
 	                    <label for="productName" class="">제품명</label>
-	                  	<input type="text" name="productName" id="productName" class="form-control mb-4" placeholder="PRODUCT NAME" value="${list.PRODUCT_NAME }" required>
+	                  	<input type="text" name="productName" id="productName" class="form-control mb-4" placeholder="PRODUCT NAME" value="${list[0].PRODUCT_NAME }" required>
                     </div>
 
                     <div class="col-md-6 mb-2">
                       <!--가격-->
 	                    <label for="productPrice" class="">가격</label>
-	                  	<input type="text" name="productPrice" id="productPrice" class="form-control mb-4" placeholder="PRODUCT PRICE"value="${list.PRODUCT_PRICE }" required>
+	                  	<input type="text" name="productPrice" id="productPrice" class="form-control mb-4" placeholder="PRODUCT PRICE"value="${list[0].PRODUCT_PRICE }" required>
                     </div>
                   </div>
                
@@ -104,17 +104,17 @@
 					<div class="col-lg-4 col-md-12 mb-4">
 	                    <!--폭-->
 	                    <label for="productWidth" class="">폭</label>
-	                  	<input type="number" name="productWidth" id="productWidth" class="form-control mb-4" placeholder="cm" value="${list.PRODUCT_WIDTH }" required>
+	                  	<input type="number" name="productWidth" id="productWidth" class="form-control mb-4" placeholder="cm" value="${list[0].PRODUCT_WIDTH }" required>
                     </div>
 					<div class="col-lg-4 col-md-12 mb-4">
 	                    <!--높이-->
 	                    <label for="productHeight" class="">높이</label>
-	                  	<input type="number" name="productHeight" id="productHeight" class="form-control mb-4" placeholder="cm" value="${list.PRODUCT_HEIGHT}" required>
+	                  	<input type="number" name="productHeight" id="productHeight" class="form-control mb-4" placeholder="cm" value="${list[0].PRODUCT_HEIGHT}" required>
                     </div>
 					<div class="col-lg-4 col-md-12 mb-4">
 	                    <!--깊이-->
 	                    <label for="productDepth" class="">깊이</label>
-	                  	<input type="number" name="productDepth" id="productDepth" class="form-control mb-4" placeholder="cm" value="${list.PRODUCT_DEPTH }" required>
+	                  	<input type="number" name="productDepth" id="productDepth" class="form-control mb-4" placeholder="cm" value="${list[0].PRODUCT_DEPTH }" required>
                     </div>
                   </div>
 				
@@ -145,7 +145,7 @@
                     
                     <div class="col-lg-4 col-md-12 mb-4">
                       <label for="productBigCategoryNo">카테고리</label>
-                      <select class="custom-select d-block w-100" onchange="categoryBic();" name="productBigCategoryNo" id="productBigCategoryNo" value="${list.BIG_CATEGORY_NO }" required>
+                      <select class="custom-select d-block w-100" onchange="categoryBic();" name="productBigCategoryNo" id="productBigCategoryNo" value="${list[0].BIG_CATEGORY_NO }" required>
                         <option value="bc1">침대</option>
                         <option value="bc2">책장/선반유닛</option>
                         <option value="bc3">서랍</option>
@@ -168,7 +168,7 @@
                     <div style="display: none"><option value="" id="sC"></option></div>
                     <div class="col-lg-4 col-md-12 mb-4">
                       <label for="productSmallCategoryNo">S카테고리</label>
-                      <select class="custom-select d-block w-100" name="productSmallCategoryNo" id="productSmallCategoryNo" value="${list.SMALL_CATEGORY_NO }" required>
+                      <select class="custom-select d-block w-100" name="productSmallCategoryNo" id="productSmallCategoryNo" value="${list[0].SMALL_CATEGORY_NO }" required>
                         <option value="sc31">더블</option>
                         <option value="sc32">싱글</option>
                         <option value="sc33">수납장</option>
@@ -188,11 +188,11 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text" id="basic-addon1">재고</span>
                     </div>
-                    <input type="number" class="form-control py-0" name="productStock" id="productStock" placeholder="재고 수량 " aria-describedby="basic-addon1" value="${list.PRODUCT_STOCK }" required>
+                    <input type="number" class="form-control py-0" name="productStock" id="productStock" placeholder="재고 수량 " aria-describedby="basic-addon1" value="${list[0].PRODUCT_STOCK }" required>
                   </div>
                   
                   <label for="productInfo" class="">제품설명</label>
-                  <textarea id="productInfo" placeholder="PRODUCT INFO" name="productInfo" class="form-control mb-4" rows="" cols="" required>${list.PRODUCT_INFO }</textarea>
+                  <textarea id="productInfo" placeholder="PRODUCT INFO" name="productInfo" class="form-control mb-4" rows="" cols="" required>${list[0].PRODUCT_INFO }</textarea>
               
 
                
@@ -331,7 +331,7 @@
 					
 	                <hr class="mb-4">
 	
-	                <button class="btn btn-primary btn-lg btn-block" type="submit">제품 추가</button>
+	                <button class="btn btn-primary btn-lg btn-block" type="submit">제품 수정</button>
 	
 	              </div>
                 </form>
@@ -344,10 +344,27 @@
   </section>
 
 
-
 </div>
 <script type="text/javascript">
-
+	$(function() {
+		<c:forEach items="${list}" var="r" varStatus="s" >
+		if ("${s.index}"==0) {
+			$("#mainImg").attr("src","${path}/resources/images/product/"+"${r.PRODUCT_PIC}");
+		}
+		if ("${s.index}"==1) {
+			$("#image_section").attr("src","${path}/resources/images/product/"+"${r.PRODUCT_PIC}");
+			
+		}
+		if ("${s.index}"==2) {
+			$("#image_section1").attr("src","${path}/resources/images/product/"+"${r.PRODUCT_PIC}");
+			
+		}
+		if ("${s.index}"==3) {
+			$("#image_section2").attr("src","${path}/resources/images/product/"+"${r.PRODUCT_PIC}");
+			
+		}
+		</c:forEach>
+	})
 	 
 	// 이벤트를 바인딩해서 input에 파일이 올라올때 위의 함수를 this context로 실행합니다.
 	$("#imgInput").change(function(){

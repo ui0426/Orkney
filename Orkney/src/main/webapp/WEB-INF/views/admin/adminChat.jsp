@@ -188,8 +188,10 @@
 <script type="text/javascript">
 
 let id="${login.MEMBER_NO}";
-
-let sock = new SockJS("http://localhost:9090/orkney/echo");
+let url=window.location.origin;
+console.log(url+"${path}");
+ let sock = new SockJS(url+"${path}/echo");
+/* let sock = new SockJS("http://localhost:9090/orkney/echo"); */
 sock.onmessage = onMessage;
 sock.onclose = onClose;
 
