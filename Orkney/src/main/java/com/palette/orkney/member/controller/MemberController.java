@@ -146,7 +146,15 @@ public class MemberController {
 		if(insertUser>0) {
 			Map user=service.searchUser((String)userInfo.get("email"));
 			int wish=service.defaultWishList((String)user.get("MEMBER_NO"));
+			String no=(String)user.get("MEMBER_NO");
 			service.addAdr(userInfo);
+			
+			Addr ad=service.getAddress(no);
+			if(ad!=null) {
+			String address=	ad.getAddress();
+			user.put("address", address);
+			}
+			
 			mv.addObject("login",user);
 		}
 		mv.setViewName("redirect:emailAuth.do");
