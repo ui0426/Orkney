@@ -413,10 +413,26 @@
         SELECT * FROM SHOWROOM WHERE ROOM_CATEGORY=#{type}
      </select>
       <select id="selectRoomsProduct" resultType="map" parameterType="map">
-          SELECT * FROM ROOMS E
+         <!--  SELECT * FROM ROOMS E
             JOIN PRODUCT R ON E.PRODUCT_NO= R.PRODUCT_NO
              JOIN PRODUCT_IMAGE J ON E.PRODUCT_NO= J.PRODUCT_NO
-                 JOIN SHOWROOM Q ON Q.ROOM_NO= E.ROOM_NO
+                 JOIN SHOWROOM Q ON Q.ROOM_NO= E.ROOM_NO -->
+                 
+                 <!--  SELECT E.*, R.*, J.*, Q.*, (select AVG(PRODUCT_GRADE)
+                FROM REVIEW where E.PRODUCT_NO = R.PRODUCT_NO)AS GRADE_AVG
+                ,(select COUNT(*)
+                FROM REVIEW where E.PRODUCT_NO = R.PRODUCT_NO)AS GRADE_COUNT
+       FROM ROOMS E
+            JOIN PRODUCT R ON E.PRODUCT_NO= R.PRODUCT_NO
+             JOIN PRODUCT_IMAGE J ON E.PRODUCT_NO= J.PRODUCT_NO
+            JOIN SHOWROOM Q ON Q.ROOM_NO= E.ROOM_NO  -->
+            
+              SELECT * FROM ROOMS E
+              JOIN SHOWROOM Q ON Q.ROOM_NO= E.ROOM_NO
+            JOIN PRODUCT R ON E.PRODUCT_NO= R.PRODUCT_NO
+             JOIN PRODUCT_IMAGE J ON E.PRODUCT_NO= J.PRODUCT_NO
+             LEFT OUTER  JOIN(SELECT PRODUCT_NO, AVG(PRODUCT_GRADE) ROOM_GRADE,COUNT(REVIEW_NO)REVIEW_COUNT
+             FROM REVIEW GROUP BY PRODUCT_NO) G ON G.PRODUCT_NO=R.PRODUCT_NO    
                  <if test="type!=null">
                 WHERE ROOM_CATEGORY= #{type}  AND J.PRODUCT_COLOR='normal' 
                </if>
@@ -464,7 +480,7 @@
       SELECT * FROM (SELECT * FROM PRODUCT E
              JOIN PRODUCT_IMAGE J ON E.PRODUCT_NO= J.PRODUCT_NO
               JOIN BIG_CATEGORY T ON T.BIG_CATEGORY_NO=E.BIG_CATEGORY_NO
-            WHERE J.PRODUCT_COLOR='normal' AND E.SALE_PER IS NOT NULL)WHERE  ROWNUM <![CDATA[<]]>2      
+            WHERE J.PRODUCT_COLOR='normal' AND PRODUCT_PRICE!= SALE_PER AND E.SALE_PER IS NOT NULL)WHERE  ROWNUM <![CDATA[<]]>10      
 
 
    </select>

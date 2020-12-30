@@ -103,7 +103,7 @@
 							<p class="class-p">이 제품을 사용하면 특수한 메커니즘 덕분에 일하면서도 끊임없이 몸을 움직일 수 있어요. 이 조절식 스툴을 꾸준히 사용할 경우 근육과 척추가 강화되며 자연스럽게 건강한 자세를 취하게 됩니다. 따라서 꼼짝 못하고 일할 때에도 계속해서 몸을 움직일 수가 있죠.</p>
 							<a class="class-a" href="${path}">LIDKULLEN 리드쿨렌  보러 가기</a>
 						</div>
-						<a href="${path}/product/productDetail.do?productno=">
+						<a href="${path}/product/productDetail.do?productno=p256">
 						<video autoplay="" loop="" class="video-background" muted="">
 							<source
 								src="${path}/resources/video/15_IKEA_sustainability_HealthierEveryDay_8s_3x4_offline_v02_EL_Grade (1).webm"
@@ -141,9 +141,9 @@
 						<div class="main">
 							<h1 class="class-h1">미래에 맞춰 조절 가능한 가구</h1>
 							<p class="class-p">식구가 늘어나고 라이프스타일도 변하거나 취향이 성숙해질 때, 모듈식 가구는 아주 고마운 제품이에요. 나중에 바꿔야 할 수도 있는 가구에 많은 돈을 미리 쓸 필요 없이 필요에 따라 원하는 모듈만 간단히 더할 수 있으니까요. 모듈식 가구를 사용하면 홈퍼니싱을 새로운 생활 환경에 맞게 합리적인 비용으로 간편하게 조정할 수 있어요.</p>
-							<a class="class-a" href="${path}">BUSUNGE 부숭에 매트리스 보러 가기</a>
+							<a class="class-a" href="${path}">BUSUNGE 부숭에 침대 보러 가기</a>
 						</div>
-						<a href="${path}/product/productDetail.do?productno=">
+						<a href="${path}/product/productDetail.do?productno=p257">
 						<video autoplay="" loop="" class="video-background" muted="">
 							<source
 								src="${path}/resources/video/10_IKEA_sustainability_MoreSustainableOneStepAtTheTime_5s_3x4_offline_v02_EL_Grade (1).webm"
@@ -163,50 +163,50 @@
 	<div class="popularProduct">
 
 		<div class="buttonLine">
-			<button type="button" class="btn btn-dark event-bu1 event-target">
-				<span class="event-sp">전체보기</span>
+			<button type="button" class="btn btn-dark event-bu1 event-target" value="전체보기">
+				<span class="event-sp clickEvent">전체보기</span>
 			</button>
 			<button type="button" class="btn btn-dark event-bu1 event-target">
-				<span class="event-sp"> 책장/선반유닛 </span>
+				<span class="event-sp clickEvent">책장/선반유닛</span>
 			</button>
 			<button type="button" class="btn btn-dark event-bu1 event-target">
-				<span class="event-sp">서랍</span>
+				<span class="event-sp clickEvent">서랍</span>
 			</button>
 			<button type="button" class="btn btn-dark event-bu1 event-target">
-				<span class="event-sp">의자</span>
+				<span class="event-sp clickEvent">의자</span>
 			</button>
 			<button type="button" class="btn btn-dark event-bu1 event-target">
-				<span class="event-sp">바테이블/의자</span>
+				<span class="event-sp clickEvent">바테이블/의자</span>
 			</button>
 			<button type="button" class="btn btn-dark event-bu1 event-target">
-				<span class="event-sp">카페가구</span>
+				<span class="event-sp clickEvent">카페가구</span>
 			</button>
 			<button type="button" class="btn btn-dark event-bu1 event-target">
-				<span class="event-sp">이동식선반</span>
+				<span class="event-sp clickEvent">이동식선반</span>
+			</button>
+			<button type="button " class="btn btn-dark event-bu1 event-target">
+				<span class="event-sp clickEvent">옷장</span>
 			</button>
 			<button type="button" class="btn btn-dark event-bu1 event-target">
-				<span class="event-sp">옷장</span>
+				<span class="event-sp clickEvent">수납장/장식장</span>
 			</button>
 			<button type="button" class="btn btn-dark event-bu1 event-target">
-				<span class="event-sp">수납장/장식장</span>
+				<span class="event-sp clickEvent">거실장/찬장/콘솔테그이블</span>
 			</button>
 			<button type="button" class="btn btn-dark event-bu1 event-target">
-				<span class="event-sp">거실장/찬장/콘솔테그이블</span>
+				<span class="event-sp clickEvent">TV/멀티미디어가구</span>
 			</button>
 			<button type="button" class="btn btn-dark event-bu1 event-target">
-				<span class="event-sp">TV/멀티미디어가구</span>
+				<span class="event-sp clickEvent">침대</span>
 			</button>
 			<button type="button" class="btn btn-dark event-bu1 event-target">
-				<span class="event-sp">침대</span>
+				<span class="event-sp clickEvent">소파/암체어</span>
 			</button>
 			<button type="button" class="btn btn-dark event-bu1 event-target">
-				<span class="event-sp">소파/암체어</span>
+				<span class="event-sp clickEvent">조명</span>
 			</button>
 			<button type="button" class="btn btn-dark event-bu1 event-target">
-				<span class="event-sp">조명</span>
-			</button>
-			<button type="button" class="btn btn-dark event-bu1 event-target">
-				<span class="event-sp">식탁/책상</span>
+				<span class="event-sp clickEvent">식탁/책상</span>
 			</button>
 		</div>
 		<div class="pp-img">
@@ -295,20 +295,25 @@
     		mainAjax();
     	 });
     	 let text='';
+    	 let texts='';
     	 $(".event-target").click(e=>{
+    		
     		 resize();
     		 $(".add").css({"display":"flex","justify-content":"center"});
     		 $(".event-remove").remove();
     		
     		if($(e.target).text()=="전체보기"){
-    			text='';
-    			console.log(text,'if');
+    			text=''
+    			texts=$.trim(text);
     			
+    			console.log($(e.target),'target');
+    			console.log(texts,'if');
     			mainAjax();	
     		}else{
     		text=$(e.target).text();
-    		console.log(text,'else');
     		
+    		texts=$.trim(text);
+    		console.log(texts,'else');
     		mainAjax();	
     		}
         	 
@@ -338,7 +343,7 @@
         	 $.ajax({
         		
     			    url: '${path}/product/productCategory.do', // 클라이언트가 요청을 보낼 서버의 URL 주소
-    			    data: { 'text': text,'type':type}, 
+    			    data: { 'text': texts,'type':type}, 
     			    type: 'post',                             // HTTP 요청 방식(GET, POST)
     			    success: function(data){
     			    	console.log(data);
