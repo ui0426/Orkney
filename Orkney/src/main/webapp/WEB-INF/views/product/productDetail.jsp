@@ -47,7 +47,7 @@ height: 32rem;
 }
 </style>
 
-<section id="content" style="overflow: hidden;">
+<section id="content">
 
 
 
@@ -357,7 +357,7 @@ height: 32rem;
 	</div>
 <!-- 		▼▼▼▼▼▼▼상품평▼▼▼▼▼ -->
 
-	<div class="modal fade right" id="modalPoll-3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal fade right" id="modalPoll-3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="overflow: auto;">
 		<div class="modal-dialog modal-full-height modal-right modal-notify modal-info" role="document">
 			<div class="modal-content">
 				<!--Header-->
@@ -372,7 +372,7 @@ height: 32rem;
 						<span aria-hidden="true" class="white-text">×</span>
 					</button>
 				</div>
-				<div class="container my-5" style="overflow:auto !important;">
+				<div class="container my-5" >
 				<!--Body-->
   				<section class="dark-grey-text mb-5" id="reviewCon" >
 						<!-- Section heading -->
@@ -538,7 +538,7 @@ height: 32rem;
 							
 <!-- Modal: modalAbandonedCart-->
 <div class="modal fade right" id="modalAddWish" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-  aria-hidden="true" data-backdrop="false">
+  aria-hidden="true" data-backdrop="false" >
   <div class="modal-dialog modal-side modal-top-right modal-notify modal-info" role="document">
     <!--Content-->
     <div class="modal-content" id="insertWish">
@@ -854,7 +854,7 @@ $(function(){
 <div class="media mb-3" id="reviewClone" >
 <!-- 						▼▼▼▼회원 이미지 OR 상품 이미지▼▼▼▼ -->
 							<div id="reviewImgCon">
-							<a  data-toggle="modal" data-target="#modalVM" id="imgZoom" onclick="">
+							<a  data-toggle="modal" data-target="#modalVM" id="imgZoom" >
 							<img id="productImg"
 									class="card-img-100 rounded-circle z-depth-1-half d-flex mr-3"
 									src=""
@@ -1171,6 +1171,7 @@ $(function(){
 							
 						
 });
+
 </script>
 
 
