@@ -907,19 +907,19 @@ function fn_addWishModal(price,pNo){
 		return;
 	}
 	
-// 	$.ajax({
-// 		type: 'post',
-// 		url: '${ path }/wishlist/insertWishModal.do',
-// 		data: {pNo:pNo},
-// 		success: function(data){
-// 			console.log(data);
-// 			if(data == ''){
+	$.ajax({
+		type: 'post',
+		url: '${ path }/wishlist/insertWishModal.do',
+		data: {pNo:pNo},
+		success: function(data){
+			console.log(data);
+			if(data == ''){
 				
-// 			}
-// 			$('#insertWish').html(data);
-// 		}
+			}
+			$('#insertWish').html(data);
+		}
 		
-// 	})
+	})
 }
 
 function fnbn(a,b){
