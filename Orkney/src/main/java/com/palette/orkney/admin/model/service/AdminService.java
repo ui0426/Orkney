@@ -65,7 +65,7 @@ public interface AdminService {
 	int deleteProduct(String pNo);
 	List<Map> productOne(Map<String,Object> list);
 	int productInsert(Product product,List<Product_image> files, String[] img);
-	Map<String,Object> productUpdate(String pNo);
+	List<Map> productUpdate(String pNo);
 	int producUpdateIn(Product product,List<Product_image> files, String[] img);
 	List<Map> sCategoryList(Map<String,Object> list);
 	

@@ -237,7 +237,7 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public Map<String,Object> productUpdate(String pNo) {
+	public List<Map> productUpdate(String pNo) {
 		// TODO Auto-generated method stub
 		return dao.productUpdate(session,pNo);
 	}
