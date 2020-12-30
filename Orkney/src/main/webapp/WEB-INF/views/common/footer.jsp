@@ -10,6 +10,9 @@
     
     
 <style>
+	footer{
+		margin-top: 150px;
+	}
    .enBtn{
       border-radius:20px;
       padding:.625rem 1.25rem .625rem 1.25rem;
