@@ -82,7 +82,7 @@
 							<p class="class-p underlined">목재는 튼튼하고 오래가면서도 개성 넘치는 가구를 만들 수 있는 훌륭한 소재예요. 사포질로 다듬고, 스테인으로 마감하거나, 페인트 칠을 하면 가구의 수명을 늘릴 수 있죠. 결국, 나무는 완전히 새로운 질감으로 재탄생하게 됩니다.</p>
 							<a class="class-a" href="${path}">IVER 이바르 시스템 보러가기</a>
 						</div>
-						<a href="${path}/product/productDetail.do?productno=">
+						<a href="${path}/product/productDetail.do?productno=p259">
 						<video autoplay="" loop="" class="video-background" muted="">
 							<source
 								src="${path}/resources/video/04_IKEA_sustainability_ForTheSakeOfWood_5s_3x4_offline_v02_EL_Grade-1-.webm"
@@ -153,7 +153,25 @@
 						</a>
 					</div>
 				</div>
-				
+				<div class="swiper-slide swiper-slide-one swiper-slide-prev"
+					data-swiper-slide-index="4" >
+					<div class="swiper-image" data-swiper-parallax-y="-20%"
+						style="transform: translate3d(0px, -20%, 0px); transition-duration: 0ms;">
+						<div class="main">
+							<h1 class="class-h1">에너지 절약이 곧 비용 절감</h1>
+							<p class="class-p">새로운 조명, 난방 및 가전 제품으로 에너지 소비를 줄이고 돈도 아낄 수 있어요. 현대인의 필수품인 가전 제품을 포기할 수 없다면, 에너지 효율이 뛰어난 AA+ 등급 이상의 최신 모델을 사용하세요. 한걸음 더 나아가 지구를 생각한다면 가정용 태양광 에너지를 이용해보세요. 탄소 배출량을 줄이고 전기 요금도 절약할 수 있을 거예요.</p>
+							<a class="class-a" href="${path}">무선 LED 전구 보러 가기</a>
+						</div>
+						<a href="${path}/product/products.do?category=조명&sale=">
+						<video autoplay="" loop="" class="video-background" muted="">
+							<source
+								src="${path}/resources/video/07_IKEA_sustainability_SimplySustainable_5s_3x4_offline_v05_Grade (1).webm"
+								type="video/webm">
+
+						</video>
+						</a>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -306,14 +324,12 @@
     			text=''
     			texts=$.trim(text);
     			
-    			console.log($(e.target),'target');
-    			console.log(texts,'if');
     			mainAjax();	
     		}else{
     		text=$(e.target).text();
     		
     		texts=$.trim(text);
-    		console.log(texts,'else');
+    		
     		mainAjax();	
     		}
         	 
@@ -346,14 +362,14 @@
     			    data: { 'text': texts,'type':type}, 
     			    type: 'post',                             // HTTP 요청 방식(GET, POST)
     			    success: function(data){
-    			    	console.log(data);
+    			    	
     			    	 let width = $(window).width();
     			    	 if (width >= 1000) {
     			    		 $(".event-remove").remove();
     			    		 $(".pp-img-mg-id").css("width","31%");
     			    		 $(".twoClass").css("display","flex");
     	    			    	$(".threeClass").css("display","flex");
-    			    		console.log('되라 쫌!');
+    			    		
     			    	for(let i=0;i<data.length;i++){
     			    		for(let t=0;t<data.length;t+=3){ 
     			    			if(i==t){
@@ -364,7 +380,7 @@
     			    				$(tt).css("display","flex");
     			    				$(tt).find(".pp-img-a").attr("href","${path}/product/productDetail.do?productno="+data[i]["PRODUCT_NO"]);
     			    			$(tt).find(".pp-img-wdhe").attr("src","${path}/resources/images/product/"+data[i]["PRODUCT_PIC"]);
-    			    			console.log(tt,'tt');
+    			    			
     			    			$(".oneClass").append(tt);
     			    			}
     			    			}
@@ -381,13 +397,13 @@
     			    					$(ww).find(".pp-img-a").attr("href","${path}/product/productDetail.do?productno="+data[i]["PRODUCT_NO"]);
     			    					$(ww).find(".pp-img-wdhe").addClass("pp-img-wdhe-2").removeClass("pp-img-wdhe").attr("src","${path}/resources/images/product/"+data[i]["PRODUCT_PIC"]);	
     			    					$(".pp-img-wdhe-2").css({"width": "100%" , "height": "395.47px","display":"block"});
-    			    					console.log(ww,'ww2');
+    			    					
     			    					$(".twoClass").append(ww);
     			    				}
     			    			if(i==w&&w>1){	
     			    			$(ww).find(".pp-img-a").attr("href","${path}/product/productDetail.do?productno="+data[i]["PRODUCT_NO"]);
-    			    			$(ww).find("pp-img-wdhe-2").addClass("pp-img-wdhe").removeClass("pp-img-wdhe-2").attr("src","${path}/resources/images/product/"+data[i]["PRODUCT_PIC"]);
-    			    			console.log(ww,'ww1');
+    			    			$(ww).find(".pp-img-wdhe").attr("src","${path}/resources/images/product/"+data[i]["PRODUCT_PIC"]);
+    			    			
     			    			$(".twoClass").append(ww);
     			    			}
     				    		}
@@ -400,7 +416,7 @@
     			    			$(gg).css("display","flex");
     			    			$(gg).find(".pp-img-a").attr("href","${path}/product/productDetail.do?productno="+data[i]["PRODUCT_NO"]);
     			    			$(gg).find(".pp-img-wdhe").attr("src","${path}/resources/images/product/"+data[i]["PRODUCT_PIC"]);
-    			    			console.log(gg,'gg');
+    			    			
     			    			$(".threeClass").append(gg);
     			    			}
     			    			}
@@ -425,7 +441,7 @@
     			    				
     			    				$(tt).find(".pp-img-a").attr("href","${path}/product/productDetail.do?productno="+data[i]["PRODUCT_NO"]);
         			    			$(tt).find(".pp-img-wdhe").attr("src","${path}/resources/images/product/"+data[i]["PRODUCT_PIC"]);
-    			    			console.log(tt,'tt');
+    			    			
     			    			$(".oneClass").append(tt);
     			    			}
     			    			}
@@ -437,7 +453,7 @@
     			    			$(gg).css("display","flex");
     			    			$(gg).find(".pp-img-a").attr("href","${path}/product/productDetail.do?productno="+data[i]["PRODUCT_NO"]);
     			    			$(gg).find(".pp-img-wdhe").attr("src","${path}/resources/images/product/"+data[i]["PRODUCT_PIC"]);
-    			    			console.log(gg,'gg');
+    			    			
     			    			$(".threeClass").append(gg);
     			    			}
     			    			}
@@ -454,13 +470,14 @@
     			    				$(tt).css("display","flex");
     			    				$(tt).find(".pp-img-a").attr("href","${path}/product/productDetail.do?productno="+data[i]["PRODUCT_NO"]);
         			    			$(tt).find(".pp-img-wdhe").attr("src","${path}/resources/images/product/"+data[i]["PRODUCT_PIC"]);
-    			    			console.log(tt,'tt');
+    			    			
     			    			$(".oneClass").append(tt);
     			    			}
     			    	}
-    			    	 
+    			    	 console.log(data.length,'datalength');
+    			    	 console.log(allData,'allData');
     			    if(data.length==allData) {
-			    		 console.log(123);
+			    		
 		    			$(".add").css("display","none");
 		    		}  
     			    }

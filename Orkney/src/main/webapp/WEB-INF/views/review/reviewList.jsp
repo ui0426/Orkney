@@ -8,123 +8,7 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp">		
 	<jsp:param name="title" value="리뷰 상세 " />
 </jsp:include>
-
-<style>
-h1, h3{margin : 0;}
-.review-container-content{
-	margin: 1.5rem 1rem 3rem 1rem;
-}
-.review-container-inner{
-	max-width: 900px;
-	    margin: 0 auto;
-}
-.reviewform-title{
-	text-align: center;
-	font-weight: 700;
-	font-size: 1.5rem;
-	margin: 1rem 0px;
-}
-.review-small-container{
-	margin: 0 .7em 0 1em;
-}
-.orderList_mobile{
-	width: -webkit-fill-available;
-}
-.orderList-tab{
-	width: 100%;
-}
-.orderList-btn{
-	padding: 1em 0 1em 0px;
-	font-weight: 500;
-	margin-bottom: .375rem;
-	border:0;
-	border-radius: .125rem;
-	box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
-	transition: color 0.15s ease-in-out,background-color 0.15s ease-in-out,border-color 0.15s ease-in-out,box-shadow 0.15s ease-in-out,-webkit-box-shadow 0.15s ease-in-out;
-	font-size: .81rem;
-	width: -webkit-fill-available;
-}
-.orderList-btn:focus{
-	outline: none;
-}
-.btn-clicked{
-	box-shadow: 0 5px 4px 0 rgba(0,0,0,0.16), 0 4px 10px 0 rgba(0,0,0,0.12);
-   	z-index: 1;
-   	font-weight: 600;
-}
-.panels{
-	border-bottom: 2px solid #ccc;
-   	padding: 1em .7em 1em 1.5em;
-}
-.panel2{
-	display: none;
-}
-.reviewView{
-	
-    padding: 0.5em;
-    margin: 1em;
-    background-color: #e6f9fd;
-}
-.reviewNone{
-	display:none;
-}
-.img-size{
-	width: 80px;
-	height: 80px;
-}
-.p-info{
-    font-size: .85em;
-}
-.p-name{
-    padding-top: .3em;
-    font-size: 1.3em;
-}
-.reviewform-btn{
-	padding-top: .8em;
-}
-.review-date{
-	 padding: 1em;
-}
-.star-size{
-width: 1em;
-heignt: 1em;
-color: #ffc107;
-}
-.content{
-    margin: .4em;
-    font-size: .85em;
-}
-.ri-img-size{
-	width: 20em;
-    margin: .3em;
-    border-radius: 1em;
-}
-.reviewcontent{
-	display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-@media(min-width: 769px){
-	.ri-img-size{
-		width: 30em;
-	}
-}
-.null-notice{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 5em;
-}
-.null-icon{
-	color: #ccc;
-    width: 10em;
-}
-.null-notice-text{
-    padding-top: 2em;
-    font-weight: 900;
-    color: #6c757d;
-}
-</style>
+<link rel="stylesheet" href="${path}/resources/css/review/reviewList.css"/>
 
 <section class="review-container">
 	<div class="review-container-content">
@@ -223,6 +107,7 @@ color: #ffc107;
 											 		<svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="star" class="svg-inline--fa fa-star fa-w-18 star-size" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z"></path></svg>
 											 	</c:when>
 											 </c:choose>
+											 <span style="font-weight:400; margin-left:.3em;"><c:out value="${r.product_grade }"/></span>
 											</div>
 											<div class="content">
 												<c:out value="${r.review_content }"/>

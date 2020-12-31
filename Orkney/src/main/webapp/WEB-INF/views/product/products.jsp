@@ -151,12 +151,18 @@ filter2();
 				})	
 			});
 				
-					let start = 4;
-					
-
+				function getFormatDate(date){
+				    var year = date.getFullYear();              //yyyy
+				    var month = (1 + date.getMonth());          //M
+				    month = month >= 10 ? month : '0' + month;  //month 두자리로 저장
+				    var day = date.getDate();                   //d
+				    day = day >= 10 ? day : '0' + day;          //day 두자리로 저장
+				    return  year + '' + month + '' + day;       //'-' 추가하여 yyyy-mm-dd 형태 생성 가능
+				}
+					let start = 9;
 
 				function filter2() {
-					start = start+1;
+					
 				
 					
 				// 정렬
@@ -193,17 +199,44 @@ filter2();
 						$("#product_list").html("");
 //  						alert(category);
 
-					  
+					 
 						for ( var i=0;i <= data.length;i++){
-						if (data[i]["PRODUCT_COLOR"]=="normal"  ) {
 							
+							var endDate = new Date(data[i]["PRODUCT_ENROLL_DATE"]);
+							endDate=getFormatDate(endDate);
+							 var today = new Date();
+							 today=getFormatDate(today)
 						  let productClone = $("#products").clone().attr("id","products"+i);
+						  
+						  if(today>endDate){
+							  $(productClone).find(".rm-pb-et-new").text('');
+					      }
+				    	  if(data[i]["SALE_PER"]==data[i]["PRODUCT_PRICE"]){ //할인이 아닐때
+					    	   $(productClone).find(".rm-pb-et-p").html('');
+					    	   $(productClone).find("#pr").html(numberWithCommas(data[i]["PRODUCT_PRICE"]));
+				    		   $(productClone).find(".ht-four").text(""); 
+				    		   $(productClone).find(".ht-four").css("height","14px"); 
+				    		   $(productClone).find("#won2").css("display","none"); 
+				    		  
+			    		  		
+				    	  }else if(data[i]["SALE_PER"]!=data[i]["PRODUCT_PRICE"]){
+				    		 
+				    		   $(productClone).find("#pr").html(numberWithCommas(data[i]["PRODUCT_PRICE"]));
+				    		   $(productClone).find("#pr").css("text-decoration","line-through");
+				    		   $(productClone).find("#pr").css("font-size","12px");
+				    		   $(productClone).find("#won").css("text-decoration","line-through");
+				    		   $(productClone).find("#won").css("font-size","12px");
+				    		   $(productClone).find(".ht-four").html(numberWithCommas(data[i]["SALE_PER"])); 
+				    		   $(productClone).find("#won2").css("display","block"); 
+				    		   $(productClone).find(".fontR").css("color","red"); 
+				    		   
+				    	  }
 						  
 						
 						  $(productClone).find("#checkbox").val(data[i]["PRODUCT_PIC"]);
 						  $(productClone).find("#productMainImg").attr("src","${path}/resources/images/product/"+data[i]["PRODUCT_PIC"]);
 						  $(productClone).find("#product_name").html(data[i]["PRODUCT_NAME"]);
-						  $(productClone).find("#category").html(data[i]["BIG_CATEGORY_NO"]);
+						  $(productClone).find("#category").html(data[i]["BIG_CATEGORY_CONTENT"]);
 						  $(productClone).find("#pr").html(numberWithCommas(data[i]["PRODUCT_PRICE"]));
 						  $(productClone).find("#productA").attr("href","${path}/product/productDetail.do?productno="+data[i]["PRODUCT_NO"]);
 						  $(productClone).find("#readMore").attr("onclick","location.href = \'${path}/product/productDetail.do?productno="+data[i]["PRODUCT_NO"]+"\'");
@@ -277,10 +310,11 @@ filter2();
 								
 							});
 						 $("#product_list").append(productClone);
-						}
+					
 						}
 					}
-				})		
+				})	
+				start = start+8;
  			}
 				function filter() {
 				// 정렬
@@ -294,7 +328,7 @@ filter2();
 				// 색상
 				let group5 = $('input[name="group5"]:checked').val();
 				let category = getParameterByName('category');
-				  start=5;
+				  start=9;
 				
 				  //마지막 리스트 번호를 알아내기 위해서 tr태그의 length를 구함.
 				  
@@ -319,15 +353,41 @@ filter2();
 					$("#product_list").html("");
 					  
 						for ( var i=0;i <= data.length;i++){
-						if (data[i]["PRODUCT_COLOR"]=="normal" ) {
 							
+							var endDate = new Date(data[i]["PRODUCT_ENROLL_DATE"]);
+							endDate=getFormatDate(endDate);
+							 var today = new Date();
+							 today=getFormatDate(today)
 						  let productClone = $("#products").clone().attr("id","products"+i);
+
 						  
+						  if(today>endDate){
+							  $(productClone).find(".rm-pb-et-new").text("");
+					      }
+						  if(data[i]["SALE_PER"]==data[i]["PRODUCT_PRICE"]){ //할인이 아닐때
+					    	   $(productClone).find(".rm-pb-et-p").html('');
+					    	   $(productClone).find("#pr").html(numberWithCommas(data[i]["PRODUCT_PRICE"]));
+				    		   $(productClone).find(".ht-four").text(""); 
+				    		   $(productClone).find("#won2").css("display","none"); 
+				    		  
+			    		  		
+				    	  }else if(data[i]["SALE_PER"]!=data[i]["PRODUCT_PRICE"]){
+				    		 
+				    		   $(productClone).find("#pr").html(numberWithCommas(data[i]["PRODUCT_PRICE"]));
+				    		   $(productClone).find("#pr").css("text-decoration","line-through");
+				    		   $(productClone).find("#pr").css("font-size","12px");
+				    		   $(productClone).find("#won").css("text-decoration","line-through");
+				    		   $(productClone).find("#won").css("font-size","12px");
+				    		   $(productClone).find(".ht-four").html(numberWithCommas(data[i]["SALE_PER"])); 
+				    		   $(productClone).find("#won2").css("display","block"); 
+				    		   $(productClone).find(".fontR").css("color","red"); 
+				    		   
+				    	  }
 						
 						  $(productClone).find("#checkbox").val(data[i]["PRODUCT_PIC"]);
 						  $(productClone).find("#productMainImg").attr("src","${path}/resources/images/product/"+data[i]["PRODUCT_PIC"]);
 						  $(productClone).find("#product_name").html(data[i]["PRODUCT_NAME"]);
-						  $(productClone).find("#category").html(data[i]["BIG_CATEGORY_NO"]);
+						  $(productClone).find("#category").html(data[i]["BIG_CATEGORY_CONTENT"]);
 						  $(productClone).find("#pr").html(numberWithCommas(data[i]["PRODUCT_PRICE"]));
 						  $(productClone).find("#productA").attr("href","${path}/product/productDetail.do?productno="+data[i]["PRODUCT_NO"]);
 						  $(productClone).find("#readMore").attr("onclick","location.href = \'${path}/product/productDetail.do?productno="+data[i]["PRODUCT_NO"]+"\'");
@@ -400,10 +460,11 @@ filter2();
 								
 							});
 						 $("#product_list").append(productClone);
-						}
+						
 						}
 					}
-				})		
+				})	
+				start = start+8;
  			}
 		 
 
@@ -515,46 +576,46 @@ filter2();
 										</div>
 										
 										<div class="form-check mb-4">
-											<input class="form-check-input " name="group2" type="radio" id="60x120" value="60x120" onclick="filter();"> 
-											<label	class="form-check-label fontborder " for="60x120">60x120cm</label>
+											<input class="form-check-input " name="group2" type="radio" id="60x120" value="40" onclick="filter();"> 
+											<label	class="form-check-label fontborder " for="60x120">40cm</label>
 										</div>
 
 										<div class="form-check mb-4">
-											<input class="form-check-input" name="group2" type="radio" id="70x160" value="70x160" onclick="filter();"> 
-											<label class="form-check-label fontborder" for="70x160">70x160cm</label>
+											<input class="form-check-input" name="group2" type="radio" id="70x160" value="80" onclick="filter();"> 
+											<label class="form-check-label fontborder" for="70x160">80cm</label>
 										</div>
 
 										<div class="form-check mb-4">
-											<input class="form-check-input" name="group2" type="radio" id="80x200" value="80x200" onclick="filter();"> 
-											<label class="form-check-label fontborder" for="80x200">80x200cm</label>
+											<input class="form-check-input" name="group2" type="radio" id="80x200" value="100" onclick="filter();"> 
+											<label class="form-check-label fontborder" for="80x200">100cm</label>
 										</div>
 										<div class="form-check mb-4">
-											<input class="form-check-input" name="group2" type="radio" id="90x200" value="90x200" onclick="filter();"> 
-											<label class="form-check-label fontborder" for="90x200">90x200cm</label>
+											<input class="form-check-input" name="group2" type="radio" id="90x200" value="120" onclick="filter();"> 
+											<label class="form-check-label fontborder" for="90x200">120cm</label>
 										</div>
 										<div class="form-check mb-4">
-											<input class="form-check-input" name="group2" type="radio" id="120x200" value="120x200" onclick="filter();"> 
-												<label class="form-check-label fontborder" for="120x200">120x200cm</label>
+											<input class="form-check-input" name="group2" type="radio" id="120x200" value="130" onclick="filter();"> 
+												<label class="form-check-label fontborder" for="120x200">130cm</label>
 										</div>
 										<div class="form-check mb-4">
-											<input class="form-check-input" name="group2" type="radio" id="140x200" value="140x200" onclick="filter();"> 
-												<label class="form-check-label fontborder" for="140x200">140x200cm</label>
+											<input class="form-check-input" name="group2" type="radio" id="140x200" value="140" onclick="filter();"> 
+												<label class="form-check-label fontborder" for="140x200">140cm</label>
 										</div>
 										<div class="form-check mb-4">
 											<input class="form-check-input" name="group2" type="radio" id="150" value="150" onclick="filter();"> 
-											<label class="form-check-label fontborder" for="150">150 cm</label>
+											<label class="form-check-label fontborder" for="150">150cm</label>
 										</div>
 										<div class="form-check mb-4">
-											<input class="form-check-input" name="group2" type="radio" id="150x200" value="150x200" onclick="filter();"> 
-											<label class="form-check-label fontborder" for="150x200">150x200cm</label>
+											<input class="form-check-input" name="group2" type="radio" id="150x200" value="180" onclick="filter();"> 
+											<label class="form-check-label fontborder" for="150x200">180cm</label>
 										</div>
 										<div class="form-check mb-4">
-											<input class="form-check-input" name="group2" type="radio" id="180x200" value="180x200" onclick="filter();"> 
-											<label class="form-check-label fontborder" for="180x200">180x200cm</label>
+											<input class="form-check-input" name="group2" type="radio" id="180x200" value="200" onclick="filter();"> 
+											<label class="form-check-label fontborder" for="180x200">200cm</label>
 										</div>
 										<div class="form-check mb-4">
-											<input class="form-check-input" name="group2" type="radio" id="207x99x182" value="207x99x182" onclick="filter();"> 
-											<label class="form-check-label fontborder" for="207x99x182">207x99x182cm</label>
+											<input class="form-check-input" name="group2" type="radio" id="207x99x182" value="230" onclick="filter();"> 
+											<label class="form-check-label fontborder" for="207x99x182">230cm</label>
 										</div>
 									</div>
 
@@ -769,7 +830,7 @@ filter2();
 
 
 					<!-- Card -->
-					<div class="card" >
+					<div class="card shadow-hidden" >
 						<!--Card image-->
 <div class="plp-checkbox" id="plp-checkbox"  onclick="check_PIC();">
 <input type="checkbox" name="checkboxname" id="checkbox" black="true" value="${p.PRODUCT_PIC}">
@@ -787,17 +848,23 @@ filter2();
 						<!--Card content-->
 						<div class="card-body">
 							<!--Title-->
-							<h4 class="card-title" id="product_name" >
+							<h6 class="card-title event-product-name" id="product_name" >
 								<c:out value="${p.PRODUCT_NAME}" />
-							</h4>
+							</h6>
 							<!--Text-->
-							<p class="card-text marginZero" id="category">
+							<p class="card-text marginZero event-price ht-three" id="category">
 								<c:out value="${p.BIG_CATEGORY_NO }"></c:out>
 							</p>
 							<p class="card-text marginZero">
-							<div class="row marginZero">
-							<div id="pr"></div>
-							<div>원</div>
+							<div class="marginZero">
+								<div class="col row">
+									<div id="pr"></div>
+									<div id="won">원</div>
+								</div>
+								<div class="col row fontR" style="font-size: 14px;">								
+									<div id="" class="ht-four"></div>
+									<div id="won2">원</div>
+								</div>
 							</div>
 							</p>
 
@@ -806,7 +873,7 @@ filter2();
 <!-- 하는중 -->
 							<div class="">
 <!-- 								별점  -->
-								<ul class="rating mb-2 row" style="margin: 2px" id="starnum">
+								<ul class="rating mb-2 row" style="margin: 2px; height: 40px;" id="starnum">
 <!-- 									<li><i class="fas fa-star blue-text"></i></li> -->
 <!-- 									<li><i class="fas fa-star blue-text"></i></li> -->
 <!-- 									<li><i class="fas fa-star blue-text"></i></li> -->
@@ -827,6 +894,10 @@ filter2();
 								<!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
 
 								<!-- Card footer -->
+							<div style="display: flex; justify-content: space-between;">
+								<span class="rm-pb-et-p"><p class="rm-pb-et-p">SALE</p></span>	
+								<span class="rm-pb-et-new ">NEW</span>			
+							</div>
 							</div>
 							<div>
 								<hr>
@@ -896,13 +967,13 @@ filter2();
 function fn_addWishModal(price,pNo){
 	let login = '${sessionScope.login}';
 	console.log(login);
-	
+// 	alert('dd');
 	if(login == ''){
-		let ck = confirm('로그인이 필요한 서비스 입니다. 로그인 화면으로 이동하시겠습니까?');
-		console.log(ck);
-		if(ck == true){
+// 		let ck = confirm('로그인이 필요한 서비스 입니다. 로그인 화면으로 이동하시겠습니까?');
+// 		console.log(ck);
+// 		if(ck == true){
 			location.href='${path}/member/memberLogin.do';
-		}
+// 		}
 		return;
 	}
 	
@@ -1001,7 +1072,7 @@ function fnbn(a,b){
 		<script>
 // 		@화면 로드시 체크박스 해제
 		$(function(){
-		$('input[name="group1"]:checked').prop('checked', false);
+// 		$('input[name="group1"]:checked').prop('checked', false);
 		$('input[name="group2"]:checked').prop('checked', false);
 		$('input[name="group3"]:checked').prop('checked', false);
 		$('input[name="group4"]:checked').prop('checked', false);

@@ -3,7 +3,12 @@ package com.palette.orkney.google.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,26 +31,32 @@ import com.palette.orkney.google.model.vo.GoogleOAuthResponse;
 import com.palette.orkney.member.model.service.MemberService;
 
 @SessionAttributes("login")
+@Configuration
+@PropertySource("classpath:google.properties")
 @Controller
 public class GoogleController {
+	@Value("${clientId}")
+	private String clientId;
+	@Value("${clientSecret}")
+	private String clientSecret;
 	
 	@Autowired
 	private MemberService service;
 	
-
 	@RequestMapping("/login/google/auth")
-	public String googleAuth(Model model, @RequestParam(value = "code") String authCode)
+	public String googleAuth(Model model, @RequestParam(value = "code") String authCode,HttpServletRequest request)
 			throws JsonProcessingException {
-		
+		System.out.println(clientId+" : "+clientSecret);
+		String path=request.getRequestURL().toString();
 		//HTTP Request를 위한 RestTemplate
 		RestTemplate restTemplate = new RestTemplate();
 		//Google OAuth Access Token 요청을 위한 파라미터 세팅
 		GoogleOAuthRequest googleOAuthRequestParam = GoogleOAuthRequest
 				.builder()
-				.clientId("63421017718-97poh5dtj10hbv1ul6q80h9g51tpov1d.apps.googleusercontent.com")
-				.clientSecret("RlqoutVI0qC4Zw8CPuo3UBwC")
+				.clientId(clientId)
+				.clientSecret(clientSecret)
 				.code(authCode)
-				.redirectUri("http://localhost:9090/orkney/login/google/auth")
+				.redirectUri(path)
 				.grantType("authorization_code").build();
 				
 		

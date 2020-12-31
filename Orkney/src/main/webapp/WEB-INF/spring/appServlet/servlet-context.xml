@@ -68,6 +68,7 @@
 		<interceptor>
 			<mapping path="/cart/cart.do"/>
 			<mapping path="/review/*"/>
+			<mapping path="/order/orderConfirm.do"/>
 			<beans:bean id="logout" class="com.palette.orkney.common.interceptor.LoginCheckInterceptor">
 			</beans:bean>
 		</interceptor>

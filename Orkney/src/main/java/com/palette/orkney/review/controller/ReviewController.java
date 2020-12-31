@@ -63,27 +63,21 @@ public class ReviewController {
 		return mv;
 	}
 	
+	//by윤나-리뷰 작성
 	@RequestMapping(value="/review/reviewInsert.do", method = RequestMethod.POST)
-	public String insertReview(Review review, Model m, @RequestParam(value="review_img", required=false) MultipartFile[] multi, HttpSession session ) {
+	public String insertReview(Review review, Model m, @RequestParam(value="review_img", required=false) MultipartFile[] multi, 
+								HttpSession session ) throws IOException{
 		Map login = (Map)session.getAttribute("login");
 		review.setMember_no((String)login.get("MEMBER_NO"));
-		System.out.println("주문디테일 번호 : "+review.getOrder_detail_no());
-		System.out.println("상품번호 : "+review.getProduct_no());
-		System.out.println("별점 : "+review.getProduct_grade());
-		System.out.println("리뷰내용 : "+review.getReview_content());
-		System.out.println("multi : "+multi);
 		Map data = new HashMap();//포인트 적립 정보 담을 것
 		data.put("point", 200);
 		data.put("reason", "리뷰작성(텍스트형)");
 
-		
 		//저장경로 지정
 		String path=session.getServletContext().getRealPath("/resources/upload/review");
-		
 		File dir = new File(path);
-		
 		if(!dir.exists()) dir.mkdirs();
-
+		
 		List<ReviewImage> files=new ArrayList();
 		
 		for(MultipartFile f : multi) {
@@ -105,9 +99,7 @@ public class ReviewController {
 				files.add(ri);
 				data.put("point", 500);
 				data.put("reason", "리뷰작성(사진형)");
-
 			}
-
 		}
 		int result=service.insertReview(review, files);
 		
@@ -118,7 +110,6 @@ public class ReviewController {
 			result = aservice.modifyPoint(data);
 		}
 		if(result>0) {
-			System.out.println("적립성공 "+data);
 			m.addAttribute("msg", "소중한 리뷰 감사합니다! "+data.get("point")+"포인트 적립 완료!");
 			m.addAttribute("loc", "/review/reviewList.do?s=wrote");
 		}else {

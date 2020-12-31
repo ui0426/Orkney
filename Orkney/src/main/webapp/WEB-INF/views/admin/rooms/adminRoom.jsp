@@ -99,6 +99,7 @@
 						<div id="img-div">
 							<input type="checkbox" id="cbx" class="toggle"
 								style="display: none;" name="toggleInsert" value="추가"> 
+								
 								<label for="cbx" class="check"> 
 									<svg id="rm-svg" width="18px" height="18px"viewBox="0 0 18 18">
 								    	<path
@@ -388,6 +389,9 @@
     	 return;
     }
 	};
+	if($("#foo").val()==''){
+		checkDelete();
+	}
 	};
 
 

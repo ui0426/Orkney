@@ -70,22 +70,23 @@
 
 
 <body>
+<div class="modal-layer" style="display:none;"></div>
 	
+	        <div class="header-hambuger" >
+	            <div class="btn-aside">
+	                <svg class="fix-ham" aria-hidden="true" focusable="false" class="svg-icon  hnf-svg-icon" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+	                <path fill-rule="evenodd" clip-rule="evenodd" d="M20 8H4V6H20V8ZM20 13H4V11H20V13ZM20 18H4V16H20V18Z"></path>
+	                </svg>
+	            </div>
+	        </div>
     <header>
-        <div class="header-hambuger" >
-            <div class="btn-aside">
-                <svg aria-hidden="true" focusable="false" class="svg-icon  hnf-svg-icon" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M20 8H4V6H20V8ZM20 13H4V11H20V13ZM20 18H4V16H20V18Z"></path>
-                </svg>
-            </div>
-        </div>
         <div class="header-container">
             <div class="header-logo">
                 <a href="${path}"><img src="${path }/resources/img/LOGO3.PNG" alt=""></a>
             </div>
             <div class="header-menu">
                 <span><a href="${path }/product/products.do?category=all&sale=" style="color:black;">모든제품</a> </span>
-                <span><a href="#open"  onclick="roomsNav();" style="color:black;">디지털 쇼룸</a></span>
+				<span><a href="#open"  onclick="roomsNav();" style="color:black;">디지털 쇼룸</a></span>
             </div>
             <div class="header-search">
            		<form class="search-form">
@@ -103,7 +104,7 @@
 	                	</div>
 	                </div>
 				</form>
-				<div class="modal-layer" style="display:none;"></div>
+<!-- 				<div class="modal-layer" style="display:none;"></div> -->
             </div>
             <ul class="header-icons">
                 <li class="header-icon delivery">
@@ -144,7 +145,7 @@
             </ul>
             
         </div>
-        
+        </header>
         
         <!-- aside -->
         <div onclick="history.back();" class="page_cover"></div>
@@ -186,7 +187,7 @@
 		                        <div class="hnf-small-link hnf-link-color aside-btn-event">이달의 이벤트</div>
 		                    </li>
 		                    <li>
-		                        <a class="hnf-small-link hnf-link-color" href="${path }/product/products.do?category=new">신제품</a>
+		                        <a class="hnf-small-link hnf-link-color" href="${path }/product/products.do?category=all">인기제품</a>
 		                    </li>
 		                </ul>
 		                <ul class="hnf-small-link hnf-menu_nav_aux">
@@ -255,8 +256,8 @@
 							<li>
 
 
-								<a href="${path }/product/products.do?category=거실장/전장/콘솔테이블&sale=">
-									거실장/천장/콘솔테이블
+								<a href="${path }/product/products.do?category=거실장/찬장/콘솔테이블&sale=">
+									거실장/찬장/콘솔테이블
 
 								</a>
 							</li>
@@ -355,7 +356,7 @@
         </div>
 
        
-    </header>
+    
     <c:if test="${not empty login and login.MEMBER_NO ne 'm11'}">
  <jsp:include page="/WEB-INF/views/common/chat.jsp"/>
 	</c:if>
@@ -393,22 +394,23 @@
 				console.log(scrollAfter);
 				if(scrollbefore > scrollAfter){
 					$('header').addClass('header-fixed');
-					$('.header-fixed').css('transform', 'translateY(0px)');
+					$('.header-fixed').css('transform', 'translateY(-1px)');
 				} else {
 					$('header').removeClass('header-fixed');
 					$('header').css('transform', 'translateY(-20%)');
-					
 				}
 				scrollbefore = scrollAfter;
 			})
      		let section = $('section').offset().top;
      		console.log('section' + section);
         })
-        
+
         	
+
             $(".btn-aside").click(function() {
 	            $("#menu,.page_cover,html").addClass("open");
 	            $("#menu").removeClass("aside-close");
+	            
 	            window.location.hash = "#open";
 	            $("#hnf-menu").removeClass("hnf-menu-level2");
             	$("#hnf-menu_back").addClass("hnf-menu-nav-hidden");
@@ -418,11 +420,13 @@
             	$("#hnf-menu_container-level2").addClass("hnf-menu-nav-hidden");
             	$("#hnf-menu_container-level2-2").addClass("hnf-menu-nav-hidden");
             	$("#hnf-menu_container-level2-3").addClass("hnf-menu-nav-hidden");
+            	$('header').css('transform','none');
             });
     
             window.onhashchange = function() {
 	            if (location.hash != "#open") {
 	                $("#menu,.page_cover,html").removeClass("open");
+	                $("#delete-modal,.delete-modal-cover,html").removeClass("open2");
 	            }
             };
             
@@ -482,6 +486,9 @@
             	$('.header-search').addClass('search-close');
             	$('.search-input-box').css('display','block');
             	$('.search-dropbox').css('display','block');
+//             	$('header').css('background', 'rgba(0, 0, 0, 0.0)');
+//             	$('header').removeClass('header-fixed').css('transform','none');
+//             	$('html').addClass('scroll-x');
             }).keyup(e=>{
             	let str = $(e.target).val();
             	console.log(parseInt(str));
@@ -500,6 +507,7 @@
 				$('.header-search').removeClass('search-close');
 				$('.search-input-box').css('display','none');
 				$('.search-dropbox').css('display','none');
+// 				$('html').removeClass('scroll-x');
     		});
            
             

@@ -119,19 +119,19 @@ public class OrderController {
 		return mv;
 	}
 
-
+	//by윤나-배송조회 메인페이지로 이동
 	@RequestMapping("/order/order.do")
 	public String orderMain(HttpSession session) {
 		return "order/orderMain";
 	}
 	
-	//배송 1건만 조회
+	//by윤나-주문상세내역 조회시 주문번호, 이메일 입력 페이지로 이동
 	@RequestMapping("/order/orderForm.do")
 	public String orderform() {
 		return "order/orderForm";
 	}
 	
-	//주문관리
+	//by윤나-회원 주문내역 조회시 로그인 유무 확인 후 페이지 이동
 	@RequestMapping("/order/orderList.do")
 	public ModelAndView orderList(HttpSession session, ModelAndView mv) {
 		Map login = (Map)session.getAttribute("login");
@@ -147,7 +147,7 @@ public class OrderController {
 		return mv;
 	}
 	
-	//로그인 안한 상태로 주문관리 클릭 후 로그인 할 때
+	//by윤나-로그인 안한 상태로 주문내역 클릭 후 로그인 할 때
 	@RequestMapping("/order/orderLogin.do")
 	@ResponseBody
 	public String orderLoginAjax(String id, String pw, Model m) throws IOException {
@@ -164,8 +164,8 @@ public class OrderController {
 	//주문상세내역 보기
 	@RequestMapping("/order/orderView.do")
 	public ModelAndView orderView(ModelAndView mv, String oNo) {
-			System.out.println(oNo);
 			Orders order = service.selectOrder(oNo);
+			System.out.println(order);
 			//주소 나누기(우편번호, 기본, 상세)
 			String[] addr = order.getOrder_address().split("/");
 			order.setAddress_post(addr[0]);
@@ -180,6 +180,7 @@ public class OrderController {
 		return mv;
 	}
 	
+	//by윤나-주문번호와 아이디로 하나의 주문상세내역을 확인할 시
 	@RequestMapping(value="/order/orderFormCheck.do",produces="text/plain;charset=UTF-8")
 	@ResponseBody
 	public String orderFormCheck(String oNo, String mId, HttpSession session) {
@@ -224,7 +225,7 @@ public class OrderController {
 		}
 	}
 	
-	//취소요청 모달 ajax
+	//by윤나-취소요청 모달 ajax
 	@RequestMapping("/order/cancelRequest.do")
 	@ResponseBody
 	public String orderCancelRequest(String oNo, String oState, String cReason) {
@@ -245,41 +246,43 @@ public class OrderController {
 		return email;
 	}
 	
-	//비밀번호 찾기 페이지로 이동
+	//by윤나-비밀번호 찾기 페이지로 이동
 	@RequestMapping("/order/passwordCheck.do")
 	public String passwordCheck() {
 		return "order/orderPasswordCheck";
 	}
 	
+	//by윤나-교환, 반품신청
 	@RequestMapping(value="/order/updateRefund.do", produces="text/plain;charset=UTF-8", method = RequestMethod.POST)
 	@ResponseBody
 	public String updateRefund(OrderDetail od, MultipartFile file, HttpSession session) throws IOException {
-		System.out.println("교환 혹은 환불 신청 한 오더 디테일 : "+od);
 		String path=session.getServletContext().getRealPath("/resources/upload/order-refund");
+		//OrderDetail객체에 교환, 반품신청시 받아야 할 내용들을 담아옴
 		
+		//교환, 반품이 제품하자에 의해 이루어진 경우 사진첨부 필수.
+		//첨부한 사진을 저장할 경로 생성
 		File dir = new File(path);
-		
 		if(!dir.exists()) dir.mkdirs();
 
 		if(file!=null) {
+			//파일명 renamed
 			String originalName = file.getOriginalFilename();
-			String ext = originalName.substring(originalName.lastIndexOf(".")+1);
-			System.out.println(ext);
-			
+			String ext = originalName.substring(originalName.lastIndexOf(".")+1);//확장자 분리
+			//rename할 형식 만들기
 			SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd_HHmmssSSS");
 			int rndValue = (int)(Math.random()*10000);
 			String reName="refund"+sdf.format(System.currentTimeMillis())+"_"+rndValue+"."+ext;
 			try {
+				//변경한 파일명으로 파일 저장
 				file.transferTo(new File(path+"/"+reName));
 			}catch(IOException e) {
 				e.printStackTrace();
 			}
+			//변경한 파일명으로 DB에 저장
 			od.setRefund_pic(reName);
-			System.out.println(od);
 		}
 		int result = service.updateRefund(od);
-		return result>0? od.getSort():"실패다.";
-//		return "";
+		return result>0? od.getSort():"update실패";
 	}
 	
 	@RequestMapping("/order/orderConfirm.do")

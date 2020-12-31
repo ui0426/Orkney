@@ -513,7 +513,7 @@ function fn_addWishModal(price,pNo){
 	$.ajax({
 		type: 'post',
 		url: '${ path }/wishlist/insertWishModal.do',
-		data: {"pNo":pNo},
+		data: {pNo:pNo},
 		success: function(data){
 			console.log(data);
 			if(data == ''){

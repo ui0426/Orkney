@@ -139,3 +139,24 @@ background-color: white;
     margin-top: -12px !important;
 }
 
+.shadow-hidden{
+	box-shadow: revert;
+}
+.rm-pb-et-new {
+	font-size: .875rem;
+	line-height: 1.42857;
+	color: darkslateblue;
+	display: block;
+	font-weight: 700;
+	margin-bottom: .3125rem;
+	 height: 19.5px;
+}
+.rm-pb-et-p {
+	font-size: .875rem;
+	line-height: 1.42857;
+	color: #ed022a;
+	display: block;
+	font-weight: 700;
+	margin-bottom: .3125rem;
+	height: 19.5px;
+}

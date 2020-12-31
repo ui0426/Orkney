@@ -23,6 +23,28 @@
 .h32rem{
 height: 32rem;
 }
+.rm-pb-et-new {
+	font-size: 1.2rem;
+	line-height: 1.42857;
+    color: darkslateblue;
+	display: block;
+	font-weight: 700;
+	margin-bottom: .3125rem;
+	 height: 19.5px;
+}
+.rm-pb-et-p {
+	font-size: 1.2rem;
+	line-height: 1.42857;
+	color: #ed022a;
+	display: block;
+	font-weight: 700;
+	margin-bottom: .3125rem;
+	height: 19.5px;
+}
+.fontSS{
+    font-size: 16px;
+    font-weight: 400;
+}
 </style>
 
 <section id="content">
@@ -335,7 +357,7 @@ height: 32rem;
 	</div>
 <!-- 		▼▼▼▼▼▼▼상품평▼▼▼▼▼ -->
 
-	<div class="modal fade right" id="modalPoll-3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal fade right" id="modalPoll-3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="overflow: auto;">
 		<div class="modal-dialog modal-full-height modal-right modal-notify modal-info" role="document">
 			<div class="modal-content">
 				<!--Header-->
@@ -350,7 +372,7 @@ height: 32rem;
 						<span aria-hidden="true" class="white-text">×</span>
 					</button>
 				</div>
-				<div class="container my-5" style="overflow:auto !important;">
+				<div class="container my-5" >
 				<!--Body-->
   				<section class="dark-grey-text mb-5" id="reviewCon" >
 						<!-- Section heading -->
@@ -401,7 +423,7 @@ height: 32rem;
 							<div class="carousel-item active">
 								<img class="img_main"
 									src=""
-									alt="First slide" class="img-fluid">
+									alt="First slide" class="img-fluid" style="width: 100%;">
 							</div>
 
 						</div>
@@ -409,7 +431,7 @@ height: 32rem;
 							<div class="carousel-item" id="productclone">
 								<img id="thirdImg"
 									src=""
-									alt="Second slide" class="img-fluid">
+									alt="Second slide" class="img-fluid" style="width: 100%;">
 							</div>
 							</div>
 						
@@ -433,7 +455,11 @@ height: 32rem;
 				</div>
 
 				<div class="col-lg-5 text-center text-md-left">
-
+					<div style="display: flex; justify-content: space-between;">
+						<span class="rm-pb-et-p"><p class="rm-pb-et-p">SALE</p></span>	
+						<span class="rm-pb-et-new ">NEW</span>			
+					</div>
+					<hr>
 					<h1 class="productName" id="productName"
 						class="h2-responsive text-center text-md-left product-name font-weight-bold dark-grey-text mb-1 ml-xl-0 ml-4">
 						<c:out value="${p.PRODUCT_NAME}"/>
@@ -444,8 +470,17 @@ height: 32rem;
 						class="h3-responsive text-center text-md-left mb-5 ml-xl-0 ml-4">
 						<span class=" font-weight-bold" id="productPrice"> 
 						</span>
-						<strong>원</strong>
-						
+						<strong id="won">원</strong>
+													<p class="card-text marginZero">
+							<div class="marginZero">
+
+								<div class="col row fontR" style="font-size: 21px; font-weight: bold;">								
+									<div id="" class="ht-four"></div>
+									<div id="won2">원</div>
+								</div>
+							</div>
+
+							</p>
 <!-- 						<span class="red-text font-weight-bold"> -->
 <!-- 						<strong>원</strong> -->
 <!-- 						</span>  -->
@@ -458,8 +493,13 @@ height: 32rem;
 					</h3>
 
 					<hr>
-
-
+						<div class="marginZero">
+						<p class="grey-text fontbor"> SIZE</p>
+							<div id="WIDTH" class="fontSS"></div>
+							<div id="HEIGHT" class="fontSS"></div>
+							<div id="DEPTH" class="fontSS"></div>
+						</div>
+					<hr>
 					<!-- Add to Cart -->
 					<section class="color">
 						<div class="mt-5">
@@ -498,7 +538,7 @@ height: 32rem;
 							
 <!-- Modal: modalAbandonedCart-->
 <div class="modal fade right" id="modalAddWish" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-  aria-hidden="true" data-backdrop="false">
+  aria-hidden="true" data-backdrop="false" >
   <div class="modal-dialog modal-side modal-top-right modal-notify modal-info" role="document">
     <!--Content-->
     <div class="modal-content" id="insertWish">
@@ -814,7 +854,7 @@ $(function(){
 <div class="media mb-3" id="reviewClone" >
 <!-- 						▼▼▼▼회원 이미지 OR 상품 이미지▼▼▼▼ -->
 							<div id="reviewImgCon">
-							<a  data-toggle="modal" data-target="#modalVM" id="imgZoom">
+							<a  data-toggle="modal" data-target="#modalVM" id="imgZoom" >
 							<img id="productImg"
 									class="card-img-100 rounded-circle z-depth-1-half d-flex mr-3"
 									src=""
@@ -1030,13 +1070,53 @@ function colorClick() {
 	}
 	</c:forEach>
 }
+function getFormatDate(date){
+    var year = date.getFullYear();              //yyyy
+    var month = (1 + date.getMonth());          //M
+    month = month >= 10 ? month : '0' + month;  //month 두자리로 저장
+    var day = date.getDate();                   //d
+    day = day >= 10 ? day : '0' + day;          //day 두자리로 저장
+    return  year + '' + month + '' + day;       //'-' 추가하여 yyyy-mm-dd 형태 생성 가능
+}
 // @제품정보 컨트롤
 $(function(){
 
 	<c:forEach items="${list}" var="i" varStatus="s" >
 
+	var endDate = new Date("${i.PRODUCT_ENROLL_DATE}");
+	endDate=getFormatDate(endDate);
+	 var today = new Date();
+	 today=getFormatDate(today)
+ 
+ if(today>endDate){
+	  $(".rm-pb-et-new").text('');
+ }
+ if("${i.SALE_PER}"=="${i.PRODUCT_PRICE}"){ //할인이 아닐때
+	   $(".rm-pb-et-p").html('');
+	   $("#productPrice").html(numberWithCommas("${i.PRODUCT_PRICE}"));
+	   $(".ht-four").text(""); 
+	   $(".ht-four").css("height","14px"); 
+	   $("#won2").css("display","none"); 
+	  
+ 		
+ }else if("${i.SALE_PER}"!="${i.PRODUCT_PRICE}"){
+	 
+	   $("#productPrice").html(numberWithCommas("${i.PRODUCT_PRICE}"));
+	   $("#productPrice").css("text-decoration","line-through");
+	   $("#productPrice").css("font-size","18px");
+	   $("#won").css("text-decoration","line-through");
+	   $("#won").css("font-size","18px");
+	   $(".ht-four").html(numberWithCommas("${i.SALE_PER}")); 
+	   $("#won2").css("display","block"); 
+	   $(".fontR").css("color","red"); 
+	   
+ }
 	
 	$("#productName").text(("${i.PRODUCT_NAME}"));
+	$("#WIDTH").text(("폭  "+":"+"${i.PRODUCT_WIDTH}"+"cm"));
+	$("#HEIGHT").text(("높이 : "+"${i.PRODUCT_HEIGHT}"+"cm"));
+	$("#DEPTH").text(("깊이 : "+"${i.PRODUCT_DEPTH}"+"cm"));
+	
 
 		
 		
@@ -1056,7 +1136,8 @@ $(function(){
 		$(colorProductA).find("#colorProduct").attr("src","${path}/resources/images/product/"+"${i.PRODUCT_PIC}");
 		$(colorProductA).find("#colorProduct").attr("alt","${i.PRODUCT_COLOR}");
 		$("#colorProductCon").append(colorProductA);
-			$("#selectColor").text("색상선택");
+			$("#selectColor").text("COLOR");
+			$("#colorName").html("${i.PRODUCT_COLOR}");
 			
 			
 		}
@@ -1090,6 +1171,7 @@ $(function(){
 							
 						
 });
+
 </script>
 
 
