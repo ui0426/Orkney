@@ -69,7 +69,7 @@ public class WishlistController {
       
       List<Wishlist> wlList = service.wishlistList(mNo);   
       
-      System.out.println("wishlist.do" + wish);
+      System.out.println("wishlist.do" + wish);      
       
       int allPrice = 0;
       for(Wishlist_detail wd : wish.getWishlist_detail()) {

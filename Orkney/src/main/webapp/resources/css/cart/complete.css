@@ -4,7 +4,11 @@
             display: flex;
             flex-direction: column; 
         }
-        .section-container{padding: 5% 20%;width: 100%;}
+        .section-container{	    max-width: 50rem;
+	    padding: 0em;
+	    margin: auto;
+	    font-size: 0.875rem;
+	    width: 100%; }
         .section1{
         	width:100%;
         	height:100%;
