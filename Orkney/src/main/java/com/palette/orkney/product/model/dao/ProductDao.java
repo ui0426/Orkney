@@ -26,7 +26,7 @@ public interface ProductDao {
 
 	
 	List<Map>listProduct(SqlSession session,String type);
-	String allProductList(SqlSession session);
+	List<Map> allProductList(SqlSession session,Map texts);
 	List<Map>productCategory(SqlSession session,Map texts);
 	List<Map>sale(SqlSession session);
 	List<Map>selectRoomsTitle(SqlSession session,String type); 
@@ -37,7 +37,8 @@ public interface ProductDao {
 	 List<Map> buttomProduct(SqlSession session ,Map ty); 
 	int deleteRoom(SqlSession session, Map room);
 	List<Map>delectSelectRoom(SqlSession session);
-	int delectShowroom(SqlSession session ,String deleteRoom);
+	int deleteShowroom(SqlSession session ,String deleteRoom);
+	int deleteSale(SqlSession session);
 
 //==================================================================================
 	//재고 갱신

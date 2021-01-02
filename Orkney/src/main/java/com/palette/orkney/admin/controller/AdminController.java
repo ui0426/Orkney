@@ -482,7 +482,7 @@ public class AdminController {
 	}
 	@RequestMapping("/admin/delectShowroom.do")
 	public String delectShowroom(@RequestParam String deleteRoom) {
-		int resule = pService.delectShowroom(deleteRoom);
+		int resule = pService.deleteShowroom(deleteRoom);
 		return "redirect:/admin/adminShowrooms.do"; 
 	}	
 

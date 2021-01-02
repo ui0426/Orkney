@@ -127,24 +127,24 @@
 			<c:choose>
 				<c:when test="${param.type=='침실'}">
 					<a class="rm-md-secondary"
-						href="${path}/product/products.do?category=all&sale="> <span
-						class="rm-md-small"> <span class="rm-md-label">모든침대/매트리스
-								보러가기 </span> <c:set var="loop_flag" value="true" />
+						href="${path}/product/products.do?category=침대&sale="> <span
+						class="rm-md-small"> <span class="rm-md-label">모든침대 상품 보러가기 </span> 
+						<c:set var="loop_flag" value="true" />
 					</span>
 					</a>
 				</c:when>
 				<c:when test="${param.type=='거실'}">
 					<a class="rm-md-secondary"
-						href="${path}/product/products.do?category=all&sale="> <span
+						href="${path}/product/products.do?category=수납장/장식장&sale="> <span
 						class="rm-md-small"> <span class="rm-md-label">모든 거실
 								상품 보러가기 </span> <c:set var="loop_flag" value="true" />
 					</span>
 					</a>
 				</c:when>
-				<c:when test="${param.type=='주방'}">
+				<c:when test="${param.type=='홈오피스'}">
 					<a class="rm-md-secondary"
-						href="${path}/product/products.do?category=all&sale="> <span
-						class="rm-md-small"> <span class="rm-md-label">모든 주방
+						href="${path}/product/products.do?category=책장/선반유닛&sale="> <span
+						class="rm-md-small"> <span class="rm-md-label">모든 홈오피스
 								상품 보러가기</span> <c:set var="loop_flag" value="true" />
 					</span>
 					</a>
@@ -645,7 +645,6 @@ function numberWithCommas(x) {
 			    	console.log('착각했어...',data);
 				     	$(".abc").html("");
 				     	var today = new Date();
-				     	
 			    	      for(let i=0;i<data.length;i++){
 			    	    	  var endDate = new Date(data[i]["PRODUCT_ENROLL_DATE"]);
 			    	    	  endDate.setDate(endDate.getDate() +7);

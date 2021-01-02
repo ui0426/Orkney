@@ -10,8 +10,7 @@
 	<jsp:param name="title" value="메인화면" />
 </jsp:include>
 
-<link rel="stylesheet"
-	href="${path}/resources/css/common/main/section.css">
+<link rel="stylesheet" href="${path}/resources/css/common/main/section.css">
 
 <section class="mainsection">
 	<div class="event row no-gutters" style="height: auto;">
@@ -258,37 +257,48 @@
 		</div>
 
 	</div>
+	
 
 </section>
 
 
-<script>  
+<script> 
 
 
-
-
- var mySwiper = new Swiper(".swiper-container", {
-	    direction: "vertical",  
-	  slidesPerView : 1,
-		spaceBetween : 480,
-		slidesPerGroup : 1,
-   pagination: ".swiper-pagination",   
-  grabCursor: true, 
-	  loopFillGroupWithBlank : false,
-	  loop: true,
-	  paginationClickable: true,
-	  parallax: false,
-	  autoplay: {delay : 14000}, 
-	    effect: "slide",     
-	   mousewheelControl: true  
-	});  
- 	/* var mySwiper = document.querySelector('.swiper-container').swiper;
- 	$(".swiper-container").mouseenter(function(){
- 		mySwiper.autoplay.stop();
- 		
- 	}); */
-     
+	
+	
+	 var mySwiper = new Swiper(".swiper-container", {
+		    direction: "vertical",  
+		  slidesPerView : 1,
+			spaceBetween : 480,
+			slidesPerGroup : 1,
+	   pagination: ".swiper-pagination",   
+	  grabCursor: true, 
+		  loopFillGroupWithBlank : false,
+		  loop: true,
+		  paginationClickable: true,
+		  parallax: false,
+		  autoplay: {delay : 14000}, 
+		    effect: "slide",     
+		   mousewheelControl: true  
+		});  
+	 	/* var mySwiper = document.querySelector('.swiper-container').swiper;
+	 	$(".swiper-container").mouseenter(function(){
+	 		mySwiper.autoplay.stop();
+	 		
+	 	}); */
+	     
      $( document ).ready(function() {
+    	 
+    	 $.ajax({
+    		 url:'${path}/product/deleteSale.do',
+    		 type:'post',
+    		 succese: function(data){
+    			 console.log(data);
+    		 }
+    	 });
+    	 var text='';
+    	 var texts='전체보기';
     	 let type=4;
     	 function resize (){
     	  var width = $(window).width();
@@ -312,8 +322,7 @@
     		 type+=1;
     		mainAjax();
     	 });
-    	 let text='';
-    	 let texts='';
+    	 
     	 $(".event-target").click(e=>{
     		
     		 resize();
@@ -321,11 +330,14 @@
     		 $(".event-remove").remove();
     		
     		if($(e.target).text()=="전체보기"){
-    			text=''
+    			text='';
+    			tests='';
     			texts=$.trim(text);
     			
     			mainAjax();	
     		}else{
+    			text='';
+    			tests='';
     		text=$(e.target).text();
     		
     		texts=$.trim(text);
@@ -348,14 +360,15 @@
     		 mainAjax(); 
     		 }
     		
-    	 });	  
-    	
+    	 });
     	 function mainAjax(){
-    	$.ajax({
-    		 url: '${path}/product/allProductList.do', 
-			    type: 'post',                             
-			    success: function(allData){
- 
+    		 
+    		$.ajax({
+    		 		url: '${path}/product/allProductList.do',
+    		 		data: {'text':texts},
+    		    	type: 'post',                             
+    		    	success: function(allData){
+
         	 $.ajax({
         		
     			    url: '${path}/product/productCategory.do', // 클라이언트가 요청을 보낼 서버의 URL 주소
@@ -474,20 +487,21 @@
     			    			$(".oneClass").append(tt);
     			    			}
     			    	}
-    			    	 console.log(data.length,'datalength');
-    			    	 console.log(allData,'allData');
-    			    if(data.length==allData) {
-			    		
-		    			$(".add").css("display","none");
-		    		}  
+    			    	 console.log(data.length,'랭스');
+    			    	 console.log(allData);
+    			    if(data.length==allData[0]["ALLCOUNT"]) {
+    		    		
+    	    			$(".add").css("display","none");
+    	    		}  
     			    }
     			    	 
     	
      	 });
-		}
+    	}
     	});
     	};
      });
+ 	
         
  	/*  var swiper = new Swiper('.slider', {
 		slidesPerView : 1,

@@ -98,9 +98,9 @@ public class ProductDaoImpl implements ProductDao{
 	}
 
 	@Override
-	public String allProductList(SqlSession session) {
+	public List<Map> allProductList(SqlSession session,Map texts) {
 		// TODO Auto-generated method stub
-		return session.selectOne("product.allProductList");
+		return session.selectList("product.allProductList",texts);
 	}
 
 	@Override
@@ -166,11 +166,16 @@ public class ProductDaoImpl implements ProductDao{
 			return session.selectList("product.delectSelectRoom");
 		}
 		@Override
-		public int delectShowroom(SqlSession session,String deleteRoom) {
+		public int deleteShowroom(SqlSession session,String deleteRoom) {
 			// TODO Auto-generated method stub
-			return session.delete("product.delectShowroom",deleteRoom);
+			return session.delete("product.deleteShowroom",deleteRoom);
 		}
-		
+		@Override
+		public int deleteSale(SqlSession session) {
+			// TODO Auto-generated method stub
+			return session .update("product.deleteSale");
+		}
+
 
 //재고갱신
 	@Override
@@ -183,7 +188,7 @@ public class ProductDaoImpl implements ProductDao{
 	public String selectSale(SqlSession session, String productNo) {
 		return session.selectOne("product.selectSale",productNo);
 	}
-
+	
 	
 
 

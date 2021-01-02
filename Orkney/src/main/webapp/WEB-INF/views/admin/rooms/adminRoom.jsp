@@ -79,7 +79,7 @@
 							name="category" onchange="roomChange(this)">
 							<option value="침실">침실</option>
 							<option value="거실">거실</option>
-							<option value="주방">주방</option>
+							<option value="홈오피스">홈오피스</option>
 							<option value="비지니스">비지니스</option>
 						</select> <select id="roomsSelectOne" class="browser-default custom-select"
 							name="category_no" onchange="selectChange(this)">
@@ -147,7 +147,7 @@
 						name="roomsTitle">
 						<option value="침실">침실</option>
 						<option value="거실">거실</option>
-						<option value="주방">주방</option>
+						<option value="홈오피스">홈오피스</option>
 						<option value="비지니스">비지니스</option>
 					</select> <select id="roomsTitleSelect" class="custom-select"
 						name="roomsSubTitle">
@@ -172,7 +172,7 @@
 </section>
 
 <script>
-
+	
 
 	function checkDelete(){
 	 	$(".opti-select").text("");
@@ -267,7 +267,7 @@
             return false;
         } for(let t=1;t<=tib;t++){ 
         	if(i!=t){
-    		  	if($('#inputTop'+i+'').val() == $('#inputTop'+t+'').val() && $('#inputLeft'+i+'').val() == $('#inputLeft'+t+'').val() ){
+    		  	if($('#inputTop'+i+'').val() == $('#inputTop'+t+'').val() && $('#inputLeft'+i+'').val() == $('#inputLeft'+t+'').val()&&$('#inputTop'+t+'').val() !='' && $('#inputLeft'+t+'').val() !=''&& $('#inputProduct'+i+'').val() !='상품번호:상품이름'){
     		     alert('(top,left)를 다르게 입력하셔야 합니다');
     		    
     		        	 return false;
@@ -292,7 +292,7 @@
 		 type: 'post',                             
 		   
 		    success: function(data){
-		    	console.log(data);
+		    	console.log(data,'두개?');
 		    	
 		    	if(data.length==''&&$("#roomsSelectOne").val()!='자리선택'){
 		    		alert('해당 자리에 상품이 등록되어 있지 않습니다.');
@@ -416,8 +416,8 @@
 	
 	for(let t=1;t<=tib;t++){
 	    if(i!=t){
-	  	if($('#inputTop'+i+'').val() == $('#inputTop'+t+'').val() && $('#inputLeft'+i+'').val() == $('#inputLeft'+t+'').val() ){
-	     alert('(top,left)를 다르게 입력하셔야 합니다');
+	      	if($('#inputTop'+i+'').val() == $('#inputTop'+t+'').val() && $('#inputLeft'+i+'').val() == $('#inputLeft'+t+'').val()&&$('#inputTop'+t+'').val() !='' && $('#inputLeft'+t+'').val() !=''&& $('#inputProduct'+i+'').val() !='상품번호:상품이름'){
+   		     alert('(top,left)를 다르게 입력하셔야 합니다');
 	    
 	        	 return false;
 	} 
@@ -553,7 +553,6 @@
 		}
 		
 		for(let q=0;q<data.length;q++){
-			console.log('왜또');
     		let c=$("#option-product").clone(true);
     		$(c).addClass("option-remove");
     		$(c).addClass("option-product-two"+q+"");
@@ -564,24 +563,21 @@
     		$(".rooms_product").append(c);
     	}
 		
-		 var dl=new Array();
-		
-			for(let r=0;r<=5;r++){
-			 $("#inputProduct"+r+"").focusout(function(){
-				 let th=$(this).val();
-					 dl.push(th);
-					 var set = new Set(dl);
-					
-					if($(this).val()!='상품번호:상품이름'&&dl.length!==set.size){
+	
+			for(let r=1;r<=inputNo;r++){
+				 $("#inputProduct"+r+"").focusout(function(){
+					for(let q=1;q<=inputNo;q++){
+						if(r!=q){
+						if( $("#inputProduct"+q+"").val()==$(this).val() && $(this).val()!='상품번호:상품이름'){
 						alert("중복된 상품번호 입니다");
 						 $(this).val('상품번호:상품이름');
-						 dl.splice(r-1);
-					}				 
+					}
+					}
+					}		
 			 });
 			};
 			 controlNone();
 		    }
-		   
 		 });
 	
 		};
@@ -611,7 +607,7 @@
 	
 	var room_a = ["자리선택","침실1", "침실2", "침실3", "침실4","침실5"];
 	  var room_b = ["자리선택","거실1", "거실2", "거실3", "거실4","거실5"];
-	  var room_c = ["자리선택","주방1", "주방2", "주방3", "주방4", "주방5"];
+	  var room_c = ["자리선택","홈오피스1", "홈오피스2", "홈오피스3", "홈오피스4", "홈오피스5"];
 	  var room_d = ["자리선택","비지니스1", "비지니스2", "비지니스3", "비지니스4", "비지니스5"];
 	  var target = $("#roomsSelectOne")[0];
 	 
@@ -619,7 +615,7 @@
 		  var d = room_a;
 	  }else if(e.value == "거실"){ 
 		  var d = room_b;
-	  }else if(e.value == "주방"){
+	  }else if(e.value == "홈오피스"){
 		  var d = room_c;
 	  }else if(e.value == "비지니스"){ 
 		  var d = room_d;
