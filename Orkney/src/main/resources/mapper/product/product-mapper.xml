@@ -85,34 +85,23 @@
             
 
 
-			   SELECT *
-			   FROM PRODUCT_IMAGE I 
-			   
-			   JOIN PRODUCT P
-			   ON P.PRODUCT_NO = I.PRODUCT_NO
-			   
-			   LEFT OUTER JOIN BIG_CATEGORY B
-			   ON P.BIG_CATEGORY_NO = B.BIG_CATEGORY_NO
-			   
-			   LEFT OUTER JOIN SMALL_CATEGORY S
-			   ON P.SMALL_CATEGORY_NO = S.SMALL_CATEGORY_NO
-			   
-			   LEFT OUTER  JOIN(SELECT PRODUCT_NO, AVG(PRODUCT_GRADE) GRAD,COUNT(REVIEW_NO)
-		       FROM REVIEW 
-		       GROUP BY PRODUCT_NO) G 
-		       ON G.PRODUCT_NO=P.PRODUCT_NO
-<!-- 			   리뷰 조인 하면 제품이 늘어남 -->
-<!-- 			   LEFT OUTER JOIN REVIEW R -->
-<!-- 			   ON P.PRODUCT_NO = R.PRODUCT_NO -->
-			   
-			   
-			   WHERE I.PRODUCT_COLOR='normal'
-<!-- 			   AND S.SMALL_CATEGORY_PIC='+' -->
+SELECT * FROM
 		<choose>
-
-
-
          <when test="group1=='best'">
+             (   
+    SELECT * FROM PRODUCT_IMAGE I 
+    JOIN PRODUCT P
+	ON P.PRODUCT_NO = I.PRODUCT_NO
+	LEFT OUTER JOIN BIG_CATEGORY B
+	ON P.BIG_CATEGORY_NO = B.BIG_CATEGORY_NO
+	LEFT OUTER JOIN SMALL_CATEGORY S
+	ON P.SMALL_CATEGORY_NO = S.SMALL_CATEGORY_NO
+	LEFT OUTER  JOIN(SELECT PRODUCT_NO, AVG(PRODUCT_GRADE) GRAD,COUNT(REVIEW_NO)
+	FROM REVIEW 
+	GROUP BY PRODUCT_NO) G 
+	ON G.PRODUCT_NO=P.PRODUCT_NO
+    WHERE I.PRODUCT_COLOR='normal'
+         
             <if test="category != 'all'">
                AND B.BIG_CATEGORY_CONTENT = #{category}
             </if>
@@ -149,12 +138,27 @@
                 AND P.PRODUCT_COLOR = #{group5}
             </if>
              
-                AND ROWNUM <![CDATA[<]]> #{start}
+<!--                 AND ROWNUM <![CDATA[<]]> #{start} -->
 <!--                 ORDER BY R.PRODUCT_GRADE ASC -->
 				ORDER BY G.GRAD DESC NULLS LAST
+				)
+				WHERE ROWNUM <![CDATA[<]]> #{start}
          </when>
          
          <when test="group1=='lowPrice'">
+          (   
+    SELECT * FROM PRODUCT_IMAGE I 
+    JOIN PRODUCT P
+	ON P.PRODUCT_NO = I.PRODUCT_NO
+	LEFT OUTER JOIN BIG_CATEGORY B
+	ON P.BIG_CATEGORY_NO = B.BIG_CATEGORY_NO
+	LEFT OUTER JOIN SMALL_CATEGORY S
+	ON P.SMALL_CATEGORY_NO = S.SMALL_CATEGORY_NO
+	LEFT OUTER  JOIN(SELECT PRODUCT_NO, AVG(PRODUCT_GRADE) GRAD,COUNT(REVIEW_NO)
+	FROM REVIEW 
+	GROUP BY PRODUCT_NO) G 
+	ON G.PRODUCT_NO=P.PRODUCT_NO
+    WHERE I.PRODUCT_COLOR='normal'
             <if test="category != 'all'">
                AND B.BIG_CATEGORY_CONTENT = #{category}
             </if>
@@ -191,12 +195,25 @@
                 AND P.PRODUCT_COLOR = #{group5}
                 
             </if>
-            AND ROWNUM <![CDATA[<]]> #{start}
             ORDER BY P.PRODUCT_PRICE ASC
-           
+           )
+            WHERE ROWNUM <![CDATA[<]]> #{start}
          </when>
          
          <when test="group1=='highPrice'">
+         (   
+    SELECT * FROM PRODUCT_IMAGE I 
+    JOIN PRODUCT P
+	ON P.PRODUCT_NO = I.PRODUCT_NO
+	LEFT OUTER JOIN BIG_CATEGORY B
+	ON P.BIG_CATEGORY_NO = B.BIG_CATEGORY_NO
+	LEFT OUTER JOIN SMALL_CATEGORY S
+	ON P.SMALL_CATEGORY_NO = S.SMALL_CATEGORY_NO
+	LEFT OUTER  JOIN(SELECT PRODUCT_NO, AVG(PRODUCT_GRADE) GRAD,COUNT(REVIEW_NO)
+	FROM REVIEW 
+	GROUP BY PRODUCT_NO) G 
+	ON G.PRODUCT_NO=P.PRODUCT_NO
+    WHERE I.PRODUCT_COLOR='normal'
             <if test="category != 'all'">
                AND B.BIG_CATEGORY_CONTENT = #{category}
             </if>
@@ -233,12 +250,25 @@
                 AND P.PRODUCT_COLOR = #{group5}
                 
             </if>
-            AND ROWNUM <![CDATA[<]]> #{start}
             ORDER BY P.PRODUCT_PRICE DESC
-         
+         	)
+            WHERE ROWNUM <![CDATA[<]]> #{start}
          </when>
          
          <when test="group1=='newProduct'">
+         (   
+    SELECT * FROM PRODUCT_IMAGE I 
+    JOIN PRODUCT P
+	ON P.PRODUCT_NO = I.PRODUCT_NO
+	LEFT OUTER JOIN BIG_CATEGORY B
+	ON P.BIG_CATEGORY_NO = B.BIG_CATEGORY_NO
+	LEFT OUTER JOIN SMALL_CATEGORY S
+	ON P.SMALL_CATEGORY_NO = S.SMALL_CATEGORY_NO
+	LEFT OUTER  JOIN(SELECT PRODUCT_NO, AVG(PRODUCT_GRADE) GRAD,COUNT(REVIEW_NO)
+	FROM REVIEW 
+	GROUP BY PRODUCT_NO) G 
+	ON G.PRODUCT_NO=P.PRODUCT_NO
+    WHERE I.PRODUCT_COLOR='normal'
             <if test="category != 'all'">
                AND B.BIG_CATEGORY_CONTENT = #{category}
             </if>
@@ -276,12 +306,25 @@
                 
             </if>
             
-            AND ROWNUM <![CDATA[<]]> #{start}
             ORDER BY P.PRODUCT_ENROLL_DATE DESC
-      
+      		)
+            WHERE ROWNUM <![CDATA[<]]> #{start}
          </when>
 
          <when test="group1=='name'">
+         (   
+    SELECT * FROM PRODUCT_IMAGE I 
+    JOIN PRODUCT P
+	ON P.PRODUCT_NO = I.PRODUCT_NO
+	LEFT OUTER JOIN BIG_CATEGORY B
+	ON P.BIG_CATEGORY_NO = B.BIG_CATEGORY_NO
+	LEFT OUTER JOIN SMALL_CATEGORY S
+	ON P.SMALL_CATEGORY_NO = S.SMALL_CATEGORY_NO
+	LEFT OUTER  JOIN(SELECT PRODUCT_NO, AVG(PRODUCT_GRADE) GRAD,COUNT(REVIEW_NO)
+	FROM REVIEW 
+	GROUP BY PRODUCT_NO) G 
+	ON G.PRODUCT_NO=P.PRODUCT_NO
+    WHERE I.PRODUCT_COLOR='normal'
             <if test="category != 'all'">
                AND B.BIG_CATEGORY_CONTENT = #{category}
             </if>
@@ -317,12 +360,25 @@
 <!--             FILTER 색상 -->
                 AND P.PRODUCT_COLOR = #{group5}
             </if>
-               AND ROWNUM <![CDATA[<]]> #{start}
-               
                 ORDER BY P.PRODUCT_NAME ASC
+               )
+               WHERE ROWNUM <![CDATA[<]]> #{start}
            
          </when>
             <when test="!group1">
+            (   
+    SELECT * FROM PRODUCT_IMAGE I 
+    JOIN PRODUCT P
+	ON P.PRODUCT_NO = I.PRODUCT_NO
+	LEFT OUTER JOIN BIG_CATEGORY B
+	ON P.BIG_CATEGORY_NO = B.BIG_CATEGORY_NO
+	LEFT OUTER JOIN SMALL_CATEGORY S
+	ON P.SMALL_CATEGORY_NO = S.SMALL_CATEGORY_NO
+	LEFT OUTER  JOIN(SELECT PRODUCT_NO, AVG(PRODUCT_GRADE) GRAD,COUNT(REVIEW_NO)
+	FROM REVIEW 
+	GROUP BY PRODUCT_NO) G 
+	ON G.PRODUCT_NO=P.PRODUCT_NO
+    WHERE I.PRODUCT_COLOR='normal'
             <if test="category != 'all'">
                AND B.BIG_CATEGORY_CONTENT = #{category}
             </if>
@@ -358,6 +414,8 @@
 <!--             FILTER 색상 -->
                 AND P.PRODUCT_COLOR = #{group5}
             </if>
+            ORDER BY G.GRAD DESC NULLS LAST
+            )
                 AND ROWNUM <![CDATA[<]]> #{start}
          </when>
       </choose>
@@ -428,10 +486,26 @@
         SELECT * FROM SHOWROOM WHERE ROOM_CATEGORY=#{type}
      </select>
       <select id="selectRoomsProduct" resultType="map" parameterType="map">
-          SELECT * FROM ROOMS E
+         <!--  SELECT * FROM ROOMS E
             JOIN PRODUCT R ON E.PRODUCT_NO= R.PRODUCT_NO
              JOIN PRODUCT_IMAGE J ON E.PRODUCT_NO= J.PRODUCT_NO
-                 JOIN SHOWROOM Q ON Q.ROOM_NO= E.ROOM_NO
+                 JOIN SHOWROOM Q ON Q.ROOM_NO= E.ROOM_NO -->
+                 
+                 <!--  SELECT E.*, R.*, J.*, Q.*, (select AVG(PRODUCT_GRADE)
+                FROM REVIEW where E.PRODUCT_NO = R.PRODUCT_NO)AS GRADE_AVG
+                ,(select COUNT(*)
+                FROM REVIEW where E.PRODUCT_NO = R.PRODUCT_NO)AS GRADE_COUNT
+       FROM ROOMS E
+            JOIN PRODUCT R ON E.PRODUCT_NO= R.PRODUCT_NO
+             JOIN PRODUCT_IMAGE J ON E.PRODUCT_NO= J.PRODUCT_NO
+            JOIN SHOWROOM Q ON Q.ROOM_NO= E.ROOM_NO  -->
+            
+              SELECT * FROM ROOMS E
+              JOIN SHOWROOM Q ON Q.ROOM_NO= E.ROOM_NO
+            JOIN PRODUCT R ON E.PRODUCT_NO= R.PRODUCT_NO
+             JOIN PRODUCT_IMAGE J ON E.PRODUCT_NO= J.PRODUCT_NO
+             LEFT OUTER  JOIN(SELECT PRODUCT_NO, AVG(PRODUCT_GRADE) ROOM_GRADE,COUNT(REVIEW_NO)REVIEW_COUNT
+             FROM REVIEW GROUP BY PRODUCT_NO) G ON G.PRODUCT_NO=R.PRODUCT_NO    
                  <if test="type!=null">
                 WHERE ROOM_CATEGORY= #{type}  AND J.PRODUCT_COLOR='normal' 
                </if>
@@ -479,7 +553,7 @@
       SELECT * FROM (SELECT * FROM PRODUCT E
              JOIN PRODUCT_IMAGE J ON E.PRODUCT_NO= J.PRODUCT_NO
               JOIN BIG_CATEGORY T ON T.BIG_CATEGORY_NO=E.BIG_CATEGORY_NO
-            WHERE J.PRODUCT_COLOR='normal' AND E.SALE_PER IS NOT NULL)WHERE  ROWNUM <![CDATA[<]]>2      
+            WHERE J.PRODUCT_COLOR='normal' AND PRODUCT_PRICE!= SALE_PER AND E.SALE_PER IS NOT NULL)WHERE  ROWNUM <![CDATA[<]]>10      
 
 
    </select>

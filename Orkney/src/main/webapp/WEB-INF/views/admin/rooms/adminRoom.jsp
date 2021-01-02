@@ -99,6 +99,7 @@
 						<div id="img-div">
 							<input type="checkbox" id="cbx" class="toggle"
 								style="display: none;" name="toggleInsert" value="추가"> 
+								
 								<label for="cbx" class="check"> 
 									<svg id="rm-svg" width="18px" height="18px"viewBox="0 0 18 18">
 								    	<path
@@ -115,7 +116,7 @@
 									placeholder="left" onkeypress="return isNumberKey(event)" />
 								<select class="rooms_product  custom-select"
 									name="rooms_product" />
-								<option id="option-product" value="상품번호" style="display: none;">상품번호</option>
+								<option id="option-product" value="상품번호:상품이름" style="display: none;">상품번호:상품이름</option>
 								</select>
 							</div>
 						</div>
@@ -133,7 +134,7 @@
 					<select id="deleteRoom" class="browser-default custom-select"
 						name="deleteRoom">
 
-						<option class="opti-se" value=""></option>
+						<option class="opti-se" value="">상품없음</option>
 
 					</select> <input type="submit" class="btn btn-primary btn-sm "
 						id="sub-delete" value="DELECT">
@@ -172,65 +173,39 @@
 
 <script>
 
-	
-			
-			
 
-			
+	function checkDelete(){
+	 	$(".opti-select").text("");
+	 	$(".opti-select").addClass("opti-se");
+	 	$(".opti-se").removeClass("opti-select");
+		$(".opti-se").text("등록없음");
+							  
+	 return false
 		
-			
-
-function numberWithCommas(x) {
+	 }
+	   
+	function numberWithCommas(x) {
 	   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-	}
+	   }
 
+	$(document).ready(function() {
 	
-$(document).ready(function() {
 	
 	
-	$.ajax({
-		 url: '${path}/admin/delectRoom.do',    
-		 type: 'post',                             
-		   
-		    success: function(data){
-		    	console.log(data,"delect");
-		    	if(data.length==0){
-		    		console.log("dho~~~~");
-		    		let cc=$(".opti-se").clone();
-		    		 $(cc).removeClass("opti-se");
-		 		    $(cc).addClass("opti-select");
-		    		  $(cc).text("등록없음");
-		    		  $("#deleteRoom").append(cc);
-		    		  $(".opti-se").remove();
-		    		  alert("등록된 상품이 없습니다");
-		    		  return false
-		    	}
-		  for(let i=0;i<data.length;i++){
-		    let cc=$(".opti-se").clone();
-		    
-		    $(cc).removeClass("opti-se");
-		    $(cc).addClass("opti-select");
-		    $(cc).val(data[i]["PRODUCT_NO"]);
-		    $(cc).html(data[i]["PRODUCT_NO"]);
-		    $("#deleteRoom").append(cc);
-		  }
-		  $(".opti-se").remove();
-		    }
-	});
-	
-	/* $(".ghkrdls").click(function(){
-		$(".toggle[type=checkbox] ").prop("checked", false);
-	}); */
+
 	$("#roomsSelect,#roomsSelectOne").change(function(){
-    	if( $("input:checkbox[name='toggleInsert']").is(":checked")==true){
+	if( $("input:checkbox[name='toggleInsert']").is(":checked")==true){
+		checkDelete();
 		$(".toggle[type=checkbox] ").prop("checked", false);
 		 $("#foo").attr("src","");
 		 $(".rm").remove();
+		 
 		 return false;
 		 }
 	});
     	
 	$(".toggle").change(function(){
+		
 		if($("#roomsSelectOne").val()=='자리선택'){
 			alert('자리선택을 하셔야 합니다');
 			$(".toggle[type=checkbox] ").prop("checked", false);
@@ -274,7 +249,7 @@ $(document).ready(function() {
         	console.log('submit','1');
         	alert('(top,left,produst)를  입력하셔야 합니다');
             return false;
-        }else  if ($('#inputTop'+i+'').val() == ''&&$('#inputLeft'+i+'').val() == ''&&$('#inputProduct'+i+'').val() != '상품번호') {
+        }else  if ($('#inputTop'+i+'').val() == ''&&$('#inputLeft'+i+'').val() == ''&&$('#inputProduct'+i+'').val() != '상품번호:상품이름') {
         	console.log($('#inputTop'+i+'').val());
         	alert('(top,left)을  입력하셔야 합니다');
             return false;
@@ -286,7 +261,7 @@ $(document).ready(function() {
         	console.log($('.top_lift_b').find('#inputLeft'+i+''));
         	alert('(left)를  입력하셔야 합니다');
             return false;
-        }else if ($('#inputProduct'+i+'').val() == '상품번호') {
+        }else if ($('#inputProduct'+i+'').val() == '상품번호:상품이름') {
         	console.log($('.top_lift_b').find('#inputProduct'+i+''));
         	alert('(product)를  선택하셔야 합니다');
             return false;
@@ -304,8 +279,9 @@ $(document).ready(function() {
         
     	 }
     });
-}); 
-function ajaxAdmin() {
+	}); 
+
+	function ajaxAdmin() {
 	var typeTo= $("#roomsSelectOne").val();
 
 	console.log(typeTo,'뭐야 이거??');
@@ -329,7 +305,7 @@ function ajaxAdmin() {
 		    	 var today = new Date();
 				 for(let t=0;t<data.length;t++){
 					  var endDate = new Date(data[t]["PRODUCT_ENROLL_DATE"]);
-					  endDate.setDate(endDate.getDate() +30);
+					  endDate.setDate(endDate.getDate() +7);
 					 let cl=$(".rm-bt").clone();
 					$(cl).removeClass("rm-bt");
 					$(cl).addClass("rm-bts"+(t+1)+"");
@@ -357,39 +333,50 @@ function ajaxAdmin() {
 					
 					}
 					$("#div-top-left").append(cl);
-				} 
-				 $("#imgInp").val(""); 
+					
+			 
+			    let cc=$(".opti-se").clone();
+			    
+			    $(cc).removeClass("opti-se");
+			    $(cc).addClass("opti-select");
+			    $(cc).val(data[t]["PRODUCT_NO"]);
+			    $(cc).html(data[t]["PRODUCT_NO"]+' '+':'+' '+data[t]["PRODUCT_NAME"]);
+			    $("#deleteRoom").append(cc);
+			  }
+				 $(".opti-se").remove();
+				 
+				 $("#imgInp").val(''); 
 		    }
 	});
 
 
 	}
-$("#imgInp").click(function(){
+	$("#imgInp").click(function(){
 	if($("#roomsSelectOne").val()=='자리선택'){
 		alert('자리선택을 하셔야 합니다');
 		
 		return false;
 	}
 	fileChange();
-});
+	});
 	
-function fileChange(){
+	function fileChange(){
 	
-var imgFile = $("#imgInp").val();
-var fileForm = /(.*?)\.(webp|jpg|jpeg|png|gif|bmp|pdf)$/;
-var maxSize = 20* 1024 * 1024;
-var fileSize;
+	var imgFile = $("#imgInp").val();
+	var fileForm = /(.*?)\.(webp|jpg|jpeg|png|gif|bmp|pdf)$/;
+	var maxSize = 20* 1024 * 1024;
+	var fileSize;
 
-if($("#imgInp").val() == "") {
+	if($("#imgInp").val() == "") {
 	console.log("체크");
      $("#imgInp").focus(); 
     return false;
-}
+	}
 
 
  
 
-if(imgFile != "" && imgFile != null) {
+	if(imgFile != "" && imgFile != null) {
 	fileSize = document.getElementById("imgInp").files[0].size;
     
     if(!imgFile.match(fileForm)) {
@@ -401,17 +388,20 @@ if(imgFile != "" && imgFile != null) {
     	 $("#imgInp").val("");
     	 return;
     }
-};
-};
+	};
+	if($("#foo").val()==''){
+		checkDelete();
+	}
+	};
 
 
-$(".form-control").keyup( function(){
+	$(".form-control").keyup( function(){
 	inputClick();
 	});
-$(".rooms_product").focusout( function(){
+	$(".rooms_product").focusout( function(){
 	inputClick();
 	});
-function inputClick(){
+	function inputClick(){
 	console.count("keyup");
 	 
 	var tib=$('.top_lift_b').length;
@@ -423,39 +413,7 @@ function inputClick(){
   	$("#imgInp").trigger("click");
 		return false;
 	}
-	/*  for(let i=1;i<=a;i++){ 
-	  if($(".rm-bts"+i+"").css("top")==$(".rm-bte").css("top")){
-		 console.log($(".rm-bts1").css("top"),'뭐야!!!!!!!!!!!!!!!!!!!!!');
-		 console.log($(".rm-bte").css("top"),'뭐야!!!!!!!!!!!!!!!!!!!!!!!');
-		 alert("등록된 상품과 같은 좌표입니다.");
-		 return false;
-	 } 
-	 } */
-	/* else if (!$(".top_lift_a").hasClass("rudfhr")) {
-	    console.log('submit','1');
-	    alert('(top,left,produst)를  입력하셔야 합니다');
-	    return false;
-	}else  if ($('#inputTop'+i+'').val() == ''&&$('#inputLeft'+i+'').val() == ''&&$('#inputProduct'+i+'').val() != '상품번호') {
-	    console.log($('#inputTop'+i+'').val());
-	    alert('(top,left)을  입력하셔야 합니다');
-	    $("#inputTop"+i+"").focus();
-	    return false;
-	}else if ($('#inputTop'+i+'').val() == '') {
-	    console.log($('#inputTop'+i+'').val());
-	    alert('(top)을  입력하셔야 합니다');
-	    $("#inputTop"+i+"").focus();
-	    return false;
-	}else if ($('#inputLeft'+i+'').val() == '') {
-	    console.log($('.top_lift_b').find('#inputLeft'+i+''));
-	    alert('(left)를  입력하셔야 합니다');
-	    $("#inputLeft"+i+"").focus();
-	    return false;
-	}else if ($('#inputProduct'+i+'').val() == '상품번호') {
-  	console.log($('.top_lift_b').find('#inputProduct'+i+''));
-  	alert('(product)를  선택하셔야 합니다');
-  	$("#inputProduct"+i+"").focus();
-      return false;
-  }	             */
+	
 	for(let t=1;t<=tib;t++){
 	    if(i!=t){
 	  	if($('#inputTop'+i+'').val() == $('#inputTop'+t+'').val() && $('#inputLeft'+i+'').val() == $('#inputLeft'+t+'').val() ){
@@ -463,18 +421,17 @@ function inputClick(){
 	    
 	        	 return false;
 	} 
-	        	 
-	        	 }
-	        	 } 
-	    	 }
-if($(".inputTop").val()!='' && $(".inputLeft").val()!=''){
+	 }
+	 } 
+	}
+	if($(".inputTop").val()!='' && $(".inputLeft").val()!=''){
 	console.count("if문");
 	getInputName();
 	return true
-}
+	}
 	}
 		
-function getInputName(){
+	function getInputName(){
 				
 	
 	var type=new Array();
@@ -509,7 +466,7 @@ function getInputName(){
 		 for(let t=0;t<data.length;t++){
 			 console.log(t);
 			  var endDate = new Date(data[t]["PRODUCT_ENROLL_DATE"]);
-			  endDate.setDate(endDate.getDate() +30);
+			  endDate.setDate(endDate.getDate() +7);
 			 let cl=$(".rm-bt").clone();
 			$(cl).removeClass("rm-bt");
 			$(cl).addClass("rm-bte");
@@ -602,7 +559,7 @@ function getInputName(){
     		$(c).addClass("option-product-two"+q+"");
     		$(c).css("display","block");
     		$(c).val(data[q]["PRODUCT_NO"]);
-    		$(c).text(data[q]["PRODUCT_NO"]);
+    		$(c).text(data[q]["PRODUCT_NO"]+' '+':'+' '+data[q]["PRODUCT_NAME"]);
     		
     		$(".rooms_product").append(c);
     	}
@@ -615,9 +572,9 @@ function getInputName(){
 					 dl.push(th);
 					 var set = new Set(dl);
 					
-					if($(this).val()!='상품번호'&&dl.length!==set.size){
+					if($(this).val()!='상품번호:상품이름'&&dl.length!==set.size){
 						alert("중복된 상품번호 입니다");
-						 $(this).val('상품번호');
+						 $(this).val('상품번호:상품이름');
 						 dl.splice(r-1);
 					}				 
 			 });
@@ -633,10 +590,10 @@ function getInputName(){
 		console.log($(this),"????");
 		for(let i=1;i<=form;i++){
 		$("#inputProduct"+i+"").change(function(){
-			 if($("#inputProduct"+i+"").val()=='상품번호'){
+			 if($("#inputProduct"+i+"").val()=='상품번호:상품이름'){
 				$("#inputTop"+i+"").css("display","none");
 				$("#inputLeft"+i+"").css("display","none");
-			}else if($("#inputProduct"+i+"").val()!='상품번호'){
+			}else if($("#inputProduct"+i+"").val()!='상품번호:상품이름'){
 			$("#inputTop"+i+"").css("display","block");
 			$("#inputLeft"+i+"").css("display","block");
 			}

@@ -18,8 +18,8 @@
 		<div class="ev-top">
 			<nav aria-label="breadcrumb">
 				<ol class="breadcrumb">
-					<li class="breadcrumb-item"><a href="#">홈</a></li>
-					<li class="breadcrumb-item active" aria-current="page">더 낮은 새로운 가격, 품질은 그대로 가격은 아래로</li>
+					<li class="breadcrumb-item"><a href="${path}">홈</a></li>
+					<li class="breadcrumb-item active" aria-current="page">세일</li>
 				</ol>
 			</nav>
 		</div>
@@ -57,7 +57,7 @@
 								 <fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today" />  
 								<fmt:parseNumber var="start_d" value="${p.PRODUCT_ENROLL_DATE.time /(1000*60*60*24)}" integerOnly="true"/>
 								<fmt:parseNumber var="end_d" value="${now.time /(1000*60*60*24)}" integerOnly="true" />
-								<span class="rm-pb-et-new bottom-mig" style="display: inline;">${(end_d-start_d)<30?"NEW":""}</span>
+								<span class="rm-pb-et-new bottom-mig" style="display: inline;">${(end_d-start_d)<7?"NEW":""}</span>
 								<span class="ev-pb-et-p bottom-mig">더 낮은 새로운 가격</span> 
 								<span class="ev-bt-name bottom-mig">${p.PRODUCT_NAME}</span> 
 								<span class="rm-bt-sp bottom-mig"> ${p.BIG_CATEGORY_CONTENT} </span>
@@ -113,8 +113,9 @@
 										<div class="card-body">
 										
 										<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today" /> 
-										<fmt:formatDate value="${p.PRODUCT_ENROLL_DATE }" pattern="yyyy-MM-dd" var="write_dt"/>
-											<span class="rm-pb-et-new">${today <= write_dt?"NEW":""}</span>
+										<fmt:parseNumber var="start_d" value="${p.PRODUCT_ENROLL_DATE.time /(1000*60*60*24)}" integerOnly="true"/>
+										<fmt:parseNumber var="end_d" value="${now.time /(1000*60*60*24)}" integerOnly="true" />
+											<span class="rm-pb-et-new">${(end_d-start_d)<7?"NEW":""}</span>
 											<span class="ev-pb-et-p-rm">더 낮은 새로운 가격</span>
 											
 											<!--Title-->

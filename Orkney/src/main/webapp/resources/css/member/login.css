@@ -74,7 +74,7 @@ body,html{height:100%;overflow: hidden;}
     #email-alarm{
 	  position:absolute;
 	  padding: 0.6rem 3rem 1rem;
-	  left: 115%;
+	  left: 125%;
 	  font-weight: 600;
       top: 13%;
 	  width:200px;

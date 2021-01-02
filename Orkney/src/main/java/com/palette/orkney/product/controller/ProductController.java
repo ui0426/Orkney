@@ -116,7 +116,7 @@ public class ProductController {
 		mv.addObject("rooms", service.selectRooms(type));
 		
 		mv.addObject("roomsProduct", service.selectRoomsProduct(types));
-		System.out.println(type);
+		System.out.println(service.selectRoomsProduct(types));
 		mv.addObject("roomsTitle", service.selectRoomsTitle(type));
 		mv.setViewName("product/rooms");
 

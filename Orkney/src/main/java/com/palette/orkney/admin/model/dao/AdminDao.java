@@ -66,7 +66,7 @@ public interface AdminDao {
 	List<Map> productOne(SqlSession session, Map<String,Object> list);
 	int productInsert(SqlSession session, Product product);
 	int insertProductImage(SqlSession session, Product_image pi);
-	Map<String,Object> productUpdate(SqlSession session, String pNo);
+	List<Map> productUpdate(SqlSession session, String pNo);
 	int producUpdateIn(SqlSession session, Product product);
 	int producUpdateInImg(SqlSession session, Product_image pi);	
 	List<Map> productImg(SqlSession session, Product product);

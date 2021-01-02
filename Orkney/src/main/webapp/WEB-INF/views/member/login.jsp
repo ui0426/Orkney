@@ -98,11 +98,6 @@
         <input type="hidden" value=${ani} id="ech">
    <script>
    
-   let path="${path}";
-	console.log(path);
-	console.log(window.location);
-   console.log(window.location.origin);
-   console.log(12312321);
    
    let ch=$("#ech").val();
    if(ch=='true'){
