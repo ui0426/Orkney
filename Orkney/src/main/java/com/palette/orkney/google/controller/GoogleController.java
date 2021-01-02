@@ -39,8 +39,6 @@ public class GoogleController {
 	private String clientId;
 	@Value("${clientSecret}")
 	private String clientSecret;
-	@Value("${redirectURL}")
-	private String path;
 	@Autowired
 	private MemberService service;
 	
@@ -48,7 +46,7 @@ public class GoogleController {
 	public String googleAuth(Model model, @RequestParam(value = "code") String authCode,HttpServletRequest request)
 			throws JsonProcessingException {
 		System.out.println(clientId+" : "+clientSecret);
-//		String path=request.getRequestURL().toString();
+		String path=request.getRequestURL().toString();
 		//HTTP Request를 위한 RestTemplate
 		RestTemplate restTemplate = new RestTemplate();
 		//Google OAuth Access Token 요청을 위한 파라미터 세팅
