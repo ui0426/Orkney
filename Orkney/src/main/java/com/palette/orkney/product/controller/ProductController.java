@@ -117,7 +117,7 @@ public class ProductController {
 		mv.addObject("rooms", service.selectRooms(type));
 		
 		mv.addObject("roomsProduct", service.selectRoomsProduct(types));
-		System.out.println(type);
+		System.out.println(service.selectRoomsProduct(types));
 		mv.addObject("roomsTitle", service.selectRoomsTitle(type));
 		mv.setViewName("product/rooms");
 
@@ -147,9 +147,10 @@ public class ProductController {
 
 	@RequestMapping("/product/allProductList.do")
 	@ResponseBody
-	public String allProductList() {
-
-		return service.allProductList();
+	public List<Map> allProductList(String text) {
+		Map texts=new HashMap();
+		texts.put("text", text);
+		return service.allProductList(texts);
 	}
 
 	@RequestMapping("/product/productCategory.do")
@@ -159,6 +160,8 @@ public class ProductController {
 		Map texts = new HashMap();
 		texts.put("text", text);
 		texts.put("type", type);
+		System.out.println(text);
+		System.out.println(type);
 
 		return service.productCategory(texts);
 	}
@@ -308,8 +311,16 @@ public class ProductController {
 		  Map ty=new HashMap(); 
 		  ty.put("type", type); 
 		  System.out.println(ty); 
-		  return service.buttomProduct(ty); };
+		  return service.buttomProduct(ty); 
+		  };
+		  
+	@RequestMapping("/product/deleteSale.do")
+	@ResponseBody public int deleteSale() {
+		return service.deleteSale();
+	};
+	
+}
 	
 
-}
+
 

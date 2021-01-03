@@ -22,7 +22,7 @@
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
-     
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
    
 	  
   
@@ -356,12 +356,27 @@
         </div>
         </div>
 
-       
+       <a id="button"></a>
     
     <c:if test="${not empty login and login.MEMBER_NO ne 'm11'}">
  <jsp:include page="/WEB-INF/views/common/chat.jsp"/>
 	</c:if>
         <script>
+        var btn = $('#button');
+    	
+    	$(window).scroll(function() {
+    	  if ($(window).scrollTop() > 300) {
+    	    btn.addClass('show');
+    	  } else {
+    	    btn.removeClass('show');
+    	  }
+    	});
+    	
+    	btn.on('click', function(e) {
+    	  e.preventDefault();
+    	  $('html, body').animate({scrollTop:0}, '300');
+    	});
+    	
         
         function roomsNav(){
       	  $(".btn-aside").trigger("click");

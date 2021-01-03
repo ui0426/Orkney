@@ -203,7 +203,7 @@ a {
 	opacity: 0;
 	visibility: hidden;
 	z-index: 0;
-	/* width: 163px; */
+	 width: 170px; 
 	background: #fff;
 	text-align: left;
 	display: flex;
@@ -313,6 +313,7 @@ a {
 .rm-bt-ig {
 	height: 27px;
 	width: 19px;
+	
 }
 
 .rm-md-container {
@@ -458,7 +459,7 @@ a {
 	
 } 
 .custom-select{
-	width: 120px;
+	width: 254px;
 
 }
 .form-control{
@@ -466,7 +467,7 @@ a {
 	}
 .border-px{
 	border: 3px solid cornflowerblue;
-    padding: 36px;
+    padding: 19px;
     border-radius: 30px;
     width: 45%;
     height: 100%;
@@ -479,6 +480,7 @@ a {
 	padding: 53px;
 }
 .show-h2{
+	text-align: center;
 	font-weight: 700;
     text-shadow: 2px 2px 2px grey;
 }
@@ -561,6 +563,10 @@ margin-bottom: 0px !important;
 }
 .card-body{
 	    height: 294.39px;
+	    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 }
 .swiper-button-next{
 	position: absolute;
@@ -588,6 +594,7 @@ margin-bottom: 0px !important;
 	}
 }
 @media ( min-width : 640px) {
+	
 	.col{
 	max-width: 100%;
     position: relative;

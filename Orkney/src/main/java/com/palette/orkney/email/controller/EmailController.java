@@ -310,14 +310,10 @@ public class EmailController {
 		int shipFee = (int)((Map)session.getAttribute("info")).get("shipFee");//배송비
 		int willPoint = (int)((Map)session.getAttribute("info")).get("willpoint");//사용포인트
 		int addTax= (int)((Map)session.getAttribute("info")).get("addTax");//부가세
-		int totalFee = (int)((Map)session.getAttribute("info")).get("totalFee");//총금액
-				
-		SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd_HHmmssSSS");
-		System.out.println(sdf);
-						
-		
+		int totalFee = (int)((Map)session.getAttribute("info")).get("totalFee");//총금액			
+								
 		List<Cart> c = cservice.selectCart(memberNo);
-		System.out.println("카트:"+c);
+		
 		
 		System.out.println(EMAIL +"주문자"+name+""+address+""+phone+""+sumprice+""+shipFee+""+willPoint+""+""+addTax+""+totalFee+""+oNo);
 		String noticeEmail=
@@ -331,9 +327,8 @@ public class EmailController {
 				"    padding: .5rem .8rem 0rem; \">\r\n" + 
 				"        <div style=\"justify-content: center;\r\n" + 
 				"        display: flex;\"> \r\n" + 
-				"                <div style=\"background-image: url(https://kr.accounts.ikea.com/resources/static/logo.svg); background-repeat: no-repeat;background-size: 88px 44px;\r\n" + 
-				"                        content: ''; width:88px; height:44px; background-color:#0058a3;\">\r\n" + 
-				"                </div>\r\n" + 
+				"            <div style=\"font-weight: 900;\r\n" + 
+				"               font-size: 40px;\">ORKNEY</div>\r\n" + 				
 				"        </div>\r\n" + 
 				"<div style=\"text-align:center;\">\r\n" + 
 				"    <div style=\"background-color:rgb(242, 245, 247); width: 100%;\">주문정보</div>\r\n" + 
@@ -341,10 +336,6 @@ public class EmailController {
 				"        <div>주문번호</div>\r\n" + 
 				"        <div>"+oNo+"</div>\r\n" + 
 				"    </div>\r\n" + 
-				"    <div style=\"display: flex; justify-content: space-between; padding: 5px 50px;\">\r\n" + 
-				"        <div>주문일</div> \r\n" + 
-				"        <div>"+sdf+"</div> \r\n" + 
-				"    </div>    \r\n" + 
 				"</div>\r\n" + 
 				"\r\n" + 
 				"<div style=\"text-align:center;\">\r\n" + 
@@ -370,20 +361,19 @@ public class EmailController {
 				"   \r\n" + 
 				"    <div style=\"text-align:center;\">\r\n" + 
 				"        <div style=\"background-color:rgb(242, 245, 247); width: 100%;\">상품 정보</div>\r\n" + 
-				"    \r\n" ; 
-				for(int i=0;i<c.size();i++) {
-				
-				noticeEmail+="        <div>\r\n" + 
-				"           <div style=\"float: left;\">구매제품</div> \r\n" + 
-				"           <span>수량</span>\r\n" + 
+				"    \r\n" + 
+				"		 <div style=\"display: flex; justify-content: space-around;\">\r\n" + 
+				"           <div>구매제품</div> \r\n" + 
+				"           <div>수량</div>\r\n" + 
 				"           <div style=\"float: right;\">소계</div>\r\n" + 
-				"        </div>    \r\n" + 
+				"        </div>    \r\n" ;
+				for(int i=0;i<c.size();i++) {				
+				noticeEmail+= 
 				"        <div style=\"background-color:rgb(242, 245, 247); width:100%; height: 3px;\"></div>    \r\n" + 
-				"        <div>\r\n" + 
-				"            <div style=\"float: left;\"></div>\r\n" + 
-				"            <span>"+c.get(i).getProduct_width()+"*"+c.get(i).getProduct_height()+"*"+c.get(i).getProduct_depth()+"</span>\r\n" + 
+				"		 <div style=\"display: flex; justify-content: space-around;\">\r\n" + 
+				"            <div>"+c.get(i).getProductName()+"</div>\r\n" + 				 
 				"            <span>"+c.get(i).getCartQTY()+"개</span>\r\n" + 
-				"            <div style=\"float: right;\">"+c.get(i).getProductPrice()+"&nbsp;원</div>\r\n" + 
+				"            <div>"+c.get(i).getProductPrice()+"&nbsp;원</div>\r\n" + 
 				"        </div>\r\n";
 				}
 				noticeEmail+="\r\n" + 
