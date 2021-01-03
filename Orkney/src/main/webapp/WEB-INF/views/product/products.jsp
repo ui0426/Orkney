@@ -130,8 +130,13 @@ filter();
 				$(function(){
 					
 				let category = getParameterByName('category');
+				let sale = getParameterByName('sale');
 				if (category=="all") {
-					$("#categoryNone").css("display","none");
+				}
+				if (sale=="sale") {
+					$("#filterNone").css("display","none");
+					$("#filterNone2").css("display","none");
+					
 				}
 				$.ajax({
 					url:"${path}/product/sCategory/.do",
@@ -163,7 +168,7 @@ filter();
 					let start = 9;
 
 				function filter() {
-				let sale='${param.sale}';
+				let sale=getParameterByName('sale');
 					// 정렬
 				let group1 =$('input[name="group1"]:checked').val();
 				//사이즈
@@ -179,7 +184,6 @@ filter();
 				
 
 
-				  console.log(sale,'??세일??');
 
 				$.ajax({
 					url:"${path}/product/bestFilter.do",
@@ -351,7 +355,7 @@ filter();
 						<!--           ====================슬라이드 토글================ -->
 
 						<div class="">
-							<div class="row">
+							<div class="row" id="filterNone">
 								<div class="btn-group col-12 row">
 									<button type="button" id="sort" class="btn  col-12 buttonColor"
 										data-toggle="dropdown" aria-expanded="false">
@@ -565,27 +569,27 @@ filter();
 											</label> 
 											<label class="btn btn-primary col-12 leftMargin" style="background-color: black !important;"> 
 												<span style="color: white;">블랙</spqn>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-												<input type="radio" name="group5" id="option2" autocomplete="off" value="dd" onclick="filter();"> 
+												<input type="radio" name="group5" id="option2" autocomplete="off" value="black" onclick="filter();"> 
 												<span class="glyphicon glyphicon-ok"></span>
 											</label> 
 											<label class="btn btn-info col-12 leftMargin" style="background-color: beige !important;"> 
 												<span style="color: black;">베이지</spqn> 
-												<input type="radio" name="group5" id="option2" autocomplete="off" value="dd" onclick="filter();"> 
+												<input type="radio" name="group5" id="option2" autocomplete="off" value="beige" onclick="filter();"> 
 												<span class="glyphicon glyphicon-ok"></span>
 											</label> 
 											<label class="btn btn-default col-12 leftMargin" style="background-color: brown !important;"> 
 												<span style="color: white;">브라운</spqn> 
-												<input type="radio"	name="group5" id="option2" autocomplete="off" value="dd" onclick="filter();"> 
+												<input type="radio"	name="group5" id="option2" autocomplete="off" value="brown" onclick="filter();"> 
 												<span class="glyphicon glyphicon-ok"></span>
 											</label> 
 											<label	class="btn btn-warning col-12 leftMargin" style="background-color: gray !important;"> 
 												<span style="color: white;">그레이</spqn> 
-												<input type="radio" name="group5" id="option2" autocomplete="off" value="dd" onclick="filter();"> 
+												<input type="radio" name="group5" id="option2" autocomplete="off" value="gray" onclick="filter();"> 
 												<span class="glyphicon glyphicon-ok"></span>
 											</label> 
 											<label class="btn btn-danger col-12 leftMargin" style="background-color: blue !important;"> 
 												<span style="color: white;">블루</spqn>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-												<input type="radio" name="group5" id="option2" autocomplete="off" value="dd" onclick="filter();"> 
+												<input type="radio" name="group5" id="option2" autocomplete="off" value="blue" onclick="filter();"> 
 												<span class="glyphicon glyphicon-ok"></span>
 											</label>
 										</div>
@@ -619,7 +623,7 @@ filter();
 		<div name="filter" class="row headerFilter"
 			style="background-color: white;">
 			<hr>
-			<button type="button"
+			<button type="button" id="filterNone2"
 				class="btn round col-2 filterSiz col-md-1 btnH35"
 				data-toggle="modal" data-target="#modalPoll-1">
 				<span class="fontborder fontColorGray">정렬</span>

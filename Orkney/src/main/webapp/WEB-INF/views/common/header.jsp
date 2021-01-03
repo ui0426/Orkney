@@ -190,7 +190,7 @@
 		                        <div class="hnf-small-link hnf-link-color aside-btn-event">이달의 이벤트</div>
 		                    </li>
 		                    <li>
-		                        <a class="hnf-small-link hnf-link-color" href="${path }/product/products.do?category=all&search-input=">인기제품</a>
+		                        <a class="hnf-small-link hnf-link-color" href="${path }/product/products.do?category=all&search-input=&sale=">인기제품</a>
 		                    </li>
 		                </ul>
 		                <ul class="hnf-small-link hnf-menu_nav_aux">

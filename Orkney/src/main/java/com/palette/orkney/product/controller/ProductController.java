@@ -58,6 +58,7 @@ public class ProductController {
    public  List<Map>Filter (@RequestParam Map<String,Object> filter) {
       System.out.println("필털:"+filter);
       System.out.println("나도 필터?"+service.filter(filter));
+
       return service.filter(filter);
    }
    
