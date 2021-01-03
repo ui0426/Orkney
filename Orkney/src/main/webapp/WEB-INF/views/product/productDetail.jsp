@@ -456,7 +456,7 @@ height: 32rem;
 
 				<div class="col-lg-5 text-center text-md-left">
 					<div style="display: flex; justify-content: space-between;">
-						<span class="rm-pb-et-p"><p class="rm-pb-et-p">SALE</p></span>	
+						<span class="rm-pb-et-p"><p class="rm-pb-et-p">더 낮은 새로운 가격</p></span>	
 						<span class="rm-pb-et-new ">NEW</span>			
 					</div>
 					<hr>

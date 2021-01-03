@@ -69,14 +69,14 @@
       LEFT OUTER JOIN BIG_CATEGORY B
       ON P.BIG_CATEGORY_NO = B.BIG_CATEGORY_NO
       WHERE 1=1
-      <if test="sale!='' and category == ''">
-      	AND SALE_PER IS NOT NULL
+      <if test="sale='sale' and category == 'all'and search == ''">
+      	AND P.SALE_PER != P.PRODUCT_PRICE
       </if>
-      <if test="category != 'all'and sale==''">
+      <if test="category != 'all'and sale=='' and search == ''">
          AND B.BIG_CATEGORY_CONTENT = #{category} 
       </if>
-      <if test="category != 'all' and sale!=''">
-         AND B.BIG_CATEGORY_CONTENT = #{category} AND SALE_PER IS NOT NULL
+      <if test="category != 'all' and sale!='' and search == ''">
+         AND B.BIG_CATEGORY_CONTENT = #{category} AND P.SALE_PER != P.PRODUCT_PRICE
       </if>
       <if test="search != null and search != ''">
 	   AND
@@ -172,10 +172,10 @@ SELECT * FROM
                AND B.BIG_CATEGORY_CONTENT = #{category}
             </if>
             <if test="search != null and search != ''">
-		    AND
-		    P.PRODUCT_NO LIKE '%'||#{search}||'%'
-		    OR P.PRODUCT_NAME LIKE '%'||#{search}||'%'
-		    OR B.BIG_CATEGORY_CONTENT LIKE '%'||#{search}||'%'
+<!-- 		    AND -->
+<!-- 		    P.PRODUCT_NO LIKE '%'||#{search}||'%' -->
+<!-- 		    OR P.PRODUCT_NAME LIKE '%'||#{search}||'%' -->
+		    AND B.BIG_CATEGORY_CONTENT LIKE '%'||#{search}||'%'
 		    </if>
             <if test="group2 != null and group2 != 'null'">
                 AND P.PRODUCT_WIDTH = #{group2,jdbcType=VARCHAR}

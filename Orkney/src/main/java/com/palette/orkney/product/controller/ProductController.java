@@ -39,12 +39,14 @@ public class ProductController {
    public ModelAndView products(ModelAndView mv
          ,@RequestParam(name="category") String bigCategory
          ,@RequestParam(value="search-input") String search 
+         ,@RequestParam(name="sale") String sale
          ) {
 	   
 	Map<String, Object> category = new HashMap();
       category.put("category", bigCategory);
       category.put("search", search);
-      System.out.println(category);
+      category.put("sale",sale);
+      System.out.println("세일나와~!!!1"+category);
       mv.addObject("list",service.productList(category));
       mv.setViewName("product/products");
       return mv;
@@ -55,7 +57,7 @@ public class ProductController {
    @ResponseBody
    public  List<Map>Filter (@RequestParam Map<String,Object> filter) {
       System.out.println("필털:"+filter);
-      System.out.println(service.filter(filter));
+      System.out.println("나도 필터?"+service.filter(filter));
       return service.filter(filter);
    }
    
@@ -163,6 +165,7 @@ public class ProductController {
 		texts.put("type", type);
 		System.out.println(text);
 		System.out.println(type);
+		System.out.println(service.productCategory(texts));
 
 		return service.productCategory(texts);
 	}

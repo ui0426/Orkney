@@ -35,7 +35,7 @@
 						생각해요. 그래서 디자인, 제작, 플랫팩 포장 과정 전반에 걸쳐 가장 좋은 방법을 찾기 위해 많은 시간을 투자하고
 						있죠. 투자한 시간만큼 모두가 비용을 절약할 수 있게 됩니다. IKEA는 생산 비용을, 고객 여러분은 구매 비용을
 						말이죠. 작은 빨간라벨은 단순히 좋은 가격만 나타내는 것이 아니에요. 더 낮은 가격에 더 좋은 것을 제공하기 위한
-						IKEA의 노력에도 끝이란 없습니다.</span> <a class="ev-md-secondary-2nd" href="${path}/product/products.do?category=all&sale=sale">
+						IKEA의 노력에도 끝이란 없습니다.</span> <a class="ev-md-secondary-2nd" href="${path}/product/products.do?category=all&sale=sale&search-input=">
 						<span class="ev-md-small"> <span class="ev-md-label">더
 								낮은 새로운 가격의 제품 보기 </span>
 					</span>
@@ -85,7 +85,7 @@
 						</div>
 
 					</div>
-					<a class="ev-md-secondary" href="${path}/product/products.do?category=all&sale=sale" style="color:black;"> <span
+					<a class="ev-md-secondary" href="${path}/product/products.do?category=all&sale=sale&search-input=" style="color:black;"> <span
 						class="ev-md-small-ww"> <span class="ev-md-label-ww">더 많은
 								제품 확인하기 </span>
 					</span>

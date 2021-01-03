@@ -89,9 +89,11 @@
 				<span><a href="#open"  onclick="roomsNav();" style="color:black;">디지털 쇼룸</a></span>
             </div>
             <div class="header-search">
-           		<form class="search-form" action="${path}/product/products.do?category=all" method="get">
+           		<form class="search-form" action="${path}/product/products.do" method="get">
 	                <input class="search-input" type="search" id="" placeholder="검색어 입력" name="search-input">
+	                <input type="text" value="all" name="sale" style="display: none;">
 	                <input type="submit" value="all" name="category" style="display: none;">
+	                
 	           		<div class="search-input-box" style="display:none;"></div>
 	                <div class="search-dropbox" style="display:none;">
 	                	<div class="dropbox-container">
