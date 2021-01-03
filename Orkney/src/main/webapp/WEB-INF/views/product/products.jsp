@@ -12,6 +12,7 @@
 </jsp:include>
 <link rel="stylesheet"
 	href="${path }/resources/css/product/products.css">
+<link rel="stylesheet" href="${path}/resources/css/product/rooms.css">	
 <script src="<c:url value="/js/egovframework/mbl/cmm/jquery-1.11.2.min.js" />"></script>
 <script
     src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -211,33 +212,20 @@ filter();
 
 						  
 						  if(today>endDate){
-							  $(productClone).find(".rm-pb-et-new").text("");
+							  $(productClone).find(".rm-pb-et-new").text('');
 					      }
 						  if(data[i]["SALE_PER"]==data[i]["PRODUCT_PRICE"]){ //할인이 아닐때
-					    	   $(productClone).find(".rm-pb-et-p").html('');
-					    	   $(productClone).find("#pr").html(numberWithCommas(data[i]["PRODUCT_PRICE"]));
-				    		   $(productClone).find(".ht-four").text(""); 
-				    		   $(productClone).find("#won2").css("display","none"); 
-				    		  
-			    		  		
+					    	   $(productClone).find(".rm-pb-et-p").text('');
+					    	   $(productClone).find("#pr").text('');
+				    		   $(productClone).find(".ht-four").html("&#8361;"+numberWithCommas(data[i]["PRODUCT_PRICE"]));	
 				    	  }else if(data[i]["SALE_PER"]!=data[i]["PRODUCT_PRICE"]){
-				    		 
-				    		   $(productClone).find("#pr").html(numberWithCommas(data[i]["PRODUCT_PRICE"]));
-				    		   $(productClone).find("#pr").css("text-decoration","line-through");
-				    		   $(productClone).find("#pr").css("font-size","12px");
-				    		   $(productClone).find("#won").css("text-decoration","line-through");
-				    		   $(productClone).find("#won").css("font-size","12px");
-				    		   $(productClone).find(".ht-four").html(numberWithCommas(data[i]["SALE_PER"])); 
-				    		   $(productClone).find("#won2").css("display","block"); 
-				    		   $(productClone).find(".fontR").css("color","red"); 
-				    		   
+				    		   $(productClone).find("#pr").html("&#8361;"+numberWithCommas(data[i]["PRODUCT_PRICE"]));
+				    		   $(productClone).find(".ht-four").html("&#8361;"+numberWithCommas(data[i]["SALE_PER"])); 
 				    	  }
-						
 						  $(productClone).find("#checkbox").val(data[i]["PRODUCT_PIC"]);
 						  $(productClone).find("#productMainImg").attr("src","${path}/resources/images/product/"+data[i]["PRODUCT_PIC"]);
 						  $(productClone).find("#product_name").html(data[i]["PRODUCT_NAME"]);
 						  $(productClone).find("#category").html(data[i]["BIG_CATEGORY_CONTENT"]);
-						  $(productClone).find("#pr").html(numberWithCommas(data[i]["PRODUCT_PRICE"]));
 						  $(productClone).find("#productA").attr("href","${path}/product/productDetail.do?productno="+data[i]["PRODUCT_NO"]);
 						  $(productClone).find("#readMore").attr("onclick","location.href = \'${path}/product/productDetail.do?productno="+data[i]["PRODUCT_NO"]+"\'");
 						  $(productClone).find("#btnck").attr("name",data[i]["PRODUCT_NO"]);
@@ -381,7 +369,7 @@ filter();
 										
 										<div class="form-check mb-4">
 											<input class="form-check-input " name="group1" type="radio" id="sale" value="sale" onclick="filter();">
-												<label class="form-check-label fontborder " for="sale" >SALE</label>
+												<label class="form-check-label fontborder " for="sale" >더 낮은 새로운 가격</label>
 										</div>
 
 										<div class="form-check mb-4">
@@ -700,24 +688,26 @@ filter();
 							</a>
 						</div>
 						<!--Card content-->
-						<div class="card-body">
+						<div class="card-body" style="height:auto;">
+							<span class="rm-pb-et-new ">NEW</span>
+							<span class="rm-pb-et-p"> 더 낮은 새로운 가격</span>		
 							<!--Title-->
 							<h6 class="card-title event-product-name" id="product_name" >
 								<c:out value="${p.PRODUCT_NAME}" />
 							</h6>
 							<!--Text-->
-							<p class="card-text marginZero event-price ht-three" id="category">
+							<p class="card-text marginZero  ht-three" id="category">
 								<c:out value="${p.BIG_CATEGORY_NO }"></c:out>
 							</p>
 							<p class="card-text marginZero">
 							<div class="marginZero">
 								<div class="col row">
-									<div id="pr"></div>
-									<div id="won">원</div>
+									<div id="pr" class="event-price"></div>
+									
 								</div>
 								<div class="col row fontR" style="font-size: 14px;">								
-									<div id="" class="ht-four"></div>
-									<div id="won2">원</div>
+									<div id="" class="ht-four product-price"></div>
+									
 								</div>
 							</div>
 							</p>
@@ -727,7 +717,7 @@ filter();
 <!-- 하는중 -->
 							<div class="">
 <!-- 								별점  -->
-								<ul class="rating mb-2 row" style="margin: 2px; height: 40px;" id="starnum">
+								<ul class="rating mb-2 row"  id="starnum">
 <!-- 									<li><i class="fas fa-star blue-text"></i></li> -->
 <!-- 									<li><i class="fas fa-star blue-text"></i></li> -->
 <!-- 									<li><i class="fas fa-star blue-text"></i></li> -->
@@ -748,10 +738,7 @@ filter();
 								<!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
 
 								<!-- Card footer -->
-							<div style="display: flex; justify-content: space-between;">
-								<span class="rm-pb-et-p"><p class="rm-pb-et-p">SALE</p></span>	
-								<span class="rm-pb-et-new ">NEW</span>			
-							</div>
+						
 							</div>
 							<div>
 								<hr>
