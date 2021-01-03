@@ -36,13 +36,14 @@ public class ProductController {
    @RequestMapping("/product/products.do")
    @ResponseBody
    public ModelAndView products(ModelAndView mv
-         ,@RequestParam(name="category") String bicCategory
+         ,@RequestParam(name="category") String bigCategory
+         ,@RequestParam(value="search-input") String search 
          ) {
-      
+	   
       Map<String, Object> category = new HashMap();
-      category.put("category", bicCategory);
+      category.put("category", bigCategory);
+      category.put("search", search);
       System.out.println(category);
-      
       mv.addObject("list",service.productList(category));
       mv.setViewName("product/products");
       return mv;
