@@ -319,7 +319,7 @@
     	 
     	 $(".event-bu2").click(e=>{
     	  $(".event-remove").remove(); 
-    		 type+=1;
+    		 type+=3;
     		mainAjax();
     	 });
     	 
