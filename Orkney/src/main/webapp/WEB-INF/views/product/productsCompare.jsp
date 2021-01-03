@@ -373,8 +373,8 @@
 													<strong>깊이 : </strong> <c:out value="${p.PRODUCT_DEPTH}"/> cm
 												</p>
 											</li>
-										</ul>
-										<a class="btn btn-outline-white">Buy now</a>
+										</ul>										
+										<a class="btn btn-outline-white" href="${path}/product/productDetail.do?productno=${p.PRODUCT_NO}">Buy now</a>
 									</div>
 									<!-- Content -->
 								</div>

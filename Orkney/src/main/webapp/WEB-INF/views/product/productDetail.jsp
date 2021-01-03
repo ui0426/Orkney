@@ -1097,7 +1097,6 @@ $(function(){
 	   $(".ht-four").text(""); 
 	   $(".ht-four").css("height","14px"); 
 	   $("#won2").css("display","none"); 
-	  
  		
  }else if("${i.SALE_PER}"!="${i.PRODUCT_PRICE}"){
 	 
@@ -1111,6 +1110,7 @@ $(function(){
 	   $(".fontR").css("color","red"); 
 	   
  }
+	
 	
 	$("#productName").text(("${i.PRODUCT_NAME}"));
 	$("#WIDTH").text(("폭  "+":"+"${i.PRODUCT_WIDTH}"+"cm"));
