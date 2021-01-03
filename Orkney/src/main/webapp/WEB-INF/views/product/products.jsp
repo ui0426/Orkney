@@ -162,7 +162,7 @@ filter();
 					let start = 9;
 
 				function filter() {
-				let sale='${param.sale}';
+				let sale=getParameterByName('sale');
 					// 정렬
 				let group1 =$('input[name="group1"]:checked').val();
 				//사이즈
@@ -178,7 +178,6 @@ filter();
 				
 
 
-				  console.log(sale,'??세일??');
 
 				$.ajax({
 					url:"${path}/product/bestFilter.do",
