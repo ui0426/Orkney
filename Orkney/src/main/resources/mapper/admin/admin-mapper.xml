@@ -139,7 +139,7 @@
 	   OR P.PRODUCT_NAME LIKE '%'||#{keyword}||'%'
 	   OR B.BIG_CATEGORY_CONTENT LIKE '%'||#{keyword}||'%'
 	   </if>
-	   ORDER BY P.PRODUCT_ENROLL_DATE ASC
+	   ORDER BY P.PRODUCT_ENROLL_DATE DESC
 	</select>
 	
 	<select id="productTotalData" resultType="_int">

@@ -85,12 +85,13 @@
                 <a href="${path}"><img src="${path }/resources/img/LOGO3.PNG" alt=""></a>
             </div>
             <div class="header-menu">
-                <span><a href="${path }/product/products.do?category=all&sale=" style="color:black;">모든제품</a> </span>
+                <span><a href="${path }/product/products.do?category=all&sale=&search-input=" style="color:black;">모든제품</a> </span>
 				<span><a href="#open"  onclick="roomsNav();" style="color:black;">디지털 쇼룸</a></span>
             </div>
             <div class="header-search">
-           		<form class="search-form">
-	                <input class="search-input" type="search" placeholder="검색어 입력">
+           		<form class="search-form" action="${path}/product/products.do?category=all" method="get">
+	                <input class="search-input" type="search" id="" placeholder="검색어 입력" name="search-input">
+	                <input type="submit" value="all" name="category" style="display: none;">
 	           		<div class="search-input-box" style="display:none;"></div>
 	                <div class="search-dropbox" style="display:none;">
 	                	<div class="dropbox-container">
@@ -239,7 +240,7 @@
 							</li>
 							<li>
 
-								<a href="${path }/product/products.do?category=아동식선반&sale=">
+								<a href="${path }/product/products.do?category=이동식선반&sale=">
 									이동식 선반
 								</a>
 							</li>
@@ -510,7 +511,6 @@
 // 				$('html').removeClass('scroll-x');
     		});
            
-            
 
             
         </script>

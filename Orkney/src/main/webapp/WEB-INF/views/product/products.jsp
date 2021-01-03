@@ -176,6 +176,7 @@ filter2();
 				// 색상
 				let group5 = $('input[name="group5"]:checked').val();
 				let category = getParameterByName('category');
+				let search = getParameterByName('search-input');
 				
 				  //마지막 리스트 번호를 알아내기 위해서 tr태그의 length를 구함.
 				  
@@ -190,7 +191,8 @@ filter2();
 						"group4":group4,			
 						"group5":group5,
 						"category":category,
-						"start":start
+						"start":start,
+						"search":search
 					
 						
 					
@@ -328,6 +330,7 @@ filter2();
 				// 색상
 				let group5 = $('input[name="group5"]:checked').val();
 				let category = getParameterByName('category');
+				let search = getParameterByName('search-input');
 				  start=9;
 				
 				  //마지막 리스트 번호를 알아내기 위해서 tr태그의 length를 구함.
@@ -343,7 +346,8 @@ filter2();
 						"group4":group4,			
 						"group5":group5,
 						"category":category,
-						"start":start
+						"start":start,
+						"search":search
 				
 						
 					
