@@ -113,7 +113,7 @@ $("#frameModalBottomSuccess").modal('show');
 </script>
 <script type="text/javascript">
 $(function() {
-filter2();	
+filter();	
 })
 // 더보기
 
@@ -161,163 +161,6 @@ filter2();
 				}
 					let start = 9;
 
-				function filter2() {
-					
-				
-					
-				// 정렬
-				let group1 =$('input[name="group1"]:checked').val();
-				//사이즈
-				let group2 = $('input[name="group2"]:checked').val();
-				//카테고리
-				let group3 =$('input[name="group3"]:checked').val();
-				//가격
-				let group4 = $('input[name="group4"]:checked').val();
-				// 색상
-				let group5 = $('input[name="group5"]:checked').val();
-				let category = getParameterByName('category');
-				let search = getParameterByName('search-input');
-				
-				  //마지막 리스트 번호를 알아내기 위해서 tr태그의 length를 구함.
-				  
-				$.ajax({
-					url:"${path}/product/bestFilter.do",
-					type:"get",
-					async : false,
-					data:{
-						"group1":group1,			
-						"group2":group2,			
-						"group3":group3,			
-						"group4":group4,			
-						"group5":group5,
-						"category":category,
-						"start":start,
-						"search":search
-					
-						
-					
-					},
-					success:data=>{
-						$("#product_list").html("");
-//  						alert(category);
-
-					 
-						for ( var i=0;i <= data.length;i++){
-							
-							var endDate = new Date(data[i]["PRODUCT_ENROLL_DATE"]);
-							endDate=getFormatDate(endDate);
-							 var today = new Date();
-							 today=getFormatDate(today)
-						  let productClone = $("#products").clone().attr("id","products"+i);
-						  
-						  if(today>endDate){
-							  $(productClone).find(".rm-pb-et-new").text('');
-					      }
-				    	  if(data[i]["SALE_PER"]==data[i]["PRODUCT_PRICE"]){ //할인이 아닐때
-					    	   $(productClone).find(".rm-pb-et-p").html('');
-					    	   $(productClone).find("#pr").html(numberWithCommas(data[i]["PRODUCT_PRICE"]));
-				    		   $(productClone).find(".ht-four").text(""); 
-				    		   $(productClone).find(".ht-four").css("height","14px"); 
-				    		   $(productClone).find("#won2").css("display","none"); 
-				    		  
-			    		  		
-				    	  }else if(data[i]["SALE_PER"]!=data[i]["PRODUCT_PRICE"]){
-				    		 
-				    		   $(productClone).find("#pr").html(numberWithCommas(data[i]["PRODUCT_PRICE"]));
-				    		   $(productClone).find("#pr").css("text-decoration","line-through");
-				    		   $(productClone).find("#pr").css("font-size","12px");
-				    		   $(productClone).find("#won").css("text-decoration","line-through");
-				    		   $(productClone).find("#won").css("font-size","12px");
-				    		   $(productClone).find(".ht-four").html(numberWithCommas(data[i]["SALE_PER"])); 
-				    		   $(productClone).find("#won2").css("display","block"); 
-				    		   $(productClone).find(".fontR").css("color","red"); 
-				    		   
-				    	  }
-						  
-						
-						  $(productClone).find("#checkbox").val(data[i]["PRODUCT_PIC"]);
-						  $(productClone).find("#productMainImg").attr("src","${path}/resources/images/product/"+data[i]["PRODUCT_PIC"]);
-						  $(productClone).find("#product_name").html(data[i]["PRODUCT_NAME"]);
-						  $(productClone).find("#category").html(data[i]["BIG_CATEGORY_CONTENT"]);
-						  $(productClone).find("#pr").html(numberWithCommas(data[i]["PRODUCT_PRICE"]));
-						  $(productClone).find("#productA").attr("href","${path}/product/productDetail.do?productno="+data[i]["PRODUCT_NO"]);
-						  $(productClone).find("#readMore").attr("onclick","location.href = \'${path}/product/productDetail.do?productno="+data[i]["PRODUCT_NO"]+"\'");
-						  $(productClone).find("#btnck").attr("name",data[i]["PRODUCT_NO"]);
-						  $(productClone).find("#btnck").attr("title",data[i]["PRODUCT_PRICE"]);
-						  
-						  $(productClone).find("#btnWish").attr("name",data[i]["PRODUCT_NO"]);
-						  $(productClone).find("#btnWish").attr("title",data[i]["PRODUCT_PRICE"]);
-						  $(productClone).find("#btnWish").attr("onclick","fn_addWishModal"+"("+"'"+data[i]["PRODUCT_PRICE"]+"'"+","+"'"+data[i]["PRODUCT_NO"]+"'"+");");
-						  
-						  $(productClone).find("#btnck").attr("onclick","fnbn"+"("+"'"+data[i]["PRODUCT_PRICE"]+"'"+","+"'"+data[i]["PRODUCT_NO"]+"'"+");");
-						  						
-							 						  										
-// 						하는중
-						  var productNo = data[i]["PRODUCT_NO"];
-						  $.ajax({
-								url: "${path}/product/average.do",
-								async: false,
-								data:{
-									"productNo":productNo
-								},
-								success:data2=>{
-
-									for (var i = 0; i < data.length; i++) {
-										
-									
-										console.log("데이터2"+data[i]["PRODUCT_NO"]);
-										if (data2[i]["COUNT(REVIEW_NO)"] !=null) {
-											
-											 $(productClone).find("#average2").text(data2[i]["AVG(PRODUCT_GRADE)"].toFixed(1));
-											 $(productClone).find("#buynum2").text("("+data2[i]["COUNT(REVIEW_NO)"]+")");
-										}
-									if (parseFloat(data2[i]["AVG(PRODUCT_GRADE)"]) > 0 && data2[i]["AVG(PRODUCT_GRADE)"] < 1.5) {
-										
-										$(productClone).find("#starGray1").removeClass("grey-text").addClass("blue-text");
-										$(productClone).find("#starGray2").removeClass("blue-text").addClass("grey-text");
-										$(productClone).find("#starGray3").removeClass("blue-text").addClass("grey-text");
-										$(productClone).find("#starGray4").removeClass("blue-text").addClass("grey-text");
-										$(productClone).find("#starGray5").removeClass("blue-text").addClass("grey-text");
-									}else if (parseFloat(data2[i]["AVG(PRODUCT_GRADE)"]) >= 1.5 && data2[i]["AVG(PRODUCT_GRADE)"] < 2.5) {
-										$(productClone).find("#starGray1").removeClass("grey-text").addClass("blue-text");
-										$(productClone).find("#starGray2").removeClass("grey-text").addClass("blue-text");
-										$(productClone).find("#starGray3").removeClass("blue-text").addClass("grey-text");
-										$(productClone).find("#starGray4").removeClass("blue-text").addClass("grey-text");
-										$(productClone).find("#starGray5").removeClass("blue-text").addClass("grey-text");
-									
-									}else if (parseFloat(data2[i]["AVG(PRODUCT_GRADE)"]) >= 2.5 && data2[i]["AVG(PRODUCT_GRADE)"] < 3.5) {
-										$(productClone).find("#starGray1").removeClass("grey-text").addClass("blue-text");
-										$(productClone).find("#starGray2").removeClass("grey-text").addClass("blue-text");
-										$(productClone).find("#starGray3").removeClass("grey-text").addClass("blue-text");
-										$(productClone).find("#starGray4").removeClass("blue-text").addClass("grey-text");
-										$(productClone).find("#starGray5").removeClass("blue-text").addClass("grey-text");
-									
-									}else if (parseFloat(data2[i]["AVG(PRODUCT_GRADE)"]) >= 3.5 && data2[i]["AVG(PRODUCT_GRADE)"] < 4.5) {
-											
-										$(productClone).find("#starGray1").removeClass("grey-text").addClass("blue-text");
-										$(productClone).find("#starGray2").removeClass("grey-text").addClass("blue-text");
-										$(productClone).find("#starGray3").removeClass("grey-text").addClass("blue-text");
-										$(productClone).find("#starGray4").removeClass("grey-text").addClass("blue-text");
-										$(productClone).find("#starGray5").removeClass("blue-text").addClass("grey-text");
-									
-									}else if (parseFloat(data2[i]["AVG(PRODUCT_GRADE)"]) >= 4.5) {
-										$(productClone).find("#starGray1").removeClass("grey-text").addClass("blue-text");
-										$(productClone).find("#starGray2").removeClass("grey-text").addClass("blue-text");
-										$(productClone).find("#starGray3").removeClass("grey-text").addClass("blue-text");
-										$(productClone).find("#starGray4").removeClass("grey-text").addClass("blue-text");
-										$(productClone).find("#starGray5").removeClass("grey-text").addClass("blue-text");
-									}
-								}
-								}
-								
-							});
-						 $("#product_list").append(productClone);
-					
-						}
-					}
-				})	
-				start = start+8;
- 			}
 				function filter() {
 				// 정렬
 				let group1 =$('input[name="group1"]:checked').val();
@@ -331,9 +174,8 @@ filter2();
 				let group5 = $('input[name="group5"]:checked').val();
 				let category = getParameterByName('category');
 				let search = getParameterByName('search-input');
-				  start=9;
 				
-				  //마지막 리스트 번호를 알아내기 위해서 tr태그의 length를 구함.
+
 				  
 				$.ajax({
 					url:"${path}/product/bestFilter.do",
@@ -830,7 +672,7 @@ filter2();
 
 
 		</div>
-		<button type="button" class="btn filterSiz  btnH35 waves-effect waves-light" style="width: 100%; background-color: rgb(238, 237, 237);" onclick="filter2();">
+		<button type="button" class="btn filterSiz  btnH35 waves-effect waves-light" style="width: 100%; background-color: rgb(238, 237, 237);" onclick="filter();">
 				<span class="fontborder fontColorGray">더보기</span>
 			</button>
 		<!-- 제품 목록 -->
