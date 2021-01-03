@@ -69,14 +69,14 @@
       LEFT OUTER JOIN BIG_CATEGORY B
       ON P.BIG_CATEGORY_NO = B.BIG_CATEGORY_NO
       WHERE 1=1
-      <if test="sale!='' and category == ''">
-      	AND SALE_PER IS NOT NULL
+      <if test="sale='sale' and category == 'all'and search == ''">
+      	AND P.SALE_PER != P.PRODUCT_PRICE
       </if>
-      <if test="category != 'all'and sale==''">
+      <if test="category != 'all'and sale=='' and search == ''">
          AND B.BIG_CATEGORY_CONTENT = #{category} 
       </if>
-      <if test="category != 'all' and sale!=''">
-         AND B.BIG_CATEGORY_CONTENT = #{category} AND SALE_PER IS NOT NULL
+      <if test="category != 'all' and sale!='' and search == ''">
+         AND B.BIG_CATEGORY_CONTENT = #{category} AND P.SALE_PER != P.PRODUCT_PRICE
       </if>
       <if test="search != null and search != ''">
 	   AND

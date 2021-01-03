@@ -38,11 +38,13 @@ public class ProductController {
    public ModelAndView products(ModelAndView mv
          ,@RequestParam(name="category") String bigCategory
          ,@RequestParam(value="search-input") String search 
+         ,@RequestParam(name="sale") String sale
          ) {
 	   
       Map<String, Object> category = new HashMap();
       category.put("category", bigCategory);
       category.put("search", search);
+      category.put("sale",sale);
       System.out.println(category);
       mv.addObject("list",service.productList(category));
       mv.setViewName("product/products");
@@ -162,6 +164,7 @@ public class ProductController {
 		texts.put("type", type);
 		System.out.println(text);
 		System.out.println(type);
+		System.out.println(service.productCategory(texts));
 
 		return service.productCategory(texts);
 	}
