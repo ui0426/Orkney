@@ -533,6 +533,11 @@ filter2();
 											<input class="form-check-input " name="group1" type="radio" id="bestP" value="best" onclick="filter();" checked="checked">
 												<label class="form-check-label fontborder " for="bestP" >인기제품</label>
 										</div>
+										
+										<div class="form-check mb-4">
+											<input class="form-check-input " name="group1" type="radio" id="sale" value="sale" onclick="filter();">
+												<label class="form-check-label fontborder " for="sale" >SALE</label>
+										</div>
 
 										<div class="form-check mb-4">
 											<input class="form-check-input" name="group1" type="radio"
@@ -1072,6 +1077,7 @@ function fnbn(a,b){
 
 
 </section>
+
 
 		<script>
 // 		@화면 로드시 체크박스 해제
