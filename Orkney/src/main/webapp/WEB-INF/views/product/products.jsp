@@ -319,7 +319,8 @@ filter2();
 				start = start+8;
  			}
 				function filter() {
-				// 정렬
+				let sale='${param.sale}';
+					// 정렬
 				let group1 =$('input[name="group1"]:checked').val();
 				//사이즈
 				let group2 = $('input[name="group2"]:checked').val();
@@ -334,7 +335,7 @@ filter2();
 				  start=9;
 				
 				  //마지막 리스트 번호를 알아내기 위해서 tr태그의 length를 구함.
-				  
+				  console.log(sale,'??세일??');
 				$.ajax({
 					url:"${path}/product/bestFilter.do",
 					type:"get",
@@ -347,8 +348,8 @@ filter2();
 						"group5":group5,
 						"category":category,
 						"start":start,
-						"search":search
-				
+						"search":search,
+						"sale":sale
 						
 					
 					},

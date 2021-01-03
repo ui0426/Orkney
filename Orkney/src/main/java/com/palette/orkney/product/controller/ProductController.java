@@ -46,7 +46,7 @@ public class ProductController {
       category.put("category", bigCategory);
       category.put("search", search);
       category.put("sale",sale);
-      System.out.println(category);
+      System.out.println("세일나와~!!!1"+service.productList(category));
       mv.addObject("list",service.productList(category));
       mv.setViewName("product/products");
       return mv;
@@ -57,7 +57,7 @@ public class ProductController {
    @ResponseBody
    public  List<Map>Filter (@RequestParam Map<String,Object> filter) {
       System.out.println("필털:"+filter);
-      System.out.println(service.filter(filter));
+      System.out.println("나도 필터?"+service.filter(filter));
       return service.filter(filter);
    }
    
