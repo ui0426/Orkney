@@ -188,7 +188,7 @@
 		                        <div class="hnf-small-link hnf-link-color aside-btn-event">이달의 이벤트</div>
 		                    </li>
 		                    <li>
-		                        <a class="hnf-small-link hnf-link-color" href="${path }/product/products.do?category=all">인기제품</a>
+		                        <a class="hnf-small-link hnf-link-color" href="${path }/product/products.do?category=all&search-input=">인기제품</a>
 		                    </li>
 		                </ul>
 		                <ul class="hnf-small-link hnf-menu_nav_aux">
@@ -214,76 +214,76 @@
 		        		<span class="hnf-menu-container-product-head">모든 상품</span>
 						<ul class="hnf-menu-container-product-main">
 							<li>
-								<a  href="${path }/product/products.do?category=책장/선반유닛&sale=">
+								<a  href="${path }/product/products.do?category=책장/선반유닛&sale=&search-input=">
 									책장/선반유닛
 								</a>
 							</li>
 							<li>
-								<a href="${path }/product/products.do?category=서랍&sale=">
+								<a href="${path }/product/products.do?category=서랍&sale=&search-input=">
 									서랍
 								</a>
 							</li>
 							<li>
-								<a href="${path }/product/products.do?category=의자&sale=">
+								<a href="${path }/product/products.do?category=의자&sale=&search-input=">
 									의자
 								</a>
 							</li>
 							<li>
-								<a href="${path }/product/products.do?category=바테이블/의자&sale=">
+								<a href="${path }/product/products.do?category=바테이블/의자&sale=&search-input=">
 									바테이블/의자
 								</a>
 							</li>
 							<li>
-								<a href="${path }/product/products.do?category=카페가구&sale=">
+								<a href="${path }/product/products.do?category=카페가구&sale=&search-input=">
 									카페가구
 								</a>
 							</li>
 							<li>
 
-								<a href="${path }/product/products.do?category=이동식선반&sale=">
+								<a href="${path }/product/products.do?category=이동식선반&sale=&search-input=">
 									이동식 선반
 								</a>
 							</li>
 							<li>
-								<a href="${path }/product/products.do?category=옷장&sale=">
+								<a href="${path }/product/products.do?category=옷장&sale=&search-input=">
 									옷장
 								</a>
 							</li>
 							<li>
-								<a href="${path }/product/products.do?category=수납장/장식장&sale=">
+								<a href="${path }/product/products.do?category=수납장/장식장&sale=&search-input=">
 									수납장/장식장
 								</a>
 							</li>
 							<li>
 
 
-								<a href="${path }/product/products.do?category=거실장/찬장/콘솔테이블&sale=">
+								<a href="${path }/product/products.do?category=거실장/찬장/콘솔테이블&sale=&search-input=">
 									거실장/찬장/콘솔테이블
 
 								</a>
 							</li>
 							<li>
-								<a href="${path }/product/products.do?category=TV/멀티미디어가구&sale=">
+								<a href="${path }/product/products.do?category=TV/멀티미디어가구&sale=&search-input=">
 									TV/멀티미디어가구
 								</a>
 							</li>
 							<li>
-								<a href="${path }/product/products.do?category=침대&sale=">
+								<a href="${path }/product/products.do?category=침대&sale=&search-input=">
 									침대
 								</a>
 							</li>
 							<li>
-								<a href="${path }/product/products.do?category=소파/암체어&sale=">
+								<a href="${path }/product/products.do?category=소파/암체어&sale=&search-input=">
 									소파/암체어
 								</a>
 							</li>
 							<li>
-								<a href="${path }/product/products.do?category=조명&sale=">
+								<a href="${path }/product/products.do?category=조명&sale=&search-input=">
 									조명
 								</a>
 							</li>
 							<li>
-								<a href="${path }/product/products.do?category=식탁/책상&sale=">
+								<a href="${path }/product/products.do?category=식탁/책상&sale=&search-input=">
 									식탁/책상
 								</a>
 							</li>

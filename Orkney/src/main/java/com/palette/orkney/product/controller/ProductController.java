@@ -35,12 +35,13 @@ public class ProductController {
 
    @RequestMapping("/product/products.do")
    @ResponseBody
+   @SuppressWarnings("unchecked")
    public ModelAndView products(ModelAndView mv
          ,@RequestParam(name="category") String bigCategory
          ,@RequestParam(value="search-input") String search 
          ) {
 	   
-      Map<String, Object> category = new HashMap();
+	Map<String, Object> category = new HashMap();
       category.put("category", bigCategory);
       category.put("search", search);
       System.out.println(category);
