@@ -317,9 +317,9 @@
 		        			<li>
 		        				<a href="${path}/product/rooms.do?type=주방">
 		        					<span>
-		        						<img class="showroom-imgsize" alt="주방" src="https://www.ikea.com/images/-cb470d9a37de90b10df90823f72c2b68.jpg?f=xxxs" >
+		        						<img class="showroom-imgsize" alt="홈오피스" src="https://www.ikea.com/images/-2b5a2701ae002fc6b7e2143f1d867998.jpg?f=xxxs" >
 		        					</span>
-		        					<span>주방</span>
+		        					<span>홈오피스</span>
 		        				</a>
 		        			</li>
 		        			<li>
