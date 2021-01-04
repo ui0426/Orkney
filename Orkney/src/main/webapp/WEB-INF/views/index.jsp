@@ -59,10 +59,10 @@
 								<h1 class="class-h1">더 나은 천연 소재</h1>
 								<p class="class-p">여러 이유 때문에 면은 침실과 욕실에 인기 있는 소재예요. 2015년부터 ORKNEY는 제품에 사용하는 모든 면을 보다 지속가능한 공급처에서 제공받고 있어요. 즉, 농약과 비료를 덜 써서 생산되는 면을 사용하고 있다는 뜻이죠. 훨씬 더 효율적인 농법과 더 나은 수자원 관리법을 개발하기 위해 여러 가지 연구가 계속되고 있어요.</p>
 								
-								<a class="class-a" href="${path}/product/products.do?category=침대&sale=">모든 더블 침대 보러 가기</a>
+								<a class="class-a" href="${path}/product/products.do?category=침대&sale=&search-input=">모든 더블 침대 보러 가기</a>
 							
 							</div>
-							<a href="${path}/product/products.do?category=침대&sale=">
+							<a href="${path}/product/products.do?category=침대&sale=&search-input=">
 							<video autoplay="" loop="" class="video-background" muted="">
 								<source
 									src="${path}/resources/video/03_IKEA_sustainability_KinderCotton_5s_3x4_offline_v03_EL_Grade-1-.webm"
@@ -123,7 +123,7 @@
 							<p class="class-p">라이프스타일이나 환경적 요인 때문에 수면의 시간이나 질이 떨어지는 경우가 많아요. 그래서 스트레스를 관리하고 일과 생활의 균형을 향상시키는 방법을 찾는 것은 매우 중요할 수 있어요. 침실에서 충분한 숙면을 취하려면 빛과 소리, 편안함, 공기의 질, 그리고 온도를 모두 알맞은 수준으로 유지해야 합니다.</p>
 							<a class="class-a" href="${path}">모든 싱글 침대 보러 가기</a>
 						</div>
-						<a href="${path}/product/products.do?category=침대&sale=">
+						<a href="${path}/product/products.do?category=침대&sale=&search-input=">
 						<video autoplay="" loop="" class="video-background" muted="">
 							<source
 								src="${path}/resources/video/16_IKEA_sustainability_AchievingBetterSleep_5s_3x4_offline_v03_EL_Grade-1-.webm"
@@ -161,7 +161,7 @@
 							<p class="class-p">새로운 조명, 난방 및 가전 제품으로 에너지 소비를 줄이고 돈도 아낄 수 있어요. 현대인의 필수품인 가전 제품을 포기할 수 없다면, 에너지 효율이 뛰어난 AA+ 등급 이상의 최신 모델을 사용하세요. 한걸음 더 나아가 지구를 생각한다면 가정용 태양광 에너지를 이용해보세요. 탄소 배출량을 줄이고 전기 요금도 절약할 수 있을 거예요.</p>
 							<a class="class-a" href="${path}">무선 LED 전구 보러 가기</a>
 						</div>
-						<a href="${path}/product/products.do?category=조명&sale=">
+						<a href="${path}/product/products.do?category=조명&sale=&search-input=">
 						<video autoplay="" loop="" class="video-background" muted="">
 							<source
 								src="${path}/resources/video/07_IKEA_sustainability_SimplySustainable_5s_3x4_offline_v05_Grade (1).webm"

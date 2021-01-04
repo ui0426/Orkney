@@ -2,26 +2,26 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="admin">
 
-  	<select id="userCount" resultType="String">
-  		SELECT * FROM MEMBER M WHERE EXISTS(SELECT * FROM CHATTING C WHERE M.MEMBER_NO=C.MEMBER_NO)
-  	</select>
-  	<select id="chatData" parameterType="map" resultType="map">
-  		SELECT * FROM CHATTING WHERE MEMBER_NO=#{id} AND CHAT_ROOM=#{rNo} ORDER BY CHAT_DATE
-  	</select>
-  	<select id="roomNo" parameterType="string" resultType="string">
-  		SELECT CHAT_ROOM FROM CHATTING WHERE MEMBER_NO=#{data} GROUP BY CHAT_ROOM ORDER BY CHAT_ROOM DESC
-  	</select>
-  	
-  	<select id="selectOrderList" parameterType="map" resultType="order">
-  		SELECT * FROM ORDERS JOIN MEMBER USING(MEMBER_NO)
-  		 <choose>                     
+     <select id="userCount" resultType="String">
+        SELECT * FROM MEMBER M WHERE EXISTS(SELECT * FROM CHATTING C WHERE M.MEMBER_NO=C.MEMBER_NO)
+     </select>
+     <select id="chatData" parameterType="map" resultType="map">
+        SELECT * FROM CHATTING WHERE MEMBER_NO=#{id} AND CHAT_ROOM=#{rNo} ORDER BY CHAT_DATE
+     </select>
+     <select id="roomNo" parameterType="string" resultType="string">
+        SELECT CHAT_ROOM FROM CHATTING WHERE MEMBER_NO=#{data} GROUP BY CHAT_ROOM ORDER BY CHAT_ROOM DESC
+     </select>
+     
+     <select id="selectOrderList" parameterType="map" resultType="order">
+        SELECT * FROM ORDERS JOIN MEMBER USING(MEMBER_NO)
+         <choose>                     
             <when test="search_option == 'all' ">                
                 where  
                       order_no like '%'||#{keyword}||'%'
                       or order_name like '%'||#{keyword}||'%'
                       or order_state like '%'||#{keyword}||'%'   
             </when>
-         	 <when test="search_option == 'ono' ">                
+             <when test="search_option == 'ono' ">                
                 where order_no like '%'||#{keyword}||'%'   
             </when>
              <when test="search_option == 'member_name' ">                
@@ -35,209 +35,209 @@
             </when> 
                                                    
         </choose>
-  		 ORDER BY ORDER_DATE DESC  	
-  	</select>
-  	
-  	
-  	<update id="modifyFAQ" parameterType="map">
-  		UPDATE FAQ SET FAQ_TITLE=#{title},FAQ_CONTENT=#{content},CATEGORY=#{category} WHERE FAQ_NO=#{no}
-  	</update>
-  	<insert id="addFAQ" parameterType="map">
-  		INSERT INTO FAQ VALUES('f'||FAQ_NO.NEXTVAL,#{title},#{content},default,#{category})
-  	</insert>
-  	<delete id="deleteFAQ" parameterType="string">
-  		DELETE FAQ WHERE FAQ_NO=#{no}
-  	</delete>
-  	<select id="memberList" resultType="map" parameterType="map">
-  		SELECT M.*,(SELECT SUM(TOTAL_PRICE) FROM ORDERS A WHERE M.MEMBER_NO=A.MEMBER_NO) AS PRICE FROM MEMBER M
-  		<if test="type != null and key != null and key != ''">
-  		WHERE ${type} like '%${key}%'
-  		</if>
-  	</select>
-  	<select id="totalData" resultType="_int" parameterType="map">
-  		SELECT COUNT(*) FROM MEMBER
-  		<if test="type != null and key != null and key != ''">
-  		WHERE ${type} like '%${key}%'
-  		</if>
-  	</select>
-  	<select id="memberAddr" resultType="map" parameterType="string">
-  		SELECT * FROM ADDR WHERE MEMBER_NO=#{no}
-  	</select>
-  	<select id="orderList" parameterType="string" resultType="map">
-  		SELECT * FROM ORDERS WHERE MEMBER_NO=#{no}
-  	</select>
-  	<delete id="deleteMember">
-  		DELETE FROM MEMBER WHERE MEMBER_NO=#{no}
-  	</delete>
-  	<insert id="modifyPoint" parameterType="map">
-  		INSERT INTO POINT VALUES(PO_SEQ.NEXTVAL,#{no},SYSDATE,#{point},#{type},#{reason})
-  	</insert>
-  	<update id="pointModify" parameterType="map">
-  		UPDATE MEMBER SET POINT=POINT
-  		<if test="type=='차감'">
-  		-#{point}
-  		</if>
-  		<if test="type=='적립'">
-  		+#{point}
-  		</if>
-  		WHERE MEMBER_NO=#{no}
-  		</update>
-  	
-  	<update id="updateOrderState" parameterType="map">
-  		UPDATE ORDERS SET ORDER_STATE=#{state} WHERE ORDER_NO=#{oNo}
-  	</update>
-  	
-  	<update id="updateOrderInfo" parameterType="map">
-  		UPDATE ORDERS SET ORDER_NAME=#{name}, ORDER_PHONE=#{phone}, ORDER_ADDRESS=#{address} WHERE ORDER_NO=#{no}
-  	</update>
-  	
-  	<select id="countOrderState" resultType="map">
-		select count(case when order_state='주문확인' then 1 end) as "주문확인",
-			count(case when order_state='취소신청1' or order_state='취소신청2' then 1 end) as "취소신청"
-		from orders
-  	</select>
-  	<select id="countOrderDetailState" resultType="map">
-		select count(case when sort='교환신청' then 1 end)as "교환신청",
-			count(case when sort='반품신청' then 1 end)as "반품신청"
-		from order_detail
-  	</select>
-  	
-  	<select id="totalOrder" resultType="_int">
-  		SELECT COUNT(*) FROM orders
-  	</select>
-  	
-  	<select id="selectOrderChangeList" parameterType="map" resultType="order">
-  		SELECT * FROM ORDERS join member using(member_no) where 
-  		<if test='state=="취소신청"'>
-  			order_state='취소신청1' OR ORDER_STATE='취소신청2'
-  		</if>
-  		<if test='state=="주문확인"'>  		
-  		order_state=#{state} 
-  		</if>
-  		
-  		ORDER BY ORDER_DATE DESC
-  	</select>
-  	
-  	<update id="updateOrderListState" parameterType="map">
-  		<foreach item="oNo" collection="oNos" separator=";" open="DECLARE BEGIN" close="; END;">
-  			UPDATE ORDERS SET ORDER_STATE=#{state} WHERE ORDER_NO=#{oNo}
-  		</foreach>
-  	</update>
-  	
-  	<select id="selectOrderDetailChangeList" parameterType="string" resultType="orderDetail">
-  		SELECT * FROM ORDER_DETAIL JOIN ORDERS USING(ORDER_NO) JOIN MEMBER USING(MEMBER_NO) JOIN PRODUCT USING(PRODUCT_NO) WHERE SORT=#{state}
-  	</select>
-  	
-  	<select id="productList" resultType="map" parameterType="map">
-	   SELECT *
-	   FROM PRODUCT P
-	   LEFT OUTER JOIN BIG_CATEGORY B
-	   ON P.BIG_CATEGORY_NO = B.BIG_CATEGORY_NO
-	   <if test="keyword != null and keyword != ''">
-	   WHERE
-	   P.PRODUCT_NO LIKE '%'||#{keyword}||'%'
-	   OR P.PRODUCT_NAME LIKE '%'||#{keyword}||'%'
-	   OR B.BIG_CATEGORY_CONTENT LIKE '%'||#{keyword}||'%'
-	   </if>
-	   ORDER BY P.PRODUCT_ENROLL_DATE DESC
-	</select>
-	
-	<select id="productTotalData" resultType="_int">
-		SELECT COUNT(*) FROM PRODUCT
-	</select>
-	<update id="productPer" parameterType="map">
-		UPDATE PRODUCT 
-		SET SALE_PER = #{per} 
-		WHERE PRODUCT_NO = #{pNo}
-	</update>
-	<update id="productPutIn" parameterType="map">
-		UPDATE PRODUCT 
-		SET PRODUCT_STOCK = #{putIn} 
-		WHERE PRODUCT_NO = #{pNo}
-	</update>
-	<select id="productOne" resultType="map" parameterType="map">
-		SELECT SALE_PER, PRODUCT_STOCK
-		FROM PRODUCT
-		WHERE PRODUCT_NO = #{pNo}
-	</select>
-	<delete id="deleteProduct">
-		DELETE FROM PRODUCT
-		WHERE PRODUCT_NO = #{no}
-	</delete>
-	
-	<delete id="deleteProductImg">
-		DELETE FROM PRODUCT_IMAGE
-		WHERE PRODUCT_NO = #{no}
-	</delete>
-	
-	
-	<insert id="productInsert" parameterType="product">
-		INSERT INTO PRODUCT VALUES('p'||PRO_SEQ.NEXTVAL, #{productName}, #{productPrice}, #{productColor}, #{productWidth}, #{productHeight},#{productDepth},SYSDATE,#{productStock},#{productInfo},#{productBigCategoryNo},#{productSmallCategoryNo},#{productPrice})
-		<selectKey keyProperty="productNo" resultType="String" order="AFTER">
-			SELECT PRO_SEQ.CURRVAL FROM DUAL
-		</selectKey>
-	</insert>
-	
-	<insert id="insertProductImage" parameterType="Product_image">
-		INSERT INTO PRODUCT_IMAGE VALUES(#{renamedFileName}, #{product_no}, #{product_color})
-	</insert>
-  	
-  	<select id="selectRefundCount" parameterType="string" resultType="_int">
-  		select COUNT(*) from order_detail where (SELECT COUNT(*) FROM ORDER_DETAIL where
-		order_no=#{oNo})=(SELECT COUNT(*) FROM ORDER_DETAIL WHERE SORT LIKE '%반품%'
-		and order_no=#{oNo}) and order_no=#{oNo} and sort like '%신청%'
-  	</select>
-  	
-  	<update id="updateStateAndSort" parameterType="map">
-  		UPDATE
-  		<choose>
-  		<when test="state=='제품준비중' or state=='취소완료'">
-  			 ORDERS SET ORDER_STATE=#{state} WHERE ORDER_NO=#{no}
-  		</when>
-  		<when test="state!='제품준비중' and state!='취소완료'">
-  			 ORDER_DETAIL SET SORT=#{state, jdbcType=VARCHAR} WHERE ORDER_DETAIL_NO=#{no}
-  		</when>
-  		</choose>
-  	</update>
-  	
-  	<select id="selectOrderOngoingList"  resultType="orderDetail">
-  		SELECT * FROM ORDER_DETAIL D JOIN ORDERS O ON D.ORDER_NO=O.ORDER_NO 
+         ORDER BY ORDER_DATE DESC     
+     </select>
+     
+     
+     <update id="modifyFAQ" parameterType="map">
+        UPDATE FAQ SET FAQ_TITLE=#{title},FAQ_CONTENT=#{content},CATEGORY=#{category} WHERE FAQ_NO=#{no}
+     </update>
+     <insert id="addFAQ" parameterType="map">
+        INSERT INTO FAQ VALUES('f'||FAQ_NO.NEXTVAL,#{title},#{content},default,#{category})
+     </insert>
+     <delete id="deleteFAQ" parameterType="string">
+        DELETE FAQ WHERE FAQ_NO=#{no}
+     </delete>
+     <select id="memberList" resultType="map" parameterType="map">
+        SELECT M.*,(SELECT SUM(TOTAL_PRICE) FROM ORDERS A WHERE M.MEMBER_NO=A.MEMBER_NO) AS PRICE FROM MEMBER M
+        <if test="type != null and key != null and key != ''">
+        WHERE ${type} like '%${key}%'
+        </if>
+     </select>
+     <select id="totalData" resultType="_int" parameterType="map">
+        SELECT COUNT(*) FROM MEMBER
+        <if test="type != null and key != null and key != ''">
+        WHERE ${type} like '%${key}%'
+        </if>
+     </select>
+     <select id="memberAddr" resultType="map" parameterType="string">
+        SELECT * FROM ADDR WHERE MEMBER_NO=#{no}
+     </select>
+     <select id="orderList" parameterType="string" resultType="map">
+        SELECT * FROM ORDERS WHERE MEMBER_NO=#{no}
+     </select>
+     <delete id="deleteMember">
+        DELETE FROM MEMBER WHERE MEMBER_NO=#{no}
+     </delete>
+     <insert id="modifyPoint" parameterType="map">
+        INSERT INTO POINT VALUES(PO_SEQ.NEXTVAL,#{no},SYSDATE,#{point},#{type},#{reason})
+     </insert>
+     <update id="pointModify" parameterType="map">
+        UPDATE MEMBER SET POINT=POINT
+        <if test="type=='차감'">
+        -#{point}
+        </if>
+        <if test="type=='적립'">
+        +#{point}
+        </if>
+        WHERE MEMBER_NO=#{no}
+        </update>
+     
+     <update id="updateOrderState" parameterType="map">
+        UPDATE ORDERS SET ORDER_STATE=#{state} WHERE ORDER_NO=#{oNo}
+     </update>
+     
+     <update id="updateOrderInfo" parameterType="map">
+        UPDATE ORDERS SET ORDER_NAME=#{name}, ORDER_PHONE=#{phone}, ORDER_ADDRESS=#{address} WHERE ORDER_NO=#{no}
+     </update>
+     
+     <select id="countOrderState" resultType="map">
+      select count(case when order_state='주문확인' then 1 end) as "주문확인",
+         count(case when order_state='취소신청1' or order_state='취소신청2' then 1 end) as "취소신청"
+      from orders
+     </select>
+     <select id="countOrderDetailState" resultType="map">
+      select count(case when sort='교환신청' then 1 end)as "교환신청",
+         count(case when sort='반품신청' then 1 end)as "반품신청"
+      from order_detail
+     </select>
+     
+     <select id="totalOrder" resultType="_int">
+        SELECT COUNT(*) FROM orders
+     </select>
+     
+     <select id="selectOrderChangeList" parameterType="map" resultType="order">
+        SELECT * FROM ORDERS join member using(member_no) where 
+        <if test='state=="취소신청"'>
+           order_state='취소신청1' OR ORDER_STATE='취소신청2'
+        </if>
+        <if test='state=="주문확인"'>        
+        order_state=#{state} 
+        </if>
+        
+        ORDER BY ORDER_DATE DESC
+     </select>
+     
+     <update id="updateOrderListState" parameterType="map">
+        <foreach item="oNo" collection="oNos" separator=";" open="DECLARE BEGIN" close="; END;">
+           UPDATE ORDERS SET ORDER_STATE=#{state} WHERE ORDER_NO=#{oNo}
+        </foreach>
+     </update>
+     
+     <select id="selectOrderDetailChangeList" parameterType="string" resultType="orderDetail">
+        SELECT * FROM ORDER_DETAIL JOIN ORDERS USING(ORDER_NO) JOIN MEMBER USING(MEMBER_NO) JOIN PRODUCT USING(PRODUCT_NO) WHERE SORT=#{state}
+     </select>
+     
+     <select id="productList" resultType="map" parameterType="map">
+      SELECT *
+      FROM PRODUCT P
+      LEFT OUTER JOIN BIG_CATEGORY B
+      ON P.BIG_CATEGORY_NO = B.BIG_CATEGORY_NO
+      <if test="keyword != null and keyword != ''">
+      WHERE
+      P.PRODUCT_NO LIKE '%'||#{keyword}||'%'
+      OR P.PRODUCT_NAME LIKE '%'||#{keyword}||'%'
+      OR B.BIG_CATEGORY_CONTENT LIKE '%'||#{keyword}||'%'
+      </if>
+      ORDER BY P.PRODUCT_ENROLL_DATE DESC
+   </select>
+   
+   <select id="productTotalData" resultType="_int">
+      SELECT COUNT(*) FROM PRODUCT
+   </select>
+   <update id="productPer" parameterType="map">
+      UPDATE PRODUCT 
+      SET SALE_PER = #{per} 
+      WHERE PRODUCT_NO = #{pNo}
+   </update>
+   <update id="productPutIn" parameterType="map">
+      UPDATE PRODUCT 
+      SET PRODUCT_STOCK = #{putIn} 
+      WHERE PRODUCT_NO = #{pNo}
+   </update>
+   <select id="productOne" resultType="map" parameterType="map">
+      SELECT SALE_PER, PRODUCT_STOCK
+      FROM PRODUCT
+      WHERE PRODUCT_NO = #{pNo}
+   </select>
+   <delete id="deleteProduct">
+      DELETE FROM PRODUCT
+      WHERE PRODUCT_NO = #{no}
+   </delete>
+   
+   <delete id="deleteProductImg">
+      DELETE FROM PRODUCT_IMAGE
+      WHERE PRODUCT_NO = #{no}
+   </delete>
+   
+   
+   <insert id="productInsert" parameterType="product">
+      INSERT INTO PRODUCT VALUES('p'||PRO_SEQ.NEXTVAL, #{productName}, #{productPrice}, #{productColor}, #{productWidth}, #{productHeight},#{productDepth},SYSDATE,#{productStock},#{productInfo},#{productBigCategoryNo},#{productSmallCategoryNo},#{productPrice})
+      <selectKey keyProperty="productNo" resultType="String" order="AFTER">
+         SELECT PRO_SEQ.CURRVAL FROM DUAL
+      </selectKey>
+   </insert>
+   
+   <insert id="insertProductImage" parameterType="Product_image">
+      INSERT INTO PRODUCT_IMAGE VALUES(#{renamedFileName}, #{product_no}, #{product_color})
+   </insert>
+     
+     <select id="selectRefundCount" parameterType="string" resultType="_int">
+        select COUNT(*) from order_detail where (SELECT COUNT(*) FROM ORDER_DETAIL where
+      order_no=#{oNo})=(SELECT COUNT(*) FROM ORDER_DETAIL WHERE SORT LIKE '%반품%'
+      and order_no=#{oNo}) and order_no=#{oNo} and sort like '%신청%'
+     </select>
+     
+     <update id="updateStateAndSort" parameterType="map">
+        UPDATE
+        <choose>
+        <when test="state=='제품준비중' or state=='취소완료'">
+            ORDERS SET ORDER_STATE=#{state} WHERE ORDER_NO=#{no}
+        </when>
+        <when test="state!='제품준비중' and state!='취소완료'">
+            ORDER_DETAIL SET SORT=#{state, jdbcType=VARCHAR} WHERE ORDER_DETAIL_NO=#{no}
+        </when>
+        </choose>
+     </update>
+     
+     <select id="selectOrderOngoingList"  resultType="orderDetail">
+        SELECT * FROM ORDER_DETAIL D JOIN ORDERS O ON D.ORDER_NO=O.ORDER_NO 
                                             JOIN MEMBER M ON O.MEMBER_NO=M.MEMBER_NO 
                                             LEFT OUTER JOIN POINT P ON O.POINT_NO=P.POINT_NO 
                                             JOIN PRODUCT P ON D.PRODUCT_NO=P.PRODUCT_NO WHERE SORT LIKE '%처리중'
-  	</select>
-  	
-  	<update id="updateSortEnd" parameterType="map">
-  		UPDATE ORDER_DETAIL SET SORT=#{sort} WHERE ORDER_DETAIL_NO=#{no}
-  	</update>
-	
-	<select id="productUpdateList" parameterType="map" resultType="Map">
-		SELECT * FROM PRODUCT P
-		JOIN PRODUCT_IMAGE I
-		ON P.PRODUCT_NO=I.PRODUCT_NO
-		WHERE P.PRODUCT_NO = #{pNo}
-	</select>
-	
-	<update id="producUpdateIn" parameterType="product">
-		UPDATE PRODUCT SET PRODUCT_NAME=#{productName}, PRODUCT_PRICE=#{productPrice}, PRODUCT_COLOR=#{productColor}, PRODUCT_WIDTH=#{productWidth}, PRODUCT_HEIGHT=#{productHeight},PRODUCT_DEPTH=#{productDepth},PRODUCT_STOCK=#{productStock},PRODUCT_INFO=#{productInfo},BIG_CATEGORY_NO=#{productBigCategoryNo},SMALL_CATEGORY_NO=#{productSmallCategoryNo}
-		WHERE PRODUCT_NO= #{productNo}
-	</update>
-	
-	<update id="producUpdateInImg" parameterType="Product_image">
-		UPDATE PRODUCT_IMAGE SET PRODUCT_PIC=#{renamedFileName} ,PRODUCT_COLOR=#{product_color}
-		WHERE PRODUCT_PIC=#{productImageName}
-	</update>
-	
-	<select id="productImg" parameterType="product" resultType="map">
-		SELECT * 
-		FROM PRODUCT_IMAGE
-		WHERE PRODUCT_NO = #{productNo}
-	</select>
-	
-	<select id="sCategoryList" resultType="map" parameterType="map">
-		SELECT *
-		FROM SMALL_CATEGORY
-		WHERE BIG_CATEGORY_NO = #{category}
-	</select>
+     </select>
+     
+     <update id="updateSortEnd" parameterType="map">
+        UPDATE ORDER_DETAIL SET SORT=#{sort} WHERE ORDER_DETAIL_NO=#{no}
+     </update>
+   
+   <select id="productUpdateList" parameterType="map" resultType="Map">
+      SELECT * FROM PRODUCT P
+      JOIN PRODUCT_IMAGE I
+      ON P.PRODUCT_NO=I.PRODUCT_NO
+      WHERE P.PRODUCT_NO = #{pNo}
+   </select>
+   
+   <update id="producUpdateIn" parameterType="product">
+      UPDATE PRODUCT SET PRODUCT_NAME=#{productName}, PRODUCT_PRICE=#{productPrice}, PRODUCT_COLOR=#{productColor}, PRODUCT_WIDTH=#{productWidth}, PRODUCT_HEIGHT=#{productHeight},PRODUCT_DEPTH=#{productDepth},PRODUCT_STOCK=#{productStock},PRODUCT_INFO=#{productInfo},BIG_CATEGORY_NO=#{productBigCategoryNo},SMALL_CATEGORY_NO=#{productSmallCategoryNo}
+      WHERE PRODUCT_NO= #{productNo}
+   </update>
+   
+   <update id="producUpdateInImg" parameterType="Product_image">
+      UPDATE PRODUCT_IMAGE SET PRODUCT_PIC=#{renamedFileName} ,PRODUCT_COLOR=#{product_color}
+      WHERE PRODUCT_PIC=#{productImageName}
+   </update>
+   
+   <select id="productImg" parameterType="product" resultType="map">
+      SELECT * 
+      FROM PRODUCT_IMAGE
+      WHERE PRODUCT_NO = #{productNo}
+   </select>
+   
+   <select id="sCategoryList" resultType="map" parameterType="map">
+      SELECT *
+      FROM SMALL_CATEGORY
+      WHERE BIG_CATEGORY_NO = #{category}
+   </select>
 
 </mapper>
