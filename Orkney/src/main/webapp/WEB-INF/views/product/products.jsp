@@ -164,7 +164,7 @@ filter();
 				    day = day >= 10 ? day : '0' + day;          //day 두자리로 저장
 				    return  year + '' + month + '' + day;       //'-' 추가하여 yyyy-mm-dd 형태 생성 가능
 				}
-					let start = 9;
+					let start = 17;
 
 				function filter() {
 				let sale=getParameterByName('sale');
@@ -202,10 +202,13 @@ filter();
 					
 					},
 					success:data=>{
+							
+						
 // 						alert(category);
 					$("#product_list").html("");
 					  
 						for ( var i=0;i <= data.length;i++){
+						if (data[i]["PRODUCT_COLOR"]=="normal") {
 							
 							var endDate = new Date(data[i]["PRODUCT_ENROLL_DATE"]);
 							endDate=getFormatDate(endDate);
@@ -315,9 +318,10 @@ filter();
 						 $("#product_list").append(productClone);
 						
 						}
+				}
 					}
 				})	
-				start = start+8;
+				start = start+12;
  			}
 		 
 
