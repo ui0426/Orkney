@@ -302,9 +302,7 @@ public class EmailController {
 		String address = (String)((Orders)session.getAttribute("orders")).getOrder_address();
 		String phone = (String)((Orders)session.getAttribute("orders")).getOrder_phone();
 		String oNo = (String)((Orders)session.getAttribute("orders")).getOrder_no();
-		String memberNo = (String)((Map)session.getAttribute("login")).get("MEMBER_NO");
-		
-		System.out.println(EMAIL+memberNo);
+		String memberNo = (String)((Map)session.getAttribute("login")).get("MEMBER_NO");				
 		
 		int sumprice = (int)((Map)session.getAttribute("info")).get("sumprice");//제품순수금액
 		int shipFee = (int)((Map)session.getAttribute("info")).get("shipFee");//배송비
@@ -313,8 +311,7 @@ public class EmailController {
 		int totalFee = (int)((Map)session.getAttribute("info")).get("totalFee");//총금액			
 								
 		List<Cart> c = cservice.selectCart(memberNo);
-		
-		
+				
 		System.out.println(EMAIL +"주문자"+name+""+address+""+phone+""+sumprice+""+shipFee+""+willPoint+""+""+addTax+""+totalFee+""+oNo);
 		String noticeEmail=
 				"<div style=\"    height: 1000px;\r\n" + 
