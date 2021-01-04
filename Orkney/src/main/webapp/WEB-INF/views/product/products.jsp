@@ -256,7 +256,7 @@ filter();
                            for (var i = 0; i < data.length; i++) {
                               
                            
-                              console.log("데이터2"+data[i]["PRODUCT_NO"]);
+//                               console.log("데이터2"+data[i]["PRODUCT_NO"]);
                               if (data2[i]["COUNT(REVIEW_NO)"] !=null) {
                                  
                                   $(productClone).find("#average2").text(data2[i]["AVG(PRODUCT_GRADE)"].toFixed(1));
@@ -307,9 +307,12 @@ filter();
                   }
                }
             })   
-            start = start+12;
+            
           }
-       
+       function morebtn() {
+    	   start = start+12;
+    	   filter();
+	}
 
 //    3자리 마다 , 표시
    function numberWithCommas(x) {
@@ -669,7 +672,7 @@ filter();
 
 
       </div>
-      <button type="button" class="btn filterSiz  btnH35 waves-effect waves-light" style="width: 100%; background-color: rgb(238, 237, 237);" onclick="filter();">
+      <button type="button" class="btn filterSiz  btnH35 waves-effect waves-light" style="width: 100%; background-color: rgb(238, 237, 237);" onclick="morebtn();">
             <span class="fontborder fontColorGray">더보기</span>
          </button>
       <!-- 제품 목록 -->
@@ -813,7 +816,7 @@ filter();
 <script>
 function fn_addWishModal(price,pNo){
    let login = '${sessionScope.login}';
-   console.log(login);
+//    console.log(login);
 //    alert('dd');
    if(login == ''){
 //       let ck = confirm('로그인이 필요한 서비스 입니다. 로그인 화면으로 이동하시겠습니까?');
@@ -829,7 +832,7 @@ function fn_addWishModal(price,pNo){
       url: '${ path }/wishlist/insertWishModal.do',
       data: {pNo:pNo},
       success: function(data){
-         console.log(data);
+//          console.log(data);
          if(data == ''){
             
          }
@@ -847,7 +850,7 @@ function fnbn(a,b){
          productPrice:a
          },
       success:data=>{
-         console.log("나와라");               
+//          console.log("나와라");               
       }
    })
  }     
