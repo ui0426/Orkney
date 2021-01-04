@@ -187,7 +187,7 @@
     -webkit-box-orient: vertical;    
     flex-direction: column;}
     .preset{ height: 45px;
-        width: 600px;        
+        width: 500px;        
         padding: 10px;
 	    font-size: 13px;
 	    border-bottom: 1px solid #eee;

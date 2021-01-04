@@ -12,6 +12,7 @@
 </jsp:include>
 <link rel="stylesheet"
 	href="${path }/resources/css/product/products.css">
+<link rel="stylesheet" href="${path}/resources/css/product/rooms.css">	
 <script src="<c:url value="/js/egovframework/mbl/cmm/jquery-1.11.2.min.js" />"></script>
 <script
     src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -113,7 +114,7 @@ $("#frameModalBottomSuccess").modal('show');
 </script>
 <script type="text/javascript">
 $(function() {
-filter2();	
+filter();	
 })
 // 더보기
 
@@ -129,8 +130,13 @@ filter2();
 				$(function(){
 					
 				let category = getParameterByName('category');
+				let sale = getParameterByName('sale');
 				if (category=="all") {
-					$("#categoryNone").css("display","none");
+				}
+				if (sale=="sale") {
+					$("#filterNone").css("display","none");
+					$("#filterNone2").css("display","none");
+					
 				}
 				$.ajax({
 					url:"${path}/product/sCategory/.do",
@@ -151,156 +157,19 @@ filter2();
 				})	
 			});
 				
+				function getFormatDate(date){
+				    var year = date.getFullYear();              //yyyy
+				    var month = (1 + date.getMonth());          //M
+				    month = month >= 10 ? month : '0' + month;  //month 두자리로 저장
+				    var day = date.getDate();                   //d
+				    day = day >= 10 ? day : '0' + day;          //day 두자리로 저장
+				    return  year + '' + month + '' + day;       //'-' 추가하여 yyyy-mm-dd 형태 생성 가능
+				}
 					let start = 9;
-					
 
-
-				function filter2() {
-					
-				
-					
-				// 정렬
-				let group1 =$('input[name="group1"]:checked').val();
-				//사이즈
-				let group2 = $('input[name="group2"]:checked').val();
-				//카테고리
-				let group3 =$('input[name="group3"]:checked').val();
-				//가격
-				let group4 = $('input[name="group4"]:checked').val();
-				// 색상
-				let group5 = $('input[name="group5"]:checked').val();
-				let category = getParameterByName('category');
-				
-				  //마지막 리스트 번호를 알아내기 위해서 tr태그의 length를 구함.
-				  
-				$.ajax({
-					url:"${path}/product/bestFilter.do",
-					type:"get",
-					async : false,
-					data:{
-						"group1":group1,			
-						"group2":group2,			
-						"group3":group3,			
-						"group4":group4,			
-						"group5":group5,
-						"category":category,
-						"start":start
-					
-						
-					
-					},
-					success:data=>{
-						$("#product_list").html("");
-//  						alert(category);
-
-					 
-						for ( var i=0;i <= data.length;i++){
-							var endDate = new Date(data[i]["PRODUCT_ENROLL_DATE"]);
-							 var today = new Date();
-						  let productClone = $("#products").clone().attr("id","products"+i);
-						  
-						  if(today>endDate){
-							  $(productClone).find(".rm-pb-et-new").text('');
-					      }
-				    	  if(data[i]["SALE_PER"]==data[i]["PRODUCT_PRICE"]){
-					    	   $(productClone).find(".rm-pb-et-p").html('');
-					    	   $(productClone).find("#pr").html(numberWithCommas(data[i]["PRODUCT_PRICE"]));
-				    		   $(productClone).find(".ht-four").text(""); 
-			    		  
-				    	  }else if(data[i]["SALE_PER"]!=data[i]["PRODUCT_PRICE"]){
-				    		 
-				    		   $(productClone).find("#pr").html(numberWithCommas(data[i]["PRODUCT_PRICE"]));
-				    		   $(productClone).find("#pr").css("text-decoration","line-through");
-				    		   $(productClone).find("#won").css("display","block");
-				    		   $(productClone).find(".ht-four").html(numberWithCommas(data[i]["SALE_PER"])); 
-				    	  }
-						  
-						
-						  $(productClone).find("#checkbox").val(data[i]["PRODUCT_PIC"]);
-						  $(productClone).find("#productMainImg").attr("src","${path}/resources/images/product/"+data[i]["PRODUCT_PIC"]);
-						  $(productClone).find("#product_name").html(data[i]["PRODUCT_NAME"]);
-						  $(productClone).find("#category").html(data[i]["BIG_CATEGORY_NO"]);
-						  $(productClone).find("#pr").html(numberWithCommas(data[i]["PRODUCT_PRICE"]));
-						  $(productClone).find("#productA").attr("href","${path}/product/productDetail.do?productno="+data[i]["PRODUCT_NO"]);
-						  $(productClone).find("#readMore").attr("onclick","location.href = \'${path}/product/productDetail.do?productno="+data[i]["PRODUCT_NO"]+"\'");
-						  $(productClone).find("#btnck").attr("name",data[i]["PRODUCT_NO"]);
-						  $(productClone).find("#btnck").attr("title",data[i]["PRODUCT_PRICE"]);
-						  
-						  $(productClone).find("#btnWish").attr("name",data[i]["PRODUCT_NO"]);
-						  $(productClone).find("#btnWish").attr("title",data[i]["PRODUCT_PRICE"]);
-						  $(productClone).find("#btnWish").attr("onclick","fn_addWishModal"+"("+"'"+data[i]["PRODUCT_PRICE"]+"'"+","+"'"+data[i]["PRODUCT_NO"]+"'"+");");
-						  
-						  $(productClone).find("#btnck").attr("onclick","fnbn"+"("+"'"+data[i]["PRODUCT_PRICE"]+"'"+","+"'"+data[i]["PRODUCT_NO"]+"'"+");");
-						  						
-							 						  										
-// 						하는중
-						  var productNo = data[i]["PRODUCT_NO"];
-						  $.ajax({
-								url: "${path}/product/average.do",
-								async: false,
-								data:{
-									"productNo":productNo
-								},
-								success:data2=>{
-
-									for (var i = 0; i < data.length; i++) {
-										
-									
-										console.log("데이터2"+data[i]["PRODUCT_NO"]);
-										if (data2[i]["COUNT(REVIEW_NO)"] !=null) {
-											
-											 $(productClone).find("#average2").text(data2[i]["AVG(PRODUCT_GRADE)"].toFixed(1));
-											 $(productClone).find("#buynum2").text("("+data2[i]["COUNT(REVIEW_NO)"]+")");
-										}
-									if (parseFloat(data2[i]["AVG(PRODUCT_GRADE)"]) > 0 && data2[i]["AVG(PRODUCT_GRADE)"] < 1.5) {
-										
-										$(productClone).find("#starGray1").removeClass("grey-text").addClass("blue-text");
-										$(productClone).find("#starGray2").removeClass("blue-text").addClass("grey-text");
-										$(productClone).find("#starGray3").removeClass("blue-text").addClass("grey-text");
-										$(productClone).find("#starGray4").removeClass("blue-text").addClass("grey-text");
-										$(productClone).find("#starGray5").removeClass("blue-text").addClass("grey-text");
-									}else if (parseFloat(data2[i]["AVG(PRODUCT_GRADE)"]) >= 1.5 && data2[i]["AVG(PRODUCT_GRADE)"] < 2.5) {
-										$(productClone).find("#starGray1").removeClass("grey-text").addClass("blue-text");
-										$(productClone).find("#starGray2").removeClass("grey-text").addClass("blue-text");
-										$(productClone).find("#starGray3").removeClass("blue-text").addClass("grey-text");
-										$(productClone).find("#starGray4").removeClass("blue-text").addClass("grey-text");
-										$(productClone).find("#starGray5").removeClass("blue-text").addClass("grey-text");
-									
-									}else if (parseFloat(data2[i]["AVG(PRODUCT_GRADE)"]) >= 2.5 && data2[i]["AVG(PRODUCT_GRADE)"] < 3.5) {
-										$(productClone).find("#starGray1").removeClass("grey-text").addClass("blue-text");
-										$(productClone).find("#starGray2").removeClass("grey-text").addClass("blue-text");
-										$(productClone).find("#starGray3").removeClass("grey-text").addClass("blue-text");
-										$(productClone).find("#starGray4").removeClass("blue-text").addClass("grey-text");
-										$(productClone).find("#starGray5").removeClass("blue-text").addClass("grey-text");
-									
-									}else if (parseFloat(data2[i]["AVG(PRODUCT_GRADE)"]) >= 3.5 && data2[i]["AVG(PRODUCT_GRADE)"] < 4.5) {
-											
-										$(productClone).find("#starGray1").removeClass("grey-text").addClass("blue-text");
-										$(productClone).find("#starGray2").removeClass("grey-text").addClass("blue-text");
-										$(productClone).find("#starGray3").removeClass("grey-text").addClass("blue-text");
-										$(productClone).find("#starGray4").removeClass("grey-text").addClass("blue-text");
-										$(productClone).find("#starGray5").removeClass("blue-text").addClass("grey-text");
-									
-									}else if (parseFloat(data2[i]["AVG(PRODUCT_GRADE)"]) >= 4.5) {
-										$(productClone).find("#starGray1").removeClass("grey-text").addClass("blue-text");
-										$(productClone).find("#starGray2").removeClass("grey-text").addClass("blue-text");
-										$(productClone).find("#starGray3").removeClass("grey-text").addClass("blue-text");
-										$(productClone).find("#starGray4").removeClass("grey-text").addClass("blue-text");
-										$(productClone).find("#starGray5").removeClass("grey-text").addClass("blue-text");
-									}
-								}
-								}
-								
-							});
-						 $("#product_list").append(productClone);
-					
-						}
-					}
-				})	
-				start = start+8;
- 			}
 				function filter() {
-				// 정렬
+				let sale=getParameterByName('sale');
+					// 정렬
 				let group1 =$('input[name="group1"]:checked').val();
 				//사이즈
 				let group2 = $('input[name="group2"]:checked').val();
@@ -311,10 +180,11 @@ filter2();
 				// 색상
 				let group5 = $('input[name="group5"]:checked').val();
 				let category = getParameterByName('category');
-				  start=9;
+				let search = getParameterByName('search-input');
 				
-				  //마지막 리스트 번호를 알아내기 위해서 tr태그의 length를 구함.
-				  
+
+
+
 				$.ajax({
 					url:"${path}/product/bestFilter.do",
 					type:"get",
@@ -326,8 +196,9 @@ filter2();
 						"group4":group4,			
 						"group5":group5,
 						"category":category,
-						"start":start
-				
+						"start":start,
+						"search":search,
+						"sale":sale
 						
 					
 					},
@@ -336,34 +207,29 @@ filter2();
 					$("#product_list").html("");
 					  
 						for ( var i=0;i <= data.length;i++){
-						
 							
-						  var endDate = new Date(data[i]["PRODUCT_ENROLL_DATE"]);
+							var endDate = new Date(data[i]["PRODUCT_ENROLL_DATE"]);
+							endDate=getFormatDate(endDate);
 							 var today = new Date();
+							 today=getFormatDate(today)
 						  let productClone = $("#products").clone().attr("id","products"+i);
 
 						  
 						  if(today>endDate){
 							  $(productClone).find(".rm-pb-et-new").text('');
 					      }
-				    	  if(data[i]["SALE_PER"]==data[i]["PRODUCT_PRICE"]){
-					    	   $(productClone).find(".rm-pb-et-p").html('');
-					    	   $(productClone).find("#pr").html(numberWithCommas(data[i]["PRODUCT_PRICE"]));
-				    		   $(productClone).find(".ht-four").text(""); 
-			    		  
+						  if(data[i]["SALE_PER"]==data[i]["PRODUCT_PRICE"]){ //할인이 아닐때
+					    	   $(productClone).find(".rm-pb-et-p").text('');
+					    	   $(productClone).find("#pr").text('');
+				    		   $(productClone).find(".ht-four").html("&#8361;"+numberWithCommas(data[i]["PRODUCT_PRICE"]));	
 				    	  }else if(data[i]["SALE_PER"]!=data[i]["PRODUCT_PRICE"]){
-				    		 
-				    		   $(productClone).find("#pr").html(numberWithCommas(data[i]["PRODUCT_PRICE"]));
-				    		   $(productClone).find("#pr").css("text-decoration","line-through");
-				    		   $(productClone).find("#won").css("display","block");
-				    		   $(productClone).find(".ht-four").html(numberWithCommas(data[i]["SALE_PER"])); 
+				    		   $(productClone).find("#pr").html("&#8361;"+numberWithCommas(data[i]["PRODUCT_PRICE"]));
+				    		   $(productClone).find(".ht-four").html("&#8361;"+numberWithCommas(data[i]["SALE_PER"])); 
 				    	  }
-						
 						  $(productClone).find("#checkbox").val(data[i]["PRODUCT_PIC"]);
 						  $(productClone).find("#productMainImg").attr("src","${path}/resources/images/product/"+data[i]["PRODUCT_PIC"]);
 						  $(productClone).find("#product_name").html(data[i]["PRODUCT_NAME"]);
-						  $(productClone).find("#category").html(data[i]["BIG_CATEGORY_NO"]);
-						  $(productClone).find("#pr").html(numberWithCommas(data[i]["PRODUCT_PRICE"]));
+						  $(productClone).find("#category").html(data[i]["BIG_CATEGORY_CONTENT"]);
 						  $(productClone).find("#productA").attr("href","${path}/product/productDetail.do?productno="+data[i]["PRODUCT_NO"]);
 						  $(productClone).find("#readMore").attr("onclick","location.href = \'${path}/product/productDetail.do?productno="+data[i]["PRODUCT_NO"]+"\'");
 						  $(productClone).find("#btnck").attr("name",data[i]["PRODUCT_NO"]);
@@ -438,7 +304,8 @@ filter2();
 						
 						}
 					}
-				})		
+				})	
+				start = start+8;
  			}
 		 
 
@@ -488,7 +355,7 @@ filter2();
 						<!--           ====================슬라이드 토글================ -->
 
 						<div class="">
-							<div class="row">
+							<div class="row" id="filterNone">
 								<div class="btn-group col-12 row">
 									<button type="button" id="sort" class="btn  col-12 buttonColor"
 										data-toggle="dropdown" aria-expanded="false">
@@ -502,6 +369,11 @@ filter2();
 										<div class="form-check mb-4">
 											<input class="form-check-input " name="group1" type="radio" id="bestP" value="best" onclick="filter();" checked="checked">
 												<label class="form-check-label fontborder " for="bestP" >인기제품</label>
+										</div>
+										
+										<div class="form-check mb-4">
+											<input class="form-check-input " name="group1" type="radio" id="sale" value="sale" onclick="filter();">
+												<label class="form-check-label fontborder " for="sale" >더 낮은 새로운 가격</label>
 										</div>
 
 										<div class="form-check mb-4">
@@ -550,46 +422,46 @@ filter2();
 										</div>
 										
 										<div class="form-check mb-4">
-											<input class="form-check-input " name="group2" type="radio" id="60x120" value="60x120" onclick="filter();"> 
-											<label	class="form-check-label fontborder " for="60x120">60x120cm</label>
+											<input class="form-check-input " name="group2" type="radio" id="60x120" value="40" onclick="filter();"> 
+											<label	class="form-check-label fontborder " for="60x120">40cm</label>
 										</div>
 
 										<div class="form-check mb-4">
-											<input class="form-check-input" name="group2" type="radio" id="70x160" value="70x160" onclick="filter();"> 
-											<label class="form-check-label fontborder" for="70x160">70x160cm</label>
+											<input class="form-check-input" name="group2" type="radio" id="70x160" value="80" onclick="filter();"> 
+											<label class="form-check-label fontborder" for="70x160">80cm</label>
 										</div>
 
 										<div class="form-check mb-4">
-											<input class="form-check-input" name="group2" type="radio" id="80x200" value="80x200" onclick="filter();"> 
-											<label class="form-check-label fontborder" for="80x200">80x200cm</label>
+											<input class="form-check-input" name="group2" type="radio" id="80x200" value="100" onclick="filter();"> 
+											<label class="form-check-label fontborder" for="80x200">100cm</label>
 										</div>
 										<div class="form-check mb-4">
-											<input class="form-check-input" name="group2" type="radio" id="90x200" value="90x200" onclick="filter();"> 
-											<label class="form-check-label fontborder" for="90x200">90x200cm</label>
+											<input class="form-check-input" name="group2" type="radio" id="90x200" value="120" onclick="filter();"> 
+											<label class="form-check-label fontborder" for="90x200">120cm</label>
 										</div>
 										<div class="form-check mb-4">
-											<input class="form-check-input" name="group2" type="radio" id="120x200" value="120x200" onclick="filter();"> 
-												<label class="form-check-label fontborder" for="120x200">120x200cm</label>
+											<input class="form-check-input" name="group2" type="radio" id="120x200" value="130" onclick="filter();"> 
+												<label class="form-check-label fontborder" for="120x200">130cm</label>
 										</div>
 										<div class="form-check mb-4">
-											<input class="form-check-input" name="group2" type="radio" id="140x200" value="140x200" onclick="filter();"> 
-												<label class="form-check-label fontborder" for="140x200">140x200cm</label>
+											<input class="form-check-input" name="group2" type="radio" id="140x200" value="140" onclick="filter();"> 
+												<label class="form-check-label fontborder" for="140x200">140cm</label>
 										</div>
 										<div class="form-check mb-4">
 											<input class="form-check-input" name="group2" type="radio" id="150" value="150" onclick="filter();"> 
-											<label class="form-check-label fontborder" for="150">150 cm</label>
+											<label class="form-check-label fontborder" for="150">150cm</label>
 										</div>
 										<div class="form-check mb-4">
-											<input class="form-check-input" name="group2" type="radio" id="150x200" value="150x200" onclick="filter();"> 
-											<label class="form-check-label fontborder" for="150x200">150x200cm</label>
+											<input class="form-check-input" name="group2" type="radio" id="150x200" value="180" onclick="filter();"> 
+											<label class="form-check-label fontborder" for="150x200">180cm</label>
 										</div>
 										<div class="form-check mb-4">
-											<input class="form-check-input" name="group2" type="radio" id="180x200" value="180x200" onclick="filter();"> 
-											<label class="form-check-label fontborder" for="180x200">180x200cm</label>
+											<input class="form-check-input" name="group2" type="radio" id="180x200" value="200" onclick="filter();"> 
+											<label class="form-check-label fontborder" for="180x200">200cm</label>
 										</div>
 										<div class="form-check mb-4">
-											<input class="form-check-input" name="group2" type="radio" id="207x99x182" value="207x99x182" onclick="filter();"> 
-											<label class="form-check-label fontborder" for="207x99x182">207x99x182cm</label>
+											<input class="form-check-input" name="group2" type="radio" id="207x99x182" value="230" onclick="filter();"> 
+											<label class="form-check-label fontborder" for="207x99x182">230cm</label>
 										</div>
 									</div>
 
@@ -697,27 +569,27 @@ filter2();
 											</label> 
 											<label class="btn btn-primary col-12 leftMargin" style="background-color: black !important;"> 
 												<span style="color: white;">블랙</spqn>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-												<input type="radio" name="group5" id="option2" autocomplete="off" value="dd" onclick="filter();"> 
+												<input type="radio" name="group5" id="option2" autocomplete="off" value="black" onclick="filter();"> 
 												<span class="glyphicon glyphicon-ok"></span>
 											</label> 
 											<label class="btn btn-info col-12 leftMargin" style="background-color: beige !important;"> 
 												<span style="color: black;">베이지</spqn> 
-												<input type="radio" name="group5" id="option2" autocomplete="off" value="dd" onclick="filter();"> 
+												<input type="radio" name="group5" id="option2" autocomplete="off" value="beige" onclick="filter();"> 
 												<span class="glyphicon glyphicon-ok"></span>
 											</label> 
 											<label class="btn btn-default col-12 leftMargin" style="background-color: brown !important;"> 
 												<span style="color: white;">브라운</spqn> 
-												<input type="radio"	name="group5" id="option2" autocomplete="off" value="dd" onclick="filter();"> 
+												<input type="radio"	name="group5" id="option2" autocomplete="off" value="brown" onclick="filter();"> 
 												<span class="glyphicon glyphicon-ok"></span>
 											</label> 
 											<label	class="btn btn-warning col-12 leftMargin" style="background-color: gray !important;"> 
 												<span style="color: white;">그레이</spqn> 
-												<input type="radio" name="group5" id="option2" autocomplete="off" value="dd" onclick="filter();"> 
+												<input type="radio" name="group5" id="option2" autocomplete="off" value="gray" onclick="filter();"> 
 												<span class="glyphicon glyphicon-ok"></span>
 											</label> 
 											<label class="btn btn-danger col-12 leftMargin" style="background-color: blue !important;"> 
 												<span style="color: white;">블루</spqn>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-												<input type="radio" name="group5" id="option2" autocomplete="off" value="dd" onclick="filter();"> 
+												<input type="radio" name="group5" id="option2" autocomplete="off" value="blue" onclick="filter();"> 
 												<span class="glyphicon glyphicon-ok"></span>
 											</label>
 										</div>
@@ -751,7 +623,7 @@ filter2();
 		<div name="filter" class="row headerFilter"
 			style="background-color: white;">
 			<hr>
-			<button type="button"
+			<button type="button" id="filterNone2"
 				class="btn round col-2 filterSiz col-md-1 btnH35"
 				data-toggle="modal" data-target="#modalPoll-1">
 				<span class="fontborder fontColorGray">정렬</span>
@@ -795,7 +667,7 @@ filter2();
 
 
 		</div>
-		<button type="button" class="btn filterSiz  btnH35 waves-effect waves-light" style="width: 100%; background-color: rgb(238, 237, 237);" onclick="filter2();">
+		<button type="button" class="btn filterSiz  btnH35 waves-effect waves-light" style="width: 100%; background-color: rgb(238, 237, 237);" onclick="filter();">
 				<span class="fontborder fontColorGray">더보기</span>
 			</button>
 		<!-- 제품 목록 -->
@@ -820,21 +692,27 @@ filter2();
 							</a>
 						</div>
 						<!--Card content-->
-						<div class="card-body">
+						<div class="card-body" style="height:auto;">
+							<span class="rm-pb-et-new ">NEW</span>
+							<span class="rm-pb-et-p"> 더 낮은 새로운 가격</span>		
 							<!--Title-->
 							<h6 class="card-title event-product-name" id="product_name" >
 								<c:out value="${p.PRODUCT_NAME}" />
 							</h6>
 							<!--Text-->
-							<p class="card-text marginZero event-price ht-three" id="category">
+							<p class="card-text marginZero  ht-three" id="category">
 								<c:out value="${p.BIG_CATEGORY_NO }"></c:out>
 							</p>
 							<p class="card-text marginZero">
-							<div class="row marginZero">
-							<div id="pr"></div>
-							<div id="won" style="display: none; text-decoration: line-through;">원</div>
-							<div id="" class="ht-four"></div>
-							<div>원</div>
+							<div class="marginZero">
+								<div class="col row">
+									<div id="pr" class="event-price"></div>
+									
+								</div>
+								<div class="col row fontR" style="font-size: 14px;">								
+									<div id="" class="ht-four product-price"></div>
+									
+								</div>
 							</div>
 							</p>
 
@@ -843,7 +721,7 @@ filter2();
 <!-- 하는중 -->
 							<div class="">
 <!-- 								별점  -->
-								<ul class="rating mb-2 row" style="margin: 2px" id="starnum">
+								<ul class="rating mb-2 row"  id="starnum">
 <!-- 									<li><i class="fas fa-star blue-text"></i></li> -->
 <!-- 									<li><i class="fas fa-star blue-text"></i></li> -->
 <!-- 									<li><i class="fas fa-star blue-text"></i></li> -->
@@ -864,10 +742,7 @@ filter2();
 								<!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
 
 								<!-- Card footer -->
-							<div style="display: flex; justify-content: space-between;">
-								<span class="rm-pb-et-new ">NEW</span>			
-								<span class="rm-pb-et-p"><p class="rm-pb-et-p">SALE</p></span>	
-							</div>
+						
 							</div>
 							<div>
 								<hr>
@@ -1039,10 +914,11 @@ function fnbn(a,b){
 
 </section>
 
+
 		<script>
 // 		@화면 로드시 체크박스 해제
 		$(function(){
-		$('input[name="group1"]:checked').prop('checked', false);
+// 		$('input[name="group1"]:checked').prop('checked', false);
 		$('input[name="group2"]:checked').prop('checked', false);
 		$('input[name="group3"]:checked').prop('checked', false);
 		$('input[name="group4"]:checked').prop('checked', false);

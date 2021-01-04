@@ -68,54 +68,51 @@
       ON P.PRODUCT_NO = I.PRODUCT_NO
       LEFT OUTER JOIN BIG_CATEGORY B
       ON P.BIG_CATEGORY_NO = B.BIG_CATEGORY_NO
-      <if test="sale!='' and category == ''">
-      WHERE SALE_PER IS NOT NULL
+      WHERE 1=1
+      <if test="sale='sale' and category == 'all'and search == ''">
+      	AND P.SALE_PER != P.PRODUCT_PRICE
       </if>
-      <if test="category != 'all'and sale==''">
-         WHERE B.BIG_CATEGORY_CONTENT = #{category} 
+      <if test="category != 'all'and sale=='' and search == ''">
+         AND B.BIG_CATEGORY_CONTENT = #{category} 
       </if>
-      <if test="category != 'all' and sale!=''">
-         WHERE B.BIG_CATEGORY_CONTENT = #{category} AND SALE_PER IS NOT NULL
+      <if test="category != 'all' and sale!='' and search == ''">
+         AND B.BIG_CATEGORY_CONTENT = #{category} AND P.SALE_PER != P.PRODUCT_PRICE
       </if>
-
-      
+      <if test="search != null and search != ''">
+	   AND
+	   P.PRODUCT_NO LIKE '%'||#{search}||'%'
+	   OR P.PRODUCT_NAME LIKE '%'||#{search}||'%'
+	   OR B.BIG_CATEGORY_CONTENT LIKE '%'||#{search}||'%'
+	   </if>
    </select>
    
-   <select id="filter" resultType="map" parameterType="map">
-            
-
-
-			   SELECT *
-			   FROM PRODUCT_IMAGE I 
-			   
-			   JOIN PRODUCT P
-			   ON P.PRODUCT_NO = I.PRODUCT_NO
-			   
-			   LEFT OUTER JOIN BIG_CATEGORY B
-			   ON P.BIG_CATEGORY_NO = B.BIG_CATEGORY_NO
-			   
-			   LEFT OUTER JOIN SMALL_CATEGORY S
-			   ON P.SMALL_CATEGORY_NO = S.SMALL_CATEGORY_NO
-			   
-			   LEFT OUTER  JOIN(SELECT PRODUCT_NO, AVG(PRODUCT_GRADE) GRAD,COUNT(REVIEW_NO)
-		       FROM REVIEW 
-		       GROUP BY PRODUCT_NO) G 
-		       ON G.PRODUCT_NO=P.PRODUCT_NO
-<!-- 			   리뷰 조인 하면 제품이 늘어남 -->
-<!-- 			   LEFT OUTER JOIN REVIEW R -->
-<!-- 			   ON P.PRODUCT_NO = R.PRODUCT_NO -->
-			   
-			   
-			   WHERE I.PRODUCT_COLOR='normal'
-<!-- 			   AND S.SMALL_CATEGORY_PIC='+' -->
+   <select id="filter" resultType="map" parameterType="map">      
+SELECT * FROM
 		<choose>
-
-
-
-         <when test="group1=='best'">
+		         <when test="sale=='sale'">
+             (   
+    SELECT * FROM PRODUCT_IMAGE I 
+    JOIN PRODUCT P
+	ON P.PRODUCT_NO = I.PRODUCT_NO
+	LEFT OUTER JOIN BIG_CATEGORY B
+	ON P.BIG_CATEGORY_NO = B.BIG_CATEGORY_NO
+	LEFT OUTER JOIN SMALL_CATEGORY S
+	ON P.SMALL_CATEGORY_NO = S.SMALL_CATEGORY_NO
+	LEFT OUTER  JOIN(SELECT PRODUCT_NO, AVG(PRODUCT_GRADE) GRAD,COUNT(REVIEW_NO)
+	FROM REVIEW 
+	GROUP BY PRODUCT_NO) G 
+	ON G.PRODUCT_NO=P.PRODUCT_NO
+    WHERE I.PRODUCT_COLOR='normal'
+         
             <if test="category != 'all'">
                AND B.BIG_CATEGORY_CONTENT = #{category}
             </if>
+            <if test="search != null and search != ''">
+<!-- 		    AND -->
+<!-- 		    P.PRODUCT_NO LIKE '%'||#{search}||'%' -->
+<!-- 		    OR P.PRODUCT_NAME LIKE '%'||#{search}||'%' -->
+		    AND B.BIG_CATEGORY_CONTENT LIKE '%'||#{search}||'%'
+		    </if>
             <if test="group2 != null and group2 != 'null'">
                 AND P.PRODUCT_WIDTH = #{group2,jdbcType=VARCHAR}
 <!--                 DB 에 CHECK 사이즈 지정 -->
@@ -137,7 +134,134 @@
                   <![CDATA[    AND P.PRODUCT_PRICE BETWEEN 49999 AND 60000]]>
                   </when>
                   <when test="group4 gt 59999 and group4 lt 70000">
+                  <![CDATA[    AND P.PRODUCT_PRICE BETWEEN 59999 AND 70000]]>
+                  </when>
+                  <when test="group4 gt 70000">
+                  <![CDATA[   AND P.PRODUCT_PRICE > 70000]]>
+                  </when>
+               </choose>   
+            </if>
+            <if test="group5 != null and group5 != 'null'">
+<!--             FILTER 색상 -->
+                AND P.PRODUCT_COLOR = #{group5}
+            </if>
+             		AND P.PRODUCT_PRICE > P.SALE_PER
+<!--                 AND ROWNUM <![CDATA[<]]> #{start} -->
+<!--                 ORDER BY R.PRODUCT_GRADE ASC -->
+				ORDER BY P.PRODUCT_NAME
+				)
+				WHERE ROWNUM <![CDATA[<]]> #{start}
+         </when>
+         <when test="group1=='best'">
+>>>>>>> branch 'developer' of https://github.com/ui0426/Orkney.git
+             (   
+    SELECT * FROM PRODUCT_IMAGE I 
+    JOIN PRODUCT P
+   ON P.PRODUCT_NO = I.PRODUCT_NO
+   LEFT OUTER JOIN BIG_CATEGORY B
+   ON P.BIG_CATEGORY_NO = B.BIG_CATEGORY_NO
+   LEFT OUTER JOIN SMALL_CATEGORY S
+   ON P.SMALL_CATEGORY_NO = S.SMALL_CATEGORY_NO
+   LEFT OUTER  JOIN(SELECT PRODUCT_NO, AVG(PRODUCT_GRADE) GRAD,COUNT(REVIEW_NO)
+   FROM REVIEW 
+   GROUP BY PRODUCT_NO) G 
+   ON G.PRODUCT_NO=P.PRODUCT_NO
+    WHERE I.PRODUCT_COLOR='normal'
+         
+            <if test="category != 'all'">
+               AND B.BIG_CATEGORY_CONTENT = #{category}
+            </if>
+            <if test="search != null and search != ''">
+<!--           AND -->
+<!--           P.PRODUCT_NO LIKE '%'||#{search}||'%' -->
+<!--           OR P.PRODUCT_NAME LIKE '%'||#{search}||'%' -->
+          AND B.BIG_CATEGORY_CONTENT LIKE '%'||#{search}||'%'
+          </if>
+            <if test="group2 != null and group2 != 'null'">
+                AND P.PRODUCT_WIDTH = #{group2,jdbcType=VARCHAR}
+<!--                 DB 에 CHECK 사이즈 지정 -->
+            </if>
+            <if test="group3 != null and group3 != 'null'">
+                AND S.SMALL_CATEGORY_CONTENT = #{group3}
+<!--                 DB 카테고리 정하기 -->
+            </if> 
+            <if test="group4 != null and group4 != 'null'">
+<!--                   FILTER 가격 범위 -->
+               <choose>
+                  <when test="group4 gt 0 and group4 lt 40000">
+                 <![CDATA[AND P.PRODUCT_PRICE < 40000]]>   
+                  </when>
+                  <when test="group4 gt 39999 and group4 lt 50000">
+                  <![CDATA[    AND P.PRODUCT_PRICE BETWEEN 39999 AND 50000]]>
+                  </when>
+                  <when test="group4 gt 49999 and group4 lt 60000">
                   <![CDATA[    AND P.PRODUCT_PRICE BETWEEN 49999 AND 60000]]>
+                  </when>
+                  <when test="group4 gt 59999 and group4 lt 70000">
+                  <![CDATA[    AND P.PRODUCT_PRICE BETWEEN 59999 AND 70000]]>
+                  </when>
+                  <when test="group4 gt 70000">
+                  <![CDATA[   AND P.PRODUCT_PRICE > 70000]]>
+                  </when>
+               </choose>   
+            </if>
+            <if test="group5 != null and group5 != 'null'">
+<!--             FILTER 색상 -->
+                AND P.PRODUCT_COLOR = #{group5}
+            </if>
+                   AND P.PRODUCT_PRICE > P.SALE_PER
+<!--                 AND ROWNUM <![CDATA[<]]> #{start} -->
+<!--                 ORDER BY R.PRODUCT_GRADE ASC -->
+            ORDER BY P.PRODUCT_NAME
+            )
+            WHERE ROWNUM <![CDATA[<]]> #{start}
+         </when>
+         <when test="group1=='best'">
+             (   
+    SELECT * FROM PRODUCT_IMAGE I 
+    JOIN PRODUCT P
+   ON P.PRODUCT_NO = I.PRODUCT_NO
+   LEFT OUTER JOIN BIG_CATEGORY B
+   ON P.BIG_CATEGORY_NO = B.BIG_CATEGORY_NO
+   LEFT OUTER JOIN SMALL_CATEGORY S
+   ON P.SMALL_CATEGORY_NO = S.SMALL_CATEGORY_NO
+   LEFT OUTER  JOIN(SELECT PRODUCT_NO, AVG(PRODUCT_GRADE) GRAD,COUNT(REVIEW_NO)
+   FROM REVIEW 
+   GROUP BY PRODUCT_NO) G 
+   ON G.PRODUCT_NO=P.PRODUCT_NO
+    WHERE I.PRODUCT_COLOR='normal'
+         
+            <if test="category != 'all'">
+               AND B.BIG_CATEGORY_CONTENT = #{category}
+            </if>
+            <if test="search != null and search != ''">
+          AND
+          P.PRODUCT_NO LIKE '%'||#{search}||'%'
+          OR P.PRODUCT_NAME LIKE '%'||#{search}||'%'
+          OR B.BIG_CATEGORY_CONTENT LIKE '%'||#{search}||'%'
+          </if>
+            <if test="group2 != null and group2 != 'null'">
+                AND P.PRODUCT_WIDTH = #{group2,jdbcType=VARCHAR}
+<!--                 DB 에 CHECK 사이즈 지정 -->
+            </if>
+            <if test="group3 != null and group3 != 'null'">
+                AND S.SMALL_CATEGORY_CONTENT = #{group3}
+<!--                 DB 카테고리 정하기 -->
+            </if> 
+            <if test="group4 != null and group4 != 'null'">
+<!--                   FILTER 가격 범위 -->
+               <choose>
+                  <when test="group4 gt 0 and group4 lt 40000">
+                 <![CDATA[AND P.PRODUCT_PRICE < 40000]]>   
+                  </when>
+                  <when test="group4 gt 39999 and group4 lt 50000">
+                  <![CDATA[    AND P.PRODUCT_PRICE BETWEEN 39999 AND 50000]]>
+                  </when>
+                  <when test="group4 gt 49999 and group4 lt 60000">
+                  <![CDATA[    AND P.PRODUCT_PRICE BETWEEN 49999 AND 60000]]>
+                  </when>
+                  <when test="group4 gt 59999 and group4 lt 70000">
+                  <![CDATA[    AND P.PRODUCT_PRICE BETWEEN 59999 AND 70000]]>
                   </when>
                   <when test="group4 gt 70000">
                   <![CDATA[   AND P.PRODUCT_PRICE > 70000]]>
@@ -149,15 +273,102 @@
                 AND P.PRODUCT_COLOR = #{group5}
             </if>
              
-                AND ROWNUM <![CDATA[<]]> #{start}
+<!--                 AND ROWNUM <![CDATA[<]]> #{start} -->
 <!--                 ORDER BY R.PRODUCT_GRADE ASC -->
-				ORDER BY G.GRAD DESC NULLS LAST
+            ORDER BY G.GRAD DESC NULLS LAST
+            )
+            WHERE ROWNUM <![CDATA[<]]> #{start}
          </when>
          
-         <when test="group1=='lowPrice'">
+         <when test="group1=='sale'">
+             (   
+    SELECT * FROM PRODUCT_IMAGE I 
+    JOIN PRODUCT P
+   ON P.PRODUCT_NO = I.PRODUCT_NO
+   LEFT OUTER JOIN BIG_CATEGORY B
+   ON P.BIG_CATEGORY_NO = B.BIG_CATEGORY_NO
+   LEFT OUTER JOIN SMALL_CATEGORY S
+   ON P.SMALL_CATEGORY_NO = S.SMALL_CATEGORY_NO
+   LEFT OUTER  JOIN(SELECT PRODUCT_NO, AVG(PRODUCT_GRADE) GRAD,COUNT(REVIEW_NO)
+   FROM REVIEW 
+   GROUP BY PRODUCT_NO) G 
+   ON G.PRODUCT_NO=P.PRODUCT_NO
+    WHERE I.PRODUCT_COLOR='normal'
+         
             <if test="category != 'all'">
                AND B.BIG_CATEGORY_CONTENT = #{category}
             </if>
+            <if test="search != null and search != ''">
+<!--           AND -->
+<!--           P.PRODUCT_NO LIKE '%'||#{search}||'%' -->
+<!--           OR P.PRODUCT_NAME LIKE '%'||#{search}||'%' -->
+          AND B.BIG_CATEGORY_CONTENT LIKE '%'||#{search}||'%'
+          </if>
+            <if test="group2 != null and group2 != 'null'">
+                AND P.PRODUCT_WIDTH = #{group2,jdbcType=VARCHAR}
+<!--                 DB 에 CHECK 사이즈 지정 -->
+            </if>
+            <if test="group3 != null and group3 != 'null'">
+                AND S.SMALL_CATEGORY_CONTENT = #{group3}
+<!--                 DB 카테고리 정하기 -->
+            </if> 
+            <if test="group4 != null and group4 != 'null'">
+<!--                   FILTER 가격 범위 -->
+               <choose>
+                  <when test="group4 gt 0 and group4 lt 40000">
+                 <![CDATA[AND P.PRODUCT_PRICE < 40000]]>   
+                  </when>
+                  <when test="group4 gt 39999 and group4 lt 50000">
+                  <![CDATA[    AND P.PRODUCT_PRICE BETWEEN 39999 AND 50000]]>
+                  </when>
+                  <when test="group4 gt 49999 and group4 lt 60000">
+                  <![CDATA[    AND P.PRODUCT_PRICE BETWEEN 49999 AND 60000]]>
+                  </when>
+                  <when test="group4 gt 59999 and group4 lt 70000">
+                  <![CDATA[    AND P.PRODUCT_PRICE BETWEEN 59999 AND 70000]]>
+                  </when>
+                  <when test="group4 gt 70000">
+                  <![CDATA[   AND P.PRODUCT_PRICE > 70000]]>
+                  </when>
+               </choose>   
+            </if>
+            <if test="group5 != null and group5 != 'null'">
+<!--             FILTER 색상 -->
+                AND P.PRODUCT_COLOR = #{group5}
+            </if>
+                   AND P.PRODUCT_PRICE > P.SALE_PER
+<!--                 AND ROWNUM <![CDATA[<]]> #{start} -->
+<!--                 ORDER BY R.PRODUCT_GRADE ASC -->
+            ORDER BY P.PRODUCT_NAME
+            )
+            WHERE ROWNUM <![CDATA[<]]> #{start}
+         </when>
+         
+
+         
+         <when test="group1=='lowPrice'">
+          (   
+    SELECT * FROM PRODUCT_IMAGE I 
+    JOIN PRODUCT P
+   ON P.PRODUCT_NO = I.PRODUCT_NO
+   LEFT OUTER JOIN BIG_CATEGORY B
+   ON P.BIG_CATEGORY_NO = B.BIG_CATEGORY_NO
+   LEFT OUTER JOIN SMALL_CATEGORY S
+   ON P.SMALL_CATEGORY_NO = S.SMALL_CATEGORY_NO
+   LEFT OUTER  JOIN(SELECT PRODUCT_NO, AVG(PRODUCT_GRADE) GRAD,COUNT(REVIEW_NO)
+   FROM REVIEW 
+   GROUP BY PRODUCT_NO) G 
+   ON G.PRODUCT_NO=P.PRODUCT_NO
+    WHERE I.PRODUCT_COLOR='normal'
+            <if test="category != 'all'">
+               AND B.BIG_CATEGORY_CONTENT = #{category}
+            </if>
+            <if test="search != null and search != ''">
+          AND
+          P.PRODUCT_NO LIKE '%'||#{search}||'%'
+          OR P.PRODUCT_NAME LIKE '%'||#{search}||'%'
+          OR B.BIG_CATEGORY_CONTENT LIKE '%'||#{search}||'%'
+          </if>
             <if test="group2 != null and group2 != 'null'">
                 AND P.PRODUCT_WIDTH = #{group2}
 <!--                 DB 에 CHECK 사이즈 지정 -->
@@ -179,7 +390,7 @@
                   <![CDATA[    AND P.PRODUCT_PRICE BETWEEN 49999 AND 60000]]>
                   </when>
                   <when test="group4 gt 59999 and group4 lt 70000">
-                  <![CDATA[    AND P.PRODUCT_PRICE BETWEEN 49999 AND 60000]]>
+                  <![CDATA[    AND P.PRODUCT_PRICE BETWEEN 59999 AND 70000]]>
                   </when>
                   <when test="group4 gt 70000">
                   <![CDATA[   AND P.PRODUCT_PRICE > 70000]]>
@@ -191,15 +402,34 @@
                 AND P.PRODUCT_COLOR = #{group5}
                 
             </if>
-            AND ROWNUM <![CDATA[<]]> #{start}
             ORDER BY P.PRODUCT_PRICE ASC
-           
+           )
+            WHERE ROWNUM <![CDATA[<]]> #{start}
          </when>
          
          <when test="group1=='highPrice'">
+         (   
+    SELECT * FROM PRODUCT_IMAGE I 
+    JOIN PRODUCT P
+   ON P.PRODUCT_NO = I.PRODUCT_NO
+   LEFT OUTER JOIN BIG_CATEGORY B
+   ON P.BIG_CATEGORY_NO = B.BIG_CATEGORY_NO
+   LEFT OUTER JOIN SMALL_CATEGORY S
+   ON P.SMALL_CATEGORY_NO = S.SMALL_CATEGORY_NO
+   LEFT OUTER  JOIN(SELECT PRODUCT_NO, AVG(PRODUCT_GRADE) GRAD,COUNT(REVIEW_NO)
+   FROM REVIEW 
+   GROUP BY PRODUCT_NO) G 
+   ON G.PRODUCT_NO=P.PRODUCT_NO
+    WHERE I.PRODUCT_COLOR='normal'
             <if test="category != 'all'">
                AND B.BIG_CATEGORY_CONTENT = #{category}
             </if>
+            <if test="search != null and search != ''">
+          AND
+          P.PRODUCT_NO LIKE '%'||#{search}||'%'
+          OR P.PRODUCT_NAME LIKE '%'||#{search}||'%'
+          OR B.BIG_CATEGORY_CONTENT LIKE '%'||#{search}||'%'
+          </if>
             <if test="group2!=null and group2 != 'null'">
                 AND P.PRODUCT_WIDTH = #{group2}
 <!--                 DB 에 CHECK 사이즈 지정 -->
@@ -221,7 +451,7 @@
                   <![CDATA[    AND P.PRODUCT_PRICE BETWEEN 49999 AND 60000]]>
                   </when>
                   <when test="group4 gt 59999 and group4 lt 70000">
-                  <![CDATA[    AND P.PRODUCT_PRICE BETWEEN 49999 AND 60000]]>
+                  <![CDATA[    AND P.PRODUCT_PRICE BETWEEN 59999 AND 70000]]>
                   </when>
                   <when test="group4 gt 70000">
                   <![CDATA[   AND P.PRODUCT_PRICE > 70000]]>
@@ -233,15 +463,34 @@
                 AND P.PRODUCT_COLOR = #{group5}
                 
             </if>
-            AND ROWNUM <![CDATA[<]]> #{start}
             ORDER BY P.PRODUCT_PRICE DESC
-         
+            )
+            WHERE ROWNUM <![CDATA[<]]> #{start}
          </when>
          
          <when test="group1=='newProduct'">
+         (   
+    SELECT * FROM PRODUCT_IMAGE I 
+    JOIN PRODUCT P
+   ON P.PRODUCT_NO = I.PRODUCT_NO
+   LEFT OUTER JOIN BIG_CATEGORY B
+   ON P.BIG_CATEGORY_NO = B.BIG_CATEGORY_NO
+   LEFT OUTER JOIN SMALL_CATEGORY S
+   ON P.SMALL_CATEGORY_NO = S.SMALL_CATEGORY_NO
+   LEFT OUTER  JOIN(SELECT PRODUCT_NO, AVG(PRODUCT_GRADE) GRAD,COUNT(REVIEW_NO)
+   FROM REVIEW 
+   GROUP BY PRODUCT_NO) G 
+   ON G.PRODUCT_NO=P.PRODUCT_NO
+    WHERE I.PRODUCT_COLOR='normal'
             <if test="category != 'all'">
                AND B.BIG_CATEGORY_CONTENT = #{category}
             </if>
+            <if test="search != null and search != ''">
+          AND
+          P.PRODUCT_NO LIKE '%'||#{search}||'%'
+          OR P.PRODUCT_NAME LIKE '%'||#{search}||'%'
+          OR B.BIG_CATEGORY_CONTENT LIKE '%'||#{search}||'%'
+          </if>
             <if test="group2!=null and group2 != 'null'">
                 AND P.PRODUCT_WIDTH = #{group2}
 <!--                 DB 에 CHECK 사이즈 지정 -->
@@ -263,7 +512,7 @@
                   <![CDATA[    AND P.PRODUCT_PRICE BETWEEN 49999 AND 60000]]>
                   </when>
                   <when test="group4 gt 59999 and group4 lt 70000">
-                  <![CDATA[    AND P.PRODUCT_PRICE BETWEEN 49999 AND 60000]]>
+                  <![CDATA[    AND P.PRODUCT_PRICE BETWEEN 59999 AND 70000]]>
                   </when>
                   <when test="group4 gt 70000">
                   <![CDATA[   AND P.PRODUCT_PRICE > 70000]]>
@@ -276,15 +525,34 @@
                 
             </if>
             
-            AND ROWNUM <![CDATA[<]]> #{start}
             ORDER BY P.PRODUCT_ENROLL_DATE DESC
-      
+            )
+            WHERE ROWNUM <![CDATA[<]]> #{start}
          </when>
 
          <when test="group1=='name'">
+         (   
+    SELECT * FROM PRODUCT_IMAGE I 
+    JOIN PRODUCT P
+   ON P.PRODUCT_NO = I.PRODUCT_NO
+   LEFT OUTER JOIN BIG_CATEGORY B
+   ON P.BIG_CATEGORY_NO = B.BIG_CATEGORY_NO
+   LEFT OUTER JOIN SMALL_CATEGORY S
+   ON P.SMALL_CATEGORY_NO = S.SMALL_CATEGORY_NO
+   LEFT OUTER  JOIN(SELECT PRODUCT_NO, AVG(PRODUCT_GRADE) GRAD,COUNT(REVIEW_NO)
+   FROM REVIEW 
+   GROUP BY PRODUCT_NO) G 
+   ON G.PRODUCT_NO=P.PRODUCT_NO
+    WHERE I.PRODUCT_COLOR='normal'
             <if test="category != 'all'">
                AND B.BIG_CATEGORY_CONTENT = #{category}
             </if>
+            <if test="search != null and search != ''">
+          AND
+          P.PRODUCT_NO LIKE '%'||#{search}||'%'
+          OR P.PRODUCT_NAME LIKE '%'||#{search}||'%'
+          OR B.BIG_CATEGORY_CONTENT LIKE '%'||#{search}||'%'
+          </if>
             <if test="group2 != null and group2 != 'null'">
                 AND P.PRODUCT_WIDTH = #{group2}
 <!--                 DB 에 CHECK 사이즈 지정 -->
@@ -306,7 +574,7 @@
                   <![CDATA[    AND P.PRODUCT_PRICE BETWEEN 49999 AND 60000]]>
                   </when>
                   <when test="group4 gt 59999 and group4 lt 70000">
-                  <![CDATA[    AND P.PRODUCT_PRICE BETWEEN 49999 AND 60000]]>
+                  <![CDATA[    AND P.PRODUCT_PRICE BETWEEN 59999 AND 70000]]>
                   </when>
                   <when test="group4 gt 70000">
                   <![CDATA[   AND P.PRODUCT_PRICE > 70000]]>
@@ -317,15 +585,34 @@
 <!--             FILTER 색상 -->
                 AND P.PRODUCT_COLOR = #{group5}
             </if>
-               AND ROWNUM <![CDATA[<]]> #{start}
-               
                 ORDER BY P.PRODUCT_NAME ASC
+               )
+               WHERE ROWNUM <![CDATA[<]]> #{start}
            
          </when>
             <when test="!group1">
+            (   
+    SELECT * FROM PRODUCT_IMAGE I 
+    JOIN PRODUCT P
+   ON P.PRODUCT_NO = I.PRODUCT_NO
+   LEFT OUTER JOIN BIG_CATEGORY B
+   ON P.BIG_CATEGORY_NO = B.BIG_CATEGORY_NO
+   LEFT OUTER JOIN SMALL_CATEGORY S
+   ON P.SMALL_CATEGORY_NO = S.SMALL_CATEGORY_NO
+   LEFT OUTER  JOIN(SELECT PRODUCT_NO, AVG(PRODUCT_GRADE) GRAD,COUNT(REVIEW_NO)
+   FROM REVIEW 
+   GROUP BY PRODUCT_NO) G 
+   ON G.PRODUCT_NO=P.PRODUCT_NO
+    WHERE I.PRODUCT_COLOR='normal'
             <if test="category != 'all'">
                AND B.BIG_CATEGORY_CONTENT = #{category}
             </if>
+            <if test="search != null and search != ''">
+          AND
+          P.PRODUCT_NO LIKE '%'||#{search}||'%'
+          OR P.PRODUCT_NAME LIKE '%'||#{search}||'%'
+          OR B.BIG_CATEGORY_CONTENT LIKE '%'||#{search}||'%'
+          </if>
             <if test="group2 != null and group2 != 'null'">
                 AND P.PRODUCT_WIDTH = #{group2,jdbcType=VARCHAR}
 <!--                 DB 에 CHECK 사이즈 지정 -->
@@ -347,7 +634,7 @@
                   <![CDATA[    AND P.PRODUCT_PRICE BETWEEN 49999 AND 60000]]>
                   </when>
                   <when test="group4 gt 59999 and group4 lt 70000">
-                  <![CDATA[    AND P.PRODUCT_PRICE BETWEEN 49999 AND 60000]]>
+                  <![CDATA[    AND P.PRODUCT_PRICE BETWEEN 59999 AND 70000]]>
                   </when>
                   <when test="group4 gt 70000">
                   <![CDATA[   AND P.PRODUCT_PRICE > 70000]]>
@@ -358,6 +645,8 @@
 <!--             FILTER 색상 -->
                 AND P.PRODUCT_COLOR = #{group5}
             </if>
+            ORDER BY G.GRAD DESC NULLS LAST
+            )
                 AND ROWNUM <![CDATA[<]]> #{start}
          </when>
       </choose>
@@ -367,6 +656,7 @@
 
     
    </select>
+   
    
    
    <!-- <select id="productList" resultType="map">
@@ -425,134 +715,191 @@
 
 
      <select id="selectRooms" resultType="map" parameterType="string">
-        SELECT * FROM SHOWROOM WHERE ROOM_CATEGORY=#{type}
-     </select>
-      <select id="selectRoomsProduct" resultType="map" parameterType="map">
-          SELECT * FROM ROOMS E
-            JOIN PRODUCT R ON E.PRODUCT_NO= R.PRODUCT_NO
-             JOIN PRODUCT_IMAGE J ON E.PRODUCT_NO= J.PRODUCT_NO
-                 JOIN SHOWROOM Q ON Q.ROOM_NO= E.ROOM_NO
-                 <if test="type!=null">
-                WHERE ROOM_CATEGORY= #{type}  AND J.PRODUCT_COLOR='normal' 
-               </if>
-               <if test="  typeTo!=null">
-                WHERE Q.ROOM_NO= #{typeTo}  AND J.PRODUCT_COLOR='normal' 
-                 </if>
-                  
-                
-   </select> 
+      SELECT * FROM SHOWROOM WHERE ROOM_CATEGORY=#{type}
+   </select>
+
+   <select id="selectRoomsProduct" resultType="map"
+      parameterType="map">
+      <!-- SELECT * FROM ROOMS E JOIN PRODUCT R ON E.PRODUCT_NO= R.PRODUCT_NO 
+         JOIN PRODUCT_IMAGE J ON E.PRODUCT_NO= J.PRODUCT_NO JOIN SHOWROOM Q ON Q.ROOM_NO= 
+         E.ROOM_NO -->
+
+      <!-- SELECT E.*, R.*, J.*, Q.*, (select AVG(PRODUCT_GRADE) FROM REVIEW 
+         where E.PRODUCT_NO = R.PRODUCT_NO)AS GRADE_AVG ,(select COUNT(*) FROM REVIEW 
+         where E.PRODUCT_NO = R.PRODUCT_NO)AS GRADE_COUNT FROM ROOMS E JOIN PRODUCT 
+         R ON E.PRODUCT_NO= R.PRODUCT_NO JOIN PRODUCT_IMAGE J ON E.PRODUCT_NO= J.PRODUCT_NO 
+         JOIN SHOWROOM Q ON Q.ROOM_NO= E.ROOM_NO -->
+
+      SELECT * FROM ROOMS E
+      JOIN SHOWROOM Q ON Q.ROOM_NO= E.ROOM_NO
+      JOIN PRODUCT R ON E.PRODUCT_NO= R.PRODUCT_NO
+      JOIN PRODUCT_IMAGE J ON E.PRODUCT_NO= J.PRODUCT_NO
+      JOIN BIG_CATEGORY Q ON R.BIG_CATEGORY_NO= Q.BIG_CATEGORY_NO
+      LEFT OUTER JOIN(SELECT PRODUCT_NO, AVG(PRODUCT_GRADE)
+      ROOM_GRADE,COUNT(REVIEW_NO)REVIEW_COUNT
+      FROM REVIEW GROUP BY PRODUCT_NO) G ON G.PRODUCT_NO=R.PRODUCT_NO
+      <if test="type!=null">
+         WHERE ROOM_CATEGORY= #{type} AND J.PRODUCT_COLOR='normal'
+      </if>
+      <if test="  typeTo!=null">
+         WHERE Q.ROOM_NO= #{typeTo} AND J.PRODUCT_COLOR='normal'
+      </if>
+
+
+   </select>
+
    <select id="roomsDetail" resultType="map" parameterType="string">
-       SELECT * FROM ROOMS E
-            JOIN PRODUCT R ON E.PRODUCT_NO= R.PRODUCT_NO
-            LEFT JOIN PRODUCT_IMAGE J ON E.PRODUCT_NO= J.PRODUCT_NO
-            WHERE E.ROOM_NO=#{type} AND J.PRODUCT_COLOR='normal'
+      ELECT * FROM ROOMS E
+      JOIN PRODUCT R ON E.PRODUCT_NO= R.PRODUCT_NO
+      LEFT JOIN PRODUCT_IMAGE J ON E.PRODUCT_NO= J.PRODUCT_NO
+        JOIN BIG_CATEGORY Q ON R.BIG_CATEGORY_NO= Q.BIG_CATEGORY_NO
+      WHERE E.ROOM_NO=#{type} AND J.PRODUCT_COLOR='normal'
    </select>
-   <select id="selectRoomsTitle" resultType="map" parameterType="string">
-      SELECT * FROM ROOMS_TITLE WHERE ROOM_CATEGORY=#{type}
+
+   <select id="selectRoomsTitle" resultType="map"
+      parameterType="string">
+      SELECT * FROM ROOMS_TITLE WHERE ROOM_CATEGORY=#{type} 
    </select>
+
    <select id="listProduct" resultType="map" parameterType="string">
-      
-       SELECT * FROM PRODUCT E
-            LEFT JOIN PRODUCT_IMAGE J ON E.PRODUCT_NO= J.PRODUCT_NO
-            WHERE J.PRODUCT_COLOR='normal' AND ROWNUM <![CDATA[<]]> #{type} 
-            
+
+      SELECT * FROM PRODUCT E
+      LEFT JOIN PRODUCT_IMAGE J ON E.PRODUCT_NO= J.PRODUCT_NO
+      WHERE J.PRODUCT_COLOR='normal' AND ROWNUM <![CDATA[<]]>
+      #{type}
+
    </select>
-   <select id="allProductList" resultType="string">
-      SELECT COUNT(*)FROM PRODUCT E
-             JOIN PRODUCT_IMAGE J ON E.PRODUCT_NO= J.PRODUCT_NO
-            WHERE J.PRODUCT_COLOR='normal'
+
+   <select id="allProductList" resultType="map" parameterType="map">
+      SELECT COUNT(*)ALLCOUNT FROM PRODUCT E
+      JOIN PRODUCT_IMAGE J ON E.PRODUCT_NO= J.PRODUCT_NO
+      JOIN BIG_CATEGORY T ON E.BIG_CATEGORY_NO= T.BIG_CATEGORY_NO
+      <if test="text=='전체보기'">
+         WHERE J.PRODUCT_COLOR='normal'
+      </if>
+      <if test="text!='전체보기' ">
+         WHERE J.PRODUCT_COLOR='normal'AND T.BIG_CATEGORY_CONTENT=#{text}
+      </if>
    </select>
-   <select id="productCategory" parameterType="map" resultType="map">
-      
-       SELECT * FROM PRODUCT E
-             JOIN PRODUCT_IMAGE J ON E.PRODUCT_NO= J.PRODUCT_NO
-              JOIN BIG_CATEGORY T ON T.BIG_CATEGORY_NO=E.BIG_CATEGORY_NO
-            WHERE J.PRODUCT_COLOR='normal' AND ROWNUM <![CDATA[<]]> #{type} 
-             <if test=" text!='' ">
-            AND T.BIG_CATEGORY_CONTENT=#{text}
-            </if>
-            
+
+   <select id="productCategory" parameterType="map"
+      resultType="map">
+
+      SELECT * FROM PRODUCT E
+      JOIN PRODUCT_IMAGE J ON E.PRODUCT_NO= J.PRODUCT_NO
+      JOIN BIG_CATEGORY T ON T.BIG_CATEGORY_NO=E.BIG_CATEGORY_NO
+      LEFT OUTER JOIN (SELECT PRODUCT_NO, AVG(PRODUCT_GRADE) ROOM_GRADE
+      FROM REVIEW GROUP BY PRODUCT_NO) N ON E.PRODUCT_NO= N.PRODUCT_NO
+      <if test="text=='전체보기'">
+         WHERE J.PRODUCT_COLOR='normal' AND ROWNUM <![CDATA[<]]>
+         #{type}
+         ORDER BY ROOM_GRADE DESC
+      </if>
+      <if test=" text!='전체보기'">
+         WHERE J.PRODUCT_COLOR='normal' AND ROWNUM <![CDATA[<]]>
+         #{type}
+         AND T.BIG_CATEGORY_CONTENT=#{text}
+         ORDER BY ROOM_GRADE DESC NULLS LAST
+      </if>
+
    </select>
+
    <select id="sale" resultType="map">
-      
-            
+
+
       SELECT * FROM (SELECT * FROM PRODUCT E
-             JOIN PRODUCT_IMAGE J ON E.PRODUCT_NO= J.PRODUCT_NO
-              JOIN BIG_CATEGORY T ON T.BIG_CATEGORY_NO=E.BIG_CATEGORY_NO
-            WHERE J.PRODUCT_COLOR='normal' AND E.SALE_PER IS NOT NULL)WHERE  ROWNUM <![CDATA[<]]>2      
+      JOIN PRODUCT_IMAGE J ON E.PRODUCT_NO= J.PRODUCT_NO
+      JOIN BIG_CATEGORY T ON T.BIG_CATEGORY_NO=E.BIG_CATEGORY_NO
+      WHERE J.PRODUCT_COLOR='normal' AND PRODUCT_PRICE!= SALE_PER AND E.SALE_PER
+      IS NOT NULL)WHERE ROWNUM <![CDATA[<]]>10
 
 
    </select>
-   <update id="insertRoom" parameterType="map" >
+
+   <update id="insertRoom" parameterType="map">
       UPDATE SHOWROOM SET ROOM_PIC = #{roomsImg}
       WHERE ROOM_NO = #{categoryNo} AND ROOM_CATEGORY = #{category}
    </update>
-   
+
    <select id="roomChange" resultType="map">
-          <!-- SELECT PRODUCT_NO FROM PRODUCT MINUS
-                    SELECT PRODUCT_NO FROM ROOMS -->
-                      SELECT * FROM PRODUCT A
-        WHERE A.PRODUCT_NO NOT IN (SELECT B.PRODUCT_NO FROM ROOMS B)
+      <!-- SELECT PRODUCT_NO FROM PRODUCT MINUS SELECT PRODUCT_NO FROM ROOMS -->
+      SELECT * FROM PRODUCT A
+      WHERE A.PRODUCT_NO NOT IN (SELECT B.PRODUCT_NO FROM ROOMS B)
    </select>
+
    <insert id="updateRoom" parameterType="map">
-       INSERT ALL INTO ROOMS VALUES 
-         <foreach collection="one" item="rooms" index="index" open="(" separator="," close=")">
+      INSERT ALL INTO ROOMS VALUES
+      <foreach collection="one" item="rooms" index="index" open="("
+         separator="," close=")">
          #{rooms}
-         </foreach>
-         <if test="two!=null">
-       <foreach collection="two" item="rooms" index="index" open="INTO ROOMS VALUES (" separator="," close=")">
-         #{rooms}
-         </foreach>
-         </if>
-          <if test="three!=null">
-      <foreach collection="three" item="rooms" index="index" open="INTO ROOMS VALUES (" separator="," close=")">
-         #{rooms}
-         </foreach>
-          </if>
-          <if test="four!=null">
-         <foreach collection="four" item="rooms" index="index" open="INTO ROOMS VALUES (" separator="," close=")">
-         #{rooms}
-         </foreach>
-          </if>
-          <if test="five!=null">
-         <foreach collection="five" item="rooms" index="index" open="INTO ROOMS VALUES (" separator="," close=") ">
-         #{rooms}
-         </foreach>   
-         </if>
-         SELECT *FROM DUAL                                                                                                                        
-   </insert>
-      <update id="roomsTitle" parameterType="map">
-         UPDATE ROOMS_TITLE SET ROOM_H2=#{title},
-         ROOM_CONTEXT=#{content}
-         WHERE ROOM_CATEGORY=#{roomsTitle} AND ROOMS_TOP_BOTTOM=#{roomsSubTitle}
-      </update>
-       
-    <select id="buttomProduct" resultType="map" parameterType="map">
-      SELECT *FROM PRODUCT WHERE PRODUCT_NO in
-      <foreach collection="type" item="type" open="(" close=")" separator=",">
-       #{type}
       </foreach>
-   </select> 
+      <if test="two!=null">
+         <foreach collection="two" item="rooms" index="index"
+            open="INTO ROOMS VALUES (" separator="," close=")">
+            #{rooms}
+         </foreach>
+      </if>
+      <if test="three!=null">
+         <foreach collection="three" item="rooms" index="index"
+            open="INTO ROOMS VALUES (" separator="," close=")">
+            #{rooms}
+         </foreach>
+      </if>
+      <if test="four!=null">
+         <foreach collection="four" item="rooms" index="index"
+            open="INTO ROOMS VALUES (" separator="," close=")">
+            #{rooms}
+         </foreach>
+      </if>
+      <if test="five!=null">
+         <foreach collection="five" item="rooms" index="index"
+            open="INTO ROOMS VALUES (" separator="," close=") ">
+            #{rooms}
+         </foreach>
+      </if>
+      SELECT *FROM DUAL
+   </insert>
+
+   <update id="roomsTitle" parameterType="map">
+      UPDATE ROOMS_TITLE SET ROOM_H2=#{title},
+      ROOM_CONTEXT=#{content}
+      WHERE ROOM_CATEGORY=#{roomsTitle} AND ROOMS_TOP_BOTTOM=#{roomsSubTitle}
+   </update>
+
+   <select id="buttomProduct" resultType="map" parameterType="map">
+      SELECT *FROM PRODUCT WHERE PRODUCT_NO in
+      <foreach collection="type" item="type" open="(" close=")"
+         separator=",">
+         #{type}
+      </foreach>
+   </select>
+
    <delete id="deleteRoom" parameterType="map">
       DELETE FROM ROOMS WHERE ROOM_NO = #{categoryNo}
    </delete>
+
    <select id="delectSelectRoom" resultType="map">
-   SELECT *FROM ROOMS
+      SELECT *FROM ROOMS
    </select>
-   <delete id="delectShowroom" parameterType="string" >
+
+   <delete id="deleteShowroom" parameterType="string">
       DELETE FROM ROOMS WHERE PRODUCT_NO = #{deleteRoom}
    </delete>
-      
-      
-      
-      <!--재고갱신 -->
+   
+   <update id="deleteSale" >
+       UPDATE PRODUCT SET SALE_PER=PRODUCT_PRICE WHERE PRODUCT_ENROLL_DATE + (INTERVAL '1' MONTH) <![CDATA[<]]>SYSDATE
+   </update>
+
+
+
+   <!--재고갱신 -->
    <update id="updateStock" parameterType="map">
       UPDATE PRODUCT SET PRODUCT_STOCK=#{stock} WHERE PRODUCT_NO=#{no}
-   </update>   
+   </update>
 
    <!-- sale가격 -->
    <select id="selectSale" resultType="string">
-      select sale_per from product where product_no=#{productNo}   
+      select sale_per from product where product_no=#{productNo}
    </select>
 
 </mapper>

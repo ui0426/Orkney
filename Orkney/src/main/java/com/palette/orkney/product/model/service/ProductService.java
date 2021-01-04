@@ -25,7 +25,7 @@ public interface ProductService {
 	List<Map> roomsDetail(String type);
 	List<Map> selectRoomsTitle(String type); 
 	List<Map> listProduct(String type);
-	String allProductList();
+	List<Map> allProductList(Map texts);
 	List<Map> productCategory(Map texts);
 	List<Map> sale();
 	int insertRoom(Map<String, Object> room);
@@ -35,8 +35,11 @@ public interface ProductService {
 	 List<Map> buttomProduct(Map ty); 
 	int deleteRoom(Map room); 
 	List <Map> delectSelectRoom();
-	int delectShowroom( String deleteRoom);
+
+	int deleteShowroom( String deleteRoom);
+	int deleteSale();
 	
+
 //sale가격
 	 String selectSale(String productNo);
 	 

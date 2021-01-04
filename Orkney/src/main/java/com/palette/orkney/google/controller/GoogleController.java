@@ -39,7 +39,6 @@ public class GoogleController {
 	private String clientId;
 	@Value("${clientSecret}")
 	private String clientSecret;
-	
 	@Autowired
 	private MemberService service;
 	

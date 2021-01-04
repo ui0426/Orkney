@@ -223,9 +223,9 @@ public class AdminDaoImpl implements AdminDao {
 	}
 
 	@Override
-	public Map<String,Object> productUpdate(SqlSession session, String pNo) {
+	public List<Map> productUpdate(SqlSession session, String pNo) {
 		// TODO Auto-generated method stub
-		return session.selectOne("admin.productUpdateList",pNo);
+		return session.selectList("admin.productUpdateList",pNo);
 	}
 
 	@Override

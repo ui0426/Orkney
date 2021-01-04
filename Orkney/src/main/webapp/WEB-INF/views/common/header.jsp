@@ -22,7 +22,7 @@
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
-     
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
    
 	  
   
@@ -85,12 +85,15 @@
                 <a href="${path}"><img src="${path }/resources/img/LOGO3.PNG" alt=""></a>
             </div>
             <div class="header-menu">
-                <span><a href="${path }/product/products.do?category=all&sale=" style="color:black;">모든제품</a> </span>
+                <span><a href="${path }/product/products.do?category=all&sale=&search-input=" style="color:black;">모든제품</a> </span>
 				<span><a href="#open"  onclick="roomsNav();" style="color:black;">디지털 쇼룸</a></span>
             </div>
             <div class="header-search">
-           		<form class="search-form">
-	                <input class="search-input" type="search" placeholder="검색어 입력">
+           		<form class="search-form" action="${path}/product/products.do" method="get">
+	                <input class="search-input" type="search" id="" placeholder="검색어 입력" name="search-input">
+	                <input type="text" value="all" name="sale" style="display: none;">
+	                <input type="submit" value="all" name="category" style="display: none;">
+	                
 	           		<div class="search-input-box" style="display:none;"></div>
 	                <div class="search-dropbox" style="display:none;">
 	                	<div class="dropbox-container">
@@ -187,7 +190,7 @@
 		                        <div class="hnf-small-link hnf-link-color aside-btn-event">이달의 이벤트</div>
 		                    </li>
 		                    <li>
-		                        <a class="hnf-small-link hnf-link-color" href="${path }/product/products.do?category=all">인기제품</a>
+		                        <a class="hnf-small-link hnf-link-color" href="${path }/product/products.do?category=all&search-input=&sale=">인기제품</a>
 		                    </li>
 		                </ul>
 		                <ul class="hnf-small-link hnf-menu_nav_aux">
@@ -213,76 +216,76 @@
 		        		<span class="hnf-menu-container-product-head">모든 상품</span>
 						<ul class="hnf-menu-container-product-main">
 							<li>
-								<a  href="${path }/product/products.do?category=책장/선반유닛&sale=">
+								<a  href="${path }/product/products.do?category=책장/선반유닛&sale=&search-input=">
 									책장/선반유닛
 								</a>
 							</li>
 							<li>
-								<a href="${path }/product/products.do?category=서랍&sale=">
+								<a href="${path }/product/products.do?category=서랍&sale=&search-input=">
 									서랍
 								</a>
 							</li>
 							<li>
-								<a href="${path }/product/products.do?category=의자&sale=">
+								<a href="${path }/product/products.do?category=의자&sale=&search-input=">
 									의자
 								</a>
 							</li>
 							<li>
-								<a href="${path }/product/products.do?category=바테이블/의자&sale=">
+								<a href="${path }/product/products.do?category=바테이블/의자&sale=&search-input=">
 									바테이블/의자
 								</a>
 							</li>
 							<li>
-								<a href="${path }/product/products.do?category=카페가구&sale=">
+								<a href="${path }/product/products.do?category=카페가구&sale=&search-input=">
 									카페가구
 								</a>
 							</li>
 							<li>
 
-								<a href="${path }/product/products.do?category=아동식선반&sale=">
+								<a href="${path }/product/products.do?category=이동식선반&sale=&search-input=">
 									이동식 선반
 								</a>
 							</li>
 							<li>
-								<a href="${path }/product/products.do?category=옷장&sale=">
+								<a href="${path }/product/products.do?category=옷장&sale=&search-input=">
 									옷장
 								</a>
 							</li>
 							<li>
-								<a href="${path }/product/products.do?category=수납장/장식장&sale=">
+								<a href="${path }/product/products.do?category=수납장/장식장&sale=&search-input=">
 									수납장/장식장
 								</a>
 							</li>
 							<li>
 
 
-								<a href="${path }/product/products.do?category=거실장/찬장/콘솔테이블&sale=">
+								<a href="${path }/product/products.do?category=거실장/찬장/콘솔테이블&sale=&search-input=">
 									거실장/찬장/콘솔테이블
 
 								</a>
 							</li>
 							<li>
-								<a href="${path }/product/products.do?category=TV/멀티미디어가구&sale=">
+								<a href="${path }/product/products.do?category=TV/멀티미디어가구&sale=&search-input=">
 									TV/멀티미디어가구
 								</a>
 							</li>
 							<li>
-								<a href="${path }/product/products.do?category=침대&sale=">
+								<a href="${path }/product/products.do?category=침대&sale=&search-input=">
 									침대
 								</a>
 							</li>
 							<li>
-								<a href="${path }/product/products.do?category=소파/암체어&sale=">
+								<a href="${path }/product/products.do?category=소파/암체어&sale=&search-input=">
 									소파/암체어
 								</a>
 							</li>
 							<li>
-								<a href="${path }/product/products.do?category=조명&sale=">
+								<a href="${path }/product/products.do?category=조명&sale=&search-input=">
 									조명
 								</a>
 							</li>
 							<li>
-								<a href="${path }/product/products.do?category=식탁/책상&sale=">
+								<a href="${path }/product/products.do?category=식탁/책상&sale=&search-input=">
 									식탁/책상
 								</a>
 							</li>
@@ -355,12 +358,27 @@
         </div>
         </div>
 
-       
+       <a id="button"></a>
     
     <c:if test="${not empty login and login.MEMBER_NO ne 'm11'}">
  <jsp:include page="/WEB-INF/views/common/chat.jsp"/>
 	</c:if>
         <script>
+        var btn = $('#button');
+    	
+    	$(window).scroll(function() {
+    	  if ($(window).scrollTop() > 300) {
+    	    btn.addClass('show');
+    	  } else {
+    	    btn.removeClass('show');
+    	  }
+    	});
+    	
+    	btn.on('click', function(e) {
+    	  e.preventDefault();
+    	  $('html, body').animate({scrollTop:0}, '300');
+    	});
+    	
         
         function roomsNav(){
       	  $(".btn-aside").trigger("click");
@@ -510,7 +528,6 @@
 // 				$('html').removeClass('scroll-x');
     		});
            
-            
 
             
         </script>

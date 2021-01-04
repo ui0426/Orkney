@@ -35,14 +35,18 @@ public class ProductController {
 
    @RequestMapping("/product/products.do")
    @ResponseBody
+   @SuppressWarnings("unchecked")
    public ModelAndView products(ModelAndView mv
-         ,@RequestParam(name="category") String bicCategory
+         ,@RequestParam(name="category") String bigCategory
+         ,@RequestParam(value="search-input") String search 
+         ,@RequestParam(name="sale") String sale
          ) {
-      
-      Map<String, Object> category = new HashMap();
-      category.put("category", bicCategory);
-      System.out.println(category);
-      
+	   
+	Map<String, Object> category = new HashMap();
+      category.put("category", bigCategory);
+      category.put("search", search);
+      category.put("sale",sale);
+      System.out.println("세일나와~!!!1"+service.productList(category));
       mv.addObject("list",service.productList(category));
       mv.setViewName("product/products");
       return mv;
@@ -53,7 +57,8 @@ public class ProductController {
    @ResponseBody
    public  List<Map>Filter (@RequestParam Map<String,Object> filter) {
       System.out.println("필털:"+filter);
-      System.out.println(service.filter(filter));
+      System.out.println("나도 필터?"+service.filter(filter));
+
       return service.filter(filter);
    }
    
@@ -114,9 +119,7 @@ public class ProductController {
 		Map types= new HashMap();
 		types.put("type", type);
 		mv.addObject("rooms", service.selectRooms(type));
-		
 		mv.addObject("roomsProduct", service.selectRoomsProduct(types));
-		System.out.println(type);
 		mv.addObject("roomsTitle", service.selectRoomsTitle(type));
 		mv.setViewName("product/rooms");
 
@@ -146,9 +149,10 @@ public class ProductController {
 
 	@RequestMapping("/product/allProductList.do")
 	@ResponseBody
-	public String allProductList() {
-
-		return service.allProductList();
+	public List<Map> allProductList(String text) {
+		Map texts=new HashMap();
+		texts.put("text", text);
+		return service.allProductList(texts);
 	}
 
 	@RequestMapping("/product/productCategory.do")
@@ -158,6 +162,9 @@ public class ProductController {
 		Map texts = new HashMap();
 		texts.put("text", text);
 		texts.put("type", type);
+		System.out.println(text);
+		System.out.println(type);
+		System.out.println(service.productCategory(texts));
 
 		return service.productCategory(texts);
 	}
@@ -307,8 +314,16 @@ public class ProductController {
 		  Map ty=new HashMap(); 
 		  ty.put("type", type); 
 		  System.out.println(ty); 
-		  return service.buttomProduct(ty); };
+		  return service.buttomProduct(ty); 
+		  };
+		  
+	@RequestMapping("/product/deleteSale.do")
+	@ResponseBody public int deleteSale() {
+		return service.deleteSale();
+	};
+	
+}
 	
 
-}
+
 
