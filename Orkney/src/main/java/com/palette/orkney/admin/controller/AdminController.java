@@ -697,7 +697,6 @@ public class AdminController {
 	@RequestMapping("/admin/sCategoryList.do")
 	@ResponseBody
 	public List<Map> sCategoryList (@RequestParam Map<String,Object> list) {
-		System.out.println("왜 안됨?");
 		return service.sCategoryList(list);
 	}
 }
