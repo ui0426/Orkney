@@ -62,12 +62,8 @@
 }
 
 .main {
-	/* position: absolute;
-	right: 7%;
-	width: 40%;
-	top: 30%;
-	height: auto; */
-	position: absolute;
+	
+	/* position: absolute; */
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -78,14 +74,7 @@
 }
 
 .class-h1 {
-	/* font-size: 42px;
-	color: #fff;
-	font-family: Montserrat, sans-serif;
-	text-align: left;
-	font-weight: bold;
-	line-height: 55px;
-	margin-bottom: 0;
-	padding: 0; */
+	
 	margin-bottom: 45px;
 	font-size: 42px;
 	color: #fff;
@@ -98,15 +87,11 @@
 
 .class-p {
 	display: none;
-	/* font-size: 13px;
-	color: #fff;
-	line-height: 25px;
-	width: 100%;
-	margin-top: 20px;
-	margin-bottom: 30px; */
+	
 }
 
 .class-a {
+	position: absolute;
 	display: inline-block;
 	text-align:center;
 	background: #fff;

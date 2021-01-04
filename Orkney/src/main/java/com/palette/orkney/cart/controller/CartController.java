@@ -77,15 +77,6 @@ public class CartController {
 											
 		return mv;
 	}
-	
-	//모두 장바구니에 추가
-	@RequestMapping("/cart/cartInsertAll.do")
-	public ModelAndView cartInsertAll(HttpSession session, ModelAndView mv, @RequestParam(value="cartQTY", defaultValue ="1") int cartQTY) {
-		
-		
-		
-		return mv;
-	}
 		
 	//1.장바구니 화면 이동(장바구니 확인)
 	@RequestMapping("/cart/cart.do")

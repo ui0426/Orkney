@@ -165,7 +165,7 @@ filter();
                 day = day >= 10 ? day : '0' + day;          //day 두자리로 저장
                 return  year + '' + month + '' + day;       //'-' 추가하여 yyyy-mm-dd 형태 생성 가능
             }
-               let start = 9;
+               let start = 17;
 
             function filter() {
             let sale=getParameterByName('sale');
@@ -207,7 +207,9 @@ filter();
                $("#product_list").html("");
                  
                   for ( var i=0;i <= data.length;i++){
-                     
+                     if (data[i]["PRODUCT_COLOR"]=="normal") {
+						
+					
                      var endDate = new Date(data[i]["PRODUCT_ENROLL_DATE"]);
                      endDate=getFormatDate(endDate);
                       var today = new Date();
@@ -254,7 +256,7 @@ filter();
                            for (var i = 0; i < data.length; i++) {
                               
                            
-                              console.log("데이터2"+data[i]["PRODUCT_NO"]);
+//                               console.log("데이터2"+data[i]["PRODUCT_NO"]);
                               if (data2[i]["COUNT(REVIEW_NO)"] !=null) {
                                  
                                   $(productClone).find("#average2").text(data2[i]["AVG(PRODUCT_GRADE)"].toFixed(1));
@@ -301,13 +303,16 @@ filter();
                         
                      });
                    $("#product_list").append(productClone);
-                  
+                     }
                   }
                }
             })   
-            start = start+8;
+            
           }
-       
+       function morebtn() {
+    	   start = start+12;
+    	   filter();
+	}
 
 //    3자리 마다 , 표시
    function numberWithCommas(x) {
@@ -667,7 +672,7 @@ filter();
 
 
       </div>
-      <button type="button" class="btn filterSiz  btnH35 waves-effect waves-light" style="width: 100%; background-color: rgb(238, 237, 237);" onclick="filter();">
+      <button type="button" class="btn filterSiz  btnH35 waves-effect waves-light" style="width: 100%; background-color: rgb(238, 237, 237);" onclick="morebtn();">
             <span class="fontborder fontColorGray">더보기</span>
          </button>
       <!-- 제품 목록 -->
@@ -676,7 +681,7 @@ filter();
 
 
                <!-- Card -->
-               <div class="card shadow-hidden" >
+               <div class="card shadow-hidden" style="margin: 4px;">
                   <!--Card image-->
 <div class="plp-checkbox" id="plp-checkbox"  onclick="check_PIC();">
 <input type="checkbox" name="checkboxname" id="checkbox" black="true" value="${p.PRODUCT_PIC}">
@@ -811,7 +816,7 @@ filter();
 <script>
 function fn_addWishModal(price,pNo){
    let login = '${sessionScope.login}';
-   console.log(login);
+//    console.log(login);
 //    alert('dd');
    if(login == ''){
 //       let ck = confirm('로그인이 필요한 서비스 입니다. 로그인 화면으로 이동하시겠습니까?');
@@ -827,7 +832,7 @@ function fn_addWishModal(price,pNo){
       url: '${ path }/wishlist/insertWishModal.do',
       data: {pNo:pNo},
       success: function(data){
-         console.log(data);
+//          console.log(data);
          if(data == ''){
             
          }
@@ -845,7 +850,7 @@ function fnbn(a,b){
          productPrice:a
          },
       success:data=>{
-         console.log("나와라");               
+//          console.log("나와라");               
       }
    })
  }     

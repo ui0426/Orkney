@@ -8,7 +8,76 @@
 
     <jsp:include page="/WEB-INF/views/common/adminHeader.jsp"/>
     <style>
-    	#testBody{text-align: center;min-height: 643px;}
+    	#testBody{
+    	text-align: center;min-height: 643px;
+    	color: gold;
+    	}
+    	$bg: #e6e2df;
+
+
+
+.wrapper {
+	width: 100%;
+	font-family: 'Source Code Pro', monospace;
+	margin: 0 auto;
+	height: 100%;
+	
+	}
+	h1 {
+		text-transform: uppercase;
+		transform: translate(-50%, -50%) skew(10deg) rotate(-10deg);
+		font-size: 20vw;
+		top: 56%;
+		left: 50%;
+		margin: 0;
+		position: absolute;
+		text-rendering: optimizeLegibility;
+		font-weight: 900;
+		color: rgba(#ff9eb1, 0.5);
+		text-shadow: 1px 4px 6px $bg, 0 0 0 #66303a, 1px 4px 6px $bg;
+		white-space: nowrap;
+		}
+	h1:before {
+			content: attr(data-heading);
+			position: absolute;
+			left: 0;
+			top: -4.8%;
+			overflow: hidden;
+			width: 100%;
+			height: 50%;
+			color: cornflowerblue;
+			transform: translate(1.6vw, 0) skew(-13deg) scale(1, 1.2);
+			z-index: 2;
+			text-shadow: 2px -1px 6px rgba(0,0,0,0.2);
+		}
+		
+		h1:after {
+			content: attr(data-heading);
+			position: absolute;
+			left: 0;
+			top: 0;
+			overflow: hidden;
+			width: 100%;
+			height: 100%;
+			z-index: 1;
+			color:  #4285f4;
+			transform: translate(0vw, 0) skew(13deg) scale(1, 0.8);
+			clip-path: polygon(0 50%, 100% 50%, 100% 100%, 0% 100%);
+			text-shadow: 2px -1px 6px rgba(0,0,0,0.3);
+		}
+	
+
     </style>
-    <div id="testBody">개발중</div>
+   <div id="testBody" class="wrapper">
+	<h1 contenteditable data-heading="Orkney">Orkney</h1>
+</div>
     <jsp:include page="/WEB-INF/views/common/adminFooter.jsp"/>
+    <script type="text/javascript">
+    var h1 = document.querySelector("h1");
+
+    h1.addEventListener("input", function() {
+      this.setAttribute("data-heading", this.innerText);
+    });
+	</script>
+    
+    
