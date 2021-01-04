@@ -283,6 +283,18 @@ public class AdminDaoImpl implements AdminDao {
 	@Override
 	public int deleteReview(SqlSession session, int rNo) {
 		return session.delete("admin.deleteReview", rNo);
+	}
+
+	//by윤나-재고 수정 시 입출고 인서트
+	@Override
+	public int insertShipped(SqlSession session, Map list) {
+		return session.insert("admin.insertShipped", list);
+	}
+
+	//by윤나-입출고내역조회
+	@Override
+	public List<Map> selectShippedList(SqlSession session, String pNo) {
+		return session.selectList("admin.selectShippedList", pNo);
 	}	
 	
 	

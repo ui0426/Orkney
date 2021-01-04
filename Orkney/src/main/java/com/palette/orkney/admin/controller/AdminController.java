@@ -525,8 +525,9 @@ public class AdminController {
 //	입고
 	@RequestMapping("/admin/productPutIn.do")
 	@ResponseBody
-	public int productPutIn (@RequestParam Map<String,Object> list) {
-		return service.productPutIn(list);
+	public List<Map> productPutIn (@RequestParam Map<String,Object> list) {
+		int result = service.productPutIn(list);
+			return service.productOne(list);
 	}
 //	제품 삭제
 	@RequestMapping("/admin/deleteProduct.do")
@@ -545,7 +546,7 @@ public class AdminController {
 
 //	제품 추가
 	@RequestMapping(value="/damin/productInsert.do", method = RequestMethod.POST)
-	public ModelAndView productInsert(Product product, ModelAndView mv,
+	public String productInsert(Product product, ModelAndView mv,
 			 @RequestParam(value="productImg", required=false) MultipartFile[] productImg, 
 			 @RequestParam(value="mainImg", required=false) String img0, 
 			 @RequestParam(value="img1", required=false) String img1, 			 
@@ -587,13 +588,12 @@ public class AdminController {
 		
 		
 		
-		mv.setViewName("admin/product/adminProduct");
-		return mv;
+		return "redirect:/admin/product.do";
 	}
 
 //	제품 업데이트
 	@RequestMapping(value="/damin/producUpdateIn.do", method = RequestMethod.POST)
-	public ModelAndView producUpdateIn(Product product, ModelAndView mv,
+	public String producUpdateIn(Product product, ModelAndView mv,
 			@RequestParam(value="productImg", required=false) MultipartFile[] productImg, 
 			@RequestParam(value="mainImg", required=false) String img0, 
 			@RequestParam(value="img1", required=false) String img1, 			 
@@ -633,8 +633,7 @@ public class AdminController {
 		
 		
 		
-		mv.setViewName("admin/product/adminProduct");
-		return mv;
+		return "redirect:/admin/product.do";
 	}
 
 
@@ -773,6 +772,19 @@ public class AdminController {
 		mv.addObject("msg", msg);
 		mv.addObject("loc", loc);
 		mv.setViewName("/common/msg");
+		return mv;
+	}
+	
+	//by윤나-상품별 입출고 내역 확인
+	@RequestMapping("/admin/shippedList.do")
+	public ModelAndView shippedList(String pNo, String pName, String stock) {
+		ModelAndView mv = new ModelAndView();
+		List<Map> list = service.selectShippedList(pNo);
+		mv.addObject("list", list);
+		mv.addObject("pName", pName);
+		mv.addObject("stock", stock);
+		System.out.println(list);
+		mv.setViewName("/admin/product/shipped");
 		return mv;
 	}
 }

@@ -752,9 +752,9 @@ filter();
                      <div>
                         <hr>
                         <div class="row">
-                           <button type="button" class="btn  btn-md color-Gray1 " id="readMore"
+                          <!--  <button type="button" class="btn  btn-md color-Gray1 " id="readMore"
                               style="border: 1px solid darkgray !important;" >Read
-                              more</button>
+                              more</button> -->
                            <div class="row heartCart_icon" style="margin: auto;">
 <a class="material-tooltip-main " data-placement="top" title="Add to Cart" id="btnck"  data-toggle="modal" data-target="#modalAbandonedCart"> <i class="fas fa-shopping-cart grey-text ml-3"></i></a> 
 <a class="material-tooltip-main heart_icon" data-placement="top" title="Add to Wishlist" id="btnWish" data-toggle="modal" data-target="#modalAddWish"> <i class="fas fa-heart grey-text ml-3"></i></a>

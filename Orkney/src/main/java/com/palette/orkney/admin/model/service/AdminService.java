@@ -78,5 +78,7 @@ public interface AdminService {
 	Review selectReview(int rNo);
 	//by윤나-리뷰삭제
 	int deleteReview(int rNo);
+	//by윤나-입출고내역조회
+	List<Map> selectShippedList(String pNo);
 	
 }
