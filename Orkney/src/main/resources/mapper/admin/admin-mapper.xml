@@ -239,5 +239,29 @@
       FROM SMALL_CATEGORY
       WHERE BIG_CATEGORY_NO = #{category}
    </select>
+   
+   <!-- 리뷰 row갯수 가져오기 -->
+   <select id="selectReviewCount" resultType="_int">
+   	SELECT COUNT(*) FROM REVIEW
+   </select>
+   <!-- 전체 리뷰리스트 가져오기 -->
+   <select id="selectReviewList" resultType="review">
+   	SELECT * FROM REVIEW JOIN PRODUCT USING(PRODUCT_NO) JOIN MEMBER USING(MEMBER_NO) JOIN ORDER_DETAIL USING(ORDER_DETAIL_NO) ORDER BY REVIEW_DATE DESC
+   </select>
+   
+   <!-- 리뷰사진리스트 가져오기 -->
+   <select id="selectReviewImageList" parameterType="_int" resultType="reviewImage">
+   	SELECT * FROM REVIEW_IMAGE WHERE REVIEW_NO=#{rNo}
+   </select>
+   
+   <!-- 리뷰하나가져오기 -->
+   <select id="selectReview" parameterType="_int" resultType="review">
+   	SELECT * FROM REVIEW JOIN PRODUCT USING(PRODUCT_NO) JOIN MEMBER USING(MEMBER_NO) JOIN ORDER_DETAIL USING(ORDER_DETAIL_NO) WHERE REVIEW_NO=#{rNo} ORDER BY REVIEW_DATE DESC
+   </select>
+   
+   <!-- 리뷰삭제 -->
+   <delete id="deleteReview" parameterType="_int">
+   	DELETE FROM REVIEW WHERE REVIEW_NO=#{rNo}
+   </delete>
 
 </mapper>

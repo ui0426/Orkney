@@ -7,6 +7,7 @@ import com.palette.orkney.order.model.vo.OrderDetail;
 import com.palette.orkney.order.model.vo.Orders;
 import com.palette.orkney.product.model.vo.Product;
 import com.palette.orkney.product.model.vo.Product_image;
+import com.palette.orkney.review.model.vo.Review;
 
 public interface AdminService {
 
@@ -68,5 +69,14 @@ public interface AdminService {
 	List<Map> productUpdate(String pNo);
 	int producUpdateIn(Product product,List<Product_image> files, String[] img);
 	List<Map> sCategoryList(Map<String,Object> list);
+	
+	//by윤나-리뷰row갯수 가져오기
+	int totalReview();
+	//by윤나-리뷰리스트 가져오기
+	List<Review> selectReviewList(int cPage, int numPerPage);
+	//by윤나-리뷰가져오기
+	Review selectReview(int rNo);
+	//by윤나-리뷰삭제
+	int deleteReview(int rNo);
 	
 }
