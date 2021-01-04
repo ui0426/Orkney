@@ -59,7 +59,7 @@
 								<h1 class="class-h1">더 나은 천연 소재</h1>
 								<p class="class-p">여러 이유 때문에 면은 침실과 욕실에 인기 있는 소재예요. 2015년부터 ORKNEY는 제품에 사용하는 모든 면을 보다 지속가능한 공급처에서 제공받고 있어요. 즉, 농약과 비료를 덜 써서 생산되는 면을 사용하고 있다는 뜻이죠. 훨씬 더 효율적인 농법과 더 나은 수자원 관리법을 개발하기 위해 여러 가지 연구가 계속되고 있어요.</p>
 								
-								<a class="class-a" href="${path}">모든 더블 침대 보러 가기</a>
+								<a class="class-a" href="${path}/product/products.do?category=침대&sale=">모든 더블 침대 보러 가기</a>
 							
 							</div>
 							<a href="${path}/product/products.do?category=침대&sale=">
