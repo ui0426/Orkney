@@ -18,7 +18,7 @@
     select * from wishlist_detail join product on (wishlist_detail.product_no = product.product_no) 
                                 join product_image on (product.product_no = product_image.product_no) 
                                 join small_category on (small_category.small_category_no = product.small_category_no)
-                                where wishlist_no = 'w1' and product.product_color = product_image.product_color;
+                                where wishlist_no = #{wNo} and product_image.product_color = 'normal'
 </select>
 
 <!-- 위시리스트들의 리스트 가져오기 -->

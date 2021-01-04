@@ -80,6 +80,10 @@ input:focus { outline:none; }
 	    font-weight: 600;
 
 	}
+	.product-description h2:hover{
+		text-decoration: underline;
+		cursor: pointer;
+	}
 	.product-price{
     	grid-column: 2/3;	
     	font-weight: 700;
