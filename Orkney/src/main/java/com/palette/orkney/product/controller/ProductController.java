@@ -46,7 +46,7 @@ public class ProductController {
       category.put("category", bigCategory);
       category.put("search", search);
       category.put("sale",sale);
-      System.out.println("세일나와~!!!1"+category);
+      System.out.println("세일나와~!!!1"+service.productList(category));
       mv.addObject("list",service.productList(category));
       mv.setViewName("product/products");
       return mv;
@@ -119,9 +119,7 @@ public class ProductController {
 		Map types= new HashMap();
 		types.put("type", type);
 		mv.addObject("rooms", service.selectRooms(type));
-		
 		mv.addObject("roomsProduct", service.selectRoomsProduct(types));
-		System.out.println(service.selectRoomsProduct(types));
 		mv.addObject("roomsTitle", service.selectRoomsTitle(type));
 		mv.setViewName("product/rooms");
 

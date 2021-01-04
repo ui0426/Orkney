@@ -70,7 +70,7 @@
       ON P.BIG_CATEGORY_NO = B.BIG_CATEGORY_NO
       WHERE 1=1
       <if test="sale='sale' and category == 'all'and search == ''">
-      	AND P.SALE_PER != P.PRODUCT_PRICE
+         AND P.SALE_PER != P.PRODUCT_PRICE
       </if>
       <if test="category != 'all'and sale=='' and search == ''">
          AND B.BIG_CATEGORY_CONTENT = #{category} 
@@ -79,40 +79,40 @@
          AND B.BIG_CATEGORY_CONTENT = #{category} AND P.SALE_PER != P.PRODUCT_PRICE
       </if>
       <if test="search != null and search != ''">
-	   AND
-	   P.PRODUCT_NO LIKE '%'||#{search}||'%'
-	   OR P.PRODUCT_NAME LIKE '%'||#{search}||'%'
-	   OR B.BIG_CATEGORY_CONTENT LIKE '%'||#{search}||'%'
-	   </if>
+      AND
+      P.PRODUCT_NO LIKE '%'||#{search}||'%'
+      OR P.PRODUCT_NAME LIKE '%'||#{search}||'%'
+      OR B.BIG_CATEGORY_CONTENT LIKE '%'||#{search}||'%'
+      </if>
    </select>
    
    <select id="filter" resultType="map" parameterType="map">      
 SELECT * FROM
-		<choose>
-		         <when test="sale=='sale'">
+      <choose>
+               <when test="sale=='sale'">
              (   
     SELECT * FROM PRODUCT_IMAGE I 
     JOIN PRODUCT P
-	ON P.PRODUCT_NO = I.PRODUCT_NO
-	LEFT OUTER JOIN BIG_CATEGORY B
-	ON P.BIG_CATEGORY_NO = B.BIG_CATEGORY_NO
-	LEFT OUTER JOIN SMALL_CATEGORY S
-	ON P.SMALL_CATEGORY_NO = S.SMALL_CATEGORY_NO
-	LEFT OUTER  JOIN(SELECT PRODUCT_NO, AVG(PRODUCT_GRADE) GRAD,COUNT(REVIEW_NO)
-	FROM REVIEW 
-	GROUP BY PRODUCT_NO) G 
-	ON G.PRODUCT_NO=P.PRODUCT_NO
+   ON P.PRODUCT_NO = I.PRODUCT_NO
+   LEFT OUTER JOIN BIG_CATEGORY B
+   ON P.BIG_CATEGORY_NO = B.BIG_CATEGORY_NO
+   LEFT OUTER JOIN SMALL_CATEGORY S
+   ON P.SMALL_CATEGORY_NO = S.SMALL_CATEGORY_NO
+   LEFT OUTER  JOIN(SELECT PRODUCT_NO, AVG(PRODUCT_GRADE) GRAD,COUNT(REVIEW_NO)
+   FROM REVIEW 
+   GROUP BY PRODUCT_NO) G 
+   ON G.PRODUCT_NO=P.PRODUCT_NO
     WHERE I.PRODUCT_COLOR='normal'
          
             <if test="category != 'all'">
                AND B.BIG_CATEGORY_CONTENT = #{category}
             </if>
             <if test="search != null and search != ''">
-<!-- 		    AND -->
-<!-- 		    P.PRODUCT_NO LIKE '%'||#{search}||'%' -->
-<!-- 		    OR P.PRODUCT_NAME LIKE '%'||#{search}||'%' -->
-		    AND B.BIG_CATEGORY_CONTENT LIKE '%'||#{search}||'%'
-		    </if>
+<!--           AND -->
+<!--           P.PRODUCT_NO LIKE '%'||#{search}||'%' -->
+<!--           OR P.PRODUCT_NAME LIKE '%'||#{search}||'%' -->
+          AND B.BIG_CATEGORY_CONTENT LIKE '%'||#{search}||'%'
+          </if>
             <if test="group2 != null and group2 != 'null'">
                 AND P.PRODUCT_WIDTH = #{group2,jdbcType=VARCHAR}
 <!--                 DB 에 CHECK 사이즈 지정 -->
@@ -145,37 +145,37 @@ SELECT * FROM
 <!--             FILTER 색상 -->
                 AND P.PRODUCT_COLOR = #{group5}
             </if>
-             		AND P.PRODUCT_PRICE > P.SALE_PER
+                   AND P.PRODUCT_PRICE > P.SALE_PER
 <!--                 AND ROWNUM <![CDATA[<]]> #{start} -->
 <!--                 ORDER BY R.PRODUCT_GRADE ASC -->
-				ORDER BY P.PRODUCT_NAME
-				)
-				WHERE ROWNUM <![CDATA[<]]> #{start}
+            ORDER BY P.PRODUCT_NAME
+            )
+            WHERE ROWNUM <![CDATA[<]]> #{start}
          </when>
          <when test="group1=='best'">
              (   
     SELECT * FROM PRODUCT_IMAGE I 
     JOIN PRODUCT P
-	ON P.PRODUCT_NO = I.PRODUCT_NO
-	LEFT OUTER JOIN BIG_CATEGORY B
-	ON P.BIG_CATEGORY_NO = B.BIG_CATEGORY_NO
-	LEFT OUTER JOIN SMALL_CATEGORY S
-	ON P.SMALL_CATEGORY_NO = S.SMALL_CATEGORY_NO
-	LEFT OUTER  JOIN(SELECT PRODUCT_NO, AVG(PRODUCT_GRADE) GRAD,COUNT(REVIEW_NO)
-	FROM REVIEW 
-	GROUP BY PRODUCT_NO) G 
-	ON G.PRODUCT_NO=P.PRODUCT_NO
+   ON P.PRODUCT_NO = I.PRODUCT_NO
+   LEFT OUTER JOIN BIG_CATEGORY B
+   ON P.BIG_CATEGORY_NO = B.BIG_CATEGORY_NO
+   LEFT OUTER JOIN SMALL_CATEGORY S
+   ON P.SMALL_CATEGORY_NO = S.SMALL_CATEGORY_NO
+   LEFT OUTER  JOIN(SELECT PRODUCT_NO, AVG(PRODUCT_GRADE) GRAD,COUNT(REVIEW_NO)
+   FROM REVIEW 
+   GROUP BY PRODUCT_NO) G 
+   ON G.PRODUCT_NO=P.PRODUCT_NO
     WHERE I.PRODUCT_COLOR='normal'
          
             <if test="category != 'all'">
                AND B.BIG_CATEGORY_CONTENT = #{category}
             </if>
             <if test="search != null and search != ''">
-		    AND
-		    P.PRODUCT_NO LIKE '%'||#{search}||'%'
-		    OR P.PRODUCT_NAME LIKE '%'||#{search}||'%'
-		    OR B.BIG_CATEGORY_CONTENT LIKE '%'||#{search}||'%'
-		    </if>
+          AND
+          P.PRODUCT_NO LIKE '%'||#{search}||'%'
+          OR P.PRODUCT_NAME LIKE '%'||#{search}||'%'
+          OR B.BIG_CATEGORY_CONTENT LIKE '%'||#{search}||'%'
+          </if>
             <if test="group2 != null and group2 != 'null'">
                 AND P.PRODUCT_WIDTH = #{group2,jdbcType=VARCHAR}
 <!--                 DB 에 CHECK 사이즈 지정 -->
@@ -211,35 +211,35 @@ SELECT * FROM
              
 <!--                 AND ROWNUM <![CDATA[<]]> #{start} -->
 <!--                 ORDER BY R.PRODUCT_GRADE ASC -->
-				ORDER BY G.GRAD DESC NULLS LAST
-				)
-				WHERE ROWNUM <![CDATA[<]]> #{start}
+            ORDER BY G.GRAD DESC NULLS LAST
+            )
+            WHERE ROWNUM <![CDATA[<]]> #{start}
          </when>
          
          <when test="group1=='sale'">
              (   
     SELECT * FROM PRODUCT_IMAGE I 
     JOIN PRODUCT P
-	ON P.PRODUCT_NO = I.PRODUCT_NO
-	LEFT OUTER JOIN BIG_CATEGORY B
-	ON P.BIG_CATEGORY_NO = B.BIG_CATEGORY_NO
-	LEFT OUTER JOIN SMALL_CATEGORY S
-	ON P.SMALL_CATEGORY_NO = S.SMALL_CATEGORY_NO
-	LEFT OUTER  JOIN(SELECT PRODUCT_NO, AVG(PRODUCT_GRADE) GRAD,COUNT(REVIEW_NO)
-	FROM REVIEW 
-	GROUP BY PRODUCT_NO) G 
-	ON G.PRODUCT_NO=P.PRODUCT_NO
+   ON P.PRODUCT_NO = I.PRODUCT_NO
+   LEFT OUTER JOIN BIG_CATEGORY B
+   ON P.BIG_CATEGORY_NO = B.BIG_CATEGORY_NO
+   LEFT OUTER JOIN SMALL_CATEGORY S
+   ON P.SMALL_CATEGORY_NO = S.SMALL_CATEGORY_NO
+   LEFT OUTER  JOIN(SELECT PRODUCT_NO, AVG(PRODUCT_GRADE) GRAD,COUNT(REVIEW_NO)
+   FROM REVIEW 
+   GROUP BY PRODUCT_NO) G 
+   ON G.PRODUCT_NO=P.PRODUCT_NO
     WHERE I.PRODUCT_COLOR='normal'
          
             <if test="category != 'all'">
                AND B.BIG_CATEGORY_CONTENT = #{category}
             </if>
             <if test="search != null and search != ''">
-<!-- 		    AND -->
-<!-- 		    P.PRODUCT_NO LIKE '%'||#{search}||'%' -->
-<!-- 		    OR P.PRODUCT_NAME LIKE '%'||#{search}||'%' -->
-		    AND B.BIG_CATEGORY_CONTENT LIKE '%'||#{search}||'%'
-		    </if>
+<!--           AND -->
+<!--           P.PRODUCT_NO LIKE '%'||#{search}||'%' -->
+<!--           OR P.PRODUCT_NAME LIKE '%'||#{search}||'%' -->
+          AND B.BIG_CATEGORY_CONTENT LIKE '%'||#{search}||'%'
+          </if>
             <if test="group2 != null and group2 != 'null'">
                 AND P.PRODUCT_WIDTH = #{group2,jdbcType=VARCHAR}
 <!--                 DB 에 CHECK 사이즈 지정 -->
@@ -272,12 +272,12 @@ SELECT * FROM
 <!--             FILTER 색상 -->
                 AND P.PRODUCT_COLOR = #{group5}
             </if>
-             		AND P.PRODUCT_PRICE > P.SALE_PER
+                   AND P.PRODUCT_PRICE > P.SALE_PER
 <!--                 AND ROWNUM <![CDATA[<]]> #{start} -->
 <!--                 ORDER BY R.PRODUCT_GRADE ASC -->
-				ORDER BY P.PRODUCT_NAME
-				)
-				WHERE ROWNUM <![CDATA[<]]> #{start}
+            ORDER BY P.PRODUCT_NAME
+            )
+            WHERE ROWNUM <![CDATA[<]]> #{start}
          </when>
          
 
@@ -286,25 +286,25 @@ SELECT * FROM
           (   
     SELECT * FROM PRODUCT_IMAGE I 
     JOIN PRODUCT P
-	ON P.PRODUCT_NO = I.PRODUCT_NO
-	LEFT OUTER JOIN BIG_CATEGORY B
-	ON P.BIG_CATEGORY_NO = B.BIG_CATEGORY_NO
-	LEFT OUTER JOIN SMALL_CATEGORY S
-	ON P.SMALL_CATEGORY_NO = S.SMALL_CATEGORY_NO
-	LEFT OUTER  JOIN(SELECT PRODUCT_NO, AVG(PRODUCT_GRADE) GRAD,COUNT(REVIEW_NO)
-	FROM REVIEW 
-	GROUP BY PRODUCT_NO) G 
-	ON G.PRODUCT_NO=P.PRODUCT_NO
+   ON P.PRODUCT_NO = I.PRODUCT_NO
+   LEFT OUTER JOIN BIG_CATEGORY B
+   ON P.BIG_CATEGORY_NO = B.BIG_CATEGORY_NO
+   LEFT OUTER JOIN SMALL_CATEGORY S
+   ON P.SMALL_CATEGORY_NO = S.SMALL_CATEGORY_NO
+   LEFT OUTER  JOIN(SELECT PRODUCT_NO, AVG(PRODUCT_GRADE) GRAD,COUNT(REVIEW_NO)
+   FROM REVIEW 
+   GROUP BY PRODUCT_NO) G 
+   ON G.PRODUCT_NO=P.PRODUCT_NO
     WHERE I.PRODUCT_COLOR='normal'
             <if test="category != 'all'">
                AND B.BIG_CATEGORY_CONTENT = #{category}
             </if>
             <if test="search != null and search != ''">
-		    AND
-		    P.PRODUCT_NO LIKE '%'||#{search}||'%'
-		    OR P.PRODUCT_NAME LIKE '%'||#{search}||'%'
-		    OR B.BIG_CATEGORY_CONTENT LIKE '%'||#{search}||'%'
-		    </if>
+          AND
+          P.PRODUCT_NO LIKE '%'||#{search}||'%'
+          OR P.PRODUCT_NAME LIKE '%'||#{search}||'%'
+          OR B.BIG_CATEGORY_CONTENT LIKE '%'||#{search}||'%'
+          </if>
             <if test="group2 != null and group2 != 'null'">
                 AND P.PRODUCT_WIDTH = #{group2}
 <!--                 DB 에 CHECK 사이즈 지정 -->
@@ -347,25 +347,25 @@ SELECT * FROM
          (   
     SELECT * FROM PRODUCT_IMAGE I 
     JOIN PRODUCT P
-	ON P.PRODUCT_NO = I.PRODUCT_NO
-	LEFT OUTER JOIN BIG_CATEGORY B
-	ON P.BIG_CATEGORY_NO = B.BIG_CATEGORY_NO
-	LEFT OUTER JOIN SMALL_CATEGORY S
-	ON P.SMALL_CATEGORY_NO = S.SMALL_CATEGORY_NO
-	LEFT OUTER  JOIN(SELECT PRODUCT_NO, AVG(PRODUCT_GRADE) GRAD,COUNT(REVIEW_NO)
-	FROM REVIEW 
-	GROUP BY PRODUCT_NO) G 
-	ON G.PRODUCT_NO=P.PRODUCT_NO
+   ON P.PRODUCT_NO = I.PRODUCT_NO
+   LEFT OUTER JOIN BIG_CATEGORY B
+   ON P.BIG_CATEGORY_NO = B.BIG_CATEGORY_NO
+   LEFT OUTER JOIN SMALL_CATEGORY S
+   ON P.SMALL_CATEGORY_NO = S.SMALL_CATEGORY_NO
+   LEFT OUTER  JOIN(SELECT PRODUCT_NO, AVG(PRODUCT_GRADE) GRAD,COUNT(REVIEW_NO)
+   FROM REVIEW 
+   GROUP BY PRODUCT_NO) G 
+   ON G.PRODUCT_NO=P.PRODUCT_NO
     WHERE I.PRODUCT_COLOR='normal'
             <if test="category != 'all'">
                AND B.BIG_CATEGORY_CONTENT = #{category}
             </if>
             <if test="search != null and search != ''">
-		    AND
-		    P.PRODUCT_NO LIKE '%'||#{search}||'%'
-		    OR P.PRODUCT_NAME LIKE '%'||#{search}||'%'
-		    OR B.BIG_CATEGORY_CONTENT LIKE '%'||#{search}||'%'
-		    </if>
+          AND
+          P.PRODUCT_NO LIKE '%'||#{search}||'%'
+          OR P.PRODUCT_NAME LIKE '%'||#{search}||'%'
+          OR B.BIG_CATEGORY_CONTENT LIKE '%'||#{search}||'%'
+          </if>
             <if test="group2!=null and group2 != 'null'">
                 AND P.PRODUCT_WIDTH = #{group2}
 <!--                 DB 에 CHECK 사이즈 지정 -->
@@ -400,7 +400,7 @@ SELECT * FROM
                 
             </if>
             ORDER BY P.PRODUCT_PRICE DESC
-         	)
+            )
             WHERE ROWNUM <![CDATA[<]]> #{start}
          </when>
          
@@ -408,25 +408,25 @@ SELECT * FROM
          (   
     SELECT * FROM PRODUCT_IMAGE I 
     JOIN PRODUCT P
-	ON P.PRODUCT_NO = I.PRODUCT_NO
-	LEFT OUTER JOIN BIG_CATEGORY B
-	ON P.BIG_CATEGORY_NO = B.BIG_CATEGORY_NO
-	LEFT OUTER JOIN SMALL_CATEGORY S
-	ON P.SMALL_CATEGORY_NO = S.SMALL_CATEGORY_NO
-	LEFT OUTER  JOIN(SELECT PRODUCT_NO, AVG(PRODUCT_GRADE) GRAD,COUNT(REVIEW_NO)
-	FROM REVIEW 
-	GROUP BY PRODUCT_NO) G 
-	ON G.PRODUCT_NO=P.PRODUCT_NO
+   ON P.PRODUCT_NO = I.PRODUCT_NO
+   LEFT OUTER JOIN BIG_CATEGORY B
+   ON P.BIG_CATEGORY_NO = B.BIG_CATEGORY_NO
+   LEFT OUTER JOIN SMALL_CATEGORY S
+   ON P.SMALL_CATEGORY_NO = S.SMALL_CATEGORY_NO
+   LEFT OUTER  JOIN(SELECT PRODUCT_NO, AVG(PRODUCT_GRADE) GRAD,COUNT(REVIEW_NO)
+   FROM REVIEW 
+   GROUP BY PRODUCT_NO) G 
+   ON G.PRODUCT_NO=P.PRODUCT_NO
     WHERE I.PRODUCT_COLOR='normal'
             <if test="category != 'all'">
                AND B.BIG_CATEGORY_CONTENT = #{category}
             </if>
             <if test="search != null and search != ''">
-		    AND
-		    P.PRODUCT_NO LIKE '%'||#{search}||'%'
-		    OR P.PRODUCT_NAME LIKE '%'||#{search}||'%'
-		    OR B.BIG_CATEGORY_CONTENT LIKE '%'||#{search}||'%'
-		    </if>
+          AND
+          P.PRODUCT_NO LIKE '%'||#{search}||'%'
+          OR P.PRODUCT_NAME LIKE '%'||#{search}||'%'
+          OR B.BIG_CATEGORY_CONTENT LIKE '%'||#{search}||'%'
+          </if>
             <if test="group2!=null and group2 != 'null'">
                 AND P.PRODUCT_WIDTH = #{group2}
 <!--                 DB 에 CHECK 사이즈 지정 -->
@@ -462,7 +462,7 @@ SELECT * FROM
             </if>
             
             ORDER BY P.PRODUCT_ENROLL_DATE DESC
-      		)
+            )
             WHERE ROWNUM <![CDATA[<]]> #{start}
          </when>
 
@@ -470,25 +470,25 @@ SELECT * FROM
          (   
     SELECT * FROM PRODUCT_IMAGE I 
     JOIN PRODUCT P
-	ON P.PRODUCT_NO = I.PRODUCT_NO
-	LEFT OUTER JOIN BIG_CATEGORY B
-	ON P.BIG_CATEGORY_NO = B.BIG_CATEGORY_NO
-	LEFT OUTER JOIN SMALL_CATEGORY S
-	ON P.SMALL_CATEGORY_NO = S.SMALL_CATEGORY_NO
-	LEFT OUTER  JOIN(SELECT PRODUCT_NO, AVG(PRODUCT_GRADE) GRAD,COUNT(REVIEW_NO)
-	FROM REVIEW 
-	GROUP BY PRODUCT_NO) G 
-	ON G.PRODUCT_NO=P.PRODUCT_NO
+   ON P.PRODUCT_NO = I.PRODUCT_NO
+   LEFT OUTER JOIN BIG_CATEGORY B
+   ON P.BIG_CATEGORY_NO = B.BIG_CATEGORY_NO
+   LEFT OUTER JOIN SMALL_CATEGORY S
+   ON P.SMALL_CATEGORY_NO = S.SMALL_CATEGORY_NO
+   LEFT OUTER  JOIN(SELECT PRODUCT_NO, AVG(PRODUCT_GRADE) GRAD,COUNT(REVIEW_NO)
+   FROM REVIEW 
+   GROUP BY PRODUCT_NO) G 
+   ON G.PRODUCT_NO=P.PRODUCT_NO
     WHERE I.PRODUCT_COLOR='normal'
             <if test="category != 'all'">
                AND B.BIG_CATEGORY_CONTENT = #{category}
             </if>
             <if test="search != null and search != ''">
-		    AND
-		    P.PRODUCT_NO LIKE '%'||#{search}||'%'
-		    OR P.PRODUCT_NAME LIKE '%'||#{search}||'%'
-		    OR B.BIG_CATEGORY_CONTENT LIKE '%'||#{search}||'%'
-		    </if>
+          AND
+          P.PRODUCT_NO LIKE '%'||#{search}||'%'
+          OR P.PRODUCT_NAME LIKE '%'||#{search}||'%'
+          OR B.BIG_CATEGORY_CONTENT LIKE '%'||#{search}||'%'
+          </if>
             <if test="group2 != null and group2 != 'null'">
                 AND P.PRODUCT_WIDTH = #{group2}
 <!--                 DB 에 CHECK 사이즈 지정 -->
@@ -530,25 +530,25 @@ SELECT * FROM
             (   
     SELECT * FROM PRODUCT_IMAGE I 
     JOIN PRODUCT P
-	ON P.PRODUCT_NO = I.PRODUCT_NO
-	LEFT OUTER JOIN BIG_CATEGORY B
-	ON P.BIG_CATEGORY_NO = B.BIG_CATEGORY_NO
-	LEFT OUTER JOIN SMALL_CATEGORY S
-	ON P.SMALL_CATEGORY_NO = S.SMALL_CATEGORY_NO
-	LEFT OUTER  JOIN(SELECT PRODUCT_NO, AVG(PRODUCT_GRADE) GRAD,COUNT(REVIEW_NO)
-	FROM REVIEW 
-	GROUP BY PRODUCT_NO) G 
-	ON G.PRODUCT_NO=P.PRODUCT_NO
+   ON P.PRODUCT_NO = I.PRODUCT_NO
+   LEFT OUTER JOIN BIG_CATEGORY B
+   ON P.BIG_CATEGORY_NO = B.BIG_CATEGORY_NO
+   LEFT OUTER JOIN SMALL_CATEGORY S
+   ON P.SMALL_CATEGORY_NO = S.SMALL_CATEGORY_NO
+   LEFT OUTER  JOIN(SELECT PRODUCT_NO, AVG(PRODUCT_GRADE) GRAD,COUNT(REVIEW_NO)
+   FROM REVIEW 
+   GROUP BY PRODUCT_NO) G 
+   ON G.PRODUCT_NO=P.PRODUCT_NO
     WHERE I.PRODUCT_COLOR='normal'
             <if test="category != 'all'">
                AND B.BIG_CATEGORY_CONTENT = #{category}
             </if>
             <if test="search != null and search != ''">
-		    AND
-		    P.PRODUCT_NO LIKE '%'||#{search}||'%'
-		    OR P.PRODUCT_NAME LIKE '%'||#{search}||'%'
-		    OR B.BIG_CATEGORY_CONTENT LIKE '%'||#{search}||'%'
-		    </if>
+          AND
+          P.PRODUCT_NO LIKE '%'||#{search}||'%'
+          OR P.PRODUCT_NAME LIKE '%'||#{search}||'%'
+          OR B.BIG_CATEGORY_CONTENT LIKE '%'||#{search}||'%'
+          </if>
             <if test="group2 != null and group2 != 'null'">
                 AND P.PRODUCT_WIDTH = #{group2,jdbcType=VARCHAR}
 <!--                 DB 에 CHECK 사이즈 지정 -->
@@ -646,6 +646,7 @@ SELECT * FROM
     </select>
 
 
+
 <!-- ==================================================================================== -->
 
 
@@ -669,6 +670,7 @@ SELECT * FROM
       JOIN SHOWROOM Q ON Q.ROOM_NO= E.ROOM_NO
       JOIN PRODUCT R ON E.PRODUCT_NO= R.PRODUCT_NO
       JOIN PRODUCT_IMAGE J ON E.PRODUCT_NO= J.PRODUCT_NO
+      JOIN BIG_CATEGORY Q ON R.BIG_CATEGORY_NO= Q.BIG_CATEGORY_NO
       LEFT OUTER JOIN(SELECT PRODUCT_NO, AVG(PRODUCT_GRADE)
       ROOM_GRADE,COUNT(REVIEW_NO)REVIEW_COUNT
       FROM REVIEW GROUP BY PRODUCT_NO) G ON G.PRODUCT_NO=R.PRODUCT_NO
@@ -683,9 +685,10 @@ SELECT * FROM
    </select>
 
    <select id="roomsDetail" resultType="map" parameterType="string">
-      SELECT * FROM ROOMS E
+      ELECT * FROM ROOMS E
       JOIN PRODUCT R ON E.PRODUCT_NO= R.PRODUCT_NO
       LEFT JOIN PRODUCT_IMAGE J ON E.PRODUCT_NO= J.PRODUCT_NO
+        JOIN BIG_CATEGORY Q ON R.BIG_CATEGORY_NO= Q.BIG_CATEGORY_NO
       WHERE E.ROOM_NO=#{type} AND J.PRODUCT_COLOR='normal'
    </select>
 
@@ -756,8 +759,9 @@ SELECT * FROM
 
    <select id="roomChange" resultType="map">
       <!-- SELECT PRODUCT_NO FROM PRODUCT MINUS SELECT PRODUCT_NO FROM ROOMS -->
-      SELECT * FROM PRODUCT A
-      WHERE A.PRODUCT_NO NOT IN (SELECT B.PRODUCT_NO FROM ROOMS B)
+      <!-- SELECT * FROM PRODUCT A
+      WHERE A.PRODUCT_NO NOT IN (SELECT B.PRODUCT_NO FROM ROOMS B) -->
+       SELECT * FROM PRODUCT 
    </select>
 
    <insert id="updateRoom" parameterType="map">

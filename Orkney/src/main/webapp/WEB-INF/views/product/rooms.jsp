@@ -80,7 +80,7 @@
 												<div class="rm-bt-pb">
 													<div class="rm-bt-name">${p.PRODUCT_NAME}</div>
 													<div class="rm-bt-context">
-														<span class="rm-bt-sp">${p.PRODUCT_INFO}</span>
+														<span class="rm-bt-sp">${p.BIG_CATEGORY_CONTENT}</span>
 													</div>
 												</div>
 											</div>
@@ -128,8 +128,8 @@
 				<c:when test="${param.type=='침실'}">
 					<a class="rm-md-secondary"
 						href="${path}/product/products.do?category=침대&sale="> <span
-						class="rm-md-small"> <span class="rm-md-label">모든침대 상품 보러가기 </span> 
-						<c:set var="loop_flag" value="true" />
+						class="rm-md-small"> <span class="rm-md-label">모든침대
+								상품 보러가기 </span> <c:set var="loop_flag" value="true" />
 					</span>
 					</a>
 				</c:when>
@@ -144,8 +144,8 @@
 				<c:when test="${param.type=='홈오피스'}">
 					<a class="rm-md-secondary"
 						href="${path}/product/products.do?category=책장/선반유닛&sale="> <span
-						class="rm-md-small"> <span class="rm-md-label">모든 홈오피스
-								상품 보러가기</span> <c:set var="loop_flag" value="true" />
+						class="rm-md-small"> <span class="rm-md-label">모든
+								홈오피스 상품 보러가기</span> <c:set var="loop_flag" value="true" />
 					</span>
 					</a>
 				</c:when>
@@ -280,11 +280,16 @@
 													style="border: 1px solid darkgray !important;">Read
 													more</button>
 												<div class="row heartCart_icon" style="margin: auto;">
-													<a class="material-tooltip-main "  onclick="fnbn('${p.PRODUCT_PRICE}','${p.PRODUCT_NO}');" data-placement="top" title="Add to Cart" id="btnck" data-toggle="modal" data-target="#modalAbandonedCart">
+													<a class="material-tooltip-main "
+														onclick="fnbn('${p.PRODUCT_PRICE}','${p.PRODUCT_NO}');"
+														data-placement="top" title="Add to Cart" id="btnck"
+														data-toggle="modal" data-target="#modalAbandonedCart">
 														<i class="fas fa-shopping-cart grey-text ml-3"></i>
-													</a> 
-													<a class="material-tooltip-main heart_icon" onclick="fn_addWishModal('${p.PRODUCT_PRICE}','${p.PRODUCT_NO}');" data-placement="top" title="Add to Wishlist" id="btnWish" data-toggle="modal" data-target="#modalAddWish"> 
-														<i class="fas fa-heart grey-text ml-3"></i>
+													</a> <a class="material-tooltip-main heart_icon"
+														onclick="fn_addWishModal('${p.PRODUCT_PRICE}','${p.PRODUCT_NO}');"
+														data-placement="top" title="Add to Wishlist" id="btnWish"
+														data-toggle="modal" data-target="#modalAddWish"> <i
+														class="fas fa-heart grey-text ml-3"></i>
 													</a>
 												</div>
 											</div>
@@ -298,51 +303,57 @@
 					</c:forEach>
 
 				</div>
-					<!-- Modal: modalAbandonedCart-->
-<div class="modal fade right" id="modalAbandonedCart" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-  aria-hidden="true" data-backdrop="false">
-  <div class="modal-dialog modal-side modal-top-right modal-notify modal-info" role="document">
-    <!--Content-->
-    <div class="modal-content">
-      <!--Header-->
-      <div class="modal-header">
-        <p class="heading">장바구니</p>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true" class="white-text">&times;</span>
-        </button>
-      </div>
-      <!--Body-->
-      <div class="modal-body">
-        <div class="row">
-          <div class="col-3">                                   
-          </div>
-          <div class="col-9">
-            <p>장바구니에 추가되었습니다.</p>
-            <p>상품을 더 구매하시겠습니까??</p>          
-        </div>
-      </div>
-      <!--Footer-->
-      <div class="modal-footer justify-content-center">
-        <a type="button" class="btn btn-info" onclick="location.href='${path}/cart/cart.do'" >장바구니로 가기</a>        
-      </div>
-    </div>
-    <!--/.Content-->
-  </div>
-</div>
-</div>
-<!-- Modal: modalAbandonedCart-->
+				<!-- Modal: modalAbandonedCart-->
+				<div class="modal fade right" id="modalAbandonedCart" tabindex="-1"
+					role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
+					data-backdrop="false">
+					<div
+						class="modal-dialog modal-side modal-top-right modal-notify modal-info"
+						role="document">
+						<!--Content-->
+						<div class="modal-content">
+							<!--Header-->
+							<div class="modal-header">
+								<p class="heading">장바구니</p>
+								<button type="button" class="close" data-dismiss="modal"
+									aria-label="Close">
+									<span aria-hidden="true" class="white-text">&times;</span>
+								</button>
+							</div>
+							<!--Body-->
+							<div class="modal-body">
+								<div class="row">
+									<div class="col-3"></div>
+									<div class="col-9">
+										<p>장바구니에 추가되었습니다.</p>
+										<p>상품을 더 구매하시겠습니까??</p>
+									</div>
+								</div>
+								<!--Footer-->
+								<div class="modal-footer justify-content-center">
+									<a type="button" class="btn btn-info"
+										onclick="location.href='${path}/cart/cart.do'">장바구니로 가기</a>
+								</div>
+							</div>
+							<!--/.Content-->
+						</div>
+					</div>
+				</div>
+				<!-- Modal: modalAbandonedCart-->
 
-<!-- Modal: modalAbandonedCart-->
-<div class="modal fade right" id="modalAddWish" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-  aria-hidden="true" data-backdrop="false">
-  <div class="modal-dialog modal-side modal-top-right modal-notify modal-info" role="document">
-    <!--Content-->
-    <div class="modal-content" id="insertWish">
-    </div>
-    <!--/.Content-->
-  </div>
-</div>
-<!-- Modal: modalAbandonedCart-->			
+				<!-- Modal: modalAbandonedCart-->
+				<div class="modal fade right" id="modalAddWish" tabindex="-1"
+					role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
+					data-backdrop="false">
+					<div
+						class="modal-dialog modal-side modal-top-right modal-notify modal-info"
+						role="document">
+						<!--Content-->
+						<div class="modal-content" id="insertWish"></div>
+						<!--/.Content-->
+					</div>
+				</div>
+				<!-- Modal: modalAbandonedCart-->
 				<div class="swiper-slide cltjf" style="width: 268px;">
 					<div class="col">
 						<!-- Card -->
@@ -434,51 +445,57 @@
 		</div>
 	</div>
 	<!-- Modal: modalAbandonedCart-->
-<div class="modal fade right" id="modalAbandonedCart" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-  aria-hidden="true" data-backdrop="false">
-  <div class="modal-dialog modal-side modal-top-right modal-notify modal-info" role="document">
-    <!--Content-->
-    <div class="modal-content">
-      <!--Header-->
-      <div class="modal-header">
-        <p class="heading">장바구니</p>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true" class="white-text">&times;</span>
-        </button>
-      </div>
-      <!--Body-->
-      <div class="modal-body">
-        <div class="row">
-          <div class="col-3">                                   
-          </div>
-          <div class="col-9">
-            <p>장바구니에 추가되었습니다.</p>
-            <p>상품을 더 구매하시겠습니까??</p>          
-        </div>
-      </div>
-      <!--Footer-->
-      <div class="modal-footer justify-content-center">
-        <a type="button" class="btn btn-info" onclick="location.href='${path}/cart/cart.do'" >장바구니로 가기</a>        
-      </div>
-    </div>
-    <!--/.Content-->
-  </div>
-</div>
-</div>
-<!-- Modal: modalAbandonedCart-->
+	<div class="modal fade right" id="modalAbandonedCart" tabindex="-1"
+		role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
+		data-backdrop="false">
+		<div
+			class="modal-dialog modal-side modal-top-right modal-notify modal-info"
+			role="document">
+			<!--Content-->
+			<div class="modal-content">
+				<!--Header-->
+				<div class="modal-header">
+					<p class="heading">장바구니</p>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true" class="white-text">&times;</span>
+					</button>
+				</div>
+				<!--Body-->
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-3"></div>
+						<div class="col-9">
+							<p>장바구니에 추가되었습니다.</p>
+							<p>상품을 더 구매하시겠습니까??</p>
+						</div>
+					</div>
+					<!--Footer-->
+					<div class="modal-footer justify-content-center">
+						<a type="button" class="btn btn-info"
+							onclick="location.href='${path}/cart/cart.do'">장바구니로 가기</a>
+					</div>
+				</div>
+				<!--/.Content-->
+			</div>
+		</div>
+	</div>
+	<!-- Modal: modalAbandonedCart-->
 
-<!-- Modal: modalAbandonedCart-->
-<div class="modal fade right" id="modalAddWish" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-  aria-hidden="true" data-backdrop="false">
-  <div class="modal-dialog modal-side modal-top-right modal-notify modal-info" role="document">
-    <!--Content-->
-    <div class="modal-content" id="insertWish">
-    </div>
-    <!--/.Content-->
-  </div>
-</div>
-<!-- Modal: modalAbandonedCart-->			
-				
+	<!-- Modal: modalAbandonedCart-->
+	<div class="modal fade right" id="modalAddWish" tabindex="-1"
+		role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
+		data-backdrop="false">
+		<div
+			class="modal-dialog modal-side modal-top-right modal-notify modal-info"
+			role="document">
+			<!--Content-->
+			<div class="modal-content" id="insertWish"></div>
+			<!--/.Content-->
+		</div>
+	</div>
+	<!-- Modal: modalAbandonedCart-->
+
 </section>
 
 

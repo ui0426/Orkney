@@ -108,9 +108,9 @@
 border: 1px solid gray !important;
 background-color: white;
 }
-.imgHeight{
-	height: 20rem !important;
-}
+/* .imgHeight{ */
+/* 	height: 20rem !important; */
+/* } */
 @media (max-width:575.5px) {
 	.heartCart_icon{
 	    margin: 1rem !important;
