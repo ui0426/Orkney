@@ -290,7 +290,7 @@ $(function(){
 		url: '${path}/order/orderQty',
 		success: data=>{
 			console.log(data);
-			if(data > 1){
+			if(data > 0){
 				$('#order-count').text('진행 중인 주문 ' + data + '개');
 			}
 		}
@@ -319,9 +319,9 @@ $(function(){
 	if('${ login.EMAIL_CH }' == 'Y'){
 		$('.ckBtn').css({'color': '#0075ff'});
 	} 
-	
+	console.log('${login.EMAIL_AUTH}');
 		console.log('이메일' + '${ login.EMAIL_AUTH }');
-	if('${ login.EMAIL_AUTH }' == 'N'){ 
+	if('${login.EMAIL_AUTH}' == 'N'){ 
 		
 		$('.auth').addClass('auth-show');
 		

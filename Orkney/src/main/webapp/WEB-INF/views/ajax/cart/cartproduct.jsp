@@ -98,7 +98,6 @@
 
 </div>
 <!-- Full Height Modal Right -->
-
         <div class="section2">                                                        
                 <div class="service-container">                              
                     <div>전체 서비스 비용</div>
@@ -110,7 +109,7 @@
         <div class="total-container">
             <div class="total-title">총 주문금액</div>
             <div class="total-price">                      
-            	<fmt:formatNumber value="${total+sumprice}"/> 원           
+            	<fmt:formatNumber value="${total+sumprice}"/>원            	           
             </div>
         </div>
 		<input type="hidden" class="basketNo" id="${cN}" value="${cN}">       
@@ -139,12 +138,11 @@
 	//3. 상품내용제거 
 	 $(".remove").click(e =>{
 			let pNo=$(e.target).attr("id");			
-			let cNo=$(e.target).val();
+			let cNo=$(e.target).val();									
 			$.ajax({
 				url:"${path}/cart/deleteProduct.do",
 				data:{productNo:pNo, cartNo:cNo},
-				success:data=>{										
-					console.log("pNo:"+pNo);					
+				success:data=>{																			
 					$("#re").html(data);
 				}
 			});

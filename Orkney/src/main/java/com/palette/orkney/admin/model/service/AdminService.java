@@ -55,6 +55,9 @@ public interface AdminService {
 	
 	int updateStateAndSort(Map m);
 	
+	//취소시 반환할 포인트 조회
+	int selectPoint(int pNo);
+	
 	List<OrderDetail> selectOrderOngoingList();
 	
 	int updateSortEnd(Map m);

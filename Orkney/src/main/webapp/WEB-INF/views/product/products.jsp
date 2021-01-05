@@ -215,18 +215,20 @@ filter();
                $("#product_list").html("");
                  
                   for ( var i=0;i <= data.length;i++){
-                     if (data[i]["PRODUCT_COLOR"]=="normal") {
-						
-					
-                     var endDate = new Date(data[i]["PRODUCT_ENROLL_DATE"]);
-                     endDate.setDate(endDate.getDate()+7);
-                     endDate=getFormatDate(endDate);
-                      var today = new Date();
-                      today=getFormatDate(today)
-                    let productClone = $("#products").clone().attr("id","products"+i);
 
+
+                	  if (data[i]["PRODUCT_COLOR"]=="normal") {
+                          
+                          
+                          var endDate = new Date(data[i]["PRODUCT_ENROLL_DATE"]);
+                          endDate.setDate(endDate.getDate()+7);
+                          endDate=getFormatDate(endDate);
+                          var today = new Date();
+                          today=getFormatDate(today)
+
+                          let productClone = $("#products").clone().attr("id","products"+i);
                     
-                    if(today>endDate){
+                     if(today>endDate){
                        $(productClone).find(".rm-pb-et-new").text('');
                      }
                     if(data[i]["SALE_PER"]==data[i]["PRODUCT_PRICE"]){ //할인이 아닐때
