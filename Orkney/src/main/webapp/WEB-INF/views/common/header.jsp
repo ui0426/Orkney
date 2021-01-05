@@ -404,7 +404,7 @@
 //         		},
 //         		minLength: 1
 //         	})
-			console.log('헤더'+$('header').offset().top);
+// 			console.log('헤더'+$('header').offset().top);
 			scrollbefore = 0;
 			$(window).scroll(function(){
 				let scrollAfter = $(this).scrollTop();
