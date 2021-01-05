@@ -487,8 +487,7 @@
     			    			$(".oneClass").append(tt);
     			    			}
     			    	}
-    			    	 console.log(data.length,'랭스');
-    			    	 console.log(allData);
+    			    	 
     			    if(data.length==allData[0]["ALLCOUNT"]) {
     		    		
     	    			$(".add").css("display","none");

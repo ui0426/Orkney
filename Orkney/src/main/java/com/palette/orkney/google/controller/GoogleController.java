@@ -104,7 +104,7 @@ public class GoogleController {
 			userData.put("g_name",userInfo.get("given_name"));
 			userData.put("birthday","00/01/01");
 			userData.put("phone",userInfo.get("exp"));
-			userData.put("emailCh","N");
+			userData.put("emailCh","Y");
 			userData.put("type","구글");
 			
 			int insertId=service.insertSignup(userData,snsData);

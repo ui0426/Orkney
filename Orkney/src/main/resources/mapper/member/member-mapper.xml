@@ -18,7 +18,7 @@
   	WHERE EMAIL=#{id}
   </update>
   <insert id="insertSignup" parameterType="map">
-  	INSERT INTO MEMBER VALUES('m'||m_NUM.NEXTVAL,#{email},#{password},#{f_name}||#{g_name},SYSDATE,#{birthday},#{phone},default,default,#{emailCh},
+  	INSERT INTO MEMBER VALUES('m'||m_NUM.NEXTVAL,#{email},#{password},#{f_name}||#{g_name},SYSDATE,TO_DATE(#{birthday},'YYYY-MM-DD'),#{phone},default,default,#{emailCh},
   	<if test="type == null">
   	 DEFAULT
   	</if>

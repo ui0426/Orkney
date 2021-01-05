@@ -35,8 +35,11 @@
         <c:if test="${!empty order}">
         <c:forEach items="${order}" var="o">
           <tr class="clickPointer">
+          	<input type="hidden" class="order_no" value="${o.order_no }"/>
           	<input type="hidden" class="member_id" value="${o.member_id}"/>
-            <input type="hidden" class="member_name" value="${o.member_name}"/>            
+            <input type="hidden" class="member_name" value="${o.member_name}"/>
+            <input type="hidden" class="point_no" value="${o.point_no }"/>
+            <input type="hidden" class="member_no" value="${o.member_no }"/>            
             <td onclick="location.href='${path}/admin/orderView.do?oNo=${o.order_no} '"><c:out value="${o.order_no}"/></td>
             <td onclick="location.href='${path}/admin/orderView.do?oNo=${o.order_no}'"><c:out value="${o.member_id}"/></td>
             <td onclick="location.href='${path}/admin/orderView.do?oNo=${o.order_no}'"><c:out value="${o.member_name}"/></td>
@@ -93,15 +96,18 @@
       		var email = $(me).parent().siblings(".member_id").val();
       		var name = $(me).parent().siblings(".member_name").val();
       		var oNo = $(me).parent().siblings(".order_no").val();
-      		console.log(state+email+name);
+      		var pNo = $(me).parent().siblings(".point_no").val();
+      		var mNo = $(me).parent().siblings(".member_no").val();
+      		console.log(state+email+name+pNo);
       		
       		return new Promise((resolve, reject)=>{
       			
 	      		$.ajax({
 	      			url:"${path}/admin/allowStateAndSort.do",
-	      			data:{state:state, no:no},
+	      			data:{state:state, no:no, pNo:pNo, mNo:mNo},
 	      			success: data =>{
 	      				console.log(data);
+	      				location.href='${path}/admin/orderList.do';
 	      				resolve(data);
 	      			}
 	      		}).then(arg => {
@@ -110,13 +116,13 @@
 	      				if(state == '교환처리중') state = '교환 승인';
 	      				if(state == '반품처리중') state = '반품 승인';
 	      				if(state == '취소완료') state = '취소';
+	      				if(state == '제품준비중') state = '제품준비가 시작';
 	      				if(state == '') state ='승인 거부';
 	      				$.ajax({
 	      					url:"${path}/orderAllow.do",
 	      					data:{no:oNo, email:email, name:name, state:state},
 	      					success: succ =>{
 	      						console.log(succ);
-	      						location.href='${path}/admin/orderList.do';
 	      					}
 	      				});
       				}else{
@@ -128,7 +134,6 @@
       
       
       	$(".odlistmodal").click(e=>{
-      		console.log("클릭 버튼은 안되라 제발..");
       		var oNo = $(e.target).siblings(".order_no").val();
       		console.log(oNo);
       		var sort = $(e.target).siblings(".sort").val();

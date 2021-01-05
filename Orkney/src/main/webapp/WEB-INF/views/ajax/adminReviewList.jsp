@@ -26,7 +26,7 @@
   <c:forEach items="${rList }" var="r">
     <tr onclick="location.href='${path}/admin/reviewDetail.do?rNo=${r.review_no}'">
       <th scope="row"></th>
-      <td><c:out value="${r.review_date }"/></td>
+      <td><fmt:formatDate value="${r.review_date }" pattern="YYYY-MM-dd"/></td>
       <td><c:out value="${r.product_name }"/></td>
       <td><c:out value="${r.product_grade }"/></td>
       <td><c:out value="${r.review_content }"/></td>
