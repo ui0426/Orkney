@@ -245,7 +245,7 @@ public class EmailController {
         }catch(MessagingException e) {
             e.printStackTrace();
         }
-    
+        
         return "redirect:emailPage.do";
     }
 
