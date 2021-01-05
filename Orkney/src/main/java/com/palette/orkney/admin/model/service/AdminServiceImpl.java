@@ -372,6 +372,13 @@ public class AdminServiceImpl implements AdminService {
 	public List<Map> selectShippedList(String pNo) {
 		return dao.selectShippedList(session, pNo);
 	}
+
+	@Override
+	public List<Map> productImg(String pNo) {
+		// TODO Auto-generated method stub
+		List<Map> p = dao.productImg(session, pNo);
+		return p;
+	}
 	
 	
 
