@@ -290,7 +290,7 @@ $(function(){
 		url: '${path}/order/orderQty',
 		success: data=>{
 			console.log(data);
-			if(data > 1){
+			if(data > 0){
 				$('#order-count').text('진행 중인 주문 ' + data + '개');
 			}
 		}

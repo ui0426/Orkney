@@ -133,6 +133,7 @@ $('#personal-submit').click(function(e){
       data: $('#personal-submit-form').serialize(),            
       success: data=>{
          console.log(data);
+     	 console.log('${login}');
          $('#personal').text('수정');
          $('#personal-box').prevAll().css('display','flex');
          $('#personal-box').empty().css('display','block');

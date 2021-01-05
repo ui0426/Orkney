@@ -65,13 +65,8 @@
             <div id="rightForm">
                 <div class="transPw" id="sPw">
                     <div>
-                    <div class="md-form mdmar">
-                    	<c:if test="${userInfo != null }">
-                        <input type="text" id="idinput" class="form-control borderb" name="userId" value="${userInfo.email }" readonly>
-                        </c:if>
-                    	<c:if test="${userInfo == null }">
+                    	<div class="md-form mdmar">
                         <input type="text" id="idinput" class="form-control borderb" name="userId" value="${login.MEMBER_ID }" readonly>
-                        </c:if>
                         <label for="inputLGEx" class="lfs"></label>
                         <div class="errorspan disno marb disno" id="iddiv">이메일을 입력해주세요.</div>
                       </div>
@@ -105,10 +100,10 @@
                     <div class="errorspan disno marb" id="authDiv">인증 번호가 일치하지 않습니다.</div>
                     <div>
                         <div>
-                        	<c:if test="${userInfo != null }">
+                        	<c:if test="${authInfo == null }">
                         	<button type="button" class="btn btn-primary btnattr" onclick="return authLogin();">로그인</button>
                         	</c:if>
-                        	<c:if test="${userInfo == null }">
+                        	<c:if test="${authInfo != null }">
                         	<button type="button" class="btn btn-primary btnattr" onclick="authDo();">인증하기</button>
                         	</c:if>
                         </div>
