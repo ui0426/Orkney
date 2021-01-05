@@ -97,27 +97,29 @@
 							<option value="5">5</option>
 						</select>
 						<div id="img-div">
+							<h6 id="checkLable" class="show-h2"
+								style="display: inline-block;">쇼룸보기</h6>
 							<input type="checkbox" id="cbx" class="toggle"
-								style="display: none;" name="toggleInsert" value="추가"> 
-								
-								<label for="cbx" class="check"> 
-									<svg id="rm-svg" width="18px" height="18px"viewBox="0 0 18 18">
+								style="display: none;" name="toggleInsert" value="추가"> <label
+								for="cbx" class="check"> <svg id="rm-svg" width="18px"
+									height="18px" viewBox="0 0 18 18">
 								    	<path
-											d="M1,9 L1,3.5 C1,2 2,1 3.5,1 L14.5,1 C16,1 17,2 17,3.5 L17,14.5 C17,16 16,17 14.5,17 L3.5,17 C2,17 1,16 1,14.5 L1,9 Z"></path>
+										d="M1,9 L1,3.5 C1,2 2,1 3.5,1 L14.5,1 C16,1 17,2 17,3.5 L17,14.5 C17,16 16,17 14.5,17 L3.5,17 C2,17 1,16 1,14.5 L1,9 Z"></path>
 								    	<polyline points="1 9 7 14 15 4"></polyline>
 								  </svg>
 							</label>
 							<!-- <input type="checkbox" class="toggle" name="toggleInsert"value="추가"> -->
 							<div class="top_lift_a " style="display: none">
-								<input type="number" class="rooms_top form-control"
+								<input type="text" class="rooms_top form-control"
 									name="rooms_top" placeholder="top"
-									onkeypress="return isNumberKey(event)" /> <input
-									type="number" class="rooms_left form-control" name="rooms_left"
-									placeholder="left" onkeypress="return isNumberKey(event)" />
-								<select class="rooms_product  custom-select"
-									name="rooms_product" />
-								<option id="option-product" value="상품번호:상품이름" style="display: none;">상품번호:상품이름</option>
-								</select>
+									onfocus="return isNumberKey(event)" /> <input type="text"
+									class="rooms_left form-control" name="rooms_left"
+									placeholder="left" onfocus="return isNumberKey(event)" /> <select
+									class="rooms_product  custom-select" name="rooms_product" />
+								<option id="option-product" value="상품번호:상품이름"
+									style="display: none;">상품번호:상품이름</option>
+								</select> <input type="checkbox"
+									class="btn btn-primary btn-sm rooms_change">
 							</div>
 						</div>
 						<!-- <input type="button" id="ghkrdls" class="btn btn-primary btn-sm "
@@ -172,7 +174,54 @@
 </section>
 
 <script>
+
+$(".rooms_change").change(function(){
 	
+	$(".scdBox").off();
+	var val=$(this).val();
+	var lie=$("#select-lie").val();
+	if($("#inputProduct"+val+"").val()=='상품번호:상품이름'){
+		$("#rooms_change"+val+"").prop("checked", false);	
+		alert("(product)를  선택하셔야 합니다");
+		console.log(i,"왜 그래 왜?");
+		
+	}
+	for(let i=1;i<=lie;i++){
+	
+	if(i!=val){
+	
+	$("#rooms_change"+i+"").prop("checked", false);	
+			
+	}
+	
+    if($("#rooms_change"+val+"").is(":checked")==true){
+    	
+    	var test = $('.scdBox');
+		test.click(function (event) {
+		   x = event.pageX-$('.scdBox').offset().left-18;
+		   y = event.pageY-$('.scdBox').offset().top-18; 
+		  let tx=(x/test.width())*100;
+		  let ty=(y/test.height())*100;
+		   $("#inputTop"+val+"").val(ty);
+		   $("#inputLeft"+val+"").val(tx);
+		   console.log($("#inputTop"+val+""),"valtop");
+		   console.log($("#inputLeft"+val+""),"valleft");
+		   getInputName();
+		   
+		})
+		
+    }
+	}
+	
+});
+	
+	
+	$("#cbx").change(function(){
+		if( $("input:checkbox[name='toggleInsert']").is(":checked")==true && $("#select-lie").val()!='개수'&&$("#foo").val()==''){
+			$("#checkLable").text('추가하기');
+		}
+		
+	});
 
 	function checkDelete(){
 	 	$(".opti-select").text("");
@@ -197,11 +246,13 @@
 	if( $("input:checkbox[name='toggleInsert']").is(":checked")==true){
 		checkDelete();
 		$(".toggle[type=checkbox] ").prop("checked", false);
+		$("#checkLable").text('쇼룸보기');
 		 $("#foo").attr("src","");
 		 $(".rm").remove();
 		 
-		 return false;
 		 }
+		$(".form-control").val('');
+		$(".rooms_change").prop("checked", false);
 	});
     	
 	$(".toggle").change(function(){
@@ -209,6 +260,7 @@
 		if($("#roomsSelectOne").val()=='자리선택'){
 			alert('자리선택을 하셔야 합니다');
 			$(".toggle[type=checkbox] ").prop("checked", false);
+			$("#checkLable").text('쇼룸보기');
 		}
 		 $("#foo").attr("src","");
 		ajaxAdmin();
@@ -283,8 +335,8 @@
 
 	function ajaxAdmin() {
 	var typeTo= $("#roomsSelectOne").val();
-
-	console.log(typeTo,'뭐야 이거??');
+	
+	
 	
 	$.ajax({
 		 url: '${path}/admin/selectAll.do', 
@@ -297,6 +349,7 @@
 		    	if(data.length==''&&$("#roomsSelectOne").val()!='자리선택'){
 		    		alert('해당 자리에 상품이 등록되어 있지 않습니다.');
 		    		$(".toggle[type=checkbox] ").prop("checked", false);
+		    		$("#checkLable").text('쇼룸보기');
 		    		$("#imgInp").val("");
 		    		return false;
 		    	}
@@ -317,16 +370,13 @@
 					if(today>endDate){
 				    	   $(cl).find(".rm-pb-et-new").remove();
 				    	 	}
-					$(cl).find(".rm-bt-name").html(data[t]["PRODUCT_NAME"]);
+					$(cl).find(".rm-bt-name").html(data[t]["PRODUCT_NO"]+":"+data[t]["PRODUCT_NAME"]);
 					$(cl).find(".rm-bt-sp").html(data[t]["PRODUCT_INFO"]);
 					if(data[t]["SALE_PER"]==data[t]["PRODUCT_PRICE"]){
-						console.log('한놈만');
 						$(cl).find(".rm-pb-et-p").remove();
 					$(cl).find(".rm-remo").remove();
 					$(cl).find(".rm-bt-et-price").html("&#8361;"+ numberWithCommas(data[t]["PRODUCT_PRICE"]));
 					}else if(data[t]["SALE_PER"]!=data[t]["PRODUCT_PRICE"]){
-						console.log('아래');
-						
 					$(cl).find(".rm-re-pr").remove();
 					$(cl).find(".rm-bt-price").html("&#8361;"+ numberWithCommas(data[t]["PRODUCT_PRICE"]));
 					$(cl).find(".rm-bt-et-price").html("&#8361;"+ numberWithCommas(data[t]["SALE_PER"])); 
@@ -347,6 +397,7 @@
 				 
 				 $("#imgInp").val(''); 
 		    }
+		  
 	});
 
 
@@ -425,7 +476,7 @@
 	 } 
 	}
 	if($(".inputTop").val()!='' && $(".inputLeft").val()!=''){
-	console.count("if문");
+	
 	getInputName();
 	return true
 	}
@@ -510,7 +561,9 @@
 
 
 	function getInputValue(inputNo){
-		
+		if( $("input:checkbox[name='toggleInsert']").is(":checked")==true ){
+			$("#checkLable").text('추가하기');
+		}
 		$.ajax({
 			
 		    url: '${path}/admin/roomChange.do', 
@@ -549,6 +602,7 @@
 		$(a).find(".rooms_left").attr({name:"productInput_left[]",id:"inputLeft"+i+""});
 		$(a).find(".form-control").css("display","none");
 		$(a).find(".rooms_product").attr({name:"productInput_product[]",id:"inputProduct"+i+""});	
+		$(a).find(".rooms_change").attr({value:""+i+"",id:"rooms_change"+i+""});
 		$("#img-div").append(a); 
 		}
 		
@@ -576,6 +630,7 @@
 					}		
 			 });
 			};
+			
 			 controlNone();
 		    }
 		 });
@@ -583,7 +638,6 @@
 		};
 		function controlNone(){
 		var form= $("#select-lie").val();
-		console.log($(this),"????");
 		for(let i=1;i<=form;i++){
 		$("#inputProduct"+i+"").change(function(){
 			 if($("#inputProduct"+i+"").val()=='상품번호:상품이름'){
@@ -598,6 +652,12 @@
 		};
 		
 	  $( document ).ready(function() {
+		  /* var form= $("#select-lie").val();
+			for(let i=1;i<=form;i++){
+				if($("#inputTop"+i+"")){
+					
+				}
+			} */
 	$("#roomsSelect").trigger("change"); 
 	   /* roomChange(e);    */
 	  
@@ -836,7 +896,7 @@
 
     // Textbox value    
     }
-    /*  var _value = event.srcElement.value;    
+    /*   var _value = event.srcElement.value;    
 	// 소수점(.)이 두번 이상 나오지 못하게
 
     var _pattern0 = /^\d*[.]\d*$/; // 현재 value값에 소수점(.) 이 있으면 . 입력불가
@@ -849,10 +909,10 @@
 
         }
 
-    }  */
+    }   */
 	// 1000 이하의 숫자만 입력가능
 
-    var _pattern1 = /^\d{2}$/; // 현재 value값이 3자리 숫자이면 . 만 입력가능
+    /* var _pattern1 = /^\d{2}$/; // 현재 value값이 3자리 숫자이면 . 만 입력가능
 
     if (_pattern1.test(_value)) {
 
@@ -864,7 +924,7 @@
 
         }
 
-    }
+    } */
     // 소수점 둘째자리까지만 입력가능
 
     /*  var _pattern2 = /^\d*[.]\d{2}$/; // 현재 value값이 소수점 둘째짜리 숫자이면 더이상 입력 불가
@@ -892,8 +952,9 @@
 		}
 
 	$("#imgInp").change(function() {
-		 $(".toggle[type=checkbox] ").prop("checked", false);
-		 
+		 $(".form-control").val('');
+		 $(".toggle[type=checkbox],.rooms_change ").prop("checked", false);
+		 $("#checkLable").text('쇼룸보기');
 		 $(".rm").remove(); 
     readURL(this);
     $('h1').remove(); 
