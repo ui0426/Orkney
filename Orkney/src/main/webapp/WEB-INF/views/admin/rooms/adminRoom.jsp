@@ -136,7 +136,7 @@
 					<select id="deleteRoom" class="browser-default custom-select"
 						name="deleteRoom">
 
-						<option class="opti-se" value="">상품없음</option>
+						<option  class="opti-se" value="">상품없음</option>
 
 					</select> <input type="submit" class="btn btn-primary btn-sm "
 						id="sub-delete" value="DELECT">
@@ -183,7 +183,7 @@ $(".rooms_change").change(function(){
 	if($("#inputProduct"+val+"").val()=='상품번호:상품이름'){
 		$("#rooms_change"+val+"").prop("checked", false);	
 		alert("(product)를  선택하셔야 합니다");
-		console.log(i,"왜 그래 왜?");
+		
 		
 	}
 	for(let i=1;i<=lie;i++){
@@ -204,8 +204,7 @@ $(".rooms_change").change(function(){
 		  let ty=(y/test.height())*100;
 		   $("#inputTop"+val+"").val(ty);
 		   $("#inputLeft"+val+"").val(tx);
-		   console.log($("#inputTop"+val+""),"valtop");
-		   console.log($("#inputLeft"+val+""),"valleft");
+		
 		   getInputName();
 		   
 		})
@@ -249,10 +248,12 @@ $(".rooms_change").change(function(){
 		$("#checkLable").text('쇼룸보기');
 		 $("#foo").attr("src","");
 		 $(".rm").remove();
-		 
 		 }
+		$(".opti-se:not(:first)").remove();
+
 		$(".form-control").val('');
 		$(".rooms_change").prop("checked", false);
+		
 	});
     	
 	$(".toggle").change(function(){
@@ -262,6 +263,7 @@ $(".rooms_change").change(function(){
 			$(".toggle[type=checkbox] ").prop("checked", false);
 			$("#checkLable").text('쇼룸보기');
 		}
+
 		 $("#foo").attr("src","");
 		ajaxAdmin();
 	});
@@ -272,8 +274,7 @@ $(".rooms_change").change(function(){
 		var str=$("#roomsTitle").val();
 		var strs=$("#roomsContent").val();
 		if( str == ""&&   strs == ""){
-			console.log(str);
-			console.log(strs);
+			
 			alert('(title),(content)을 입력해 주세요');
 			$(this).focus();
 			return false;
@@ -298,23 +299,23 @@ $(".rooms_change").change(function(){
      	var tib=$('.top_lift_b').length;
     	 for(let i=1;i<=tib;i++){ 
          if (!$(".top_lift_a").hasClass("rudfhr")) {
-        	console.log('submit','1');
+        	
         	alert('(top,left,produst)를  입력하셔야 합니다');
             return false;
         }else  if ($('#inputTop'+i+'').val() == ''&&$('#inputLeft'+i+'').val() == ''&&$('#inputProduct'+i+'').val() != '상품번호:상품이름') {
-        	console.log($('#inputTop'+i+'').val());
+        	
         	alert('(top,left)을  입력하셔야 합니다');
             return false;
         }else if ($('#inputTop'+i+'').val() == '') {
-        	console.log($('#inputTop'+i+'').val());
+        	
         	alert('(top)을  입력하셔야 합니다');
             return false;
         }else if ($('#inputLeft'+i+'').val() == '') {
-        	console.log($('.top_lift_b').find('#inputLeft'+i+''));
+        	
         	alert('(left)를  입력하셔야 합니다');
             return false;
         }else if ($('#inputProduct'+i+'').val() == '상품번호:상품이름') {
-        	console.log($('.top_lift_b').find('#inputProduct'+i+''));
+        	
         	alert('(product)를  선택하셔야 합니다');
             return false;
         } for(let t=1;t<=tib;t++){ 
@@ -342,9 +343,9 @@ $(".rooms_change").change(function(){
 		 url: '${path}/admin/selectAll.do', 
 		   data: { 'typeTo': typeTo },     
 		 type: 'post',                             
-		   
+		     async:false,  
 		    success: function(data){
-		    	console.log(data,'두개?');
+		    	
 		    	
 		    	if(data.length==''&&$("#roomsSelectOne").val()!='자리선택'){
 		    		alert('해당 자리에 상품이 등록되어 있지 않습니다.');
@@ -355,11 +356,11 @@ $(".rooms_change").change(function(){
 		    	}
 		    	/* $("#foo").imgInp.val(data[0]["ROOM_PIC"] ); */
 		    	 $("#foo").attr("src","${path}/resources/images/rooms/" +data[0]["ROOM_PIC"]  ); 
-		    	 var today = new Date();
+		    	 var today = new Date(true);
 				 for(let t=0;t<data.length;t++){
 					  var endDate = new Date(data[t]["PRODUCT_ENROLL_DATE"]);
 					  endDate.setDate(endDate.getDate() +7);
-					 let cl=$(".rm-bt").clone();
+					 let cl=$(".rm-bt").clone(true);
 					$(cl).removeClass("rm-bt");
 					$(cl).addClass("rm-bts"+(t+1)+"");
 					$(cl).addClass("rm");
@@ -370,7 +371,7 @@ $(".rooms_change").change(function(){
 					if(today>endDate){
 				    	   $(cl).find(".rm-pb-et-new").remove();
 				    	 	}
-					$(cl).find(".rm-bt-name").html(data[t]["PRODUCT_NO"]+":"+data[t]["PRODUCT_NAME"]);
+					$(cl).find(".rm-bt-name").html(data[t]["PRODUCT_NO"]+":"+data[t]["PRODUCT_NAME"]).attr("id","rm-bt-name"+t+"");
 					$(cl).find(".rm-bt-sp").html(data[t]["PRODUCT_INFO"]);
 					if(data[t]["SALE_PER"]==data[t]["PRODUCT_PRICE"]){
 						$(cl).find(".rm-pb-et-p").remove();
@@ -386,7 +387,7 @@ $(".rooms_change").change(function(){
 					
 			 
 			    let cc=$(".opti-se").clone();
-			    
+			   
 			    $(cc).removeClass("opti-se");
 			    $(cc).addClass("opti-select");
 			    $(cc).val(data[t]["PRODUCT_NO"]);
@@ -419,7 +420,7 @@ $(".rooms_change").change(function(){
 	var fileSize;
 
 	if($("#imgInp").val() == "") {
-	console.log("체크");
+	
      $("#imgInp").focus(); 
     return false;
 	}
@@ -453,14 +454,12 @@ $(".rooms_change").change(function(){
 	inputClick();
 	});
 	function inputClick(){
-	console.count("keyup");
+	
 	 
 	var tib=$('.top_lift_b').length;
 	var a=$('.rm').length;
 	  for(let i=1;i<=tib;i++){ 
 	 if($("#imgInp").val()==''&& $("input:checkbox[name='toggleInsert']").is(":checked")==false){
-  	console.log($("input:checkbox[name='toggleInsert']").is(":checked"));
-  	console.log($("#imgInp").val());
   	$("#imgInp").trigger("click");
 		return false;
 	}
@@ -483,25 +482,26 @@ $(".rooms_change").change(function(){
 	}
 		
 	function getInputName(){
-				
+			
 	
 	var type=new Array();
-	for(let r=0;r<=5;r++){
+	for(let r=0;r<5;r++){
 		let th= $("#inputProduct"+r+"").val();
+	
 			 type.push(th);
 			 type = type.filter(function(item) {
 		return item !== null && item !== undefined && item !== '';
 				});
 			};
-			 console.log(type);
+			
 	$.ajax({
 		
 		url:'${path}/admin/buttomProduct.do',
 		data: {'type': type},
 		type: "post",
-		 async: false,
+		 async: false,  
 		success: function(data){
-			console.log(data); 
+			
 			
 	var top=new Array();
 	var left=new Array();
@@ -515,10 +515,10 @@ $(".rooms_change").change(function(){
 	
 	 var today = new Date();
 		 for(let t=0;t<data.length;t++){
-			 console.log(t);
+			 
 			  var endDate = new Date(data[t]["PRODUCT_ENROLL_DATE"]);
 			  endDate.setDate(endDate.getDate() +7);
-			 let cl=$(".rm-bt").clone();
+			 let cl=$(".rm-bt").clone(true);
 			$(cl).removeClass("rm-bt");
 			$(cl).addClass("rm-bte");
 			$(cl).addClass("rm");
@@ -561,6 +561,7 @@ $(".rooms_change").change(function(){
 
 
 	function getInputValue(inputNo){
+		
 		if( $("input:checkbox[name='toggleInsert']").is(":checked")==true ){
 			$("#checkLable").text('추가하기');
 		}
@@ -568,9 +569,9 @@ $(".rooms_change").change(function(){
 			
 		    url: '${path}/admin/roomChange.do', 
 		    type: 'post',                             
-			
+		 
 		    success: function(data){
-		    	console.log(data);
+		    	
 		    	if($("#imgInp").val()==''&&$("input:checkbox[name='toggleInsert']").is(":checked")==false){
 		    		/*  $("#imgInp").focus(); */
 		    		alert("파일선택필수");
@@ -593,17 +594,18 @@ $(".rooms_change").change(function(){
 		 $(".top_lift_a").addClass("rudfhr"); 
 		/*  $(".toggle").css("display","inline-block");  */
 		 for (var i=1; i <= inputNo; i++) {
-		let a=$(".top_lift_a").clone(true);
-		$(a).removeClass("top_lift_a");
-		$(a).addClass("top_lift_b");
-		$(a).addClass("rjatk"+i+"");
-		$(a).css("display","block");
-		$(a).find(".rooms_top").attr({name:"productInput_top[]",id:"inputTop"+i+""});
-		$(a).find(".rooms_left").attr({name:"productInput_left[]",id:"inputLeft"+i+""});
-		$(a).find(".form-control").css("display","none");
-		$(a).find(".rooms_product").attr({name:"productInput_product[]",id:"inputProduct"+i+""});	
-		$(a).find(".rooms_change").attr({value:""+i+"",id:"rooms_change"+i+""});
-		$("#img-div").append(a); 
+			let a=$(".top_lift_a").clone(true);
+			$(a).removeClass("top_lift_a");
+			$(a).addClass("top_lift_b");
+			$(a).addClass("rjatk"+i+"");
+			$(a).css("display","block");
+			$(a).find(".rooms_top").attr({name:"productInput_top[]",id:"inputTop"+i+""});
+			$(a).find(".rooms_left").attr({name:"productInput_left[]",id:"inputLeft"+i+""});
+			$(a).find(".form-control").css("display","none");
+			$(a).find(".rooms_product").attr({name:"productInput_product[]",id:"inputProduct"+i+""});	
+			$(a).find(".rooms_change").attr({value:""+i+"",id:"rooms_change"+i+""});
+			
+			$("#img-div").append(a); 
 		}
 		
 		for(let q=0;q<data.length;q++){
@@ -612,24 +614,42 @@ $(".rooms_change").change(function(){
     		$(c).addClass("option-product-two"+q+"");
     		$(c).css("display","block");
     		$(c).val(data[q]["PRODUCT_NO"]);
-    		$(c).text(data[q]["PRODUCT_NO"]+' '+':'+' '+data[q]["PRODUCT_NAME"]);
+    		$(c).addClass(data[q]["PRODUCT_NO"]+':'+data[q]["PRODUCT_NAME"]);
+    		$(c).text(data[q]["PRODUCT_NO"]+':'+data[q]["PRODUCT_NAME"]);
     		
     		$(".rooms_product").append(c);
     	}
 		
 	
-			for(let r=1;r<=inputNo;r++){
-				 $("#inputProduct"+r+"").focusout(function(){
+			 for(let r=1;r<=inputNo;r++){
+				
+				  $("#inputProduct"+r+"").focusout(function(){
+					 let ew=$(".rooms_product").length;
+					 let rm=$(".rm-bt-name").length;
+					 for(let t=0;t<rm;t++){
+						 	console.log($("#inputProduct"+r+" option:selected").text(),'input');
+						 	console.log($("#rm-bt-name"+t+"").text(),'a');
+					 	 if($("#rm-bt-name"+t+"").text()==$("#inputProduct"+r+" option:selected").text()&&$("#inputProduct"+r+" option:selected").text()!=''){
+						 									
+						 	alert("디지털 쇼룸과  중복된 상품번호 입니다");
+						 	$(this).val('상품번호:상품이름');
+						 	return false
+							}
+						 
+						 
+					 }
 					for(let q=1;q<=inputNo;q++){
 						if(r!=q){
-						if( $("#inputProduct"+q+"").val()==$(this).val() && $(this).val()!='상품번호:상품이름'){
-						alert("중복된 상품번호 입니다");
-						 $(this).val('상품번호:상품이름');
-					}
-					}
+							if( $("#inputProduct"+q+"").val()==$(this).val() && $(this).val()!='상품번호:상품이름'){
+								
+								alert("중복된 상품번호 입니다");
+								 $(this).val('상품번호:상품이름');
+								 return false
+							} 
+						}
 					}		
-			 });
-			};
+				 });
+				}; 
 			
 			 controlNone();
 		    }
@@ -652,15 +672,7 @@ $(".rooms_change").change(function(){
 		};
 		
 	  $( document ).ready(function() {
-		  /* var form= $("#select-lie").val();
-			for(let i=1;i<=form;i++){
-				if($("#inputTop"+i+"")){
-					
-				}
-			} */
-	$("#roomsSelect").trigger("change"); 
-	   /* roomChange(e);    */
-	  
+	$("#roomsSelect").trigger("change");   
 	}); 
 
 	function roomChange(e) {
@@ -745,7 +757,6 @@ $(".rooms_change").change(function(){
 		  }else if(f.indexOf("2")>-1){ 
 			  $(".rm-ig-box").removeClass("one three four five").addClass("two");
 				 $(".two").find("#div-top-left").append('<h1>이미지를 삽입해 주세요</h1>').css({"display":"flex","justify-content":"center","align-items":"center"});
-				/*  $("#div-top-left").find(h1).addClass("none-h1");		 */	 
 				 if ( imgSrc != '') {
 					
 					 $('h1').remove();
@@ -860,10 +871,7 @@ $(".rooms_change").change(function(){
 					 $(ce).addClass("removeClass");
 					 if(i!=4){
 					 $(ce).addClass(cla[i]);
-					 }/*else  if(i==4){
-						 $(ce).addClass("ddam");
 					 }
-					 $(".ddam").css("display","none"); */
 					  $(ce).removeClass("five");
 					  $(ce).addClass("removeClass");
 					 $(ce).css("background-color","aliceblue");
@@ -888,7 +896,7 @@ $(".rooms_change").change(function(){
 
 	function isNumberKey(evt) {
 
-    var charCode = (evt.which) ? evt.which : event.keyCode;
+   /*  var charCode = (evt.which) ? evt.which : event.keyCode;
 
     if (charCode != 46 && charCode > 31 && (charCode < 48 || charCode > 57)){
 
@@ -896,7 +904,7 @@ $(".rooms_change").change(function(){
 
     // Textbox value    
     }
-    /*   var _value = event.srcElement.value;    
+       var _value = event.srcElement.value;    
 	// 소수점(.)이 두번 이상 나오지 못하게
 
     var _pattern0 = /^\d*[.]\d*$/; // 현재 value값에 소수점(.) 이 있으면 . 입력불가
@@ -909,10 +917,10 @@ $(".rooms_change").change(function(){
 
         }
 
-    }   */
+    }   
 	// 1000 이하의 숫자만 입력가능
 
-    /* var _pattern1 = /^\d{2}$/; // 현재 value값이 3자리 숫자이면 . 만 입력가능
+     var _pattern1 = /^\d{2}$/; // 현재 value값이 3자리 숫자이면 . 만 입력가능
 
     if (_pattern1.test(_value)) {
 
@@ -924,18 +932,18 @@ $(".rooms_change").change(function(){
 
         }
 
-    } */
+    } 
     // 소수점 둘째자리까지만 입력가능
 
-    /*  var _pattern2 = /^\d*[.]\d{2}$/; // 현재 value값이 소수점 둘째짜리 숫자이면 더이상 입력 불가
+      var _pattern2 = /^\d*[.]\d{2}$/; // 현재 value값이 소수점 둘째짜리 숫자이면 더이상 입력 불가
 
     if (_pattern2.test(_value)) {
 
         alert("소수점 둘째자리까지만 입력가능합니다.");
 
         return false;
-    }   */
- 		 return true;
+    }   
+ 		 return true; */
 	} 
 	
 	function readURL(input) {

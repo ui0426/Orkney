@@ -50,6 +50,7 @@
 .searchBtn{
     width: 30px;
     height: 30px;
+        background-color: white;
     background-image: url(../../img/search.png);
     background-size: 30px 30px;
     border: none;

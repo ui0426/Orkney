@@ -8,6 +8,13 @@
 	    font-size: 0.875rem;
 	    width: 100%;                       
        }
+       .event-etc{margin-top: 1.5em; border-radius: 2.0em;outline: none !important;
+    	border: 0.5px #dfdfdf solid; height: 3.0em; font-size: .875rem;}
+       .event-etc:hover{border: 0.5px gray solid;}
+       .event-span{padding: 0.5em;}
+       
+       .pbtn{    outline: none !important; margin-bottom: 2.5em;}
+       .hidden-etc{display:flex; justify-content:space-between;}           
       .section-container .title{font-size: 30px; font-weight: 1000;}        
       .event-bu{        
             margin: 15px;
@@ -26,7 +33,10 @@
         }     
       .event-bu:hover >.event-sp{color: white !important;}
       .event-bu:hover{background-color: #002b50 !important;}         
-      .section1{min-width: 450px; width: 100%;}       
+      .section1{min-width: 450px; width: 100%;}
+      
+      
+             
       .product-pic img{
             width: 140px;
             height: 140px;            
