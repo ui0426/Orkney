@@ -797,19 +797,26 @@ filter();
 <!-- Modal: modalAbandonedCart-->
 
 <!-- Modal: modalAbandonedCart-->
-<div class="modal fade right" id="modalAddWish" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-  aria-hidden="true" data-backdrop="false">
-  <div class="modal-dialog modal-side modal-top-right modal-notify modal-info" role="document">
-    <!--Content-->
-    <div class="modal-content" id="insertWish">
-    </div>
-    <!--/.Content-->
-  </div>
+<!-- <div class="modal fade right" id="modalAddWish" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" -->
+<!--   aria-hidden="true" data-backdrop="false"> -->
+<!--   <div class="modal-dialog modal-side modal-top-right modal-notify modal-info" role="document"> -->
+<!--     Content -->
+<!--     <div class="modal-content" id="insertWish"> -->
+<!--     </div> -->
+    
+    
+<!--     /.Content -->
+<!--   </div> -->
+<!-- </div> -->
+
+<!-- 위시리스트에 담기 모달 -->
+<div class="wl-do-modal">
 </div>
 <!-- Modal: modalAbandonedCart-->			
 				
 <script>
 function fn_addWishModal(price,pNo){
+	$('.wl-do-modal').addClass('wl-do-modal-show');
 	let login = '${sessionScope.login}';
 	console.log(login);
 // 	alert('dd');
@@ -831,7 +838,7 @@ function fn_addWishModal(price,pNo){
 			if(data == ''){
 				
 			}
-			$('#insertWish').html(data);
+			$('.wl-do-modal').html(data);
 		}
 		
 	})

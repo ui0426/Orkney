@@ -95,17 +95,17 @@
 	                <input type="submit" value="all" name="category" style="display: none;">
 	                
 	           		<div class="search-input-box" style="display:none;"></div>
-	                <div class="search-dropbox" style="display:none;">
-	                	<div class="dropbox-container">
-		                	<h2 style="display: none;" class="search-log">내 검색 기록 <a>삭제</a></h2>
-		                	<ul>
-		                		<li>책상</li>
-		                		<li>의자</li>
-		                		<li>선반</li>
-		                		<li>수납장</li>
-		                	</ul>
-	                	</div>
-	                </div>
+<!-- 	                <div class="search-dropbox" style="display:none;"> -->
+<!-- 	                	<div class="dropbox-container"> -->
+<!-- 		                	<h2 style="display: none;" class="search-log">내 검색 기록 <a>삭제</a></h2> -->
+<!-- 		                	<ul> -->
+<!-- 		                		<li>책상</li> -->
+<!-- 		                		<li>의자</li> -->
+<!-- 		                		<li>선반</li> -->
+<!-- 		                		<li>수납장</li> -->
+<!-- 		                	</ul> -->
+<!-- 	                	</div> -->
+<!-- 	                </div> -->
 				</form>
 <!-- 				<div class="modal-layer" style="display:none;"></div> -->
             </div>

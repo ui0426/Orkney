@@ -18,6 +18,7 @@
     			</c:forEach>
     		</ul>
     	</div>
+   	 	<div class="modal-background"></div>
     	
 
 <script>
@@ -44,6 +45,12 @@ function fn_modalCloseBtn(){
 	
 	$('#wl-moveModal').css('display','none');
 }
+
+$(function(){
+	$(".modal-background").click(e=>{
+		$('#wl-moveModal').css('display','none');
+	}); 
+})
 // function fn_test(e){
 // 	let wNo = $(e).children().eq(0).val();
 // 	console.log(wNo);
