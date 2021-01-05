@@ -65,7 +65,7 @@
             <div id="rightForm">
                 <div class="transPw" id="sPw">
                     <div>
-                    	<div class="md-form mdmar">
+                    <div class="md-form mdmar">
                         <input type="text" id="idinput" class="form-control borderb" name="userId" value="${login.MEMBER_ID }" readonly>
                         <label for="inputLGEx" class="lfs"></label>
                         <div class="errorspan disno marb disno" id="iddiv">이메일을 입력해주세요.</div>

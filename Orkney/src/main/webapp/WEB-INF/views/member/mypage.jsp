@@ -319,9 +319,9 @@ $(function(){
 	if('${ login.EMAIL_CH }' == 'Y'){
 		$('.ckBtn').css({'color': '#0075ff'});
 	} 
-	
+	console.log('${login.EMAIL_AUTH}');
 		console.log('이메일' + '${ login.EMAIL_AUTH }');
-	if('${ login.EMAIL_AUTH }' == 'N'){ 
+	if('${login.EMAIL_AUTH}' == 'N'){ 
 		
 		$('.auth').addClass('auth-show');
 		

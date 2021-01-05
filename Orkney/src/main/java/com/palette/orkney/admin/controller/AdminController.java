@@ -463,7 +463,7 @@ public class AdminController {
 	public List<Map> buttomProduct(@RequestParam(value = "type[]") String[] type) {
 		Map ty = new HashMap();
 		ty.put("type", type);
-		System.out.println(ty);
+		System.out.println("뭥미?????????????????????????"+ty);
 		return pService.buttomProduct(ty);
 	};
 	
@@ -534,7 +534,43 @@ public class AdminController {
 	@ResponseBody
 	public int deleteProduct (@RequestParam Map<String,Object> list,
 			@RequestParam(value = "pNo") String pNo
+			,HttpSession session
 			) {
+
+		boolean result=false;
+		List<Map> p = service.productImg(pNo);
+
+		//서버에 저장된 파일 삭제하기
+		String path=session.getServletContext().getRealPath("/resources/images/product");//파일 저장된 경로
+		if(p!=null) {
+	
+			
+			for (Map map : p) {
+				File file = new File(path+"/"+map.get("PRODUCT_PIC"));
+			
+				if(file.exists()) {
+			
+					result=file.delete();
+				}else {
+					result = true;
+				}
+			}
+			
+//			for(int i=0; i<p.size(); i++) {
+//				File file = new File(path+"/"+p[i]);
+//				if(file.exists()) {
+//					result=file.delete();
+//				}else {
+//					result = true;
+//				}
+//			}
+		}else {
+
+			result = true;
+		}
+		
+		
+		
 		return service.deleteProduct(pNo);
 	}
 //	적용된 제품 리스트 업데이트
@@ -640,11 +676,16 @@ public class AdminController {
 	
 	@RequestMapping("/admin/allowStateAndSort.do")
 	@ResponseBody
-	public boolean allowStateAndSort(String state, String no) {
-		System.out.println("넘긴 값 : "+state+" 번호 "+no);
+	public boolean allowStateAndSort(String state, String no, int pNo, String mNo) {
+		System.out.println("넘긴 값 : "+state+" 번호 "+no+"포인트 번호"+pNo);
 		Map m = new HashMap();
 		m.put("state", state);
-		m.put("no", no);
+		m.put("no", no);//오더 혹은 오더 디테일 번호임
+		if(pNo != 0) {
+			m.put("point",service.selectPoint(pNo));
+			m.put("mNo",mNo);
+		}
+		System.out.println("뽑아온 포인트 값은?"+m.get("point"));
 		int result = service.updateStateAndSort(m);
 		if(result > 0) return true;
 		else return false;
