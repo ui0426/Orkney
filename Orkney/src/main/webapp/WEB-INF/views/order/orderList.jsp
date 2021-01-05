@@ -37,7 +37,7 @@
 									</div>
 									<div class="ol-container">
 										<div>주문 날짜</div>
-										<div><c:out value="${o.ORDER_DATE }"/></div>
+										<div><fmt:formatDate value="${o.ORDER_DATE }" pattern="YYYY-MM-dd"/></div>
 									</div>
 									<div class="ol-container">
 										<div>현황</div>
@@ -61,7 +61,7 @@
 									</div>
 									<div class="ol-container">
 										<div>주문 날짜</div>
-										<div><c:out value="${o.ORDER_DATE }"/></div>
+										<div><fmt:formatDate value="${o.ORDER_DATE }" pattern="YYYY-MM-dd"/></div>
 									</div>
 									<div class="ol-container">
 										<div>현황</div>
@@ -109,7 +109,7 @@
 									<c:forEach items="${list }" var="o">
 										<tr>
 											<td class="list-item"><c:out value="${o.ORDER_NO }"/></td>
-											<td class="list-item"><c:out value="${o.ORDER_DATE }"/></td>
+											<td class="list-item"><fmt:formatDate value="${o.ORDER_DATE }" pattern="YYYY-MM-dd"/></td>
 											<td class="list-item">진행 중</td>
 											<td class="list-item"><a href="${path }/order/orderView.do?oNo=${o.ORDER_NO}">주문 내역 보기</a>
 										</tr>
@@ -131,13 +131,13 @@
 								<tbody>
 									<c:if test="${empty list2 }">
 										<tr>
-											<td  colspan="4"><p class="AllNullNotice">현재 진행중인 주문이 없습니다.</p></td>
+											<td  colspan="4"><p class="AllNullNotice">현재 완료된 주문이 없습니다.</p></td>
 										</tr>
 									</c:if>
 									<c:forEach items="${list2 }" var="o">
 										<tr>
 											<td class="list-item"><c:out value="${o.ORDER_NO }"/></td>
-											<td class="list-item"><c:out value="${o.ORDER_DATE }"/></td>
+											<td class="list-item"><fmt:formatDate value="${o.ORDER_DATE }" pattern="YYYY-MM-dd"/></td>
 											<td class="list-item"><c:out value="${o.ORDER_STATE }"/></td>
 											<td class="list-item"><a href="${path }/order/orderView.do?oNo=${o.ORDER_NO}">주문 내역 보기</a>
 										</tr>

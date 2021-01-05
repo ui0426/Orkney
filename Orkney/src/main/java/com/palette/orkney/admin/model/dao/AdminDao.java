@@ -80,6 +80,9 @@ public interface AdminDao {
 	
 	int updateStateAndSort(SqlSession session, Map m);
 	
+	//취소시 반환할 포인트 조회
+	int selectPoint(SqlSession session, int pNo);
+	
 	List<OrderDetail> selectOrderOngoingList(SqlSession session);
 	
 	int updateSortEnd(SqlSession session, Map m);

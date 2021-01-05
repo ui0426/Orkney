@@ -273,5 +273,9 @@
    <select id="selectShippedList" parameterType="string" resultType="map">
    	SELECT * FROM SHIPPED WHERE PRODUCT_NO=#{pNo} ORDER BY SHIPPED_DATE DESC
    </select>
+   
+   <select id="selectPoint" parameterType="_int" resultType="_int">
+   	SELECT POINT_POINT FROM POINT WHERE POINT_NO=#{pNo}
+   </select>
 
 </mapper>
