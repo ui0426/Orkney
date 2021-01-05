@@ -39,6 +39,9 @@ public class Review {
 	//member
 	private String member_name;
 	
+	//order_detail
+	private String order_no;
+	
 	//첨부 이미지 갯수
 	private int img_count;
 }

@@ -1003,7 +1003,7 @@ if ("${r.REVIEW_NO}"!=null) {
 		},
 		success:data=>{
 			for (var i = 0; i < data.length; i++) {
-			console.log('${s.index}:'+i+":"+data[i]["REVIEW_NO"]+":"+'${r.REVIEW_NO}'+"데이타:"+data[i]["RENAMEDFILENAME"]);
+// 			console.log('${s.index}:'+i+":"+data[i]["REVIEW_NO"]+":"+'${r.REVIEW_NO}'+"데이타:"+data[i]["RENAMEDFILENAME"]);
 				if (data[i]["REVIEW_NO"]=='${r.REVIEW_NO}') {
 					$(reviewClone).find("#productImg").attr("src","${path}/resources/upload/review/"+data[0]["RENAMEDFILENAME"]);
  					
@@ -1049,7 +1049,7 @@ if ("${r.REVIEW_NO}"!=null) {
 
  					
 				if ('${r.REVIEW_NO}'==data[i]["REVIEW_NO"] && i=="0") {
- 						console.log("몇번?"+data[0]["RENAMEDFILENAME"]);
+//  						console.log("몇번?"+data[0]["RENAMEDFILENAME"]);
  					$(imgMiniNone0).find("#reviewImgZoom1").attr("src","${path}/resources/upload/review/"+data[0]["RENAMEDFILENAME"]);
 					$("#reviewImgZoomCon"+'${s.index}').append(imgMiniNone0);
 					}

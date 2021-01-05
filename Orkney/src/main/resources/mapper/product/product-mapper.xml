@@ -729,7 +729,7 @@ SELECT * FROM
       <if test="text=='전체보기'">
          WHERE J.PRODUCT_COLOR='normal' AND ROWNUM <![CDATA[<]]>
          #{type}
-         ORDER BY ROOM_GRADE DESC
+         ORDER BY ROOM_GRADE DESC NULLS LAST
       </if>
       <if test=" text!='전체보기'">
          WHERE J.PRODUCT_COLOR='normal' AND ROWNUM <![CDATA[<]]>

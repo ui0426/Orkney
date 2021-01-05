@@ -12,6 +12,8 @@ import com.palette.orkney.order.model.vo.OrderDetail;
 import com.palette.orkney.order.model.vo.Orders;
 import com.palette.orkney.product.model.vo.Product;
 import com.palette.orkney.product.model.vo.Product_image;
+import com.palette.orkney.review.model.vo.Review;
+import com.palette.orkney.review.model.vo.ReviewImage;
 
 @Repository
 public class AdminDaoImpl implements AdminDao {
@@ -250,9 +252,52 @@ public class AdminDaoImpl implements AdminDao {
 	public List<Map> sCategoryList(SqlSession session, Map<String, Object> list) {
 		// TODO Auto-generated method stub
 		return session.selectList("admin.sCategoryList",list);
+	}
+
+	//by윤나-리뷰row갯수 가져오기
+	@Override
+	public int selectReviewCount(SqlSession session) {
+		return session.selectOne("admin.selectReviewCount");
+	}
+	
+	//by윤나-리뷰리스트가져오기
+	@Override
+	public List<Review> selectReviewList(SqlSession session,int cPage, int numPerPage) {
+		RowBounds r=new RowBounds((cPage-1)*numPerPage,numPerPage);
+		return session.selectList("admin.selectReviewList",null,r);
+	}
+
+	//by윤나-리뷰사진 가져오기
+	@Override
+	public List<ReviewImage> selectReviewImageList(SqlSession session, int rNo) {
+		return session.selectList("admin.selectReviewImageList", rNo);
+	}
+
+	//by윤나-리뷰가져오기
+	@Override
+	public Review selectReview(SqlSession session, int rNo) {
+		return session.selectOne("admin.selectReview",rNo);
+	}
+
+	//by윤나-리뷰삭제
+	@Override
+	public int deleteReview(SqlSession session, int rNo) {
+		return session.delete("admin.deleteReview", rNo);
+	}
+
+	//by윤나-재고 수정 시 입출고 인서트
+	@Override
+	public int insertShipped(SqlSession session, Map list) {
+		return session.insert("admin.insertShipped", list);
+	}
+
+	//by윤나-입출고내역조회
+	@Override
+	public List<Map> selectShippedList(SqlSession session, String pNo) {
+		return session.selectList("admin.selectShippedList", pNo);
 	}	
 	
-
+	
 	
 	
 }

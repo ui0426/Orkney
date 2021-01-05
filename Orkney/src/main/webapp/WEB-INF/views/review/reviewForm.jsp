@@ -111,8 +111,14 @@
                   </div>
                </div>
             </div>
-            <div class="reviewForm-btn">
-               <input type="submit" class="btn btn-primary" id="review-insert" value="등록하기">
+            <div>
+            	<p class="notice">
+            		※비방글 혹은 관련 없는 내용이나 사진을 등록할 시 무통보 삭제될 수 있습니다.<br>
+            		※무통보 삭제 시 등록할 때 적립된 포인트도 자동 소멸됩니다.
+            	</p>
+	            <div class="reviewForm-btn">
+	               <input type="submit" class="btn btn-primary" id="review-insert" value="등록하기">
+	            </div>
             </div>
          </form>
       </div>

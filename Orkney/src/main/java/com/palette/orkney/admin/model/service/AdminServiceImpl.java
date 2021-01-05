@@ -1,6 +1,7 @@
 package com.palette.orkney.admin.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -13,6 +14,7 @@ import com.palette.orkney.order.model.vo.OrderDetail;
 import com.palette.orkney.order.model.vo.Orders;
 import com.palette.orkney.product.model.vo.Product;
 import com.palette.orkney.product.model.vo.Product_image;
+import com.palette.orkney.review.model.vo.Review;
 
 @Service
 public class AdminServiceImpl implements AdminService {
@@ -185,7 +187,20 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public int productPutIn(Map<String, Object> list) {
 		// TODO Auto-generated method stub
-		return dao.productPutIn(session,list);
+		int result = dao.productPutIn(session,list);
+		if(result>0) {
+			String put = (String)list.get("put");
+			if(put.contains("-")) {
+				String put2 = put.replaceAll("-", "");
+				System.out.println(put2);
+				list.put("put",put2);
+				list.put("type", "출고");
+			}else {
+				list.put("type", "입고");
+			}
+			result = dao.insertShipped(session, list);
+		}
+		return result;
 	}
 
 	@Override
@@ -211,6 +226,13 @@ public class AdminServiceImpl implements AdminService {
 					System.out.println("가자:"+pi);
 					result = dao.insertProductImage(session, pi);
 				}
+			}
+			if(result>0) {
+				Map m = new HashMap();
+				m.put("pNo", "p"+product.getProductNo());
+				m.put("put", product.getProductStock());
+				m.put("type","입고");
+				dao.insertShipped(session, m);
 			}
 		}
 		
@@ -311,7 +333,47 @@ public class AdminServiceImpl implements AdminService {
 		// TODO Auto-generated method stub
 		return dao.sCategoryList(session,list);
 	}
+	
+	
+	//by윤나-리뷰row갯수 가져오기
+	@Override
+	public int totalReview() {
+		return dao.selectReviewCount(session);
+	}
 
+	//by윤나-adminReview관리페이지 이동
+	@Override
+	public List<Review> selectReviewList(int cPage, int numPerPage) {
+		List<Review> rList = dao.selectReviewList(session, cPage, numPerPage);
+		if(rList!=null) {
+			for(Review r : rList) {
+				r.setRiList(dao.selectReviewImageList(session, r.getReview_no()));
+			}
+		}
+		return rList;
+	}
+	
+	//by윤나-리뷰가져오기
+	@Override
+	public Review selectReview(int rNo) {
+		Review r = dao.selectReview(session, rNo);
+		r.setRiList(dao.selectReviewImageList(session, r.getReview_no()));
+		return r;
+	}
+	
+	//by윤나-리뷰삭제
+	@Override
+	public int deleteReview(int rNo) {
+		return dao.deleteReview(session, rNo);
+	}
+
+	//by윤나-입출고내역조회
+	@Override
+	public List<Map> selectShippedList(String pNo) {
+		return dao.selectShippedList(session, pNo);
+	}
+	
+	
 
 
 
