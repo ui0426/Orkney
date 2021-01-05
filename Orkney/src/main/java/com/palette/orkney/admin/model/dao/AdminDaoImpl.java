@@ -174,6 +174,12 @@ public class AdminDaoImpl implements AdminDao {
 		System.out.println(m);
 		return session.update("admin.updateStateAndSort", m);
 	}
+	
+	//취소시 반환할 포인트 조회
+	@Override
+	public int selectPoint(SqlSession session, int pNo) {
+		return session.selectOne("admin.selectPoint", pNo);
+	}
 
 	@Override
 	public List<OrderDetail> selectOrderOngoingList(SqlSession session) {
@@ -295,6 +301,12 @@ public class AdminDaoImpl implements AdminDao {
 	@Override
 	public List<Map> selectShippedList(SqlSession session, String pNo) {
 		return session.selectList("admin.selectShippedList", pNo);
+	}
+
+	@Override
+	public List<Map> productImg(SqlSession session, String pNo) {
+		// TODO Auto-generated method stub
+		return session.selectList("admin.productImgNo",pNo);
 	}	
 	
 	
