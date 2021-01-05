@@ -38,7 +38,7 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.5/sockjs.min.js"></script>
 
       <!-- MDB icon -->
-  <link rel="icon" href="img/mdb-favicon.ico" type="image/x-icon">
+  <link rel="icon" href="${path}/img/mdb-favicon.ico" type="image/x-icon">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
   <!-- Google Fonts Roboto -->
@@ -408,7 +408,7 @@
 			scrollbefore = 0;
 			$(window).scroll(function(){
 				let scrollAfter = $(this).scrollTop();
-				
+
 				if(scrollbefore > scrollAfter){
 					$('header').addClass('header-fixed');
 					$('.header-fixed').css('transform', 'translateY(-1px)');

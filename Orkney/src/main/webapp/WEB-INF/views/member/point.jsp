@@ -72,8 +72,16 @@ $(function(){
 	})
 	
 	today = new Date();
-	$('#end-date').val(today.getFullYear() + '-' + (today.getMonth()+1) + '-' + today.getDate());
-	$('#start-date').val((today.getFullYear()-2) + '-' + (today.getMonth()+1) + '-' + today.getDate());
+	m = today.getMonth()+1;
+	d = today.getDate();
+	if(m < 10) {
+		m = "0" + m;
+	}
+	if(d < 10){
+		d = "0" + d;
+	}
+	$('#end-date').val(today.getFullYear() + '-' + m + '-' + d);
+	$('#start-date').val((today.getFullYear()-2) + '-' + m + '-' + d);
 	$('.mon-select-btn').eq(0).css({'background':'#0058ab', 'text-decoration':'underline', 'color':'white'});
 })
 
@@ -99,48 +107,48 @@ $('.mon-select-btn').click(e=>{
 	mon = mon.substring(0, (mon.length-1));
 	if((today.getMonth()+1) == 1){
 		switch(mon){
-		case "1": 
-		case "3":	
-		case "5":	
-		case "7":	
-		case "8":	$('#start-date').val(today.getFullYear() + '-' + "0"+mon + '-' + "01");
-					$('#end-date').val(today.getFullYear() + '-' + "0"+mon + '-' + "31"); break;
-		case "10":
-		case "12":  $('#start-date').val(today.getFullYear()-1 + '-' + mon + '-' + "01");
-					$('#end-date').val(today.getFullYear()-1 + '-' + mon + '-' + "31"); break;
-		case "2":   $('#start-date').val(today.getFullYear() + '-' + "0"+mon + '-' + "01");
-					$('#end-date').val(today.getFullYear() + '-' + "0"+mon + '-' + "29"); break;
-		case "4": 
-		case "6":
-		case "9":	$('#start-date').val(today.getFullYear() + '-' + "0"+mon + '-' + "01");
-					$('#end-date').val(today.getFullYear() + '-' + "0"+mon + '-' + "30"); break;
-		case "11":  $('#start-date').val(today.getFullYear()-1 + '-' + mon + '-' + "01");
-					$('#end-date').val(today.getFullYear()-1 + '-' + mon + '-' + "30"); break;
+			case "01":
+			case "03":	
+			case "05":	
+			case "07":	
+			case "08":	$('#start-date').val(today.getFullYear() + '-' + mon + '-' + "01");
+						$('#end-date').val(today.getFullYear() + '-' + mon + '-' + "31"); break;
+			case "10":
+			case "12":  $('#start-date').val(today.getFullYear()-1 + '-' + mon + '-' + "01");
+						$('#end-date').val(today.getFullYear()-1 + '-' + mon + '-' + "31"); break;
+			case "02":   $('#start-date').val(today.getFullYear() + '-' +mon + '-' + "01");
+						$('#end-date').val(today.getFullYear() + '-' + mon + '-' + "29"); break;
+			case "04": 
+			case "06":
+			case "09":	$('#start-date').val(today.getFullYear() + '-' + mon + '-' + "01");
+						$('#end-date').val(today.getFullYear() + '-' + mon + '-' + "30"); break;
+			case "11":  $('#start-date').val(today.getFullYear()-1 + '-' + mon + '-' + "01");
+						$('#end-date').val(today.getFullYear()-1 + '-' + mon + '-' + "30"); break;
 		}
 	} else {
 		switch(mon){
-			case "1": 
-			case "3":	
-			case "5":	
-			case "7":	
-			case "8":	$('#start-date').val(today.getFullYear() + '-' + "0"+mon + '-' + "01");
-						$('#end-date').val(today.getFullYear() + '-' + "0"+mon + '-' + "31"); break;
+			case "01": 
+			case "03":	
+			case "05":	
+			case "07":	
+			case "08":	$('#start-date').val(today.getFullYear() + '-' + mon + '-' + "01");
+						$('#end-date').val(today.getFullYear() + '-' + mon + '-' + "31"); break;
 			case "10":
 			case "12":  $('#start-date').val(today.getFullYear() + '-' + mon + '-' + "01");
 						$('#end-date').val(today.getFullYear() + '-' + mon + '-' + "31"); break;
-			case "2":   $('#start-date').val(today.getFullYear() + '-' + "0"+mon + '-' + "01");
-						$('#end-date').val(today.getFullYear() + '-' + "0"+mon + '-' + "29"); break;
-			case "4": 
-			case "6":
-			case "9":	$('#start-date').val(today.getFullYear() + '-' + "0"+mon + '-' + "01");
-						$('#end-date').val(today.getFullYear() + '-' + "0"+mon + '-' + "30"); break;
+			case "02":   $('#start-date').val(today.getFullYear() + '-' + mon + '-' + "01");
+						$('#end-date').val(today.getFullYear() + '-' + mon + '-' + "29"); break;
+			case "04": 
+			case "06":
+			case "09":	$('#start-date').val(today.getFullYear() + '-' + mon + '-' + "01");
+						$('#end-date').val(today.getFullYear() + '-' + mon + '-' + "30"); break;
 			case "11":  $('#start-date').val(today.getFullYear() + '-' + mon + '-' + "01");
 						$('#end-date').val(today.getFullYear() + '-' + mon + '-' + "30"); break;
 		}
 	}
 	if($(e.target).text() == "전체"){
-		$('#start-date').val(today.getFullYear()-2 + '-' + (today.getMonth()+1) + '-' + today.getDate());
-		$('#end-date').val(today.getFullYear() + '-' + (today.getMonth()+1) + '-' + today.getDate());
+		$('#start-date').val(today.getFullYear()-2 + '-' + m + '-' + d);
+		$('#end-date').val(today.getFullYear() + '-' + m + '-' + d);
 	}
 		
 })
@@ -149,33 +157,35 @@ $('.mon-select-btn').click(e=>{
 		let ago = new Date((today.getFullYear()-2), (today.getMonth()+1), today.getDate()); //2년전;
 		console.log(ago.getTime());
 		let sd = $('#start-date').val();
-		let ed = $(e.target).val();
 		sd = sd.split('-');
-		ed = ed.split('-');
 		sd = new Date(sd[0], sd[1], sd[2]);
+		
+		let ed = $(e.target).val();
+		ed = ed.split('-');
 		ed = new Date(ed[0], ed[1], ed[2]);
+		
 		real_today = new Date(today.getFullYear(), (today.getMonth()+1), today.getDate());
 		
 		console.log(today.getTime());
 		console.log(sd.getTime());
 		if(ago.getTime() > sd.getTime()){
 			alert('최근 2년 내 내역까지만 조회 가능합니다.');
-			$('#start-date').val(today.getFullYear()-2 + '-' + (today.getMonth()+1) + '-' + today.getDate());
+			$('#start-date').val(today.getFullYear()-2 + '-' + m + '-' + d);
 			return;
 		}
 		if(ago.getTime() > ed.getTime()){
 			alert('최근 2년 내 내역까지만 조회 가능합니다.');
-			$('#end-date').val(today.getFullYear() + '-' + (today.getMonth()+1) + '-' + today.getDate());
+			$('#end-date').val(today.getFullYear() + '-' + m + '-' + d);
 			return;
 		}
 		if(real_today.getTime() < sd.getTime()){
 			alert('현재 이후 날짜로 조회하실 수 없습니다.');
-			$('#start-date').val(today.getFullYear() + '-' + (today.getMonth()+1) + '-' + today.getDate());
+			$('#start-date').val(today.getFullYear() + '-' + m + '-' + d);
 			return;	
 		}
 		if(real_today.getTime() < ed.getTime()){
 			alert('현재 이후 날짜로 조회하실 수 없습니다.');
-			$('#end-date').val(today.getFullYear() + '-' + (today.getMonth()+1) + '-' + today.getDate());
+			$('#end-date').val(today.getFullYear() + '-' + m + '-' + d);
 			return;
 		}
 		if(sd.getTime() > ed.getTime()){
@@ -190,7 +200,7 @@ $('.choice-btn').click(e=>{
 	startDate = startDate[0] + startDate[1] + startDate[2];
 	let endDate = $('#end-date').val();
 	endDate = endDate.split('-');
-	endDate = endDate[0] + endDate[1] + (parseInt(endDate[2]));
+	endDate = endDate[0] + endDate[1] + endDate[2];
 	
 	let type = $('#select-box').val();
 	

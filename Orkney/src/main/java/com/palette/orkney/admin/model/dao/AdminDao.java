@@ -73,12 +73,16 @@ public interface AdminDao {
 	int producUpdateInImg(SqlSession session, Product_image pi);	
 	List<Map> productImg(SqlSession session, Product product);
 	List<Map> sCategoryList(SqlSession session, Map<String,Object> list);
+	List<Map> productImg(SqlSession session, String list);
 
 
 	
 	int selectRefundCount(SqlSession session, String oNo);
 	
 	int updateStateAndSort(SqlSession session, Map m);
+	
+	//취소시 반환할 포인트 조회
+	int selectPoint(SqlSession session, int pNo);
 	
 	List<OrderDetail> selectOrderOngoingList(SqlSession session);
 	

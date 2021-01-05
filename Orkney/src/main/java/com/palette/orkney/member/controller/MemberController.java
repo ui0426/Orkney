@@ -749,6 +749,7 @@ public class MemberController {
 				
 			}else flag = false;
 		}
+		session.removeAttribute("authInfo");
 		return flag;
 	}
 }
