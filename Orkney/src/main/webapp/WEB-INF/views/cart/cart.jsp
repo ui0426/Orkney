@@ -33,38 +33,15 @@
 	            		  <input type="text" id="pinput" class="form-control">
 	            		  <label for="pinput" class="plabel">예:p206</label>
 	            		</div>	            		              		   
-	            	      <select class="mdb-select md-form amount" id="se1" style="height: 2.1em;">                            	
-	                            	<c:forEach begin="1" end="10" var="i">	                            	                                            	                        	
-	                                     	<option value="${i}"/>${i}</option>	                                                                             	                                  		                                                                                            
+	            	      <select class="mdb-select md-form" id="se1" style="height: 2.1em;">                            	
+	                            	<c:forEach begin="1" end="10" var="j">	                            	                                            	                        	
+	                                     	<option value="${j}"/>${j}</option>	                                                                             	                                  		                                                                                            
 									</c:forEach>															
 	                        </select>	                         
                        </div>         
                        <div style="text-align: center;"><button class="event-etc" id="addProduct"><span class="event-span">제품추가하기</span></button></div>          	 
             		    <div id="error-div"></div>
-            </div>
-            <script>
-            	$(".pbtn").click(e=>{
-            		$(".hidden-input").show();	
-            	})
-            	           	
-            	$("#addProduct").click(e=>{
-					let qty=$("#se1 option:selected").text();
-            		let pNo=$("#pinput").val();
-					let sumPrice = $("#sumprice").val();					            	            		
-            		$.ajax({
-            			url:"${path}/cart/cartInsert.do",
-            			data: {productNo:pNo,cartQTY:qty,sumPrice:sumPrice},
-            			success:data =>{             					
-	            				$("#re").html(data);             				            				
-            				},
-            	 		error:function(request,status,error){
-        					$("#error-div").html("제품번호를 올바르게 입력하세요");
-            			} 
-            			
-            		})
-            	})        	
-            </script>
-            
+            </div>            
             <div class="etc-line">                
                 <div>
                    <div><img src="${path}/resources/img/refund.png"> </div>
@@ -95,8 +72,28 @@
 						}
 					})
 				})	
-			
-			//2. 장바구니 전체제거시
+	      //2. 제품번호로 추가	
+            	$(".pbtn").click(e=>{
+            		$(".hidden-input").show();	
+            	})
+            	           	
+            	$("#addProduct").click(e=>{
+					let qty= parseInt($("#se1 option:selected").text());
+            		let pNo=$("#pinput").val();
+					let sumPrice = $("#sumprice").val();					            	            		
+            		$.ajax({
+            			url:"${path}/cart/cartInsert.do",
+            			data: {productNo:pNo,cartQTY:qty,sumPrice:sumPrice},
+            			success:data =>{             					
+	            				$("#re").html(data);             				            				
+            				},
+            	 		error:function(request,status,error){
+        					$("#error-div").html("제품번호를 올바르게 입력하세요");
+            			} 
+            			
+            		})
+            	})   
+			//3. 장바구니 전체제거시
 			$(".remove_basket").click(e=>{
 				let sumPrice = $("#sumprice").val();	
 				let cNo=$(e.target).attr("id");				
@@ -109,7 +106,7 @@
 					 }
 				 });
 			 }); 
-			//3.장바구니 비어있는 경우 
+			//4.장바구니 비어있는 경우 
 			$("#cartBtn").click(e=>{
 			let cN = $(".basketNo").attr("id");			
 			if(!cN){
