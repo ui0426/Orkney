@@ -9,6 +9,8 @@ import com.palette.orkney.order.model.vo.OrderDetail;
 import com.palette.orkney.order.model.vo.Orders;
 import com.palette.orkney.product.model.vo.Product;
 import com.palette.orkney.product.model.vo.Product_image;
+import com.palette.orkney.review.model.vo.Review;
+import com.palette.orkney.review.model.vo.ReviewImage;
 
 public interface AdminDao {
 
@@ -81,5 +83,26 @@ public interface AdminDao {
 	List<OrderDetail> selectOrderOngoingList(SqlSession session);
 	
 	int updateSortEnd(SqlSession session, Map m);
+	
+	//by윤나-리뷰row갯수 가져오기
+	int selectReviewCount(SqlSession session);
+	
+	//by윤나-리뷰리스트 가져오기
+	List<Review> selectReviewList(SqlSession session,int cPage, int numPerPage);
+	
+	//by윤나-리뷰사진 가져오기
+	List<ReviewImage> selectReviewImageList(SqlSession session, int rNo);
+	
+	//by윤나-리뷰가져오기
+	Review selectReview(SqlSession session, int rNo);
+	
+	//by윤나-리뷰삭제
+	int deleteReview(SqlSession session, int rNo);
+	
+	//by윤나-재고 수정 시 입출고 인서트
+	int insertShipped(SqlSession session, Map list);
+	
+	//by윤나-입출고내역조회
+	List<Map> selectShippedList(SqlSession session, String pNo);
 
 }

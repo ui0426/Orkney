@@ -11,16 +11,14 @@
 
 <section>
 	<!-- 위시리스트 모달창 -->
-	<div class="modal-box wl-modal-box" id="wl_selectModal">
-		
+    <div class="modal-box wl-modal-box" id="wl_selectModal" style="display: none;">
     </div>
-    
     <!-- 다른 리스트로 제품이동 모달창 -->
     <div class="modal-box wl-moveModal-box" id="wl-moveModal">
     </div>
     
 	<div class="wi-box">
-		<h1 class="wl-selector" id="wl-name" onclick="fn_wlSelector(this)">${ wish.wishlist_name }<span></span></h1> <!--눌렀을 때 모달창-->
+		<h1 class="wl-selector" id="wl-name" onclick="fn_wlSelector(this)"><p class="wl-name">${ wish.wishlist_name }<span></span></p></h1> <!--눌렀을 때 모달창-->
            <c:if test="${ wish.wishlist_detail.isEmpty() }">
 	           <div id="no-box">
 		       	<img src="${path }/resources/img/svg/no_wishlist.svg">
@@ -40,7 +38,7 @@
            <div class="product-box"> <!-- 제품설명 박스 -->
                <div class="product-img"><figure style="background: url(${ path }/resources/images/product/${ wide.product.product_image.product_pic });"></figure></div>
                <div class="product-description">
-               		<h2><c:out value="${ wide.product.productName}"/></h2>
+               		<h2 onclick="location.href='${path}/product/productDetail.do?productno=${wide.product.productNo }'"><c:out value="${ wide.product.productName}"/></h2>
                		<ul>
                			<li><c:out value="${ wide.small_category_content }"/></li>
                			<li><c:out value="${ wide.product.productColor }"/></li>
@@ -135,6 +133,9 @@
 <!-- Modal: modalAbandonedCart-->
 
 <script>
+
+	
+
 	//장바구니 추가
 	function fn_addCart(e){
 		let t = $(e);
@@ -229,45 +230,6 @@
 			}
 		})		
 	}
-// 	function fn_countUpBtn(e){
-// 		let t = $(e);
-// 		let i = $('.btn_up').index(t);
-// 		let wNo = $('.only_wNo').eq(i).val();
-// 		let pNo = $('.only_pNo').eq(i).val();
-// 		let pQty = $('.count-box').children('input').val();
-		
-// 		let pPriceStr = $('.only_pPrice').eq(i).val();
-// 		let pPrice = parseInt(pPriceStr); //제품 1개당 가격
-		
-// 		console.log(i);
-// 		console.log(pNo + "/" + wNo);
-// 		$.ajax({
-// 			type: 'post',
-// 			data: {pNo : pNo, wNo: wNo},
-// 			url: '${path}/wishlist/countUp.do',
-// 			success: data=>{
-// 				console.log(data);
-// 				if(data > 0){
-// 					let c = parseInt(pQty)
-// 					let pStr = $('.product-price').eq(i).children().eq(1).text();
-// 					let p = parseInt(pStr); //제품 가격 * 갯수
-// 					console.log(typeof(pPrice) + pPrice);
-// 					console.log(typeof(p) + p);
-// 					let p2 = pPrice + p;
-// 					console.log(p2);
-					
-// 					let regexp = /\B(?=(\d{3})+(?!\d))/g; 
-// 					p = p2.toString().replace( regexp, ',' );
-
-// 					$('.count-box').children('input').val(c + 1);
-// 					$('.product-price').eq(i).children().eq(2).text(p);
-					
-// 				} else { 
-// 					alert('수량올리기 실패~~');
-// 				}
-// 			}
-// 		})
-// 	}
 
 	//휴지통 이모티콘 클릭 시 아래에 메세지 div 보이게 하기
 	function fn_deleteImg(e){
@@ -308,7 +270,9 @@
 
 	//다른 위시리스트 이동 클릭 시 모달창 나옴
 	function fn_moveList(e){
-		$('.wl-moveModal-box').css('display','flex');	
+// 		$('.wl-moveModal-box').css('display','flex');	
+		$('#wl-moveModal').fadeIn();
+		$('header').css('z-index','1');
 		
 		let t = $(e);
 		console.log(t);
@@ -333,8 +297,10 @@
 	
 	//위시리스트 이름 클릭 시 모달
 	function fn_wlSelector(e){
-		$('#wl_selectModal').empty();
-		$('#wl_selectModal').css('display','flex');
+// 		$('#wl_selectModal').empty();
+// 		$('#wl_selectModal').css('display','flex');
+		$('#wl_selectModal').fadeIn();
+		$('header').css('z-index','1');
 		
 		$.ajax({
 			type: 'post',

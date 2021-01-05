@@ -2,9 +2,7 @@ package com.palette.orkney.admin.controller;
 
 import java.io.File;
 import java.io.IOException;
-
 import java.text.SimpleDateFormat;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -31,6 +29,7 @@ import com.palette.orkney.order.model.vo.Orders;
 import com.palette.orkney.product.model.service.ProductService;
 import com.palette.orkney.product.model.vo.Product;
 import com.palette.orkney.product.model.vo.Product_image;
+import com.palette.orkney.review.model.vo.Review;
 
 
 @Controller
@@ -526,8 +525,9 @@ public class AdminController {
 //	입고
 	@RequestMapping("/admin/productPutIn.do")
 	@ResponseBody
-	public int productPutIn (@RequestParam Map<String,Object> list) {
-		return service.productPutIn(list);
+	public List<Map> productPutIn (@RequestParam Map<String,Object> list) {
+		int result = service.productPutIn(list);
+			return service.productOne(list);
 	}
 //	제품 삭제
 	@RequestMapping("/admin/deleteProduct.do")
@@ -546,7 +546,7 @@ public class AdminController {
 
 //	제품 추가
 	@RequestMapping(value="/damin/productInsert.do", method = RequestMethod.POST)
-	public ModelAndView productInsert(Product product, ModelAndView mv,
+	public String productInsert(Product product, ModelAndView mv,
 			 @RequestParam(value="productImg", required=false) MultipartFile[] productImg, 
 			 @RequestParam(value="mainImg", required=false) String img0, 
 			 @RequestParam(value="img1", required=false) String img1, 			 
@@ -588,13 +588,12 @@ public class AdminController {
 		
 		
 		
-		mv.setViewName("admin/product/adminProduct");
-		return mv;
+		return "redirect:/admin/product.do";
 	}
 
 //	제품 업데이트
 	@RequestMapping(value="/damin/producUpdateIn.do", method = RequestMethod.POST)
-	public ModelAndView producUpdateIn(Product product, ModelAndView mv,
+	public String producUpdateIn(Product product, ModelAndView mv,
 			@RequestParam(value="productImg", required=false) MultipartFile[] productImg, 
 			@RequestParam(value="mainImg", required=false) String img0, 
 			@RequestParam(value="img1", required=false) String img1, 			 
@@ -634,8 +633,7 @@ public class AdminController {
 		
 		
 		
-		mv.setViewName("admin/product/adminProduct");
-		return mv;
+		return "redirect:/admin/product.do";
 	}
 
 
@@ -698,5 +696,95 @@ public class AdminController {
 	@ResponseBody
 	public List<Map> sCategoryList (@RequestParam Map<String,Object> list) {
 		return service.sCategoryList(list);
+	}
+	
+	//by윤나-adminReview관리페이지 이동
+	@RequestMapping("/admin/review.do")
+	public String review() {
+		return "/admin/review/adminReview";
+	}
+	
+	//by윤나-리뷰리스트 가져오기
+	@RequestMapping("/admin/reviewList")
+	@ResponseBody
+	public ModelAndView reviewList(@RequestParam(value = "cPage", defaultValue = "0") int cPage) {
+		ModelAndView mv = new ModelAndView();
+		int numPerPage = 10;
+		int totalReview = service.totalReview();
+		mv.addObject("rList",service.selectReviewList(cPage, numPerPage));
+		mv.addObject("pageBar", PageFactory.getPageBar(totalReview, cPage));
+		mv.setViewName("/ajax/adminReviewList");
+		return mv;
+	}
+	
+	//by윤나-리뷰디테일로 이동
+	@RequestMapping("/admin/reviewDetail.do")
+	public ModelAndView reviewDetail(int rNo) {
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("r",service.selectReview(rNo));
+		mv.setViewName("/admin/review/reviewDetail");
+		return mv;
+	}
+	
+	//by윤나-리뷰삭제
+	@RequestMapping("/admin/deleteReview")
+	public ModelAndView deleteReview(@RequestParam(value="rNo") int rNo, @RequestParam(value="mNo") String mNo,
+			@RequestParam(value="riName",required=false) String[] riName, HttpSession session) {
+		ModelAndView mv = new ModelAndView();
+		boolean result=false;
+		int pResult;
+		Map data = new HashMap();
+		data.put("no", mNo);
+		data.put("type", "차감");
+		data.put("reason","리뷰삭제");
+		int point;
+		//서버에 저장된 파일 삭제하기
+		String path=session.getServletContext().getRealPath("/resources/upload/review");//파일 저장된 경로
+		if(riName!=null) {
+			point = 500;//사진형은 500포인트 차감
+			for(int i=0; i<riName.length; i++) {
+				File file = new File(path+"/"+riName[i]);
+				if(file.exists()) {
+					result=file.delete();
+				}else {
+					result = true;
+				}
+			}
+		}else {
+			point = 200;//텍스트형은 200포인트 차감
+			result = true;
+		}
+		
+		String msg="";
+		String loc="";
+		//DB에 저장된 리뷰, 리뷰사진 데이터 삭제
+		if(result==true) {
+			if(service.deleteReview(rNo)>0) {
+				data.put("point", point);
+				pResult = service.modifyPoint(data);//포인트 차감
+				msg="리뷰가 삭제되었습니다. 회원포인트 : "+point+"자동 차감 완료.";
+				loc="/admin/review.do";
+			}			
+		}else {
+			msg="삭제가 왼료되지 않았습니다.";
+			loc="/admin/reviewDetail.do?rNo="+rNo;
+		}
+		mv.addObject("msg", msg);
+		mv.addObject("loc", loc);
+		mv.setViewName("/common/msg");
+		return mv;
+	}
+	
+	//by윤나-상품별 입출고 내역 확인
+	@RequestMapping("/admin/shippedList.do")
+	public ModelAndView shippedList(String pNo, String pName, String stock) {
+		ModelAndView mv = new ModelAndView();
+		List<Map> list = service.selectShippedList(pNo);
+		mv.addObject("list", list);
+		mv.addObject("pName", pName);
+		mv.addObject("stock", stock);
+		System.out.println(list);
+		mv.setViewName("/admin/product/shipped");
+		return mv;
 	}
 }

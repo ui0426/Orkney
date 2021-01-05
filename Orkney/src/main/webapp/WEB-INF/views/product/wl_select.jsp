@@ -6,36 +6,36 @@
 <c:set var="path" value="${ pageContext.request.contextPath }"/>
 
 	      <!--Header-->
-      <div class="modal-header">
-        <p class="heading">위시리스트</p>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+      <div class="do-modal-header">
+        <p class="do-modal-title">위시리스트를 선택해주세요.</p>
+        <button type="button" class="do-modal-close">
           <span aria-hidden="true" class="white-text">&times;</span>
         </button>
       </div>
       <!--Body-->
-      <div class="modal-body">
-        <div class="row">
-          <div class="col-9">
-            <p>어느 위시리스트에 추가하시겠습니까?</p>
+      <div class="do-modal-body">
+<!--         <div class="row"> -->
+<!--           <div class="col-9"> -->
             <div class="form-check">
             <c:forEach items="${ wlList }" var="wl">
-			  <input
-			    class="form-check-input"
-			    type="radio"
-			    name="flexRadioDefault"
-			    id="${wl.wishlist_no }"
-			    value="${wl.wishlist_no }"
-			  />
-			  <label class="form-check-label" for="${wl.wishlist_no }"><c:out value="${ wl.wishlist_name }"/></label>
-			  <br>
+            	<li class="form-li">
+				  <input
+				    class="form-check-input"
+				    type="radio"
+				    name="flexRadioDefault"
+				    id="${wl.wishlist_no }"
+				    value="${wl.wishlist_no }"
+				  />
+				  <label class="form-check-label" for="${wl.wishlist_no }"><c:out value="${ wl.wishlist_name }"/></label>
+			  </li>
 			  </c:forEach>
 			</div>
-          </div>
-        </div>
+<!--           </div> -->
+<!--         </div> -->
       </div>
       <!--Footer-->
-      <div class="modal-footer justify-content-center">
-        <a type="button" class="btn btn-info" onclick="fn_addWish()" >위시리스트에 담기</a>        
+      <div class="do-modal-footer"  onclick="fn_addWish()">
+        <a type="button" class="do-modal-btn" >위시리스트에 담기</a>        
       </div>
 
 
@@ -53,8 +53,8 @@ function fn_addWish(){
 		url: '${path}/wishlist/insertWish.do',
 		success: data=>{
 			$.parseHTML(data);
-			$('#insertWish').empty();
-			$('#insertWish').html(data);
+			$('.wl-do-modal').empty();
+			$('.wl-do-modal').html(data);
 			console.log(data);
 // 			$('.wi-box').empty();
 // 			$('.wi-box').html(data);
@@ -62,7 +62,22 @@ function fn_addWish(){
 		}
 	})
 }
-
+$(function(){
+	$('.do-modal-footer').mouseenter(e=>{
+		$('.do-modal-btn').css('text-decoration','underline');
+	})
+	$('.do-modal-footer').mouseleave(e=>{
+		$('.do-modal-btn').css('text-decoration','none');
+	})
+	
+	$('.do-modal-close').click(e=>{
+		$('.wl-do-modal').removeClass('wl-do-modal-show');
+	}).mouseenter(e=>{
+		$('.do-modal-close').addClass('do-modal-close-background');
+	}).mouseleave(e=>{
+		$('.do-modal-close').removeClass('do-modal-close-background');
+	})
+})
 	
 </script> 
 			  
