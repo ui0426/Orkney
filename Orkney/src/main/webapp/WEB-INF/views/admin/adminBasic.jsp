@@ -24,6 +24,7 @@
 	
 	}
 	h1 {
+		outline:0;
 		text-transform: uppercase;
 		transform: translate(-50%, -50%) skew(10deg) rotate(-10deg);
 		font-size: 20vw;
@@ -33,9 +34,8 @@
 		position: absolute;
 		text-rendering: optimizeLegibility;
 		font-weight: 900;
-		color: rgba(#ff9eb1, 0.5);
-		text-shadow: 1px 4px 6px $bg, 0 0 0 #66303a, 1px 4px 6px $bg;
 		white-space: nowrap;
+		text-shadow: 0 -2px 0 #777, 0 -2px 0 #777;
 		}
 	h1:before {
 			content: attr(data-heading);

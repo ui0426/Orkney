@@ -28,9 +28,16 @@
 			<div class="big-display">
 				<div class="month-choice">
 					<button type="button" class="mon-select-btn">전체</button>
+					<c:if test="${MM == 1 }">
+					<button type="button" class="mon-select-btn"><c:out value="10"/>월</button>
+					<button type="button" class="mon-select-btn"><c:out value="11"/>월</button>
+					<button type="button" class="mon-select-btn"><c:out value="12"/>월</button>
+					</c:if>
+					<c:if test="${MM != 1 }">
 					<button type="button" class="mon-select-btn"><c:out value="${MM - 3}"/>월</button>
 					<button type="button" class="mon-select-btn"><c:out value="${MM - 2}"/>월</button>
 					<button type="button" class="mon-select-btn"><c:out value="${MM - 1}"/>월</button>
+					</c:if>
 					<button type="button" class="mon-select-btn lastbtn"><c:out value="${MM}"/>월</button>
 				</div>
 				<div class="day-choice">
@@ -90,7 +97,8 @@ $('.mon-select-btn').click(e=>{
 	$(e.target).css({'background':'#0058ab', 'text-decoration':'underline', 'color':'white'});
 	let mon = $(e.target).text();
 	mon = mon.substring(0, (mon.length-1));
-	switch(mon){
+	if((today.getMonth()+1) == 1){
+		switch(mon){
 		case "1": 
 		case "3":	
 		case "5":	
@@ -98,16 +106,37 @@ $('.mon-select-btn').click(e=>{
 		case "8":	$('#start-date').val(today.getFullYear() + '-' + "0"+mon + '-' + "01");
 					$('#end-date').val(today.getFullYear() + '-' + "0"+mon + '-' + "31"); break;
 		case "10":
-		case "12":  $('#start-date').val(today.getFullYear() + '-' + mon + '-' + "01");
-					$('#end-date').val(today.getFullYear() + '-' + mon + '-' + "31"); break;
+		case "12":  $('#start-date').val(today.getFullYear()-1 + '-' + mon + '-' + "01");
+					$('#end-date').val(today.getFullYear()-1 + '-' + mon + '-' + "31"); break;
 		case "2":   $('#start-date').val(today.getFullYear() + '-' + "0"+mon + '-' + "01");
 					$('#end-date').val(today.getFullYear() + '-' + "0"+mon + '-' + "29"); break;
 		case "4": 
 		case "6":
 		case "9":	$('#start-date').val(today.getFullYear() + '-' + "0"+mon + '-' + "01");
 					$('#end-date').val(today.getFullYear() + '-' + "0"+mon + '-' + "30"); break;
-		case "11":  $('#start-date').val(today.getFullYear() + '-' + mon + '-' + "01");
-					$('#end-date').val(today.getFullYear() + '-' + mon + '-' + "30"); break;
+		case "11":  $('#start-date').val(today.getFullYear()-1 + '-' + mon + '-' + "01");
+					$('#end-date').val(today.getFullYear()-1 + '-' + mon + '-' + "30"); break;
+		}
+	} else {
+		switch(mon){
+			case "1": 
+			case "3":	
+			case "5":	
+			case "7":	
+			case "8":	$('#start-date').val(today.getFullYear() + '-' + "0"+mon + '-' + "01");
+						$('#end-date').val(today.getFullYear() + '-' + "0"+mon + '-' + "31"); break;
+			case "10":
+			case "12":  $('#start-date').val(today.getFullYear() + '-' + mon + '-' + "01");
+						$('#end-date').val(today.getFullYear() + '-' + mon + '-' + "31"); break;
+			case "2":   $('#start-date').val(today.getFullYear() + '-' + "0"+mon + '-' + "01");
+						$('#end-date').val(today.getFullYear() + '-' + "0"+mon + '-' + "29"); break;
+			case "4": 
+			case "6":
+			case "9":	$('#start-date').val(today.getFullYear() + '-' + "0"+mon + '-' + "01");
+						$('#end-date').val(today.getFullYear() + '-' + "0"+mon + '-' + "30"); break;
+			case "11":  $('#start-date').val(today.getFullYear() + '-' + mon + '-' + "01");
+						$('#end-date').val(today.getFullYear() + '-' + mon + '-' + "30"); break;
+		}
 	}
 	if($(e.target).text() == "전체"){
 		$('#start-date').val(today.getFullYear()-2 + '-' + (today.getMonth()+1) + '-' + today.getDate());

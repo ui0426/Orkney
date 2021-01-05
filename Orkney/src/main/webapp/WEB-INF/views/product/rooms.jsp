@@ -127,7 +127,7 @@
 			<c:choose>
 				<c:when test="${param.type=='침실'}">
 					<a class="rm-md-secondary"
-						href="${path}/product/products.do?category=침대&sale="> <span
+						href="${path}/product/products.do?category=침대&sale=&search-input="> <span
 						class="rm-md-small"> <span class="rm-md-label">모든침대
 								상품 보러가기 </span> <c:set var="loop_flag" value="true" />
 					</span>
@@ -135,7 +135,7 @@
 				</c:when>
 				<c:when test="${param.type=='거실'}">
 					<a class="rm-md-secondary"
-						href="${path}/product/products.do?category=수납장/장식장&sale="> <span
+						href="${path}/product/products.do?category=수납장/장식장&sale=&search-input="> <span
 						class="rm-md-small"> <span class="rm-md-label">모든 거실
 								상품 보러가기 </span> <c:set var="loop_flag" value="true" />
 					</span>
@@ -143,7 +143,7 @@
 				</c:when>
 				<c:when test="${param.type=='홈오피스'}">
 					<a class="rm-md-secondary"
-						href="${path}/product/products.do?category=책장/선반유닛&sale="> <span
+						href="${path}/product/products.do?category=책장/선반유닛&sale=&search-input="> <span
 						class="rm-md-small"> <span class="rm-md-label">모든
 								홈오피스 상품 보러가기</span> <c:set var="loop_flag" value="true" />
 					</span>
@@ -151,7 +151,7 @@
 				</c:when>
 				<c:when test="${param.type=='비지니스'}">
 					<a class="rm-md-secondary"
-						href="${path}/product/products.do?category=all&sale="> <span
+						href="${path}/product/products.do?category=all&sale=&search-input="> <span
 						class="rm-md-small"> <span class="rm-md-label">모든
 								비지니스 상품 보러가기 </span> <c:set var="loop_flag" value="true" />
 					</span>
