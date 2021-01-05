@@ -301,6 +301,12 @@ public class AdminDaoImpl implements AdminDao {
 	@Override
 	public List<Map> selectShippedList(SqlSession session, String pNo) {
 		return session.selectList("admin.selectShippedList", pNo);
+	}
+
+	@Override
+	public List<Map> productImg(SqlSession session, String pNo) {
+		// TODO Auto-generated method stub
+		return session.selectList("admin.productImgNo",pNo);
 	}	
 	
 	

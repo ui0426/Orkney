@@ -534,7 +534,43 @@ public class AdminController {
 	@ResponseBody
 	public int deleteProduct (@RequestParam Map<String,Object> list,
 			@RequestParam(value = "pNo") String pNo
+			,HttpSession session
 			) {
+
+		boolean result=false;
+		List<Map> p = service.productImg(pNo);
+
+		//서버에 저장된 파일 삭제하기
+		String path=session.getServletContext().getRealPath("/resources/images/product");//파일 저장된 경로
+		if(p!=null) {
+	
+			
+			for (Map map : p) {
+				File file = new File(path+"/"+map.get("PRODUCT_PIC"));
+			
+				if(file.exists()) {
+			
+					result=file.delete();
+				}else {
+					result = true;
+				}
+			}
+			
+//			for(int i=0; i<p.size(); i++) {
+//				File file = new File(path+"/"+p[i]);
+//				if(file.exists()) {
+//					result=file.delete();
+//				}else {
+//					result = true;
+//				}
+//			}
+		}else {
+
+			result = true;
+		}
+		
+		
+		
 		return service.deleteProduct(pNo);
 	}
 //	적용된 제품 리스트 업데이트

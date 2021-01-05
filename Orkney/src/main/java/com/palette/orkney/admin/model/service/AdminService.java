@@ -72,6 +72,7 @@ public interface AdminService {
 	List<Map> productUpdate(String pNo);
 	int producUpdateIn(Product product,List<Product_image> files, String[] img);
 	List<Map> sCategoryList(Map<String,Object> list);
+	List<Map> productImg(String pNo);
 	
 	//by윤나-리뷰row갯수 가져오기
 	int totalReview();

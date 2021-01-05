@@ -73,6 +73,7 @@ public interface AdminDao {
 	int producUpdateInImg(SqlSession session, Product_image pi);	
 	List<Map> productImg(SqlSession session, Product product);
 	List<Map> sCategoryList(SqlSession session, Map<String,Object> list);
+	List<Map> productImg(SqlSession session, String list);
 
 
 	
