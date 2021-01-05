@@ -256,7 +256,7 @@ filter();
                            for (var i = 0; i < data.length; i++) {
                               
                            
-                              console.log("데이터2"+data[i]["PRODUCT_NO"]);
+//                               console.log("데이터2"+data[i]["PRODUCT_NO"]);
                               if (data2[i]["COUNT(REVIEW_NO)"] !=null) {
                                  
                                   $(productClone).find("#average2").text(data2[i]["AVG(PRODUCT_GRADE)"].toFixed(1));
@@ -307,9 +307,12 @@ filter();
                   }
                }
             })   
-            start = start+12;
+            
           }
-       
+       function morebtn() {
+    	   start = start+12;
+    	   filter();
+	}
 
 //    3자리 마다 , 표시
    function numberWithCommas(x) {
@@ -669,7 +672,7 @@ filter();
 
 
       </div>
-      <button type="button" class="btn filterSiz  btnH35 waves-effect waves-light" style="width: 100%; background-color: rgb(238, 237, 237);" onclick="filter();">
+      <button type="button" class="btn filterSiz  btnH35 waves-effect waves-light" style="width: 100%; background-color: rgb(238, 237, 237);" onclick="morebtn();">
             <span class="fontborder fontColorGray">더보기</span>
          </button>
       <!-- 제품 목록 -->
@@ -749,9 +752,9 @@ filter();
                      <div>
                         <hr>
                         <div class="row">
-                           <button type="button" class="btn  btn-md color-Gray1 " id="readMore"
+                          <!--  <button type="button" class="btn  btn-md color-Gray1 " id="readMore"
                               style="border: 1px solid darkgray !important;" >Read
-                              more</button>
+                              more</button> -->
                            <div class="row heartCart_icon" style="margin: auto;">
 <a class="material-tooltip-main " data-placement="top" title="Add to Cart" id="btnck"  data-toggle="modal" data-target="#modalAbandonedCart"> <i class="fas fa-shopping-cart grey-text ml-3"></i></a> 
 <a class="material-tooltip-main heart_icon" data-placement="top" title="Add to Wishlist" id="btnWish" data-toggle="modal" data-target="#modalAddWish"> <i class="fas fa-heart grey-text ml-3"></i></a>
@@ -799,44 +802,52 @@ filter();
 <!-- Modal: modalAbandonedCart-->
 
 <!-- Modal: modalAbandonedCart-->
-<div class="modal fade right" id="modalAddWish" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-  aria-hidden="true" data-backdrop="false">
-  <div class="modal-dialog modal-side modal-top-right modal-notify modal-info" role="document">
-    <!--Content-->
-    <div class="modal-content" id="insertWish">
-    </div>
-    <!--/.Content-->
-  </div>
+<!-- <div class="modal fade right" id="modalAddWish" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" -->
+<!--   aria-hidden="true" data-backdrop="false"> -->
+<!--   <div class="modal-dialog modal-side modal-top-right modal-notify modal-info" role="document"> -->
+<!--     Content -->
+<!--     <div class="modal-content" id="insertWish"> -->
+<!--     </div> -->
+    
+    
+<!--     /.Content -->
+<!--   </div> -->
+<!-- </div> -->
+
+<!-- 위시리스트에 담기 모달 -->
+<div class="wl-do-modal">
 </div>
 <!-- Modal: modalAbandonedCart-->         
             
 <script>
 function fn_addWishModal(price,pNo){
-   let login = '${sessionScope.login}';
-   console.log(login);
-//    alert('dd');
-   if(login == ''){
-//       let ck = confirm('로그인이 필요한 서비스 입니다. 로그인 화면으로 이동하시겠습니까?');
-//       console.log(ck);
-//       if(ck == true){
-         location.href='${path}/member/memberLogin.do';
-//       }
-      return;
-   }
-   
-   $.ajax({
-      type: 'post',
-      url: '${ path }/wishlist/insertWishModal.do',
-      data: {pNo:pNo},
-      success: function(data){
-         console.log(data);
-         if(data == ''){
-            
-         }
-         $('#insertWish').html(data);
-      }
-      
-   })
+
+	$('.wl-do-modal').addClass('wl-do-modal-show');
+	let login = '${sessionScope.login}';
+	console.log(login);
+// 	alert('dd');
+	if(login == ''){
+// 		let ck = confirm('로그인이 필요한 서비스 입니다. 로그인 화면으로 이동하시겠습니까?');
+// 		console.log(ck);
+// 		if(ck == true){
+			location.href='${path}/member/memberLogin.do';
+// 		}
+		return;
+	}
+	
+	$.ajax({
+		type: 'post',
+		url: '${ path }/wishlist/insertWishModal.do',
+		data: {pNo:pNo},
+		success: function(data){
+			console.log(data);
+			if(data == ''){
+				
+			}
+			$('.wl-do-modal').html(data);
+		}
+		
+	})
 }
 
 function fnbn(a,b){
@@ -847,7 +858,7 @@ function fnbn(a,b){
          productPrice:a
          },
       success:data=>{
-         console.log("나와라");               
+//          console.log("나와라");               
       }
    })
  }     

@@ -40,7 +40,7 @@
             </td>
             <td onclick="location.href='${path}/admin/productUpdate.do?pNo=${o.PRODUCT_NO}'" id="salePrice"><c:out value="${o.SALE_PER}"></c:out></td>
             <td onclick="location.href='${path}/admin/productUpdate.do?pNo=${o.PRODUCT_NO}'"><c:out value="${o.BIG_CATEGORY_CONTENT}"/></td>
-            <td onclick="location.href='${path}/admin/productUpdate.do?pNo=${o.PRODUCT_NO}'" id="stock"><c:out value="${o.PRODUCT_STOCK}"/></td>
+            <td onclick="location.href='${path}/admin/shippedList.do?pNo=${o.PRODUCT_NO}&pName=${o.PRODUCT_NAME}&stock=${o.PRODUCT_STOCK}'" id="stock" style="color: #33b5e5;"><c:out value="${o.PRODUCT_STOCK}"/></td>
             <td><input type="number" name="" id="putIn" placeholder="입고 수량 ( 숫자 )" style="border-radius: 10px;width: 9rem;">
             <button type="button" class="btn" style="line-height: 0px; border-radius: 52px;width: 0px;"onclick="putIn('${o.PRODUCT_NO}','${s.index}');">+</button></td>
             <td id=""> <button type="button" class="btn" style="line-height: 0px; border-radius: 52px;"data-toggle="modal" data-target="#modalConfirmDelete${s.index}" >삭제</button></td>

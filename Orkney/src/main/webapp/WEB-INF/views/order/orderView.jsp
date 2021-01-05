@@ -474,9 +474,11 @@
 										</div>
 									</div>
 								</div>
+								<c:if test="${order.order_state eq '배송중' }">
 								<div class="delivery_btn">
-									<button type="button" class="btn btn-light-blue btn-center">배송 위치 확인</button>
+									<button type="button" class="btn btn-light-blue btn-center" onclick="deliveryCheck();">배송 위치 확인</button>
 								</div>
+								</c:if>
 								<div>
 								
 								</div>
@@ -975,9 +977,11 @@
 										<h4 class="state-content-text">주문 취소 요청이 처리중입니다.</h4>
 									</c:if>
 								</div>
+								<c:if test="${order.order_state eq '배송중' }">
 								<div class="delivery_btn">
-									<button type="button" class="btn btn-light-blue btn-center">배송 위치 확인</button>
+									<button type="button" class="btn btn-light-blue btn-center" onclick="deliveryCheck();">배송 위치 확인</button>
 								</div>
+								</c:if>
 							</div>
 						</div>
 					</div>
@@ -1297,6 +1301,9 @@
 </section>
 
 <script type="text/javascript">
+function deliveryCheck(){
+	alert("등록된 송장번호는 아직 배송추적이 되지 않습니다.");
+}
 
 $("#e-r-btn").click(e =>{
 	var odNo = $("#exchange-refund-odNo").val();

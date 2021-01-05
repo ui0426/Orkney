@@ -34,30 +34,26 @@ public class ProductController {
    
 
    @RequestMapping("/product/products.do")
-   @ResponseBody
-   @SuppressWarnings("unchecked")
    public ModelAndView products(ModelAndView mv
          ,@RequestParam(name="category") String bigCategory
          ,@RequestParam(value="search-input") String search 
          ,@RequestParam(name="sale") String sale
          ) {
 	   
-	Map<String, Object> category = new HashMap();
-      category.put("category", bigCategory);
-      category.put("search", search);
-      category.put("sale",sale);
-      System.out.println("세일나와~!!!1"+service.productList(category));
-      mv.addObject("list",service.productList(category));
+//	Map<String, Object> category = new HashMap();
+//      category.put("category", bigCategory);
+//      category.put("search", search);
+//      category.put("sale",sale);
+//      System.out.println("세일나와~!!!1"+service.productList(category));
+//      mv.addObject("list",service.productList(category));
       mv.setViewName("product/products");
       return mv;
    }
 
-//   ▼인기순 정렬▼  전체 정렬로 변경함
+//   ▼인기순 정렬▼  <전체 정렬>로 변경함
    @RequestMapping("/product/bestFilter.do")
    @ResponseBody
    public  List<Map>Filter (@RequestParam Map<String,Object> filter) {
-      System.out.println("필털:"+filter);
-      System.out.println("나도 필터?"+service.filter(filter));
 
       return service.filter(filter);
    }
@@ -65,13 +61,11 @@ public class ProductController {
    @RequestMapping("/product/sCategory/.do")
    @ResponseBody
    public  List<Map>sCategory (@RequestParam Map<String,Object> sCategory) {
-      System.out.println("카테고리 나와?"+sCategory);
       return service.sCategory(sCategory);
    }
    @RequestMapping("/product/reviewImg.do")
    @ResponseBody
    public List<Map>reviewImg(@RequestParam Map<String,Object> id){
-      System.out.println("리뷰img:"+id+":"+service.reviewImg(id));
       
       return service.reviewImg(id);
    }
@@ -80,7 +74,6 @@ public class ProductController {
    public ModelAndView productDetail(ModelAndView mv,
                            @RequestParam(name="productno") String productno
          ) {
-	   System.out.println("디테일:"+service.productDetail(productno));
       mv.addObject("review",service.review(productno));
       mv.addObject("list", service.productDetail(productno));
       mv.setViewName("/product/productDetail");
@@ -107,8 +100,6 @@ public class ProductController {
    public List<Map> average(
          @RequestParam Map<String,Object> productno
          ){
-      System.out.println("제품번호:"+productno);
-      System.out.println("댓글:"+service.average(productno));
       return service.average(productno);
    }
 	//	===================================================================================

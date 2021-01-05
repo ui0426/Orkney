@@ -123,14 +123,19 @@ function putIn(pNo,index) {
 		url : "${path}/admin/productPutIn.do",
 		data:{
 			"pNo":pNo,
-			"putIn":putIn
+			"putIn":putIn,
+			"put":put
 		},
 		success:data=>{
 // 			alert(pNo+"제품에"+put+" 입고하여 재고 총 : "+putIn+" 입니다.");
+			for (var i = 0; i < data.length; i++) {
+				
+				$("#product"+index).find("#stock").text(data[i]["PRODUCT_STOCK"]);
+			}
 		}
 		
 	})
-	$.ajax({
+	/* $.ajax({
 		url : "${path}/admin/productOne.do",
 		data:{
 			"pNo":pNo,
@@ -142,7 +147,7 @@ function putIn(pNo,index) {
 				$("#product"+index).find("#stock").text(data[i]["PRODUCT_STOCK"]);
 			}
 		}
-	})
+	}) */
 	
 }
 function deleteProduct(pNo,index) {
