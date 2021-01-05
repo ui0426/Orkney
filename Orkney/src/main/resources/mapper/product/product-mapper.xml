@@ -666,7 +666,7 @@ SELECT * FROM
          R ON E.PRODUCT_NO= R.PRODUCT_NO JOIN PRODUCT_IMAGE J ON E.PRODUCT_NO= J.PRODUCT_NO 
          JOIN SHOWROOM Q ON Q.ROOM_NO= E.ROOM_NO -->
 
-      SELECT * FROM ROOMS E
+      SELECT DISTINCT * FROM ROOMS E
       JOIN SHOWROOM Q ON Q.ROOM_NO= E.ROOM_NO
       JOIN PRODUCT R ON E.PRODUCT_NO= R.PRODUCT_NO
       JOIN PRODUCT_IMAGE J ON E.PRODUCT_NO= J.PRODUCT_NO
@@ -809,6 +809,10 @@ SELECT * FROM
          separator=",">
          #{type}
       </foreach>
+       ORDER BY DECODE(PRODUCT_NO,
+       <foreach collection="type" item="type" index="index" separator="," close=")">
+     	#{type}, ${index}
+		</foreach>
    </select>
 
    <delete id="deleteRoom" parameterType="map">
