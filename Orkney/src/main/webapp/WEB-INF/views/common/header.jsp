@@ -408,8 +408,7 @@
 			scrollbefore = 0;
 			$(window).scroll(function(){
 				let scrollAfter = $(this).scrollTop();
-				console.log(scrollbefore);
-				console.log(scrollAfter);
+				
 				if(scrollbefore > scrollAfter){
 					$('header').addClass('header-fixed');
 					$('.header-fixed').css('transform', 'translateY(-1px)');
@@ -419,8 +418,8 @@
 				}
 				scrollbefore = scrollAfter;
 			})
-     		let section = $('section').offset().top;
-     		console.log('section' + section);
+     		//let section = $('section').offset().top;
+     		
         })
 
         	
@@ -509,7 +508,7 @@
 //             	$('html').addClass('scroll-x');
             }).keyup(e=>{
             	let str = $(e.target).val();
-            	console.log(parseInt(str));
+            	
 //             	$.ajax({
 //             		url: '${path}/searchAuto.do',
 //             		data: {str : str},

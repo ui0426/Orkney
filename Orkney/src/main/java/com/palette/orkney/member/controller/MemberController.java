@@ -438,8 +438,9 @@ public class MemberController {
 	public boolean keyCheck(@RequestParam(required=false) String key1,@RequestParam(required=false) String key2,
 			@RequestParam(required=false) String key3,@RequestParam(required=false) String key4,
 			@RequestParam(required=false) String key5,@RequestParam(required=false) String key6,
-			@RequestParam String id,HttpSession session) {
+			@RequestParam String id,HttpSession session,Model m) {
 		String ck=(String)session.getAttribute("key");
+		
 		
 		boolean flag=false;
 		if(key1!=null&&key2!=null&&key3!=null&&key4!=null&&key5!=null&&key6!=null) {
@@ -448,6 +449,10 @@ public class MemberController {
 			System.out.println(ck);
 			if(key.equals(ck)) {
 				int update=service.emailAuth(id);
+				Map user=service.loginCheck(id);
+				if(user!=null) {
+					m.addAttribute("login",user);
+				}
 				flag = true;
 			}else flag = false;
 		}
