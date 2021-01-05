@@ -1103,6 +1103,7 @@ $(function(){
 	<c:forEach items="${list}" var="i" varStatus="s" >
 
 	var endDate = new Date("${i.PRODUCT_ENROLL_DATE}");
+	endDate.setDate(endDate.getDate()+7);
 	endDate=getFormatDate(endDate);
 	 var today = new Date();
 	 today=getFormatDate(today)
