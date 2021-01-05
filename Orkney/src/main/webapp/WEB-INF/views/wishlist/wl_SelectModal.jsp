@@ -41,8 +41,7 @@
                 </form>
             </div>
         </div>
-<!--         <div class="modal-layer"></div> -->
-        <!-- <div class="modal-out-content"></div> -->
+        <div class="modal-background"></div>
 
 <script>
 //새로운 위시리스트 만들기를 눌렀을 때
@@ -234,4 +233,9 @@ function fn_modalCloseBtn(){
    $('#wl_selectModal').css('display','none');
 }
 
+$(function(){
+	$(".modal-background").click(e=>{
+		$('#wl_selectModal').css('display','none');
+	}); 
+})
 </script>

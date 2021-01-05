@@ -5,7 +5,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <c:set var="path" value="${ pageContext.request.contextPath }"/>
 		   
-		<h1 class="wl-selector" id="wl-name" onclick="fn_wlSelector(this)">${ wish.wishlist_name }<span></span></h1> <!--눌렀을 때 모달창-->
+		<h1 class="wl-selector" id="wl-name" onclick="fn_wlSelector(this)"><p class="wl-name">${ wish.wishlist_name }<span></span></p></h1> <!--눌렀을 때 모달창-->
            <c:if test="${ wish.wishlist_detail.isEmpty() }">
 	           <div id="no-box">
 		       	<img src="${path }/resources/img/svg/no_wishlist.svg">
@@ -25,7 +25,7 @@
            <div class="product-box"> <!-- 제품설명 박스 -->
                <div class="product-img"><figure style="background: url(${ path }/resources/images/product/${ wide.product.product_image.product_pic });"></figure></div>
                <div class="product-description">
-               		<h2><c:out value="${ wide.product.productName}"/></h2>
+               		<h2 onclick="location.href='${path}/product/productDetail.do?productno=${wide.product.productNo }'"><c:out value="${ wide.product.productName}"/></h2>
                		<ul>
                			<li><c:out value="${ wide.small_category_content }"/></li>
                			<li><c:out value="${ wide.product.productColor }"/></li>

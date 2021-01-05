@@ -95,17 +95,17 @@
 	                <input type="submit" value="all" name="category" style="display: none;">
 	                
 	           		<div class="search-input-box" style="display:none;"></div>
-	                <div class="search-dropbox" style="display:none;">
-	                	<div class="dropbox-container">
-		                	<h2 style="display: none;" class="search-log">내 검색 기록 <a>삭제</a></h2>
-		                	<ul>
-		                		<li>책상</li>
-		                		<li>의자</li>
-		                		<li>선반</li>
-		                		<li>수납장</li>
-		                	</ul>
-	                	</div>
-	                </div>
+<!-- 	                <div class="search-dropbox" style="display:none;"> -->
+<!-- 	                	<div class="dropbox-container"> -->
+<!-- 		                	<h2 style="display: none;" class="search-log">내 검색 기록 <a>삭제</a></h2> -->
+<!-- 		                	<ul> -->
+<!-- 		                		<li>책상</li> -->
+<!-- 		                		<li>의자</li> -->
+<!-- 		                		<li>선반</li> -->
+<!-- 		                		<li>수납장</li> -->
+<!-- 		                	</ul> -->
+<!-- 	                	</div> -->
+<!-- 	                </div> -->
 				</form>
 <!-- 				<div class="modal-layer" style="display:none;"></div> -->
             </div>
@@ -315,7 +315,7 @@
 		        				</a>
 		        			</li>
 		        			<li>
-		        				<a href="${path}/product/rooms.do?type=주방">
+		        				<a href="${path}/product/rooms.do?type=홈오피스">
 		        					<span>
 		        						<img class="showroom-imgsize" alt="홈오피스" src="https://www.ikea.com/images/-2b5a2701ae002fc6b7e2143f1d867998.jpg?f=xxxs" >
 		        					</span>
@@ -404,7 +404,7 @@
 //         		},
 //         		minLength: 1
 //         	})
-			console.log('헤더'+$('header').offset().top);
+// 			console.log('헤더'+$('header').offset().top);
 			scrollbefore = 0;
 			$(window).scroll(function(){
 				let scrollAfter = $(this).scrollTop();

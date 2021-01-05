@@ -7,29 +7,35 @@
 
 
       <!--Header-->
-      <div class="modal-header">
-        <p class="heading">위시리스트</p>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+      <div class="do-modal-header">
+        <p class="do-modal-title">위시리스트</p>
+        <button type="button" class="do-modal-close">
           <span aria-hidden="true" class="white-text">&times;</span>
         </button>
       </div>
       <!--Body-->
-      <div class="modal-body">
-        <div class="row">
-          <div class="col-3">                       
-            <img class="img_main" src="">
-          </div>
-          <div class="col-9">
-<!--             <p>상품을 더 구매하시겠습니까??</p> -->
-            <div style="display:flex;">            
-<%--             	<div class="productName"><c:out value="${p.PRODUCT_NAME}"/></div> --%>
-            	<div>상품이 위시리스트에 추가되었습니다.</div>
-            </div>
-<!--             <p>위시리스트에 추가되었습니다.</p> -->
-          </div>
-        </div>
-      </div>
+      <div class="do-modal-body">상품이 위시리스트에 추가되었습니다.</div>
       <!--Footer-->
-      <div class="modal-footer justify-content-center">
-        <a type="button" class="btn btn-info" onclick="location.href='${path}/wishlist/wishlist.do?addwNo=${wNo}'" >위시리스트로 가기</a>        
+       <div class="do-modal-footer" onclick="location.href='${path}/wishlist/wishlist.do?addwNo=${wNo}'">
+        <a type="button" class="do-modal-btn">위시리스트로 가기</a>        
       </div>
+      
+      <script>
+      
+     $(function(){
+   		$('.do-modal-footer').mouseenter(e=>{
+   			$('.do-modal-btn').css('text-decoration','underline');
+   		})
+   		$('.do-modal-footer').mouseleave(e=>{
+   			$('.do-modal-btn').css('text-decoration','none');
+   		})	
+   		$('.do-modal-close').click(e=>{
+			$('.wl-do-modal').removeClass('wl-do-modal-show');
+		}).mouseenter(e=>{
+			$('.do-modal-close').addClass('do-modal-close-background');
+		}).mouseleave(e=>{
+			$('.do-modal-close').removeClass('do-modal-close-background');
+		})
+     });
+     
+     </script>
