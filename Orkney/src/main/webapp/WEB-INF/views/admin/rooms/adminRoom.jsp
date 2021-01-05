@@ -110,9 +110,9 @@
 							</label>
 							<!-- <input type="checkbox" class="toggle" name="toggleInsert"value="추가"> -->
 							<div class="top_lift_a " style="display: none">
-								<input type="text" class="rooms_top form-control"
+								<input type="hidden" class="rooms_top form-control"
 									name="rooms_top" placeholder="top"
-									onfocus="return isNumberKey(event)" /> <input type="text"
+									onfocus="return isNumberKey(event)" /> <input type="hidden"
 									class="rooms_left form-control" name="rooms_left"
 									placeholder="left" onfocus="return isNumberKey(event)" /> <select
 									class="rooms_product  custom-select" name="rooms_product" />
