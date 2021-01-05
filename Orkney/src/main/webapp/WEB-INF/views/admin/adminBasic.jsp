@@ -69,7 +69,7 @@
 
     </style>
    <div id="testBody" class="wrapper">
-	<h1 contenteditable data-heading="Orkney">Orkney</h1>
+	<h1 contenteditable data-heading="Orkney.">Orkney.</h1>
 </div>
     <jsp:include page="/WEB-INF/views/common/adminFooter.jsp"/>
     <script type="text/javascript">
