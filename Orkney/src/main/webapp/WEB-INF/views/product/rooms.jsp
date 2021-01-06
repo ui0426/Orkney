@@ -288,7 +288,7 @@
 													</a> <a class="material-tooltip-main heart_icon"
 														onclick="fn_addWishModal('${p.PRODUCT_PRICE}','${p.PRODUCT_NO}');"
 														data-placement="top" title="Add to Wishlist" id="btnWish"
-														data-toggle="modal" data-target="#modalAddWish"> <i
+														> <i
 														class="fas fa-heart grey-text ml-3"></i>
 													</a>
 												</div>
@@ -342,17 +342,8 @@
 				<!-- Modal: modalAbandonedCart-->
 
 				<!-- Modal: modalAbandonedCart-->
-				<div class="modal fade right" id="modalAddWish" tabindex="-1"
-					role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
-					data-backdrop="false">
-					<div
-						class="modal-dialog modal-side modal-top-right modal-notify modal-info"
-						role="document">
-						<!--Content-->
-						<div class="modal-content" id="insertWish"></div>
-						<!--/.Content-->
+					<div class="wl-do-modal">
 					</div>
-				</div>
 				<!-- Modal: modalAbandonedCart-->
 				<div class="swiper-slide cltjf" style="width: 268px;">
 					<div class="col">
@@ -483,17 +474,9 @@
 	<!-- Modal: modalAbandonedCart-->
 
 	<!-- Modal: modalAbandonedCart-->
-	<div class="modal fade right" id="modalAddWish" tabindex="-1"
-		role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
-		data-backdrop="false">
-		<div
-			class="modal-dialog modal-side modal-top-right modal-notify modal-info"
-			role="document">
-			<!--Content-->
-			<div class="modal-content" id="insertWish"></div>
-			<!--/.Content-->
-		</div>
+	<div class="wl-do-modal">
 	</div>
+	
 	<!-- Modal: modalAbandonedCart-->
 
 </section>
@@ -513,17 +496,27 @@
 
 <script>
 
+function getFormatDate(date){
+    var year = date.getFullYear();              //yyyy
+    var month = (1 + date.getMonth());          //M
+    month = month >= 10 ? month : '0' + month;  //month 두자리로 저장
+    var day = date.getDate();                   //d
+    day = day >= 10 ? day : '0' + day;          //day 두자리로 저장
+    return  year + '' + month + '' + day;       //'-' 추가하여 yyyy-mm-dd 형태 생성 가능
+}
+
 
 function fn_addWishModal(price,pNo){
+	$('.wl-do-modal').addClass('wl-do-modal-show');
 	let login = '${sessionScope.login}';
-	console.log(price,'금액');
-	console.log(pNo,'번호');
+	console.log(login);
+// 	alert('dd');
 	if(login == ''){
-		let ck = confirm('로그인이 필요한 서비스 입니다. 로그인 화면으로 이동하시겠습니까?');
-		console.log(ck);
-		if(ck == true){
+// 		let ck = confirm('로그인이 필요한 서비스 입니다. 로그인 화면으로 이동하시겠습니까?');
+// 		console.log(ck);
+// 		if(ck == true){
 			location.href='${path}/member/memberLogin.do';
-		}
+// 		}
 		return;
 	}
 	
@@ -536,7 +529,8 @@ function fn_addWishModal(price,pNo){
 			if(data == ''){
 				
 			}
-			$('#insertWish').html(data);
+			$.parseHTML(data);
+			$('.wl-do-modal').html(data);
 		}
 		
 	})
@@ -661,10 +655,13 @@ function numberWithCommas(x) {
 			    success: function(data){
 			    	console.log('착각했어...',data);
 				     	$(".abc").html("");
-				     	var today = new Date();
+				   
 			    	      for(let i=0;i<data.length;i++){
 			    	    	  var endDate = new Date(data[i]["PRODUCT_ENROLL_DATE"]);
-			    	    	  endDate.setDate(endDate.getDate() +7);
+	                          endDate.setDate(endDate.getDate()+7);
+	                          endDate=getFormatDate(endDate);
+	                           var today = new Date();
+	                           today=getFormatDate(today)
 			    	    	  let cl=$(".cltjf").clone();
 			    	    	  $(cl).removeClass("cltjf");
 			    	    	  $(cl).css("display","block");
@@ -829,11 +826,14 @@ function numberWithCommas(x) {
 					    type: 'post',                             // HTTP 요청 방식(GET, POST)
 					    success: function(data){
 					    	 console.log(data,'작아지면 왜?');
-					    	 var today = new Date();
+					    	 
 						     	$(".abc").html("");
 					    	      for(let i=0;i<data.length;i++){
 					    	    	  var endDate = new Date(data[i]["PRODUCT_ENROLL_DATE"]);
-					    	    	  endDate.setDate(endDate.getDate() +7);
+			                          endDate.setDate(endDate.getDate()+7);
+			                          endDate=getFormatDate(endDate);
+			                           var today = new Date();
+			                           today=getFormatDate(today)
 					    	    	  let cl=$(".cltjf").clone();
 					    	    	  $(cl).removeClass("cltjf");
 					    	    	  $(cl).css("display","block");

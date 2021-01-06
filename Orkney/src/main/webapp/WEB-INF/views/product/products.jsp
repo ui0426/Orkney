@@ -21,6 +21,11 @@
 
                   <style>
 @media (max-width:700px) {
+.imgHeight{
+height: 17rem;
+}
+}
+@media (max-width:700px) {
    #compare_btn{
        width: 458px;
        margin-left: 16px !important;
@@ -182,7 +187,9 @@ filter();
             let category = getParameterByName('category');
             let search = getParameterByName('search-input');
             
-
+        	if (category=="all") {
+				$("#categoryNone").css("display","none");
+			}
 
 
             $.ajax({
@@ -203,21 +210,25 @@ filter();
                
                },
                success:data=>{
+
 //                   alert(category);
                $("#product_list").html("");
                  
                   for ( var i=0;i <= data.length;i++){
-                     if (data[i]["PRODUCT_COLOR"]=="normal") {
-						
-					
-                     var endDate = new Date(data[i]["PRODUCT_ENROLL_DATE"]);
-                     endDate=getFormatDate(endDate);
-                      var today = new Date();
-                      today=getFormatDate(today)
-                    let productClone = $("#products").clone().attr("id","products"+i);
 
+
+                	  if (data[i]["PRODUCT_COLOR"]=="normal") {
+                          
+                          
+                          var endDate = new Date(data[i]["PRODUCT_ENROLL_DATE"]);
+                          endDate.setDate(endDate.getDate()+7);
+                          endDate=getFormatDate(endDate);
+                          var today = new Date();
+                          today=getFormatDate(today)
+
+                          let productClone = $("#products").clone().attr("id","products"+i);
                     
-                    if(today>endDate){
+                     if(today>endDate){
                        $(productClone).find(".rm-pb-et-new").text('');
                      }
                     if(data[i]["SALE_PER"]==data[i]["PRODUCT_PRICE"]){ //할인이 아닐때
@@ -677,7 +688,7 @@ filter();
          </button>
       <!-- 제품 목록 -->
 <div id="removeProducts" style="display: none;">
-            <div class="col products " id="products" onmouseover="checkbox_Over()" onmouseout="checkbox_Out()">
+            <div class="col products " id="products" onmouseover="checkbox_Over()" onmouseout="checkbox_Out()" style="margin: auto;">
 
 
                <!-- Card -->
@@ -752,9 +763,9 @@ filter();
                      <div>
                         <hr>
                         <div class="row">
-                          <!--  <button type="button" class="btn  btn-md color-Gray1 " id="readMore"
+                           <button type="button" class="btn  btn-md color-Gray1 " id="readMore"
                               style="border: 1px solid darkgray !important;" >Read
-                              more</button> -->
+                              more</button>
                            <div class="row heartCart_icon" style="margin: auto;">
 <a class="material-tooltip-main " data-placement="top" title="Add to Cart" id="btnck"  data-toggle="modal" data-target="#modalAbandonedCart"> <i class="fas fa-shopping-cart grey-text ml-3"></i></a> 
 <a class="material-tooltip-main heart_icon" data-placement="top" title="Add to Wishlist" id="btnWish" data-toggle="modal" data-target="#modalAddWish"> <i class="fas fa-heart grey-text ml-3"></i></a>

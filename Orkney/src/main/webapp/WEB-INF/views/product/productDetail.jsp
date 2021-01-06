@@ -461,7 +461,7 @@ height: 32rem;
 						<span class="rm-pb-et-new ">NEW</span>			
 					</div>
 					<hr>
-					<h1 class="productName" id="productName"
+					<h1 class="productName" id="modalName"
 						class="h2-responsive text-center text-md-left product-name font-weight-bold dark-grey-text mb-1 ml-xl-0 ml-4">
 						<c:out value="${p.PRODUCT_NAME}"/>
 					</h1>
@@ -480,7 +480,6 @@ height: 32rem;
 									<div id="won2">원</div>
 								</div>
 							</div>
-
 							</p>
 <!-- 						<span class="red-text font-weight-bold"> -->
 <!-- 						<strong>원</strong> -->
@@ -620,7 +619,7 @@ $(function(){
             <img class="img_main" src="">
           </div>
           <div class="col-9">
-            <p>상품을 더 구매하시겠습니까??</p>
+            <p>상품을 더 구매하시겠습니까?</p>
             <div style="display:flex;">            
             	<div class="productName" id="productName"><c:out value="${p.PRODUCT_NAME}"/></div>
             	<div>상품이</div>
@@ -655,7 +654,8 @@ $(function(){
 				</div>
 
 			</div>
-
+			
+			<span id="productNo" style=" font-weight: 500; font-size: 12px;width:0.5em; height:0.1em; margin: 10em; background-color: rgb(240, 240, 240); padding: 2px 10px;"></span>
 			<hr>
 			<!--Accordion wrapper-->
 			<div class="accordion md-accordion" id="accordionEx" role="tablist"
@@ -672,6 +672,8 @@ $(function(){
 						<a data-toggle="collapse" data-parent="#accordionEx" href=""
 							aria-expanded="true" aria-controls="collapseOne1"
 							style="width: 100%; margin-bottom: 14px ;">
+							
+				
 							<div class="row justify-content-between">
 								<p class="mb-0 dark-grey-text col-3 fontbor" style="margin-left: 100px;">제품 설명</p>
 								<i class="fas fa-angle-right rotate-icon col-1 dark-grey-text"
@@ -1103,6 +1105,7 @@ $(function(){
 	<c:forEach items="${list}" var="i" varStatus="s" >
 
 	var endDate = new Date("${i.PRODUCT_ENROLL_DATE}");
+	endDate.setDate(endDate.getDate()+7);
 	endDate=getFormatDate(endDate);
 	 var today = new Date();
 	 today=getFormatDate(today)
@@ -1130,7 +1133,7 @@ $(function(){
 	   
  }
 	
-	
+ 	$("#modalName").text(("${i.PRODUCT_NAME}"));
 	$("#productName").text(("${i.PRODUCT_NAME}"));
 	$("#WIDTH").text(("폭  "+":"+"${i.PRODUCT_WIDTH}"+"cm"));
 	$("#HEIGHT").text(("높이 : "+"${i.PRODUCT_HEIGHT}"+"cm"));
@@ -1142,6 +1145,7 @@ $(function(){
 	$("#productNo").text(("${i.PRODUCT_NO}"));	
 // 	$(".productName").text(("${i.PRODUCT_NAME}"));
 
+	
 	$("#productPrice").text(numberWithCommas(("${i.PRODUCT_PRICE}")));
 	$("#width").text(("${i.PRODUCT_WIDTH}"));
 	$("#depth").text(("${i.PRODUCT_DEPTH}"));
@@ -1159,11 +1163,7 @@ $(function(){
 			$("#colorName").html("${i.PRODUCT_COLOR}");
 			
 			
-		}
-
-	
-	
-	/* $(".productNo").attr("onclick","location.href='${path }/cart/cartInsert.do?productNo=${i.PRODUCT_NO}&productPrice=${i.PRODUCT_PRICE}'"); */	
+		}		
 	</c:forEach>
 });
 

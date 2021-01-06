@@ -161,7 +161,7 @@
                                     <span class="spanwid">(필수) 개인정보 국외이전에 동의합니다.개인정보 국외이전</span>
                                 </div>
                               
-                                <div><button class="joinBtn" type="submit" onclick="return checkData();">가입하기</button></div>
+                                <div><button id="signupBtn" class="joinBtn" type="submit" onclick="return checkData();">가입하기</button></div>
                             </div>
                         </form>
                     </div>
@@ -293,6 +293,7 @@
         	emailCheck();
            if($("#ch2").prop("checked")&&$("#ch4").prop("checked")&&$("#ch5").prop("checked")){
            if(familyName&&givenName&&birth&&phone&&email&&pw&&adr1&&adr2&&adr3){
+        	   $('#signupBtn').css("display","none");
               return true;
            }
            }
@@ -501,7 +502,6 @@
         	            adr3=true;
         	           }
         	}
-        
         
         
     </script>

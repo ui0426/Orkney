@@ -41,15 +41,12 @@ public class CartController {
 	
 	//0.장바구니 추가
 	@RequestMapping("/cart/cartInsert.do")	
-	public ModelAndView cartInsert(HttpSession session,ModelAndView mv,String productNo, @RequestParam(value="cartQTY", defaultValue ="1") int cartQTY) {				
-
+	public ModelAndView cartInsert(ModelAndView mv,HttpSession session,String productNo, 
+			@RequestParam(value="cartQTY", defaultValue ="1") int cartQTY, String sumPrice) throws Exception {		
 		String memberNo = (String)((Map)session.getAttribute("login")).get("MEMBER_NO");							
 		String cartNo=service.selectCartNo(memberNo);													
-		List<Cart> c = service.selectCart(memberNo);				
-		
-		System.out.println("번호"+productNo);
-		
-		//2. 경록이형 연결
+		List<Cart> c = service.selectCart(memberNo);										
+						
 		Cart cart = new Cart();
 		cart.setMemberNo(memberNo);
 		cart.setProductNo(productNo);
@@ -61,10 +58,11 @@ public class CartController {
 		//3. 카트 존재 유무
 		int count = service.countCart(memberNo);						
 		
+		//2. 경록이형 연결
+		if(sumPrice==null) {
 		//4. 카트에 같은 상품이 있는지 확인				
 			if(c.size() != 0) {													//카트존재유무	
-				int pc = service.countProduct(productNo,c.get(0).getCartNo()); 	//카트에 같은 product 존재유무
-				System.out.println("pc"+pc);
+				int pc = service.countProduct(productNo,c.get(0).getCartNo()); 	//카트에 같은 product 존재유무				
 				if(pc!=0) { 													//카트에 상품 존재시 개수만 업데이트
 					cart.setCartQTY(cartQTY+1);							
 					int updateDetail = service.updateDetail(cart); 
@@ -74,9 +72,41 @@ public class CartController {
 			}else {
 				count = service.insertCart(cart);  								//카트가 없을시 카트 및 디테일 생성			  
 			}			
-											
-		return mv;
-	}
+			return mv;
+		}else{//2-1 cart에서 사용
+			if(c.size() != 0) {													
+				int pc = service.countProduct(productNo,c.get(0).getCartNo()); 	
+				if(pc!=0) { 													
+					cart.setCartQTY(cartQTY+1);							
+					int updateDetail = service.updateDetail(cart); 
+				}else if(pc==0) {																	
+					count= service.insertDetail(cart);			 	
+				}			
+			}else {
+				count = service.insertCart(cart);  											  
+			}			
+												
+			String totalPrice = Integer.toString(cartQTY*cart.getProductPrice());
+			Map<String, String> param1 = new HashMap();
+			param1.put("totalPrice",totalPrice);
+			param1.put("productNo", productNo);			
+			int productSum = service.productSum(param1);			
+			
+			List<Cart> c2 = service.selectCart(memberNo);	
+						
+			if(c2.size()!=0) {				
+				int sum=service.sumPrice(c2.get(0).getCartNo());
+				mv.addObject("sumprice",sum);
+			}else {
+				mv.addObject("sumprice",cart.getProductPrice());
+			}
+			mv.addObject("cart",c2);
+			mv.addObject("cN",cartNo);			
+			mv.setViewName("ajax/cart/cartproduct");
+			return mv;
+		}		
+	}	
+	
 		
 	//1.장바구니 화면 이동(장바구니 확인)
 	@RequestMapping("/cart/cart.do")
@@ -84,12 +114,13 @@ public class CartController {
 		
 		String memberNo = (String)((Map)session.getAttribute("login")).get("MEMBER_NO");	
 		List<Cart> c = service.selectCart(memberNo);						
-
 		if(!c.isEmpty()) {			
 			int sum=service.sumPrice(c.get(0).getCartNo());						
 			mv.addObject("sumprice",sum);
 			mv.addObject("cN",c.get(0).getCartNo());				
 			}
+		
+		
 		
 		mv.addObject("cart",c);						
 		mv.setViewName("cart/cart");
@@ -121,21 +152,27 @@ public class CartController {
 			@RequestParam(value="sumPrice",defaultValue="0") int sumPrice, String cN ){											
 			String memberNo = (String)((Map)session.getAttribute("login")).get("MEMBER_NO");				
 			
+			//위시리스트 modal ajax위해서
 			List<Wishlist> wlList = wservice.wishlistList(memberNo);
 			
 			Map<String, String> param =new HashMap();
 		 	param.put("cartNo",cartNo);
-			param.put("productNo",productNo);											
-			
+			param.put("productNo",productNo);													
 			if(!productNo.equals("0") && !cartNo.equals("0")) {							 
 				int product = service.deleteProduct(param);													
 			}else if(productNo.equals("0") && cartNo.equals("0")){}	
 			
-			List<Cart> c = service.selectCart(memberNo);									
+			List<Cart> c = service.selectCart(memberNo);
+			//onload때문에 설정
+			if(c.size()!=0) {				
+				int sum=service.sumPrice(c.get(0).getCartNo());
+				mv.addObject("sumprice",sum);
+			}else {
+				mv.addObject("sumprice",sumPrice);
+			}
 			
 			mv.addObject("wish",wlList);
-			mv.addObject("cN",cN);
-			mv.addObject("sumprice",sumPrice);
+			mv.addObject("cN",cN);			
 			mv.addObject("cart",c);								 
 			mv.setViewName("ajax/cart/cartproduct");
 			return mv;

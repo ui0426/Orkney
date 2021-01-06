@@ -311,7 +311,6 @@ public class OrderController {
 		String mNo = (String)login.get("MEMBER_NO");
 		
 		List list = service.selectOrderList(mNo);
-		
 		return list.size();
 	}
 }

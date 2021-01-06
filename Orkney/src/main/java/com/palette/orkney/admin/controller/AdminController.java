@@ -463,7 +463,7 @@ public class AdminController {
 	public List<Map> buttomProduct(@RequestParam(value = "type[]") String[] type) {
 		Map ty = new HashMap();
 		ty.put("type", type);
-		System.out.println(ty);
+		System.out.println("뭥미?????????????????????????"+ty);
 		return pService.buttomProduct(ty);
 	};
 	
