@@ -249,7 +249,6 @@ public class EmailController {
 	@ResponseBody
     public String sendOrderAllow (String no, String email, String name, String state) throws Exception {		
 		String EMAIL=email;		
-		System.out.println(EMAIL+no+name+state);
 		String noticeEmail=
 				"    <div style=\"width:100%;height:500px;min-height:500px;text-align: -webkit-center;\">\r\n" + 
 				"      <div style=\"width:65%;height:100%;display:flex; flex-direction: column; justify-content: center; background-color:rgb(242, 245, 247);max-width:709px ;\">\r\n" + 

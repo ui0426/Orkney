@@ -198,7 +198,7 @@
 		                	<li><a class="hnf-small-ex hnf-link-color" href="${path}/admin/adminPage.do">관리 페이지</a></li>
 		                	</c:if>
 		                    <li><a class="hnf-small-ex hnf-link-color" href="${path}/notice/question.do">FAQ</a></li>
-		                    <li><a class="hnf-small-ex hnf-link-color" href="${path }/order/order.do">배송조회</a></li>
+		                    <li><a class="hnf-small-ex hnf-link-color" href="${path }/order/order.do">배송조회 및 관리</a></li>
 		                 <c:if test="${not empty login }">
 		                    <li><a class="hnf-small-ex hnf-link-color" href="${path}/member/mypage.do">내 프로필</a></li>
 		                    <li><a class="hnf-small-ex hnf-link-color" href="${path }/member/memberLogout.do">로그아웃</a></li>		    
