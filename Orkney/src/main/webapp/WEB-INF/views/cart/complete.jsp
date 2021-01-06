@@ -42,8 +42,8 @@
 						                    <div><c:out value="${p.productName}"/></div>
 						                    <div><c:out value="${p.product_width}"/>*<c:out value="${p.product_height}"/>*<c:out value="${p.product_depth}"/></div>	                  		                    
 						                    <div><c:out value="${p.cartQTY}"/>개</div>
-						                    <div><fmt:formatNumber value="${p.cartQTY * p.productPrice}"/>&nbsp;원</div>	                     	                    
 						                </div>
+						                <div style="margin: 2.5em 7.5em; font-size: 18px;"><fmt:formatNumber value="${p.cartQTY * p.productPrice}"/>&nbsp;원</div>	                     	                    
 						            </div>	            
 					            </div>  
 					            <div class="line3"></div>
