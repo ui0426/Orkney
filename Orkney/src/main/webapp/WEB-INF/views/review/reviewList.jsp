@@ -20,8 +20,8 @@
 			<div class="review-small-container">
 				<div class="orderList_mobile">
 						<div class="btn-group orderList-tab" role="group" aria-label="Basic example">
-						  <button id="tab1" type="button" class="btn-light orderList-btn btn-clicked" aria-selected="true" aria-controls="panel1">작성 가능 리뷰</button>
-						  <button id="tab2" type="button" class="btn-light orderList-btn">작성한 리뷰</button>
+						  <button id="tab1" type="button" class="importent_style btn orderList-btn btn-clicked" aria-selected="true" aria-controls="panel1">작성 가능 리뷰</button>
+						  <button id="tab2" type="button" class="importent_style btn orderList-btn">작성한 리뷰</button>
 						</div>
 						<div id="panel-container">
 							<div class="panel1">
@@ -110,7 +110,7 @@
 											 <span style="font-weight:400; margin-left:.3em;"><c:out value="${r.product_grade }"/></span>
 											</div>
 											<div class="content">
-												<c:out value="${r.review_content }"/>
+												${r.review_content }
 											</div>
 										</div>
 										<div class="update-btn">
