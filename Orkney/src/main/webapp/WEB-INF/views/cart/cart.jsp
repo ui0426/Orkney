@@ -85,7 +85,8 @@
             			url:"${path}/cart/cartInsert.do",
             			data: {productNo:pNo,cartQTY:qty,sumPrice:sumPrice},
             			success:data =>{             					
-	            				$("#re").html(data);             				            				
+	            				$("#re").html(data);
+	            				$("#error-div").html("");
             				},
             	 		error:function(request,status,error){
         					$("#error-div").html("제품번호를 올바르게 입력하세요");
