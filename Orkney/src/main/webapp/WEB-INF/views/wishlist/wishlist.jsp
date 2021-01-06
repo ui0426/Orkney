@@ -40,7 +40,7 @@
                <div class="product-description">
                		<h2 onclick="location.href='${path}/product/productDetail.do?productno=${wide.product.productNo }'"><c:out value="${ wide.product.productName}"/></h2>
                		<ul>
-               			<li><c:out value="${ wide.small_category_content }"/></li>
+               			<li><c:out value="${ wide.big_category_content }"/></li>
                			<li><c:out value="${ wide.product.productColor }"/></li>
                		</ul>
                </div>
