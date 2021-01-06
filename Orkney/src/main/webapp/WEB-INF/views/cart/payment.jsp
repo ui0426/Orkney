@@ -536,17 +536,17 @@ if($(".ck").is(":checked")==false){
 //6. Modal 저장된 주소 가져오기
 $(".chbt").click(e=>{
 	let adnm = $(e.target).prev().val(); //이름
-	let adad = $(e.target).next().val(); //주소번호
+	let adad = $(e.target).next().val(); //주소
 	let addt = $(e.target).next().attr("class");//주소 detail
-	let adpo = $(e.target).next().attr("id"); //주소
+	let adpo = $(e.target).next().attr("id"); //주소번호
 	let adtl = $(e.target).attr("id"); //전화번호
 
 	
 	$("#copyname").attr({"value":adnm});        	            	
 	$("#copyphone").attr({"value":adtl}); 
 	
-	$("#zip").attr({"value":adad});
-	$("#adrinput").attr({"value":adpo});
+	$("#adrinput").attr({"value":adad});
+	$("#zip").attr({"value":adpo});
 	$("#adrdetail").attr({"value":addt});        		            	            	
 })
 
