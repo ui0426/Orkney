@@ -637,7 +637,7 @@ public class MemberController {
 			String[] dateStr = p.getPoint_date().split(" ");
 			p.setPoint_date(dateStr[0]);
 			list2.add(p);
-			
+			System.out.println("point list2" + list2);
 			months.add(p.getPoint_date().substring(0, 7));
 		}
 		
