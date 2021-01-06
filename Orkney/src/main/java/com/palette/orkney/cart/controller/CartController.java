@@ -62,8 +62,7 @@ public class CartController {
 		if(sumPrice==null) {
 		//4. 카트에 같은 상품이 있는지 확인				
 			if(c.size() != 0) {													//카트존재유무	
-				int pc = service.countProduct(productNo,c.get(0).getCartNo()); 	//카트에 같은 product 존재유무
-				System.out.println("pc"+pc);
+				int pc = service.countProduct(productNo,c.get(0).getCartNo()); 	//카트에 같은 product 존재유무				
 				if(pc!=0) { 													//카트에 상품 존재시 개수만 업데이트
 					cart.setCartQTY(cartQTY+1);							
 					int updateDetail = service.updateDetail(cart); 
