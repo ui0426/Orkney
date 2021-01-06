@@ -189,6 +189,7 @@ filter();
             
         	if (category=="all") {
 				$("#categoryNone").css("display","none");
+				$("#categoryBTN").css("display","none");
 			}
 
 
@@ -656,7 +657,7 @@ filter();
          </button>
          <button type="button"
             class="btn round col-2 filterSiz col-md-1 btnH35"
-            data-toggle="modal" data-target="#modalPoll-1">
+            data-toggle="modal" data-target="#modalPoll-1" id="categoryBTN">
             <span class="fontborder fontColorGray">카테고리</span>
          </button>
          <button type="button"
