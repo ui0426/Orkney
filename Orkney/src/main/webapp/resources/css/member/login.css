@@ -1,5 +1,5 @@
 @charset "UTF-8";
-body,html{height:100%;overflow: hidden;}
+body,html{height:100%;overflow: hidden;width:100vw;}
     
     #totalForm{height:100%;}
     #semiForm{display:flex;height:100%;}

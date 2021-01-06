@@ -11,6 +11,7 @@ import javax.mail.MessagingException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -46,7 +47,8 @@ public class EmailController {
 	private CartService cservice;
 
 	@RequestMapping(value="/transPw.do", method=RequestMethod.POST)
-    public ModelAndView sendEmailAction (@RequestParam(value="email") String email, ModelMap model, ModelAndView mv,HttpServletResponse response) throws Exception {
+    public ModelAndView sendEmailAction (@RequestParam(value="email") String email, ModelMap model, ModelAndView mv,HttpServletResponse response
+    		,HttpServletRequest request) throws Exception {
  
 //        String USERNAME = (String) paramMap.get("username");
 		//String USERNAME="이세현";
@@ -82,9 +84,12 @@ public class EmailController {
 		c.setPath("/");
 		response.addCookie(c);
 		
+		String uri=request.getRequestURI();
+		String url=request.getRequestURL().toString();
+		String path=request.getContextPath();
+		String adr=url.replaceAll(uri,"");
+		String domain=adr+path;
 		
-		
-		System.out.println(email);
 		String noticeEmail=
 				"    <div style=\"width:100%;height:500px;min-height:500px;text-align: -webkit-center;\">\r\n" + 
 				"      <div style=\"width:65%;height:100%;display:flex; flex-direction: column; justify-content: center; background-color:rgb(242, 245, 247);max-width:709px ;\">\r\n" + 
@@ -99,7 +104,7 @@ public class EmailController {
 				"          고객님께서 요청하시지 않았다면, 보안을 위해 ORKNEY 계정에 로그인하실 수 있는지 확인해 주세요.<br><br>          \r\n" + 
 				"          비밀번호 변경을 요청하셨다면 아래 버튼을 눌러 비밀번호를 변경해주세요.</div>\r\n" + 
 				"          <div style=\"text-align-last: center;\"><a target='_blank'"
-				+ "href='http://localhost:9090/orkney/member/transPassword.do?id="+email+"&key="+key+"' style=\"padding: 18px 37px 24px; border:none;background-color:#0058a3;border-radius: 30px;color: white; font-weight: 700;\">비밀번호 변경</a></div>\r\n" + 
+				+ "href='"+domain+"/member/transPassword.do?id="+email+"&key="+key+"' style=\"padding: 18px 37px 24px; border:none;background-color:#0058a3;border-radius: 30px;color: white; font-weight: 700;\">비밀번호 변경</a></div>\r\n" + 
 				"          <div><p>ORKNEY.KO</p></div>\r\n" +
 				"      </div>\r\n" + 
 				"      </div>\r\n" + 
