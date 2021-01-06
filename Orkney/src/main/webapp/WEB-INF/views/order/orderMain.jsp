@@ -16,8 +16,7 @@
 	<div class="order">
 		<nav aria-label="breadcrumb">
 		  <ol class="breadcrumb">
-		    <li class="breadcrumb-item"><a href="#">홈</a></li>
-		    <li class="breadcrumb-item"><a href="#">고객 서비스</a></li>
+		    <li class="breadcrumb-item"><a href="${path}">홈</a></li>
 		    <li class="breadcrumb-item active" aria-current="page">배송조회 및 관리</li>
 		  </ol>
 		</nav>
