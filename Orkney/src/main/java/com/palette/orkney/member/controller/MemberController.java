@@ -2,6 +2,7 @@ package com.palette.orkney.member.controller;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -638,14 +639,16 @@ public class MemberController {
 			p.setPoint_date(dateStr[0]);
 			list2.add(p);
 			System.out.println("point list2" + list2);
+			System.out.println(p.getPoint_date().substring(0, 7));
 			months.add(p.getPoint_date().substring(0, 7));
 		}
+		List months2 = new ArrayList(months);
+		Collections.sort(months2, Collections.reverseOrder());
 		
-		System.out.println(list2);
 		m.addAttribute("list", list2);
-		m.addAttribute("months", months);
+		m.addAttribute("months", months2);
 		
-		
+		System.out.println(months2);
 		return "member/pointList";
 	}
 	

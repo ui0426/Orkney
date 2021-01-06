@@ -72,6 +72,7 @@
 		          <input type="hidden" class="refund_point" value="${od.point_point }"/>
 		          <input type="hidden" class="member_id" value="${od.member_id}"/>
 		          <input type="hidden" class="member_name" value="${od.member_name}"/>
+		          <input type="hidden" class="point_no" value="0"/>
 	                   
                   <td class="odlistmodal"><c:out value="${od.order_no}"/></td>
 	              <td class="odlistmodal"><c:out value="${od.member_id}"/></td>

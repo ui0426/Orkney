@@ -14,7 +14,7 @@ public class Wishlist_detail {
 	private String wishlist_no;
 	private String product_no;
 	private int product_qty;
-	private String small_category_content;
+	private String big_category_content;
 	private Product product;
 	
 

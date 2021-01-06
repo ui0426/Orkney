@@ -17,7 +17,7 @@
 <!-- 사진 다 들어가면 아래꺼로 바꾸기 -->
     select * from wishlist_detail join product on (wishlist_detail.product_no = product.product_no) 
                                 join product_image on (product.product_no = product_image.product_no) 
-                                join small_category on (small_category.small_category_no = product.small_category_no)
+                                join big_category on (big_category.big_category_no = product.big_category_no)
                                 where wishlist_no = #{wNo} and product_image.product_color = 'normal'
 </select>
 
@@ -86,7 +86,7 @@
   	<result column="WISHLIST_NO" property="wishlist_no"/>
   	<result column="PRODUCT_NO" property="product_no"/>
   	<result column="PRODUCT_QTY" property="product_qty"/>
-  	<result column="SMALL_CATEGORY_CONTENT" property="small_category_content"/>
+  	<result column="BIG_CATEGORY_CONTENT" property="big_category_content"/>
   	<association property="product" resultMap="productResultMap"></association>
   </resultMap>
 

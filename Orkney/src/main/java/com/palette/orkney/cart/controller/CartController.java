@@ -62,8 +62,7 @@ public class CartController {
 		if(sumPrice==null) {
 		//4. 카트에 같은 상품이 있는지 확인				
 			if(c.size() != 0) {													//카트존재유무	
-				int pc = service.countProduct(productNo,c.get(0).getCartNo()); 	//카트에 같은 product 존재유무
-				System.out.println("pc"+pc);
+				int pc = service.countProduct(productNo,c.get(0).getCartNo()); 	//카트에 같은 product 존재유무				
 				if(pc!=0) { 													//카트에 상품 존재시 개수만 업데이트
 					cart.setCartQTY(cartQTY+1);							
 					int updateDetail = service.updateDetail(cart); 
@@ -86,11 +85,23 @@ public class CartController {
 			}else {
 				count = service.insertCart(cart);  											  
 			}			
-			List<Cart> c2 = service.selectCart(memberNo);						
-			int sum=service.sumPrice(c.get(0).getCartNo());							
+												
+			String totalPrice = Integer.toString(cartQTY*cart.getProductPrice());
+			Map<String, String> param1 = new HashMap();
+			param1.put("totalPrice",totalPrice);
+			param1.put("productNo", productNo);			
+			int productSum = service.productSum(param1);			
+			
+			List<Cart> c2 = service.selectCart(memberNo);	
+						
+			if(c2.size()!=0) {				
+				int sum=service.sumPrice(c2.get(0).getCartNo());
+				mv.addObject("sumprice",sum);
+			}else {
+				mv.addObject("sumprice",cart.getProductPrice());
+			}
 			mv.addObject("cart",c2);
-			mv.addObject("cN",cartNo);
-			mv.addObject("sumprice",sum);
+			mv.addObject("cN",cartNo);			
 			mv.setViewName("ajax/cart/cartproduct");
 			return mv;
 		}		
@@ -151,13 +162,17 @@ public class CartController {
 				int product = service.deleteProduct(param);													
 			}else if(productNo.equals("0") && cartNo.equals("0")){}	
 			
-			List<Cart> c = service.selectCart(memberNo);									
-			
-			int sum=service.sumPrice(c.get(0).getCartNo());	
+			List<Cart> c = service.selectCart(memberNo);
+			//onload때문에 설정
+			if(c.size()!=0) {				
+				int sum=service.sumPrice(c.get(0).getCartNo());
+				mv.addObject("sumprice",sum);
+			}else {
+				mv.addObject("sumprice",sumPrice);
+			}
 			
 			mv.addObject("wish",wlList);
-			mv.addObject("cN",cN);
-			mv.addObject("sumprice",sum);
+			mv.addObject("cN",cN);			
 			mv.addObject("cart",c);								 
 			mv.setViewName("ajax/cart/cartproduct");
 			return mv;
