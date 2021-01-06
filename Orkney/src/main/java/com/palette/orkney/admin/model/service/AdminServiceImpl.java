@@ -245,13 +245,11 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public int updateStateAndSort(Map m) {
 		int result = dao.updateStateAndSort(session, m);
-		System.out.println("사용포인트는?"+m.get("point"));
 		if(result>0 && m.get("state").equals("취소완료") && m.get("point")!=null) {
 			String no = (String)m.get("mNo");
 			m.put("no",no);
 			m.put("reason","주문취소");
 			m.put("type","적립");
-			System.out.println("회원번호랑 나와야하는데,.."+m);
 			result = dao.modifyPoint(session, m);
 			if(result>0) {
 				result = dao.pointModify(session, m);

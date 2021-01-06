@@ -38,7 +38,7 @@
 							JOIN SMALL_CATEGORY S ON P.SMALL_CATEGORY_NO=S.SMALL_CATEGORY_NO
 							left outer join REVIEW B on A.ORDER_DETAIL_NO=B.ORDER_DETAIL_NO
 							JOIN ORDERS C ON A.order_NO=C.ORDER_NO
-							where C.MEMBER_NO=#{mNo} AND C.ORDER_STATE='배송완료' AND I.PRODUCT_COLOR='normal' AND B.ORDER_DETAIL_NO is null ORDER BY A.ORDER_DETAIL_NO DESC
+							where C.MEMBER_NO=#{mNo} AND A.SORT='구매확정' AND I.PRODUCT_COLOR='normal' AND B.ORDER_DETAIL_NO is null ORDER BY A.ORDER_DETAIL_NO DESC
 	</select>
 	
 	<select id="selectReviewToUpdate" parameterType="_int" resultType="review">

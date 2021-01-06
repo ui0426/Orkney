@@ -677,7 +677,6 @@ public class AdminController {
 	@RequestMapping("/admin/allowStateAndSort.do")
 	@ResponseBody
 	public boolean allowStateAndSort(String state, String no, int pNo, String mNo) {
-		System.out.println("넘긴 값 : "+state+" 번호 "+no+"포인트 번호"+pNo);
 		Map m = new HashMap();
 		m.put("state", state);
 		m.put("no", no);//오더 혹은 오더 디테일 번호임
@@ -685,7 +684,6 @@ public class AdminController {
 			m.put("point",service.selectPoint(pNo));
 			m.put("mNo",mNo);
 		}
-		System.out.println("뽑아온 포인트 값은?"+m.get("point"));
 		int result = service.updateStateAndSort(m);
 		if(result > 0) return true;
 		else return false;

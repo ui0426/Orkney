@@ -336,10 +336,10 @@
 							
 								<!-- Pricing card -->
 								<div
-									class="text-white text-center pricing-card d-flex align-items-center rgba-stylish-strong py-3 px-3 rounded darkCol">
+									class="text-white text-center pricing-card d-flex align-items-center rgba-stylish-strong py-3 px-3 rounded darkCol" style="color: black !important; background-color: white !important;">
 									<!-- Content -->
 									<div class="card-body view rounded z-depth-1-half">
-										<h5><c:out value="${p.PRODUCT_NAME}" /></h5>
+										<h5 style="font-weight: initial;"><c:out value="${p.PRODUCT_NAME}" /></h5>
 										<!-- Price -->
 										<div class="price pt-0 imgCenter">
 											<img alt=""
@@ -374,7 +374,7 @@
 												</p>
 											</li>
 										</ul>										
-										<a class="btn btn-outline-white" href="${path}/product/productDetail.do?productno=${p.PRODUCT_NO}">Buy now</a>
+										<a class="btn btn-outline-white" href="${path}/product/productDetail.do?productno=${p.PRODUCT_NO}" style="color: black !important;">Buy now</a>
 									</div>
 									<!-- Content -->
 								</div>

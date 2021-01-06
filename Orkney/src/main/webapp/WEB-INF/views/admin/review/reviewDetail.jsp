@@ -19,7 +19,15 @@
 		heignt: 1em;
 		color: #ffc107;
 	}
-
+	.container{
+		padding: 0 5em;
+	}
+	.picture{
+		margin: 2em 0;
+	}
+	.img{
+		margin: .8em 0;
+	}
 </style>
 <section>
 
@@ -30,12 +38,17 @@
 		</div>
 	</div>
 	<div>
-		<div>
-			<div>
+		<div class="container">
 			<div>
 				<div>
-			    	<h5><c:out value="${r.product_name }"/></h5> 
+			    	<h5><c:out value="${r.product_name }"/></h5>
+			    	<div class="update-btn">
+						<button class="btn btn-outline-info waves-effect btn-sm" data-toggle="modal" data-target="#exampleModal">
+							삭제
+						</button>
+					</div> 
 			  	</div>
+			  	<div class="part-line"><hr class="line-c"></div>
 			  	<div>
 			  		<p><c:out value="${r.review_date}"/></p>
 			  	</div> 
@@ -87,18 +100,15 @@
 						<c:out value="${r.review_content }"/>
 					</div>
 				</div>
-				<div class="update-btn">
-					<button class="btn btn-outline-info waves-effect btn-sm" data-toggle="modal" data-target="#exampleModal">
-						삭제
-					</button>
-				</div>
+				
 				</div>
 				<div class="picture">
 					<c:forEach items="${r.riList }" var="ri">
-						<img class="ri-img-size" src="${path }/resources/upload/review/${ri.renamedFileName }"/>
+						<div class="img">
+							<img class="ri-img-size" src="${path }/resources/upload/review/${ri.renamedFileName }"/>
+						</div>	
 					</c:forEach>
 				</div>
-			</div>
 			</div>
 		</div>
 	</div>
@@ -126,7 +136,7 @@
 		</c:forEach>
 	</form>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+        <button type="button" class="btn btn-light" data-dismiss="modal">취소</button>
         <button id="deleteReview" type="button" class="btn btn-primary">확인</button>
       </div>
     </div>
