@@ -66,8 +66,7 @@ public class AdminController {
 				list2.add(service.chatData(m));
 			}
 			list.add(list2);
-		}
-		System.out.println(list);
+		}		
 		return list;
 	}
 
@@ -333,8 +332,7 @@ public class AdminController {
 	public ModelAndView insertRoom(ModelAndView mv, @RequestParam(value = "productInput_product[]", required = true) String[] rooms_product, @RequestParam(value = "productInput_top[]", required = true) String[] rooms_top, @RequestParam(value = "productInput_left[]", required = true) String[] rooms_left, @RequestParam String category, @RequestParam(value="toggleInsert", defaultValue = "0") String toggleInsert, @RequestParam String category_no, @RequestParam(value = "room_img", required = false) MultipartFile multi, HttpSession session) {
 		Map<String, Object> room = new HashMap<String, Object>();
 		Map<String, Object> rooms = new HashMap<String, Object>(); 
-		System.out.println(toggleInsert);
-		System.out.println(multi);
+				
 		List one = new ArrayList();
 		List two = new ArrayList();
 		List three = new ArrayList();

@@ -310,8 +310,7 @@ public class EmailController {
 		int totalFee = (int)((Map)session.getAttribute("info")).get("totalFee");//총금액			
 								
 		List<Cart> c = cservice.selectCart(memberNo);
-				
-		System.out.println(EMAIL +"주문자"+name+""+address+""+phone+""+sumprice+""+shipFee+""+willPoint+""+""+addTax+""+totalFee+""+oNo);
+						
 		String noticeEmail=
 				"<div style=\"    height: 1000px;\r\n" + 
 				"min-height: 1000px;\">\r\n" + 
