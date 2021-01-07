@@ -69,6 +69,8 @@ public class ReviewController {
 								HttpSession session ) throws IOException{
 		Map login = (Map)session.getAttribute("login");
 		review.setMember_no((String)login.get("MEMBER_NO"));
+		String content = review.getReview_content().replace("\r\n","<br>");
+		review.setReview_content(content);
 		Map data = new HashMap();//포인트 적립 정보 담을 것
 		data.put("point", 200);
 		data.put("reason", "리뷰작성(텍스트형)");
@@ -104,7 +106,6 @@ public class ReviewController {
 		int result=service.insertReview(review, files);
 		
 		if(result>0) {
-			System.out.println("리뷰 성공???");
 			data.put("type", "적립");
 			data.put("no", review.getMember_no());
 			result = aservice.modifyPoint(data);
@@ -127,8 +128,6 @@ public class ReviewController {
 		mv.addObject("beforeReview", beforeReview);
 		mv.addObject("review", review);
 		mv.addObject("s", s);
-		//System.out.println("작성 가능한 리뷰 : "+beforeReview);
-		//System.out.println("작성 한 리뷰 : "+review);
 		mv.setViewName("/review/reviewList");
 		return mv;
 	}
@@ -136,10 +135,11 @@ public class ReviewController {
 	@RequestMapping("/review/reviewUpdate.do")
 	public ModelAndView reviewUpdate(int rNo, ModelAndView mv, HttpSession session) {
 		Map login = (Map)session.getAttribute("login");
-		if(login != null) {			
+		if(login != null) {		
 			Review review=service.selectReviewToUpdate(rNo);
+			String content = review.getReview_content().replace("<br>", "\r\n");
+			review.setReview_content(content);
 			mv.addObject("review", review);
-			//System.out.println("수정할 것: "+review);
 			mv.setViewName("review/reviewUpdate");
 		}
 		return mv;
@@ -149,35 +149,10 @@ public class ReviewController {
 	@ResponseBody
 	public int reviewUpdateEnd(Review review, HttpSession session) {
 		System.out.println("수정 한 후 전송한 데이터 : "+review);
-//		String path=session.getServletContext().getRealPath("/resources/upload/review");
-//		
-//		File dir = new File(path);
-//		
-//		List<ReviewImage> files=new ArrayList();
-//		
-//		for(MultipartFile f : multi) {
-//			if(!f.isEmpty()) {
-//				String originalName = f.getOriginalFilename();
-//				String ext = originalName.substring(originalName.lastIndexOf(".")+1);
-//				System.out.println(ext);
-//				
-//				SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd_HHmmssSSS");
-//				int rndValue = (int)(Math.random()*10000);
-//				String reName=sdf.format(System.currentTimeMillis())+"_"+rndValue+"."+ext;
-//				try {
-//					f.transferTo(new File(path+"/"+reName));
-//				}catch(IOException e) {
-//					e.printStackTrace();
-//				}
-//				ReviewImage ri=ReviewImage.builder().review_no(review.getReview_no()).originalFileName(originalName).renamedFileName(reName).build();
-//				files.add(ri);
-//			}
-//
-//		}
-//		int result=service.updateReview(review, files);
+		String content = review.getReview_content().replace("\r\n","<br>");
+		review.setReview_content(content);
+		System.out.println(review.getReview_content());
 		int result=service.updateReview(review);
-		System.out.println("수정결과 : "+result);
-		
 		return result;
 	}
 	

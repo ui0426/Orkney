@@ -103,9 +103,6 @@ public interface AdminDao {
 	//by윤나-리뷰삭제
 	int deleteReview(SqlSession session, int rNo);
 	
-	//by윤나-재고 수정 시 입출고 인서트
-	int insertShipped(SqlSession session, Map list);
-	
 	//by윤나-입출고내역조회
 	List<Map> selectShippedList(SqlSession session, String pNo);
 

@@ -188,18 +188,18 @@ public class AdminServiceImpl implements AdminService {
 	public int productPutIn(Map<String, Object> list) {
 		// TODO Auto-generated method stub
 		int result = dao.productPutIn(session,list);
-		if(result>0) {
-			String put = (String)list.get("put");
-			if(put.contains("-")) {
-				String put2 = put.replaceAll("-", "");
-				System.out.println(put2);
-				list.put("put",put2);
-				list.put("type", "출고");
-			}else {
-				list.put("type", "입고");
-			}
-			result = dao.insertShipped(session, list);
-		}
+//		if(result>0) {
+//			String put = (String)list.get("put");
+//			if(put.contains("-")) {
+//				String put2 = put.replaceAll("-", "");
+//				System.out.println(put2);
+//				list.put("put",put2);
+//				list.put("type", "출고");
+//			}else {
+//				list.put("type", "입고");
+//			}
+//			result = dao.insertShipped(session, list);
+//		}
 		return result;
 	}
 
@@ -227,13 +227,13 @@ public class AdminServiceImpl implements AdminService {
 					result = dao.insertProductImage(session, pi);
 				}
 			}
-			if(result>0) {
-				Map m = new HashMap();
-				m.put("pNo", "p"+product.getProductNo());
-				m.put("put", product.getProductStock());
-				m.put("type","입고");
-				dao.insertShipped(session, m);
-			}
+//			if(result>0) {
+//				Map m = new HashMap();
+//				m.put("pNo", "p"+product.getProductNo());
+//				m.put("put", product.getProductStock());
+//				m.put("type","입고");
+//				dao.insertShipped(session, m);
+//			}
 		}
 		
 		return result;

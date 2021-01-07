@@ -17,6 +17,10 @@
     font-size: 1.1em;
     font-weight: 900;
 }
+.modal_refund_info{
+    font-size: .5em;
+    margin-top: 3em;
+}
 </style>	
 	
 	
@@ -90,16 +94,14 @@
       
       <script>
       	function allow(state,no,me){
-      		console.log("확인, 승인, 거절 버튼 눌렀을 때~"+state+no+me);
       		if(state == '교환신청') state = '교환처리중';
       		if(state == '반품신청') state = '반품처리중';
-      		console.log(me);
       		var email = $(me).parent().siblings(".member_id").val();
       		var name = $(me).parent().siblings(".member_name").val();
       		var oNo = $(me).parent().siblings(".order_no").val();
       		var pNo = $(me).parent().siblings(".point_no").val();
       		var mNo = $(me).parent().siblings(".member_no").val();
-      		console.log(state+email+name+pNo);
+      		
       		
       		return new Promise((resolve, reject)=>{
       			
@@ -107,7 +109,6 @@
 	      			url:"${path}/admin/allowStateAndSort.do",
 	      			data:{state:state, no:no, pNo:pNo, mNo:mNo},
 	      			success: data =>{
-	      				console.log(data);
 	      				location.href='${path}/admin/orderList.do';
 	      				resolve(data);
 	      			}
@@ -123,7 +124,6 @@
 	      					url:"${path}/orderAllow.do",
 	      					data:{no:oNo, email:email, name:name, state:state},
 	      					success: succ =>{
-	      						console.log(succ);
 	      					}
 	      				});
       				}else{
@@ -136,7 +136,6 @@
       
       	$(".odlistmodal").click(e=>{
       		var oNo = $(e.target).siblings(".order_no").val();
-      		console.log(oNo);
       		var sort = $(e.target).siblings(".sort").val();
       		var pName = $(e.target).siblings(".product_name").val();
       		var pColor = $(e.target).siblings(".product_color").val();
@@ -154,27 +153,32 @@
       		}
       		
       		var rQty = $(e.target).siblings(".refund_qty").val();
+      		var rReason = $(e.target).siblings(".refund_reason").val();
       		var rContent = $(e.target).siblings(".refund_content").val();
       		var rPic = $(e.target).siblings(".refund_pic").val();
       		
       		var src = "${path }/resources/upload/order-refund/"+rPic;
       		
-      		console.log(sort+pName+pColor+rQty+rContent+rPic+src+"환불금액관련 ::1. 부가세"+tax+" 2. 배송비"+delivery);
       		
       		
       		$.ajax({
       			url: "${path}/admin/selectRefundList.do",
       			data: {oNo:oNo, rPoint:rPoint},
       			success: point => {
-      				console.log(point);
       				var rAmount = (pPrice*rQty)+tax-point-delivery;
-      				console.log(rAmount);
 		   			$("#odListModalLabel").html(sort+" 내역");
 		   			$("#modalpName").html("상품명 : "+pName);
 		   			$("#modalpColor").html("상품컬러 : "+pColor);
 		   			$("#modalrQty").html("반환 수량 : "+rQty);
+		   			$("#modalrReason").html("사유 : "+rReason);
 		   			$("#modalrContent").html("내용 : "+rContent);
 		   			$("#modalrPic").attr("src", src);
+		   			if(rContent == ''){
+		   				$("#modalrContent").css("display","none");
+		   			}
+		   			if(src == '/orkney/resources/upload/order-refund/'){
+		   				$("#modalrPic").css("display","none");
+		   			}
 		   			if(sort == '반품신청'){   				
 			   			$("#modalrAmountInfo").html("환불금액 = (상품가격x반품수량)+부가세(10%)-사용포인트(모든 상품 반품처리 시 사용포인트 반환)-반품택배비");
 			   			$("#modalrAmount").html(rAmount+" = ("+pPrice+"x"+rQty+")+"+tax+"-"+point+"-"+delivery);
@@ -205,9 +209,10 @@
 		        </div>
 		        <div>
 		        	<h3 id="modalrQty" class="modal-text-ynyn"></h3>
+		        	<h3 id="modalrReason" class="modal-text-ynyn"></h3>
 		        	<h3 id="modalrContent" class="modal-text-ynyn"></h3>
 		        	<img id="modalrPic" src=""/>
-		        	<h3 id="modalrAmountInfo" class="modal-text-ynyn"></h3>
+		        	<p id="modalrAmountInfo" class="modal_refund_info"></p>
 		        	<h3 id="modalrAmount"class="modal-text-ynyn"></h3>
 		        </div>
 		      </div>

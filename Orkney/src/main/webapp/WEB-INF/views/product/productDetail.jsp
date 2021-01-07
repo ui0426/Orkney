@@ -978,7 +978,7 @@ if ("${r.REVIEW_NO}"!=null) {
 		$(reviewClone).find("#starGray5").removeClass("grey-text").addClass("blue-text");
 	}
 	$(reviewClone).find("#reviewDate").text('${r.REVIEW_DATE}');
-	$(reviewClone).find("#review").text('${r.REVIEW_CONTENT}');
+	$(reviewClone).find("#review").html('${r.REVIEW_CONTENT}');
 // 	만드는중 	a태그 target 변경
 	$(reviewClone).find("#imgZoom").attr("data-target","#modalVM"+'${s.index}');
 

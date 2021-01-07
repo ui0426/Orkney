@@ -259,15 +259,10 @@ public class EmailController {
 				"      <div style=\"width:65%;height:100%;display:flex; flex-direction: column; justify-content: center; background-color:rgb(242, 245, 247);max-width:709px ;\">\r\n" + 
 				"        <div style=\"width: 85%;height: 85%;align-self: center; background-color:white;padding:.5rem .8rem 0rem;text-align: -webkit-left;\">\r\n" + 
 				"          <div style=\"text-align: -webkit-center;\">\r\n" + 
-				"            <div style=\"background-image: url(https://kr.accounts.ikea.com/resources/static/logo.svg);\r\n" + 
-				"          background-repeat: no-repeat;\r\n" + 
-				"            background-size: 88px 44px;\r\n" + 
-				"            content: '';\r\n" + 
-				"            width:88px;\r\n" + 
-				"            height:44px;\r\n" + 
-				"            background-color:#0058a3;\"></div></div>\r\n" + 
+				"            <div style=\"font-weight: 900;\r\n" + 
+				"               font-size: 40px;\">ORKNEY</div></div>\r\n" + 
 				"          <br>\r\n" + 
-				"        <div><h1 style=\"margin:0;\">Hej"+name+"</h1></div>\r\n" + 
+				"        <div><h1 style=\"margin:0;\">Hi! "+name+"</h1></div>\r\n" + 
 				"        <br>\r\n" + 
 				"        <div style=\"height: 47%;\">고객님의 주문 '"+no+"'이 변경되어 안내 메일을 발송해드립니다.<br><br>\r\n" + 
 				"          본 메일은 자동 발송 메일로, 주문이 "+state+" 되었음을 알려드립니다.<br><br>          \r\n" + 

@@ -21,8 +21,8 @@
 				<div class="orderList-container">
 					<div class="orderList_mobile">
 						<div class="btn-group orderList-tab" role="group" aria-label="Basic example">
-						  <button id="tab1" type="button" class="btn-light orderList-btn btn-clicked" aria-selected="true" aria-controls="panel1">처리중 주문</button>
-						  <button id="tab2" type="button" class="btn-light orderList-btn">지난 주문 내역</button>
+						  <button id="tab1" type="button" class="btn importent_style orderList-btn btn-clicked" aria-selected="true" aria-controls="panel1">처리중 주문</button>
+						  <button id="tab2" type="button" class="btn importent_style orderList-btn">지난 주문 내역</button>
 						</div>
 						<div id="panel-container">
 						<div class="panel1">

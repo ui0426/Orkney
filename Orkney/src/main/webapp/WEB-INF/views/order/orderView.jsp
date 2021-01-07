@@ -1212,7 +1212,6 @@
 					$(".exchange_do").click(e => {
 						var odNo = $(e.target).val();
 						var pQty = $(e.target).prev().prev().prev().val();
-						console.log("교환할 오더디테일넘버 : "+odNo+"교환 할 제품 구매했던 수량:"+pQty);
 						
 						$("#exchange-refund-title").text("교환하기");
 						
@@ -1228,7 +1227,6 @@
 					$(".refund_do").click(e => {
 						var odNo = $(e.target).val();
 						var pQty = $(e.target).prev().prev().prev().prev().val();
-						console.log("반품 할 오더디테일넘버 : "+odNo+"반품 할 제품 구매했던 수량:"+pQty);
 						
 						$("#exchange-refund-title").text("반품하기");
 						
@@ -1262,7 +1260,7 @@
 				            <input type="hidden" id="exchange-refund-odNo"/>
 				            <input type="hidden" id="sort"/>
 				            <input type="hidden" id="total_pQty"/>
-				            수량&nbsp;<input type="number" id="exchange-refund-qty"/>
+				            수량&nbsp;<input type="number" id="exchange-refund-qty" min="1"/>
 				            <div class="form-group modal-select">
 					            <label for="inputExchangeReason">사유 선택</label>
 					            <select id="inputExchangeReason" class="form-control inputExchangeReason" >
@@ -1287,7 +1285,7 @@
 			            <h4 class="c-s-content c-s-title" id="result-msg"></h4>
 			            <br>
 			            <h5 class="c-s-content">확인 메일이 전송될 예정입니다.</h5>
-			            <h5 class="order-email"></h5>
+			            <h5 class="order-email"><c:out value="${order.member_id }"/></h5>
 			          </div>
 			      <div class="modal-footer">
 			        <button id="cancel-back" type="button" class="btn btn-indigo r-request-1" data-dismiss="modal">주문내역으로 돌아가기</button>
@@ -1346,13 +1344,6 @@ $("#e-r-btn").click(e =>{
 	data.append("refund_content", rContent);
 	data.append("file",rPic[0] );
 	
-    for (var key of data.keys()) {
-   	  console.log(key);
-   	}
-   	for (var value of data.values()) {
-   	  console.log(value);
-   	}
-
 	$.ajax({
 		type: "POST",
 		enctype: 'multipart/form-data',
@@ -1420,19 +1411,15 @@ $("#e-r-btn").click(e =>{
 		var pNo = $(event.target).parent().children("input.product_no_input").val();
 		var pPrice = $(event.target).parent().children("input.product_price_input").val();
 		var mNo = $("#member_no").val();
-		console.log(oNo);
 		location.href ='${path}/order/orderConfirm.do?order_no='+oNo+'&order_detail_no='+odNo+'&sort=구매확정&product_qty='+pQty+'&product_no='+pNo+'&product_price='+pPrice+'&mNo='+mNo;
 	});
 	
 	$(".review_do").click(e=>{
-		console.log("클릭");
 		//구매한 각각의 상품에 있는 리뷰쓰기를 눌렀을 때 그에 해당하는 orderdetail_no를 받아온다.
 		var odNo = $(event.target).parent().children("input").val();
-		console.log(odNo);
 		$.ajax({
 			url:"${path}/review/reviewLoginCheck.do",
 			success:data => {
-				console.log(data);
 				if(data == true){
 					location.href="${path}/review/reviewForm.do?odNo="+odNo;
 				}else{
