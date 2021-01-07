@@ -66,32 +66,18 @@ public class OrderServiceImpl implements OrderService {
 	public int orderConfirm(OrderDetail od, String mNo) {
 		int result =  dao.orderConfirm(session, od);
 		if(result>0) {
-			result = dao.insertShipped(session, od);
-			if(result >0) {
-				int pStock=0;
-				for(Map p : pDao.productDetail(session, od.getProduct_no())){
-					pStock=Integer.parseInt(String.valueOf(p.get("PRODUCT_STOCK")));
-				}
-				System.out.println("출고 전 재고 : "+pStock);
-				Map m = new HashMap();
-				m.put("stock", String.valueOf(pStock-(int)od.getProduct_qty()));
-				m.put("no", od.getProduct_no());
-				result = pDao.updateStock(session, m);
-				if(result>0) {
-					int p = (int) (od.getProduct_qty()*od.getProduct_price()*0.05);
-					System.out.println("적립포인트는? "+p);
-					Map data = new HashMap();
-					data.put("type", "적립");
-					data.put("point", p);
-					data.put("no", mNo);
-					result = aDao.pointModify(session, data);
-					if(result > 0) {
-						System.out.println("멤버 테이블에 포인트 적립 완료");
-						data.put("reason", od.getSort());
-						result = aDao.modifyPoint(session, data);
-						System.out.println("포인트 적립내역 추가 완료");
-					}
-				}
+			int p = (int) (od.getProduct_qty()*od.getProduct_price()*0.05);
+			System.out.println("적립포인트는? "+p);
+			Map data = new HashMap();
+			data.put("type", "적립");
+			data.put("point", p);
+			data.put("no", mNo);
+			result = aDao.pointModify(session, data);
+			if(result > 0) {
+				System.out.println("멤버 테이블에 포인트 적립 완료");
+				data.put("reason", od.getSort());
+				result = aDao.modifyPoint(session, data);
+				System.out.println("포인트 적립내역 추가 완료");
 			}
 		}
 		return result;

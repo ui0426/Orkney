@@ -270,11 +270,6 @@
    	DELETE FROM REVIEW WHERE REVIEW_NO=#{rNo}
    </delete>
    
-   <!-- 재고 수정 시 입출고 인서트 -->
-   <insert id="insertShipped" parameterType="map">
-   	INSERT INTO SHIPPED VALUES(SH_SEQ.NEXTVAL, #{pNo}, DEFAULT, #{put}, #{type})
-   </insert>
-   
    <!-- 입출고내역조회 -->
    <select id="selectShippedList" parameterType="string" resultType="map">
    	SELECT * FROM SHIPPED WHERE PRODUCT_NO=#{pNo} ORDER BY SHIPPED_DATE DESC
