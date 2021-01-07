@@ -39,8 +39,8 @@
 	                    <div><c:out value="${p.productName}"/></div>
 	                    <div><c:out value="${p.product_width}"/>*<c:out value="${p.product_height}"/>*<c:out value="${p.product_depth}"/></div>	                  		                    
 	                    <div><c:out value="${p.cartQTY}"/>개</div>
-	                    <div><fmt:formatNumber value="${p.cartQTY * p.productPrice}"/>&nbsp;원</div>	                     	                    
 	                </div>
+	                 <div style="margin: 2.5em 7.5em; font-size: 18px;"><fmt:formatNumber value="${p.cartQTY * p.productPrice}"/>&nbsp;원</div>	                     	                    
 	            </div>	            
             </div>  
             <div class="line3"></div>
@@ -421,8 +421,7 @@ $("#message-input").click(e=>{
         	"value":"부재시 전화 주시거나 문자 남겨 주세요."
         });    
              $(".messages").hide();      
-    });
-    console.log("나와라");
+    });    
 });
 
 
@@ -557,9 +556,7 @@ $("#adrbtn").click(e=>{
 		oncomplete: function(data) {
 			var addr =''; //주소변수
 			var extraAddr =''; //참고변수
-			var test=data.postcode;
-			console.log(test);
-			console.log(data.zonecode);
+			var test=data.postcode;						
 			
 		//사용자가 선택한 주소 타입 도로명
 		if(data.userSelectedType ==='R'){
@@ -582,18 +579,15 @@ $("#adrbtn").click(e=>{
 			if(extraAddr !== ''){
 				extraAddr = '(' + extraAddr + ')';
 			}								
-		}else{}
-		console.log(data.zonecode+" : "+addr);
+		}else{}		
         
 		$("#zip").val(data.zonecode);
         $("#adrinput").val(addr);
         $("#zip").attr("disabled",false);
         $("#adrinput").attr("disabled",false);
         $("#zip").attr("readonly",true);
-        $("#adrinput").attr("readonly",true);
-        // 커서를 상세주소 필드로 이동
-        $("#detailadr").focus();
-        console.log(data.zonecode+" : "+addr+" : "+extraAddr);			    	
+        $("#adrinput").attr("readonly",true);        
+        $("#detailadr").focus();        	 // 커서를 상세주소 필드로 이동	    	
 	}
 	}).open();
 })

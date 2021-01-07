@@ -38,8 +38,8 @@ h1, h3{margin : 0;}
 	outline: none;
 }
 .btn-clicked{
-	box-shadow: 0 5px 4px 0 rgba(0,0,0,0.16), 0 4px 10px 0 rgba(0,0,0,0.12);
-   	z-index: 1;
+	border-bottom: 3px solid black;
+	z-index: 1;
    	font-weight: 600;
 }
 .panels{
@@ -117,4 +117,7 @@ color: #ffc107;
 .score{
 	display: flex;
 	align-items: center;
+}
+.importent_style{
+	box-shadow: unset !important;
 }

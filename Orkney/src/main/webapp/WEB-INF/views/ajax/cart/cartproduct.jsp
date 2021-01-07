@@ -159,8 +159,7 @@
 		$.ajax({
 			url:"${path}/cart/updateQty.do",
 			data:{qty:qty, cartNo:cNo, productNo:pNo, totalPrice :tp, productPrice:pr},
-			success:data=>{
-				console.log("qty:"+qty);
+			success:data=>{				
 				$("#re").html(data);
 			}
 		})

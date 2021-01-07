@@ -66,8 +66,7 @@ public class AdminController {
 				list2.add(service.chatData(m));
 			}
 			list.add(list2);
-		}
-		System.out.println(list);
+		}		
 		return list;
 	}
 
@@ -131,13 +130,10 @@ public class AdminController {
 	@RequestMapping("/admin/selectRefundList.do")
 	@ResponseBody
 	public int selectRefundPoint(String oNo, int rPoint) {
-		System.out.println(oNo + rPoint);
 		int refundCount = service.selectRefundCount(oNo);
-		System.out.println(refundCount);
 		if(refundCount != 1) {
 			rPoint = 0;
 		}
-		System.out.println(rPoint);
 		return rPoint;
 	}
 
@@ -342,8 +338,7 @@ public class AdminController {
 	public ModelAndView insertRoom(ModelAndView mv, @RequestParam(value = "productInput_product[]", required = true) String[] rooms_product, @RequestParam(value = "productInput_top[]", required = true) String[] rooms_top, @RequestParam(value = "productInput_left[]", required = true) String[] rooms_left, @RequestParam String category, @RequestParam(value="toggleInsert", defaultValue = "0") String toggleInsert, @RequestParam String category_no, @RequestParam(value = "room_img", required = false) MultipartFile multi, HttpSession session) {
 		Map<String, Object> room = new HashMap<String, Object>();
 		Map<String, Object> rooms = new HashMap<String, Object>(); 
-		System.out.println(toggleInsert);
-		System.out.println(multi);
+				
 		List one = new ArrayList();
 		List two = new ArrayList();
 		List three = new ArrayList();
@@ -755,7 +750,12 @@ public class AdminController {
 		ModelAndView mv = new ModelAndView();
 		int numPerPage = 10;
 		int totalReview = service.totalReview();
-		mv.addObject("rList",service.selectReviewList(cPage, numPerPage));
+		List<Review> review = service.selectReviewList(cPage, numPerPage);
+		for(Review r : review) {
+			String content = r.getReview_content().replace("<br>", "");
+			r.setReview_content(content);
+		}
+		mv.addObject("rList",review);
 		mv.addObject("pageBar", PageFactory.getPageBar(totalReview, cPage));
 		mv.setViewName("/ajax/adminReviewList");
 		return mv;

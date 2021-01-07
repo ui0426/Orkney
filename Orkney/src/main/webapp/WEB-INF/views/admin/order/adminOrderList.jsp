@@ -46,19 +46,16 @@
 			<script>
 			
 				function changeList(state){
-					console.log(state);
 					if(state =='주문확인' || state =='취소신청'){
 						url = "${path}/admin/selectOrderChangeList.do";
 					}
 					if(state =='교환신청' || state == '반품신청'){
 						url = "${path}/admin/selectOrderDetailChangeList.do";
 					}
-					console.log(url);
 					$.ajax({
 						url:url,
 						data: {state:state},
 						success:data=>{
-							console.log("성공");
 							$("#topList-title").html(state);
 							$("#change").html(data);
 							$("#change").css("display","block");
@@ -164,12 +161,9 @@ $("#state-change").click(e=>{
 		return false;
 	}
     $("input[name='oNo']:checked").each(function(i) {
-    	console.log($(this));
         oNos.push($(this).val());
     });
 
-	console.log(oNos);
-	console.log(state);
 	$.ajax({
 		type:"GET",
 		url:"${path}/admin/updateOrderListState.do",

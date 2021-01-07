@@ -97,7 +97,7 @@
 					 <span style="font-weight:400; margin-left:.3em;"><c:out value="${r.product_grade }"/></span>
 					</div>
 					<div class="content">
-						<c:out value="${r.review_content }"/>
+						${r.review_content }
 					</div>
 				</div>
 				

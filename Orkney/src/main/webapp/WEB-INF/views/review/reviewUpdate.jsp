@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@taglib prefix="fc" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <c:set var="path" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html>
@@ -114,7 +114,8 @@
 					<div class="review-small-container review-contents">
 						<div><h3 class="review-sub-title">리뷰</h3></div>
 						<div class="form-group shadow-textarea">
-						  <textarea name="review_content" class="form-control z-depth-1" id="exampleFormControlTextarea6" rows="3"><c:out value="${review.review_content }"/></textarea>
+						  <textarea name="review_content" class="form-control z-depth-1" id="exampleFormControlTextarea6" rows="3">${fn:replace(review.review_content, newLine, '')}
+						  </textarea>
 						</div>
 					</div>
 					<div class="review-small-container review-contents">
