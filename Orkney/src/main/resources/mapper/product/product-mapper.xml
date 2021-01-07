@@ -685,7 +685,7 @@ SELECT * FROM
    </select>
 
    <select id="roomsDetail" resultType="map" parameterType="string">
-      ELECT * FROM ROOMS E
+      SELECT * FROM ROOMS E
       JOIN PRODUCT R ON E.PRODUCT_NO= R.PRODUCT_NO
       LEFT JOIN PRODUCT_IMAGE J ON E.PRODUCT_NO= J.PRODUCT_NO
         JOIN BIG_CATEGORY Q ON R.BIG_CATEGORY_NO= Q.BIG_CATEGORY_NO

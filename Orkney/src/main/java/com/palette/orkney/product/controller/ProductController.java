@@ -104,7 +104,7 @@ public class ProductController {
    }
 	//	===================================================================================
 
-
+   //by진호-showroom 페이지 이동
 	@RequestMapping("/product/rooms.do")
 	public ModelAndView rooms(ModelAndView mv, @RequestParam String type) {
 		Map types= new HashMap();
@@ -116,13 +116,13 @@ public class ProductController {
 
 		return mv;
 	}
-
+	 //by진호-showroom 사진 속 상품정보 가져오기
 	@RequestMapping("/product/roomsDetail.do")
 	@ResponseBody
 	public List<Map> roomsDetail(String type) {
 		return service.roomsDetail(type);
 	}
-
+	//by진호-showroom 스와이퍼  다시 전체 보기 상품정보 
 	@RequestMapping("/product/backRoomsDetail.do")
 	@ResponseBody
 	public List<Map> backRoomsDetail(String type) {
@@ -130,14 +130,14 @@ public class ProductController {
 		types.put("type", type);
 		return service.selectRoomsProduct(types);
 	}
-
+	//by진호-main 페이지 인기순위 전체상품(페이지 로드시)  
 	@RequestMapping("/product/listProduct.do")
 	@ResponseBody
 	public List<Map> listProduct(String type) {
 
 		return service.listProduct(type);
 	}
-
+	//by진호-main 페이지 인기순위 전체상품 
 	@RequestMapping("/product/allProductList.do")
 	@ResponseBody
 	public List<Map> allProductList(String text) {
@@ -145,7 +145,7 @@ public class ProductController {
 		texts.put("text", text);
 		return service.allProductList(texts);
 	}
-
+	//by진호-main 페이지 인기순위 카테고리
 	@RequestMapping("/product/productCategory.do")
 	@ResponseBody
 	public List<Map> productCategory(String text, String type) {
@@ -153,13 +153,9 @@ public class ProductController {
 		Map texts = new HashMap();
 		texts.put("text", text);
 		texts.put("type", type);
-		System.out.println(text);
-		System.out.println(type);
-		System.out.println(service.productCategory(texts));
-
 		return service.productCategory(texts);
 	}
-
+	//by진호-sale 페이지 이동
 	@RequestMapping("/product/sale.do")
 	public ModelAndView sale(ModelAndView mv) {
 		mv.addObject("sale", service.sale());
@@ -168,146 +164,7 @@ public class ProductController {
 		return mv;
 	}
 
-
-	@RequestMapping("/product/insertRoom.do2")
-	public String insertRoom2() {
-		return "product/insertRoom";
-	}
-
-	@RequestMapping("/product/roomChange.do")
-	@ResponseBody
-	public List<Map> roomChange() {
-		return service.roomChange();
-	}
-
-	@RequestMapping("/product/insertRoom.do")
-	public ModelAndView insertRoom(ModelAndView mv, @RequestParam(value = "productInput_product[]", required = true) String[] rooms_product, @RequestParam(value = "productInput_top[]", required = true) String[] rooms_top, @RequestParam(value = "productInput_left[]", required = true) String[] rooms_left, @RequestParam String category, @RequestParam String category_no, @RequestParam(value = "room_img", required = false) MultipartFile multi, HttpSession session) {
-		Map<String, Object> room = new HashMap<String, Object>();
-		Map<String, Object> rooms = new HashMap<String, Object>(); 
-
-		List one = new ArrayList();
-		List two = new ArrayList();
-		List three = new ArrayList();
-		List four = new ArrayList();
-		List five = new ArrayList();
-		/*List rooms = new ArrayList();*/
-		String[] categoryNo = new String[rooms_top.length];
-
-		for (int i = 0; i < rooms_top.length; i++) {
-			categoryNo[i] = category_no;
-
-			if (i == 0) {
-				one.add(rooms_product[i]);
-				one.add(rooms_top[i]);
-				one.add(rooms_left[i]);
-				one.add(categoryNo[i]);
-				System.out.println("1");
-			} else if (i == 1) {
-				
-				two.add(rooms_product[i]);
-				two.add(rooms_top[i]);
-				two.add(rooms_left[i]);
-				two.add(categoryNo[i]);
-				System.out.println("2");
-			} else if (i == 2) {
-				
-				three.add(rooms_product[i]);
-				three.add(rooms_top[i]);
-				three.add(rooms_left[i]);
-				three.add(categoryNo[i]);
-				System.out.println("3");
-			} else if (i == 3) {
-				
-				four.add(rooms_product[i]);
-				four.add(rooms_top[i]);
-				four.add(rooms_left[i]);
-				four.add(categoryNo[i]);
-				System.out.println("4");
-			} else if (i == 4) {
-				System.out.println("5");
-				five.add(rooms_product[i]);
-				five.add(rooms_top[i]);
-				five.add(rooms_left[i]);
-				five.add(categoryNo[i]);
-			}
-		}
-			System.out.println(rooms_top.length);
-		
-		if (rooms_top.length>=1) {
-			System.out.println("11");
-			rooms.put("one",one);
-		}
-		if (rooms_top.length>=2) {
-			System.out.println("22");
-			rooms.put("two",two);
-		}
-		if (rooms_top.length>=3) {
-			System.out.println("33");
-			rooms.put("three",three);
-		}
-		if (rooms_top.length>=4) {
-			System.out.println("44");
-			rooms.put("four",four);
-		}
-		if (rooms_top.length==5) {
-			System.out.println("55");
-			rooms.put("five",five);
-		} ;
-
-		room.put("categoryNo", category_no);
-		room.put("category", category);
-		String path = session.getServletContext().getRealPath("/resources/images/rooms");
-
-		File dir = new File(path);
-
-		if (!dir.exists())
-			dir.mkdirs();
-
-		if (!multi.isEmpty()) {
-			String originalName = multi.getOriginalFilename();
-			try {
-				multi.transferTo(new File(path + "/" + originalName));
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			room.put("roomsImg", originalName);
-			/* rooms.put("rooms_img", img); */
-			System.out.println(rooms);
-		}
-
-		int result = service.insertRoom(room);
-		int resultTwo = service.updateRoom(rooms);
-		mv.setViewName("product/insertRoom");
-
-		return mv;
-	}
-	
-	@RequestMapping("/product/roomsTitle.do")									
-	public ModelAndView roomsTitle(ModelAndView mv,@RequestParam String title, @RequestParam String content, @RequestParam String roomsTitle, @RequestParam String roomsSubTitle) {
-		System.out.println(title);
-		System.out.println(content);
-		System.out.println(roomsTitle);
-		System.out.println(roomsSubTitle);
-		Map titles=new HashMap();
-		titles.put("title",title );
-		titles.put("content",content );
-		titles.put("roomsTitle",roomsTitle );
-		titles.put("roomsSubTitle",roomsSubTitle );
-		int result=service.roomsTitle(titles);
-		mv.setViewName("product/insetRoom");
-		return mv;
-	}
-
-	
-	  @RequestMapping("/product/buttomProduct.do")
-	  
-	  @ResponseBody public List<Map> buttomProduct(@RequestParam(value="type[]")String[] type){ 
-		  Map ty=new HashMap(); 
-		  ty.put("type", type); 
-		  System.out.println(ty); 
-		  return service.buttomProduct(ty); 
-		  };
-		  
+	//by진호-sale기간이 끝나면 sale삭제(한달)
 	@RequestMapping("/product/deleteSale.do")
 	@ResponseBody public int deleteSale() {
 		return service.deleteSale();
