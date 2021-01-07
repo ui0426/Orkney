@@ -70,7 +70,7 @@
 
 
 <body>
-<div class="modal-layer" style="display:none;"></div>
+<div class="modal-layer" style="display:none;z-index: 3;"></div>
 	
 	        <div class="header-hambuger" >
 	            <div class="btn-aside">
