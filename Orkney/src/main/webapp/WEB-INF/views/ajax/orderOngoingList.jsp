@@ -38,8 +38,7 @@
 
 
 <script>
-	function finish(sort, no){
-		console.log(sort, no);
+	function finish(sort, no){		
 		$.ajax({
 			url:"${path}/admin/orderRefundEnd.do",
 			data:{sort:sort, no:no},

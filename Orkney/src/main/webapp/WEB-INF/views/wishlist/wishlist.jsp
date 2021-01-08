@@ -72,26 +72,34 @@
 				<span>총 주문금액</span>
 				<span>&#8361; <fmt:formatNumber value="${ allPrice }" pattern="###,###"/></span>
 	       </div>
-        <div class="wl-addcart"><button class="wl-allAddcart-btn">모두 장바구니에 추가</button></div>
+        <div class="wl-addcart"><button class="wl-allAddcart-btn" data-toggle="modal" data-target="#modalPush">모두 장바구니에 추가</button></div>
            </c:if>
+           
+           <!--Modal: modalPush-->
+<div class="modal fade" id="modalPush" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-notify modal-info" role="document">
+    <!--Content-->
+    <div class="modal-content text-center">
+      <!--Header-->
+      <div class="modal-header d-flex justify-content-center">
+        <p class="heading">Be always up to date</p>
+      </div>
+      <!--Body-->
+      <div class="modal-body">
+        <i class="fas fa-bell fa-4x animated rotateIn mb-4"></i>
+        <p>모두 장바구니에 추가 되었습니다.</p>
+      </div>
+       <div class="modal-footer justify-content-center">
+        <a type="button" class="btn btn-info" onclick="location.href='${path}/cart/cart.do'" >장바구니로 가기</a>        
+      </div>      
+    </div>
+    <!--/.Content-->
+  </div>
+</div>
+<!--Modal: modalPush-->
        </div>
     </div>
-	
-<script>	
-		$(".wl-allAddcart-btn").click(e=>{
-			 <c:forEach items="${ wish.wishlist_detail }" var="wide"  varStatus="s"> 			  
-				$.ajax({
-					data:{productNo:"${wide.product.productNo}",  cartQTY:"${wide.product_qty}" },
-					url:"${path}/cart/cartInsert.do",
-					success:data=>{	
-						alert("성공");
-					}
-				})
-			 </c:forEach> 
-		})	
-</script>
-	
-</section>
 
 <!-- Modal: modalAbandonedCart-->
 <div class="modal fade right" id="modalAbandonedCart" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
@@ -132,16 +140,18 @@
 </div>
 <!-- Modal: modalAbandonedCart-->
 
-<script>
 
-	
+
+</section>
+
+
+<script>
 
 	//장바구니 추가
 	function fn_addCart(e){
 		let t = $(e);
 		let i = $('.addCart').index(t);
 		let pNo = $('.only_pNo').eq(i).val();
-// 		let pPrice = $('.only_pPrice').eq(i).val();
 		let pQty = $('.count-box').eq(i).children('input').val();
 		
 		$.ajax({
@@ -151,9 +161,22 @@
 				console.log(data);
 				
 			}
-		})
-		
+		})		
 	}
+	
+	//모두 장바구니에 추가
+	$(".wl-allAddcart-btn").click(e=>{
+		console.log("나오긴하니?");
+		 <c:forEach items="${ wish.wishlist_detail }" var="wide"  varStatus="s"> 			  
+			$.ajax({
+				data:{productNo:"${wide.product.productNo}",  cartQTY:"${wide.product_qty}" },
+				url:"${path}/cart/cartInsert.do",
+				success:data=>{							
+				}
+			})
+		 </c:forEach> 
+	})	
+
 
 	//수량 업 버튼 클릭 시
 	function fn_countUpBtn(e){

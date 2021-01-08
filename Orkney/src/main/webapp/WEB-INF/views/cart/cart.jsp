@@ -62,8 +62,7 @@
 		//1. ajax처리 onload
 		  $(function(){
 					let sumPrice = $("#sumprice").val();	
-					let cNo= $(".remove_basket").attr("id");
-					console.log(cNo);
+					let cNo= $(".remove_basket").attr("id");					
 					$.ajax({
 						url:"${path}/cart/deleteProduct.do",
 						data:{sumPrice:sumPrice,cN:cNo},
@@ -101,8 +100,7 @@
 				 $.ajax({
 					 url:"${path}/cart/deleteBasket.do",
 					 data:{cartNo:cNo,sumPrice:sumPrice},
-					 success:data=>{
-						console.log("cNo:"+cNo);	
+					 success:data=>{						
 						$("#re").html(data);
 					 }
 				 });

@@ -53,10 +53,8 @@ public class OrderController {
 			)throws NumberFormatException {
 		
 		String memberNo = (String)((Map)session.getAttribute("login")).get("MEMBER_NO");
-		String memberId = (String)((Map)session.getAttribute("login")).get("MEMBER_ID");		
-		
-		//order insert 필요한거  
-		//회원번호0, 받는사람 이름0, 받는사람 전화번호0, 받는사람 주소0, 주문수량(상품종류 몇개인지)0, 상품 총가격0, 결제방법0		
+		String memberId = (String)((Map)session.getAttribute("login")).get("MEMBER_ID");				
+		//order insert	
 		orders.setMember_no(memberNo);
 		orders.setOrder_name(reName);
 		orders.setOrder_phone(rePhone);
@@ -70,9 +68,7 @@ public class OrderController {
 		int afterPoint=totalPoint-willPoint;
 		Map<String, Object> uppo = new HashMap();
 		uppo.put("member_no", memberNo);
-		uppo.put("point",afterPoint);
-		
-		System.out.println(uppo);
+		uppo.put("point",afterPoint);				
 		
 		//point inert
 		Map<String, Object> point =new HashMap();

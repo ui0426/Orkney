@@ -101,7 +101,7 @@ public class CartController {
 				mv.addObject("sumprice",cart.getProductPrice());
 			}
 			mv.addObject("cart",c2);
-			mv.addObject("cN",cartNo);			
+			mv.addObject("cN",c2.get(0).getCartNo());			
 			mv.setViewName("ajax/cart/cartproduct");
 			return mv;
 		}		

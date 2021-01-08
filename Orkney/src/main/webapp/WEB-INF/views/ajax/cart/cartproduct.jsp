@@ -63,7 +63,7 @@
 	</c:if>		 
 	
 	<!-- Full Height Modal Right -->
-<div class="modal fade right" id="fullHeightModalRight" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+<div class="modal fade right" id="fullHeightModalRight" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="z-index: 10000000;"
   aria-hidden="true">
 
   <div class="modal-dialog modal-full-height modal-right" role="document">
@@ -83,7 +83,7 @@
       	<c:forEach items="${wish}" var="w">      	
       	<div style="display:flex; justify-content:space-between; padding: 10px;">
       		<div>${w.wishlist_name}</div>
-      		<div> <button style="outline:none;" id="wishadd" class="${w.wishlist_no}">추가</button></div>
+      		<div> <button style="outline:none;" class="wishadd" id="${w.wishlist_no}">추가</button></div>
       		<input type="hidden" id="prod">      		     		
       	</div>
       	<div class="line1"></div>
@@ -122,9 +122,10 @@
 	})
 	
 	//2. 위시리스트에 추가  
-	$("#wishadd").click(e=>{
-		let wishNo= $(e.target).attr("class");
-		let productNo= $("#prod").val();	
+	$(".wishadd").click(e=>{
+		let wishNo= $(e.target).attr("id");
+		let productNo= $("#prod").val();
+		console.log(wishNo);
 		$.ajax({
 			url:"${path}/wishlist/insertWish.do",
 			data:{IwNo:wishNo,pNo:productNo},
@@ -159,8 +160,7 @@
 		$.ajax({
 			url:"${path}/cart/updateQty.do",
 			data:{qty:qty, cartNo:cNo, productNo:pNo, totalPrice :tp, productPrice:pr},
-			success:data=>{
-				console.log("qty:"+qty);
+			success:data=>{				
 				$("#re").html(data);
 			}
 		})

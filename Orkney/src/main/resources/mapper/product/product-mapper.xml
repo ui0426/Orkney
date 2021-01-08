@@ -685,7 +685,7 @@ SELECT * FROM
    </select>
 
    <select id="roomsDetail" resultType="map" parameterType="string">
-      ELECT * FROM ROOMS E
+      SELECT * FROM ROOMS E
       JOIN PRODUCT R ON E.PRODUCT_NO= R.PRODUCT_NO
       LEFT JOIN PRODUCT_IMAGE J ON E.PRODUCT_NO= J.PRODUCT_NO
         JOIN BIG_CATEGORY Q ON R.BIG_CATEGORY_NO= Q.BIG_CATEGORY_NO
@@ -721,21 +721,21 @@ SELECT * FROM
    <select id="productCategory" parameterType="map"
       resultType="map">
 
-      SELECT * FROM PRODUCT E
+      select * from 
+     (SELECT * FROM PRODUCT E
       JOIN PRODUCT_IMAGE J ON E.PRODUCT_NO= J.PRODUCT_NO
       JOIN BIG_CATEGORY T ON T.BIG_CATEGORY_NO=E.BIG_CATEGORY_NO
       LEFT OUTER JOIN (SELECT PRODUCT_NO, AVG(PRODUCT_GRADE) ROOM_GRADE
       FROM REVIEW GROUP BY PRODUCT_NO) N ON E.PRODUCT_NO= N.PRODUCT_NO
+        where J.PRODUCT_COLOR='normal' 
+         ORDER BY ROOM_GRADE DESC NULLS LAST)
       <if test="text=='전체보기'">
-         WHERE J.PRODUCT_COLOR='normal' AND ROWNUM <![CDATA[<]]>
-         #{type}
-         ORDER BY ROOM_GRADE DESC NULLS LAST
+          WHERE ROWNUM <![CDATA[<]]> #{type}
+         
       </if>
       <if test=" text!='전체보기'">
-         WHERE J.PRODUCT_COLOR='normal' AND ROWNUM <![CDATA[<]]>
-         #{type}
-         AND T.BIG_CATEGORY_CONTENT=#{text}
-         ORDER BY ROOM_GRADE DESC NULLS LAST
+        WHERE ROWNUM <![CDATA[<]]> #{type}
+         AND BIG_CATEGORY_CONTENT=#{text}
       </if>
 
    </select>
