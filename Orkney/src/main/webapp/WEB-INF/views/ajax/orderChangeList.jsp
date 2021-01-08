@@ -119,7 +119,7 @@
 	      				if(state == '반품처리중') state = '반품 승인';
 	      				if(state == '취소완료') state = '취소';
 	      				if(state == '제품준비중') state = '제품준비가 시작';
-	      				if(state == '') state ='승인 거부';
+	      				if(state == '') state ='교환 및 반품 승인 거부';
 	      				$.ajax({
 	      					url:"${path}/orderAllow.do",
 	      					data:{no:oNo, email:email, name:name, state:state},
