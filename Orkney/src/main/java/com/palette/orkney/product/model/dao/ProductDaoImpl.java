@@ -75,7 +75,7 @@ public class ProductDaoImpl implements ProductDao{
 	@Override
 	public List<Map> selectRoomsProduct(SqlSession session, Map types) {
 		// TODO Auto-generated method stub 
-		System.out.println(types);
+		
 		return session.selectList("product.selectRoomsProduct",types);
 	}
 
@@ -118,7 +118,7 @@ public class ProductDaoImpl implements ProductDao{
 	@Override
 	public int insertRoom(SqlSession session, Map<String, Object> room) {
 		// TODO Auto-generated method stub
-		System.out.println(room);
+		
 		return session.update("product.insertRoom",room);
 		
 	}
@@ -132,20 +132,16 @@ public class ProductDaoImpl implements ProductDao{
 	@Override
 	public int updateRoom(SqlSession session, Map rooms) {
 		// TODO Auto-generated method stub
-		/*for(Object map : rooms) {
-			System.out.println("????????????????????????????????????????????????");*/
 		
 		return session.insert("product.updateRoom",rooms);
-			/*
-			 * } return 0;
-			 */
+			
 		
 	}
 
 	@Override
 	public int roomsTitle(SqlSession session, Map titles) {
 		// TODO Auto-generated method stub
-		System.out.println(titles);
+		
 		return session.update("product.roomsTitle",titles);
 		
 	}

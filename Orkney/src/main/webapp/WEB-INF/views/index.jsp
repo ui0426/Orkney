@@ -193,7 +193,7 @@
 				<span class="event-sp clickEvent">수납장/장식장</span>
 			</button>
 			<button type="button" class="btn btn-dark event-bu1 event-target">
-				<span class="event-sp clickEvent">거실장/찬장/콘솔테그이블</span>
+				<span class="event-sp clickEvent">거실장/찬장/콘솔테이블</span>
 			</button>
 			<button type="button" class="btn btn-dark event-bu1 event-target">
 				<span class="event-sp clickEvent">TV/멀티미디어가구</span>
