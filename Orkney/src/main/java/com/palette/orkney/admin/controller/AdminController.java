@@ -316,18 +316,24 @@ public class AdminController {
 		 
 		return mv;
 	}
-
+	//by진호-adminShowrooms관리페이지 이동
 	@RequestMapping("/admin/adminShowrooms.do")
 	public String adminShowrooms() {
+		System.out.println("?????");
 		return "admin/rooms/adminRoom";
 	}
-	@RequestMapping("/admin/delectRoom.do")
-	@ResponseBody
-	public  List<Map> delectRoom() {
-		
-		return pService.delectSelectRoom();
-		
-	}
+
+	/*
+	 * //by진호-선택
+	 * 
+	 * @RequestMapping("/admin/delectRoom.do")
+	 * 
+	 * @ResponseBody public List<Map> delectRoom() { System.out.println("??????????"); return pService.delectSelectRoom();
+	 * 
+	 * }
+	 */
+	
+	//by진호-showrooms 등록
 	@RequestMapping("/admin/insertRoom.do")
 	public ModelAndView insertRoom(ModelAndView mv, @RequestParam(value = "productInput_product[]", required = true) String[] rooms_product, @RequestParam(value = "productInput_top[]", required = true) String[] rooms_top, @RequestParam(value = "productInput_left[]", required = true) String[] rooms_left, @RequestParam String category, @RequestParam(value="toggleInsert", defaultValue = "0") String toggleInsert, @RequestParam String category_no, @RequestParam(value = "room_img", required = false) MultipartFile multi, HttpSession session) {
 		Map<String, Object> room = new HashMap<String, Object>();
@@ -439,7 +445,7 @@ public class AdminController {
 		mv.setViewName("redirect:/admin/adminShowrooms.do");
 
 		return mv;
-	}
+	}//by진호-shworoomTitle,content등록 
 	@RequestMapping("/admin/roomsTitle.do")
 	public ModelAndView roomsTitle(ModelAndView mv, @RequestParam String title, @RequestParam String content, @RequestParam String roomsTitle, @RequestParam String roomsSubTitle) {
 		
@@ -452,21 +458,21 @@ public class AdminController {
 		mv.setViewName("redirect:/admin/adminShowrooms.do");
 		return mv;
 	}
-
+	//by진호-showroom 가져오기
 	@RequestMapping("/admin/buttomProduct.do")
 	@ResponseBody
 	public List<Map> buttomProduct(@RequestParam(value = "type[]") String[] type) {
 		Map ty = new HashMap();
 		ty.put("type", type);
-		System.out.println("뭥미?????????????????????????"+ty);
 		return pService.buttomProduct(ty);
 	};
-	
+	//by진호-showroom 추가 input에 상품번호:상품이름 가져오기
 	@RequestMapping("/admin/roomChange.do")
 	@ResponseBody
 	public List<Map> roomChange() {
 		return pService.roomChange();
 	}
+	//by진호-showroom에 등록된 정보를 가져오기
 	@RequestMapping("/admin/selectAll.do")
 	@ResponseBody
 	public List<Map> selectAll(@RequestParam String typeTo) {
@@ -474,13 +480,12 @@ public class AdminController {
 		types.put("typeTo", typeTo);
 		return pService.selectRoomsProduct(types);
 	}
+	//by진호-adminReview관리페이지 이동
 	@RequestMapping("/admin/delectShowroom.do")
-	public String delectShowroom(@RequestParam String deleteRoom) {
-		int resule = pService.deleteShowroom(deleteRoom);
-		return "redirect:/admin/adminShowrooms.do"; 
+	@ResponseBody
+	public int delectShowroom(@RequestParam String deleteRoom) {
+		return pService.deleteShowroom(deleteRoom); 
 	}	
-
-
 //	제품관리 페이지
 	@RequestMapping("/admin/adminProduct.do")
 	@ResponseBody

@@ -24,37 +24,28 @@
 			</nav>
 		</div>
 		<div>
-
-
-
 			<h1 class="ev-h1">더 낮은 새로운 가격, 품질은 그대로 가격은 아래로</h1>
-
 			<div class="ev-hd">
 				<div class="ev-pim">
 					<span class="ev-sps">IKEA는 품질을 그대로 유지하는 것이 가격을 낮추는 유일한 방법이라고
 						생각해요. 그래서 디자인, 제작, 플랫팩 포장 과정 전반에 걸쳐 가장 좋은 방법을 찾기 위해 많은 시간을 투자하고
 						있죠. 투자한 시간만큼 모두가 비용을 절약할 수 있게 됩니다. IKEA는 생산 비용을, 고객 여러분은 구매 비용을
 						말이죠. 작은 빨간라벨은 단순히 좋은 가격만 나타내는 것이 아니에요. 더 낮은 가격에 더 좋은 것을 제공하기 위한
-						IKEA의 노력에도 끝이란 없습니다.</span> <a class="ev-md-secondary-2nd" href="${path}/product/products.do?category=all&sale=sale&search-input=">
-						<span class="ev-md-small"> <span class="ev-md-label">더
-								낮은 새로운 가격의 제품 보기 </span>
+						IKEA의 노력에도 끝이란 없습니다.</span> 
+						<a class="ev-md-secondary-2nd" href="${path}/product/products.do?category=all&sale=sale&search-input=">
+						<span class="ev-md-small"> 
+						<span class="ev-md-label">더 낮은 새로운 가격의 제품 보기 </span>
 					</span>
 					</a>
 				</div>
 				<div class="ev-img-sp">
 				 <c:forEach items="${sale}" var="p" varStatus="a"> 
 				 	<c:if test="${a.index==0}">
-					<img class="event-img"
-						src="${path}/resources/images/product/${p.PRODUCT_PIC}">
-						
-					
+					<img class="event-img" src="${path}/resources/images/product/${p.PRODUCT_PIC}">		
 					<ul>
 						<li>
 							<a> 
-								
-										
-											
-								 <fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today" />  
+								<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today" />  
 								<fmt:parseNumber var="start_d" value="${p.PRODUCT_ENROLL_DATE.time /(1000*60*60*24)}" integerOnly="true"/>
 								<fmt:parseNumber var="end_d" value="${now.time /(1000*60*60*24)}" integerOnly="true" />
 								<span class="rm-pb-et-new bottom-mig" style="display: inline;">${(end_d-start_d)<7?"NEW":""}</span>
@@ -77,20 +68,14 @@
 				<div class="ev-md-container">
 					<div class="ev-md-container-inner">
 						<div class="ev-md-info">
-
 							<h2 class="ev-md-hnzkp">할인 판매가 아니에요</h2>
-							<p class="ev-md-description">더 좋은 생활을 위한 더 낮은 가격, 우리가 나아가야 할
-								방향입니다.</p>
-
+							<p class="ev-md-description">더 좋은 생활을 위한 더 낮은 가격, 우리가 나아가야 할 방향입니다.</p>
 						</div>
-
 					</div>
 					<a class="ev-md-secondary" href="${path}/product/products.do?category=all&sale=sale&search-input=" style="color:black;"> <span
-						class="ev-md-small-ww"> <span class="ev-md-label-ww">더 많은
-								제품 확인하기 </span>
+						class="ev-md-small-ww"> <span class="ev-md-label-ww">더 많은 제품 확인하기 </span>
 					</span>
 					</a>
-
 				</div>
 				<div class="newProduct">
 					<div class="swiper-container">
@@ -111,13 +96,11 @@
 										</div>
 										<!--Card content-->
 										<div class="card-body">
-										
 										<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today" /> 
 										<fmt:parseNumber var="start_d" value="${p.PRODUCT_ENROLL_DATE.time /(1000*60*60*24)}" integerOnly="true"/>
 										<fmt:parseNumber var="end_d" value="${now.time /(1000*60*60*24)}" integerOnly="true" />
 											<span class="rm-pb-et-new">${(end_d-start_d)<7?"NEW":""}</span>
-											<span class="ev-pb-et-p-rm">더 낮은 새로운 가격</span>
-											
+											<span class="ev-pb-et-p-rm">더 낮은 새로운 가격</span>		
 											<!--Title-->
 											<h4 class="card-title event-product-name">
 												${p.PRODUCT_NAME} 
@@ -125,14 +108,13 @@
 											<!--Text-->
 											<p class="card-text marginZero each ">
 												 ${p.BIG_CATEGORY_CONTENT} 
-											</p>
-											
+											</p>	
 											 <p class="card-text marginZero event-price"><fmt:setLocale value="ko_KR" />
-												<fmt:formatNumber type="currency" value="${p.PRODUCT_PRICE}" /></p>
+												<fmt:formatNumber type="currency" value="${p.PRODUCT_PRICE}" />
+											</p>
 											<p class="card-text marginZero product-price"><fmt:setLocale value="ko_KR" />
-												<fmt:formatNumber type="currency" value="${p.SALE_PER}" /></p>
-												
-											
+												<fmt:formatNumber type="currency" value="${p.SALE_PER}" />
+											</p>		
 											<div class="">
 												<svg focusable="false" viewBox="0 0 24 24" class="star"
 													aria-hidden="true">
@@ -179,14 +161,11 @@
 										</div>
 									</div>
 									<!-- Card -->
-
 								</div>
 							</div>
-
 						</c:forEach> 
 							<!-- Add Pagination -->
-							<div class="swiper-scrollbar"></div>
-							
+							<div class="swiper-scrollbar"></div>			
 						</div>
 						<!-- Add Arrows -->
 							<img src="${path}/resources/images/rooms/pngegg2222.png"
@@ -206,7 +185,6 @@
 					</div>
 				</div>
 				<div class="ev-side">
-					
 						<div class="ev-item">
 							<div><img class="event-inner" src="${path}/resources/images/product/sale/-c094a8807d9ecc6939d9409e7c46fdf0.jpg"></div>
 							<div>
@@ -215,8 +193,6 @@
 								<p class="ev-h2-st ev-p">많은 사람들이 좋아하는 제품일수록 많이 만들게 돼요. 많이 만들수록 생산 비용은 줄어들고, 최종 가격도 낮아지죠. 가격이 낮아지면 더 많은 사람들이 좋아하게 되고, 더욱 낮은 가격을 위한 선순환을 만들 수 있어요.</p>
 							</div>
 						</div>
-					
-					
 						<div class="ev-item">
 							<div><img class="event-inner" src="${path}/resources/images/product/sale/-7537b07cf23ce81402ad24f46a7e7804.jpg"></div>
 							<div>
@@ -225,7 +201,6 @@
 								<p class="ev-h2-st ev-p">원리는 간단해요. 구멍의 너비부터 나사의 크기까지, 이러한 디테일을 똑같이 디자인할수록 생산 및 조립 과정에서 투자하는 시간과 비용이 줄어들게 됩니다. 스마트한 디자인은 모든 일을 간단하게 만들어주고, 이게 바로 가격을 낮추는 방법입니다.</p>
 							</div>
 						</div>
-					
 						<div class="ev-item">
 							<div><img class="event-inner" src="${path}/resources/images/product/sale/-0e352169c0af51bbd944f504129f2266.jpg"></div>
 							<div>
@@ -242,6 +217,7 @@
 <jsp:include page="/WEB-INF/views/common/footer.jsp" />
 
 <script>
+	//세일 상품이 들어가는 스와이퍼
 	var swiper = new Swiper('.swiper-container', {
 		slidesPerView : 1,
 		spaceBetween : 5,
