@@ -266,8 +266,8 @@ public class EmailController {
 				"        <br>\r\n" + 
 				"        <div style=\"height: 47%;\">고객님의 주문 '"+no+"'이 변경되어 안내 메일을 발송해드립니다.<br><br>\r\n" + 
 				"          본 메일은 자동 발송 메일로, 주문이 "+state+" 되었음을 알려드립니다.<br><br>          \r\n" + 
-				"          궁금한하신 사항이 있거나 또는 배송 현황을 확인하시려면은 <a target='_blank' href='http://localhost:9090/orkney'>IKEA.com</a> 에서을</div>\r\n" +
-				"          방문 확인하시거나 IKEA 고객지원센터(1670-4532) 또는 <a target='_blank' href='#'>Contact Us</a> 으로 연락</div>\r\n" +
+				"          궁금한하신 사항이 있거나 또는 배송 현황을 확인하시려면은 <a target='_blank' href='http://localhost:9090/orkney'>ORKNEY.com</a>를\r\n" +
+				"          방문 확인하시거나 ORKNEY 고객지원센터(1670-4532) 또는 <a target='_blank' href='#'>Contact Us</a> 으로 연락\r\n" +
 				"          해 주시기 바랍니다.</div>\r\n" +
 				"          <div><p>ORKNEY.KO</p></div>\r\n" +
 				"      </div>\r\n" + 

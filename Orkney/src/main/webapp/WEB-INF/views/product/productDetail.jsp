@@ -942,7 +942,7 @@ $(function() {
 if ("${r.REVIEW_NO}"!=null) {
 	let reviewClone = $("#reviewClone").clone();
 	
-	$(reviewClone).find("#memberId").text('${r.MEMBER_ID}');
+	$(reviewClone).find("#memberId").text('${fn:substring(r.MEMBER_ID,0,4)}****');
 	
 
 		
