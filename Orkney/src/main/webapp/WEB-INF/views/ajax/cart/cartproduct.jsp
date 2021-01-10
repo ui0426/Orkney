@@ -30,7 +30,7 @@
                         <div><c:out value="${p.small_category_content}"/></div>                                
                         <div><c:out value="${p.product_width}"/>*<c:out value="${p.product_height}"/>*<c:out value="${p.product_depth}"/></div>                        
                         <div class="price"> 
-                        	<div>${p.sale_per!=p.productPrice?"event":""}</div>
+                        	<div>${p.sale_per!=p.productPrice?"Event":""}</div>
                         	<fmt:formatNumber value="${p.totalPrice}"/>&nbsp;원 
                         </div>
                                                             

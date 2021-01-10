@@ -244,9 +244,8 @@ public class CartController {
 		//결제관련 logic
 		int sum=service.sumPrice(m.getCartNo());						//상품 총 가격
 		int shipFee = 5000 ; 							
-		int additionalTax = (int)((sum)*0.1);    //부가세
-		int totalFee = ((sum+shipFee)-m.getPoint())+additionalTax;		//총 계산된 값
-		int predicpoint = (int) (totalFee*0.05); 						//예상되는 포인트적립 (총가격의 0.05)
+		int additionalTax = (int)(sum*0.1);    //부가세				
+		int predicpoint = (int) (sum*0.05); 						//예상되는 포인트적립 (총가격의 0.05)		
 		m.setPredicpoint(predicpoint);
 		
 		//상품종류의 수량(ordertable)
