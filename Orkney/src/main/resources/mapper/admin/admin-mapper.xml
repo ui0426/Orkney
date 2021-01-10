@@ -64,7 +64,7 @@
         SELECT * FROM ADDR WHERE MEMBER_NO=#{no}
      </select>
      <select id="orderList" parameterType="string" resultType="map">
-        SELECT * FROM ORDERS WHERE MEMBER_NO=#{no}
+        SELECT * FROM ORDERS WHERE MEMBER_NO=#{no} ORDER BY ORDER_DATE DESC
      </select>
      <delete id="deleteMember">
         DELETE FROM MEMBER WHERE MEMBER_NO=#{no}
@@ -125,7 +125,7 @@
      </update>
      
      <select id="selectOrderDetailChangeList" parameterType="string" resultType="orderDetail">
-        SELECT * FROM ORDER_DETAIL JOIN ORDERS USING(ORDER_NO) JOIN MEMBER USING(MEMBER_NO) JOIN PRODUCT USING(PRODUCT_NO) WHERE SORT=#{state}
+        SELECT * FROM ORDER_DETAIL JOIN ORDERS USING(ORDER_NO) JOIN MEMBER USING(MEMBER_NO) JOIN PRODUCT USING(PRODUCT_NO) WHERE SORT=#{state} ORDER BY ORDER_DATE DESC
      </select>
      
      <select id="productList" resultType="map" parameterType="map">
@@ -205,6 +205,7 @@
                                             JOIN MEMBER M ON O.MEMBER_NO=M.MEMBER_NO 
                                             LEFT OUTER JOIN POINT P ON O.POINT_NO=P.POINT_NO 
                                             JOIN PRODUCT P ON D.PRODUCT_NO=P.PRODUCT_NO WHERE SORT LIKE '%처리중'
+                                            ORDER BY ORDER_DATE DESC
      </select>
      
      <update id="updateSortEnd" parameterType="map">

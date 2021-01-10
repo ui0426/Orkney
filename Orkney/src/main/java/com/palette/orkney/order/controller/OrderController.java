@@ -281,10 +281,9 @@ public class OrderController {
 		return result>0? od.getSort():"update실패";
 	}
 	
+	//by윤나-구매확정
 	@RequestMapping("/order/orderConfirm.do")
 	public String orderConfirm(String mNo, OrderDetail od, HttpSession session) {
-		System.out.println("구매확정 한 회원번호 : "+mNo);
-		System.out.println("구매확정 한 오더 디테일 번호 : "+od);
 		Map login = (Map)session.getAttribute("login");
 		if(login.get("MEMBER_NO").equals(mNo)) {			
 			service.orderConfirm(od, mNo); 

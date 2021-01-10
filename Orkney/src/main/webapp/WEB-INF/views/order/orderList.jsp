@@ -44,13 +44,14 @@
 										<div>진행 중</div>
 									</div>
 									<div class="ol-container">
+										<div></div>
 										<a href="${path }/order/orderView.do?oNo=${o.ORDER_NO}">주문 내역 보기</a>
 									</div>
 								</div>
 							</c:forEach>
 							</div>
 							<div class="panel2">
-							<c:if test="${empty list }">
+							<c:if test="${empty list2 }">
 								<p class="AllNullNotice">현재 완료된 주문이 없습니다.</p>
 							</c:if>
 							<c:forEach items="${list2 }" var="o">
@@ -68,6 +69,7 @@
 										<div><c:out value="${o.ORDER_STATE }"/></div>
 									</div>
 									<div class="ol-container">
+										<div></div>
 										<a href="${path }/order/orderView.do?oNo=${o.ORDER_NO}">주문 내역 보기</a>
 									</div>
 								</div>
@@ -85,7 +87,7 @@
 					<div class="orderList_desktop">
 					<c:if test="${empty list and empty list2 }">
 						<div>
-							<p class="AllNullNotice">현재 진행중이거나 완료된 주문사항이 없습니다. <a>상품 보러가기</a></p>
+							<p class="AllNullNotice">현재 진행중이거나 완료된 주문사항이 없습니다. <a href="${path }/product/products.do?category=all&sale=&search-input=">상품 보러가기</a></p>
 						</div>
 					</c:if>
 					<c:if test="${!empty list or !empty list2 }">
