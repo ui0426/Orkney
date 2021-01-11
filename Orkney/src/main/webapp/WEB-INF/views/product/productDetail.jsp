@@ -505,9 +505,9 @@ height: 32rem;
 						<div class="mt-5">
 							<p class="grey-text fontbor" id="selectColor"></p>
 							<p id="colorName" class="fontbor"></p>
-							<div class="row text-center text-md-left">
+							<div class="row text-center text-md-left" >
 							
-								<div class="row" id="colorProductCon">
+								<div class="row" id="colorProductCon" display: contents;>
 									
 									
 									
