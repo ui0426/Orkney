@@ -16,7 +16,7 @@
         <div class="section1">        
                     <div class="title">
                    		<div>장바구니</div>                                  		
-	                   	 	<div><button class="remove_basket" id="${cN}">장바구니 비우기</button></div>	
+	                   	 	<div><button class="remove_basket" id="${cN}">장바구니 비우기</button></div>	                   	 	
 	                   	 	<input type="hidden" value="${sumprice }" id="sumprice">	                   	 	   	                     	 	                   			                   					   	                                                     
 					</div>
             <div class="line1"></div>                            		 			 	
@@ -108,7 +108,7 @@
 			 }); 
 			//4.장바구니 비어있는 경우 
 			$("#cartBtn").click(e=>{
-			let cN = $(".remove_basket").attr("id");			
+			let cN = $(".basket_check").val();				
 			if(!cN){
 				alert("장바구니가 비어있습니다.");
 				return false;

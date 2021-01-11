@@ -19,7 +19,7 @@
 	<c:if test="${cart.size() !=0}">	
     <c:forEach items="${cart}" var="p">                           
             <div class="product-container" id="pc">
-                        <input type="hidden" value="${p.productNo }"  name="productNo">
+                        <input type="hidden" value="${p.productNo }"  name="productNo" class="basket_check">
                         <input type="hidden" value="${p.totalPrice }" name="totalPrice">                                                                                                                                                                                                                 
                     <div class="product-detail">
                     	<div class="product-pic">
