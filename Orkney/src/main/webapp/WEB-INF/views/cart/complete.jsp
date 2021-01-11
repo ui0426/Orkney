@@ -49,7 +49,7 @@
 					            </div>  
 					            <div class="line3"></div>
 					</c:forEach>                                                          
-            </div>
+            
 
             <div class="section1">
            	  <div style="margin:5% 0;">

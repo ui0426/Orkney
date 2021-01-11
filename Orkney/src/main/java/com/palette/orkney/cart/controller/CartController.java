@@ -119,9 +119,7 @@ public class CartController {
 			mv.addObject("sumprice",sum);
 			mv.addObject("cN",c.get(0).getCartNo());				
 			}
-		
-		
-		
+						
 		mv.addObject("cart",c);						
 		mv.setViewName("cart/cart");
 		return mv;
