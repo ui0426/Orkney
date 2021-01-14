@@ -86,10 +86,13 @@
     	padding: 1em 0;
 	}
 	.ol-container{
-		display: flex;
+		/* display: flex;
 	    flex-direction: row;
 	    justify-content: space-around;
-	    margin-bottom: 0.2em;
+	    margin-bottom: 0.2em; */
+	    display: grid;
+	    grid-template-columns: 1fr 1fr;
+	    padding-left: 1em;
 	}
 	.panel2{
 		display: none;
@@ -132,4 +135,7 @@
 	}
 	.importent_style{
 	box-shadow: unset !important;
+	}
+	.ol-container a{
+		text-decoration: underline;
 	}

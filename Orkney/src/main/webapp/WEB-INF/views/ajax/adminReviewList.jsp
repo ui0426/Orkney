@@ -29,8 +29,17 @@
       <td><fmt:formatDate value="${r.review_date }" pattern="YYYY-MM-dd"/></td>
       <td><c:out value="${r.product_name }"/></td>
       <td><c:out value="${r.product_grade }"/></td>
-      <td><c:out value="${r.review_content }"/></td>
-      <td><c:out value="${r.member_name }"/></td>
+      <td>
+      	<c:choose>
+      		<c:when test="${fn:length(r.review_content)>10 }">
+		      	<c:out value="${fn:substring(r.review_content,0,9) }"/>...
+		    </c:when>
+		    <c:otherwise>
+		     <c:out value="${r.review_content }"/>
+		    </c:otherwise>
+      	</c:choose>
+      </td>
+      <td><c:out value="${r.member_id }"/></td>
       <td>
       	<c:choose>
       		<c:when test="${fn:length(r.riList) == 0 }">

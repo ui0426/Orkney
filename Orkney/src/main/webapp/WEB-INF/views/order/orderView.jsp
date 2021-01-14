@@ -315,7 +315,7 @@
 											</c:when>
 											
 											<%-- 배송터미널도착일때 --%>
-											<c:when test="${order.order_state eq '배송 터미널 도착'}">
+											<c:when test="${order.order_state eq '배송터미널도착'}">
 												<!-- 주문확인 -->
 											<div class="statecourse">
 												<div class="state-icon-group">
@@ -564,10 +564,10 @@
 											<p class="product-text"><c:out value="${od.small_category_content }"/></p>
 											<div class="price-container">
 												<div>
-													<p class="product-price"><fmt:setLocale value="ko_KR"/><fmt:formatNumber type="currency" value="${od.product_price}" /></p>
+													<p class="product-price"><fmt:setLocale value="ko_KR"/><fmt:formatNumber type="currency" value="${od.sale_per}" /></p>
 													<p class="product-price product-qty">수량 : <c:out value="${od.product_qty }"/></p>
 												</div>
-													<p class="price-amount"><fmt:setLocale value="ko_KR"/><fmt:formatNumber type="currency" value="${od.product_qty * od.product_price }"/></p>
+													<p class="price-amount"><fmt:setLocale value="ko_KR"/><fmt:formatNumber type="currency" value="${od.product_qty * od.sale_per }"/></p>
 											</div>
 											<p class="product-text"><c:out value="${od.product_color }"/></p>
 										</div>
@@ -577,7 +577,7 @@
 												<input class="order_detail_no_input" type="hidden" value="${od.order_detail_no }"/>
 												<input class="product_qty_input" type="hidden" value="${od.product_qty }"/>
 												<input class="product_no_input" type="hidden" value="${od.product_no }"/>
-												<input class="product_price_input" type="hidden" value="${od.product_price }"/>
+												<input class="product_price_input" type="hidden" value="${od.sale_per }"/>
 												<button type="button" class="btn btn-outline-default waves-effect btnsize btn-sm exchange_do" value="${od.order_detail_no }">교환신청</button>
 												<button type="button" class="btn btn-outline-default waves-effect btnsize btn-sm refund_do" value="${od.order_detail_no }">반품신청</button>
 												<button type="button" class="btn btn-outline-default waves-effect btnsize confirm_do btn-sm">구매확정</button>
@@ -798,7 +798,7 @@
 											</c:when>
 											
 											<%-- 배송터미널도착일때 --%>
-											<c:when test="${order.order_state eq '배송 터미널 도착'}">
+											<c:when test="${order.order_state eq '배송터미널도착'}">
 												<!-- 주문확인 -->
 												<div class="statecourse">
 													<div class="state-icon-group">
@@ -962,17 +962,6 @@
 									</div>
 									<!-- 주문/배송상태 svg표시 끝-->
 									
-									<%-- <div>
-										<div class="delivery-content desktop-date">
-											<h5 class="start-date">배송출발일&nbsp;</h5>
-											<p class="start-date-content">&nbsp;<c:out value="${order.order_date }"/></p>
-											<br>
-										</div>
-										<div class="delivery-content">
-											<p class="state-title">주문 진행 상태</p>
-											<h4 class="state-content-text"><c:out value="${order.order_state }"/></h4>
-										</div>
-									</div> --%>
 									<c:if test="${order.order_state eq '취소신청1' or order.order_state eq '취소신청2' }">
 										<h4 class="state-content-text">주문 취소 요청이 처리중입니다.</h4>
 									</c:if>
@@ -1006,10 +995,10 @@
 												<p class="product-text"><c:out value="${od.small_category_content }"/></p>
 												<div class="price-container">
 													<div>
-														<p class="product-price"><fmt:setLocale value="ko_KR"/><fmt:formatNumber type="currency" value="${od.product_price}" /></p>
+														<p class="product-price"><fmt:setLocale value="ko_KR"/><fmt:formatNumber type="currency" value="${od.sale_per}" /></p>
 														<p class="product-price product-qty">수량 : <c:out value="${od.product_qty }"/></p>
 													</div>
-														<p class="price-amount"><fmt:setLocale value="ko_KR"/><fmt:formatNumber type="currency" value="${od.product_qty * od.product_price }"/></p>
+														<p class="price-amount"><fmt:setLocale value="ko_KR"/><fmt:formatNumber type="currency" value="${od.product_qty * od.sale_per }"/></p>
 												</div>
 												<p class="product-text"><c:out value="${od.product_color }"/></p>
 											</div>
@@ -1019,7 +1008,7 @@
 												<input class="order_detail_no_input" type="hidden" value="${od.order_detail_no }"/>
 												<input class="product_qty_input" type="hidden" value="${od.product_qty }"/>
 												<input class="product_no_input" type="hidden" value="${od.product_no }"/>
-												<input class="product_price_input" type="hidden" value="${od.product_price }"/>
+												<input class="product_price_input" type="hidden" value="${od.sale_per }"/>
 												<button type="button" class="btn btn-outline-default waves-effect btnsize btn-sm exchange_do" value="${od.order_detail_no }">교환신청</button>
 												<button type="button" class="btn btn-outline-default waves-effect btnsize btn-sm refund_do" value="${od.order_detail_no }">반품신청</button>
 												<button type="button" class="btn btn-outline-default waves-effect btnsize confirm_do btn-sm">구매확정</button>
@@ -1072,10 +1061,10 @@
 										<p class="product-text"><c:out value="${od.small_category_content }"/></p>
 										<div class="price-container">
 											<div>
-												<p class="product-price"><fmt:setLocale value="ko_KR"/><fmt:formatNumber type="currency" value="${od.product_price}" /></p>
+												<p class="product-price"><fmt:setLocale value="ko_KR"/><fmt:formatNumber type="currency" value="${od.sale_per}" /></p>
 												<p class="product-price product-qty">수량 : <c:out value="${od.product_qty }"/></p>
 											</div>
-												<p class="price-amount"><fmt:setLocale value="ko_KR"/><fmt:formatNumber type="currency" value="${od.product_qty * od.product_price }"/></p>
+												<p class="price-amount"><fmt:setLocale value="ko_KR"/><fmt:formatNumber type="currency" value="${od.product_qty * od.sale_per }"/></p>
 										</div>
 										<p class="product-text"><c:out value="${od.product_color }"/></p>
 									</div>

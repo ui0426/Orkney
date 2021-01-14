@@ -19,7 +19,7 @@
 	<c:if test="${cart.size() !=0}">	
     <c:forEach items="${cart}" var="p">                           
             <div class="product-container" id="pc">
-                        <input type="hidden" value="${p.productNo }"  name="productNo">
+                        <input type="hidden" value="${p.productNo }"  name="productNo" class="basket_check">
                         <input type="hidden" value="${p.totalPrice }" name="totalPrice">                                                                                                                                                                                                                 
                     <div class="product-detail">
                     	<div class="product-pic">
@@ -30,7 +30,7 @@
                         <div><c:out value="${p.small_category_content}"/></div>                                
                         <div><c:out value="${p.product_width}"/>*<c:out value="${p.product_height}"/>*<c:out value="${p.product_depth}"/></div>                        
                         <div class="price"> 
-                        	<div>${p.sale_per!=p.productPrice?"event":""}</div>
+                        	<div>${p.sale_per!=p.productPrice?"Event":""}</div>
                         	<fmt:formatNumber value="${p.totalPrice}"/>&nbsp;원 
                         </div>
                                                             
@@ -63,7 +63,7 @@
 	</c:if>		 
 	
 	<!-- Full Height Modal Right -->
-<div class="modal fade right" id="fullHeightModalRight" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+<div class="modal fade right" id="fullHeightModalRight" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="z-index: 10000000;"
   aria-hidden="true">
 
   <div class="modal-dialog modal-full-height modal-right" role="document">
@@ -83,7 +83,7 @@
       	<c:forEach items="${wish}" var="w">      	
       	<div style="display:flex; justify-content:space-between; padding: 10px;">
       		<div>${w.wishlist_name}</div>
-      		<div> <button style="outline:none;" id="wishadd" class="${w.wishlist_no}">추가</button></div>
+      		<div> <button style="outline:none;" class="wishadd" id="${w.wishlist_no}">추가</button></div>
       		<input type="hidden" id="prod">      		     		
       	</div>
       	<div class="line1"></div>
@@ -122,9 +122,10 @@
 	})
 	
 	//2. 위시리스트에 추가  
-	$("#wishadd").click(e=>{
-		let wishNo= $(e.target).attr("class");
-		let productNo= $("#prod").val();	
+	$(".wishadd").click(e=>{
+		let wishNo= $(e.target).attr("id");
+		let productNo= $("#prod").val();
+		console.log(wishNo);
 		$.ajax({
 			url:"${path}/wishlist/insertWish.do",
 			data:{IwNo:wishNo,pNo:productNo},

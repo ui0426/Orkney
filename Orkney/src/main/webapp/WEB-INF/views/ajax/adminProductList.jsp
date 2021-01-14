@@ -9,17 +9,16 @@
         <thead>
           <tr style="text-align: center;">
             
-            <th scope="col">제품번호 </th>
-            <th scope="col">제품이름</th>
-            <th scope="col">제품색상</th>
-            <th scope="col">가격</th>
-            <th scope="col">할인 / %</th>
-            <th scope="col">할인된 가격</th>
-            <th scope="col">카테고리</th>
-            <th scope="col">재고</th>
-            <th scope="col">입고</th>
-            
-            <th scope="col">삭제</th>
+            <th scope="col">NO </th>
+            <th scope="col">NAME</th>
+            <th scope="col">COLOR</th>
+            <th scope="col">PRICE</th>
+            <th scope="col">SALE / %</th>
+            <th scope="col">SALE PRICE</th>
+            <th scope="col">CATEGORY</th>
+            <th scope="col">STOCK</th>
+            <th scope="col">WAREHOUSING</th>
+            <th scope="col">DELETE</th>
   
           </tr>
         </thead>
@@ -43,7 +42,7 @@
             <td onclick="location.href='${path}/admin/shippedList.do?pNo=${o.PRODUCT_NO}&pName=${o.PRODUCT_NAME}&stock=${o.PRODUCT_STOCK}'" id="stock" style="color: #33b5e5;"><c:out value="${o.PRODUCT_STOCK}"/></td>
             <td><input type="number" name="" id="putIn" placeholder="입고 수량 ( 숫자 )" style="border-radius: 10px;width: 9rem;">
             <button type="button" class="btn" style="line-height: 0px; border-radius: 52px;width: 0px;"onclick="putIn('${o.PRODUCT_NO}','${s.index}');">+</button></td>
-            <td id=""> <button type="button" class="btn" style="line-height: 0px; border-radius: 52px;"data-toggle="modal" data-target="#modalConfirmDelete${s.index}" >삭제</button></td>
+            <td id=""> <button type="button" class="btn" style="line-height: 0px; border-radius: 52px;"data-toggle="modal" data-target="#modalConfirmDelete${s.index}" >delete</button></td>
 
 			<div class="modal fade" id="modalConfirmDelete${s.index}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
 			  aria-hidden="true">

@@ -29,6 +29,7 @@ public class OrderDetail {
 	private String product_height;
 	private String product_depth;
 	private String small_category_no;
+	private int sale_per;
 	
 	//product_image
 	private String product_pic;

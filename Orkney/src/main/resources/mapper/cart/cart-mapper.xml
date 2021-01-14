@@ -67,7 +67,7 @@ WHERE ROWNUM = 1
   	</update>
   	 
   	 <select id="sumPrice" parameterType="string" resultType="_int">
-  	 	select sum(product_price*cart_qty) from cart join cart_detail using(cart_no) join product using (product_no) where cart_no=#{cartNo}
+  	 	select sum(sale_per*cart_qty) from cart join cart_detail using(cart_no) join product using (product_no) where cart_no=#{cartNo}
   	 </select>
 	
 	<select id="productSum" parameterType="map">

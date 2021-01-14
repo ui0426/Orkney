@@ -38,6 +38,7 @@ public class Review {
 	
 	//member
 	private String member_name;
+	private String member_id;
 	
 	//order_detail
 	private String order_no;

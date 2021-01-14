@@ -40,7 +40,10 @@
 	                    <div><c:out value="${p.product_width}"/>*<c:out value="${p.product_height}"/>*<c:out value="${p.product_depth}"/></div>	                  		                    
 	                    <div><c:out value="${p.cartQTY}"/>개</div>
 	                </div>
-	                 <div style="margin: 2.5em 7.5em; font-size: 18px;"><fmt:formatNumber value="${p.cartQTY * p.productPrice}"/>&nbsp;원</div>	                     	                    
+	                
+	                 <div style="margin: 2.5em 7.5em; font-size: 18px;">
+	                 <div>${p.sale_per!=p.productPrice?"Event":""}</div>
+	                 <fmt:formatNumber value="${p.cartQTY * p.totalPrice}"/>&nbsp;원</div>	                     	                    
 	            </div>	            
             </div>  
             <div class="line3"></div>
@@ -334,7 +337,7 @@ FAX: 00-000-000
 <div class="request_pay"></div>          
     
 <!-- Full Height Modal Right -->
-<div class="modal fade right" id="fullHeightModalRight" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+<div class="modal fade right" id="fullHeightModalRight" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="z-index: 10000000;"
   aria-hidden="true">
 
   <!-- Add class .modal-full-height and then add class .modal-right (or other classes from list above) to set a position to the modal -->
@@ -458,7 +461,7 @@ if($(".ck").is(":checked")==false){
 		alert("휴대전화 번호를 입력해주세요");
 		return false;
 	}else if(phone.length>0 && !regPhone.test(phone)){
-		alert("휴대전화 번호가 올바르지 않습니다.");
+		alert("휴대전화 번호 형식이 올바르지 않습니다.");
 		return false;
 	}	
 	
@@ -476,15 +479,13 @@ if($(".ck").is(":checked")==false){
 	let payment=$("input[name=options]:checked").val(); //결제방법    										
 	let address = $("#zip").val()+"/" + $("#adrinput").val()+"/"+$("#adrdetail").val();  
 	let message = $("#message-input").val();		
-	let totalFee = parseInt( $("#total").val()); //총금액	
+	let totalFee = parseInt( $("#total").val()); 				 //총금액	
 	let sumProduct = parseInt( $("#fee").val());				 //상품총
-	let shipFee = parseInt( $("#fee").attr("class"));			//배송비	
-	let willPoint = parseInt($("#total").attr("name"));		//사용할 point
-	let predicPoint = parseInt($("#point").val());		//적립 point	
-	let addTax = parseInt( $("#total").attr("class"));				//부가세		
-	let totalPoint = parseInt($("#pointuse").val());			
-	
-	
+	let shipFee = parseInt( $("#fee").attr("class"));			 //배송비	
+	let willPoint = parseInt($("#total").attr("name"));			 //사용할 point
+	let predicPoint = parseInt($("#point").val());				 //적립 point	
+	let addTax = parseInt( $("#total").attr("class"));			  //부가세		
+	let totalPoint = parseInt($("#pointuse").val());					
 	if(payment==null){
 		alert("결제수단을 선택하세요");
 		return false;
@@ -496,8 +497,7 @@ if($(".ck").is(":checked")==false){
 		    pay_method : 'card',
 		    merchant_uid : 'merchant_' + new Date().getTime(),
 		    name : '주문명:결제테스트',
-		    //amount : totalFee, //판매 가격
-		    amount : 100,
+		    amount : totalFee, //판매 가격		    
 		    buyer_email : 'iamport@siot.do',
 		    buyer_name : '구매자이름',
 		    buyer_tel : '010-1234-5678',
@@ -510,8 +510,7 @@ if($(".ck").is(":checked")==false){
 		        msg += '고유ID : ' + rsp.imp_uid;
 		        msg += '상점 거래ID : ' + rsp.merchant_uid;
 		        msg += '결제 금액 : ' + rsp.paid_amount;
-		        msg += '카드 승인번호 : ' + rsp.apply_num;	
-		        
+		        msg += '카드 승인번호 : ' + rsp.apply_num;			        
 		        $.ajax({
 		        	url:"${path}/cart/complete.do",
 		        	data:{rePhone:phone,reName:name,totalFee:totalFee,reAddress:address,message:message,kopQty:${kopQty},paymentMethod:paymentMethod,willPoint:willPoint,predicPoint:predicPoint

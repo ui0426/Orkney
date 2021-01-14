@@ -217,7 +217,7 @@
 	                  
 	                  <div class="filebox"> 
 		                    <label for="mainImgInput">사진업로드</label> 
-		                  <input type="file" id="mainImgInput" name="productImg" required/> 
+		                  <input type="file" id="mainImgInput" name="productImg"/> 
 	                  </div>
 <!-- 	                  <div class="filebox">  -->
 <!-- 		                    <label for="x">x</label>  -->
