@@ -153,6 +153,8 @@ public class ProductController {
 		Map texts = new HashMap();
 		texts.put("text", text);
 		texts.put("type", type);
+		System.out.println(type);
+		System.out.println(text);
 		return service.productCategory(texts);
 	}
 	//by진호-sale 페이지 이동

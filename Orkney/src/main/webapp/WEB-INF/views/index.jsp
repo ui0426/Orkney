@@ -164,8 +164,7 @@
 	<div class="populartitle">인기상품</div>
 	<div class="popularProduct">
 		<div class="buttonLine">
-			<button type="button" class="btn btn-dark event-bu1 event-target"
-				value="전체보기">
+			<button type="button" class="btn btn-dark event-bu1 event-target" value="전체보기">
 				<span class="event-sp clickEvent">전체보기</span>
 			</button>
 			<button type="button" class="btn btn-dark event-bu1 event-target">
@@ -296,8 +295,7 @@
     		 $(".event-remove").remove();
     		
     	 	if($(e.target).text()=="전체보기"){
-    			text='';
-    			tests='';
+    			text='전체보기';
     			texts=$.trim(text);
     			mainAjax();	
     		}else{
