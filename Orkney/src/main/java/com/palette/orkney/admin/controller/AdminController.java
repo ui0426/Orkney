@@ -445,7 +445,7 @@ public class AdminController {
 		mv.setViewName("redirect:/admin/adminShowrooms.do");
 
 		return mv;
-	}//by진호-shworoomTitle,content등록 
+	}//by진호-showroomTitle,content등록 
 	@RequestMapping("/admin/roomsTitle.do")
 	public ModelAndView roomsTitle(ModelAndView mv, @RequestParam String title, @RequestParam String content, @RequestParam String roomsTitle, @RequestParam String roomsSubTitle) {
 		
