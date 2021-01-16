@@ -116,27 +116,65 @@
 												<fmt:formatNumber type="currency" value="${p.SALE_PER}" />
 											</p>		
 											<div class="">
-												<svg focusable="false" viewBox="0 0 24 24" class="star"
-													aria-hidden="true">
-                        <path
-														d="M12.003 4L14.8623 8.9091L20.4147 10.1115L16.6294 14.3478L17.2017 20L12.003 17.7091L6.80429 20L7.37657 14.3478L3.59131 10.1115L9.14371 8.9091L12.003 4Z"></path></svg>
-												<svg focusable="false" viewBox="0 0 24 24" class="star"
-													aria-hidden="true">
-                        <path
-														d="M12.003 4L14.8623 8.9091L20.4147 10.1115L16.6294 14.3478L17.2017 20L12.003 17.7091L6.80429 20L7.37657 14.3478L3.59131 10.1115L9.14371 8.9091L12.003 4Z"></path></svg>
-												<svg focusable="false" viewBox="0 0 24 24" class="star"
-													aria-hidden="true">
-                        <path
-														d="M12.003 4L14.8623 8.9091L20.4147 10.1115L16.6294 14.3478L17.2017 20L12.003 17.7091L6.80429 20L7.37657 14.3478L3.59131 10.1115L9.14371 8.9091L12.003 4Z"></path></svg>
-												<svg focusable="false" viewBox="0 0 24 24" class="star"
-													aria-hidden="true">
-                        <path
-														d="M12.003 4L14.8623 8.9091L20.4147 10.1115L16.6294 14.3478L17.2017 20L12.003 17.7091L6.80429 20L7.37657 14.3478L3.59131 10.1115L9.14371 8.9091L12.003 4Z"></path></svg>
-												<svg focusable="false" viewBox="0 0 24 24" class="star"
-													aria-hidden="true">
-                        <path
-														d="M12.003 4L14.8623 8.9091L20.4147 10.1115L16.6294 14.3478L17.2017 20L12.003 17.7091L6.80429 20L7.37657 14.3478L3.59131 10.1115L9.14371 8.9091L12.003 4Z"></path></svg>
-												<span class="">(# 댓글수)</span>
+                                 					<!-- 별점  -->
+				                                 <ul class="rating mb-2 row" style="margin: 2px" id="starnum">
+				
+				                                    <fmt:formatNumber var="grade" value="${p.ROOM_GRADE}"
+				                                       maxFractionDigits="1" pattern="##.###" />
+				                                    <fmt:formatNumber var="grade0" value="0" />
+				                                    <fmt:formatNumber var="grade1" value="1.5" />
+				                                    <fmt:formatNumber var="grade2" value="2.5" />
+				                                    <fmt:formatNumber var="grade3" value="3.5" />
+				                                    <fmt:formatNumber var="grade4" value="4.5" />
+				                                    <c:choose>
+				                                       <c:when test="${p.REVIEW_COUNT==null}">
+				                                          <li><i id="starGray1" class="fas fa-star grey-text"></i></li>
+				                                          <li><i id="starGray2" class="fas fa-star grey-text"></i></li>
+				                                          <li><i id="starGray3" class="fas fa-star grey-text"></i></li>
+				                                          <li><i id="starGray4" class="fas fa-star grey-text"></i></li>
+				                                          <li><i id="starGray5" class="fas fa-star grey-text"></i></li>
+				                                       </c:when>
+				                                       <c:when test="${grade>grade0 && grade< grade1}">
+				                                          <li><i id="starGray1" class="fas fa-star blue-text"></i></li>
+				                                          <li><i id="starGray2" class="fas fa-star grey-text"></i></li>
+				                                          <li><i id="starGray3" class="fas fa-star grey-text"></i></li>
+				                                          <li><i id="starGray4" class="fas fa-star grey-text"></i></li>
+				                                          <li><i id="starGray5" class="fas fa-star grey-text"></i></li>
+				                                       </c:when>
+				                                       <c:when test="${grade>=grade1 && grade< grade2}">
+				                                          <li><i id="starGray1" class="fas fa-star blue-text"></i></li>
+				                                          <li><i id="starGray2" class="fas fa-star blue-text"></i></li>
+				                                          <li><i id="starGray3" class="fas fa-star grey-text"></i></li>
+				                                          <li><i id="starGray4" class="fas fa-star grey-text"></i></li>
+				                                          <li><i id="starGray5" class="fas fa-star grey-text"></i></li>
+				                                       </c:when>
+				                                       <c:when test="${grade>=grade2 && grade< grade3}">
+				                                          <li><i id="starGray1" class="fas fa-star blue-text"></i></li>
+				                                          <li><i id="starGray2" class="fas fa-star blue-text"></i></li>
+				                                          <li><i id="starGray3" class="fas fa-star blue-text"></i></li>
+				                                          <li><i id="starGray4" class="fas fa-star grey-text"></i></li>
+				                                          <li><i id="starGray5" class="fas fa-star grey-text"></i></li>
+				                                       </c:when>
+				                                       <c:when test="${grade>=grade3 && grade< grade4}">
+				                                          <li><i id="starGray1" class="fas fa-star blue-text"></i></li>
+				                                          <li><i id="starGray2" class="fas fa-star blue-text"></i></li>
+				                                          <li><i id="starGray3" class="fas fa-star blue-text"></i></li>
+				                                          <li><i id="starGray4" class="fas fa-star blue-text"></i></li>
+				                                          <li><i id="starGray5" class="fas fa-star grey-text"></i></li>
+				                                       </c:when>
+				                                       <c:when test="${ grade>=grade4}">
+				                                          <li><i id="starGray1" class="fas fa-star blue-text"></i></li>
+				                                          <li><i id="starGray2" class="fas fa-star blue-text"></i></li>
+				                                          <li><i id="starGray3" class="fas fa-star blue-text"></i></li>
+				                                          <li><i id="starGray4" class="fas fa-star blue-text"></i></li>
+				                                          <li><i id="starGray5" class="fas fa-star blue-text"></i></li>
+				                                       </c:when>
+				                                    </c:choose>
+				                                    <c:if test="${p.REVIEW_COUNT!=null}">
+				                                       <p class="" id="average2">${grade}</p>
+				                                       <p class="" id="buynum2">(${p.REVIEW_COUNT})</p>
+				                                    </c:if>
+				                                 </ul>
 												<!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
 
 												<!-- Card footer -->
